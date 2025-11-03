@@ -247,9 +247,45 @@ The /commit command will:
 - Include Co-Authored-By attribution
 - Push to GitHub remote
 
-**Step 5.2: Generate GitHub Pages Links**
+**Step 5.2: Push Changes to GitHub**
 
-After successful commit and push, generate GitHub Pages URLs for all HTML files:
+After the /commit command completes, push the changes to GitHub:
+
+1. Use the Bash tool to push changes:
+   ```bash
+   git push origin main
+   ```
+
+2. Handle potential errors:
+   - If branch is named 'master' instead of 'main', retry with correct branch
+   - If push fails due to diverged history, inform user
+   - If push succeeds, proceed to next step
+
+**Step 5.3: Detect and Open New/Modified HTML Pages**
+
+After successful push, detect HTML files that were created or modified in the commit and open them in the browser:
+
+1. **Detect files from the last commit:**
+   ```bash
+   git diff-tree --no-commit-id --name-only -r HEAD
+   ```
+
+2. **Filter for HTML files:**
+   - Look for files ending in `.html`
+   - These are the files that should be opened in browser
+
+3. **Generate GitHub Pages URLs:**
+   - Extract username and repository from git remote URL
+   - For each HTML file, create URL: `https://[username].github.io/[repository]/[path-to-file.html]`
+
+4. **Open pages in default browser:**
+   - Use `open` command on macOS to open each URL
+   - Example: `open https://vishenl.github.io/workspace/tools/areas-of-growth-viewer.html`
+   - Wait 2-3 seconds between opening multiple pages to prevent browser overwhelm
+
+**Step 5.4: Generate GitHub Pages Links Summary**
+
+After opening pages in browser, generate a summary of GitHub Pages URLs for all HTML files:
 
 **GitHub Pages URL Format:**
 ```
@@ -278,6 +314,7 @@ https://[username].github.io/[repository]/[path-to-file.html]
 - URLs are case-sensitive
 - Use index.html for directory root pages
 - HTML files should be self-contained or reference relative paths
+- ⏱️ **Deployment Time**: GitHub Pages may take 1-2 minutes to deploy after push
 
 ## PHASE 6: COMPLETION AND VALIDATION
 
