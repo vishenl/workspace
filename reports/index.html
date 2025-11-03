@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindvalley Workspace | Analysis Reports</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #595E67;
+            background: linear-gradient(135deg, #f4f5f5 0%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #9400ff 0%, #7000cc 100%);
+            color: white;
+            padding: 80px 20px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(251, 0, 255, 0.3), rgba(0, 63, 255, 0.3));
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: -50px auto 60px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .section {
+            background: white;
+            margin: 40px 0;
+            padding: 60px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(148, 0, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #9400ff;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #E3A34C;
+        }
+
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .report-card {
+            background: linear-gradient(135deg, #f4f5f5 0%, #ffffff 100%);
+            border: 2px solid #f4f5f5;
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .report-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(135deg, #9400ff 0%, #E3A34C 100%);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .report-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(148, 0, 255, 0.2);
+            border-color: #9400ff;
+        }
+
+        .report-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .report-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .report-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #9400ff;
+            margin-bottom: 15px;
+        }
+
+        .report-description {
+            color: #595E67;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .report-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge.analysis {
+            background: rgba(148, 0, 255, 0.1);
+            color: #9400ff;
+        }
+
+        .badge.optimization {
+            background: rgba(227, 163, 76, 0.1);
+            color: #E3A34C;
+        }
+
+        .badge.guide {
+            background: rgba(0, 170, 255, 0.1);
+            color: #00aaff;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #E3A34C;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #fb9d40;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(227, 163, 76, 0.3);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #9400ff 0%, #7000cc 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 700;
+            color: #E3A34C;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        footer {
+            background: #2d2d2d;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: #E3A34C;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .section {
+                padding: 30px 20px;
+            }
+
+            .report-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <h1>📊 Mindvalley Workspace</h1>
+            <p>Conversion Analysis Reports & Strategic Insights</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Stats Overview -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Analysis Reports</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Optimization Guides</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">$107M+</div>
+                <div class="stat-label">Revenue Opportunity</div>
+            </div>
+        </div>
+
+        <!-- Mindvalley Analysis Reports -->
+        <div class="section">
+            <h2 class="section-title">🎯 Mindvalley Conversion Analysis</h2>
+
+            <div class="report-grid">
+                <div class="report-card">
+                    <div class="report-icon">🏠</div>
+                    <h3 class="report-title">Homepage Conversion Analysis</h3>
+                    <div class="report-meta">
+                        <span class="badge analysis">Analysis</span>
+                        <span class="badge optimization">High Impact</span>
+                    </div>
+                    <p class="report-description">
+                        Comprehensive homepage conversion optimization using Hormozi's Value Equation,
+                        Schwartz's awareness stages, and Sugarman's psychological triggers.
+                        <strong>Potential: $38-69M annual revenue lift.</strong>
+                    </p>
+                    <p class="report-description">
+                        <strong>Key Findings:</strong> 72/100 score, 35-55% conversion lift potential,
+                        10 prioritized recommendations with 3-phase roadmap.
+                    </p>
+                    <a href="mindvalley/homepage-conversion-analysis.html" class="btn">View Full Report →</a>
+                </div>
+
+                <div class="report-card">
+                    <div class="report-icon">🎁</div>
+                    <h3 class="report-title">Black Friday Sales Page Analysis</h3>
+                    <div class="report-meta">
+                        <span class="badge analysis">Analysis</span>
+                        <span class="badge optimization">Critical</span>
+                    </div>
+                    <p class="report-description">
+                        Black Friday campaign conversion analysis with strategic recommendations
+                        for maximum revenue during peak shopping season.
+                    </p>
+                    <p class="report-description">
+                        <strong>Focus Areas:</strong> Urgency optimization, pricing psychology,
+                        offer stacking, and checkout flow improvements.
+                    </p>
+                    <a href="mindvalley/black-friday-analysis.html" class="btn">View Full Report →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Webinar Optimization Guides -->
+        <div class="section">
+            <h2 class="section-title">🎤 Webinar Optimization Guides</h2>
+
+            <div class="report-grid">
+                <div class="report-card">
+                    <div class="report-icon">📹</div>
+                    <h3 class="report-title">Masterclass Optimization (Standard)</h3>
+                    <div class="report-meta">
+                        <span class="badge guide">Guide</span>
+                        <span class="badge optimization">Best Practices</span>
+                    </div>
+                    <p class="report-description">
+                        Core webinar optimization strategies for transformational education webinars.
+                        Essential framework for high-converting masterclasses.
+                    </p>
+                    <a href="webinar/masterclass-optimization.html" class="btn">View Guide →</a>
+                </div>
+
+                <div class="report-card">
+                    <div class="report-icon">✨</div>
+                    <h3 class="report-title">Masterclass Optimization (Formatted)</h3>
+                    <div class="report-meta">
+                        <span class="badge guide">Guide</span>
+                        <span class="badge optimization">Premium</span>
+                    </div>
+                    <p class="report-description">
+                        Beautifully formatted version with enhanced visuals, examples,
+                        and interactive elements for easier implementation.
+                    </p>
+                    <a href="webinar/masterclass-optimization-formatted.html" class="btn">View Guide →</a>
+                </div>
+
+                <div class="report-card">
+                    <div class="report-icon">🔬</div>
+                    <h3 class="report-title">Masterclass Optimization (Detailed)</h3>
+                    <div class="report-meta">
+                        <span class="badge guide">Guide</span>
+                        <span class="badge analysis">Advanced</span>
+                    </div>
+                    <p class="report-description">
+                        Comprehensive deep-dive with psychological frameworks, case studies,
+                        A/B testing strategies, and advanced conversion tactics.
+                    </p>
+                    <a href="webinar/masterclass-optimization-detailed.html" class="btn">View Guide →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Resources -->
+        <div class="section">
+            <h2 class="section-title">🛠️ Interactive Tools</h2>
+
+            <div class="report-grid">
+                <div class="report-card">
+                    <div class="report-icon">📈</div>
+                    <h3 class="report-title">Areas of Growth Viewer</h3>
+                    <div class="report-meta">
+                        <span class="badge guide">Tool</span>
+                        <span class="badge optimization">Interactive</span>
+                    </div>
+                    <p class="report-description">
+                        Interactive data visualization tool for tracking personal development
+                        areas and growth metrics across Mindvalley's transformation framework.
+                    </p>
+                    <a href="../tools/areas-of-growth-viewer.html" class="btn">Launch Tool →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Insights -->
+        <div class="section">
+            <h2 class="section-title">💡 Key Strategic Insights</h2>
+
+            <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f0ff 100%); padding: 30px; border-radius: 12px; border-left: 5px solid #00aaff;">
+                <h3 style="color: #00aaff; font-size: 20px; margin-bottom: 15px;">Conversion Framework Synthesis</h3>
+                <p style="margin-bottom: 15px;">
+                    All analyses leverage proven conversion frameworks adapted for Mindvalley's
+                    sophisticated, growth-oriented audience:
+                </p>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li><strong>Hormozi's Value Equation:</strong> Dream Outcome, Perceived Likelihood, Time Delay, Effort & Sacrifice</li>
+                    <li><strong>Eugene Schwartz:</strong> Market sophistication stages and awareness levels</li>
+                    <li><strong>Joe Sugarman:</strong> Psychological triggers and slippery slope technique</li>
+                    <li><strong>Cialdini's Principles:</strong> Ethical persuasion and influence psychology</li>
+                </ul>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%); padding: 30px; border-radius: 12px; border-left: 5px solid #ff4444; margin-top: 30px;">
+                <h3 style="color: #ff4444; font-size: 20px; margin-bottom: 15px;">⚡ Quick Wins Available</h3>
+                <p style="margin-bottom: 15px;">
+                    <strong>Implementation Priority:</strong> Many recommendations can be deployed within days
+                    for immediate conversion lift:
+                </p>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Headline optimization (2 hours, 15-25% lift)</li>
+                    <li>Pricing clarity (1 hour, 20-30% lift)</li>
+                    <li>CTA enhancement (1 hour, 8-12% lift)</li>
+                    <li>Guarantee positioning (1 day, 5-8% lift)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p style="margin-bottom: 10px;">
+            <strong>Mindvalley Workspace</strong> | Analysis Reports & Strategic Insights
+        </p>
+        <p style="font-size: 14px; opacity: 0.8;">
+            Built with <a href="https://claude.com/claude-code">Claude Code</a> |
+            Maintained by <a href="https://github.com/vishenl">@vishenl</a> |
+            November 2025
+        </p>
+    </footer>
+</body>
+</html>
