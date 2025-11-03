@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Friday - Mindvalley Membership</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Figma Design Tokens */
+        :root {
+            /* Colors from Figma */
+            --brand-purple: #7a12d4;
+            --content-primary: #0f131a;
+            --content-secondary: #292d38;
+            --content-tertiary: #595e67;
+            --content-quaternary: #71767f;
+            --content-black: #000000;
+            --content-white: #ffffff;
+            --grey-200: #ebedef;
+            --grey-250: #dfe1e5;
+            --grey-400: #979ca5;
+            --grey-450: #71767f;
+            --grey-500: #595e67;
+            --grey-600: #292d38;
+            --grey-700: #0f131a;
+            --yellow-500: #f5c918;
+            --yellow-bg: #fefae8;
+            --blue-bg: #ebf5ff;
+            --teal-bright: #37d0d6;
+            --border-light: rgba(0,0,0,0.08);
+            --border-medium: rgba(0,0,0,0.12);
+
+            /* Spacing */
+            --spacing-2xs: 6px;
+            --spacing-xs: 8px;
+            --spacing-sm: 12px;
+            --spacing-md: 16px;
+            --spacing-lg: 20px;
+            --spacing-xl: 24px;
+            --spacing-2xl: 32px;
+            --spacing-3xl: 48px;
+            --spacing-4xl: 64px;
+            --spacing-5xl: 80px;
+            --spacing-6xl: 128px;
+
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 100px;
+        }
+
+        @font-face {
+            font-family: 'Sharp Grotesk';
+            src: local('Sharp Grotesk Cyr Medium'), local('Arial'), local('Helvetica');
+            font-weight: 400;
+        }
+
+        body {
+            font-family: 'Sharp Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            color: var(--content-primary);
+            line-height: 1.5;
+            background: var(--content-white);
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--content-white);
+            padding: 16px 120px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .navbar-logo img {
+            height: 24px;
+            width: auto;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-support {
+            font-size: 14px;
+            line-height: 18px;
+            color: var(--content-primary);
+            letter-spacing: 0.25px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-login {
+            border: 1px solid var(--content-black);
+            border-radius: var(--radius-full);
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 18px;
+            color: var(--content-primary);
+            background: transparent;
+            cursor: pointer;
+            font-weight: 500;
+            letter-spacing: 0.25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background: var(--content-black);
+            color: var(--content-white);
+        }
+
+        /* Countdown Bar */
+        .countdown-bar {
+            background: var(--yellow-500);
+            padding: 16px 120px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100px;
+        }
+
+        .countdown-text {
+            font-size: 16px;
+            line-height: 20px;
+            color: var(--grey-700);
+            letter-spacing: 0.25px;
+            max-width: 880px;
+        }
+
+        .countdown-text strong {
+            font-weight: 600;
+        }
+
+        .countdown-timer {
+            display: flex;
+            gap: 4px;
+        }
+
+        .countdown-item {
+            text-align: center;
+            min-width: 68px;
+        }
+
+        .countdown-number {
+            font-size: 44px;
+            line-height: 52px;
+            color: var(--grey-700);
+            letter-spacing: 0.25px;
+            font-weight: 400;
+        }
+
+        .countdown-label {
+            font-size: 12px;
+            line-height: 16px;
+            color: var(--grey-600);
+            letter-spacing: 0.35px;
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1a0040 0%, var(--brand-purple) 50%, #9b3ad6 100%);
+            padding: var(--spacing-6xl) 120px;
+            min-height: 854px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -18%;
+            right: -7%;
+            width: 107%;
+            height: 138%;
+            background-image: url('https://www.figma.com/api/mcp/asset/bd7302a6-12a2-4b9b-913e-c2ec3388561f');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -26%;
+            left: -22%;
+            width: 128%;
+            height: 132%;
+            background-image: url('https://www.figma.com/api/mcp/asset/c18d65d3-f0e2-4eb5-8fa1-4deee7d9bf78');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 616px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            background: var(--teal-bright);
+            color: var(--content-black);
+            padding: 6px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            line-height: normal;
+            letter-spacing: 0.4px;
+            font-weight: 500;
+            margin-bottom: var(--spacing-lg);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            line-height: 68px;
+            color: var(--content-white);
+            font-weight: 500;
+            margin-bottom: var(--spacing-lg);
+            letter-spacing: 0.25px;
+            max-width: 577px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            line-height: 24px;
+            color: var(--content-white);
+            margin-bottom: var(--spacing-3xl);
+            letter-spacing: 0.25px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(180deg, #ff931f 0%, #ed6325 100%);
+            color: var(--content-white);
+            padding: 12px 16px;
+            border-radius: var(--radius-full);
+            font-size: 16px;
+            line-height: 20px;
+            letter-spacing: 0.25px;
+            border: none;
+            cursor: pointer;
+            min-width: 336px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(237, 99, 37, 0.4);
+        }
+
+        /* Section Gutters */
+        .section-gutter {
+            height: var(--spacing-6xl);
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 0 120px;
+            margin-bottom: var(--spacing-6xl);
+        }
+
+        .section-title-block {
+            max-width: 996px;
+            margin: 0 auto var(--spacing-3xl);
+        }
+
+        .section-title {
+            font-size: 36px;
+            line-height: 44px;
+            color: var(--content-primary);
+            margin-bottom: var(--spacing-lg);
+            letter-spacing: 0.25px;
+            font-weight: 500;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            line-height: 24px;
+            color: var(--content-secondary);
+            letter-spacing: 0.35px;
+            max-width: 790px;
+        }
+
+        /* Introducing Membership Section */
+        .devices-mashup {
+            position: relative;
+            width: 1198px;
+            height: 549px;
+            margin: var(--spacing-xl) auto 0;
+        }
+
+        .devices-mashup img {
+            position: absolute;
+            max-width: none;
+        }
+
+        .device-caption {
+            text-align: center;
+            font-size: 12px;
+            line-height: 16px;
+            color: var(--content-quaternary);
+            letter-spacing: 0.5px;
+            margin-top: var(--spacing-md);
+        }
+
+        /* Programs Showcase */
+        .programs-section {
+            padding: var(--spacing-3xl) 0;
+            overflow: hidden;
+        }
+
+        .programs-scroll-container {
+            position: relative;
+            width: 1440px;
+            height: 459px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .programs-row {
+            display: flex;
+            gap: 24px;
+            position: absolute;
+        }
+
+        .programs-row-1 {
+            left: -227px;
+            top: 0;
+        }
+
+        .programs-row-2 {
+            left: -333px;
+            top: 241px;
+        }
+
+        .program-card-img {
+            width: 482px;
+            height: 217px;
+            border-radius: var(--radius-md);
+            object-fit: cover;
+        }
+
+        /* 3-Phone Mockup Sections */
+        .phone-mockup-section {
+            padding: var(--spacing-3xl) 120px;
+        }
+
+        .phone-mockup-container {
+            padding: 12px 6px;
+            position: relative;
+            height: 897px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .phone-mockup {
+            position: absolute;
+            border: 3px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .phone-1 {
+            left: 7px;
+            top: 3px;
+            width: 363px;
+            height: 794px;
+        }
+
+        .phone-2 {
+            left: 406px;
+            top: 83px;
+            width: 369px;
+            height: 798px;
+        }
+
+        .phone-3 {
+            left: 811px;
+            top: 3px;
+            width: 370px;
+            height: 798px;
+        }
+
+        .phone-mockup img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Press Section */
+        .press-section {
+            background: linear-gradient(180deg, var(--yellow-bg) 0%, var(--blue-bg) 100%);
+            padding: var(--spacing-6xl) 120px;
+        }
+
+        .video-container {
+            max-width: 996px;
+            margin: 0 auto;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: var(--spacing-3xl);
+            position: relative;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 561px;
+            position: relative;
+            background: #000;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-button {
+            position: absolute;
+            left: 24px;
+            bottom: 24px;
+            width: 52px;
+            height: 52px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .press-cards {
+            display: flex;
+            gap: var(--spacing-xl);
+            max-width: 996px;
+            margin: 0 auto;
+        }
+
+        .press-card {
+            flex: 1;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: var(--content-white);
+        }
+
+        .press-card-image {
+            width: 100%;
+            height: 216px;
+            position: relative;
+            background: #f0f0f0;
+        }
+
+        .press-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .press-card-content {
+            padding: 20px;
+        }
+
+        .press-logo {
+            height: 37px;
+            margin-bottom: 16px;
+        }
+
+        .press-title {
+            font-size: 20px;
+            line-height: 24px;
+            color: var(--content-primary);
+            font-weight: 500;
+            margin-bottom: 12px;
+            letter-spacing: 0.25px;
+        }
+
+        .press-text {
+            font-size: 14px;
+            line-height: 20px;
+            color: var(--content-secondary);
+            letter-spacing: 0.35px;
+        }
+
+        /* Member Stories Section */
+        .stories-section {
+            padding: var(--spacing-6xl) 120px;
+        }
+
+        .stories-title {
+            font-size: 36px;
+            line-height: 44px;
+            color: var(--content-primary);
+            margin-bottom: var(--spacing-4xl);
+            letter-spacing: 0.25px;
+            font-weight: 500;
+        }
+
+        .stories-grid {
+            display: flex;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .story-card {
+            flex: 1;
+            border: 1px solid var(--grey-250);
+            border-radius: var(--radius-md);
+            background: var(--content-white);
+            overflow: hidden;
+        }
+
+        .story-image {
+            width: 100%;
+            height: 384px;
+            overflow: hidden;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .story-content {
+            padding: 24px;
+        }
+
+        .story-quote {
+            font-size: 22px;
+            line-height: 26px;
+            color: var(--grey-700);
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 0.25px;
+        }
+
+        .story-body {
+            font-size: 16px;
+            line-height: 24px;
+            color: var(--grey-700);
+            margin-bottom: 4px;
+            letter-spacing: 0.35px;
+        }
+
+        .story-read-more {
+            font-size: 14px;
+            line-height: 18px;
+            color: var(--brand-purple);
+            font-weight: 500;
+            cursor: pointer;
+            letter-spacing: 0.25px;
+        }
+
+        .story-author {
+            margin-top: 24px;
+        }
+
+        .story-name {
+            font-size: 16px;
+            line-height: 20px;
+            color: var(--grey-700);
+            font-weight: 500;
+            letter-spacing: 0.25px;
+        }
+
+        .story-title-text {
+            font-size: 12px;
+            line-height: 16px;
+            color: var(--grey-500);
+            font-weight: 500;
+            letter-spacing: 0.35px;
+            margin-top: 2px;
+        }
+
+        .story-location {
+            font-size: 12px;
+            line-height: 16px;
+            color: var(--grey-450);
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--content-white);
+            padding: 64px 120px 32px;
+            border-top: 1px solid var(--grey-250);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            line-height: 16px;
+            color: var(--content-tertiary);
+            letter-spacing: 0.5px;
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .footer-language {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            line-height: 16px;
+            color: var(--content-tertiary);
+            letter-spacing: 0.5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social img {
+            width: 16px;
+            height: 16px;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+
+        .footer-social img:hover {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .navbar, .countdown-bar, .hero, .content-section, .phone-mockup-section, .press-section, .stories-section, .footer {
+                padding-left: 60px;
+                padding-right: 60px;
+            }
+
+            .devices-mashup, .programs-scroll-container, .phone-mockup-container, .video-container, .press-cards {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar, .countdown-bar, .hero, .content-section, .phone-mockup-section, .press-section, .stories-section, .footer {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+                line-height: 48px;
+            }
+
+            .section-title {
+                font-size: 28px;
+                line-height: 36px;
+            }
+
+            .press-cards, .stories-grid {
+                flex-direction: column;
+            }
+
+            .countdown-bar {
+                flex-direction: column;
+                gap: 20px;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="https://www.figma.com/api/mcp/asset/10fd2ce8-1543-4461-8f6e-9a9316f6a111" alt="Mindvalley">
+        </div>
+        <div class="navbar-right">
+            <span class="nav-support">Support</span>
+            <button class="btn-login">Log in</button>
+        </div>
+    </nav>
+
+    <!-- Countdown Bar -->
+    <div class="countdown-bar">
+        <div class="countdown-text">
+            <strong>Exclusive</strong> Black Friday lifetime offer ends in
+        </div>
+        <div class="countdown-timer">
+            <div class="countdown-item">
+                <div class="countdown-number">02</div>
+                <div class="countdown-label">DAYS</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number">06</div>
+                <div class="countdown-label">HOURS</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number">18</div>
+                <div class="countdown-label">MINS</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number">45</div>
+                <div class="countdown-label">SECS</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">Black Friday Special</span>
+            <h1>Get 50% off on Mindvalley Membership</h1>
+            <p>Grab our best deal of the year, and enjoy a lifetime 40% off subscription to the world's premier life transformation platform</p>
+            <a href="#" class="btn-primary">Become a member</a>
+        </div>
+    </section>
+
+    <!-- Section Gutter -->
+    <div class="section-gutter"></div>
+
+    <!-- Introducing Membership -->
+    <section class="content-section">
+        <div class="section-title-block">
+            <h2 class="section-title">Introducing Mindvalley Membership</h2>
+            <p class="section-subtitle">When you join Mindvalley Membership, The Art of Manifesting is just the beginning. You gain instant access to 110+ transformational programs — each one designed to elevate every dimension of your being: mind, body, soul, career, and relationships.<br><br>This isn't just an app. It's a living, breathing ecosystem for lifelong growth — guided by legendary teachers, powered by visionary technology, and uplifted by a global community that walks this path with you.</p>
+        </div>
+        <div style="text-align: center;">
+            <img src="https://www.figma.com/api/mcp/asset/ca9cbdb0-0c98-43a8-b0ba-396930504fc3" alt="Mindvalley on multiple devices" style="max-width: 1198px; width: 100%; height: auto;">
+            <p class="device-caption">The world's leading programs with Mindvalley Membership on the app.</p>
+        </div>
+    </section>
+
+    <!-- Section Gutter -->
+    <div class="section-gutter"></div>
+
+    <!-- Programs Showcase -->
+    <section class="programs-section">
+        <div class="section-title-block" style="text-align: center; padding: 0 120px;">
+            <h2 class="section-title">110+ transformational programs for growth</h2>
+            <p class="section-subtitle">Get access to over 100+ quests created by the world's best teachers. Whether you're seeking clarity, healing, mastery or purpose — there's a quest to accelerate your journey.</p>
+        </div>
+        <div class="programs-scroll-container">
+            <div class="programs-row programs-row-1">
+                <img src="https://www.figma.com/api/mcp/asset/c9846de4-e11b-490b-8384-43a4dd82f31b" class="program-card-img" alt="Program">
+                <img src="https://www.figma.com/api/mcp/asset/d60a940b-500e-45ed-8e33-97d980d3f777" class="program-card-img" alt="Program">
+                <img src="https://www.figma.com/api/mcp/asset/797ae760-39bb-442d-b612-7ef42df677b3" class="program-card-img" alt="Program">
+                <img src="https://www.figma.com/api/mcp/asset/5532cd24-591e-43dc-9e22-53786aa98dbf" class="program-card-img" alt="Program">
+            </div>
+            <div class="programs-row programs-row-2">
+                <img src="https://www.figma.com/api/mcp/asset/76fed944-6a1d-4bef-97b9-61253cf6f1e3" class="program-card-img" alt="Program">
+                <img src="https://www.figma.com/api/mcp/asset/2eddb07e-83ea-4240-9520-f8825e77ed04" class="program-card-img" alt="Program">
+                <img src="https://www.figma.com/api/mcp/asset/c05980f7-15db-4e92-afcc-1bf510a080b2" class="program-card-img" alt="Program">
+                <img src="https://www.figma.com/api/mcp/asset/2eddb07e-83ea-4240-9520-f8825e77ed04" class="program-card-img" alt="Program">
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Gutter -->
+    <div class="section-gutter"></div>
+
+    <!-- Transformation in 20 Minutes -->
+    <section class="phone-mockup-section">
+        <div class="section-title-block">
+            <h2 class="section-title">Transformation in 20 minutes a day</h2>
+            <p class="section-subtitle">Don't wait for "someday." With micro-lessons and tools you can apply instantly, you grow meaningfully — even in your busiest days.</p>
+        </div>
+        <div class="phone-mockup-container">
+            <div class="phone-mockup phone-1">
+                <img src="https://www.figma.com/api/mcp/asset/e47ef1d6-92de-4798-91d7-9ad58974b7d4" alt="Phone mockup">
+            </div>
+            <div class="phone-mockup phone-2">
+                <img src="https://www.figma.com/api/mcp/asset/050dcc57-cbbb-427f-875d-4551a62c43f2" alt="Phone mockup">
+            </div>
+            <div class="phone-mockup phone-3">
+                <img src="https://www.figma.com/api/mcp/asset/262453cc-0295-48fd-8182-f394ff82536b" alt="Phone mockup">
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Gutter -->
+    <div class="section-gutter"></div>
+
+    <!-- EVE AI Section -->
+    <section class="phone-mockup-section">
+        <div class="section-title-block">
+            <h2 class="section-title">A personalized path to your highest self — powered by EVE AI</h2>
+            <p class="section-subtitle">Meet your virtual guide, EVE AI. Tell her your goals and she crafts your ideal growth path — tuned to your energy, mood, and intentions. EVE helps you stay inspired, consistent, and aligned.</p>
+        </div>
+        <div class="phone-mockup-container">
+            <div class="phone-mockup phone-1">
+                <img src="https://www.figma.com/api/mcp/asset/a1e59353-c95f-49ad-9f44-c38b11107da0" alt="EVE AI mockup">
+            </div>
+            <div class="phone-mockup phone-2">
+                <img src="https://www.figma.com/api/mcp/asset/6d8f8683-95d1-4844-b911-20fd52c3e735" alt="EVE AI mockup">
+            </div>
+            <div class="phone-mockup phone-3">
+                <img src="https://www.figma.com/api/mcp/asset/cc74fb5c-5a1a-4fbe-85f6-b5630cf5c2bf" alt="EVE AI mockup">
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Gutter -->
+    <div class="section-gutter"></div>
+
+    <!-- Community Section -->
+    <section class="phone-mockup-section">
+        <div class="section-title-block">
+            <h2 class="section-title">A community that grows with you</h2>
+            <p class="section-subtitle">Join a tribe of global Changemakers who believe in big dreams and daily action. Here, you'll find not just accountability — but soulful connection and lifelong allies.</p>
+        </div>
+        <div class="phone-mockup-container">
+            <div class="phone-mockup phone-1">
+                <img src="https://www.figma.com/api/mcp/asset/d968017c-db29-4612-a51c-74fcda21b41f" alt="Community mockup">
+            </div>
+            <div class="phone-mockup phone-2">
+                <img src="https://www.figma.com/api/mcp/asset/c92e6031-dc31-4b78-b854-53cd04999ce3" alt="Community mockup">
+            </div>
+            <div class="phone-mockup phone-3">
+                <img src="https://www.figma.com/api/mcp/asset/e21aa600-f320-4c57-b806-9e772a129e9c" alt="Community mockup">
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Gutters -->
+    <div class="section-gutter"></div>
+    <div class="section-gutter"></div>
+
+    <!-- Press Section -->
+    <section class="press-section">
+        <div class="section-title-block" style="text-align: center;">
+            <h2 class="section-title">Mindvalley in the global press</h2>
+            <p class="section-subtitle">Featured on CNN and CBS and praised by thought leaders Mindvalley is trusted by millions to deliver deep, lasting change.</p>
+        </div>
+
+        <div class="video-container">
+            <div class="video-thumbnail">
+                <img src="https://www.figma.com/api/mcp/asset/024c309c-face-4128-ab26-d7985b9c09ee" alt="Video thumbnail">
+                <div class="play-button">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M5 3.5L16 10L5 16.5V3.5Z" fill="#000"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="press-cards">
+            <div class="press-card">
+                <div class="press-card-image">
+                    <img src="https://www.figma.com/api/mcp/asset/d05132dd-a553-4539-82f1-64f7e945d7a5" alt="CBS Feature">
+                    <div class="play-button">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M5 3.5L16 10L5 16.5V3.5Z" fill="#000"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="press-card-content">
+                    <img src="https://www.figma.com/api/mcp/asset/c9da5f63-6fe6-4b49-a5a6-032328076ae7" class="press-logo" alt="CBS Logo">
+                    <h3 class="press-title">Mindvalley brings together cutting-edge technology and timeless wisdom</h3>
+                    <p class="press-text">Featured globally in Apple Stores, Mindvalley brings together cutting-edge technology and timeless wisdom, offering you tools to master meditation, relationships, fitness, and even life's biggest challenges.</p>
+                </div>
+            </div>
+
+            <div class="press-card">
+                <div class="press-card-image">
+                    <img src="https://www.figma.com/api/mcp/asset/77b83163-de15-48a4-8f2d-409498b62bd0" alt="CNN Feature">
+                    <div class="play-button">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M5 3.5L16 10L5 16.5V3.5Z" fill="#000"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="press-card-content">
+                    <img src="https://www.figma.com/api/mcp/asset/2f86e6d0-e9ea-4ce8-b2d8-0914f43ed8db" class="press-logo" alt="CNN Logo" style="height: 39px;">
+                    <h3 class="press-title">"This app really did change my life."</h3>
+                    <p class="press-text">"I absolutely love, love, love this app, Mindvalley. I mean, it represents the intersection of technology, and also spirituality. Two things that people think are somewhat incongruous, but of course they're not. And this app really did change my life." - Zain Asher</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Gutters -->
+    <div class="section-gutter"></div>
+    <div class="section-gutter"></div>
+
+    <!-- Member Stories Section -->
+    <section class="stories-section">
+        <h2 class="stories-title">Membership stories</h2>
+
+        <div class="stories-grid">
+            <div class="story-card">
+                <div class="story-image">
+                    <img src="https://www.figma.com/api/mcp/asset/3e9d61d3-5164-4f6d-a888-d3d722e839a6" alt="Miki Agrawal">
+                </div>
+                <div class="story-content">
+                    <p class="story-quote">"For those of you who don't know Mindvalley, I urge you to check it out"</p>
+                    <p class="story-body">Think TED, meets personal development, meets entrepreneurship, meets education all in one magical organization. Thank... </p>
+                    <p class="story-read-more">Read more</p>
+                    <div class="story-author">
+                        <p class="story-name">Miki Agrawal</p>
+                        <p class="story-title-text">Founder of WILD, THINX, ICON & TUSHY. Author</p>
+                        <p class="story-location">United States</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-card">
+                <div class="story-image">
+                    <img src="https://www.figma.com/api/mcp/asset/3a05cc16-a9a9-4369-88e3-529ffdecc816" alt="Bianca Ioana">
+                </div>
+                <div class="story-content">
+                    <p class="story-quote">"Never experienced such a big shift in my 22 years of practising sports"</p>
+                    <p class="story-body">I have never experienced in my 22 years of practicing sports such a big shift in performing magnificently in all aspects of life as I do now.</p>
+                    <p class="story-read-more">Read more</p>
+                    <div class="story-author">
+                        <p class="story-name">Bianca Ioana</p>
+                        <p class="story-title-text">World Karate Champion</p>
+                        <p class="story-location">Brasov, Romania</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-card">
+                <div class="story-image">
+                    <img src="https://www.figma.com/api/mcp/asset/463f057f-04f3-4563-aa0c-40b6bb9d9ece" alt="Heidy De La Rosa">
+                </div>
+                <div class="story-content">
+                    <p class="story-quote">"I couldn't be more grateful to Vishen for creating the Mindvalley app"</p>
+                    <p class="story-body">It's packed with divine knowledge. It's such a great community to be part of. Thank U for your vision, Vishen.</p>
+                    <p class="story-read-more">Read more</p>
+                    <div class="story-author">
+                        <p class="story-name">Heidy De La Rosa</p>
+                        <p class="story-title-text">Actress, Model</p>
+                        <p class="story-location">New York City, United States</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stories-grid">
+            <div class="story-card">
+                <div class="story-image">
+                    <img src="https://www.figma.com/api/mcp/asset/dc8a7a2e-428b-43d7-b1d3-360cb092142c" alt="Jason Gagnon">
+                </div>
+                <div class="story-content">
+                    <p class="story-quote">"There is no better platform for learning than Mindvalley"</p>
+                    <p class="story-body">As for Mindvalley, it is my number 1 resource in my daily routine. Everyone I know knows about Mindvalley and many hopped on the train to person... </p>
+                    <p class="story-read-more">Read more</p>
+                    <div class="story-author">
+                        <p class="story-name">Jason Gagnon</p>
+                        <p class="story-title-text">Strategic Interventionist, Speaker</p>
+                        <p class="story-location">Quebec, Canada</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-card">
+                <div class="story-image">
+                    <img src="https://www.figma.com/api/mcp/asset/0996b857-ecd9-460e-8c66-df48c3fe0e74" alt="Camilla Hansson">
+                </div>
+                <div class="story-content">
+                    <p class="story-quote">"Mindvalley is the best personal growth company out there"</p>
+                    <p class="story-body">Mindvalley is the best personal growth company out there and I've grown so much from the people I have met through their community and their... </p>
+                    <p class="story-read-more">Read more</p>
+                    <div class="story-author">
+                        <p class="story-name">Camilla Hansson</p>
+                        <p class="story-title-text">Entrepreneur, Miss Sweden 2014</p>
+                        <p class="story-location">London, United Kingdom</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-card">
+                <div class="story-image">
+                    <img src="https://www.figma.com/api/mcp/asset/aa4e0642-3533-40b0-b813-e5e1aaf62378" alt="Tony Gonzalez">
+                </div>
+                <div class="story-content">
+                    <p class="story-quote">"I practice The 6 Phase Meditation, created by Vishen Lakhiani. It's a guided meditation that I did for about a month straight"</p>
+                    <p class="story-body">I practice The 6 Phase Meditation, created by Vishen Lakhiani. It's a guided meditation that I did for about a month straight, and then I started... </p>
+                    <p class="story-read-more">Read more</p>
+                    <div class="story-author">
+                        <p class="story-name">Tony Gonzalez</p>
+                        <p class="story-title-text">NFL Hall Of Famer</p>
+                        <p class="story-location">United States</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Gutter -->
+    <div class="section-gutter"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <span>© 2023 Mindvalley, Inc.</span>
+                <span>•</span>
+                <span>Terms</span>
+                <span>•</span>
+                <span>Privacy</span>
+            </div>
+            <div class="footer-right">
+                <div class="footer-language">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M8 1.33337C4.32 1.33337 1.33334 4.32004 1.33334 8.00004C1.33334 11.68 4.32 14.6667 8 14.6667C11.68 14.6667 14.6667 11.68 14.6667 8.00004C14.6667 4.32004 11.68 1.33337 8 1.33337ZM13.2667 7.33337H11.2667C11.16 6.16004 10.8933 5.02671 10.4867 3.96004C11.8467 4.49337 12.9133 5.72671 13.2667 7.33337ZM8 2.70004C8.62667 3.72004 9.09334 4.86671 9.34667 6.08004H6.65334C6.90667 4.86671 7.37334 3.72004 8 2.70004ZM2.82667 9.33337C2.71334 8.90004 2.66667 8.44004 2.66667 8.00004C2.66667 7.56004 2.71334 7.10004 2.82667 6.66671H5.08C5.02667 7.10671 5 7.54671 5 8.00004C5 8.45337 5.02667 8.89337 5.08 9.33337H2.82667ZM2.73334 10.6667H4.73334C4.84 11.84 5.10667 12.9734 5.51334 14.04C4.15334 13.5067 3.08667 12.2734 2.73334 10.6667ZM4.73334 7.33337H2.73334C3.08667 5.72671 4.15334 4.49337 5.51334 3.96004C5.10667 5.02671 4.84 6.16004 4.73334 7.33337ZM8 13.3C7.37334 12.28 6.90667 11.1334 6.65334 9.92004H9.34667C9.09334 11.1334 8.62667 12.28 8 13.3ZM9.66667 9.33337H6.33334C6.26667 8.89337 6.24 8.45337 6.24 8.00004C6.24 7.54671 6.26667 7.10671 6.33334 6.66671H9.66667C9.73334 7.10671 9.76 7.54671 9.76 8.00004C9.76 8.45337 9.73334 8.89337 9.66667 9.33337ZM10.4867 14.04C10.8933 12.9734 11.16 11.84 11.2667 10.6667H13.2667C12.9133 12.2734 11.8467 13.5067 10.4867 14.04ZM10.92 9.33337C10.9733 8.89337 11 8.45337 11 8.00004C11 7.54671 10.9733 7.10671 10.92 6.66671H13.1733C13.2867 7.10004 13.3333 7.56004 13.3333 8.00004C13.3333 8.44004 13.2867 8.90004 13.1733 9.33337H10.92Z" fill="#595E67"/>
+                    </svg>
+                    <span>English (EN)</span>
+                </div>
+                <div class="footer-social">
+                    <img src="https://www.figma.com/api/mcp/asset/362a9359-5dca-42db-bd07-f2da5ccafa9c" alt="Facebook">
+                    <img src="https://www.figma.com/api/mcp/asset/cf9d76cd-95cd-47f7-b7ca-6820b4fc7f8b" alt="Twitter">
+                    <img src="https://www.figma.com/api/mcp/asset/1ca688c0-3282-4631-932c-b690631fb2b4" alt="Instagram">
+                    <img src="https://www.figma.com/api/mcp/asset/6aae342b-fb0e-477d-b057-f491b3f2412c" alt="YouTube">
+                    <img src="https://www.figma.com/api/mcp/asset/0a02490f-4f56-48df-a825-58428ceb36a8" alt="LinkedIn">
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
