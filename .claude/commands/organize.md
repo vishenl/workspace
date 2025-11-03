@@ -8,8 +8,9 @@ allowed-tools:
   - Grep
   - TodoWrite
   - WebSearch
-description: "Intelligently analyze, reorganize, and document project structure using best practices"
-tags: ["project-management", "organization", "documentation", "git"]
+  - SlashCommand
+description: "Intelligently analyze, reorganize, and document project structure using best practices, optimized for GitHub Pages"
+tags: ["project-management", "organization", "documentation", "git", "github-pages"]
 ---
 
 # Project Organization & Documentation Command
@@ -32,10 +33,12 @@ Transform a messy project folder into a professionally organized repository with
 
 Use TodoWrite to create a task list for this organization workflow:
 - Analyze current project structure and file purposes
+- Identify HTML pages for GitHub Pages deployment
 - Design optimal folder hierarchy
 - Move and rename files with git tracking
 - Generate comprehensive README documentation
-- Commit and push changes to GitHub
+- Commit changes using /commit command
+- Generate GitHub Pages links
 
 **Step 1.2: Deep Project Discovery**
 
@@ -44,16 +47,23 @@ Think step-by-step about the current project state:
 1. **Discover all project files** using intelligent pattern matching:
    - Use Glob to find all documentation files (*.md)
    - Use Glob to find all scripts (*.py, *.js, *.sh)
-   - Use Glob to find all tools and utilities (*.html, *.json)
+   - Use Glob to find all HTML pages (*.html) - these are candidates for GitHub Pages
+   - Use Glob to find all tools and utilities (*.json, other files)
    - List all directories and their purposes
 
-2. **Analyze file contents and relationships**:
+2. **Identify GitHub Pages candidates**:
+   - Find all HTML files that should be publicly accessible
+   - Note their current locations and purposes
+   - Plan their organization for optimal GitHub Pages URLs
+   - Consider index.html for directories vs named pages
+
+3. **Analyze file contents and relationships**:
    - Read key documentation files to understand their purpose
    - Identify file relationships and dependencies
    - Detect existing organizational patterns or conventions
    - Note any configuration files (.env, .gitignore, package.json)
 
-3. **Assess project type and domain**:
+4. **Assess project type and domain**:
    - Is this primarily a data analysis project?
    - Is it a web application, CLI tool, or library?
    - What languages and frameworks are used?
@@ -216,53 +226,58 @@ Use the Write tool to create the comprehensive README file with:
 - Badges or status indicators if appropriate
 - Clear, professional tone
 
-## PHASE 5: GIT COMMIT AND PUBLICATION
+## PHASE 5: GIT COMMIT AND GITHUB PAGES
 
-**Step 5.1: Stage Changes Intelligently**
+**Step 5.1: Commit Changes Using /commit Command**
 
-Think about optimal commit strategy:
-- Should this be one atomic commit or multiple logical commits?
-- What commit message convention should be used? (conventional commits)
-- Are there any sensitive files that shouldn't be committed?
+Use the SlashCommand tool to execute the /commit command:
+- This will intelligently stage and commit all changes
+- Follow conventional commit format
+- Handle git operations with proper error handling
+- Push changes to GitHub
 
-Use Bash with git commands to:
-- Check git status to see all changes
-- Stage the reorganization changes
-- Stage the new README
-
-**Step 5.2: Craft Meaningful Commit Message**
-
-Create a conventional commit message following best practices:
-
-**Format:**
+Example:
 ```
-type(scope): brief description
-
-Detailed explanation of:
-- What changed and why
-- The organizational strategy applied
-- Benefits of the new structure
-
-Co-Authored-By: Claude <noreply@anthropic.com>
+SlashCommand with command: "/commit"
 ```
 
-**Type should be:**
-- `refactor:` for reorganization
-- `docs:` if only documentation changes
-- `chore:` for maintenance tasks
+The /commit command will:
+- Review all staged and unstaged changes
+- Create atomic commits with proper messages
+- Include Co-Authored-By attribution
+- Push to GitHub remote
 
-**Step 5.3: Push to GitHub**
+**Step 5.2: Generate GitHub Pages Links**
 
-Intelligently handle git operations:
-1. Check if remote repository is configured
-2. Check current branch and remote tracking
-3. Push changes to the remote repository
-4. Verify successful push
+After successful commit and push, generate GitHub Pages URLs for all HTML files:
 
-Handle potential issues gracefully:
-- If no remote: Guide user to set up remote
-- If authentication fails: Provide troubleshooting steps
-- If conflicts exist: Guide resolution process
+**GitHub Pages URL Format:**
+```
+https://[username].github.io/[repository]/[path-to-file.html]
+```
+
+**Process:**
+1. Get GitHub repository information:
+   - Extract username from remote URL
+   - Extract repository name from remote URL
+
+2. For each HTML file in the repository:
+   - Calculate its relative path from repository root
+   - Generate the GitHub Pages URL
+   - Include a description of what the page contains
+
+3. Organize links by category:
+   - Analysis reports
+   - Tools and utilities
+   - Documentation pages
+   - Other HTML content
+
+**Important GitHub Pages Considerations:**
+- Files must be in the main/master branch (or gh-pages branch)
+- GitHub Pages must be enabled in repository settings
+- URLs are case-sensitive
+- Use index.html for directory root pages
+- HTML files should be self-contained or reference relative paths
 
 ## PHASE 6: COMPLETION AND VALIDATION
 
@@ -283,10 +298,43 @@ Generate a clear summary showing:
 - Key documentation created
 - Git commit hash and message
 - Link to GitHub repository
+- **GitHub Pages Links**: Complete list of all HTML pages with their public URLs
 
 **Step 6.3: Clean Up TodoWrite**
 
 Mark all tasks as completed in TodoWrite.
+
+## GitHub Pages Link Generation
+
+### Format and Organization
+
+When generating GitHub Pages links, present them in a clear, organized format:
+
+**Example Output:**
+```markdown
+## 🌐 GitHub Pages Links
+
+Your HTML pages are now publicly accessible:
+
+### 📊 Analysis Reports
+- [Mindvalley Black Friday Analysis](https://vishenl.github.io/workspace/mindvalley-black-friday-analysis.html)
+  Comprehensive sales page conversion analysis with recommendations
+
+### 🛠️ Tools & Utilities
+- [Areas of Growth Viewer](https://vishenl.github.io/workspace/tools/areas-of-growth-viewer.html)
+  Interactive tool for tracking personal development areas
+
+### 📚 Documentation
+- [Project Documentation](https://vishenl.github.io/workspace/docs/index.html)
+  Main documentation index page
+```
+
+### Link Verification Notes
+
+Include helpful information:
+- ⚠️ **Note**: GitHub Pages may take 1-2 minutes to deploy after push
+- 📝 **Tip**: GitHub Pages must be enabled in repository settings
+- 🔒 **Privacy**: These pages are publicly accessible if repository is public
 
 ## Advanced Patterns & Considerations
 
