@@ -39,6 +39,44 @@
         .subtitle {
             font-size: 1.1rem;
             opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .tab {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .tab.active {
+            background: white;
+            color: #7a12d4;
+            border: 2px solid white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         .loading {
@@ -57,11 +95,81 @@
             margin: 20px 0;
         }
 
-        .areas-grid {
+        .areas-grid, .authors-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
             margin-bottom: 40px;
+        }
+
+        .author-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .author-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .author-card-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 4px solid #7a12d4;
+        }
+
+        .author-card-name {
+            font-family: 'Grotesk-Bold', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .author-card-title {
+            font-size: 0.9rem;
+            color: #7a12d4;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .author-card-bio {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .author-card-stats {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .author-stat {
+            background: #f8f9fa;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .author-stat strong {
+            color: #7a12d4;
+            font-weight: 700;
         }
 
         .area-card {
@@ -352,13 +460,24 @@
 <body>
     <div class="container">
         <header>
-            <h1>Mindvalley Areas of Growth</h1>
-            <p class="subtitle">Explore growth areas and their outcomes</p>
+            <h1>Mindvalley Brain</h1>
+            <p class="subtitle">Explore growth areas, authors, and outcomes</p>
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('areas')">Areas of Growth</div>
+                <div class="tab" onclick="switchTab('authors')">Authors</div>
+            </div>
         </header>
 
-        <div id="loading" class="loading">Loading areas of growth...</div>
+        <div id="loading" class="loading">Loading data...</div>
         <div id="error" class="error" style="display: none;"></div>
-        <div id="areasGrid" class="areas-grid"></div>
+
+        <div id="areasTab" class="tab-content active">
+            <div id="areasGrid" class="areas-grid"></div>
+        </div>
+
+        <div id="authorsTab" class="tab-content">
+            <div id="authorsGrid" class="authors-grid"></div>
+        </div>
     </div>
 
     <div id="modal" class="modal">
@@ -382,6 +501,30 @@
         </div>
     </div>
 
+    <div id="authorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-btn" onclick="closeAuthorModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <img id="authorModalPhoto" class="author-card-photo" style="width: 150px; height: 150px;" src="" alt="">
+                    <h2 id="authorModalName" class="modal-title"></h2>
+                    <div id="authorModalTitle" style="font-size: 1.1rem; color: #7a12d4; margin-bottom: 15px; font-weight: 600;"></div>
+                    <div id="authorModalBio" style="font-size: 0.95rem; color: #666; line-height: 1.6; max-width: 600px; margin: 0 auto;"></div>
+                </div>
+                <div class="programs-section">
+                    <h3 class="programs-title">Programs</h3>
+                    <div id="authorProgramsList" class="programs-list"></div>
+                </div>
+                <div class="outcomes-section">
+                    <h3 class="outcomes-title">Meditations & Audios</h3>
+                    <div id="authorAudiosList" class="outcomes-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Configuration
         const AIRTABLE_CONFIG = {
@@ -390,6 +533,7 @@
             outcomesTableId: 'tblLA13fGO7KM1JHA',
             programsTableId: 'tblzp4GGHtFd6W156',
             authorsTableId: 'tbl1vRMe41Jh468ey',
+            audiosTableId: 'tbloTwiycXuAUPdNH',
             // IMPORTANT: Replace this with your Airtable Personal Access Token
             // Create one at: https://airtable.com/create/tokens
             apiKey: 'patOhPT4F5K9ZqTfX.564065d42b5a3989040bfe5152ca2ee0ef6da06f9cb495c212c4405c1a509bd2'
@@ -399,6 +543,8 @@
         let allOutcomes = [];
         let allPrograms = [];
         let allAuthors = [];
+        let allAudios = [];
+        let currentTab = 'areas';
 
         // Fetch data from Airtable
         async function fetchAirtableData(tableId) {
@@ -444,15 +590,17 @@
                 }
 
                 // Fetch all data
-                [allAreas, allOutcomes, allPrograms, allAuthors] = await Promise.all([
+                [allAreas, allOutcomes, allPrograms, allAuthors, allAudios] = await Promise.all([
                     fetchAirtableData(AIRTABLE_CONFIG.areasTableId),
                     fetchAirtableData(AIRTABLE_CONFIG.outcomesTableId),
                     fetchAirtableData(AIRTABLE_CONFIG.programsTableId),
-                    fetchAirtableData(AIRTABLE_CONFIG.authorsTableId)
+                    fetchAirtableData(AIRTABLE_CONFIG.authorsTableId),
+                    fetchAirtableData(AIRTABLE_CONFIG.audiosTableId)
                 ]);
 
                 document.getElementById('loading').style.display = 'none';
                 renderAreas();
+                renderAuthors();
             } catch (error) {
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('error').style.display = 'block';
@@ -485,6 +633,70 @@
 
                 grid.appendChild(card);
             });
+        }
+
+        // Render authors grid
+        function renderAuthors() {
+            const grid = document.getElementById('authorsGrid');
+            grid.innerHTML = '';
+
+            // Filter authors who have published programs
+            const authorsWithPrograms = allAuthors.filter(author => {
+                const authorPrograms = author.fields.Programs || [];
+                // Check if any of their programs are published
+                return authorPrograms.some(programId => {
+                    const program = allPrograms.find(p => p.id === programId);
+                    return program && program.fields.Status === 'Published';
+                });
+            });
+
+            authorsWithPrograms.forEach(author => {
+                const fields = author.fields;
+                const card = document.createElement('div');
+                card.className = 'author-card';
+                card.onclick = () => openAuthorModal(author);
+
+                const photoUrl = fields.Picture && fields.Picture[0] ? fields.Picture[0].url : '';
+                const authorName = fields.Name || 'Unknown Author';
+                const authorTitle = fields["Author's Title"] || '';
+                const bio = fields.Bio ? fields.Bio.replace(/<[^>]*>/g, '').substring(0, 150) + '...' : '';
+
+                const programIds = fields.Programs || [];
+                const publishedPrograms = allPrograms.filter(p =>
+                    programIds.includes(p.id) && p.fields.Status === 'Published'
+                );
+                const programCount = publishedPrograms.length;
+
+                card.innerHTML = `
+                    ${photoUrl ? `<img class="author-card-photo" src="${photoUrl}" alt="${authorName}" onerror="this.style.display='none'">` : '<div class="author-card-photo" style="background: linear-gradient(135deg, #7a12d4 0%, #4f1176 100%);"></div>'}
+                    <div class="author-card-name">${authorName}</div>
+                    ${authorTitle ? `<div class="author-card-title">${authorTitle}</div>` : ''}
+                    ${bio ? `<div class="author-card-bio">${bio}</div>` : ''}
+                    <div class="author-card-stats">
+                        <div class="author-stat"><strong>${programCount}</strong> Program${programCount !== 1 ? 's' : ''}</div>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        // Tab switching
+        function switchTab(tab) {
+            currentTab = tab;
+
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            if (tab === 'areas') {
+                document.getElementById('areasTab').classList.add('active');
+            } else if (tab === 'authors') {
+                document.getElementById('authorsTab').classList.add('active');
+            }
         }
 
         // Open modal with area details
@@ -574,6 +786,77 @@
             document.getElementById('modal').classList.remove('active');
         }
 
+        // Open author modal with details
+        function openAuthorModal(author) {
+            const fields = author.fields;
+            const modal = document.getElementById('authorModal');
+
+            // Set author photo
+            const photoUrl = fields.Picture && fields.Picture[0] ? fields.Picture[0].url : '';
+            const authorPhoto = document.getElementById('authorModalPhoto');
+            if (photoUrl) {
+                authorPhoto.src = photoUrl;
+                authorPhoto.style.display = 'block';
+            } else {
+                authorPhoto.style.display = 'none';
+            }
+
+            // Set author name and title
+            document.getElementById('authorModalName').textContent = fields.Name || 'Unknown Author';
+            document.getElementById('authorModalTitle').textContent = fields["Author's Title"] || '';
+
+            // Set bio (strip HTML tags)
+            const bio = fields.Bio ? fields.Bio.replace(/<[^>]*>/g, '') : 'No bio available.';
+            document.getElementById('authorModalBio').innerHTML = bio;
+
+            // Get and render author's published programs
+            const programIds = fields.Programs || [];
+            const publishedPrograms = allPrograms.filter(p =>
+                programIds.includes(p.id) && p.fields.Status === 'Published'
+            );
+
+            const programsList = document.getElementById('authorProgramsList');
+            if (publishedPrograms.length > 0) {
+                programsList.innerHTML = publishedPrograms.map(program => {
+                    const programFields = program.fields;
+                    const programTitle = programFields['Program Title'] || 'Untitled Program';
+                    const programCover = programFields.Cover && programFields.Cover[0] ? programFields.Cover[0].url : '';
+
+                    return `
+                        <div class="program-card">
+                            ${programCover ? `<img class="program-cover" src="${programCover}" alt="${programTitle}" onerror="this.style.display='none'">` : '<div class="program-cover"></div>'}
+                            <div class="program-info">
+                                <div class="program-title">${programTitle}</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                programsList.innerHTML = '<div class="no-programs">No published programs yet.</div>';
+            }
+
+            // Get and render author's audios/meditations
+            const audioIds = fields['🧘 Audios'] || [];
+            const audios = allAudios.filter(audio => audioIds.includes(audio.id));
+
+            const audiosList = document.getElementById('authorAudiosList');
+            if (audios.length > 0) {
+                audiosList.innerHTML = audios.map(audio => {
+                    const audioTitle = audio.fields.Title || audio.fields.Name || 'Untitled Audio';
+                    return `<div class="outcome-item"><div class="outcome-name">${audioTitle}</div></div>`;
+                }).join('');
+            } else {
+                audiosList.innerHTML = '<div class="no-outcomes">No meditations or audios yet.</div>';
+            }
+
+            modal.classList.add('active');
+        }
+
+        // Close author modal
+        function closeAuthorModal() {
+            document.getElementById('authorModal').classList.remove('active');
+        }
+
         // Close modal when clicking outside
         document.getElementById('modal').addEventListener('click', function(e) {
             if (e.target === this) {
@@ -581,10 +864,17 @@
             }
         });
 
+        document.getElementById('authorModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAuthorModal();
+            }
+        });
+
         // Close modal with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
+                closeAuthorModal();
             }
         });
 
