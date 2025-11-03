@@ -393,9 +393,134 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Password Protection Styles */
+        .password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .password-overlay.hidden {
+            display: none;
+        }
+
+        .password-box {
+            background: white;
+            padding: 48px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .password-box h2 {
+            color: #1A1A1A;
+            margin-bottom: 8px;
+            font-size: 1.75rem;
+        }
+
+        .password-box p {
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .password-input.error {
+            border-color: #EF4444;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .password-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .password-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .password-button:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: #EF4444;
+            font-size: 0.875rem;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        .page-content {
+            display: none;
+        }
+
+        .page-content.unlocked {
+            display: block;
+        }
     </style>
 </head>
 <body>
+    <!-- Password Protection Overlay -->
+    <div class="password-overlay" id="passwordOverlay">
+        <div class="password-box">
+            <h2>🔒 Protected Content</h2>
+            <p>Enter password to access the analysis</p>
+            <input
+                type="password"
+                class="password-input"
+                id="passwordInput"
+                placeholder="Enter password"
+                autocomplete="off"
+            >
+            <div class="error-message" id="errorMessage">Incorrect password. Please try again.</div>
+            <button class="password-button" onclick="checkPassword()">Unlock Analysis</button>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden until password is entered) -->
+    <div class="page-content" id="pageContent">
     <header>
         <div class="container">
             <h1>🔍 Mindvalley Black Friday Sales Page Analysis</h1>
@@ -1733,5 +1858,70 @@
             <p style="margin-top: 8px; opacity: 0.8;">Mindvalley Sales Page Analyzer • November 2025</p>
         </div>
     </footer>
+    </div>
+    <!-- End of page-content -->
+
+    <script>
+        // Password protection
+        const CORRECT_PASSWORD = 'BlackPanther';
+        const SESSION_KEY = 'mindvalley_analysis_auth';
+
+        // Check if already authenticated in this session
+        function checkSession() {
+            return sessionStorage.getItem(SESSION_KEY) === 'authenticated';
+        }
+
+        // Initialize page
+        function initializePage() {
+            if (checkSession()) {
+                unlockPage();
+            } else {
+                // Focus on password input
+                document.getElementById('passwordInput').focus();
+
+                // Allow Enter key to submit
+                document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkPassword();
+                    }
+                });
+            }
+        }
+
+        // Check password
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const enteredPassword = input.value;
+
+            if (enteredPassword === CORRECT_PASSWORD) {
+                // Correct password
+                sessionStorage.setItem(SESSION_KEY, 'authenticated');
+                unlockPage();
+            } else {
+                // Wrong password
+                input.classList.add('error');
+                errorMessage.classList.add('visible');
+                input.value = '';
+
+                // Remove error styling after animation
+                setTimeout(() => {
+                    input.classList.remove('error');
+                }, 500);
+
+                // Focus back on input
+                input.focus();
+            }
+        }
+
+        // Unlock page
+        function unlockPage() {
+            document.getElementById('passwordOverlay').classList.add('hidden');
+            document.getElementById('pageContent').classList.add('unlocked');
+        }
+
+        // Initialize when page loads
+        window.addEventListener('DOMContentLoaded', initializePage);
+    </script>
 </body>
 </html>
