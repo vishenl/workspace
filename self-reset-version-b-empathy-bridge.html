@@ -6,135 +6,405 @@
     <title>Self-Reset 2026 - Heal Your Relationship With Yourself | Kristina Mänd-Lakhiani | Tallinn</title>
     <meta name="description" content="You're exhausted from trying to fix everything. What if it's not 100 problems—but one relationship that needs healing? Join Kristina Mänd-Lakhiani in Tallinn for a one-day transformation.">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: #1A1A1A;
+            background: #f4f5f5;
+        }
+
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
+
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #9400ff 0%, #003fff 100%);
             color: white;
-            padding: 60px 40px;
-            border-radius: 8px;
-            margin-bottom: 40px;
+            padding: 80px 20px;
+            margin-bottom: 60px;
         }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
         .hero h1 {
-            font-size: 2.5em;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             line-height: 1.2;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            font-weight: 700;
         }
+
         .hero h2 {
-            font-size: 1.5em;
+            font-size: clamp(1.25rem, 3vw, 2rem);
             font-weight: 400;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
+            opacity: 0.95;
         }
+
+        .hero-text {
+            font-size: clamp(1.05rem, 2vw, 1.25rem);
+            line-height: 1.8;
+            margin: 32px 0;
+            opacity: 0.95;
+        }
+
+        .hero-meta {
+            margin-top: 24px;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Button */
         .cta-button {
-            background: #FF6B6B;
+            background: #E3A34C;
             color: white;
             padding: 18px 40px;
-            font-size: 1.2em;
+            font-size: 1.15rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            font-weight: bold;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(227, 163, 76, 0.3);
         }
+
         .cta-button:hover {
-            background: #FF5252;
+            background: #fb9d40;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(227, 163, 76, 0.4);
         }
+
+        /* Section Styling */
         .section {
-            margin: 60px 0;
+            background: white;
+            border-radius: 12px;
+            padding: 60px 40px;
+            margin: 40px auto;
+            max-width: 1200px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
+
         .section h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #2c3e50;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            margin-bottom: 24px;
+            color: #1A1A1A;
+            font-weight: 700;
         }
+
         .section h3 {
-            font-size: 1.5em;
-            margin-top: 30px;
-            color: #34495e;
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: #595E67;
+            font-weight: 600;
         }
+
+        .section p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #595E67;
+            margin-bottom: 20px;
+        }
+
+        /* Callout Box */
         .callout-box {
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            padding: 20px 30px;
-            margin: 30px 0;
+            background: linear-gradient(135deg, rgba(148, 0, 255, 0.05) 0%, rgba(0, 63, 255, 0.05) 100%);
+            border-top: 5px solid #E3A34C;
+            border-radius: 8px;
+            padding: 32px 40px;
+            margin: 40px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
+
+        .callout-box h3 {
+            margin-top: 0;
+            color: #1A1A1A;
+        }
+
+        .callout-box p {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+        }
+
+        .callout-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Feature Grid */
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
             margin: 40px 0;
         }
+
         .feature-box {
             background: white;
-            padding: 30px;
+            border-top: 5px solid #E3A34C;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 32px 28px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
         }
+
+        .feature-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-box h3 {
+            margin-top: 0;
+            color: #1A1A1A;
+            font-size: 1.35rem;
+        }
+
+        .feature-box p {
+            color: #595E67;
+        }
+
+        /* Pricing Table */
         .pricing-table {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
             margin: 40px 0;
         }
+
         .pricing-card {
             background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 30px;
+            border-top: 5px solid #d2d2d2;
+            border-radius: 12px;
+            padding: 40px 32px;
             text-align: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
         }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+        }
+
         .pricing-card.featured {
-            border-color: #667eea;
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            border-top: 5px solid #E3A34C;
+            box-shadow: 0 8px 28px rgba(227, 163, 76, 0.2);
+            position: relative;
         }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin: 0 0 20px 0;
+            color: #1A1A1A;
+        }
+
         .price {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #667eea;
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #9400ff 0%, #003fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin: 20px 0;
         }
+
+        .pricing-card p {
+            text-align: left;
+            margin: 24px 0;
+            color: #595E67;
+        }
+
+        /* Testimonial */
         .testimonial {
-            background: #f8f9fa;
-            padding: 30px;
+            background: linear-gradient(135deg, rgba(148, 0, 255, 0.03) 0%, rgba(0, 63, 255, 0.03) 100%);
+            border-left: 4px solid #9400ff;
             border-radius: 8px;
-            margin: 20px 0;
+            padding: 32px 40px;
+            margin: 32px 0;
         }
+
+        .testimonial p {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #595E67;
+        }
+
         .testimonial-author {
-            font-weight: bold;
-            margin-top: 15px;
-            color: #667eea;
+            font-weight: 600;
+            margin-top: 16px;
+            color: #9400ff;
+            font-style: normal;
         }
+
+        /* Urgency Banner */
         .urgency-banner {
-            background: #667eea;
+            background: linear-gradient(135deg, #9400ff 0%, #fb00ff 100%);
             color: white;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
-            font-weight: bold;
-            margin: 20px 0;
-            border-radius: 5px;
+            font-weight: 600;
+            margin: 32px 0;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 16px rgba(148, 0, 255, 0.3);
         }
-        ul {
-            line-height: 1.8;
-        }
+
+        /* Schedule Timeline */
         .schedule-timeline {
-            border-left: 3px solid #667eea;
-            padding-left: 30px;
-            margin: 30px 0;
+            border-left: 4px solid #E3A34C;
+            padding-left: 32px;
+            margin: 40px 0;
         }
+
         .schedule-item {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
+
         .schedule-time {
-            font-weight: bold;
-            color: #667eea;
-            font-size: 1.1em;
+            font-weight: 700;
+            color: #9400ff;
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+        }
+
+        .schedule-item h3 {
+            margin-top: 8px;
+            color: #1A1A1A;
+        }
+
+        /* Lists */
+        ul {
+            line-height: 2;
+            margin-left: 24px;
+            color: #595E67;
+        }
+
+        ul li {
+            margin-bottom: 12px;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, #9400ff 0%, #003fff 100%);
+            color: white;
+            padding: 80px 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 60px auto;
+            max-width: 1200px;
+        }
+
+        .final-cta h2 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .final-cta p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 32px;
+            color: white;
+            opacity: 0.95;
+        }
+
+        .final-cta .cta-button {
+            background: white;
+            color: #9400ff;
+            font-size: 1.3rem;
+            padding: 22px 50px;
+        }
+
+        .final-cta .cta-button:hover {
+            background: #f4f5f5;
+            color: #003fff;
+        }
+
+        .final-cta-meta {
+            margin-top: 30px;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 80px;
+            padding: 60px 40px 40px;
+            border-top: 2px solid #d2d2d2;
+            text-align: center;
+            color: #595E67;
+            background: white;
+        }
+
+        .footer p {
+            margin-bottom: 16px;
+            color: #595E67;
+        }
+
+        .footer a {
+            color: #9400ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #003fff;
+        }
+
+        /* Links */
+        a {
+            color: #9400ff;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #003fff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .section {
+                padding: 40px 24px;
+            }
+
+            .callout-box {
+                padding: 24px 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .pricing-table {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .final-cta {
+                padding: 60px 24px;
+            }
+
+            .schedule-timeline {
+                padding-left: 20px;
+            }
         }
     </style>
 </head>
@@ -142,445 +412,455 @@
 
 <!-- HERO SECTION -->
 <div class="hero">
-    <h1>You're not broken. You're just exhausted from trying to fix 100 problems.</h1>
-    <h2>What if there's only ONE problem—and everything else is just a symptom?</h2>
-    <p style="font-size: 1.2em; margin: 30px 0;">
-        The overwhelm. The burnout. The feeling that you've lost yourself somewhere along the way.<br>
-        You've been trying to fix your career, your relationships, your health, your time.<br><br>
-        <strong>But what if the real problem is simpler than you think?</strong><br><br>
-        It's your relationship with yourself. And when that relationship heals, everything else shifts.
-    </p>
-    <a href="#tickets" class="cta-button">Heal the One Relationship That Changes Everything →</a>
-    <p style="margin-top: 20px; font-size: 0.95em;">January 18, 2026 | Tallinn, Estonia | One-day immersive transformation</p>
+    <div class="hero-content">
+        <h1>You're not broken. You're just exhausted from trying to fix 100 problems.</h1>
+        <h2>What if there's only ONE problem—and everything else is just a symptom?</h2>
+        <p class="hero-text">
+            The overwhelm. The burnout. The feeling that you've lost yourself somewhere along the way.<br>
+            You've been trying to fix your career, your relationships, your health, your time.<br><br>
+            <strong>But what if the real problem is simpler than you think?</strong><br><br>
+            It's your relationship with yourself. And when that relationship heals, everything else shifts.
+        </p>
+        <a href="#tickets" class="cta-button">Heal the One Relationship That Changes Everything →</a>
+        <p class="hero-meta">January 18, 2026 | Tallinn, Estonia | One-day immersive transformation</p>
+    </div>
 </div>
 
 <!-- EMPATHY SECTION -->
-<div class="section">
-    <h2>If This Sounds Like You, You're in the Right Place:</h2>
+<div class="container">
+    <div class="section">
+        <h2>If This Sounds Like You, You're in the Right Place:</h2>
 
-    <div class="callout-box">
-        <p style="font-size: 1.05em; line-height: 1.8;">
-            ✓ You're constantly overwhelmed, even when you've "done everything right"<br>
-            ✓ You feel burned out, but rest doesn't seem to help<br>
-            ✓ You've lost touch with who you really are underneath all the roles you play<br>
-            ✓ You're tired of pretending everything is fine when it's not<br>
-            ✓ You've tried therapy, meditation, self-help books—and still feel stuck<br>
-            ✓ You achieve things but never feel satisfied or "enough"<br>
-            ✓ You're exhausted from being your own harshest critic
+        <div class="callout-box">
+            <p style="font-size: 1.05em; line-height: 1.8;">
+                ✓ You're constantly overwhelmed, even when you've "done everything right"<br>
+                ✓ You feel burned out, but rest doesn't seem to help<br>
+                ✓ You've lost touch with who you really are underneath all the roles you play<br>
+                ✓ You're tired of pretending everything is fine when it's not<br>
+                ✓ You've tried therapy, meditation, self-help books—and still feel stuck<br>
+                ✓ You achieve things but never feel satisfied or "enough"<br>
+                ✓ You're exhausted from being your own harshest critic
+            </p>
+        </div>
+
+        <p style="font-size: 1.1em; margin-top: 30px;">
+            Here's what no one tells you: <strong>You can't self-care your way out of this.</strong>
+        </p>
+
+        <p style="font-size: 1.1em;">
+            Because self-care treats the symptoms. Bubble baths and meditation apps help you cope. But they don't address the root cause.
+        </p>
+
+        <p style="font-size: 1.15em; font-weight: 500; margin-top: 20px;">
+            The root cause is your relationship with yourself. And until that relationship heals, nothing else truly changes.
         </p>
     </div>
 
-    <p style="font-size: 1.1em; margin-top: 30px;">
-        Here's what no one tells you: <strong>You can't self-care your way out of this.</strong>
-    </p>
+    <!-- THE REVELATION SECTION -->
+    <div class="section">
+        <h2>What If It's Not 100 Problems? What If It's One?</h2>
 
-    <p style="font-size: 1.1em;">
-        Because self-care treats the symptoms. Bubble baths and meditation apps help you cope. But they don't address the root cause.
-    </p>
-
-    <p style="font-size: 1.15em; font-weight: 500; margin-top: 20px;">
-        The root cause is your relationship with yourself. And until that relationship heals, nothing else truly changes.
-    </p>
-</div>
-
-<!-- THE REVELATION SECTION -->
-<div class="section">
-    <h2>What If It's Not 100 Problems? What If It's One?</h2>
-
-    <p style="font-size: 1.1em; line-height: 1.8;">
-        Think about it: You have a problem at work. A challenge in your relationship. You're not taking care of your health. You never have time for yourself. Money feels stressful.
-    </p>
-
-    <p style="font-size: 1.1em; line-height: 1.8;">
-        That's at least five problems, right?
-    </p>
-
-    <div class="callout-box" style="margin: 40px 0;">
-        <p style="font-size: 1.15em; font-weight: 500;">
-            But here's what changes everything:
-        </p>
         <p style="font-size: 1.1em; line-height: 1.8;">
-            What if those aren't five separate problems? What if they're all symptoms of ONE core problem:
-            <strong>the quality of your relationship with yourself?</strong>
+            Think about it: You have a problem at work. A challenge in your relationship. You're not taking care of your health. You never have time for yourself. Money feels stressful.
         </p>
-        <p style="font-size: 1.1em; line-height: 1.8; margin-top: 20px;">
-            When that relationship is fractured—when you're constantly criticizing yourself, betraying your own needs,
-            abandoning your truth to please others—every other area of your life reflects that fracture.
+
+        <p style="font-size: 1.1em; line-height: 1.8;">
+            That's at least five problems, right?
         </p>
-        <p style="font-size: 1.1em; line-height: 1.8; margin-top: 20px;">
-            <strong>Fix the ONE relationship. Watch the 99 symptoms shift.</strong>
+
+        <div class="callout-box" style="margin: 40px 0;">
+            <p style="font-size: 1.15em; font-weight: 500;">
+                But here's what changes everything:
+            </p>
+            <p style="font-size: 1.1em; line-height: 1.8;">
+                What if those aren't five separate problems? What if they're all symptoms of ONE core problem:
+                <strong>the quality of your relationship with yourself?</strong>
+            </p>
+            <p style="font-size: 1.1em; line-height: 1.8; margin-top: 20px;">
+                When that relationship is fractured—when you're constantly criticizing yourself, betraying your own needs,
+                abandoning your truth to please others—every other area of your life reflects that fracture.
+            </p>
+            <p style="font-size: 1.1em; line-height: 1.8; margin-top: 20px;">
+                <strong>Fix the ONE relationship. Watch the 99 symptoms shift.</strong>
+            </p>
+        </div>
+
+        <p style="font-size: 1.1em; line-height: 1.8;">
+            That's what Self-Reset is designed to do: Give you one focused day to heal the relationship that changes everything else.
         </p>
     </div>
 
-    <p style="font-size: 1.1em; line-height: 1.8;">
-        That's what Self-Reset is designed to do: Give you one focused day to heal the relationship that changes everything else.
-    </p>
-</div>
+    <!-- WHAT YOU'LL DISCOVER -->
+    <div class="section">
+        <h2>What You'll Discover at Self-Reset</h2>
 
-<!-- WHAT YOU'LL DISCOVER -->
-<div class="section">
-    <h2>What You'll Discover at Self-Reset</h2>
-
-    <p style="font-size: 1.1em; margin-bottom: 40px;">
-        This isn't another workshop where you leave inspired but nothing changes. This is a carefully designed one-day immersive experience that gives you clarity, tools, and a new way of relating to yourself.
-    </p>
-
-    <h3>1. See the Pattern You've Been Missing</h3>
-    <p>How do you sabotage your own success without even realizing it? You'll discover the specific ways you get in your own way—and more importantly, why you do it. This awareness alone changes everything.</p>
-
-    <h3>2. Understand What Self-Love Actually Means</h3>
-    <p>Self-love isn't selfish. It isn't narcissistic. And it doesn't require hours of daily rituals. You'll learn the critical difference between self-care (treating symptoms) and self-love (healing the root cause).</p>
-
-    <h3>3. Recognize How You Betray Yourself Every Day</h3>
-    <p>True authenticity isn't about "just being yourself" or dropping all filters. It's about ending self-betrayal—those subtle moments when you abandon your truth to meet others' expectations. You'll see exactly where this happens in your life.</p>
-
-    <h3>4. Learn to Support Yourself When It's Hardest</h3>
-    <p>It's easy to love yourself when things are going well. But what about when you fail? When you disappoint yourself? That's when you need your own support most. You'll practice tools to become your own loyal ally, especially in tough moments.</p>
-
-    <h3>5. Take Practical Tools Home That Actually Work</h3>
-    <p>Your life doesn't change in a seminar room. It changes at home, at work, in everyday moments. You'll leave with simple, practical tools that work in real life—not just when you're feeling inspired.</p>
-</div>
-
-<!-- WHY THIS WORKS -->
-<div class="section">
-    <h2>Why Self-Reset Works When Other Solutions Haven't</h2>
-
-    <div class="feature-grid">
-        <div class="feature-box">
-            <h3>It's Built on Three Pillars</h3>
-            <p><strong>Knowledge + Experience + Reflection</strong>. Knowledge alone doesn't change you. Experience without processing can leave you stuck. Self-Reset combines all three to create lasting transformation.</p>
-        </div>
-
-        <div class="feature-box">
-            <h3>It Addresses the Root, Not Symptoms</h3>
-            <p>Meditation apps treat anxiety. Therapy processes past trauma. Productivity hacks manage time. All helpful—but all treating symptoms. Self-Reset heals the relationship causing those symptoms in the first place.</p>
-        </div>
-
-        <div class="feature-box">
-            <h3>It's Honest (No Spiritual Bypass)</h3>
-            <p>No toxic positivity. No "just love yourself more" platitudes. Kristina's no-BS approach means you get real tools for real life—built for intelligent, skeptical people who've tried everything else.</p>
-        </div>
-
-        <div class="feature-box">
-            <h3>It's One Focused Day</h3>
-            <p>Not another 6-week program you'll abandon. One intensive day solving the ONE problem at the root of everything else. Then you take the tools home and your real life begins to change.</p>
-        </div>
-
-        <div class="feature-box">
-            <h3>You're Not Alone in This</h3>
-            <p>You'll be surrounded by people who understand what you're going through. Mindvalley events attract a special kind of community—caring, growth-oriented people who support your transformation long after the event ends.</p>
-        </div>
-
-        <div class="feature-box">
-            <h3>It's Designed to Stick</h3>
-            <p>Each phase includes immersive exercises and curated reflection to help you process and integrate what you're learning. This isn't about inspiration that fades by Tuesday—it's about tools that become part of how you live.</p>
-        </div>
-    </div>
-</div>
-
-<!-- URGENCY BANNER -->
-<div class="urgency-banner">
-    Early Bird Pricing Available: Only 40 tickets left at €159 | Secure your seat before price increases
-</div>
-
-<!-- KRISTINA SECTION -->
-<div class="section">
-    <h2>Your Guide: Kristina Mänd-Lakhiani</h2>
-
-    <p style="font-size: 1.1em; line-height: 1.8;">
-        <strong>Kristina Mänd-Lakhiani</strong> is the co-founder of Mindvalley, reaching over 20 million people worldwide with personal transformation. She's a WSJ #1 bestselling author, internationally acclaimed speaker, and someone who deeply understands what it means to be at war with yourself.
-    </p>
-
-    <p style="font-size: 1.05em; line-height: 1.8;">
-        Raised in Soviet-era Estonia under oppressive conditions, Kristina spent years navigating restrictive norms and expectations—even as she built one of the world's premier personal development platforms. Her conditioning persisted through her greatest successes until she made a choice: to forge a life aligned with her true self.
-    </p>
-
-    <p style="font-size: 1.05em; line-height: 1.8;">
-        Today, after 20+ years in personal transformation, she helps thousands of people end self-betrayal and reclaim their authentic power. Her book, <em>Becoming Flawesome</em>, became a #1 bestseller on The Wall Street Journal, USA TODAY, and Amazon.
-    </p>
-
-    <div class="callout-box">
-        <p><strong>Why Kristina Is the Right Guide for This Journey:</strong></p>
-        <ul>
-            <li>20+ years working with the world's leading experts in personal growth</li>
-            <li>Creator of transformational programs including "From Awesome to Flawesome," "10 Questions for Self-Love," and "Live By Your Own Rules"</li>
-            <li>Host of Mindvalley Book Club, the leading authority on personal growth books</li>
-            <li>Member of Forbes Coaches Council since 2019</li>
-            <li>Known for her disarming authenticity and no-BS teaching style that engages even the most skeptical participants</li>
-        </ul>
-    </div>
-
-    <div class="testimonial">
-        <p style="font-size: 1.05em; font-style: italic;">
-            "She is very authentic and doesn't have an agenda. I was giving her a standing ovation, because she is really a beautiful powerful speaker."
+        <p style="font-size: 1.1em; margin-bottom: 40px;">
+            This isn't another workshop where you leave inspired but nothing changes. This is a carefully designed one-day immersive experience that gives you clarity, tools, and a new way of relating to yourself.
         </p>
-        <p class="testimonial-author">— Marisa Peer, Best-Selling Author & Leading Celebrity Therapist</p>
+
+        <h3>1. See the Pattern You've Been Missing</h3>
+        <p>How do you sabotage your own success without even realizing it? You'll discover the specific ways you get in your own way—and more importantly, why you do it. This awareness alone changes everything.</p>
+
+        <h3>2. Understand What Self-Love Actually Means</h3>
+        <p>Self-love isn't selfish. It isn't narcissistic. And it doesn't require hours of daily rituals. You'll learn the critical difference between self-care (treating symptoms) and self-love (healing the root cause).</p>
+
+        <h3>3. Recognize How You Betray Yourself Every Day</h3>
+        <p>True authenticity isn't about "just being yourself" or dropping all filters. It's about ending self-betrayal—those subtle moments when you abandon your truth to meet others' expectations. You'll see exactly where this happens in your life.</p>
+
+        <h3>4. Learn to Support Yourself When It's Hardest</h3>
+        <p>It's easy to love yourself when things are going well. But what about when you fail? When you disappoint yourself? That's when you need your own support most. You'll practice tools to become your own loyal ally, especially in tough moments.</p>
+
+        <h3>5. Take Practical Tools Home That Actually Work</h3>
+        <p>Your life doesn't change in a seminar room. It changes at home, at work, in everyday moments. You'll leave with simple, practical tools that work in real life—not just when you're feeling inspired.</p>
     </div>
 
-    <div class="testimonial">
-        <p style="font-size: 1.05em; font-style: italic;">
-            "I have rarely seen a speaker moving the audience with such depth and authenticity. She told the truth in a way that was riveting—she had people crying, on their feet. They were so moved and inspired."
-        </p>
-        <p class="testimonial-author">— Katherine Woodward Thomas, NYT Best-selling Author & Licensed Marriage & Family Therapist</p>
-    </div>
+    <!-- WHY THIS WORKS -->
+    <div class="section">
+        <h2>Why Self-Reset Works When Other Solutions Haven't</h2>
 
-    <div class="testimonial">
-        <p style="font-size: 1.05em; font-style: italic;">
-            "She was so incredibly authentic. I can only imagine the amount of courage that must have taken. She connected with the audience in unbelievably strong ways simply because she was sharing real stories from her life."
-        </p>
-        <p class="testimonial-author">— Dr. Srikumar Rao, TED Speaker, Author, Business School Professor</p>
-    </div>
-</div>
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h3>It's Built on Three Pillars</h3>
+                <p><strong>Knowledge + Experience + Reflection</strong>. Knowledge alone doesn't change you. Experience without processing can leave you stuck. Self-Reset combines all three to create lasting transformation.</p>
+            </div>
 
-<!-- SCHEDULE -->
-<div class="section">
-    <h2>Your Day of Transformation: January 18, 2026</h2>
+            <div class="feature-box">
+                <h3>It Addresses the Root, Not Symptoms</h3>
+                <p>Meditation apps treat anxiety. Therapy processes past trauma. Productivity hacks manage time. All helpful—but all treating symptoms. Self-Reset heals the relationship causing those symptoms in the first place.</p>
+            </div>
 
-    <p style="font-size: 1.1em; margin-bottom: 30px;">
-        Self-Reset is designed around three core phases of transformation, each building on the last to create lasting change. This isn't a lecture—it's an immersive experience where <strong>Knowledge + Experience + Reflection</strong> come together.
-    </p>
+            <div class="feature-box">
+                <h3>It's Honest (No Spiritual Bypass)</h3>
+                <p>No toxic positivity. No "just love yourself more" platitudes. Kristina's no-BS approach means you get real tools for real life—built for intelligent, skeptical people who've tried everything else.</p>
+            </div>
 
-    <div class="schedule-timeline">
-        <div class="schedule-item">
-            <p class="schedule-time">10:00 AM - 12:00 PM EET</p>
-            <h3>Phase 1: Finding Clarity</h3>
-            <p>Do you really love yourself? Or do you only love yourself conditionally—when you "deserve" it? We'll start by cutting through the facade and finding clarity about the true state of your relationship with yourself. This is where honest self-assessment begins.</p>
-        </div>
+            <div class="feature-box">
+                <h3>It's One Focused Day</h3>
+                <p>Not another 6-week program you'll abandon. One intensive day solving the ONE problem at the root of everything else. Then you take the tools home and your real life begins to change.</p>
+            </div>
 
-        <div class="schedule-item">
-            <p class="schedule-time">1:00 PM - 3:00 PM EET</p>
-            <h3>Phase 2: Reprogramming Your Beliefs</h3>
-            <p>What's the difference between self-love and narcissism? Between self-care and coping? In this phase, we'll dive deep into your beliefs and perceptions about yourself—and help you reprogram the limiting patterns that make authentic self-love feel impossible or selfish.</p>
-        </div>
+            <div class="feature-box">
+                <h3>You're Not Alone in This</h3>
+                <p>You'll be surrounded by people who understand what you're going through. Mindvalley events attract a special kind of community—caring, growth-oriented people who support your transformation long after the event ends.</p>
+            </div>
 
-        <div class="schedule-item">
-            <p class="schedule-time">4:00 PM - 6:00 PM EET</p>
-            <h3>Phase 3: Empowering Your New Way</h3>
-            <p>You'll learn and practice powerful tools to make self-support your default state—not an emergency kit you only reach for during crisis. Imagine what becomes possible when you stop fighting yourself and redirect all that energy into what truly matters to you.</p>
-        </div>
-
-        <div class="schedule-item">
-            <p class="schedule-time">3:15 PM - 3:45 PM EET (Optional)</p>
-            <h3>Book Signing & Meet Kristina</h3>
-            <p>Join Kristina for an intimate book signing session. Every ticket includes a signed copy of her bestselling book <em>Becoming Flawesome</em>. This is your chance to connect with her personally and deepen your experience of the day.</p>
+            <div class="feature-box">
+                <h3>It's Designed to Stick</h3>
+                <p>Each phase includes immersive exercises and curated reflection to help you process and integrate what you're learning. This isn't about inspiration that fades by Tuesday—it's about tools that become part of how you live.</p>
+            </div>
         </div>
     </div>
 
-    <p style="font-size: 1.05em; line-height: 1.8; margin-top: 30px;">
-        Throughout the day, you'll participate in immersive exercises and guided reflection sessions. This structure is intentional: it transforms powerful insights into practical new ways of living that continue long after January 18th.
-    </p>
-</div>
-
-<!-- WHAT MAKES IT DIFFERENT -->
-<div class="section">
-    <h2>What Makes This Experience Different</h2>
-
-    <div class="feature-grid">
-        <div class="feature-box">
-            <h3>Build Your Inner Framework</h3>
-            <p>Before diving into self-love work, you'll learn foundational skills that accelerate personal growth in any area of life. These are the building blocks that make all future transformation easier.</p>
-        </div>
-
-        <div class="feature-box">
-            <h3>Experience Changes Perception</h3>
-            <p>Knowledge alone doesn't change anything. Your life changes when your perception changes—when you see, interpret, and react to the world in a new way. Experience brings knowledge from your head into your heart.</p>
-        </div>
-
-        <div class="feature-box">
-            <h3>Learn to Process Experience</h3>
-            <p>Experience without a framework to process it can leave you broken. You'll learn how to turn challenging experiences into empowering insights—this is what rewires your brain for lasting success.</p>
-        </div>
-
-        <div class="feature-box">
-            <h3>Tools for Real Life</h3>
-            <p>Your life doesn't change at an event. It changes at home, at work, in mundane everyday moments. You'll get practical tools designed to work in real life—not just when you're feeling inspired.</p>
-        </div>
-
-        <div class="feature-box">
-            <h3>No-Bullshit Honesty</h3>
-            <p>Kristina is known for her unapologetic honesty. She drops pretenses, admits when things don't look right, and engages even the most skeptical participants with critical thinking and scientific approaches.</p>
-        </div>
-
-        <div class="feature-box">
-            <h3>Community That Supports Change</h3>
-            <p>Mindvalley events attract extraordinary, growth-oriented people. Your chances of lasting transformation increase exponentially when you have a caring community to support you through the journey.</p>
-        </div>
-    </div>
-</div>
-
-<!-- TALLINN INFO -->
-<div class="section">
-    <h2>Why Tallinn Is the Perfect Setting</h2>
-
-    <p style="font-size: 1.05em; line-height: 1.8;">
-        Tallinn, Estonia's capital, is one of Europe's best-kept secrets. Imagine a cozy city with pristine air, a relaxed atmosphere, sophisticated restaurants, and a medieval Old Town that looks like a fairytale brought to life.
-    </p>
-
-    <p style="font-size: 1.05em; line-height: 1.8;">
-        The city center is never more than 15 minutes from anywhere—close to the airport, train, and ferry terminals. This makes Tallinn ideal for a transformative weekend getaway without complex logistics.
-    </p>
-
-    <p style="font-size: 1.05em; line-height: 1.8;">
-        And in January, Tallinn has a special kind of magic: quiet streets, winter charm, and the perfect atmosphere for deep inner work.
-    </p>
-
-    <p>
-        For recommendations on where to stay, eat, and explore during your visit, check out <a href="https://www.visittallinn.ee/" target="_blank">Visit Tallinn's official portal</a> or follow <a href="https://www.instagram.com/visittallinn/" target="_blank">@VisitTallinn</a> on Instagram.
-    </p>
-</div>
-
-<!-- PRICING -->
-<div class="section" id="tickets">
-    <h2>Choose Your Experience</h2>
-
+    <!-- URGENCY BANNER -->
     <div class="urgency-banner">
-        Early Bird Pricing: Only 40 tickets remaining at this special rate
+        Early Bird Pricing Available: Only 40 tickets left at €159 | Secure your seat before price increases
     </div>
 
-    <div class="pricing-table">
-        <div class="pricing-card">
-            <h3>Regular Ticket</h3>
-            <p class="price">€159</p>
-            <p style="font-size: 0.9em; color: #666; margin-bottom: 30px;">(Early Bird rate | €209 after these sell out)</p>
-            <p style="text-align: left; margin: 20px 0;">
-                <strong>Everything you need for transformation:</strong><br><br>
-                ✓ Full-day access to Self-Reset experience<br>
-                ✓ All three transformation phases<br>
-                ✓ Immersive exercises & reflection sessions<br>
-                ✓ Networking during coffee breaks<br>
-                ✓ Signed copy of <em>Becoming Flawesome</em><br>
-                ✓ Digital resources to take home<br>
-                ✓ Access to book signing with Kristina
+    <!-- KRISTINA SECTION -->
+    <div class="section">
+        <h2>Your Guide: Kristina Mänd-Lakhiani</h2>
+
+        <p style="font-size: 1.1em; line-height: 1.8;">
+            <strong>Kristina Mänd-Lakhiani</strong> is the co-founder of Mindvalley, reaching over 20 million people worldwide with personal transformation. She's a WSJ #1 bestselling author, internationally acclaimed speaker, and someone who deeply understands what it means to be at war with yourself.
+        </p>
+
+        <p style="font-size: 1.05em; line-height: 1.8;">
+            Raised in Soviet-era Estonia under oppressive conditions, Kristina spent years navigating restrictive norms and expectations—even as she built one of the world's premier personal development platforms. Her conditioning persisted through her greatest successes until she made a choice: to forge a life aligned with her true self.
+        </p>
+
+        <p style="font-size: 1.05em; line-height: 1.8;">
+            Today, after 20+ years in personal transformation, she helps thousands of people end self-betrayal and reclaim their authentic power. Her book, <em>Becoming Flawesome</em>, became a #1 bestseller on The Wall Street Journal, USA TODAY, and Amazon.
+        </p>
+
+        <div class="callout-box">
+            <p><strong>Why Kristina Is the Right Guide for This Journey:</strong></p>
+            <ul>
+                <li>20+ years working with the world's leading experts in personal growth</li>
+                <li>Creator of transformational programs including "From Awesome to Flawesome," "10 Questions for Self-Love," and "Live By Your Own Rules"</li>
+                <li>Host of Mindvalley Book Club, the leading authority on personal growth books</li>
+                <li>Member of Forbes Coaches Council since 2019</li>
+                <li>Known for her disarming authenticity and no-BS teaching style that engages even the most skeptical participants</li>
+            </ul>
+        </div>
+
+        <div class="testimonial">
+            <p style="font-size: 1.05em; font-style: italic;">
+                "She is very authentic and doesn't have an agenda. I was giving her a standing ovation, because she is really a beautiful powerful speaker."
             </p>
-            <a href="#bizzabo-tickets" class="cta-button" style="display: block; text-align: center; margin-top: 20px;">Reserve Your Regular Seat →</a>
+            <p class="testimonial-author">— Marisa Peer, Best-Selling Author & Leading Celebrity Therapist</p>
         </div>
 
-        <div class="pricing-card featured">
-            <h3>VIP Experience</h3>
-            <p class="price">€259</p>
-            <p style="font-size: 0.9em; color: #666; margin-bottom: 30px;">(Early Bird rate | €309 after these sell out)</p>
-            <p style="text-align: left; margin: 20px 0;">
-                <strong>Everything in Regular, PLUS:</strong><br><br>
-                ✓ Premium seating in the front rows<br>
-                ✓ Fast-track registration (no waiting)<br>
-                ✓ Private evening event with Kristina<br>
-                ✓ Exclusive bonus video & audio content<br>
-                ✓ Special VIP welcome gift<br>
-                ✓ Priority access to future events<br>
-                ✓ Deeper connection & intimate setting
+        <div class="testimonial">
+            <p style="font-size: 1.05em; font-style: italic;">
+                "I have rarely seen a speaker moving the audience with such depth and authenticity. She told the truth in a way that was riveting—she had people crying, on their feet. They were so moved and inspired."
             </p>
-            <a href="#bizzabo-tickets" class="cta-button" style="display: block; text-align: center; margin-top: 20px;">Reserve Your VIP Experience →</a>
+            <p class="testimonial-author">— Katherine Woodward Thomas, NYT Best-selling Author & Licensed Marriage & Family Therapist</p>
+        </div>
+
+        <div class="testimonial">
+            <p style="font-size: 1.05em; font-style: italic;">
+                "She was so incredibly authentic. I can only imagine the amount of courage that must have taken. She connected with the audience in unbelievably strong ways simply because she was sharing real stories from her life."
+            </p>
+            <p class="testimonial-author">— Dr. Srikumar Rao, TED Speaker, Author, Business School Professor</p>
         </div>
     </div>
 
-    <div class="callout-box" style="margin-top: 40px;">
-        <h3 style="margin-top: 0;">Safe Cancellation Policy (Because Your Peace of Mind Matters)</h3>
-        <p>We understand that life is unpredictable. You don't need to be 100% certain right now—just say "maybe" and secure your spot.</p>
-        <p style="font-size: 1.05em; margin-top: 20px;">
-            <strong>Full refund available up to 10 days before the event (January 8, 2026).</strong>
+    <!-- SCHEDULE -->
+    <div class="section">
+        <h2>Your Day of Transformation: January 18, 2026</h2>
+
+        <p style="font-size: 1.1em; margin-bottom: 30px;">
+            Self-Reset is designed around three core phases of transformation, each building on the last to create lasting change. This isn't a lecture—it's an immersive experience where <strong>Knowledge + Experience + Reflection</strong> come together.
         </p>
-        <p>No stress. No awkward conversations. No questions asked. Just email us and you'll receive a full refund.</p>
-        <p style="margin-top: 20px;">
-            Why do we offer this? Because after 20+ years in personal transformation, we know your peace of mind matters just as much as your growth. We want you to feel safe taking this step.
-        </p>
-        <p style="margin-top: 20px; font-size: 0.95em;">
-            For refunds, simply email: <a href="mailto:support@kristinamand.com">support@kristinamand.com</a>
+
+        <div class="schedule-timeline">
+            <div class="schedule-item">
+                <p class="schedule-time">10:00 AM - 12:00 PM EET</p>
+                <h3>Phase 1: Finding Clarity</h3>
+                <p>Do you really love yourself? Or do you only love yourself conditionally—when you "deserve" it? We'll start by cutting through the facade and finding clarity about the true state of your relationship with yourself. This is where honest self-assessment begins.</p>
+            </div>
+
+            <div class="schedule-item">
+                <p class="schedule-time">1:00 PM - 3:00 PM EET</p>
+                <h3>Phase 2: Reprogramming Your Beliefs</h3>
+                <p>What's the difference between self-love and narcissism? Between self-care and coping? In this phase, we'll dive deep into your beliefs and perceptions about yourself—and help you reprogram the limiting patterns that make authentic self-love feel impossible or selfish.</p>
+            </div>
+
+            <div class="schedule-item">
+                <p class="schedule-time">4:00 PM - 6:00 PM EET</p>
+                <h3>Phase 3: Empowering Your New Way</h3>
+                <p>You'll learn and practice powerful tools to make self-support your default state—not an emergency kit you only reach for during crisis. Imagine what becomes possible when you stop fighting yourself and redirect all that energy into what truly matters to you.</p>
+            </div>
+
+            <div class="schedule-item">
+                <p class="schedule-time">3:15 PM - 3:45 PM EET (Optional)</p>
+                <h3>Book Signing & Meet Kristina</h3>
+                <p>Join Kristina for an intimate book signing session. Every ticket includes a signed copy of her bestselling book <em>Becoming Flawesome</em>. This is your chance to connect with her personally and deepen your experience of the day.</p>
+            </div>
+        </div>
+
+        <p style="font-size: 1.05em; line-height: 1.8; margin-top: 30px;">
+            Throughout the day, you'll participate in immersive exercises and guided reflection sessions. This structure is intentional: it transforms powerful insights into practical new ways of living that continue long after January 18th.
         </p>
     </div>
-</div>
 
-<!-- WHAT'S INCLUDED -->
-<div class="section">
-    <h2>Your Experience Includes</h2>
+    <!-- WHAT MAKES IT DIFFERENT -->
+    <div class="section">
+        <h2>What Makes This Experience Different</h2>
 
-    <div class="feature-grid">
-        <div class="feature-box">
-            <h3>📚 Signed Book</h3>
-            <p>Your own signed copy of <em>Becoming Flawesome</em>, Kristina's WSJ #1 bestseller. Take the wisdom home and continue your transformation journey.</p>
-        </div>
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h3>Build Your Inner Framework</h3>
+                <p>Before diving into self-love work, you'll learn foundational skills that accelerate personal growth in any area of life. These are the building blocks that make all future transformation easier.</p>
+            </div>
 
-        <div class="feature-box">
-            <h3>🤝 Community Connection</h3>
-            <p>Meet like-minded people during networking breaks. The connections you make here often become lifelong friendships and support systems.</p>
-        </div>
+            <div class="feature-box">
+                <h3>Experience Changes Perception</h3>
+                <p>Knowledge alone doesn't change anything. Your life changes when your perception changes—when you see, interpret, and react to the world in a new way. Experience brings knowledge from your head into your heart.</p>
+            </div>
 
-        <div class="feature-box">
-            <h3>🎯 Practical Tools</h3>
-            <p>Leave with specific exercises and practices you can use immediately. Digital resources will be available on the Mindvalley platform for ongoing support.</p>
-        </div>
+            <div class="feature-box">
+                <h3>Learn to Process Experience</h3>
+                <p>Experience without a framework to process it can leave you broken. You'll learn how to turn challenging experiences into empowering insights—this is what rewires your brain for lasting success.</p>
+            </div>
 
-        <div class="feature-box">
-            <h3>💫 Personal Meet & Greet</h3>
-            <p>Optional book signing session during the break. Connect with Kristina personally, ask questions, and make your experience even more meaningful.</p>
+            <div class="feature-box">
+                <h3>Tools for Real Life</h3>
+                <p>Your life doesn't change at an event. It changes at home, at work, in mundane everyday moments. You'll get practical tools designed to work in real life—not just when you're feeling inspired.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>No-Bullshit Honesty</h3>
+                <p>Kristina is known for her unapologetic honesty. She drops pretenses, admits when things don't look right, and engages even the most skeptical participants with critical thinking and scientific approaches.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>Community That Supports Change</h3>
+                <p>Mindvalley events attract extraordinary, growth-oriented people. Your chances of lasting transformation increase exponentially when you have a caring community to support you through the journey.</p>
+            </div>
         </div>
     </div>
 
-    <p style="margin-top: 40px; font-size: 1.05em;">
-        <strong>What's NOT included:</strong> Accommodation, travel expenses, and personal incidentals. You're responsible for booking your own hotel and getting to Tallinn. (The good news? The city is compact and easy to navigate!)
-    </p>
+    <!-- TALLINN INFO -->
+    <div class="section">
+        <h2>Why Tallinn Is the Perfect Setting</h2>
+
+        <p style="font-size: 1.05em; line-height: 1.8;">
+            Tallinn, Estonia's capital, is one of Europe's best-kept secrets. Imagine a cozy city with pristine air, a relaxed atmosphere, sophisticated restaurants, and a medieval Old Town that looks like a fairytale brought to life.
+        </p>
+
+        <p style="font-size: 1.05em; line-height: 1.8;">
+            The city center is never more than 15 minutes from anywhere—close to the airport, train, and ferry terminals. This makes Tallinn ideal for a transformative weekend getaway without complex logistics.
+        </p>
+
+        <p style="font-size: 1.05em; line-height: 1.8;">
+            And in January, Tallinn has a special kind of magic: quiet streets, winter charm, and the perfect atmosphere for deep inner work.
+        </p>
+
+        <p>
+            For recommendations on where to stay, eat, and explore during your visit, check out <a href="https://www.visittallinn.ee/" target="_blank">Visit Tallinn's official portal</a> or follow <a href="https://www.instagram.com/visittallinn/" target="_blank">@VisitTallinn</a> on Instagram.
+        </p>
+    </div>
+
+    <!-- PRICING -->
+    <div class="section" id="tickets">
+        <h2>Choose Your Experience</h2>
+
+        <div class="urgency-banner">
+            Early Bird Pricing: Only 40 tickets remaining at this special rate
+        </div>
+
+        <div class="pricing-table">
+            <div class="pricing-card">
+                <h3>Regular Ticket</h3>
+                <p class="price">€159</p>
+                <p style="font-size: 0.9em; color: #595E67; text-align: center; margin-bottom: 30px;">(Early Bird rate | €209 after these sell out)</p>
+                <p style="text-align: left; margin: 20px 0;">
+                    <strong>Everything you need for transformation:</strong><br><br>
+                    ✓ Full-day access to Self-Reset experience<br>
+                    ✓ All three transformation phases<br>
+                    ✓ Immersive exercises & reflection sessions<br>
+                    ✓ Networking during coffee breaks<br>
+                    ✓ Signed copy of <em>Becoming Flawesome</em><br>
+                    ✓ Digital resources to take home<br>
+                    ✓ Access to book signing with Kristina
+                </p>
+                <a href="#bizzabo-tickets" class="cta-button" style="display: block; text-align: center; margin-top: 20px;">Reserve Your Regular Seat →</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <h3>VIP Experience</h3>
+                <p class="price">€259</p>
+                <p style="font-size: 0.9em; color: #595E67; text-align: center; margin-bottom: 30px;">(Early Bird rate | €309 after these sell out)</p>
+                <p style="text-align: left; margin: 20px 0;">
+                    <strong>Everything in Regular, PLUS:</strong><br><br>
+                    ✓ Premium seating in the front rows<br>
+                    ✓ Fast-track registration (no waiting)<br>
+                    ✓ Private evening event with Kristina<br>
+                    ✓ Exclusive bonus video & audio content<br>
+                    ✓ Special VIP welcome gift<br>
+                    ✓ Priority access to future events<br>
+                    ✓ Deeper connection & intimate setting
+                </p>
+                <a href="#bizzabo-tickets" class="cta-button" style="display: block; text-align: center; margin-top: 20px;">Reserve Your VIP Experience →</a>
+            </div>
+        </div>
+
+        <div class="callout-box" style="margin-top: 40px;">
+            <h3 style="margin-top: 0;">Safe Cancellation Policy (Because Your Peace of Mind Matters)</h3>
+            <p>We understand that life is unpredictable. You don't need to be 100% certain right now—just say "maybe" and secure your spot.</p>
+            <p style="font-size: 1.05em; margin-top: 20px;">
+                <strong>Full refund available up to 10 days before the event (January 8, 2026).</strong>
+            </p>
+            <p>No stress. No awkward conversations. No questions asked. Just email us and you'll receive a full refund.</p>
+            <p style="margin-top: 20px;">
+                Why do we offer this? Because after 20+ years in personal transformation, we know your peace of mind matters just as much as your growth. We want you to feel safe taking this step.
+            </p>
+            <p style="margin-top: 20px; font-size: 0.95em;">
+                For refunds, simply email: <a href="mailto:support@kristinamand.com">support@kristinamand.com</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- WHAT'S INCLUDED -->
+    <div class="section">
+        <h2>Your Experience Includes</h2>
+
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h3>📚 Signed Book</h3>
+                <p>Your own signed copy of <em>Becoming Flawesome</em>, Kristina's WSJ #1 bestseller. Take the wisdom home and continue your transformation journey.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>🤝 Community Connection</h3>
+                <p>Meet like-minded people during networking breaks. The connections you make here often become lifelong friendships and support systems.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>🎯 Practical Tools</h3>
+                <p>Leave with specific exercises and practices you can use immediately. Digital resources will be available on the Mindvalley platform for ongoing support.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3>💫 Personal Meet & Greet</h3>
+                <p>Optional book signing session during the break. Connect with Kristina personally, ask questions, and make your experience even more meaningful.</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 40px; font-size: 1.05em;">
+            <strong>What's NOT included:</strong> Accommodation, travel expenses, and personal incidentals. You're responsible for booking your own hotel and getting to Tallinn. (The good news? The city is compact and easy to navigate!)
+        </p>
+    </div>
 </div>
 
 <!-- FINAL CTA SECTION -->
-<div class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 40px; border-radius: 8px; text-align: center;">
-    <h2 style="font-size: 2.2em; margin-bottom: 20px; color: white;">You've Been Trying to Fix 100 Problems.</h2>
-    <p style="font-size: 1.3em; margin-bottom: 30px;">
-        What if it's time to heal the ONE relationship that changes everything?
-    </p>
-    <p style="font-size: 1.1em; line-height: 1.8; margin-bottom: 40px;">
-        You deserve to feel at peace with yourself.<br>
-        Not just when things are going well—but always.<br>
-        Especially when life gets hard.<br><br>
-        <strong>January 18, 2026 | Tallinn, Estonia | One day to transform your most important relationship</strong>
-    </p>
-    <a href="#tickets" class="cta-button" style="font-size: 1.3em; padding: 20px 50px; background: white; color: #667eea;">Reserve Your Seat Now →</a>
-    <p style="margin-top: 30px; font-size: 0.95em; opacity: 0.9;">
-        Only 40 Early Bird tickets remaining | Full refund available until January 8, 2026
-    </p>
+<div class="container">
+    <div class="final-cta">
+        <h2>You've Been Trying to Fix 100 Problems.</h2>
+        <p style="font-size: 1.3em; margin-bottom: 30px;">
+            What if it's time to heal the ONE relationship that changes everything?
+        </p>
+        <p style="font-size: 1.1em; line-height: 1.8; margin-bottom: 40px;">
+            You deserve to feel at peace with yourself.<br>
+            Not just when things are going well—but always.<br>
+            Especially when life gets hard.<br><br>
+            <strong>January 18, 2026 | Tallinn, Estonia | One day to transform your most important relationship</strong>
+        </p>
+        <a href="#tickets" class="cta-button">Reserve Your Seat Now →</a>
+        <p class="final-cta-meta">
+            Only 40 Early Bird tickets remaining | Full refund available until January 8, 2026
+        </p>
+    </div>
 </div>
 
 <!-- FAQ SECTION -->
-<div class="section">
-    <h2>Questions You Might Have</h2>
+<div class="container">
+    <div class="section">
+        <h2>Questions You Might Have</h2>
 
-    <h3>How much time do I need to commit?</h3>
-    <p>One day: January 18, 2026, from 10:00 AM to 6:00 PM EET. Plus an optional book signing session during the break. That's the complete commitment.</p>
+        <h3>How much time do I need to commit?</h3>
+        <p>One day: January 18, 2026, from 10:00 AM to 6:00 PM EET. Plus an optional book signing session during the break. That's the complete commitment.</p>
 
-    <h3>I'm skeptical about "self-love" concepts. Will this still work for me?</h3>
-    <p>Absolutely. Kristina is known for engaging skeptics with critical thinking and science-backed approaches. This isn't woo-woo or New Age fluff—it's honest, practical work on the relationship that impacts everything else in your life.</p>
+        <h3>I'm skeptical about "self-love" concepts. Will this still work for me?</h3>
+        <p>Absolutely. Kristina is known for engaging skeptics with critical thinking and science-backed approaches. This isn't woo-woo or New Age fluff—it's honest, practical work on the relationship that impacts everything else in your life.</p>
 
-    <h3>I've tried therapy, meditation, and self-help books. Why would this be different?</h3>
-    <p>Those approaches often treat symptoms: anxiety, stress, relationship problems, time management issues. Self-Reset addresses the root cause—your relationship with yourself. When that foundational relationship heals, the symptoms naturally shift.</p>
+        <h3>I've tried therapy, meditation, and self-help books. Why would this be different?</h3>
+        <p>Those approaches often treat symptoms: anxiety, stress, relationship problems, time management issues. Self-Reset addresses the root cause—your relationship with yourself. When that foundational relationship heals, the symptoms naturally shift.</p>
 
-    <h3>What if I can't make it or change my mind after registering?</h3>
-    <p>We offer a full refund up to 10 days before the event (January 8, 2026). No questions, no hassle, no awkward explanations needed. Simply email support@kristinamand.com and your refund will be processed.</p>
+        <h3>What if I can't make it or change my mind after registering?</h3>
+        <p>We offer a full refund up to 10 days before the event (January 8, 2026). No questions, no hassle, no awkward explanations needed. Simply email support@kristinamand.com and your refund will be processed.</p>
 
-    <h3>Can I transfer my ticket to someone else if something comes up?</h3>
-    <p>Yes. Tickets can be transferred to a family member or friend. Just email support@kristinamand.com at least one week before the event to arrange the transfer.</p>
+        <h3>Can I transfer my ticket to someone else if something comes up?</h3>
+        <p>Yes. Tickets can be transferred to a family member or friend. Just email support@kristinamand.com at least one week before the event to arrange the transfer.</p>
 
-    <h3>Do I need a visa to visit Estonia?</h3>
-    <p>It depends on your nationality. Estonia is part of the Schengen Area, so many visitors don't need a visa for short stays. Check the official requirements at <a href="https://vm.ee/en/consular-visa-and-travel-information/visa-information/who-does-not-need-visa-visit-estonia" target="_blank">Estonia's government website</a>.</p>
+        <h3>Do I need a visa to visit Estonia?</h3>
+        <p>It depends on your nationality. Estonia is part of the Schengen Area, so many visitors don't need a visa for short stays. Check the official requirements at <a href="https://vm.ee/en/consular-visa-and-travel-information/visa-information/who-does-not-need-visa-visit-estonia" target="_blank">Estonia's government website</a>.</p>
 
-    <h3>Will I receive the book at the event?</h3>
-    <p>Yes! Every ticket includes a pre-signed copy of <em>Becoming Flawesome</em>. If you'd like a personalized message or want Kristina to sign your own copy, join the Meet & Greet book signing session during the break (open to all ticket holders).</p>
+        <h3>Will I receive the book at the event?</h3>
+        <p>Yes! Every ticket includes a pre-signed copy of <em>Becoming Flawesome</em>. If you'd like a personalized message or want Kristina to sign your own copy, join the Meet & Greet book signing session during the break (open to all ticket holders).</p>
 
-    <h3>What's the difference between Regular and VIP tickets?</h3>
-    <p>Both include the full Self-Reset experience. VIP adds: front-row seating, fast-track registration, a private evening event with Kristina, exclusive bonus content, and a special welcome gift. Choose VIP if you want deeper access and a more intimate experience.</p>
+        <h3>What's the difference between Regular and VIP tickets?</h3>
+        <p>Both include the full Self-Reset experience. VIP adds: front-row seating, fast-track registration, a private evening event with Kristina, exclusive bonus content, and a special welcome gift. Choose VIP if you want deeper access and a more intimate experience.</p>
 
-    <h3>Where should I stay in Tallinn?</h3>
-    <p>We recommend staying in or near Tallinn's Old Town for the full experience. The city center is compact and walkable. Check <a href="https://www.visittallinn.ee/" target="_blank">Visit Tallinn</a> for accommodation recommendations and local tips.</p>
+        <h3>Where should I stay in Tallinn?</h3>
+        <p>We recommend staying in or near Tallinn's Old Town for the full experience. The city center is compact and walkable. Check <a href="https://www.visittallinn.ee/" target="_blank">Visit Tallinn</a> for accommodation recommendations and local tips.</p>
+    </div>
 </div>
 
 <!-- FOOTER -->
-<div style="margin-top: 80px; padding-top: 40px; border-top: 2px solid #e0e0e0; text-align: center; color: #666;">
-    <p style="font-size: 1.1em;"><strong>Self-Reset 2026</strong></p>
-    <p>With Kristina Mänd-Lakhiani | January 18, 2026 | Tallinn, Estonia</p>
-    <p style="margin-top: 20px;">
-        <strong>Questions or need support?</strong><br>
-        Email: <a href="mailto:support@kristinamand.com">support@kristinamand.com</a>
-    </p>
-    <p style="margin-top: 30px; font-size: 0.9em;">
-        A Mindvalley Experience | <a href="https://www.mindvalley.com" target="_blank">www.mindvalley.com</a>
-    </p>
+<div class="footer">
+    <div class="container">
+        <p style="font-size: 1.1em;"><strong>Self-Reset 2026</strong></p>
+        <p>With Kristina Mänd-Lakhiani | January 18, 2026 | Tallinn, Estonia</p>
+        <p style="margin-top: 20px;">
+            <strong>Questions or need support?</strong><br>
+            Email: <a href="mailto:support@kristinamand.com">support@kristinamand.com</a>
+        </p>
+        <p style="margin-top: 30px; font-size: 0.9em;">
+            A Mindvalley Experience | <a href="https://www.mindvalley.com" target="_blank">www.mindvalley.com</a>
+        </p>
+    </div>
 </div>
 
 </body>
