@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Southern Spain Cruise Campaign Hub | Mindvalley x Windstar</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --color-primary: #0066CC;
+            --color-primary-hover: #0052A3;
+            --color-text: #1A1A1A;
+            --color-text-secondary: #404040;
+            --color-text-tertiary: #6B6B6B;
+            --color-gold: #D4AF37;
+            --color-border: #E5E5E5;
+            --color-bg: #FFFFFF;
+            --color-bg-secondary: #F8F9FA;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+            --transition: 300ms cubic-bezier(0.6, -0.05, 0.01, 0.99);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--color-text);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* PASSWORD SCREEN */
+        .password-screen {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .password-screen.hidden {
+            display: none;
+        }
+
+        .lock-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .password-screen h1 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .password-screen p {
+            color: var(--color-text-secondary);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .password-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .password-input {
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--color-border);
+            border-radius: 50px;
+            font-size: 1rem;
+            font-family: var(--font-sans);
+            transition: all var(--transition);
+            text-align: center;
+            letter-spacing: 0.1em;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
+        }
+
+        .password-btn {
+            padding: 1rem 2rem;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font-sans);
+        }
+
+        .password-btn:hover {
+            background: var(--color-primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .password-error {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+            animation: shake 0.4s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            display: none;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .main-content.visible {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .header h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .header .subtitle {
+            color: var(--color-text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--color-text-tertiary);
+            margin-top: 0.25rem;
+        }
+
+        .section {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        .section-icon {
+            font-size: 2rem;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            color: var(--color-text);
+        }
+
+        .links-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            background: var(--color-bg-secondary);
+            border: 2px solid var(--color-border);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--color-text);
+            transition: all var(--transition);
+        }
+
+        .link-card:hover {
+            border-color: var(--color-primary);
+            background: white;
+            transform: translateX(8px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .link-content {
+            flex: 1;
+        }
+
+        .link-title {
+            font-weight: 600;
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+            color: var(--color-text);
+        }
+
+        .link-description {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+
+        .link-badge {
+            background: var(--color-primary);
+            color: white;
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .link-badge.gold {
+            background: var(--color-gold);
+            color: #1A1A1A;
+        }
+
+        .link-badge.secondary {
+            background: #6c757d;
+        }
+
+        .logout-btn {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--color-text);
+            border: 2px solid var(--color-border);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            backdrop-filter: blur(10px);
+            font-family: var(--font-sans);
+        }
+
+        .logout-btn:hover {
+            background: white;
+            border-color: #dc3545;
+            color: #dc3545;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--color-text-tertiary);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .header {
+                padding: 1.5rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .logout-btn {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PASSWORD SCREEN -->
+    <div class="password-screen" id="passwordScreen">
+        <span class="lock-icon">🔒</span>
+        <h1>Protected Area</h1>
+        <p>Southern Spain Cruise Campaign Hub</p>
+
+        <form class="password-form" id="passwordForm">
+            <input
+                type="password"
+                id="passwordInput"
+                class="password-input"
+                placeholder="Enter password"
+                autocomplete="off"
+                required
+            >
+            <button type="submit" class="password-btn">Access Campaign</button>
+            <div class="password-error" id="passwordError">
+                Incorrect password. Please try again.
+            </div>
+        </form>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent">
+        <button class="logout-btn" id="logoutBtn">🔓 Logout</button>
+
+        <!-- HEADER -->
+        <div class="header">
+            <div class="header-badge">Mindvalley x Windstar</div>
+            <h1>Southern Spain Winter Escapes</h1>
+            <p class="subtitle">Complete Marketing Campaign Hub</p>
+
+            <div class="stats-grid">
+                <div class="stat">
+                    <span class="stat-number">312</span>
+                    <span class="stat-label">Total Capacity</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">$1.2M+</span>
+                    <span class="stat-label">Revenue Target</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">7 Days</span>
+                    <span class="stat-label">Dec 13-20, 2025</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">13</span>
+                    <span class="stat-label">Email Sequences</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- LANDING PAGES SECTION -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">🌐</span>
+                <h2 class="section-title">Landing Pages</h2>
+            </div>
+            <div class="links-grid">
+                <a href="southern-spain-cruise-landing-page.html" target="_blank" class="link-card">
+                    <div class="link-content">
+                        <div class="link-title">Primary Landing Page</div>
+                        <div class="link-description">Main conversion-optimized page with all Windstar images, 3-tier pricing, and booking CTAs</div>
+                    </div>
+                    <span class="link-badge">Live Page</span>
+                </a>
+
+                <a href="southern-spain-winter-escapes-mindvalley.html" target="_blank" class="link-card">
+                    <div class="link-content">
+                        <div class="link-title">Alternative Landing Page</div>
+                        <div class="link-description">Enhanced version with additional features and animations by visual architect agent</div>
+                    </div>
+                    <span class="link-badge">Live Page</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- WEBINAR SECTION -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">🎥</span>
+                <h2 class="section-title">Webinar & Masterclass</h2>
+            </div>
+            <div class="links-grid">
+                <a href="docs/guides/southern-spain-cruise-webinar-masterclass.md" target="_blank" class="link-card">
+                    <div class="link-content">
+                        <div class="link-title">90-Minute Masterclass Outline</div>
+                        <div class="link-description">Complete webinar structure with Mediterranean Reset Protocol, timing breakdown, Q&A responses, and 38 slide recommendations</div>
+                    </div>
+                    <span class="link-badge gold">Strategy Doc</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- EMAIL SEQUENCES SECTION -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">📧</span>
+                <h2 class="section-title">Email Marketing</h2>
+            </div>
+            <div class="links-grid">
+                <a href="docs/guides/southern-spain-cruise-email-sequences.md" target="_blank" class="link-card">
+                    <div class="link-content">
+                        <div class="link-title">Complete Email Sequences (13 Emails)</div>
+                        <div class="link-description">4 sequences: Launch (5), Webinar Promo (3), Post-Webinar (3), Premium/VIP (2) - all with subject lines, body copy, and CTAs</div>
+                    </div>
+                    <span class="link-badge gold">Strategy Doc</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- MASTER PROPOSAL SECTION -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">📊</span>
+                <h2 class="section-title">Campaign Strategy</h2>
+            </div>
+            <div class="links-grid">
+                <a href="southern-spain-cruise-complete-marketing-proposal.md" target="_blank" class="link-card">
+                    <div class="link-content">
+                        <div class="link-title">Complete Marketing Proposal</div>
+                        <div class="link-description">60+ page master document with executive summary, 8-week launch timeline, KPIs, implementation checklist, and success metrics</div>
+                    </div>
+                    <span class="link-badge secondary">Master Doc</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- QUICK INFO SECTION -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">ℹ️</span>
+                <h2 class="section-title">Quick Reference</h2>
+            </div>
+            <div style="padding: 1rem; background: var(--color-bg-secondary); border-radius: 12px;">
+                <p style="margin-bottom: 1rem; color: var(--color-text-secondary);">
+                    <strong style="color: var(--color-text);">Booking Phone:</strong> 866-258-7245
+                </p>
+                <p style="margin-bottom: 1rem; color: var(--color-text-secondary);">
+                    <strong style="color: var(--color-text);">Dates:</strong> December 13-20, 2025
+                </p>
+                <p style="margin-bottom: 1rem; color: var(--color-text-secondary);">
+                    <strong style="color: var(--color-text);">Pricing:</strong> Base $4,399+ | Premium +$250 (25 seats) | VIP +$500 (8 seats)
+                </p>
+                <p style="margin-bottom: 1rem; color: var(--color-text-secondary);">
+                    <strong style="color: var(--color-text);">Vessel:</strong> Star Legend (312 guest capacity)
+                </p>
+                <p style="color: var(--color-text-secondary);">
+                    <strong style="color: var(--color-text);">Route:</strong> Málaga → Gibraltar → Cartagena → Valencia → Palma de Mallorca → Barcelona
+                </p>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>Southern Spain Winter Escapes Campaign | Mindvalley x Windstar Cruises</p>
+            <p style="margin-top: 0.5rem; opacity: 0.7;">December 13-20, 2025 • Target: 312 Bookings • $1.2M+ Revenue</p>
+        </div>
+    </div>
+
+    <script>
+        const correctPassword = 'sailspain';
+        const passwordScreen = document.getElementById('passwordScreen');
+        const mainContent = document.getElementById('mainContent');
+        const passwordForm = document.getElementById('passwordForm');
+        const passwordInput = document.getElementById('passwordInput');
+        const passwordError = document.getElementById('passwordError');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        // Check if already authenticated
+        if (sessionStorage.getItem('authenticated') === 'true') {
+            showMainContent();
+        }
+
+        // Handle password form submission
+        passwordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const enteredPassword = passwordInput.value.trim();
+
+            if (enteredPassword === correctPassword) {
+                sessionStorage.setItem('authenticated', 'true');
+                showMainContent();
+                passwordError.classList.remove('show');
+            } else {
+                passwordError.classList.add('show');
+                passwordInput.value = '';
+                passwordInput.focus();
+
+                // Shake animation on error
+                passwordInput.style.borderColor = '#dc3545';
+                setTimeout(() => {
+                    passwordInput.style.borderColor = '';
+                }, 400);
+            }
+        });
+
+        // Handle logout
+        logoutBtn.addEventListener('click', function() {
+            sessionStorage.removeItem('authenticated');
+            mainContent.classList.remove('visible');
+            passwordScreen.classList.remove('hidden');
+            passwordInput.value = '';
+            passwordInput.focus();
+        });
+
+        // Show main content
+        function showMainContent() {
+            passwordScreen.classList.add('hidden');
+            mainContent.classList.add('visible');
+        }
+
+        // Focus password input on load
+        window.addEventListener('load', function() {
+            if (!sessionStorage.getItem('authenticated')) {
+                passwordInput.focus();
+            }
+        });
+
+        // Prevent back button from revealing content
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted && !sessionStorage.getItem('authenticated')) {
+                passwordScreen.classList.remove('hidden');
+                mainContent.classList.remove('visible');
+            }
+        });
+    </script>
+
+</body>
+</html>
