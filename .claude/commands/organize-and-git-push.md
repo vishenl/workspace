@@ -36,6 +36,7 @@ Use TodoWrite to create a task list for this organization workflow:
 - Identify HTML pages for GitHub Pages deployment
 - Design optimal folder hierarchy
 - Move and rename files with git tracking
+- Add password protection to new HTML pages
 - Generate comprehensive README documentation
 - Commit changes using /commit command
 - Generate GitHub Pages links
@@ -174,6 +175,131 @@ After reorganization, intelligently verify:
 - Folder structure matches the design
 
 Update TodoWrite with completed steps.
+
+**Step 3.4: Password Protection for New HTML Pages**
+
+IMPORTANT: All newly created or newly moved HTML pages MUST be password protected before committing.
+
+**Password Generation:**
+1. Generate a random password consisting of two lowercase words
+   - Use simple, memorable words (e.g., "forest-mountain", "ocean-sunset")
+   - Format: `word1-word2` (all lowercase, hyphen separator)
+   - Example words pool: forest, mountain, ocean, sunset, river, valley, cloud, meadow, horizon, thunder, crystal, silver, golden, ancient, mystic, hidden, tranquil, vibrant, eternal, cosmic
+
+2. Create or append to `.passwords.txt` in repository root:
+   ```
+   # HTML Page Passwords
+   # Generated: [timestamp]
+
+   reports/mindvalley/homepage-conversion-analysis.html: forest-mountain
+   reports/webinar/masterclass-optimization.html: ocean-sunset
+   ```
+
+3. Ensure `.passwords.txt` is gitignored:
+   - Check if `.gitignore` contains `.passwords.txt`
+   - If not, add it to `.gitignore`
+
+**Password Protection Implementation:**
+
+For each NEW HTML file (created this session or newly moved):
+
+1. Read the HTML file content
+2. Insert password protection JavaScript immediately after the opening `<body>` tag
+3. Use this exact implementation:
+
+```html
+<body>
+    <script>
+    (function() {
+        const correctPassword = 'GENERATED_PASSWORD_HERE';
+        const maxAttempts = 3;
+        let attempts = 0;
+
+        // Check if already authenticated in this session
+        if (sessionStorage.getItem('authenticated') === 'true') {
+            return;
+        }
+
+        // Hide page content
+        document.body.style.display = 'none';
+
+        function checkPassword() {
+            const password = prompt('Enter password to view this page:');
+
+            if (password === null) {
+                document.body.innerHTML = '<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h1>Access Denied</h1><p>Password required to view this content.</p></div>';
+                document.body.style.display = 'block';
+                return;
+            }
+
+            if (password === correctPassword) {
+                sessionStorage.setItem('authenticated', 'true');
+                document.body.style.display = 'block';
+            } else {
+                attempts++;
+                if (attempts >= maxAttempts) {
+                    alert('Maximum attempts exceeded. Please refresh the page to try again.');
+                    document.body.innerHTML = '<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h1>Access Denied</h1><p>Maximum password attempts exceeded.</p></div>';
+                    document.body.style.display = 'block';
+                } else {
+                    alert(`Incorrect password. ${maxAttempts - attempts} attempt(s) remaining.`);
+                    checkPassword();
+                }
+            }
+        }
+
+        checkPassword();
+    })();
+    </script>
+
+    <!-- Original page content continues here -->
+```
+
+**Implementation Steps:**
+
+1. **Identify new HTML files:**
+   ```bash
+   # Find files added or moved in this session
+   git status --short | grep -E '^\?\?|^A|^R' | grep '\.html$'
+   ```
+
+2. **For each new HTML file:**
+   - Generate unique two-word password (lowercase)
+   - Read the HTML file
+   - Find the opening `<body>` tag
+   - Insert password protection script immediately after `<body>` tag
+   - Replace `GENERATED_PASSWORD_HERE` with the actual password
+   - Write the modified HTML back to file
+   - Append password to `.passwords.txt`
+
+3. **Verify:**
+   - Check that `.passwords.txt` exists and contains all new passwords
+   - Check that `.gitignore` contains `.passwords.txt`
+   - Confirm all new HTML files have password protection script
+
+4. **Display passwords to user:**
+   After protection is added, display a summary:
+   ```
+   🔒 Password Protection Added
+
+   The following passwords have been generated for new HTML pages:
+
+   • reports/mindvalley/homepage-conversion-analysis.html: forest-mountain
+   • reports/webinar/masterclass-optimization.html: ocean-sunset
+
+   ⚠️ IMPORTANT:
+   - Passwords saved to .passwords.txt (gitignored)
+   - Share passwords securely with authorized users
+   - Keep .passwords.txt in a secure location
+   ```
+
+**Exception Handling:**
+
+- **If file already has password protection:** Skip that file
+- **If .passwords.txt exists:** Append new entries, don't overwrite
+- **If HTML has no <body> tag:** Log warning and skip (manual review needed)
+
+Update TodoWrite with password protection completion.
 
 ## PHASE 4: COMPREHENSIVE DOCUMENTATION GENERATION
 
@@ -323,6 +449,8 @@ https://[username].github.io/[repository]/[path-to-file.html]
 Confirm all success criteria met:
 - ✅ Project files organized in logical folder structure
 - ✅ Files renamed following consistent conventions
+- ✅ Password protection added to all new HTML pages
+- ✅ Passwords saved securely to .passwords.txt (gitignored)
 - ✅ Comprehensive README created with all sections
 - ✅ Changes committed with meaningful message
 - ✅ Changes pushed to GitHub successfully
@@ -332,10 +460,12 @@ Confirm all success criteria met:
 Generate a clear summary showing:
 - Folder structure created (tree diagram)
 - Number of files moved and renamed
+- **🔒 Password Protection Summary**: List of protected pages with passwords
 - Key documentation created
 - Git commit hash and message
 - Link to GitHub repository
 - **GitHub Pages Links**: Complete list of all HTML pages with their public URLs
+- **Security Note**: Remind user that passwords are in .passwords.txt (gitignored)
 
 **Step 6.3: Clean Up TodoWrite**
 
@@ -371,7 +501,9 @@ Your HTML pages are now publicly accessible:
 Include helpful information:
 - ⚠️ **Note**: GitHub Pages may take 1-2 minutes to deploy after push
 - 📝 **Tip**: GitHub Pages must be enabled in repository settings
-- 🔒 **Privacy**: These pages are publicly accessible if repository is public
+- 🔒 **Security**: All new HTML pages are password protected with randomly generated passwords
+- 🔑 **Access**: Share passwords from .passwords.txt with authorized users only
+- ⚡ **Privacy**: Pages are publicly accessible but require password to view content
 
 ## Advanced Patterns & Considerations
 
