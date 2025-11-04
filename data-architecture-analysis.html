@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Architecture Analysis - Mindvalley Author Pages</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f9f9f9;
+            color: #1a1a1a;
+            line-height: 1.8;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .header .meta {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            background: white;
+            min-height: calc(100vh - 200px);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 40px;
+            color: #667eea;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: #5568d3;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-top: 60px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 12px;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            color: #444;
+        }
+
+        p {
+            margin-bottom: 16px;
+            font-size: 16px;
+            color: #4a4a4a;
+        }
+
+        ul, ol {
+            margin-bottom: 24px;
+            margin-left: 24px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #4a4a4a;
+        }
+
+        .executive-summary {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 24px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+        }
+
+        .executive-summary h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 24px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 24px 0;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .diagram {
+            background: #f9f9f9;
+            border: 2px solid #e5e5e5;
+            padding: 24px;
+            border-radius: 8px;
+            margin: 24px 0;
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 24px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .key-discovery {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 24px;
+            border-radius: 12px;
+            margin: 32px 0;
+            border: 2px solid #fdcb6e;
+        }
+
+        .key-discovery h3 {
+            margin-top: 0;
+            color: #d63031;
+            font-size: 20px;
+        }
+
+        .benefits-list li::before {
+            content: "✅ ";
+            color: #00b894;
+            font-weight: bold;
+        }
+
+        .benefits-list {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .phase-box {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+
+        .phase-box h4 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .metric-card {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+
+        strong {
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .formula {
+            background: #fff5e6;
+            border-left: 4px solid #ff9800;
+            padding: 16px;
+            margin: 16px 0;
+            font-family: monospace;
+        }
+
+        .json-block {
+            background: #f9f9f9;
+            border: 1px solid #e5e5e5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .section-nav {
+            background: #f9f9f9;
+            border: 2px solid #e5e5e5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 40px 0;
+        }
+
+        .section-nav h3 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        .section-nav ul {
+            margin-left: 20px;
+        }
+
+        .section-nav a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .section-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>📊 Data Architecture Analysis</h1>
+        <div class="meta">Mindvalley Author Pages | January 2025</div>
+    </div>
+
+    <div class="container">
+        <a href="author-demos-index.html" class="back-link">← Back to Portal</a>
+
+        <div class="executive-summary">
+            <h3>Executive Summary</h3>
+            <p>This document provides a comprehensive analysis of the Mindvalley Brain Airtable data architecture and proposes concrete solutions for:</p>
+            <ol>
+                <li>Deducing primary areas of growth for authors</li>
+                <li>Simplifying the 287 outcomes problem</li>
+                <li>Optimizing data relationships for author page construction</li>
+                <li>Leveraging the Brands table for unique insights</li>
+            </ol>
+            <p><strong>Key Discovery:</strong> The Programs table already contains a "Primary Area" field that solves the core problem of identifying the main focus area for each program.</p>
+        </div>
+
+        <h2>1. Current Data Architecture</h2>
+
+        <h3>Table Relationships</h3>
+
+        <div class="diagram">┌─────────────┐
+│   Authors   │
+│  (56 fields)│
+└──────┬──────┘
+       │
+       │ links to
+       ▼
+┌─────────────────────┐         ┌──────────────────┐
+│     Programs        │────────▶│  Areas of Growth │
+│    (80+ fields)     │         │   (15 areas)     │
+│                     │         └──────────────────┘
+│ • Primary Area ◄────┼─────────────────┘
+│ • Areas of Growth   │         (single)
+│   (multiple)        │
+└──────┬──────────────┘
+       │
+       │ links to
+       ▼
+┌─────────────────────┐         ┌──────────────────┐
+│     Outcomes        │────────▶│  Areas of Growth │
+│   (287 outcomes)    │         └──────────────────┘
+└─────────────────────┘</div>
+
+        <h3>Current Data Flow Issues</h3>
+
+        <p><strong>Problem 1: Redundant Lookups</strong></p>
+        <ul>
+            <li>Authors table has "Areas of Growth (Lookup) (from Programs)" field</li>
+            <li>This creates a flattened list mixing primary and secondary areas</li>
+            <li>No way to distinguish importance/priority</li>
+        </ul>
+
+        <p><strong>Problem 2: The 287 Outcomes Problem</strong></p>
+        <ul>
+            <li>Talks/Podcasts tagged with individual outcomes</li>
+            <li>287 unique outcomes is overwhelming for users</li>
+            <li>Outcomes already have parent Areas of Growth, but this relationship isn't leveraged for display</li>
+        </ul>
+
+        <p><strong>Problem 3: Multiple Areas Without Priority</strong></p>
+        <ul>
+            <li>Programs can have 3-7 "Areas of Growth"</li>
+            <li>No clear signal about which is PRIMARY</li>
+            <li><strong>SOLUTION EXISTS:</strong> "Primary Area" field (fldMMoJLDGFs8l7Xx) already present in Programs table</li>
+        </ul>
+
+        <h2>2. The "Primary Area" Field - Key Discovery</h2>
+
+        <div class="key-discovery">
+            <h3>🔑 How It Works</h3>
+            <p><strong>In Programs Table:</strong></p>
+            <ul>
+                <li><strong>Field Name:</strong> "Primary Area" (fldMMoJLDGFs8l7Xx)</li>
+                <li><strong>Type:</strong> Single Link to Areas of Growth table</li>
+                <li><strong>Purpose:</strong> Identifies the #1 main focus area for a program</li>
+            </ul>
+
+            <p><strong>Example: "The 6 Phase Meditation" (Vishen's program)</strong></p>
+            <ul>
+                <li><strong>Areas of Growth (7 total):</strong> Mindfulness, Performance, Spirituality, Resilience, Soul, Mind, Meditation</li>
+                <li><strong>Primary Area (1 only):</strong> rec3EQwjt7duZ4bYf (likely "Mindfulness" or "Spirituality")</li>
+            </ul>
+        </div>
+
+        <h3>Current Adoption Status</h3>
+        <ul>
+            <li>✅ <strong>Field exists</strong> in Programs table</li>
+            <li>❓ <strong>Unknown:</strong> Percentage of programs with Primary Area populated</li>
+            <li>❓ <strong>Unknown:</strong> Whether Talks/Podcasts have similar field</li>
+        </ul>
+
+        <h2>3. Proposed Data Architecture Solutions</h2>
+
+        <h3>Solution 1: Author Primary Areas Algorithm</h3>
+
+        <p><strong>Goal:</strong> Deduce an author's primary areas of growth when they have multiple programs</p>
+
+        <p><strong>Algorithm:</strong></p>
+
+        <div class="code-block">For each Author:
+  1. Get all published Programs by author
+  2. Extract "Primary Area" from each program
+  3. Count frequency of each Primary Area
+  4. Weight by:
+     - Recency (newer programs weighted higher)
+     - Program status (Published > In Discussion)
+     - Content type (Quest > Talk)
+  5. Return top 3 Primary Areas
+
+Pseudocode:
+-----------
+primary_areas = {}
+for program in author.programs:
+  if program.primary_area:
+    weight = calculate_weight(program)
+    primary_areas[program.primary_area] += weight
+
+return sorted(primary_areas, descending=True)[:3]</div>
+
+        <p><strong>Weighting Formula:</strong></p>
+
+        <div class="formula">
+Weight = Base Weight × Recency Factor × Status Factor × Type Factor
+
+Base Weight = 1.0
+
+Recency Factor:
+  - Last 12 months: 1.5x
+  - 1-2 years: 1.2x
+  - 2-3 years: 1.0x
+  - 3+ years: 0.8x
+
+Status Factor:
+  - Published: 1.0x
+  - On Hold: 0.5x
+  - In Discussion: 0.3x
+
+Type Factor:
+  - Quest: 1.0x
+  - Mastery: 1.2x
+  - Certification: 1.3x
+  - Talk: 0.6x
+  - Podcast: 0.5x
+        </div>
+
+        <p><strong>Benefits:</strong></p>
+        <ul class="benefits-list">
+            <li>Uses existing "Primary Area" field</li>
+            <li>Gives more weight to recent, high-value content</li>
+            <li>Produces 1-3 clear "hero" areas for each author</li>
+            <li>Automatically updates as new content is added</li>
+        </ul>
+
+        <h3>Solution 2: Outcomes Simplification Strategy</h3>
+
+        <p><strong>The Problem:</strong></p>
+        <ul>
+            <li>287 unique outcomes</li>
+            <li>Talks/Podcasts tagged at outcome level</li>
+            <li>Too granular for user browsing</li>
+        </ul>
+
+        <p><strong>The Solution: Two-Tier Outcome Display</strong></p>
+
+        <h4>Tier 1: Show Area of Growth (15 areas)</h4>
+        <ul>
+            <li>Group outcomes by their parent Area of Growth</li>
+            <li>Display content by these 15 high-level areas</li>
+            <li>Example: "Mind" area includes all outcomes related to cognitive performance</li>
+        </ul>
+
+        <h4>Tier 2: Show Top Outcomes Per Area (on-demand)</h4>
+        <ul>
+            <li>When user clicks into an area, show top 3-5 outcomes</li>
+            <li>Use frequency to determine "top" outcomes</li>
+        </ul>
+
+        <p><strong>Implementation:</strong></p>
+
+        <div class="diagram">Area of Growth: Mind
+├── Top Outcomes (show these):
+│   ├── Better Focus (appears in 45 talks)
+│   ├── Faster Learning (appears in 38 talks)
+│   └── Enhanced Memory (appears in 32 talks)
+└── Other Outcomes (15 more, hidden by default)</div>
+
+        <p><strong>Data Structure:</strong></p>
+
+        <div class="json-block">{
+  "author": "Vishen Lakhiani",
+  "content_by_area": {
+    "Mind": {
+      "total_content": 50,
+      "programs": [...],
+      "talks": [...],
+      "primary_outcomes": [
+        {"outcome": "Better Focus", "count": 15},
+        {"outcome": "Faster Learning", "count": 12}
+      ]
+    }
+  }
+}</div>
+
+        <p><strong>Benefits:</strong></p>
+        <ul class="benefits-list">
+            <li>Reduces 287 outcomes to 15 browseable areas</li>
+            <li>Maintains granular data for search/filters</li>
+            <li>Progressive disclosure (show details on-demand)</li>
+            <li>Leverages existing Outcomes → Areas of Growth links</li>
+        </ul>
+
+        <h3>Solution 3: Simplified Data Relationships for Author Pages</h3>
+
+        <p><strong>Current Flow (Complex):</strong></p>
+        <div class="diagram">Author → Programs → Areas of Growth (Lookup)
+                 → Outcomes
+                 → Brands
+Author → Talks → Outcomes → Areas of Growth
+Author → Podcasts → Outcomes → Areas of Growth</div>
+
+        <p><strong>Proposed Flow (Simplified):</strong></p>
+        <div class="diagram">For Primary Areas:
+------------------
+Author → Programs → Primary Area (single)
+     → Aggregate top 3 Primary Areas
+
+For Content Grouping:
+---------------------
+Author → Programs → Primary Area → Group by Primary Area
+Author → Talks → Outcomes → Area of Growth → Group by Area
+Author → Podcasts → Outcomes → Area of Growth → Group by Area
+
+For Content Counts:
+------------------
+Author → Direct counts: Talk Count, Program Count, Podcast Count, etc.</div>
+
+        <p><strong>New Recommended Fields for Authors Table:</strong></p>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field Name</th>
+                        <th>Type</th>
+                        <th>Purpose</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Primary Area 1</strong></td>
+                        <td>Link</td>
+                        <td>Top area of expertise</td>
+                        <td>"Mind"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Primary Area 2</strong></td>
+                        <td>Link</td>
+                        <td>2nd area of expertise</td>
+                        <td>"Body"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Primary Area 3</strong></td>
+                        <td>Link</td>
+                        <td>3rd area of expertise</td>
+                        <td>"Soul"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Primary Area Weights</strong></td>
+                        <td>Long Text (JSON)</td>
+                        <td>Store weighted scores</td>
+                        <td>{"Mind": 4.5, "Body": 3.2}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Content Distribution</strong></td>
+                        <td>Long Text (JSON)</td>
+                        <td>Content count by area</td>
+                        <td>{"Mind": {"programs": 5, "talks": 20}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Last Content Update</strong></td>
+                        <td>Date</td>
+                        <td>For recalculation trigger</td>
+                        <td>"2025-01-15"</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p><strong>Benefits:</strong></p>
+        <ul class="benefits-list">
+            <li>Clear hierarchy of expertise</li>
+            <li>Fast queries (denormalized for performance)</li>
+            <li>Easy to display in UI</li>
+            <li>Cacheable and updatable</li>
+        </ul>
+
+        <h2>4. Leveraging the Brands Table</h2>
+
+        <h3>Current Brands Structure</h3>
+        <p><strong>Brands → Programs → Authors</strong></p>
+
+        <h3>Unique Insight Opportunities</h3>
+
+        <h4>1. Author Authority by Brand Association</h4>
+        <ul>
+            <li>Authors who create content for multiple brands show versatility</li>
+            <li>Example: "Vishen has created content for Mindvalley, Omvana, and Soulvana"</li>
+        </ul>
+
+        <p><strong>Display:</strong></p>
+        <div class="diagram">Vishen Lakhiani
+├── Mindvalley: 15 programs
+├── Omvana: Meditation apps
+└── Soulvana: Spiritual content</div>
+
+        <h4>2. Brand-Specific Content Collections</h4>
+        <ul>
+            <li>Group author's content by brand</li>
+            <li>Show brand logos on author page</li>
+        </ul>
+
+        <h4>3. Cross-Brand Recommendations</h4>
+        <ul>
+            <li>"If you liked this author's Mindvalley content, explore their Soulvana collection"</li>
+        </ul>
+
+        <p><strong>Benefits:</strong></p>
+        <ul class="benefits-list">
+            <li>Shows author's breadth across ecosystem</li>
+            <li>Cross-sell opportunity</li>
+            <li>Establishes authority through brand partnerships</li>
+        </ul>
+
+        <h2>5. Data Architecture Cleanup Recommendations</h2>
+
+        <h3>Immediate Actions</h3>
+
+        <h4>1. Populate Primary Area Field</h4>
+        <ul>
+            <li><strong>Priority:</strong> HIGH</li>
+            <li><strong>Action:</strong> Ensure all published programs have Primary Area set</li>
+            <li><strong>Impact:</strong> Enables all author primary area algorithms</li>
+        </ul>
+
+        <h4>2. Create Primary Outcomes View</h4>
+        <ul>
+            <li><strong>Priority:</strong> MEDIUM</li>
+            <li><strong>Action:</strong> Create calculated field showing top 5 outcomes per Area of Growth</li>
+            <li><strong>Impact:</strong> Simplifies UI, reduces cognitive load</li>
+        </ul>
+
+        <h4>3. Add Computed Fields to Authors Table</h4>
+        <ul>
+            <li><strong>Priority:</strong> MEDIUM</li>
+            <li><strong>Action:</strong> Add denormalized fields for performance
+                <ul>
+                    <li>Primary Area 1, 2, 3</li>
+                    <li>Content counts by area</li>
+                    <li>Last update timestamp</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>4. Create Data Refresh Automation</h4>
+        <ul>
+            <li><strong>Priority:</strong> LOW</li>
+            <li><strong>Action:</strong> Build automation to recalculate author primary areas</li>
+            <li><strong>Trigger:</strong> When new program is published by author</li>
+            <li><strong>Frequency:</strong> Weekly batch update</li>
+        </ul>
+
+        <h2>6. Implementation Roadmap</h2>
+
+        <div class="phase-box">
+            <h4>Phase 1: Data Foundation (Week 1-2)</h4>
+            <ul>
+                <li>Audit Primary Area field population rate</li>
+                <li>Fill missing Primary Area values</li>
+                <li>Create "Primary Outcomes by Area" view</li>
+                <li>Document current state</li>
+            </ul>
+        </div>
+
+        <div class="phase-box">
+            <h4>Phase 2: Algorithm Development (Week 2-3)</h4>
+            <ul>
+                <li>Build Primary Area weighting algorithm</li>
+                <li>Test on 10 sample authors</li>
+                <li>Validate results with content team</li>
+                <li>Refine weighting formula</li>
+            </ul>
+        </div>
+
+        <div class="phase-box">
+            <h4>Phase 3: Author Table Enhancement (Week 3-4)</h4>
+            <ul>
+                <li>Add new computed fields to Authors table</li>
+                <li>Build automation script</li>
+                <li>Run initial calculation for all authors</li>
+                <li>QA data quality</li>
+            </ul>
+        </div>
+
+        <div class="phase-box">
+            <h4>Phase 4: Frontend Integration (Week 4-5)</h4>
+            <ul>
+                <li>Update author page template</li>
+                <li>Implement content grouping by Primary Area</li>
+                <li>Add Brand association section</li>
+                <li>Implement outcome filtering</li>
+            </ul>
+        </div>
+
+        <h2>7. Success Metrics</h2>
+
+        <div class="metric-card">
+            <h4>Data Quality Metrics</h4>
+            <ul>
+                <li><strong>Primary Area Population:</strong> Target 100% of published programs</li>
+                <li><strong>Author Primary Areas Accuracy:</strong> 95% validated by content team</li>
+                <li><strong>Data Refresh Time:</strong> &lt; 1 hour for all authors</li>
+            </ul>
+        </div>
+
+        <div class="metric-card">
+            <h4>User Experience Metrics</h4>
+            <ul>
+                <li><strong>Bounce Rate on Author Pages:</strong> Target &lt; 40%</li>
+                <li><strong>Time on Page:</strong> Target &gt; 2 minutes</li>
+                <li><strong>Content Discovery:</strong> 30% increase in clicks on related content</li>
+                <li><strong>Filter Usage:</strong> 50% of users engage with Area of Growth filters</li>
+            </ul>
+        </div>
+
+        <div class="metric-card">
+            <h4>Performance Metrics</h4>
+            <ul>
+                <li><strong>Page Load Time:</strong> &lt; 2 seconds</li>
+                <li><strong>API Response Time:</strong> &lt; 500ms</li>
+                <li><strong>Database Query Time:</strong> &lt; 100ms</li>
+            </ul>
+        </div>
+
+        <h2>8. Example: Building Vishen's Author Page</h2>
+
+        <h3>Data Flow</h3>
+
+        <p><strong>Step 1: Get Author Data</strong></p>
+        <div class="json-block">{
+  "id": "recJqLHyT0uq2NY8w",
+  "name": "Vishen Lakhiani",
+  "programs": 21,
+  "talks": 195,
+  "podcasts": 60
+}</div>
+
+        <p><strong>Step 2: Calculate Primary Areas</strong></p>
+        <div class="json-block">{
+  "primary_areas": [
+    {"area": "Mind", "weight": 5.2, "program_count": 8},
+    {"area": "Performance", "weight": 4.1, "program_count": 6},
+    {"area": "Spirituality", "weight": 3.7, "program_count": 7}
+  ]
+}</div>
+
+        <p><strong>Step 3: Group Content by Primary Area</strong></p>
+        <div class="json-block">{
+  "content_by_area": {
+    "Mind": {
+      "programs": [
+        {"title": "The 6 Phase Meditation", "type": "Quest"},
+        {"title": "Super Reading", "type": "Quest"}
+      ],
+      "talks": [...],
+      "outcomes": ["Better Focus", "Enhanced Memory"]
+    },
+    "Performance": {...},
+    "Spirituality": {...}
+  }
+}</div>
+
+        <p><strong>Step 4: Add Brand Information</strong></p>
+        <div class="json-block">{
+  "brands": [
+    {"name": "Mindvalley", "program_count": 18},
+    {"name": "Omvana", "content_type": "Meditations"}
+  ]
+}</div>
+
+        <p><strong>Step 5: Render Author Page</strong></p>
+        <ul>
+            <li>Hero: Name, Title, Primary Areas (3 badges)</li>
+            <li>About: Bio, Stats</li>
+            <li>Content Tabs:
+                <ul>
+                    <li>By Area (Mind, Performance, Spirituality)</li>
+                    <li>By Type (Programs, Talks, Podcasts)</li>
+                    <li>By Brand (Mindvalley, Omvana)</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>9. Frequently Asked Questions</h2>
+
+        <h4>Q: What if a program has no Primary Area set?</h4>
+        <p><strong>A:</strong> Fall back to the first Area of Growth in the list. Flag for manual review.</p>
+
+        <h4>Q: How do we handle authors with only 1-2 programs?</h4>
+        <p><strong>A:</strong> Show all their areas. Minimum display is 1 area, maximum is 3.</p>
+
+        <h4>Q: Should Talks count as much as Quests?</h4>
+        <p><strong>A:</strong> No. Use the Type Factor weighting (Quests 1.0x, Talks 0.6x).</p>
+
+        <h4>Q: What about discontinued programs?</h4>
+        <p><strong>A:</strong> Include with reduced weight (Status Factor: On Hold 0.5x).</p>
+
+        <h4>Q: How often should we recalculate?</h4>
+        <p><strong>A:</strong> Weekly batch process + immediate update when author publishes new content.</p>
+
+        <h4>Q: Can users filter by specific outcomes?</h4>
+        <p><strong>A:</strong> Yes, but we show Areas of Growth by default. Outcomes available as advanced filter.</p>
+
+        <h2>10. Conclusion</h2>
+
+        <p>The Mindvalley Brain Airtable already contains the key to solving the author page data architecture challenge: the <strong>Primary Area field</strong>. By leveraging this existing field and applying a weighted aggregation algorithm, we can:</p>
+
+        <ul class="benefits-list">
+            <li>Automatically deduce an author's primary areas of expertise</li>
+            <li>Simplify the 287 outcomes into 15 browseable areas</li>
+            <li>Create a scalable, maintainable data architecture</li>
+            <li>Improve user experience through clear content organization</li>
+            <li>Enable powerful filtering and discovery features</li>
+        </ul>
+
+        <p>The proposed solution balances automation with quality, leverages existing data structures, and sets the foundation for future enhancements.</p>
+
+    </div>
+
+    <div class="footer">
+        <p><strong>Document Version:</strong> 1.0 | <strong>Last Updated:</strong> January 2025</p>
+        <p>🤖 Generated with Claude Code | Mindvalley Internal</p>
+    </div>
+
+</body>
+</html>
