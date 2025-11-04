@@ -15,8 +15,26 @@ This repository contains tools, scripts, documentation, and strategic analysis f
 
 ```
 workspace/
+├── campaigns/                  # 🎯 Marketing campaigns (GitHub Pages)
+│   ├── southern-spain-cruise/ # Windstar cruise collaboration with Vishen
+│   │   ├── southern-spain-cruise-landing-page.html
+│   │   ├── southern-spain-winter-escapes-mindvalley.html
+│   │   ├── southern-spain-cruise-webinar-beautiful.html
+│   │   ├── southern-spain-cruise-email-templates.html
+│   │   └── southern-spain-cruise-complete-marketing-proposal.md
+│   ├── self-reset/            # Self Reset campaign materials
+│   │   ├── self-reset-copy-strategy-guide.html
+│   │   ├── self-reset-version-a-pattern-interrupt.html
+│   │   └── self-reset-version-b-empathy-bridge.html
+│   ├── black-friday/          # Black Friday campaign materials
+│   │   ├── black-friday-exact-replica.html
+│   │   └── black-friday-improved.html
+│   └── spiritual-mastery/     # Spiritual Mastery program materials
+│       └── spiritual-mastery-complete-curriculum.html
+│
 ├── reports/                    # 📊 Published analysis & conversion reports (GitHub Pages)
 │   ├── index.html             # Landing page for all reports
+│   ├── social-media-mastery-2025-feedback-report.html
 │   ├── mindvalley/            # Mindvalley-specific analyses
 │   │   ├── homepage-conversion-analysis.html
 │   │   └── black-friday-analysis.html
@@ -36,7 +54,10 @@ workspace/
 │       ├── webinar-email-best-practices.md
 │       ├── webinar-optimization-masterclass.md
 │       ├── webinar-optimization-masterclass-detailed.md
-│       └── mindvalley-webinar-research.md
+│       ├── mindvalley-webinar-research.md
+│       ├── southern-spain-cruise-webinar-masterclass.md
+│       ├── southern-spain-cruise-email-sequences.md
+│       └── duality-masterclass-email-sequences.md
 │
 ├── scripts/                    # 🤖 Automation scripts
 │   └── airtable/              # Airtable data processing scripts
@@ -45,12 +66,16 @@ workspace/
 │       ├── analyze-outcomes.py
 │       └── analyze-outcomes.js
 │
+├── index.html                  # 🔐 Password-protected campaign hub
+│
 └── .claude/                    # ⚙️ Claude Code configuration
     ├── agents/                # Custom AI agents
     │   ├── mindvalley-sales-page-analyzer.md
     │   ├── mindvalley-copywriting-strategist.md
     │   ├── mindvalley-webinar-architect.md
     │   ├── mindvalley-visual-architect.md
+    │   ├── mindvalley-curriculum-architect.md
+    │   ├── viral-social-media-expert.md
     │   └── webinar-master.md
     └── commands/              # Slash commands
         ├── agent.md
@@ -87,6 +112,62 @@ workspace/
    - The `.claude/` directory contains pre-configured agents and commands
    - Custom agents include 5 specialized Mindvalley agents
    - Slash commands: `/agent`, `/commit`, `/organize-and-git-push`, `/reprompt`
+
+## 🎯 Marketing Campaigns (GitHub Pages)
+
+**🔐 [Campaign Hub](https://vishenl.github.io/workspace/)** (Password: `sailspain`)
+
+### Southern Spain Cruise Campaign
+
+**Windstar Cruise Collaboration with Vishen Lakhiani** - December 13-20, 2025
+
+**[Landing Page](https://vishenl.github.io/workspace/campaigns/southern-spain-cruise/southern-spain-cruise-landing-page.html)**
+- 7-day private yacht experience: Málaga to Barcelona
+- Maximum 312 guests on Star Legend
+- Mediterranean Reset Protocol™ with Vishen
+- 3-tier pricing: Base $4,399 | Premium +$250 | VIP +$500
+
+**[Alternative Landing Page](https://vishenl.github.io/workspace/campaigns/southern-spain-cruise/southern-spain-winter-escapes-mindvalley.html)**
+- Enhanced features and animations
+- Apple-level visual design
+- Full conversion optimization
+
+**[Webinar Masterclass Guide](https://vishenl.github.io/workspace/campaigns/southern-spain-cruise/southern-spain-cruise-webinar-beautiful.html)**
+- 90-minute webinar framework
+- Mediterranean Reset Protocol positioning
+- Complete Q&A and objection handling
+- "Casual luxury" private yacht messaging
+
+**[Email Templates](https://vishenl.github.io/workspace/campaigns/southern-spain-cruise/southern-spain-cruise-email-templates.html)**
+- 13 complete email sequences across 4 campaigns
+- Launch sequence (5 emails)
+- Webinar sequence (3 emails)
+- Post-webinar sequence (3 emails)
+- Premium/VIP upgrade sequence (2 emails)
+
+### Self Reset Campaign
+
+**[Copy Strategy Guide](https://vishenl.github.io/workspace/campaigns/self-reset/self-reset-copy-strategy-guide.html)**
+- Strategic copy framework and positioning
+
+**[Version A - Pattern Interrupt](https://vishenl.github.io/workspace/campaigns/self-reset/self-reset-version-a-pattern-interrupt.html)**
+- Pattern interrupt approach
+
+**[Version B - Empathy Bridge](https://vishenl.github.io/workspace/campaigns/self-reset/self-reset-version-b-empathy-bridge.html)**
+- Empathy-first positioning
+
+### Black Friday Campaign
+
+**[Exact Replica](https://vishenl.github.io/workspace/campaigns/black-friday/black-friday-exact-replica.html)**
+- Precise reproduction of original design
+
+**[Improved Version](https://vishenl.github.io/workspace/campaigns/black-friday/black-friday-improved.html)**
+- Conversion-optimized enhancements
+
+### Spiritual Mastery Program
+
+**[Complete Curriculum](https://vishenl.github.io/workspace/campaigns/spiritual-mastery/spiritual-mastery-complete-curriculum.html)**
+- Full program structure and curriculum design
 
 ## 📊 Published Reports (GitHub Pages)
 
@@ -323,7 +404,8 @@ This project is maintained for internal Mindvalley use. Please contact the repos
 
 ---
 
-**Last Updated:** November 3, 2025
+**Last Updated:** November 4, 2025
 **Maintained by:** [@vishenl](https://github.com/vishenl)
 **Powered by:** Claude Code + AI-assisted workflows
+**Campaign Hub:** [vishenl.github.io/workspace/](https://vishenl.github.io/workspace/) (Password: sailspain)
 **View Reports:** [vishenl.github.io/workspace/reports/](https://vishenl.github.io/workspace/reports/)
