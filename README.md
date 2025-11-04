@@ -16,7 +16,7 @@ This repository contains tools, scripts, documentation, and strategic analysis f
 ```
 workspace/
 ├── campaigns/                  # 🎯 Marketing campaigns (GitHub Pages)
-│   ├── southern-spain-cruise/ # Windstar cruise collaboration with Vishen
+│   ├── sailspain/             # Windstar cruise collaboration with Vishen
 │   │   ├── southern-spain-cruise-landing-page.html
 │   │   ├── southern-spain-winter-escapes-mindvalley.html
 │   │   ├── southern-spain-cruise-webinar-beautiful.html
@@ -121,24 +121,24 @@ workspace/
 
 **Windstar Cruise Collaboration with Vishen Lakhiani** - December 13-20, 2025
 
-**[Landing Page](https://vishenl.github.io/workspace/campaigns/southern-spain-cruise/southern-spain-cruise-landing-page.html)**
+**[Landing Page](https://vishenl.github.io/workspace/campaigns/sailspain/southern-spain-cruise-landing-page.html)**
 - 7-day private yacht experience: Málaga to Barcelona
 - Maximum 312 guests on Star Legend
 - Mediterranean Reset Protocol™ with Vishen
 - 3-tier pricing: Base $4,399 | Premium +$250 | VIP +$500
 
-**[Alternative Landing Page](https://vishenl.github.io/workspace/campaigns/southern-spain-cruise/southern-spain-winter-escapes-mindvalley.html)**
+**[Alternative Landing Page](https://vishenl.github.io/workspace/campaigns/sailspain/southern-spain-winter-escapes-mindvalley.html)**
 - Enhanced features and animations
 - Apple-level visual design
 - Full conversion optimization
 
-**[Webinar Masterclass Guide](https://vishenl.github.io/workspace/campaigns/southern-spain-cruise/southern-spain-cruise-webinar-beautiful.html)**
+**[Webinar Masterclass Guide](https://vishenl.github.io/workspace/campaigns/sailspain/southern-spain-cruise-webinar-beautiful.html)**
 - 90-minute webinar framework
 - Mediterranean Reset Protocol positioning
 - Complete Q&A and objection handling
 - "Casual luxury" private yacht messaging
 
-**[Email Templates](https://vishenl.github.io/workspace/campaigns/southern-spain-cruise/southern-spain-cruise-email-templates.html)**
+**[Email Templates](https://vishenl.github.io/workspace/campaigns/sailspain/southern-spain-cruise-email-templates.html)**
 - 13 complete email sequences across 4 campaigns
 - Launch sequence (5 emails)
 - Webinar sequence (3 emails)
