@@ -78,6 +78,13 @@
         .page-hero p {
             font-size: 20px;
             opacity: 0.95;
+            margin-bottom: 8px;
+        }
+
+        .page-hero .subtitle {
+            font-size: 16px;
+            opacity: 0.85;
+            font-style: italic;
         }
 
         /* Search Bar */
@@ -125,7 +132,7 @@
         /* Browse Container */
         .browse-container {
             display: grid;
-            grid-template-columns: 300px 1fr;
+            grid-template-columns: 320px 1fr;
             gap: 40px;
             max-width: 1400px;
             margin: 60px auto;
@@ -296,7 +303,7 @@
         /* Author Grid */
         .authors-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 32px;
         }
 
@@ -369,6 +376,32 @@
             margin-bottom: 16px;
         }
 
+        /* Primary Areas Badges on Cards - NEW */
+        .author-primary-areas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .primary-area-mini {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 14px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .primary-area-mini.rank-1 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 6px 14px;
+            font-size: 12px;
+        }
+
         .author-tags {
             display: flex;
             flex-wrap: wrap;
@@ -409,6 +442,39 @@
             color: #999;
         }
 
+        /* Content Distribution Mini Bar - NEW */
+        .author-content-distribution {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .distribution-mini-label {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 6px;
+        }
+
+        .distribution-mini-bars {
+            display: flex;
+            gap: 3px;
+            height: 4px;
+            border-radius: 2px;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .distribution-mini-bar {
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        .distribution-mini-bar.area-mind { background: #667eea; }
+        .distribution-mini-bar.area-performance { background: #f093fb; }
+        .distribution-mini-bar.area-spirituality { background: #764ba2; }
+        .distribution-mini-bar.area-body { background: #48c774; }
+        .distribution-mini-bar.area-relationships { background: #ff6b9d; }
+
         /* Gender Filter Specific */
         .gender-options {
             display: grid;
@@ -446,6 +512,45 @@
             font-weight: 600;
         }
 
+        /* Brands Filter - NEW */
+        .brand-filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .brand-option {
+            padding: 12px;
+            background: white;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-option:hover {
+            border-color: #667eea;
+        }
+
+        .brand-option.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .brand-icon {
+            font-size: 20px;
+        }
+
+        .brand-name {
+            font-size: 14px;
+            font-weight: 600;
+            flex: 1;
+        }
+
         /* Responsive */
         @media (max-width: 968px) {
             .browse-container {
@@ -458,6 +563,10 @@
 
             .page-hero h1 {
                 font-size: 36px;
+            }
+
+            .authors-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -504,13 +613,14 @@
     <!-- Hero Section -->
     <section class="page-hero">
         <h1>Discover World-Class Teachers</h1>
-        <p>Explore authors across spirituality, health, relationships, and personal growth</p>
+        <p>Explore authors across 15 Areas of Growth</p>
+        <p class="subtitle">Data-driven discovery powered by Mindvalley Brain</p>
     </section>
 
     <!-- Search Section -->
     <div class="search-section">
         <div class="search-bar">
-            <input type="text" placeholder="Search authors by name, expertise, or topic...">
+            <input type="text" placeholder="Search authors by name, primary area, or transformation goal...">
             <button>Search</button>
         </div>
     </div>
@@ -578,40 +688,107 @@
                 </div>
             </div>
 
-            <!-- Areas of Growth Filter -->
+            <!-- Primary Areas Filter - ENHANCED with 15 areas -->
             <div class="filter-group">
-                <h3>Areas of Growth</h3>
+                <h3>Primary Areas of Growth</h3>
                 <div class="filter-options">
                     <label class="filter-option">
                         <input type="checkbox">
-                        <span>Mind</span>
+                        <span>🧠 Mind</span>
                         <span class="filter-count">(124)</span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox">
-                        <span>Body</span>
+                        <span>💪 Body</span>
                         <span class="filter-count">(89)</span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox">
-                        <span>Soul</span>
+                        <span>🙏 Soul</span>
                         <span class="filter-count">(156)</span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox">
-                        <span>Relationships</span>
+                        <span>❤️ Relationships</span>
                         <span class="filter-count">(67)</span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox">
-                        <span>Career</span>
+                        <span>💼 Career</span>
                         <span class="filter-count">(92)</span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox">
-                        <span>Parenting</span>
+                        <span>👶 Parenting</span>
                         <span class="filter-count">(34)</span>
                     </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>⚡ Performance</span>
+                        <span class="filter-count">(78)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>🧘 Meditation</span>
+                        <span class="filter-count">(145)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>✨ Spirituality</span>
+                        <span class="filter-count">(167)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>🎯 Focus</span>
+                        <span class="filter-count">(56)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>😊 Happiness</span>
+                        <span class="filter-count">(98)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>💡 Consciousness</span>
+                        <span class="filter-count">(112)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>🏃 Fitness</span>
+                        <span class="filter-count">(45)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>💰 Money</span>
+                        <span class="filter-count">(67)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>🌟 Purpose</span>
+                        <span class="filter-count">(89)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Brands Filter - NEW -->
+            <div class="filter-group">
+                <h3>Mindvalley Brands</h3>
+                <div class="brand-filter-options">
+                    <div class="brand-option">
+                        <span class="brand-icon">🎓</span>
+                        <span class="brand-name">Mindvalley</span>
+                        <span class="filter-count">(342)</span>
+                    </div>
+                    <div class="brand-option">
+                        <span class="brand-icon">🧘</span>
+                        <span class="brand-name">Omvana</span>
+                        <span class="filter-count">(78)</span>
+                    </div>
+                    <div class="brand-option">
+                        <span class="brand-icon">✨</span>
+                        <span class="brand-name">Soulvana</span>
+                        <span class="filter-count">(56)</span>
+                    </div>
                 </div>
             </div>
 
@@ -652,51 +829,24 @@
                 </div>
             </div>
 
-            <!-- Category Filter -->
-            <div class="filter-group">
-                <h3>Categories</h3>
-                <div class="filter-options">
-                    <label class="filter-option">
-                        <input type="checkbox">
-                        <span>Spirituality</span>
-                        <span class="filter-count">(145)</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox">
-                        <span>Health & Body</span>
-                        <span class="filter-count">(98)</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox">
-                        <span>Personal Growth</span>
-                        <span class="filter-count">(187)</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox">
-                        <span>Entrepreneurship</span>
-                        <span class="filter-count">(76)</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox">
-                        <span>Relationships</span>
-                        <span class="filter-count">(54)</span>
-                    </label>
-                </div>
-            </div>
-
             <!-- Vishen Connection Filter -->
             <div class="filter-group">
                 <h3>Vishen's Circle</h3>
                 <div class="filter-options">
                     <label class="filter-option">
                         <input type="checkbox">
-                        <span>Strong Connection</span>
+                        <span>💎 Strong Connection</span>
                         <span class="filter-count">(23)</span>
                     </label>
                     <label class="filter-option">
                         <input type="checkbox">
-                        <span>Good Connection</span>
+                        <span>⭐ Good Connection</span>
                         <span class="filter-count">(45)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>👋 Warm Connection</span>
+                        <span class="filter-count">(67)</span>
                     </label>
                 </div>
             </div>
@@ -717,6 +867,7 @@
                         <option>Most Popular</option>
                         <option>Highest Rated</option>
                         <option>Most Content</option>
+                        <option>Primary Area Match</option>
                         <option>Recently Added</option>
                         <option>A-Z</option>
                     </select>
@@ -726,7 +877,7 @@
             <!-- Active Filters -->
             <div class="active-filters">
                 <div class="active-filter-tag">
-                    Spirituality
+                    🙏 Soul
                     <button>×</button>
                 </div>
                 <div class="active-filter-tag">
@@ -738,10 +889,57 @@
             <!-- Authors Grid -->
             <div class="authors-grid">
 
-                <!-- Author Card 1 -->
+                <!-- Author Card 1 - Vishen (Enhanced with Primary Areas) -->
                 <div class="author-card">
                     <div class="author-card-image-container">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop" alt="Neale Donald Walsch" class="author-card-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop" alt="Vishen Lakhiani" class="author-card-image">
+                        <div class="author-badge">⭐ Featured</div>
+                        <div class="author-stats-overlay">
+                            <span>📚 21 Programs</span>
+                            <span>🎙️ 60 Podcasts</span>
+                            <span>🎤 195 Talks</span>
+                        </div>
+                    </div>
+                    <div class="author-card-body">
+                        <h3 class="author-card-name">Vishen Lakhiani</h3>
+                        <p class="author-card-title">Founder of Mindvalley</p>
+
+                        <!-- Primary Areas - NEW -->
+                        <div class="author-primary-areas">
+                            <span class="primary-area-mini rank-1">🧠 Mind</span>
+                            <span class="primary-area-mini">⚡ Performance</span>
+                            <span class="primary-area-mini">✨ Spirituality</span>
+                        </div>
+
+                        <div class="author-tags">
+                            <span class="mini-tag">Meditation</span>
+                            <span class="mini-tag">Consciousness</span>
+                        </div>
+
+                        <div class="author-meta">
+                            <div class="rating-display">
+                                <span class="stars-display">⭐⭐⭐⭐⭐</span>
+                                <span>4.8</span>
+                            </div>
+                            <div class="content-count">Fame: ⭐⭐⭐⭐⭐</div>
+                        </div>
+
+                        <!-- Content Distribution - NEW -->
+                        <div class="author-content-distribution">
+                            <div class="distribution-mini-label">Content by Area</div>
+                            <div class="distribution-mini-bars">
+                                <div class="distribution-mini-bar area-mind" style="width: 40%;"></div>
+                                <div class="distribution-mini-bar area-performance" style="width: 30%;"></div>
+                                <div class="distribution-mini-bar area-spirituality" style="width: 30%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Author Card 2 - Neale Donald Walsch -->
+                <div class="author-card">
+                    <div class="author-card-image-container">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=600&fit=crop" alt="Neale Donald Walsch" class="author-card-image">
                         <div class="author-badge">⭐ Featured</div>
                         <div class="author-stats-overlay">
                             <span>📚 1 Quest</span>
@@ -752,11 +950,18 @@
                     <div class="author-card-body">
                         <h3 class="author-card-name">Neale Donald Walsch</h3>
                         <p class="author-card-title">Widely Known Author & Public Speaker</p>
-                        <div class="author-tags">
-                            <span class="mini-tag">Spirituality</span>
-                            <span class="mini-tag">Soul</span>
-                            <span class="mini-tag">Mind</span>
+
+                        <!-- Primary Areas -->
+                        <div class="author-primary-areas">
+                            <span class="primary-area-mini rank-1">✨ Spirituality</span>
+                            <span class="primary-area-mini">🙏 Soul</span>
+                            <span class="primary-area-mini">💡 Consciousness</span>
                         </div>
+
+                        <div class="author-tags">
+                            <span class="mini-tag">Conversations with God</span>
+                        </div>
+
                         <div class="author-meta">
                             <div class="rating-display">
                                 <span class="stars-display">⭐⭐⭐⭐</span>
@@ -764,10 +969,18 @@
                             </div>
                             <div class="content-count">Fame: ⭐⭐⭐⭐</div>
                         </div>
+
+                        <div class="author-content-distribution">
+                            <div class="distribution-mini-label">Content by Area</div>
+                            <div class="distribution-mini-bars">
+                                <div class="distribution-mini-bar area-spirituality" style="width: 70%;"></div>
+                                <div class="distribution-mini-bar area-mind" style="width: 30%;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Author Card 2 -->
+                <!-- Author Card 3 - Jade Shaw -->
                 <div class="author-card">
                     <div class="author-card-image-container">
                         <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&h=600&fit=crop" alt="Jade Shaw" class="author-card-image">
@@ -781,11 +994,18 @@
                     <div class="author-card-body">
                         <h3 class="author-card-name">Jade Shaw</h3>
                         <p class="author-card-title">Out of Body Experience Teacher</p>
-                        <div class="author-tags">
-                            <span class="mini-tag">Spirituality</span>
-                            <span class="mini-tag">Soul</span>
-                            <span class="mini-tag">Consciousness</span>
+
+                        <div class="author-primary-areas">
+                            <span class="primary-area-mini rank-1">💡 Consciousness</span>
+                            <span class="primary-area-mini">✨ Spirituality</span>
+                            <span class="primary-area-mini">🙏 Soul</span>
                         </div>
+
+                        <div class="author-tags">
+                            <span class="mini-tag">OBE</span>
+                            <span class="mini-tag">Astral Travel</span>
+                        </div>
+
                         <div class="author-meta">
                             <div class="rating-display">
                                 <span class="stars-display">⭐⭐⭐⭐⭐</span>
@@ -793,16 +1013,24 @@
                             </div>
                             <div class="content-count">Fame: ⭐⭐</div>
                         </div>
+
+                        <div class="author-content-distribution">
+                            <div class="distribution-mini-label">Content by Area</div>
+                            <div class="distribution-mini-bars">
+                                <div class="distribution-mini-bar area-spirituality" style="width: 80%;"></div>
+                                <div class="distribution-mini-bar area-mind" style="width: 20%;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Author Card 3 -->
+                <!-- Author Card 4 - Jon & Missy Butcher -->
                 <div class="author-card">
                     <div class="author-card-image-container">
                         <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=600&fit=crop" alt="Jon Butcher" class="author-card-image">
                         <div class="author-badge">⭐ Featured</div>
                         <div class="author-stats-overlay">
-                            <span>📚 4 Quests</span>
+                            <span>📚 4 Programs</span>
                             <span>🎙️ 4 Podcasts</span>
                             <span>🎤 2 Talks</span>
                         </div>
@@ -810,11 +1038,18 @@
                     <div class="author-card-body">
                         <h3 class="author-card-name">Jon & Missy Butcher</h3>
                         <p class="author-card-title">Founders of Lifebook</p>
-                        <div class="author-tags">
-                            <span class="mini-tag">Personal Growth</span>
-                            <span class="mini-tag">Life Design</span>
-                            <span class="mini-tag">Mind</span>
+
+                        <div class="author-primary-areas">
+                            <span class="primary-area-mini rank-1">🌟 Purpose</span>
+                            <span class="primary-area-mini">🧠 Mind</span>
+                            <span class="primary-area-mini">❤️ Relationships</span>
                         </div>
+
+                        <div class="author-tags">
+                            <span class="mini-tag">Life Design</span>
+                            <span class="mini-tag">Holistic Living</span>
+                        </div>
+
                         <div class="author-meta">
                             <div class="rating-display">
                                 <span class="stars-display">⭐⭐⭐⭐⭐</span>
@@ -822,13 +1057,22 @@
                             </div>
                             <div class="content-count">Fame: ⭐⭐⭐</div>
                         </div>
+
+                        <div class="author-content-distribution">
+                            <div class="distribution-mini-label">Content by Area</div>
+                            <div class="distribution-mini-bars">
+                                <div class="distribution-mini-bar area-mind" style="width: 45%;"></div>
+                                <div class="distribution-mini-bar area-relationships" style="width: 30%;"></div>
+                                <div class="distribution-mini-bar area-body" style="width: 25%;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Author Card 4 -->
+                <!-- Author Card 5 - Eckhart Tolle -->
                 <div class="author-card">
                     <div class="author-card-image-container">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=600&fit=crop" alt="Male Author" class="author-card-image">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&h=600&fit=crop" alt="Eckhart Tolle" class="author-card-image">
                         <div class="author-stats-overlay">
                             <span>📚 2 Quests</span>
                             <span>🧘 15 Meditations</span>
@@ -838,11 +1082,18 @@
                     <div class="author-card-body">
                         <h3 class="author-card-name">Eckhart Tolle</h3>
                         <p class="author-card-title">Spiritual Teacher & Author</p>
-                        <div class="author-tags">
-                            <span class="mini-tag">Spirituality</span>
-                            <span class="mini-tag">Mindfulness</span>
-                            <span class="mini-tag">Presence</span>
+
+                        <div class="author-primary-areas">
+                            <span class="primary-area-mini rank-1">💡 Consciousness</span>
+                            <span class="primary-area-mini">✨ Spirituality</span>
+                            <span class="primary-area-mini">🧘 Meditation</span>
                         </div>
+
+                        <div class="author-tags">
+                            <span class="mini-tag">Presence</span>
+                            <span class="mini-tag">Power of Now</span>
+                        </div>
+
                         <div class="author-meta">
                             <div class="rating-display">
                                 <span class="stars-display">⭐⭐⭐⭐⭐</span>
@@ -850,15 +1101,23 @@
                             </div>
                             <div class="content-count">Fame: ⭐⭐⭐⭐⭐</div>
                         </div>
+
+                        <div class="author-content-distribution">
+                            <div class="distribution-mini-label">Content by Area</div>
+                            <div class="distribution-mini-bars">
+                                <div class="distribution-mini-bar area-spirituality" style="width: 65%;"></div>
+                                <div class="distribution-mini-bar area-mind" style="width: 35%;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Author Card 5 -->
+                <!-- Author Card 6 - Marianne Williamson -->
                 <div class="author-card">
                     <div class="author-card-image-container">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=600&fit=crop" alt="Female Author" class="author-card-image">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=600&fit=crop" alt="Marianne Williamson" class="author-card-image">
                         <div class="author-stats-overlay">
-                            <span>📚 3 Quests</span>
+                            <span>📚 3 Programs</span>
                             <span>🎙️ 6 Podcasts</span>
                             <span>🎤 12 Talks</span>
                         </div>
@@ -866,11 +1125,18 @@
                     <div class="author-card-body">
                         <h3 class="author-card-name">Marianne Williamson</h3>
                         <p class="author-card-title">Spiritual Leader & Author</p>
+
+                        <div class="author-primary-areas">
+                            <span class="primary-area-mini rank-1">🙏 Soul</span>
+                            <span class="primary-area-mini">❤️ Relationships</span>
+                            <span class="primary-area-mini">✨ Spirituality</span>
+                        </div>
+
                         <div class="author-tags">
-                            <span class="mini-tag">Spirituality</span>
                             <span class="mini-tag">Love</span>
                             <span class="mini-tag">Miracles</span>
                         </div>
+
                         <div class="author-meta">
                             <div class="rating-display">
                                 <span class="stars-display">⭐⭐⭐⭐</span>
@@ -878,13 +1144,21 @@
                             </div>
                             <div class="content-count">Fame: ⭐⭐⭐⭐⭐</div>
                         </div>
+
+                        <div class="author-content-distribution">
+                            <div class="distribution-mini-label">Content by Area</div>
+                            <div class="distribution-mini-bars">
+                                <div class="distribution-mini-bar area-spirituality" style="width: 50%;"></div>
+                                <div class="distribution-mini-bar area-relationships" style="width: 50%;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Author Card 6 -->
+                <!-- Author Card 7 - Joe Dispenza -->
                 <div class="author-card">
                     <div class="author-card-image-container">
-                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&h=600&fit=crop" alt="Male Author" class="author-card-image">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=600&fit=crop" alt="Joe Dispenza" class="author-card-image">
                         <div class="author-stats-overlay">
                             <span>📚 1 Quest</span>
                             <span>🧘 25 Meditations</span>
@@ -894,11 +1168,18 @@
                     <div class="author-card-body">
                         <h3 class="author-card-name">Joe Dispenza</h3>
                         <p class="author-card-title">Neuroscience & Meditation Expert</p>
-                        <div class="author-tags">
-                            <span class="mini-tag">Mind</span>
-                            <span class="mini-tag">Meditation</span>
-                            <span class="mini-tag">Neuroscience</span>
+
+                        <div class="author-primary-areas">
+                            <span class="primary-area-mini rank-1">🧠 Mind</span>
+                            <span class="primary-area-mini">🧘 Meditation</span>
+                            <span class="primary-area-mini">💪 Body</span>
                         </div>
+
+                        <div class="author-tags">
+                            <span class="mini-tag">Neuroscience</span>
+                            <span class="mini-tag">Healing</span>
+                        </div>
+
                         <div class="author-meta">
                             <div class="rating-display">
                                 <span class="stars-display">⭐⭐⭐⭐⭐</span>
@@ -906,13 +1187,22 @@
                             </div>
                             <div class="content-count">Fame: ⭐⭐⭐⭐⭐</div>
                         </div>
+
+                        <div class="author-content-distribution">
+                            <div class="distribution-mini-label">Content by Area</div>
+                            <div class="distribution-mini-bars">
+                                <div class="distribution-mini-bar area-mind" style="width: 60%;"></div>
+                                <div class="distribution-mini-bar area-body" style="width: 25%;"></div>
+                                <div class="distribution-mini-bar area-spirituality" style="width: 15%;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Author Card 7 -->
+                <!-- Author Card 8 - Emily Fletcher -->
                 <div class="author-card">
                     <div class="author-card-image-container">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=600&fit=crop" alt="Female Author" class="author-card-image">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=600&fit=crop" alt="Emily Fletcher" class="author-card-image">
                         <div class="author-stats-overlay">
                             <span>📚 2 Quests</span>
                             <span>🎙️ 8 Podcasts</span>
@@ -922,11 +1212,18 @@
                     <div class="author-card-body">
                         <h3 class="author-card-name">Emily Fletcher</h3>
                         <p class="author-card-title">Meditation & Performance Expert</p>
-                        <div class="author-tags">
-                            <span class="mini-tag">Mind</span>
-                            <span class="mini-tag">Meditation</span>
-                            <span class="mini-tag">Performance</span>
+
+                        <div class="author-primary-areas">
+                            <span class="primary-area-mini rank-1">🧘 Meditation</span>
+                            <span class="primary-area-mini">⚡ Performance</span>
+                            <span class="primary-area-mini">🧠 Mind</span>
                         </div>
+
+                        <div class="author-tags">
+                            <span class="mini-tag">Ziva Meditation</span>
+                            <span class="mini-tag">Stress</span>
+                        </div>
+
                         <div class="author-meta">
                             <div class="rating-display">
                                 <span class="stars-display">⭐⭐⭐⭐⭐</span>
@@ -934,15 +1231,24 @@
                             </div>
                             <div class="content-count">Fame: ⭐⭐⭐</div>
                         </div>
+
+                        <div class="author-content-distribution">
+                            <div class="distribution-mini-label">Content by Area</div>
+                            <div class="distribution-mini-bars">
+                                <div class="distribution-mini-bar area-mind" style="width: 45%;"></div>
+                                <div class="distribution-mini-bar area-performance" style="width: 40%;"></div>
+                                <div class="distribution-mini-bar area-body" style="width: 15%;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Author Card 8 -->
+                <!-- Author Card 9 - Steven Kotler -->
                 <div class="author-card">
                     <div class="author-card-image-container">
-                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=600&fit=crop" alt="Male Author" class="author-card-image">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=600&fit=crop" alt="Steven Kotler" class="author-card-image">
                         <div class="author-stats-overlay">
-                            <span>📚 3 Quests</span>
+                            <span>📚 3 Programs</span>
                             <span>🎙️ 12 Podcasts</span>
                             <span>🏆 2 Certifications</span>
                         </div>
@@ -950,17 +1256,32 @@
                     <div class="author-card-body">
                         <h3 class="author-card-name">Steven Kotler</h3>
                         <p class="author-card-title">Peak Performance Expert</p>
-                        <div class="author-tags">
-                            <span class="mini-tag">Performance</span>
-                            <span class="mini-tag">Flow State</span>
-                            <span class="mini-tag">Mind</span>
+
+                        <div class="author-primary-areas">
+                            <span class="primary-area-mini rank-1">⚡ Performance</span>
+                            <span class="primary-area-mini">🎯 Focus</span>
+                            <span class="primary-area-mini">🧠 Mind</span>
                         </div>
+
+                        <div class="author-tags">
+                            <span class="mini-tag">Flow State</span>
+                            <span class="mini-tag">Peak Performance</span>
+                        </div>
+
                         <div class="author-meta">
                             <div class="rating-display">
                                 <span class="stars-display">⭐⭐⭐⭐</span>
                                 <span>4.7</span>
                             </div>
                             <div class="content-count">Fame: ⭐⭐⭐⭐</div>
+                        </div>
+
+                        <div class="author-content-distribution">
+                            <div class="distribution-mini-label">Content by Area</div>
+                            <div class="distribution-mini-bars">
+                                <div class="distribution-mini-bar area-performance" style="width: 70%;"></div>
+                                <div class="distribution-mini-bar area-mind" style="width: 30%;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -972,11 +1293,18 @@
     </div>
 
     <script>
-        // Filter interactions
+        // Gender filter interactions
         document.querySelectorAll('.gender-option').forEach(option => {
             option.addEventListener('click', function() {
                 document.querySelectorAll('.gender-option').forEach(opt => opt.classList.remove('active'));
                 this.classList.add('active');
+            });
+        });
+
+        // Brand filter interactions - NEW
+        document.querySelectorAll('.brand-option').forEach(option => {
+            option.addEventListener('click', function() {
+                this.classList.toggle('active');
             });
         });
 
@@ -993,7 +1321,15 @@
             document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
             document.querySelectorAll('input[type="radio"][value="all"]').forEach(radio => radio.checked = true);
             document.querySelectorAll('.gender-option').forEach(opt => opt.classList.remove('active'));
+            document.querySelectorAll('.brand-option').forEach(opt => opt.classList.remove('active'));
             document.querySelector('.active-filters').innerHTML = '';
+        });
+
+        // Author card click
+        document.querySelectorAll('.author-card').forEach(card => {
+            card.addEventListener('click', function() {
+                console.log('Navigate to author profile page');
+            });
         });
     </script>
 
