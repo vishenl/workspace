@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiritual Prowess Assessment | Discover Your Mastery Level</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quiz-intro {
+            padding: 40px;
+            text-align: center;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .quiz-intro h2 {
+            color: #2d3748;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .quiz-intro p {
+            color: #4a5568;
+            font-size: 1.1em;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .quiz-intro .instructions {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .quiz-section {
+            padding: 40px;
+        }
+
+        .question-block {
+            margin-bottom: 50px;
+            padding-bottom: 40px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .question-block:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .question-subtitle {
+            color: #718096;
+            font-size: 0.95em;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            padding: 18px;
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #edf2f7;
+            border-color: #cbd5e0;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: #ebf4ff;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .option-text {
+            color: #2d3748;
+            font-size: 1em;
+            flex: 1;
+        }
+
+        .option-points {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-left: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .option.selected .option-points {
+            opacity: 1;
+        }
+
+        .submit-section {
+            padding: 40px;
+            background: #f7fafc;
+            text-align: center;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results {
+            display: none;
+            padding: 40px;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .score-number {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: white;
+        }
+
+        .score-label {
+            color: rgba(255,255,255,0.9);
+            font-size: 1em;
+            margin-top: -10px;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .level-title {
+            font-size: 2em;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .level-description {
+            font-size: 1.1em;
+            color: #4a5568;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .dimensions {
+            margin-top: 40px;
+        }
+
+        .dimensions h3 {
+            color: #2d3748;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .dimension-bar {
+            margin-bottom: 20px;
+        }
+
+        .dimension-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .dimension-progress {
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .dimension-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .recommendations {
+            margin-top: 40px;
+            background: #f7fafc;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .recommendations h3 {
+            color: #2d3748;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .recommendations ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .recommendations li {
+            color: #4a5568;
+            font-size: 1.05em;
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .recommendations li:before {
+            content: "✨";
+            position: absolute;
+            left: 0;
+        }
+
+        .cta-section {
+            margin-top: 40px;
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .cta-section h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+            opacity: 0.95;
+        }
+
+        .cta-btn {
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1em;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .share-section {
+            margin-top: 30px;
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .share-section p {
+            color: #718096;
+            margin-bottom: 15px;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .share-btn {
+            padding: 10px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .share-btn.twitter {
+            background: #1DA1F2;
+        }
+
+        .share-btn.facebook {
+            background: #4267B2;
+        }
+
+        .share-btn.linkedin {
+            background: #0077B5;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .quiz-intro, .quiz-section, .submit-section, .results {
+                padding: 30px 20px;
+            }
+
+            .question-text {
+                font-size: 1.1em;
+            }
+
+            .option {
+                padding: 15px;
+            }
+
+            .score-circle {
+                width: 150px;
+                height: 150px;
+            }
+
+            .score-number {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Spiritual Prowess Assessment</h1>
+            <p>Discover your true level of spiritual mastery across 10 key dimensions</p>
+        </div>
+
+        <div class="quiz-intro">
+            <h2>Welcome, Spiritual Seeker</h2>
+            <p>This comprehensive assessment will evaluate your spiritual development across 10 critical dimensions of mastery. Be honest with yourself—this is for YOUR growth.</p>
+            <div class="instructions">
+                <strong>📋 Instructions:</strong> For each question, select ALL options that apply to you. There are no wrong answers—only insights waiting to be discovered.
+            </div>
+        </div>
+
+        <div class="quiz-section" id="quizSection">
+            <!-- Question 1: Energy Awareness -->
+            <div class="question-block">
+                <div class="question-number">Question 1 of 10</div>
+                <div class="question-text">How aware are you of your energy body?</div>
+                <div class="question-subtitle">Select all that describe your current experience</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q1" value="10" data-dimension="energy">
+                        <span class="option-text">I can feel and direct energy (chi/prana) throughout my body at will</span>
+                        <span class="option-points">+10</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q1" value="7" data-dimension="energy">
+                        <span class="option-text">I regularly sense energy in my hands, spine, or chakra centers</span>
+                        <span class="option-points">+7</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q1" value="5" data-dimension="energy">
+                        <span class="option-text">I can sometimes feel energy during meditation or breathwork</span>
+                        <span class="option-points">+5</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q1" value="3" data-dimension="energy">
+                        <span class="option-text">I understand energy conceptually but rarely feel it</span>
+                        <span class="option-points">+3</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q1" value="0" data-dimension="energy">
+                        <span class="option-text">Energy work is new to me or feels abstract</span>
+                        <span class="option-points">+0</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 2: Daily Practice -->
+            <div class="question-block">
+                <div class="question-number">Question 2 of 10</div>
+                <div class="question-text">What is your daily spiritual practice like?</div>
+                <div class="question-subtitle">Check all the practices you do consistently (5+ days/week)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="10" data-dimension="practice">
+                        <span class="option-text">I have a non-negotiable morning ritual (meditation, breathwork, or movement)</span>
+                        <span class="option-points">+10</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="8" data-dimension="practice">
+                        <span class="option-text">I practice mindfulness throughout my day, not just during "spiritual time"</span>
+                        <span class="option-points">+8</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="6" data-dimension="practice">
+                        <span class="option-text">I journal regularly for self-reflection and integration</span>
+                        <span class="option-points">+6</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="4" data-dimension="practice">
+                        <span class="option-text">I meditate or do breathwork a few times a week</span>
+                        <span class="option-points">+4</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="0" data-dimension="practice">
+                        <span class="option-text">My practice is inconsistent or non-existent</span>
+                        <span class="option-points">+0</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 3: Emotional Mastery -->
+            <div class="question-block">
+                <div class="question-number">Question 3 of 10</div>
+                <div class="question-text">How do you relate to difficult emotions?</div>
+                <div class="question-subtitle">Select all that reflect your current capacity</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="10" data-dimension="emotional">
+                        <span class="option-text">I can feel, process, and release emotions without being consumed by them</span>
+                        <span class="option-points">+10</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="8" data-dimension="emotional">
+                        <span class="option-text">I've done significant shadow work and healed past traumas</span>
+                        <span class="option-points">+8</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="6" data-dimension="emotional">
+                        <span class="option-text">I can witness my emotions without immediately reacting</span>
+                        <span class="option-points">+6</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="3" data-dimension="emotional">
+                        <span class="option-text">I'm aware of my emotional patterns but struggle to change them</span>
+                        <span class="option-points">+3</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="0" data-dimension="emotional">
+                        <span class="option-text">I often feel overwhelmed or controlled by my emotions</span>
+                        <span class="option-points">+0</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 4: Consciousness States -->
+            <div class="question-block">
+                <div class="question-number">Question 4 of 10</div>
+                <div class="question-text">What states of consciousness have you accessed?</div>
+                <div class="question-subtitle">Check all that you've genuinely experienced (not just read about)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="10" data-dimension="consciousness">
+                        <span class="option-text">Non-dual awareness (direct experience of unity/oneness)</span>
+                        <span class="option-points">+10</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="8" data-dimension="consciousness">
+                        <span class="option-text">Witness consciousness (observing thoughts without identification)</span>
+                        <span class="option-points">+8</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="6" data-dimension="consciousness">
+                        <span class="option-text">Flow states (timelessness, effortless action)</span>
+                        <span class="option-points">+6</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="4" data-dimension="consciousness">
+                        <span class="option-text">Deep meditative states (inner peace, stillness)</span>
+                        <span class="option-points">+4</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="0" data-dimension="consciousness">
+                        <span class="option-text">I'm mostly in my thinking mind throughout the day</span>
+                        <span class="option-points">+0</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 5: Embodiment -->
+            <div class="question-block">
+                <div class="question-number">Question 5 of 10</div>
+                <div class="question-text">How embodied is your spirituality?</div>
+                <div class="question-subtitle">Select statements that are true for you</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q5" value="10" data-dimension="embodiment">
+                        <span class="option-text">I live from presence in my daily life, not just during meditation</span>
+                        <span class="option-points">+10</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q5" value="8" data-dimension="embodiment">
+                        <span class="option-text">My relationships reflect my spiritual values (compassion, authenticity, growth)</span>
+                        <span class="option-points">+8</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q5" value="6" data-dimension="embodiment">
+                        <span class="option-text">I practice somatic/body-based spiritual work (yoga, qigong, dance)</span>
+                        <span class="option-points">+6</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q5" value="3" data-dimension="embodiment">
+                        <span class="option-text">I know a lot about spirituality but struggle to apply it consistently</span>
+                        <span class="option-points">+3</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q5" value="0" data-dimension="embodiment">
+                        <span class="option-text">My spiritual life feels separate from my "real" life</span>
+                        <span class="option-points">+0</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 6: Purpose & Vision -->
+            <div class="question-block">
+                <div class="question-number">Question 6 of 10</div>
+                <div class="question-text">How clear are you on your soul's purpose?</div>
+                <div class="question-subtitle">Check all that resonate with your current experience</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="10" data-dimension="purpose">
+                        <span class="option-text">I have a crystal-clear vision of my purpose and I'm actively living it</span>
+                        <span class="option-points">+10</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="7" data-dimension="purpose">
+                        <span class="option-text">I receive guidance through intuition, synchronicities, or inner knowing</span>
+                        <span class="option-points">+7</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="5" data-dimension="purpose">
+                        <span class="option-text">I have a sense of my purpose but I'm still refining the details</span>
+                        <span class="option-points">+5</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="2" data-dimension="purpose">
+                        <span class="option-text">I'm searching for my purpose but haven't found clarity yet</span>
+                        <span class="option-points">+2</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="0" data-dimension="purpose">
+                        <span class="option-text">I feel lost or disconnected from a sense of higher purpose</span>
+                        <span class="option-points">+0</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 7: Manifestation -->
+            <div class="question-block">
+                <div class="question-number">Question 7 of 10</div>
+                <div class="question-text">What's your relationship with manifestation and co-creation?</div>
+                <div class="question-subtitle">Select all that are true for you</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="10" data-dimension="manifestation">
+                        <span class="option-text">I consistently manifest my desires and co-create with the universe</span>
+                        <span class="option-points">+10</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="8" data-dimension="manifestation">
+                        <span class="option-text">I understand the balance between surrender and aligned action</span>
+                        <span class="option-points">+8</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="6" data-dimension="manifestation">
+                        <span class="option-text">I've had clear experiences of manifestation working in my life</span>
+                        <span class="option-points">+6</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="3" data-dimension="manifestation">
+                        <span class="option-text">I practice visualization/affirmations but results are inconsistent</span>
+                        <span class="option-points">+3</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="0" data-dimension="manifestation">
+                        <span class="option-text">Manifestation feels confusing or like magical thinking to me</span>
+                        <span class="option-points">+0</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 8: Shadow Integration -->
+            <div class="question-block">
+                <div class="question-number">Question 8 of 10</div>
+                <div class="question-text">How deeply have you explored your shadow?</div>
+                <div class="question-subtitle">Check all that apply to your inner work journey</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="10" data-dimension="shadow">
+                        <span class="option-text">I've integrated major shadow aspects and reclaimed disowned parts of myself</span>
+                        <span class="option-points">+10</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="8" data-dimension="shadow">
+                        <span class="option-text">I regularly do inner child work and reparenting practices</span>
+                        <span class="option-points">+8</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="6" data-dimension="shadow">
+                        <span class="option-text">I can recognize my triggers and trace them to their roots</span>
+                        <span class="option-points">+6</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="3" data-dimension="shadow">
+                        <span class="option-text">I'm aware I have shadow work to do but haven't gone deep yet</span>
+                        <span class="option-points">+3</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="0" data-dimension="shadow">
+                        <span class="option-text">I prefer to focus on the light and avoid exploring darkness</span>
+                        <span class="option-points">+0</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 9: Community & Service -->
+            <div class="question-block">
+                <div class="question-number">Question 9 of 10</div>
+                <div class="question-text">How do you express your spirituality in service and community?</div>
+                <div class="question-subtitle">Select all ways you currently contribute</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q9" value="10" data-dimension="service">
+                        <span class="option-text">I actively serve others through teaching, healing, or conscious leadership</span>
+                        <span class="option-points">+10</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q9" value="7" data-dimension="service">
+                        <span class="option-text">I'm part of a spiritual community that supports my growth</span>
+                        <span class="option-points">+7</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q9" value="5" data-dimension="service">
+                        <span class="option-text">I hold space for others' transformation and healing</span>
+                        <span class="option-points">+5</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q9" value="3" data-dimension="service">
+                        <span class="option-text">My spiritual practice is mostly personal/private right now</span>
+                        <span class="option-points">+3</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q9" value="0" data-dimension="service">
+                        <span class="option-text">I feel isolated on my spiritual journey</span>
+                        <span class="option-points">+0</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question 10: Life Transformation -->
+            <div class="question-block">
+                <div class="question-number">Question 10 of 10</div>
+                <div class="question-text">What tangible results has your spiritual practice created?</div>
+                <div class="question-subtitle">Check all the real-world transformations you've experienced</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="10" data-dimension="transformation">
+                        <span class="option-text">My entire life has transformed (health, relationships, career, purpose)</span>
+                        <span class="option-points">+10</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="8" data-dimension="transformation">
+                        <span class="option-text">I've healed chronic stress, anxiety, or physical health issues</span>
+                        <span class="option-points">+8</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="6" data-dimension="transformation">
+                        <span class="option-text">My relationships are significantly healthier and more authentic</span>
+                        <span class="option-points">+6</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="4" data-dimension="transformation">
+                        <span class="option-text">I feel more peace and less reactive than I used to</span>
+                        <span class="option-points">+4</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="0" data-dimension="transformation">
+                        <span class="option-text">I haven't seen major changes yet—still in the learning phase</span>
+                        <span class="option-points">+0</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="submit-section">
+            <button class="submit-btn" id="submitBtn">Calculate My Spiritual Prowess Score</button>
+        </div>
+
+        <div class="results" id="results">
+            <div class="score-circle">
+                <div class="score-number" id="scoreNumber">0</div>
+                <div class="score-label">out of 100</div>
+            </div>
+
+            <div style="text-align: center;">
+                <div class="level-badge" id="levelBadge"></div>
+                <h2 class="level-title" id="levelTitle"></h2>
+                <p class="level-description" id="levelDescription"></p>
+            </div>
+
+            <div class="dimensions">
+                <h3>Your Spiritual Mastery Breakdown</h3>
+                <div class="dimension-bar">
+                    <div class="dimension-label">
+                        <span>Energy Awareness</span>
+                        <span id="energyScore">0/10</span>
+                    </div>
+                    <div class="dimension-progress">
+                        <div class="dimension-fill" id="energyFill"></div>
+                    </div>
+                </div>
+                <div class="dimension-bar">
+                    <div class="dimension-label">
+                        <span>Daily Practice Consistency</span>
+                        <span id="practiceScore">0/10</span>
+                    </div>
+                    <div class="dimension-progress">
+                        <div class="dimension-fill" id="practiceFill"></div>
+                    </div>
+                </div>
+                <div class="dimension-bar">
+                    <div class="dimension-label">
+                        <span>Emotional Mastery</span>
+                        <span id="emotionalScore">0/10</span>
+                    </div>
+                    <div class="dimension-progress">
+                        <div class="dimension-fill" id="emotionalFill"></div>
+                    </div>
+                </div>
+                <div class="dimension-bar">
+                    <div class="dimension-label">
+                        <span>Consciousness States</span>
+                        <span id="consciousnessScore">0/10</span>
+                    </div>
+                    <div class="dimension-progress">
+                        <div class="dimension-fill" id="consciousnessFill"></div>
+                    </div>
+                </div>
+                <div class="dimension-bar">
+                    <div class="dimension-label">
+                        <span>Embodiment & Integration</span>
+                        <span id="embodimentScore">0/10</span>
+                    </div>
+                    <div class="dimension-progress">
+                        <div class="dimension-fill" id="embodimentFill"></div>
+                    </div>
+                </div>
+                <div class="dimension-bar">
+                    <div class="dimension-label">
+                        <span>Purpose Clarity</span>
+                        <span id="purposeScore">0/10</span>
+                    </div>
+                    <div class="dimension-progress">
+                        <div class="dimension-fill" id="purposeFill"></div>
+                    </div>
+                </div>
+                <div class="dimension-bar">
+                    <div class="dimension-label">
+                        <span>Manifestation Mastery</span>
+                        <span id="manifestationScore">0/10</span>
+                    </div>
+                    <div class="dimension-progress">
+                        <div class="dimension-fill" id="manifestationFill"></div>
+                    </div>
+                </div>
+                <div class="dimension-bar">
+                    <div class="dimension-label">
+                        <span>Shadow Integration</span>
+                        <span id="shadowScore">0/10</span>
+                    </div>
+                    <div class="dimension-progress">
+                        <div class="dimension-fill" id="shadowFill"></div>
+                    </div>
+                </div>
+                <div class="dimension-bar">
+                    <div class="dimension-label">
+                        <span>Service & Community</span>
+                        <span id="serviceScore">0/10</span>
+                    </div>
+                    <div class="dimension-progress">
+                        <div class="dimension-fill" id="serviceFill"></div>
+                    </div>
+                </div>
+                <div class="dimension-bar">
+                    <div class="dimension-label">
+                        <span>Life Transformation</span>
+                        <span id="transformationScore">0/10</span>
+                    </div>
+                    <div class="dimension-progress">
+                        <div class="dimension-fill" id="transformationFill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recommendations">
+                <h3>Your Personalized Growth Path</h3>
+                <ul id="recommendationsList"></ul>
+            </div>
+
+            <div class="cta-section">
+                <h3>Ready to Elevate Your Spiritual Mastery?</h3>
+                <p>Join 6 world-renowned masters for a FREE 2-day summit designed to accelerate your journey from seeker to master.</p>
+                <a href="summit-landing-mindvalley-audience.html" class="cta-btn">Reserve Your Free Spot →</a>
+            </div>
+
+            <div class="share-section">
+                <p>Share your results and invite others to discover their spiritual prowess:</p>
+                <div class="share-buttons">
+                    <a href="#" class="share-btn twitter" id="twitterShare">Share on Twitter</a>
+                    <a href="#" class="share-btn facebook" id="facebookShare">Share on Facebook</a>
+                    <a href="#" class="share-btn linkedin" id="linkedinShare">Share on LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Handle option selection visual feedback
+        document.querySelectorAll('.option input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    this.parentElement.classList.add('selected');
+                } else {
+                    this.parentElement.classList.remove('selected');
+                }
+            });
+        });
+
+        // Submit and calculate score
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            calculateResults();
+        });
+
+        function calculateResults() {
+            const dimensions = {
+                energy: 0,
+                practice: 0,
+                emotional: 0,
+                consciousness: 0,
+                embodiment: 0,
+                purpose: 0,
+                manifestation: 0,
+                shadow: 0,
+                service: 0,
+                transformation: 0
+            };
+
+            let totalScore = 0;
+
+            // Calculate scores
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+                const value = parseInt(checkbox.value);
+                const dimension = checkbox.getAttribute('data-dimension');
+
+                totalScore += value;
+                if (dimension && dimensions[dimension] !== undefined) {
+                    dimensions[dimension] += value;
+                }
+            });
+
+            // Display results
+            displayResults(totalScore, dimensions);
+        }
+
+        function displayResults(totalScore, dimensions) {
+            // Hide quiz, show results
+            document.getElementById('quizSection').style.display = 'none';
+            document.querySelector('.submit-section').style.display = 'none';
+            document.getElementById('results').classList.add('show');
+
+            // Animate score
+            animateScore(totalScore);
+
+            // Determine level
+            const levelData = getLevel(totalScore);
+            document.getElementById('levelBadge').textContent = levelData.badge;
+            document.getElementById('levelBadge').style.background = levelData.color;
+            document.getElementById('levelBadge').style.color = 'white';
+            document.getElementById('levelTitle').textContent = levelData.title;
+            document.getElementById('levelDescription').textContent = levelData.description;
+
+            // Display dimension scores
+            displayDimensionScores(dimensions);
+
+            // Generate recommendations
+            generateRecommendations(totalScore, dimensions);
+
+            // Setup share links
+            setupShareLinks(totalScore, levelData.title);
+
+            // Scroll to results
+            setTimeout(() => {
+                document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
+
+        function animateScore(finalScore) {
+            let current = 0;
+            const increment = finalScore / 50;
+            const scoreElement = document.getElementById('scoreNumber');
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= finalScore) {
+                    scoreElement.textContent = finalScore;
+                    clearInterval(timer);
+                } else {
+                    scoreElement.textContent = Math.floor(current);
+                }
+            }, 30);
+        }
+
+        function getLevel(score) {
+            if (score >= 80) {
+                return {
+                    badge: '🌟 MASTER',
+                    title: 'Spiritual Master',
+                    description: 'You embody advanced spiritual mastery. Your practice is integrated into every aspect of your life. You are a beacon for others and ready to step into spiritual leadership. Your next phase is about teaching, serving, and refining the subtlest dimensions of consciousness.',
+                    color: '#667eea'
+                };
+            } else if (score >= 60) {
+                return {
+                    badge: '⚡ ADEPT',
+                    title: 'Spiritual Adept',
+                    description: 'You have significant spiritual prowess and consistent practice. You understand advanced concepts and have had transformative experiences. Your next evolution is about deeper embodiment, closing any gaps between knowledge and lived experience, and stepping into your full power.',
+                    color: '#764ba2'
+                };
+            } else if (score >= 40) {
+                return {
+                    badge: '🌱 PRACTITIONER',
+                    title: 'Dedicated Practitioner',
+                    description: 'You are solidly on the path with established practices and growing awareness. You have a foundation but there are areas to develop more deeply. Focus on consistency, embodiment practices, and moving from understanding to direct experience.',
+                    color: '#48bb78'
+                };
+            } else if (score >= 20) {
+                return {
+                    badge: '🔍 SEEKER',
+                    title: 'Awakening Seeker',
+                    description: 'You are in the early stages of your spiritual journey with curiosity and openness. You have intellectual understanding but are still developing consistent practice and direct experience. This is an exciting time—establish your daily practice and explore different modalities.',
+                    color: '#ed8936'
+                };
+            } else {
+                return {
+                    badge: '🌄 BEGINNER',
+                    title: 'New Beginner',
+                    description: 'Welcome to the beginning of your spiritual journey! You are at the threshold of profound transformation. Start with simple daily practices like meditation or breathwork, find a teacher or community, and be patient with yourself. Every master started exactly where you are now.',
+                    color: '#fc8181'
+                };
+            }
+        }
+
+        function displayDimensionScores(dimensions) {
+            for (const [dimension, score] of Object.entries(dimensions)) {
+                document.getElementById(`${dimension}Score`).textContent = `${score}/10`;
+                document.getElementById(`${dimension}Fill`).style.width = `${(score/10) * 100}%`;
+            }
+        }
+
+        function generateRecommendations(totalScore, dimensions) {
+            const recommendations = [];
+
+            // Analyze weakest areas
+            const sortedDimensions = Object.entries(dimensions).sort((a, b) => a[1] - b[1]);
+            const weakestDimensions = sortedDimensions.slice(0, 3);
+
+            const dimensionRecommendations = {
+                energy: 'Begin daily Qi Gong or pranayama practice to develop your energy sensitivity',
+                practice: 'Commit to a non-negotiable 20-minute morning ritual—consistency is everything',
+                emotional: 'Engage in shadow work or inner child healing to process unresolved emotions',
+                consciousness: 'Deepen your meditation practice and explore witness consciousness techniques',
+                embodiment: 'Integrate somatic practices like yoga, dance, or conscious movement',
+                purpose: 'Create space for visioning work and connect with your soul's deeper calling',
+                manifestation: 'Study the balance between surrender and aligned action in co-creation',
+                shadow: 'Work with a therapist, coach, or do structured shadow integration work',
+                service: 'Find or create a spiritual community that supports mutual growth',
+                transformation: 'Assess where you are playing small and take one bold aligned action'
+            };
+
+            // Add personalized recommendations
+            weakestDimensions.forEach(([dimension, score]) => {
+                recommendations.push(dimensionRecommendations[dimension]);
+            });
+
+            // Add level-specific recommendation
+            if (totalScore < 40) {
+                recommendations.push('Attend the FREE Spiritual Mastery Summit to learn from 6 world-class masters');
+            } else if (totalScore < 70) {
+                recommendations.push('Join a structured program or Quest to deepen your practice systematically');
+            } else {
+                recommendations.push('Consider training as a teacher or healer—it\'s time to share your gifts');
+            }
+
+            // Display recommendations
+            const listElement = document.getElementById('recommendationsList');
+            listElement.innerHTML = '';
+            recommendations.forEach(rec => {
+                const li = document.createElement('li');
+                li.textContent = rec;
+                listElement.appendChild(li);
+            });
+        }
+
+        function setupShareLinks(score, level) {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(`I scored ${score}/100 on the Spiritual Prowess Assessment and I'm a ${level}! Discover your spiritual mastery level:`);
+
+            document.getElementById('twitterShare').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+            document.getElementById('facebookShare').href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            document.getElementById('linkedinShare').href = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+        }
+    </script>
+</body>
+</html>
