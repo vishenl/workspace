@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sail Spain Campaign Hub | Windstar x Vishen Lakhiani</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-background: #FFFFFF;
+            --color-text-primary: #1A1A1A;
+            --color-text-secondary: #404040;
+            --color-text-tertiary: #6B6B6B;
+            --color-accent: #0066CC;
+            --color-accent-hover: #0052A3;
+            --color-gold: #D4AF37;
+            --color-border: #E5E5E5;
+            --color-surface: #F8F9FA;
+            --color-success: #10B981;
+
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-background);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--color-accent), #0052A3);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .campaign-details {
+            display: inline-flex;
+            gap: 2rem;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+            padding: 1rem 2rem;
+            background: var(--color-surface);
+            border-radius: 12px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+        }
+
+        .detail-item strong {
+            color: var(--color-text-primary);
+        }
+
+        /* Section Headers */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--color-accent), #0052A3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .section h2 {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .section-description {
+            color: var(--color-text-secondary);
+            margin-bottom: 1.5rem;
+            padding-left: 64px;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Resource Card */
+        .resource-card {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-accent), #0052A3);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .resource-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            border-color: var(--color-accent);
+        }
+
+        .resource-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .resource-type {
+            display: inline-block;
+            background: var(--color-surface);
+            color: var(--color-text-secondary);
+            padding: 0.375rem 0.875rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .resource-type.landing {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+
+        .resource-type.marketing {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .resource-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .resource-card p {
+            color: var(--color-text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .resource-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .resource-features li {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            padding: 0.375rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .resource-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-success);
+            font-weight: 700;
+        }
+
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .resource-link:hover {
+            color: var(--color-accent-hover);
+            gap: 0.75rem;
+        }
+
+        /* Quick Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--color-accent), #0052A3);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+            color: var(--color-text-tertiary);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .campaign-details {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-description {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-badge">Internal Campaign Hub</div>
+            <h1>Sail Spain Campaign</h1>
+            <p class="subtitle">Windstar Cruise Collaboration with Vishen Lakhiani</p>
+
+            <div class="campaign-details">
+                <div class="detail-item">
+                    <strong>Dates:</strong> December 13-20, 2025
+                </div>
+                <div class="detail-item">
+                    <strong>Route:</strong> Málaga → Barcelona
+                </div>
+                <div class="detail-item">
+                    <strong>Capacity:</strong> 312 guests max
+                </div>
+                <div class="detail-item">
+                    <strong>Vessel:</strong> Star Legend Private Yacht
+                </div>
+            </div>
+        </header>
+
+        <!-- Quick Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Landing Pages</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">13</div>
+                <div class="stat-label">Email Sequences</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">90min</div>
+                <div class="stat-label">Webinar Framework</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Pricing Tiers</div>
+            </div>
+        </div>
+
+        <!-- Landing Pages Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🚢</div>
+                <h2>Landing Pages</h2>
+            </div>
+            <p class="section-description">
+                Two conversion-optimized landing pages designed for different audiences and use cases. Both feature Apple-level design aesthetics with Mindvalley branding.
+            </p>
+
+            <div class="cards-grid">
+                <div class="resource-card">
+                    <span class="resource-type landing">Primary Landing Page</span>
+                    <h3>Main Conversion Page</h3>
+                    <p>Our primary conversion-optimized landing page featuring the Mediterranean Reset Protocol™ and all official Windstar imagery.</p>
+
+                    <ul class="resource-features">
+                        <li>10 complete sections (hero to footer)</li>
+                        <li>Floating Vishen portrait animation</li>
+                        <li>3-tier pricing breakdown ($4,399+)</li>
+                        <li>"Casual luxury" private yacht positioning</li>
+                        <li>Mobile-first responsive design</li>
+                    </ul>
+
+                    <a href="southern-spain-cruise-landing-page.html" class="resource-link">
+                        View Landing Page →
+                    </a>
+                </div>
+
+                <div class="resource-card">
+                    <span class="resource-type landing">Alternative Version</span>
+                    <h3>Enhanced Feature Page</h3>
+                    <p>Alternative landing page with enhanced animations and features. Created by our visual architect for A/B testing.</p>
+
+                    <ul class="resource-features">
+                        <li>Apple-level visual design</li>
+                        <li>Advanced scroll animations</li>
+                        <li>Premium interaction design</li>
+                        <li>Full conversion optimization</li>
+                        <li>Elegant micro-interactions</li>
+                    </ul>
+
+                    <a href="southern-spain-winter-escapes-mindvalley.html" class="resource-link">
+                        View Alternative Page →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marketing Materials Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">📧</div>
+                <h2>Marketing Materials</h2>
+            </div>
+            <p class="section-description">
+                Complete webinar framework and email sequences designed for the personal growth audience. All copy integrates the "casual luxury" private yacht positioning.
+            </p>
+
+            <div class="cards-grid">
+                <div class="resource-card">
+                    <span class="resource-type marketing">Webinar Guide</span>
+                    <h3>90-Minute Masterclass</h3>
+                    <p>Comprehensive webinar framework with complete script, timing breakdown, and objection handling. Ready to deploy.</p>
+
+                    <ul class="resource-features">
+                        <li>Mediterranean Reset Protocol positioning</li>
+                        <li>6 phases with precise timing (10-15-20-25-10-10)</li>
+                        <li>Complete Q&A section (15 questions)</li>
+                        <li>"Casual luxury" messaging integrated</li>
+                        <li>Year-end transformation focus</li>
+                        <li>Beautiful formatting with emojis</li>
+                    </ul>
+
+                    <a href="southern-spain-cruise-webinar-beautiful.html" class="resource-link">
+                        View Webinar Guide →
+                    </a>
+                </div>
+
+                <div class="resource-card">
+                    <span class="resource-type marketing">Email Templates</span>
+                    <h3>13 Email Sequences</h3>
+                    <p>Complete email campaign across 4 sequences. All emails are ready to copy into your ESP with proper formatting.</p>
+
+                    <ul class="resource-features">
+                        <li>Launch Sequence (5 emails)</li>
+                        <li>Webinar Sequence (3 emails)</li>
+                        <li>Post-Webinar Sequence (3 emails)</li>
+                        <li>Premium/VIP Upgrade Sequence (2 emails)</li>
+                        <li>Email-safe 600px width design</li>
+                        <li>Mobile-responsive templates</li>
+                    </ul>
+
+                    <a href="southern-spain-cruise-email-templates.html" class="resource-link">
+                        View Email Templates →
+                    </a>
+                </div>
+
+                <div class="resource-card">
+                    <span class="resource-type marketing">Master Document</span>
+                    <h3>Complete Marketing Proposal</h3>
+                    <p>60+ page comprehensive marketing strategy document with KPIs, timelines, and implementation checklist.</p>
+
+                    <ul class="resource-features">
+                        <li>Executive summary</li>
+                        <li>8-week implementation timeline</li>
+                        <li>Revenue projections & KPIs</li>
+                        <li>Complete strategy breakdown</li>
+                        <li>Risk mitigation plans</li>
+                    </ul>
+
+                    <a href="southern-spain-cruise-complete-marketing-proposal.md" class="resource-link">
+                        View Proposal Document →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Campaign Positioning -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🎯</div>
+                <h2>Key Campaign Positioning</h2>
+            </div>
+
+            <div class="resource-card" style="max-width: 800px; margin: 0 auto;">
+                <h3 style="margin-bottom: 1.5rem;">Critical Windstar Positioning (from Team Interview)</h3>
+
+                <ul class="resource-features" style="margin-bottom: 0;">
+                    <li><strong>NOT a typical cruise</strong> - It's a PRIVATE YACHT with maximum 312 guests</li>
+                    <li><strong>"Casual luxury"</strong> - NOT ultra-lux with butlers, NOT formal/stuffy</li>
+                    <li><strong>Target demographic:</strong> 40+ with disposable income who can "pick up and go"</li>
+                    <li><strong>International travelers</strong> - English-speaking, passport required</li>
+                    <li><strong>Year-end transformation:</strong> "Powerfully wrap up 2025 and architect 2026"</li>
+                    <li><strong>Like-minded community:</strong> Wellness, spirituality, entrepreneurship focus</li>
+                    <li><strong>3-tier pricing:</strong> Base $4,399 | Premium +$250 (25 seats) | VIP +$500 (8 seats)</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Campaign Hub • Windstar x Vishen Lakhiani • December 2025</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">All materials designed with Mindvalley brand standards • Powered by Claude Code</p>
+        </footer>
+    </div>
+</body>
+</html>
