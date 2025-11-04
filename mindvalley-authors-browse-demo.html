@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Authors - Mindvalley</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        /* Password Protection */
+        #password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        #password-overlay.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background: white;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .password-container h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .password-container p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 32px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e5e5;
+            border-radius: 12px;
+            font-size: 16px;
+            margin-bottom: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .password-input:focus {
+            border-color: #667eea;
+        }
+
+        .password-submit {
+            width: 100%;
+            padding: 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .password-submit:hover {
+            background: #5568d3;
+        }
+
+        .password-error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        #main-content {
+            display: none;
+        }
+
+        #main-content.visible {
+            display: block;
+        }
+
+        /* Header Navigation */
+        .header {
+            background: #ffffff;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #000;
+        }
+
+        /* Hero Section */
+        .page-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .page-hero p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+
+        /* Search Bar */
+        .search-section {
+            max-width: 1400px;
+            margin: -40px auto 0;
+            padding: 0 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-bar {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+            display: flex;
+            align-items: center;
+            padding: 8px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            border: none;
+            padding: 16px 24px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-bar button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: #5568d3;
+        }
+
+        /* Browse Container */
+        .browse-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 0 40px 80px;
+        }
+
+        /* Filters Sidebar */
+        .filters {
+            background: #f9f9f9;
+            border-radius: 16px;
+            padding: 32px;
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .filters-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .clear-filters {
+            color: #667eea;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-weight: 600;
+        }
+
+        .filter-group {
+            margin-bottom: 32px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .filter-group:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .filter-group h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .filter-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .filter-option label {
+            font-size: 15px;
+            color: #4a4a4a;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .filter-count {
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* Results Section */
+        .results-section {
+            min-height: 800px;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .results-count {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .results-count strong {
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+
+        .sort-dropdown {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sort-dropdown label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .sort-dropdown select {
+            padding: 10px 16px;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* Active Filters */
+        .active-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .active-filter-tag {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .active-filter-tag button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Author Grid */
+        .authors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .author-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .author-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .author-card-image-container {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .author-card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #ffd700;
+            color: #000;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .author-stats-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 20px 16px 16px;
+            color: white;
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+        }
+
+        .author-card-body {
+            padding: 24px;
+        }
+
+        .author-card-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #1a1a1a;
+        }
+
+        .author-card-title {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+
+        .author-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .mini-tag {
+            background: #f0f0f0;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .author-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .rating-display {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+        }
+
+        .stars-display {
+            color: #ffd700;
+            font-size: 16px;
+        }
+
+        .content-count {
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* Gender Filter Specific */
+        .gender-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .gender-option {
+            padding: 12px;
+            background: white;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .gender-option:hover {
+            border-color: #667eea;
+        }
+
+        .gender-option.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .gender-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .gender-label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .browse-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                position: static;
+            }
+
+            .page-hero h1 {
+                font-size: 36px;
+            }
+        }
+
+        /* Fame Level Stars */
+        .fame-stars {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .fame-star {
+            font-size: 20px;
+            cursor: pointer;
+            color: #ddd;
+            transition: color 0.2s;
+        }
+
+        .fame-star.active {
+            color: #ffd700;
+        }
+
+        .fame-star:hover {
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Password Protection Overlay -->
+    <div id="password-overlay">
+        <div class="password-container">
+            <h2>Protected Content</h2>
+            <p>Please enter the password to view this demo</p>
+            <input type="password" id="password-input" class="password-input" placeholder="Enter password" />
+            <button onclick="checkPassword()" class="password-submit">Unlock</button>
+            <div id="password-error" class="password-error">Incorrect password. Please try again.</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content">
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">MINDVALLEY</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">Programs</a></li>
+                    <li><a href="#" style="color: #000;">Authors</a></li>
+                    <li><a href="#">Meditations</a></li>
+                    <li><a href="#">Membership</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <h1>Discover World-Class Teachers</h1>
+        <p>Explore authors across spirituality, health, relationships, and personal growth</p>
+    </section>
+
+    <!-- Search Section -->
+    <div class="search-section">
+        <div class="search-bar">
+            <input type="text" placeholder="Search authors by name, expertise, or topic...">
+            <button>Search</button>
+        </div>
+    </div>
+
+    <!-- Browse Container -->
+    <div class="browse-container">
+
+        <!-- Filters Sidebar -->
+        <aside class="filters">
+            <div class="filters-header">
+                <h2>Filters</h2>
+                <button class="clear-filters">Clear All</button>
+            </div>
+
+            <!-- Gender Filter -->
+            <div class="filter-group">
+                <h3>Gender</h3>
+                <div class="gender-options">
+                    <div class="gender-option">
+                        <div class="gender-icon">👨</div>
+                        <div class="gender-label">Male</div>
+                    </div>
+                    <div class="gender-option">
+                        <div class="gender-icon">👩</div>
+                        <div class="gender-label">Female</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Filter -->
+            <div class="filter-group">
+                <h3>Featured</h3>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Featured Authors Only</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Fame Level Filter -->
+            <div class="filter-group">
+                <h3>Fame Level</h3>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="radio" name="fame" value="all" checked>
+                        <span>All Levels</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="fame" value="5">
+                        <span>⭐⭐⭐⭐⭐ World-Renowned</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="fame" value="4">
+                        <span>⭐⭐⭐⭐ Well-Known</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="fame" value="3">
+                        <span>⭐⭐⭐ Rising Stars</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="fame" value="2">
+                        <span>⭐⭐ Emerging</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Areas of Growth Filter -->
+            <div class="filter-group">
+                <h3>Areas of Growth</h3>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Mind</span>
+                        <span class="filter-count">(124)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Body</span>
+                        <span class="filter-count">(89)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Soul</span>
+                        <span class="filter-count">(156)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Relationships</span>
+                        <span class="filter-count">(67)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Career</span>
+                        <span class="filter-count">(92)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Parenting</span>
+                        <span class="filter-count">(34)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Content Type Filter -->
+            <div class="filter-group">
+                <h3>Content Available</h3>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Has Quests</span>
+                        <span class="filter-count">(234)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Has Meditations</span>
+                        <span class="filter-count">(156)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Has Talks</span>
+                        <span class="filter-count">(289)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Has Podcasts</span>
+                        <span class="filter-count">(178)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Has Certifications</span>
+                        <span class="filter-count">(45)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Has Mastery Programs</span>
+                        <span class="filter-count">(38)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="filter-group">
+                <h3>Categories</h3>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Spirituality</span>
+                        <span class="filter-count">(145)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Health & Body</span>
+                        <span class="filter-count">(98)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Personal Growth</span>
+                        <span class="filter-count">(187)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Entrepreneurship</span>
+                        <span class="filter-count">(76)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Relationships</span>
+                        <span class="filter-count">(54)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Vishen Connection Filter -->
+            <div class="filter-group">
+                <h3>Vishen's Circle</h3>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Strong Connection</span>
+                        <span class="filter-count">(23)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        <span>Good Connection</span>
+                        <span class="filter-count">(45)</span>
+                    </label>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- Results Section -->
+        <section class="results-section">
+
+            <!-- Results Header -->
+            <div class="results-header">
+                <div class="results-count">
+                    Showing <strong>342 authors</strong>
+                </div>
+                <div class="sort-dropdown">
+                    <label>Sort by:</label>
+                    <select>
+                        <option>Most Popular</option>
+                        <option>Highest Rated</option>
+                        <option>Most Content</option>
+                        <option>Recently Added</option>
+                        <option>A-Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Active Filters -->
+            <div class="active-filters">
+                <div class="active-filter-tag">
+                    Spirituality
+                    <button>×</button>
+                </div>
+                <div class="active-filter-tag">
+                    Has Quests
+                    <button>×</button>
+                </div>
+            </div>
+
+            <!-- Authors Grid -->
+            <div class="authors-grid">
+
+                <!-- Author Card 1 -->
+                <div class="author-card">
+                    <div class="author-card-image-container">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop" alt="Neale Donald Walsch" class="author-card-image">
+                        <div class="author-badge">⭐ Featured</div>
+                        <div class="author-stats-overlay">
+                            <span>📚 1 Quest</span>
+                            <span>🎙️ 3 Podcasts</span>
+                            <span>🎤 2 Talks</span>
+                        </div>
+                    </div>
+                    <div class="author-card-body">
+                        <h3 class="author-card-name">Neale Donald Walsch</h3>
+                        <p class="author-card-title">Widely Known Author & Public Speaker</p>
+                        <div class="author-tags">
+                            <span class="mini-tag">Spirituality</span>
+                            <span class="mini-tag">Soul</span>
+                            <span class="mini-tag">Mind</span>
+                        </div>
+                        <div class="author-meta">
+                            <div class="rating-display">
+                                <span class="stars-display">⭐⭐⭐⭐</span>
+                                <span>4.5</span>
+                            </div>
+                            <div class="content-count">Fame: ⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Author Card 2 -->
+                <div class="author-card">
+                    <div class="author-card-image-container">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&h=600&fit=crop" alt="Jade Shaw" class="author-card-image">
+                        <div class="author-badge">⭐ Featured</div>
+                        <div class="author-stats-overlay">
+                            <span>📚 1 Quest</span>
+                            <span>🎙️ 2 Podcasts</span>
+                            <span>🎤 5 Talks</span>
+                        </div>
+                    </div>
+                    <div class="author-card-body">
+                        <h3 class="author-card-name">Jade Shaw</h3>
+                        <p class="author-card-title">Out of Body Experience Teacher</p>
+                        <div class="author-tags">
+                            <span class="mini-tag">Spirituality</span>
+                            <span class="mini-tag">Soul</span>
+                            <span class="mini-tag">Consciousness</span>
+                        </div>
+                        <div class="author-meta">
+                            <div class="rating-display">
+                                <span class="stars-display">⭐⭐⭐⭐⭐</span>
+                                <span>4.9</span>
+                            </div>
+                            <div class="content-count">Fame: ⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Author Card 3 -->
+                <div class="author-card">
+                    <div class="author-card-image-container">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=600&fit=crop" alt="Jon Butcher" class="author-card-image">
+                        <div class="author-badge">⭐ Featured</div>
+                        <div class="author-stats-overlay">
+                            <span>📚 4 Quests</span>
+                            <span>🎙️ 4 Podcasts</span>
+                            <span>🎤 2 Talks</span>
+                        </div>
+                    </div>
+                    <div class="author-card-body">
+                        <h3 class="author-card-name">Jon & Missy Butcher</h3>
+                        <p class="author-card-title">Founders of Lifebook</p>
+                        <div class="author-tags">
+                            <span class="mini-tag">Personal Growth</span>
+                            <span class="mini-tag">Life Design</span>
+                            <span class="mini-tag">Mind</span>
+                        </div>
+                        <div class="author-meta">
+                            <div class="rating-display">
+                                <span class="stars-display">⭐⭐⭐⭐⭐</span>
+                                <span>4.7</span>
+                            </div>
+                            <div class="content-count">Fame: ⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Author Card 4 -->
+                <div class="author-card">
+                    <div class="author-card-image-container">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=600&fit=crop" alt="Male Author" class="author-card-image">
+                        <div class="author-stats-overlay">
+                            <span>📚 2 Quests</span>
+                            <span>🧘 15 Meditations</span>
+                            <span>🎤 8 Talks</span>
+                        </div>
+                    </div>
+                    <div class="author-card-body">
+                        <h3 class="author-card-name">Eckhart Tolle</h3>
+                        <p class="author-card-title">Spiritual Teacher & Author</p>
+                        <div class="author-tags">
+                            <span class="mini-tag">Spirituality</span>
+                            <span class="mini-tag">Mindfulness</span>
+                            <span class="mini-tag">Presence</span>
+                        </div>
+                        <div class="author-meta">
+                            <div class="rating-display">
+                                <span class="stars-display">⭐⭐⭐⭐⭐</span>
+                                <span>4.8</span>
+                            </div>
+                            <div class="content-count">Fame: ⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Author Card 5 -->
+                <div class="author-card">
+                    <div class="author-card-image-container">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=600&fit=crop" alt="Female Author" class="author-card-image">
+                        <div class="author-stats-overlay">
+                            <span>📚 3 Quests</span>
+                            <span>🎙️ 6 Podcasts</span>
+                            <span>🎤 12 Talks</span>
+                        </div>
+                    </div>
+                    <div class="author-card-body">
+                        <h3 class="author-card-name">Marianne Williamson</h3>
+                        <p class="author-card-title">Spiritual Leader & Author</p>
+                        <div class="author-tags">
+                            <span class="mini-tag">Spirituality</span>
+                            <span class="mini-tag">Love</span>
+                            <span class="mini-tag">Miracles</span>
+                        </div>
+                        <div class="author-meta">
+                            <div class="rating-display">
+                                <span class="stars-display">⭐⭐⭐⭐</span>
+                                <span>4.6</span>
+                            </div>
+                            <div class="content-count">Fame: ⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Author Card 6 -->
+                <div class="author-card">
+                    <div class="author-card-image-container">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&h=600&fit=crop" alt="Male Author" class="author-card-image">
+                        <div class="author-stats-overlay">
+                            <span>📚 1 Quest</span>
+                            <span>🧘 25 Meditations</span>
+                            <span>🎤 4 Talks</span>
+                        </div>
+                    </div>
+                    <div class="author-card-body">
+                        <h3 class="author-card-name">Joe Dispenza</h3>
+                        <p class="author-card-title">Neuroscience & Meditation Expert</p>
+                        <div class="author-tags">
+                            <span class="mini-tag">Mind</span>
+                            <span class="mini-tag">Meditation</span>
+                            <span class="mini-tag">Neuroscience</span>
+                        </div>
+                        <div class="author-meta">
+                            <div class="rating-display">
+                                <span class="stars-display">⭐⭐⭐⭐⭐</span>
+                                <span>4.9</span>
+                            </div>
+                            <div class="content-count">Fame: ⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Author Card 7 -->
+                <div class="author-card">
+                    <div class="author-card-image-container">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=600&fit=crop" alt="Female Author" class="author-card-image">
+                        <div class="author-stats-overlay">
+                            <span>📚 2 Quests</span>
+                            <span>🎙️ 8 Podcasts</span>
+                            <span>🎤 15 Talks</span>
+                        </div>
+                    </div>
+                    <div class="author-card-body">
+                        <h3 class="author-card-name">Emily Fletcher</h3>
+                        <p class="author-card-title">Meditation & Performance Expert</p>
+                        <div class="author-tags">
+                            <span class="mini-tag">Mind</span>
+                            <span class="mini-tag">Meditation</span>
+                            <span class="mini-tag">Performance</span>
+                        </div>
+                        <div class="author-meta">
+                            <div class="rating-display">
+                                <span class="stars-display">⭐⭐⭐⭐⭐</span>
+                                <span>4.8</span>
+                            </div>
+                            <div class="content-count">Fame: ⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Author Card 8 -->
+                <div class="author-card">
+                    <div class="author-card-image-container">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=600&fit=crop" alt="Male Author" class="author-card-image">
+                        <div class="author-stats-overlay">
+                            <span>📚 3 Quests</span>
+                            <span>🎙️ 12 Podcasts</span>
+                            <span>🏆 2 Certifications</span>
+                        </div>
+                    </div>
+                    <div class="author-card-body">
+                        <h3 class="author-card-name">Steven Kotler</h3>
+                        <p class="author-card-title">Peak Performance Expert</p>
+                        <div class="author-tags">
+                            <span class="mini-tag">Performance</span>
+                            <span class="mini-tag">Flow State</span>
+                            <span class="mini-tag">Mind</span>
+                        </div>
+                        <div class="author-meta">
+                            <div class="rating-display">
+                                <span class="stars-display">⭐⭐⭐⭐</span>
+                                <span>4.7</span>
+                            </div>
+                            <div class="content-count">Fame: ⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script>
+        // Filter interactions
+        document.querySelectorAll('.gender-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.gender-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Active filter tag removal
+        document.querySelectorAll('.active-filter-tag button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.parentElement.remove();
+            });
+        });
+
+        // Clear all filters
+        document.querySelector('.clear-filters').addEventListener('click', function() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.querySelectorAll('input[type="radio"][value="all"]').forEach(radio => radio.checked = true);
+            document.querySelectorAll('.gender-option').forEach(opt => opt.classList.remove('active'));
+            document.querySelector('.active-filters').innerHTML = '';
+        });
+
+        // Password Protection
+        function checkPassword() {
+            const password = document.getElementById('password-input').value;
+            const correctPassword = 'superstar';
+
+            if (password === correctPassword) {
+                document.getElementById('password-overlay').classList.add('hidden');
+                document.getElementById('main-content').classList.add('visible');
+                sessionStorage.setItem('authenticated', 'true');
+            } else {
+                document.getElementById('password-error').classList.add('show');
+            }
+        }
+
+        // Check if already authenticated in this session
+        window.addEventListener('load', function() {
+            if (sessionStorage.getItem('authenticated') === 'true') {
+                document.getElementById('password-overlay').classList.add('hidden');
+                document.getElementById('main-content').classList.add('visible');
+            }
+        });
+
+        // Allow Enter key to submit password
+        const passwordInput = document.getElementById('password-input');
+        if (passwordInput) {
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkPassword();
+                }
+            });
+        }
+    </script>
+
+    </div><!-- End Main Content -->
+
+</body>
+</html>

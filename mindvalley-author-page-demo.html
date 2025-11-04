@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neale Donald Walsch - Mindvalley Author Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        /* Password Protection */
+        #password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        #password-overlay.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background: white;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .password-container h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .password-container p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 32px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e5e5;
+            border-radius: 12px;
+            font-size: 16px;
+            margin-bottom: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .password-input:focus {
+            border-color: #667eea;
+        }
+
+        .password-submit {
+            width: 100%;
+            padding: 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .password-submit:hover {
+            background: #5568d3;
+        }
+
+        .password-error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        #main-content {
+            display: none;
+        }
+
+        #main-content.visible {
+            display: block;
+        }
+
+        /* Header Navigation */
+        .header {
+            background: #ffffff;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #000;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 40px;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .hero-content .subtitle {
+            font-size: 24px;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: 32px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ffd700;
+            color: #000;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #1a1a1a;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+        }
+
+        .bio {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #4a4a4a;
+        }
+
+        .bio p {
+            margin-bottom: 20px;
+        }
+
+        .expertise-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .tag {
+            background: #f5f5f5;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .tag.primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .sidebar-card {
+            background: #f9f9f9;
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .sidebar-card h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .quick-facts {
+            list-style: none;
+        }
+
+        .quick-facts li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quick-facts li:last-child {
+            border-bottom: none;
+        }
+
+        .fact-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .fact-value {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        /* Outcomes Section */
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .outcome-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .outcome-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .outcome-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .outcome-card h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .outcome-card p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Content Portfolio Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            border-bottom: 2px solid #e5e5e5;
+        }
+
+        .tab {
+            padding: 16px 32px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Content Cards */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .content-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .content-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .content-card-body {
+            padding: 24px;
+        }
+
+        .content-card-type {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #667eea;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .content-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .content-card-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stars {
+            color: #ffd700;
+        }
+
+        /* Press Section */
+        .press-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            align-items: center;
+            opacity: 0.6;
+        }
+
+        .press-logo {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            color: #333;
+        }
+
+        /* Similar Authors */
+        .authors-slider {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 32px;
+        }
+
+        .author-card {
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .author-card:hover {
+            transform: scale(1.05);
+        }
+
+        .author-card-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .author-card-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .author-card-title {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Filter Sidebar */
+        .browse-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .filters {
+            background: #f9f9f9;
+            border-radius: 16px;
+            padding: 32px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .filter-group {
+            margin-bottom: 32px;
+        }
+
+        .filter-group h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .filter-option label {
+            font-size: 14px;
+            color: #4a4a4a;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .browse-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                position: static;
+            }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+            margin: 80px 0 0 0;
+        }
+
+        .cta-section h2 {
+            font-size: 42px;
+            margin-bottom: 24px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Password Protection Overlay -->
+    <div id="password-overlay">
+        <div class="password-container">
+            <h2>Protected Content</h2>
+            <p>Please enter the password to view this demo</p>
+            <input type="password" id="password-input" class="password-input" placeholder="Enter password" />
+            <button onclick="checkPassword()" class="password-submit">Unlock</button>
+            <div id="password-error" class="password-error">Incorrect password. Please try again.</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content">
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">MINDVALLEY</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#programs">Programs</a></li>
+                    <li><a href="#authors">Authors</a></li>
+                    <li><a href="#meditations">Meditations</a></li>
+                    <li><a href="#membership">Membership</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Neale Donald Walsch</h1>
+                <p class="subtitle">Widely Known Author & Public Speaker</p>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">4.5★</span>
+                        <span class="stat-label">Average Rating</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">40+</span>
+                        <span class="stat-label">Books Published</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">1</span>
+                        <span class="stat-label">Quest</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">35</span>
+                        <span class="stat-label">Languages</span>
+                    </div>
+                </div>
+
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">View Programs</a>
+                    <a href="#" class="btn btn-secondary">Follow Author</a>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <div class="featured-badge">
+                    ⭐ Featured Author
+                </div>
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop" alt="Neale Donald Walsch">
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- About Section -->
+        <section class="section">
+            <h2 class="section-title">About Neale</h2>
+            <div class="about-grid">
+                <div class="bio">
+                    <p>Neale Donald Walsch is the author of 40 books on contemporary spirituality and its practical application in everyday life, including seven New York Times bestsellers. His <em>Conversations with God</em> series has been translated into 35 languages and read by millions around the world.</p>
+
+                    <p>His most recent title is <strong>GODTALK: Experiences of Humanity's Connections with a Higher Power</strong>. Other titles include <em>The God Solution</em>, and <em>God's Message to the World: You've got me all wrong</em>. His books are said to have redefined the concept of God and shifted spiritual paradigms around the globe.</p>
+
+                    <p>He offers powerful talks focused extensively on what he calls the most important question facing humanity today: <strong>Is it possible that there is something we don't fully understand about God and about Life, the understanding of which would change everything?</strong></p>
+
+                    <div class="expertise-tags">
+                        <span class="tag primary">Spirituality</span>
+                        <span class="tag primary">Personal Growth</span>
+                        <span class="tag">Consciousness</span>
+                        <span class="tag">Life Purpose</span>
+                        <span class="tag">Inner Peace</span>
+                        <span class="tag">Self-Discovery</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>Quick Facts</h3>
+                    <ul class="quick-facts">
+                        <li>
+                            <span class="fact-label">Fame Level</span>
+                            <span class="fact-value">⭐⭐⭐⭐ (4/5)</span>
+                        </li>
+                        <li>
+                            <span class="fact-label">Connection</span>
+                            <span class="fact-value">Warm</span>
+                        </li>
+                        <li>
+                            <span class="fact-label">Content Types</span>
+                            <span class="fact-value">3</span>
+                        </li>
+                        <li>
+                            <span class="fact-label">Podcast Episodes</span>
+                            <span class="fact-value">3</span>
+                        </li>
+                        <li>
+                            <span class="fact-label">Talks</span>
+                            <span class="fact-value">2</span>
+                        </li>
+                        <li>
+                            <span class="fact-label">Certifications</span>
+                            <span class="fact-value">1</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Outcomes Section -->
+        <section class="section">
+            <h2 class="section-title">Transformations You'll Experience</h2>
+            <div class="outcomes-grid">
+                <div class="outcome-card">
+                    <div class="outcome-icon">🧘</div>
+                    <h3>Spiritual Awakening</h3>
+                    <p>Deepen your connection with the divine and discover profound spiritual truths</p>
+                </div>
+                <div class="outcome-card">
+                    <div class="outcome-icon">💫</div>
+                    <h3>Inner Peace</h3>
+                    <p>Find lasting peace and tranquility through spiritual understanding</p>
+                </div>
+                <div class="outcome-card">
+                    <div class="outcome-icon">🎯</div>
+                    <h3>Life Purpose</h3>
+                    <p>Discover your true calling and align with your soul's mission</p>
+                </div>
+                <div class="outcome-card">
+                    <div class="outcome-icon">🌟</div>
+                    <h3>Self-Discovery</h3>
+                    <p>Uncover your authentic self and embrace your highest potential</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Portfolio -->
+        <section class="section">
+            <h2 class="section-title">Content by Neale Donald Walsch</h2>
+
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab(event, 'programs')">Programs & Quests</button>
+                <button class="tab" onclick="switchTab(event, 'podcasts')">Podcasts & Talks</button>
+                <button class="tab" onclick="switchTab(event, 'certifications')">Certifications</button>
+            </div>
+
+            <div id="programs" class="tab-content active">
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="content-card-image"></div>
+                        <div class="content-card-body">
+                            <div class="content-card-type">Quest</div>
+                            <h3 class="content-card-title">Awaken the Species</h3>
+                            <div class="content-card-meta">
+                                <div class="rating">
+                                    <span class="stars">⭐⭐⭐⭐⭐</span>
+                                    <span>4.5</span>
+                                </div>
+                                <span>•</span>
+                                <span>21 Days</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="podcasts" class="tab-content">
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="content-card-image"></div>
+                        <div class="content-card-body">
+                            <div class="content-card-type">Podcast</div>
+                            <h3 class="content-card-title">Conversations with God Insights</h3>
+                            <div class="content-card-meta">
+                                <div class="rating">
+                                    <span class="stars">⭐⭐⭐⭐</span>
+                                    <span>4.5</span>
+                                </div>
+                                <span>•</span>
+                                <span>45 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-card">
+                        <div class="content-card-image"></div>
+                        <div class="content-card-body">
+                            <div class="content-card-type">Talk</div>
+                            <h3 class="content-card-title">Redefining God in Modern Times</h3>
+                            <div class="content-card-meta">
+                                <div class="rating">
+                                    <span class="stars">⭐⭐⭐⭐⭐</span>
+                                    <span>4.5</span>
+                                </div>
+                                <span>•</span>
+                                <span>1h 15min</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="certifications" class="tab-content">
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="content-card-image"></div>
+                        <div class="content-card-body">
+                            <div class="content-card-type">Certification</div>
+                            <h3 class="content-card-title">Conversations with God Facilitator Training</h3>
+                            <div class="content-card-meta">
+                                <span>6 Months</span>
+                                <span>•</span>
+                                <span>Professional</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Press Section -->
+        <section class="section">
+            <h2 class="section-title">Featured In</h2>
+            <div class="press-grid">
+                <div class="press-logo">New York Times</div>
+                <div class="press-logo">Oprah</div>
+                <div class="press-logo">CNN</div>
+                <div class="press-logo">PBS</div>
+                <div class="press-logo">Larry King</div>
+            </div>
+        </section>
+
+        <!-- Similar Authors -->
+        <section class="section">
+            <h2 class="section-title">Similar Authors You May Like</h2>
+            <div class="authors-slider">
+                <div class="author-card">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop" alt="Jade Shaw" class="author-card-image">
+                    <div class="author-card-name">Jade Shaw</div>
+                    <div class="author-card-title">OBE Teacher</div>
+                </div>
+                <div class="author-card">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop" alt="Jon Butcher" class="author-card-image">
+                    <div class="author-card-name">Jon & Missy Butcher</div>
+                    <div class="author-card-title">Founders of Lifebook</div>
+                </div>
+                <div class="author-card">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop" alt="Similar Author" class="author-card-image">
+                    <div class="author-card-name">Eckhart Tolle</div>
+                    <div class="author-card-title">Spiritual Teacher</div>
+                </div>
+                <div class="author-card">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop" alt="Similar Author" class="author-card-image">
+                    <div class="author-card-name">Marianne Williamson</div>
+                    <div class="author-card-title">Author & Speaker</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Start Your Transformation?</h2>
+        <p>Join thousands of students learning from Neale Donald Walsch</p>
+        <a href="#" class="btn btn-primary">Explore Programs</a>
+    </section>
+
+    <script>
+        function switchTab(event, tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Password Protection
+        function checkPassword() {
+            const password = document.getElementById('password-input').value;
+            const correctPassword = 'superstar';
+
+            if (password === correctPassword) {
+                document.getElementById('password-overlay').classList.add('hidden');
+                document.getElementById('main-content').classList.add('visible');
+                sessionStorage.setItem('authenticated', 'true');
+            } else {
+                document.getElementById('password-error').classList.add('show');
+            }
+        }
+
+        // Check if already authenticated in this session
+        window.addEventListener('load', function() {
+            if (sessionStorage.getItem('authenticated') === 'true') {
+                document.getElementById('password-overlay').classList.add('hidden');
+                document.getElementById('main-content').classList.add('visible');
+            }
+        });
+
+        // Allow Enter key to submit password
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('password-input');
+            if (passwordInput) {
+                passwordInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkPassword();
+                    }
+                });
+            }
+        });
+    </script>
+
+    </div><!-- End Main Content -->
+
+</body>
+</html>
