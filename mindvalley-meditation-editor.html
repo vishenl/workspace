@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Meditation - Mindvalley</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f7fa;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .breadcrumb {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .header .breadcrumb a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+        }
+
+        .header .breadcrumb a:hover {
+            opacity: 1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 2rem;
+        }
+
+        .section {
+            padding: 2rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1a202c;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title .icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+        }
+
+        label .required {
+            color: #e53e3e;
+            margin-left: 2px;
+        }
+
+        label .hint {
+            font-weight: 400;
+            color: #a0aec0;
+            font-size: 0.8rem;
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9375rem;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 0.75rem;
+            color: #a0aec0;
+            margin-top: 0.25rem;
+        }
+
+        .char-counter.warning {
+            color: #ed8936;
+        }
+
+        .char-counter.error {
+            color: #e53e3e;
+        }
+
+        .tags-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            min-height: 48px;
+            cursor: text;
+        }
+
+        .tags-input:focus-within {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #edf2f7;
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            color: #4a5568;
+        }
+
+        .tag .remove {
+            cursor: pointer;
+            color: #718096;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        .tag .remove:hover {
+            color: #e53e3e;
+        }
+
+        .tag-input {
+            border: none;
+            outline: none;
+            padding: 0.375rem;
+            flex: 1;
+            min-width: 150px;
+            font-size: 0.875rem;
+        }
+
+        .platform-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .platform-item {
+            position: relative;
+        }
+
+        .platform-item input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .platform-item label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.875rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 0;
+            font-weight: 500;
+            font-size: 0.875rem;
+            background: white;
+        }
+
+        .platform-item input[type="checkbox"]:checked + label {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+
+        .platform-item input[type="checkbox"]:focus + label {
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .select-all-btn {
+            background: #f7fafc;
+            border: 2px dashed #cbd5e0;
+            color: #4a5568;
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .select-all-btn:hover {
+            background: #edf2f7;
+            border-color: #a0aec0;
+        }
+
+        .media-upload {
+            border: 2px dashed #cbd5e0;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f7fafc;
+        }
+
+        .media-upload:hover {
+            border-color: #667eea;
+            background: #edf2f7;
+        }
+
+        .media-upload.has-file {
+            border-style: solid;
+            border-color: #48bb78;
+            background: #f0fff4;
+        }
+
+        .media-upload input[type="file"] {
+            display: none;
+        }
+
+        .media-upload .icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 1rem;
+            opacity: 0.5;
+        }
+
+        .media-upload .text {
+            font-size: 0.875rem;
+            color: #4a5568;
+        }
+
+        .media-upload .specs {
+            font-size: 0.75rem;
+            color: #a0aec0;
+            margin-top: 0.5rem;
+        }
+
+        .media-preview {
+            margin-top: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .media-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .media-preview audio {
+            width: 100%;
+        }
+
+        .preview-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .preview-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .preview-content {
+            padding: 1.5rem;
+        }
+
+        .preview-badge {
+            display: inline-block;
+            background: #edf2f7;
+            color: #4a5568;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .preview-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1a202c;
+        }
+
+        .preview-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: #718096;
+            margin-bottom: 1rem;
+        }
+
+        .preview-description {
+            font-size: 0.875rem;
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .preview-outcomes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .preview-outcome {
+            background: #edf2f7;
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: #4a5568;
+        }
+
+        .preview-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .preview-stat {
+            text-align: center;
+        }
+
+        .preview-stat-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a202c;
+        }
+
+        .preview-stat-label {
+            font-size: 0.75rem;
+            color: #718096;
+            margin-top: 0.25rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 28px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e0;
+            transition: 0.3s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #48bb78;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem 2rem;
+            background: #f7fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #f7fafc;
+            border-color: #cbd5e0;
+        }
+
+        .btn-danger {
+            background: white;
+            color: #e53e3e;
+            border: 2px solid #fc8181;
+        }
+
+        .btn-danger:hover {
+            background: #fff5f5;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .quest-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .quest-table th,
+        .quest-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .quest-table th {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #718096;
+            font-weight: 600;
+        }
+
+        .quest-table td {
+            font-size: 0.875rem;
+            color: #4a5568;
+        }
+
+        .quest-table a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .quest-table a:hover {
+            text-decoration: underline;
+        }
+
+        .collapsible {
+            background: #f7fafc;
+            border-radius: 8px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .collapsible-header {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .collapsible-header:hover {
+            background: #edf2f7;
+        }
+
+        .collapsible-content {
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .collapsible.open .collapsible-content {
+            display: block;
+        }
+
+        .collapsible-icon {
+            transition: transform 0.3s;
+        }
+
+        .collapsible.open .collapsible-icon {
+            transform: rotate(180deg);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .status-badge.published {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status-badge.draft {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        @media (max-width: 1024px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="#">Resources</a> / Editing Meditation
+            </div>
+            <h1>10-Minute Daily Calm Mindfulness Meditation</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="layout">
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Basic Information -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Basic Information
+                    </h2>
+
+                    <div class="form-group">
+                        <label>
+                            Resource Type <span class="required">*</span>
+                        </label>
+                        <select>
+                            <option>Meditation</option>
+                            <option>Hypnosis</option>
+                            <option>Breathwork</option>
+                            <option>Sound Healing</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Title <span class="required">*</span>
+                        </label>
+                        <input type="text" value="10-Minute Daily Calm Mindfulness Meditation" placeholder="Enter meditation title">
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Slug <span class="required">*</span>
+                            <span class="hint">URL-friendly version of the title</span>
+                        </label>
+                        <input type="text" value="10-min-meditation" placeholder="url-slug">
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>
+                                Language <span class="required">*</span>
+                            </label>
+                            <select>
+                                <option>English</option>
+                                <option>Spanish</option>
+                                <option>German</option>
+                                <option>French</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Meditation Type <span class="required">*</span>
+                            </label>
+                            <select>
+                                <option>Vocal</option>
+                                <option>Instrumental</option>
+                                <option>Guided</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Description <span class="required">*</span>
+                            <span class="hint">Maximum 2000 characters</span>
+                        </label>
+                        <textarea placeholder="Describe the meditation and its benefits">Tai Ben-Shahar guides this 10-minute Daily Calm mindfulness meditation to restore and reconnect with the present.</textarea>
+                        <div class="char-counter">133 / 2000</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Author <span class="required">*</span>
+                        </label>
+                        <select>
+                            <option>Dr. Tai Ben-Shahar</option>
+                            <option>Vishen Lakhiani</option>
+                            <option>Emily Fletcher</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Outcomes -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Outcomes & Goals
+                    </h2>
+
+                    <div class="form-group">
+                        <label>
+                            Outcomes
+                            <span class="hint">Maximum 3 outcomes. Press Enter to add</span>
+                        </label>
+                        <div class="tags-input" onclick="this.querySelector('.tag-input').focus()">
+                            <div class="tag">
+                                Being Fully Present
+                                <span class="remove" onclick="this.parentElement.remove()">×</span>
+                            </div>
+                            <div class="tag">
+                                Greater Mindfulness
+                                <span class="remove" onclick="this.parentElement.remove()">×</span>
+                            </div>
+                            <input type="text" class="tag-input" placeholder="Add outcome...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Practice
+                            <span class="hint">Related practice or technique</span>
+                        </label>
+                        <input type="text" placeholder="e.g., Daily Calm Practice">
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Content
+                            <span class="hint">Content category or theme</span>
+                        </label>
+                        <input type="text" placeholder="e.g., Mindfulness, Stress Relief">
+                    </div>
+                </div>
+
+                <!-- Media Assets -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                        Media Assets
+                    </h2>
+
+                    <div class="form-group">
+                        <label>
+                            Cover Image <span class="required">*</span>
+                            <span class="hint">Square ratio 1:1 | 2048px × 2048px</span>
+                        </label>
+                        <div class="media-upload has-file" onclick="document.getElementById('cover-image').click()">
+                            <input type="file" id="cover-image" accept="image/*">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <div class="text">
+                                <strong>10-minute-meditation-cover.jpg</strong> uploaded
+                            </div>
+                            <div class="specs">Click to change</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Landscape Cover Asset (B2B)
+                            <span class="hint">Aspect ratio 16:9 | 1920px × 1080px</span>
+                        </label>
+                        <div class="media-upload has-file" onclick="document.getElementById('landscape-cover').click()">
+                            <input type="file" id="landscape-cover" accept="image/*">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <div class="text">
+                                <strong>10-minute-meditation-landscape.jpg</strong> uploaded
+                            </div>
+                            <div class="specs">Click to change</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Trailer Looping Asset (B2B)
+                            <span class="hint">Aspect ratio 16:9 | 1920px × 1080px | MP4 format</span>
+                        </label>
+                        <div class="media-upload" onclick="document.getElementById('trailer').click()">
+                            <input type="file" id="trailer" accept="video/*">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                            <div class="text">
+                                Click to upload or drag and drop
+                            </div>
+                            <div class="specs">MP4, MOV up to 100MB</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Media File <span class="required">*</span>
+                            <span class="hint">Audio file for the meditation</span>
+                        </label>
+                        <div class="media-upload has-file">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                            </svg>
+                            <div class="text">
+                                <strong>10-minute-calm-meditation.mp3</strong>
+                            </div>
+                            <div class="specs">39.20 MB | Duration: 10:42</div>
+                        </div>
+                        <div class="media-preview">
+                            <audio controls>
+                                <source src="#" type="audio/mpeg">
+                            </audio>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Preview Media File (optional)
+                            <span class="hint">Short preview clip</span>
+                        </label>
+                        <div class="media-upload" onclick="document.getElementById('preview-file').click()">
+                            <input type="file" id="preview-file" accept="audio/*">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                            </svg>
+                            <div class="text">
+                                Click to upload or drag and drop
+                            </div>
+                            <div class="specs">MP3, WAV up to 10MB</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Default Background Sound
+                            <span class="hint">Ambient sound for vocal meditation</span>
+                        </label>
+                        <select>
+                            <option>432 Hz: Feelings of Peace & Well-Being</option>
+                            <option>528 Hz: Love & Miracles</option>
+                            <option>Nature Sounds</option>
+                            <option>Ocean Waves</option>
+                            <option>None</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Distribution -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                        Distribution & Platforms
+                    </h2>
+
+                    <div class="form-group">
+                        <label>
+                            Apps <span class="required">*</span>
+                            <span class="hint">Select platforms where this meditation will be available</span>
+                        </label>
+                        <div class="select-all-btn" onclick="selectAllPlatforms()">
+                            ✓ Select All Platforms
+                        </div>
+                        <div class="platform-selector" style="margin-top: 0.75rem;">
+                            <div class="platform-item">
+                                <input type="checkbox" id="android" checked>
+                                <label for="android">📱 Android</label>
+                            </div>
+                            <div class="platform-item">
+                                <input type="checkbox" id="ios" checked>
+                                <label for="ios">🍎 iOS</label>
+                            </div>
+                            <div class="platform-item">
+                                <input type="checkbox" id="tvos" checked>
+                                <label for="tvos">📺 tvOS</label>
+                            </div>
+                            <div class="platform-item">
+                                <input type="checkbox" id="visionos" checked>
+                                <label for="visionos">🥽 visionOS</label>
+                            </div>
+                            <div class="platform-item">
+                                <input type="checkbox" id="web" checked>
+                                <label for="web">🌐 Web</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Brands
+                            <span class="hint">Associated brands</span>
+                        </label>
+                        <div class="tags-input" onclick="this.querySelector('.tag-input').focus()">
+                            <div class="tag">
+                                Mindvalley
+                                <span class="remove" onclick="this.parentElement.remove()">×</span>
+                            </div>
+                            <div class="tag">
+                                Workway
+                                <span class="remove" onclick="this.parentElement.remove()">×</span>
+                            </div>
+                            <input type="text" class="tag-input" placeholder="Add brand...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quest Integration -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                        Where This Media Is Used
+                    </h2>
+
+                    <table class="quest-table">
+                        <thead>
+                            <tr>
+                                <th>Quest Title</th>
+                                <th>Lesson #</th>
+                                <th>Lesson Title</th>
+                                <th>Author</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#">The 5 Elements of Happiness</a></td>
+                                <td>3</td>
+                                <td><a href="#">The Path of Mindfulness</a></td>
+                                <td>Dr. Tai Ben-Shahar</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Optional Fields -->
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span>Optional Fields</span>
+                        <span class="collapsible-icon">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="form-group">
+                            <label>
+                                Feature Banner (Wide Image)
+                                <span class="hint">Aspect ratio 20:9 | 2400px × 1080px</span>
+                            </label>
+                            <div class="media-upload" onclick="document.getElementById('feature-banner').click()">
+                                <input type="file" id="feature-banner" accept="image/*">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                                <div class="text">
+                                    Click to upload feature banner
+                                </div>
+                                <div class="specs">Requires feature banner enabled (Default: OFF)</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Product ID (Membership)
+                                <span class="hint">For free meditation in others section</span>
+                            </label>
+                            <input type="text" placeholder="No Product ID">
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Custom Product ID
+                                <span class="hint">If selecting Others in Product ID field</span>
+                            </label>
+                            <input type="text" placeholder="Product ID for selecting Others in Product ID field">
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Purchase Identifier (OneTree)
+                                <span class="hint">Optional identifier for purchase tracking</span>
+                            </label>
+                            <input type="text" placeholder="community.onx...">
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Tags (optional)
+                                <span class="hint">For personal growth, meditation, etc.</span>
+                            </label>
+                            <input type="text" placeholder="Personal Growth, Meditation">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-primary">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Update Resource
+                    </button>
+                    <button class="btn btn-secondary">Cancel</button>
+                    <button class="btn btn-danger">Delete Resource</button>
+                </div>
+            </div>
+
+            <!-- Sidebar Preview -->
+            <div class="sidebar">
+                <div class="preview-card">
+                    <img src="https://placehold.co/400x400/667eea/white?text=Meditation+Cover" alt="Preview" class="preview-image">
+                    <div class="preview-content">
+                        <div class="preview-badge">MEDITATION</div>
+                        <h3 class="preview-title">10-Minute Daily Calm Mindfulness Meditation</h3>
+
+                        <div class="preview-meta">
+                            <span>⏱️ 10 min</span>
+                            <span>🎧 Vocal</span>
+                            <span>🇬🇧 EN</span>
+                        </div>
+
+                        <p class="preview-description">
+                            Tai Ben-Shahar guides this 10-minute Daily Calm mindfulness meditation to restore and reconnect with the present.
+                        </p>
+
+                        <div style="margin-bottom: 1rem;">
+                            <div style="font-size: 0.75rem; color: #718096; margin-bottom: 0.5rem;">OUTCOMES</div>
+                            <div class="preview-outcomes">
+                                <div class="preview-outcome">Being Fully Present</div>
+                                <div class="preview-outcome">Greater Mindfulness</div>
+                            </div>
+                        </div>
+
+                        <div class="preview-stats">
+                            <div class="preview-stat">
+                                <div class="preview-stat-value">4.97</div>
+                                <div class="preview-stat-label">Ratings (336)</div>
+                            </div>
+                            <div class="preview-stat">
+                                <div class="preview-stat-label" style="margin-top: 0;">
+                                    <div class="status-badge published">
+                                        <span style="width: 8px; height: 8px; background: #22543d; border-radius: 50%; display: inline-block;"></span>
+                                        Published
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                            <div style="font-size: 0.75rem; color: #718096; margin-bottom: 0.5rem;">PLATFORMS</div>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <span style="font-size: 1.25rem;">📱</span>
+                                <span style="font-size: 1.25rem;">🍎</span>
+                                <span style="font-size: 1.25rem;">📺</span>
+                                <span style="font-size: 1.25rem;">🥽</span>
+                                <span style="font-size: 1.25rem;">🌐</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                            <div style="font-size: 0.75rem; color: #718096; margin-bottom: 0.5rem;">AUTHOR</div>
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <img src="https://placehold.co/48x48/edf2f7/4a5568?text=TB" style="width: 48px; height: 48px; border-radius: 50%;">
+                                <div>
+                                    <div style="font-weight: 600; font-size: 0.875rem;">Dr. Tai Ben-Shahar</div>
+                                    <div style="font-size: 0.75rem; color: #718096;">Happiness Expert</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
+                            <div style="font-size: 0.75rem; color: #718096; margin-bottom: 0.5rem;">LAST UPDATED</div>
+                            <div style="font-size: 0.875rem; color: #4a5568;">2022-10-16 10:44:00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Character counter
+        document.querySelectorAll('textarea').forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                const counter = this.nextElementSibling;
+                if (counter && counter.classList.contains('char-counter')) {
+                    const current = this.value.length;
+                    const max = 2000;
+                    counter.textContent = `${current} / ${max}`;
+
+                    if (current > max * 0.9) {
+                        counter.classList.add('warning');
+                    } else {
+                        counter.classList.remove('warning');
+                    }
+
+                    if (current > max) {
+                        counter.classList.add('error');
+                    } else {
+                        counter.classList.remove('error');
+                    }
+                }
+            });
+        });
+
+        // Tag input functionality
+        document.querySelectorAll('.tag-input').forEach(input => {
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && this.value.trim()) {
+                    e.preventDefault();
+                    const tag = document.createElement('div');
+                    tag.className = 'tag';
+                    tag.innerHTML = `
+                        ${this.value.trim()}
+                        <span class="remove" onclick="this.parentElement.remove()">×</span>
+                    `;
+                    this.parentElement.insertBefore(tag, this);
+                    this.value = '';
+                }
+            });
+        });
+
+        // Select all platforms
+        function selectAllPlatforms() {
+            const checkboxes = document.querySelectorAll('.platform-item input[type="checkbox"]');
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            checkboxes.forEach(cb => cb.checked = !allChecked);
+        }
+
+        // File upload preview
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const parent = this.closest('.media-upload');
+                    parent.classList.add('has-file');
+                    const text = parent.querySelector('.text');
+                    if (text) {
+                        text.innerHTML = `<strong>${file.name}</strong> uploaded`;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
