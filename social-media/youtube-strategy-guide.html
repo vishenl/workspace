@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Strategy Guide - Vishen Lakhiani Edition</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+
     <style>
         * {
             margin: 0;
@@ -104,7 +108,7 @@
             display: none;
             background: white;
             margin: 40px auto;
-            max-width: 1200px;
+            max-width: 1400px;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
@@ -113,72 +117,147 @@
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 60px 40px;
+            padding: 80px 60px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)"/></svg>');
+            opacity: 0.1;
         }
 
         .header h1 {
-            font-size: 48px;
+            font-size: 56px;
             font-weight: 700;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
         }
 
         .header .subtitle {
-            font-size: 20px;
+            font-size: 22px;
             opacity: 0.95;
             font-weight: 400;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .meta {
+            margin-top: 30px;
+            font-size: 14px;
+            opacity: 0.85;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Executive Summary Banner */
+        .exec-summary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 50px 80px;
+            text-align: center;
+        }
+
+        .exec-summary h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            border: none;
+        }
+
+        .exec-summary .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .summary-stat {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .summary-stat .number {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .summary-stat .label {
+            font-size: 14px;
+            opacity: 0.95;
         }
 
         .content {
-            padding: 60px 80px 80px;
+            padding: 80px 100px;
         }
 
         .content h2 {
-            font-size: 36px;
-            margin-top: 60px;
-            margin-bottom: 20px;
+            font-size: 42px;
+            margin-top: 80px;
+            margin-bottom: 30px;
             color: #667eea;
             font-weight: 700;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 15px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 20px;
+            position: relative;
         }
 
         .content h2:first-child {
             margin-top: 0;
         }
 
+        .content h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 80px;
+            height: 4px;
+            background: #f5576c;
+        }
+
         .content h3 {
-            font-size: 24px;
-            margin-top: 40px;
-            margin-bottom: 15px;
+            font-size: 28px;
+            margin-top: 50px;
+            margin-bottom: 20px;
             color: #764ba2;
             font-weight: 600;
         }
 
         .content h4 {
-            font-size: 18px;
-            margin-top: 25px;
-            margin-bottom: 12px;
+            font-size: 20px;
+            margin-top: 30px;
+            margin-bottom: 15px;
             color: #2c3e50;
             font-weight: 600;
         }
 
         .content p {
             margin-bottom: 20px;
-            font-size: 17px;
-            line-height: 1.8;
+            font-size: 18px;
+            line-height: 1.9;
         }
 
         .content ul, .content ol {
-            margin-left: 30px;
+            margin-left: 35px;
             margin-bottom: 25px;
         }
 
         .content li {
-            margin-bottom: 12px;
-            font-size: 17px;
-            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 18px;
+            line-height: 1.9;
         }
 
         .content strong {
@@ -186,40 +265,339 @@
             font-weight: 600;
         }
 
+        /* YouTube Thumbnail Mockups */
+        .thumbnail-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .thumbnail {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .thumbnail:hover {
+            transform: translateY(-5px);
+        }
+
+        .thumbnail-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .thumbnail-face {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            border: 4px solid white;
+            position: absolute;
+            left: 30px;
+        }
+
+        .thumbnail-text {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            max-width: 60%;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .thumbnail-title {
+            padding: 15px;
+            background: #f8f9fa;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        /* Pie Chart for Content Pillars */
+        .pie-chart {
+            width: 400px;
+            height: 400px;
+            margin: 40px auto;
+            position: relative;
+            border-radius: 50%;
+            background: conic-gradient(
+                #667eea 0% 40%,
+                #764ba2 40% 65%,
+                #f093fb 65% 85%,
+                #f5576c 85% 100%
+            );
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .pie-legend {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .legend-color {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .legend-text {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .legend-percent {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        /* Funnel Diagram */
+        .funnel {
+            max-width: 700px;
+            margin: 50px auto;
+        }
+
+        .funnel-stage {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .funnel-stage:hover {
+            transform: translateX(10px);
+        }
+
+        .funnel-stage:nth-child(1) { width: 100%; }
+        .funnel-stage:nth-child(2) { width: 85%; margin-left: auto; margin-right: auto; }
+        .funnel-stage:nth-child(3) { width: 70%; margin-left: auto; margin-right: auto; }
+        .funnel-stage:nth-child(4) { width: 55%; margin-left: auto; margin-right: auto; }
+
+        .funnel-stage h4 {
+            color: white;
+            margin: 0 0 10px 0;
+            font-size: 22px;
+        }
+
+        .funnel-stage p {
+            margin: 0;
+            opacity: 0.95;
+            font-size: 16px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+            margin: 60px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            padding: 30px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 0 0 4px #667eea;
+        }
+
+        .timeline-month {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        /* Metrics Dashboard */
+        .metrics-dashboard {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-target {
+            font-size: 12px;
+            color: #27ae60;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        /* Annotation / Personal Note */
+        .annotation {
+            background: #fff9e6;
+            border-left: 4px solid #f39c12;
+            padding: 20px 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            position: relative;
+            font-style: italic;
+        }
+
+        .annotation::before {
+            content: '💡';
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            font-size: 30px;
+            background: white;
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .annotation-author {
+            font-weight: 600;
+            color: #f39c12;
+            margin-top: 10px;
+            font-style: normal;
+        }
+
+        /* Highlight boxes */
         .highlight-box {
             background: #f8f9ff;
             border-left: 4px solid #667eea;
-            padding: 25px 30px;
-            margin: 30px 0;
-            border-radius: 8px;
+            padding: 30px 35px;
+            margin: 35px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
         }
 
         .success-box {
             background: #e8f8f5;
             border-left: 4px solid #27ae60;
-            padding: 25px 30px;
-            margin: 30px 0;
-            border-radius: 8px;
+            padding: 30px 35px;
+            margin: 35px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.1);
         }
 
         .warning-box {
             background: #fff5f5;
             border-left: 4px solid #e74c3c;
-            padding: 25px 30px;
-            margin: 30px 0;
-            border-radius: 8px;
+            padding: 30px 35px;
+            margin: 35px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.1);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 2px solid #667eea;
+            padding: 30px 35px;
+            margin: 35px 0;
+            border-radius: 15px;
         }
 
         .code-block {
             background: #2c3e50;
             color: #ecf0f1;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
             font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 15px;
+            line-height: 1.7;
             overflow-x: auto;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
         .checklist {
@@ -228,31 +606,110 @@
         }
 
         .checklist li {
-            padding-left: 35px;
+            padding-left: 40px;
             position: relative;
+            margin-bottom: 15px;
         }
 
         .checklist li:before {
-            content: "□";
+            content: "☐";
             position: absolute;
             left: 0;
             color: #667eea;
-            font-size: 20px;
+            font-size: 24px;
             font-weight: bold;
         }
 
         hr {
             border: none;
-            border-top: 2px solid #e0e0e0;
-            margin: 50px 0;
+            border-top: 2px solid #e8e8e8;
+            margin: 70px 0;
         }
 
         .section-divider {
             text-align: center;
-            margin: 60px 0;
+            margin: 80px 0;
             color: #bdc3c7;
             font-weight: 300;
-            font-size: 24px;
+            font-size: 28px;
+        }
+
+        /* Channel Analytics Visualization */
+        .analytics-chart {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 40px 0;
+        }
+
+        .growth-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 300px;
+            margin-top: 30px;
+            padding: 20px 0;
+            border-bottom: 3px solid #e0e0e0;
+        }
+
+        .bar {
+            flex: 1;
+            margin: 0 10px;
+            background: linear-gradient(to top, #667eea, #764ba2);
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+            min-width: 60px;
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            font-weight: 700;
+            color: #667eea;
+            white-space: nowrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content {
+                padding: 60px 60px;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                flex-direction: row !important;
+            }
+
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 60px;
+            }
+
+            .timeline-marker {
+                left: 20px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -261,15 +718,24 @@
             }
 
             .header h1 {
-                font-size: 36px;
+                font-size: 40px;
             }
 
             .content h2 {
-                font-size: 28px;
+                font-size: 32px;
             }
 
             .content h3 {
-                font-size: 20px;
+                font-size: 24px;
+            }
+
+            .pie-chart {
+                width: 300px;
+                height: 300px;
+            }
+
+            .thumbnail-gallery {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -277,7 +743,7 @@
             background: #2c3e50;
             color: white;
             text-align: center;
-            padding: 40px;
+            padding: 50px 40px;
             font-size: 14px;
         }
 
@@ -289,15 +755,15 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             color: #667eea;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 14px 28px;
+            border-radius: 10px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
             z-index: 1000;
         }
@@ -305,7 +771,21 @@
         .logout-btn:hover {
             background: white;
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Big Quote */
+        .big-quote {
+            font-size: 28px;
+            line-height: 1.6;
+            color: #764ba2;
+            font-weight: 600;
+            text-align: center;
+            padding: 50px;
+            margin: 50px 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            border-radius: 20px;
+            font-style: italic;
         }
     </style>
 </head>
@@ -334,24 +814,64 @@
 
         <div class="header">
             <h1>YouTube Strategy & Implementation Guide</h1>
-            <p class="subtitle">Vishen Lakhiani Edition - Modeled After Daniel Priestley</p>
+            <p class="subtitle">Vishen Lakhiani Edition - Modeled After Daniel Priestley's Approach</p>
+            <p class="meta">Strategic Report | Prepared for Mindvalley Team | November 2025</p>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="exec-summary">
+            <h2>Executive Summary: Your YouTube Blueprint</h2>
+            <p style="font-size: 18px; max-width: 900px; margin: 20px auto;">A comprehensive strategy to position you as the leading consciousness entrepreneur on YouTube, leveraging Daniel Priestley's proven framework while maintaining Mindvalley's unique blend of science and spirituality.</p>
+
+            <div class="summary-grid">
+                <div class="summary-stat">
+                    <div class="number">2x/week</div>
+                    <div class="label">Publishing Cadence</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="number">100K+</div>
+                    <div class="label">Subscribers (Year 1)</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="number">$200K+</div>
+                    <div class="label">Monthly Revenue (Year 2)</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="number">4 Pillars</div>
+                    <div class="label">Content Strategy</div>
+                </div>
+            </div>
         </div>
 
         <div class="content">
+
+            <div class="big-quote">
+                "YouTube isn't a platform. It's a distribution channel for building authority and driving transformation at scale."
+            </div>
+
             <h2>I. STRATEGIC POSITIONING</h2>
 
             <h3>Your Unique YouTube Position</h3>
-            <p><strong>Daniel Priestley's Model:</strong> Thought leader for entrepreneurs building scalable businesses</p>
-            <p><strong>Your Model:</strong> Consciousness entrepreneur bridging science, spirituality, and peak performance for global change-makers</p>
+
+            <div class="info-box">
+                <h4 style="margin-top: 0;">The Positioning Shift:</h4>
+                <p><strong>Daniel Priestley's Model:</strong> Thought leader for entrepreneurs building scalable businesses</p>
+                <p style="margin-bottom: 0;"><strong>Your Model:</strong> Consciousness entrepreneur bridging science, spirituality, and peak performance for global change-makers</p>
+            </div>
+
+            <div class="annotation">
+                This positioning is critical. You're not a "YouTuber" - you're a consciousness entrepreneur using YouTube as a distribution channel. This shift changes everything about how we approach content.
+                <div class="annotation-author">— Strategy Note</div>
+            </div>
 
             <div class="highlight-box">
                 <h4>Key Differentiators:</h4>
                 <ul>
-                    <li>Blend of neuroscience + ancient wisdom (Mindvalley DNA)</li>
-                    <li>Transformation at scale (proven with Mindvalley)</li>
-                    <li>Access to world-class teachers and thought leaders</li>
-                    <li>Living laboratory of consciousness experiments</li>
-                    <li>Business success + spiritual evolution (not either/or)</li>
+                    <li><strong>Scientific + Spiritual Integration:</strong> The Mindvalley DNA - you bridge what others keep separate</li>
+                    <li><strong>Proven at Scale:</strong> 10M+ students, $100M+ company validates your methods</li>
+                    <li><strong>World-Class Network:</strong> Direct access to Jim Kwik, Michael Beckwith, Dave Asprey, etc.</li>
+                    <li><strong>Living Laboratory:</strong> You're constantly experimenting and documenting results</li>
+                    <li><strong>Business + Consciousness:</strong> Not either/or - you prove they're the same path</li>
                 </ul>
             </div>
 
@@ -359,21 +879,56 @@
 
             <h2>II. CONTENT PILLARS (Daniel Priestley Style)</h2>
 
+            <p>Daniel Priestley's success comes from ruthless consistency across clear content pillars. Here's your framework:</p>
+
+            <div class="pie-chart"></div>
+
+            <div class="pie-legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #667eea;"></div>
+                    <div>
+                        <div class="legend-text">Frameworks & Models</div>
+                        <div class="legend-percent">40% of content</div>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #764ba2;"></div>
+                    <div>
+                        <div class="legend-text">Behind-the-Scenes</div>
+                        <div class="legend-percent">25% of content</div>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f093fb;"></div>
+                    <div>
+                        <div class="legend-text">Consciousness Experiments</div>
+                        <div class="legend-percent">20% of content</div>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f5576c;"></div>
+                    <div>
+                        <div class="legend-text">Guest Conversations</div>
+                        <div class="legend-percent">15% of content</div>
+                    </div>
+                </div>
+            </div>
+
             <h3>Pillar 1: Frameworks & Models (40% of content)</h3>
-            <p>Daniel Priestley excels at creating memorable frameworks. Your versions:</p>
+            <p>Daniel Priestley excels at creating memorable, shareable frameworks. This is your primary content type.</p>
 
             <div class="highlight-box">
-                <h4>Your Frameworks:</h4>
+                <h4>Your Core Frameworks:</h4>
                 <ul>
-                    <li>"The 3 Most Important Questions" (revisited)</li>
-                    <li>"The Consciousness Quotient Model"</li>
+                    <li>"The 3 Most Important Questions" (revisited for new audience)</li>
+                    <li>"The Consciousness Quotient Model" (CQ > IQ + EQ)</li>
                     <li>"The 4 Levels of Human Operating Systems"</li>
                     <li>"Bending Reality: The 3-Step Process"</li>
-                    <li>"The Mindvalley Quest Framework"</li>
+                    <li>"The Mindvalley Quest Framework Explained"</li>
                 </ul>
             </div>
 
-            <p><strong>Format:</strong> 10-15 min videos, whiteboard/presentation style</p>
+            <p><strong>Format:</strong> 10-15 minute videos, whiteboard/presentation style, highly structured</p>
 
             <h4>Example Titles:</h4>
             <ul>
@@ -383,359 +938,264 @@
             </ul>
 
             <h3>Pillar 2: Behind-the-Scenes Entrepreneurship (25% of content)</h3>
-            <p>Show the reality of building Mindvalley, similar to how Priestley shows business building.</p>
+            <p>Show the <em>reality</em> of building Mindvalley. People are hungry for authentic business stories.</p>
 
             <h4>Content Ideas:</h4>
             <ul>
                 <li>"Building a $100M Consciousness Company: What Nobody Tells You"</li>
                 <li>"How We Hire at Mindvalley: The Consciousness Culture Code"</li>
-                <li>"The Day I Almost Lost Everything (Mindvalley Crisis Stories)"</li>
+                <li>"The Day I Almost Lost Everything (Crisis Stories from Mindvalley)"</li>
                 <li>"Real Numbers: What It Actually Costs to Run a Quest"</li>
+                <li>"Why I Moved Mindvalley to Estonia (And What I Learned)"</li>
             </ul>
-            <p><strong>Format:</strong> 8-12 min, casual setting, authentic</p>
+            <p><strong>Format:</strong> 8-12 minutes, casual setting, raw authenticity, shot simply</p>
 
             <h3>Pillar 3: Consciousness Experiments (20% of content)</h3>
-            <p>Your unique edge - documenting personal transformation practices.</p>
+            <p>Your <strong>unique edge</strong> - documenting personal transformation practices with data.</p>
 
             <h4>Series Examples:</h4>
             <ul>
-                <li>"30-Day Biohacking Experiments"</li>
+                <li>"30-Day Biohacking Experiments" (monthly series)</li>
                 <li>"Testing Ancient Practices with Modern Science"</li>
                 <li>"What Happened When I Meditated 4 Hours Daily for 30 Days"</li>
-                <li>"The Billionaire Morning Routine (I Tried 10 of Them)"</li>
+                <li>"The Billionaire Morning Routine Challenge (I Tried 10 of Them)"</li>
+                <li>"Manifesting on Camera: 90-Day Documented Experiment"</li>
             </ul>
-            <p><strong>Format:</strong> 12-18 min, documentary style with data/results</p>
+            <p><strong>Format:</strong> 12-18 minutes, documentary style, before/after data, scientific credibility</p>
+
+            <div class="annotation">
+                The experiments are what will differentiate you from every other "manifestation" teacher on YouTube. You're bringing rigor and documentation to spirituality. This is powerful.
+                <div class="annotation-author">— Strategy Note</div>
+            </div>
 
             <h3>Pillar 4: Guest Conversations (15% of content)</h3>
-            <p>Leverage your network, but Daniel Priestley style: focused, framework-driven.</p>
-
-            <p><strong>Not:</strong> Long-form rambling interviews<br>
-            <strong>Instead:</strong> Tight 15-20 min conversations extracting ONE key framework</p>
-
-            <h4>Format:</h4>
-            <ul>
-                <li>"Jim Kwik's #1 Memory Technique (In 15 Minutes)"</li>
-                <li>"Michael Beckwith on Manifesting: The Part Nobody Teaches"</li>
-                <li>"Dave Asprey's Biohacking Shortcut for Busy Entrepreneurs"</li>
-            </ul>
-
-            <hr>
-
-            <h2>III. VIDEO FORMATS (Priestley's Production Values)</h2>
-
-            <h3>Daniel Priestley's Format DNA:</h3>
-            <ul>
-                <li>Professional but not overly produced</li>
-                <li>Usually one camera angle</li>
-                <li>Clean, simple backgrounds</li>
-                <li>Focus on MESSAGE over production</li>
-                <li>Consistent thumbnail style</li>
-                <li>Clear, punchy titles</li>
-            </ul>
-
-            <h3>Your Adapted Format:</h3>
-
-            <h4>Primary Format: "The Vishen Framework Video"</h4>
-            <ul>
-                <li>10-15 minutes</li>
-                <li>You + whiteboard/screen shares</li>
-                <li>Clean, modern office setting</li>
-                <li>Professional lighting (but not studio)</li>
-                <li>Intro: Hook (15 seconds)</li>
-                <li>Main content: Framework breakdown</li>
-                <li>Outro: One clear CTA</li>
-            </ul>
-
-            <h4>Secondary Format: "Field Reports"</h4>
-            <ul>
-                <li>Shot on iPhone/simple camera</li>
-                <li>Various locations (Mindvalley office, events, travel)</li>
-                <li>More casual, documentary feel</li>
-                <li>8-12 minutes</li>
-                <li>Storytelling > perfection</li>
-            </ul>
-
-            <div class="highlight-box">
-                <h4>Thumbnail Style (Priestley Inspired):</h4>
-                <ul>
-                    <li>Your face (consistent expression/angle)</li>
-                    <li>Bold, simple text (max 4-5 words)</li>
-                    <li>Bright, clean backgrounds</li>
-                    <li>One accent color consistently used</li>
-                    <li>No clickbait - straightforward value promise</li>
-                </ul>
-            </div>
-
-            <hr>
-
-            <h2>IV. CONTENT CALENDAR & PUBLISHING SCHEDULE</h2>
-
-            <p><strong>Daniel Priestley's Cadence:</strong> 1-2x per week, consistent<br>
-            <strong>Your Optimal Cadence:</strong> 2x per week (Tuesday & Friday)</p>
-
-            <div class="success-box">
-                <h4>Why This Frequency:</h4>
-                <ul>
-                    <li>Builds consistency without burnout</li>
-                    <li>Allows quality over quantity</li>
-                    <li>Tuesday: Catch beginning-of-week motivation</li>
-                    <li>Friday: Weekend consumption planning</li>
-                </ul>
-            </div>
-
-            <h3>Monthly Content Mix:</h3>
-            <p><strong>Week 1:</strong></p>
-            <ul>
-                <li>Video 1 (Tue): Framework/Teaching</li>
-                <li>Video 2 (Fri): Behind-the-Scenes</li>
-            </ul>
-
-            <p><strong>Week 2:</strong></p>
-            <ul>
-                <li>Video 1 (Tue): Consciousness Experiment Results</li>
-                <li>Video 2 (Fri): Framework/Teaching</li>
-            </ul>
-
-            <p><strong>Week 3:</strong></p>
-            <ul>
-                <li>Video 1 (Tue): Guest Conversation</li>
-                <li>Video 2 (Fri): Framework/Teaching</li>
-            </ul>
-
-            <p><strong>Week 4:</strong></p>
-            <ul>
-                <li>Video 1 (Tue): Framework/Teaching</li>
-                <li>Video 2 (Fri): Behind-the-Scenes or Experiment</li>
-            </ul>
-
-            <hr>
-
-            <h2>V. VIDEO STRUCTURE (Priestley's Proven Formula)</h2>
-
-            <h3>The 3-Act Structure (Every Video):</h3>
-
-            <h4>Act 1: The Hook (First 15-30 seconds)</h4>
-            <div class="code-block">
-Pattern: Bold statement + Personal credibility + Promise
-
-Example:
-"Most people think meditation is about clearing your mind.
-After training 10 million students at Mindvalley, I can tell
-you that's the #1 reason people fail. Today I'm sharing the
-real approach that actually works."
-            </div>
-
-            <h4>Act 2: The Framework (Main Content)</h4>
-            <ul>
-                <li>Introduce ONE core framework</li>
-                <li>Break it into 3-5 clear steps</li>
-                <li>Use visual aids (screen/whiteboard)</li>
-                <li>Personal story illustrating each point</li>
-                <li>Practical, actionable examples</li>
-                <li>Time: 8-13 minutes</li>
-            </ul>
-
-            <h4>Act 3: The Close (Last 1-2 minutes)</h4>
-            <ul>
-                <li>Recap the framework in 30 seconds</li>
-                <li>ONE clear next step for viewer</li>
-                <li>Soft CTA to relevant Quest/resource</li>
-                <li>Ask for like/subscribe (briefly)</li>
-            </ul>
-
-            <hr>
-
-            <h2>VI. PRODUCTION WORKFLOW</h2>
-
-            <h3>Priestley's Secret: Batch Recording + Simple Setup</h3>
-
-            <div class="highlight-box">
-                <h4>Your Monthly Production System:</h4>
-                <p><strong>Recording Days: First Friday & Saturday of Each Month</strong></p>
-                <ul>
-                    <li>Record 8 videos in 2 days (4 per day)</li>
-                    <li>Same setup, multiple outfit changes</li>
-                    <li>Scripts outlined but not word-for-word</li>
-                </ul>
-            </div>
-
-            <h4>Week 1 (Pre-Production):</h4>
-            <ul>
-                <li>Mon-Wed: Team creates 8 video outlines</li>
-                <li>Thu: You review/refine all 8</li>
-                <li>Fri: Record 4 videos (frameworks/teaching)</li>
-                <li>Sat: Record 4 videos (experiments/BTS)</li>
-            </ul>
-
-            <h4>Weeks 2-5:</h4>
-            <ul>
-                <li>Editor produces 2 videos per week</li>
-                <li>You review Mondays</li>
-                <li>Publish Tuesday & Friday</li>
-            </ul>
-
-            <h4>Team Roles Needed:</h4>
-            <ol>
-                <li><strong>Content Strategist</strong> (1 person): Creates outlines, manages calendar</li>
-                <li><strong>Video Editor</strong> (1 person): Edits, thumbnails, uploads</li>
-                <li><strong>Researcher</strong> (0.5 person): Gathers data for experiments, frameworks</li>
-            </ol>
-
-            <hr>
-
-            <h2>VII. GROWTH TACTICS (Priestley's Organic Strategy)</h2>
-
-            <p style="font-size: 20px; color: #764ba2; font-weight: 600;">Daniel Priestley doesn't do growth hacks. He does VALUE.</p>
-
-            <h3>Phase 1: Foundation (Months 1-3)</h3>
-            <p><strong>Goal:</strong> 10,000 subscribers</p>
-            <h4>Tactics:</h4>
-            <ul>
-                <li>Promote to existing Mindvalley email list (strategically, not spam)</li>
-                <li>Share on all social channels</li>
-                <li>Embed in Quest welcome sequences</li>
-                <li>Guest appearances on aligned channels</li>
-                <li>Optimize for "Vishen Lakhiani" searches</li>
-            </ul>
-
-            <h3>Phase 2: Expansion (Months 4-9)</h3>
-            <p><strong>Goal:</strong> 50,000 subscribers</p>
-            <h4>Tactics:</h4>
-            <ul>
-                <li>YouTube search optimization (target bottom-of-funnel keywords)
-                    <ul>
-                        <li>"How to manifest" (educational)</li>
-                        <li>"Morning routine for success"</li>
-                        <li>"Consciousness techniques"</li>
-                    </ul>
-                </li>
-                <li>Create "evergreen" videos that rank in search</li>
-                <li>Collaborate with complementary channels (not competitors)</li>
-                <li>Clip best moments for YouTube Shorts</li>
-            </ul>
-
-            <h3>Phase 3: Scale (Months 10-18)</h3>
-            <p><strong>Goal:</strong> 250,000+ subscribers</p>
-            <h4>Tactics:</h4>
-            <ul>
-                <li>Algorithm mastery: CTR + Watch Time optimization</li>
-                <li>Series content (binge-able playlists)</li>
-                <li>Controversial-but-true opinions (algorithm boost)</li>
-                <li>Annual "State of Consciousness" videos</li>
-                <li>Podcast clips → YouTube</li>
-            </ul>
-
-            <hr>
-
-            <h2>VIII. TITLES & THUMBNAILS (Priestley's Formula)</h2>
-
-            <h3>Title Framework:</h3>
-
-            <h4>Pattern 1: "The [Number] [Big Claim] [Unique Angle]"</h4>
-            <ul>
-                <li>"The 3 Meditation Mistakes Keeping You Stuck"</li>
-                <li>"The 5 Questions That Changed My Reality"</li>
-            </ul>
-
-            <h4>Pattern 2: "Why [Common Belief] Is Wrong (And What To Do Instead)"</h4>
-            <ul>
-                <li>"Why Positive Thinking Doesn't Work (Science-Backed Alternative)"</li>
-                <li>"Why Most Morning Routines Fail (The Missing Piece)"</li>
-            </ul>
-
-            <h4>Pattern 3: "How I [Result] By [Unique Method]"</h4>
-            <ul>
-                <li>"How I Built Mindvalley To $100M Using Consciousness Principles"</li>
-                <li>"How I Meditate 20 Minutes Daily (Even With 4 Kids)"</li>
-            </ul>
-
-            <h4>Pattern 4: "[Authority Figure]'s [Specific Framework/Secret]"</h4>
-            <ul>
-                <li>"Jim Kwik's 1 Memory Technique I Use Daily"</li>
-                <li>"The Dalai Lama's Advice That Changed My Business"</li>
-            </ul>
-
-            <div class="highlight-box">
-                <h4>Thumbnail Formula:</h4>
-                <ul>
-                    <li><strong>Your Face:</strong> Same angle, thoughtful/confident expression</li>
-                    <li><strong>Text:</strong> 3-5 words max, large font</li>
-                    <li><strong>Color Scheme:</strong> Consistent brand colors (suggest: deep blue + gold accent)</li>
-                    <li><strong>Background:</strong> Solid color or subtle blur, never busy</li>
-                </ul>
-            </div>
-
-            <hr>
-
-            <h2>IX. MONETIZATION STRATEGY</h2>
-
-            <p style="font-size: 20px; color: #764ba2; font-weight: 600;">Priestley Model: YouTube is a LEAD GENERATOR, not revenue source</p>
-
-            <h3>Your Funnel:</h3>
-
-            <div class="highlight-box">
-                <p><strong>FREE (YouTube) →</strong></p>
-                <ul>
-                    <li>Valuable frameworks</li>
-                    <li>Personal stories</li>
-                    <li>Consciousness experiments</li>
-                </ul>
-
-                <p><strong>TRIPWIRE (Free Quest/Masterclass) →</strong></p>
-                <ul>
-                    <li>"6 Phase Meditation Masterclass"</li>
-                    <li>"Bending Reality 5-Day Challenge"</li>
-                    <li>Email capture</li>
-                </ul>
-
-                <p><strong>CORE OFFER (Quest Purchase) →</strong></p>
-                <ul>
-                    <li>Relevant Quest based on video topic</li>
-                    <li>Seamless integration in content</li>
-                </ul>
-
-                <p><strong>HIGH-END (Mindvalley Membership/University) →</strong></p>
-                <ul>
-                    <li>For subscribers ready for full commitment</li>
-                </ul>
-            </div>
-
-            <h3>Revenue Expectation Timeline:</h3>
-            <ul>
-                <li><strong>Months 1-6:</strong> $0 direct YouTube ad revenue (build audience)</li>
-                <li><strong>Months 7-12:</strong> $10K-50K monthly from Quest sales (YouTube attribution)</li>
-                <li><strong>Year 2+:</strong> $100K+ monthly from YouTube-driven funnel</li>
-            </ul>
-
-            <hr>
-
-            <h2>X. KEY METRICS TO TRACK (Priestley's Data-Driven Approach)</h2>
+            <p>Leverage your incredible network, but Priestley-style: <strong>tight, focused, framework-extraction</strong>.</p>
 
             <div class="warning-box">
-                <p><strong>Don't Track:</strong> Vanity metrics (views, likes)<br>
-                <strong>DO Track:</strong> Business metrics</p>
+                <p><strong>❌ NOT:</strong> 60-minute rambling podcasts</p>
+                <p style="margin-bottom: 0;"><strong>✅ INSTEAD:</strong> 15-20 minute conversations extracting ONE key framework or technique</p>
             </div>
 
-            <h3>Weekly Dashboard:</h3>
-            <ol>
-                <li><strong>CTR (Click-Through Rate):</strong> Target 8-12%</li>
-                <li><strong>AVD (Average View Duration):</strong> Target 50%+</li>
-                <li><strong>Subscriber Conversion Rate:</strong> Target 4-6%</li>
-                <li><strong>Traffic to Mindvalley.com:</strong> Track UTM links</li>
-                <li><strong>Quest Sales (YouTube source):</strong> Monthly conversion rate</li>
-            </ol>
-
-            <h3>Monthly Review:</h3>
+            <h4>Format Examples:</h4>
             <ul>
-                <li>Which content pillars perform best?</li>
-                <li>Which thumbnails get highest CTR?</li>
-                <li>What titles drive most subscribers?</li>
-                <li>Which videos drive most Quest sales?</li>
+                <li>"Jim Kwik's #1 Memory Technique Explained in 15 Minutes"</li>
+                <li>"Michael Beckwith on Manifesting: The Part Nobody Teaches"</li>
+                <li>"Dave Asprey's Single Best Biohack for Busy Entrepreneurs"</li>
+                <li>"Emily Fletcher's 60-Second Meditation That Actually Works"</li>
             </ul>
 
             <hr>
 
-            <h2>XI. CONTENT IDEAS: FIRST 20 VIDEOS</h2>
+            <h2>III. SAMPLE YOUTUBE THUMBNAILS</h2>
+
+            <p>Thumbnails are 50% of your success. Here's what your consistent thumbnail style should look like:</p>
+
+            <div class="thumbnail-gallery">
+                <div class="thumbnail">
+                    <div class="thumbnail-image">
+                        <div class="thumbnail-face"></div>
+                        <div class="thumbnail-text">THE 3 QUESTIONS</div>
+                    </div>
+                    <div class="thumbnail-title">The 3 Most Important Questions to Transform Your Life</div>
+                </div>
+
+                <div class="thumbnail">
+                    <div class="thumbnail-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <div class="thumbnail-face" style="background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);"></div>
+                        <div class="thumbnail-text">$100M JOURNEY</div>
+                    </div>
+                    <div class="thumbnail-title">How I Built Mindvalley to $100M (The Real Story)</div>
+                </div>
+
+                <div class="thumbnail">
+                    <div class="thumbnail-image" style="background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);">
+                        <div class="thumbnail-face" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                        <div class="thumbnail-text">WHY IT FAILS</div>
+                    </div>
+                    <div class="thumbnail-title">Why Positive Thinking Doesn't Work (Science-Backed Truth)</div>
+                </div>
+
+                <div class="thumbnail">
+                    <div class="thumbnail-image" style="background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);">
+                        <div class="thumbnail-face" style="background: linear-gradient(135deg, #f093fb 0%, #667eea 100%);"></div>
+                        <div class="thumbnail-text">4 HOUR MEDITATION</div>
+                    </div>
+                    <div class="thumbnail-title">I Meditated 4 Hours Daily for 30 Days - Here's What Happened</div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Thumbnail Formula (Non-Negotiable):</h4>
+                <ul>
+                    <li><strong>Your Face:</strong> Same angle every time, confident/thoughtful expression</li>
+                    <li><strong>Bold Text:</strong> 3-5 words MAX, large readable font</li>
+                    <li><strong>Consistent Colors:</strong> Purple/blue gradient (Mindvalley brand) + accent</li>
+                    <li><strong>Clean Background:</strong> Solid gradient, never busy or cluttered</li>
+                    <li><strong>High Contrast:</strong> Text must be readable on mobile</li>
+                </ul>
+            </div>
+
+            <hr>
+
+            <h2>IV. MONETIZATION FUNNEL</h2>
+
+            <p style="font-size: 20px; color: #764ba2; font-weight: 600;">Remember: YouTube is a LEAD GENERATOR, not a revenue source.</p>
+
+            <div class="funnel">
+                <div class="funnel-stage">
+                    <h4>🎥 Stage 1: FREE (YouTube)</h4>
+                    <p>Valuable frameworks, personal stories, consciousness experiments. Pure value, no strings attached.</p>
+                </div>
+                <div class="funnel-stage">
+                    <h4>🎁 Stage 2: TRIPWIRE ($0 - Free Masterclass)</h4>
+                    <p>"6 Phase Meditation Masterclass" or "Bending Reality 5-Day Challenge" - email capture, demonstrate depth</p>
+                </div>
+                <div class="funnel-stage">
+                    <h4>💎 Stage 3: CORE OFFER ($200-400 Quest)</h4>
+                    <p>Relevant Quest based on video topic. Seamless CTA integration. This is where revenue starts.</p>
+                </div>
+                <div class="funnel-stage">
+                    <h4>👑 Stage 4: HIGH-END (Membership/University)</h4>
+                    <p>Mindvalley All-Access or University for subscribers ready for full commitment and transformation</p>
+                </div>
+            </div>
+
+            <div class="metrics-dashboard">
+                <h3 style="margin-top: 0; color: #2c3e50;">Revenue Projection Timeline:</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">$0</div>
+                        <div class="metric-label">Months 1-6</div>
+                        <div class="metric-target">Build audience</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">$10-50K</div>
+                        <div class="metric-label">Months 7-12</div>
+                        <div class="metric-target">Quest sales</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">$100K+</div>
+                        <div class="metric-label">Year 2</div>
+                        <div class="metric-target">Full funnel</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">$200K+</div>
+                        <div class="metric-label">Year 2+</div>
+                        <div class="metric-target">Scale phase</div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <h2>V. GROWTH ROADMAP: 18-MONTH JOURNEY</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-month">Months 1-3: Foundation</div>
+                        <h4>Goal: 10,000 subscribers</h4>
+                        <p><strong>Tactics:</strong> Promote to Mindvalley email list, share on all channels, embed in Quest sequences, optimize for name searches</p>
+                        <p><strong>Milestone:</strong> 2-3 videos with 50K+ views</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-month">Months 4-9: Expansion</div>
+                        <h4>Goal: 50,000 subscribers</h4>
+                        <p><strong>Tactics:</strong> YouTube SEO optimization ("how to manifest", "morning routines"), evergreen content, channel collaborations, YouTube Shorts</p>
+                        <p><strong>Milestone:</strong> 5-10 videos with 100K+ views</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-month">Months 10-18: Scale</div>
+                        <h4>Goal: 250,000+ subscribers</h4>
+                        <p><strong>Tactics:</strong> Algorithm mastery (CTR + watch time), series content, controversial opinions, annual "State of Consciousness" videos</p>
+                        <p><strong>Milestone:</strong> Established thought leader in consciousness space</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+            </div>
+
+            <div class="analytics-chart">
+                <h3 style="margin-top: 0;">Projected Subscriber Growth</h3>
+                <div class="growth-bars">
+                    <div class="bar" style="height: 15%;">
+                        <div class="bar-value">10K</div>
+                        <div class="bar-label">Month 3</div>
+                    </div>
+                    <div class="bar" style="height: 35%;">
+                        <div class="bar-value">25K</div>
+                        <div class="bar-label">Month 6</div>
+                    </div>
+                    <div class="bar" style="height: 55%;">
+                        <div class="bar-value">50K</div>
+                        <div class="bar-label">Month 9</div>
+                    </div>
+                    <div class="bar" style="height: 80%;">
+                        <div class="bar-value">100K</div>
+                        <div class="bar-label">Month 12</div>
+                    </div>
+                    <div class="bar" style="height: 100%;">
+                        <div class="bar-value">250K+</div>
+                        <div class="bar-label">Month 18</div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <h2>VI. KEY METRICS TO TRACK (Data-Driven Success)</h2>
+
+            <div class="warning-box">
+                <h4 style="margin-top: 0;">Forget Vanity Metrics</h4>
+                <p><strong>Don't Track:</strong> Total views, likes, social proof numbers</p>
+                <p style="margin-bottom: 0;"><strong>DO Track:</strong> Business metrics that drive Quest sales and transformation</p>
+            </div>
+
+            <div class="metrics-dashboard">
+                <h3 style="margin-top: 0;">Your Weekly Dashboard:</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">8-12%</div>
+                        <div class="metric-label">CTR Target</div>
+                        <div class="metric-target">Click-through rate</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">50%+</div>
+                        <div class="metric-label">AVD Target</div>
+                        <div class="metric-target">Avg view duration</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">4-6%</div>
+                        <div class="metric-label">Sub Rate</div>
+                        <div class="metric-target">Subscriber conversion</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">Track</div>
+                        <div class="metric-label">Quest Sales</div>
+                        <div class="metric-target">YouTube attribution</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Monthly Review Questions:</h3>
+            <ol>
+                <li>Which content pillars are performing best?</li>
+                <li>Which thumbnails achieve highest CTR?</li>
+                <li>What title patterns drive most subscribers?</li>
+                <li>Which videos drive most Quest sales?</li>
+                <li>Where are viewers dropping off?</li>
+            </ol>
+
+            <hr>
+
+            <h2>VII. CONTENT IDEAS: FIRST 20 VIDEOS</h2>
 
             <h3>Videos 1-5: Foundation (Introduce Your Frameworks)</h3>
             <ol>
@@ -773,245 +1233,292 @@ real approach that actually works."
                 <li>"The Consciousness Entrepreneur: A New Type of Business Leader"</li>
             </ol>
 
+            <div class="annotation">
+                These first 20 videos establish your authority, demonstrate your frameworks, leverage your network, and create multiple entry points for different audience segments. Each one should end with a soft CTA to a relevant Quest.
+                <div class="annotation-author">— Strategy Note</div>
+            </div>
+
             <hr>
 
-            <h2>XII. TOOLS & SOFTWARE</h2>
+            <h2>VIII. PRODUCTION WORKFLOW</h2>
+
+            <h3>Priestley's Secret: Batch Recording + Simple Setup</h3>
+
+            <div class="info-box">
+                <h4 style="margin-top: 0;">Your Monthly Production System:</h4>
+                <p><strong>Recording Days:</strong> First Friday & Saturday of each month</p>
+                <ul style="margin-bottom: 0;">
+                    <li>Record 8 videos in 2 days (4 videos per day)</li>
+                    <li>Same setup, multiple outfit changes for variety</li>
+                    <li>Scripts outlined (not word-for-word) for natural delivery</li>
+                </ul>
+            </div>
+
+            <h4>Week 1 (Pre-Production):</h4>
+            <ul>
+                <li><strong>Mon-Wed:</strong> Team creates 8 detailed video outlines</li>
+                <li><strong>Thursday:</strong> You review and refine all 8 scripts</li>
+                <li><strong>Friday:</strong> Record 4 videos (frameworks/teaching content)</li>
+                <li><strong>Saturday:</strong> Record 4 videos (experiments/BTS content)</li>
+            </ul>
+
+            <h4>Weeks 2-5:</h4>
+            <ul>
+                <li>Editor produces 2 videos per week</li>
+                <li>You review every Monday morning</li>
+                <li>Publish Tuesday 9am & Friday 9am (consistent schedule)</li>
+            </ul>
+
+            <h3>Team Roles Needed (Lean Team):</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">1.0</div>
+                    <div class="metric-label">Content Strategist</div>
+                    <div class="metric-target">Outlines & calendar</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">1.0</div>
+                    <div class="metric-label">Video Editor</div>
+                    <div class="metric-target">Edit, thumbnails, upload</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">0.5</div>
+                    <div class="metric-label">Researcher</div>
+                    <div class="metric-target">Data for experiments</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">2.5</div>
+                    <div class="metric-label">Total Team</div>
+                    <div class="metric-target">FTE count</div>
+                </div>
+            </div>
+
+            <hr>
+
+            <h2>IX. TOOLS & EQUIPMENT</h2>
 
             <h3>Minimal Tech Stack (Priestley Philosophy: Simple & Effective)</h3>
 
-            <h4>Recording:</h4>
-            <ul>
-                <li>Camera: Sony A7IV or Canon EOS R6 ($2-3K) - one-time</li>
-                <li>Mic: Rode Wireless Go II ($300)</li>
-                <li>Lighting: Aputure AL-MC ($100) x 2</li>
-                <li>Backdrop: Solid wall or Mindvalley office</li>
-            </ul>
+            <div class="highlight-box">
+                <h4>Recording Equipment:</h4>
+                <ul>
+                    <li><strong>Camera:</strong> Sony A7IV or Canon EOS R6 ($2,500) - one-time investment</li>
+                    <li><strong>Microphone:</strong> Rode Wireless Go II ($300)</li>
+                    <li><strong>Lighting:</strong> Aputure AL-MC ($100) x 2</li>
+                    <li><strong>Backdrop:</strong> Solid wall or clean Mindvalley office space</li>
+                </ul>
+                <p style="margin-top: 20px; margin-bottom: 0;"><strong>Total Equipment Cost:</strong> ~$3,000 (one-time)</p>
+            </div>
 
-            <h4>Editing:</h4>
+            <h4>Software Stack:</h4>
             <ul>
-                <li>Premiere Pro or Final Cut Pro</li>
-                <li>TubeBuddy or VidIQ (keyword research)</li>
-                <li>Canva (thumbnails)</li>
-            </ul>
-
-            <h4>Management:</h4>
-            <ul>
-                <li>Notion or Airtable (content calendar)</li>
-                <li>Google Sheets (metrics dashboard)</li>
-                <li>Frame.io (video review)</li>
+                <li><strong>Editing:</strong> Premiere Pro or Final Cut Pro</li>
+                <li><strong>Thumbnails:</strong> Canva Pro (with branded templates)</li>
+                <li><strong>SEO Research:</strong> TubeBuddy or VidIQ</li>
+                <li><strong>Project Management:</strong> Notion or Airtable</li>
+                <li><strong>Analytics:</strong> Google Sheets dashboard</li>
+                <li><strong>Review:</strong> Frame.io for video feedback</li>
             </ul>
 
             <hr>
 
-            <h2>XIII. FIRST 90 DAYS: ACTION PLAN</h2>
+            <h2>X. FIRST 90 DAYS: ACTION PLAN</h2>
 
             <h3>Days 1-30: Setup & Pilot</h3>
             <ul class="checklist">
-                <li>Assemble 3-person team</li>
-                <li>Set up recording space</li>
-                <li>Purchase equipment</li>
+                <li>Assemble 3-person team (strategist, editor, researcher)</li>
+                <li>Set up recording space at Mindvalley office</li>
+                <li>Purchase all equipment and test setup</li>
                 <li>Record 4 pilot videos</li>
-                <li>Create channel branding</li>
-                <li>Design thumbnail template</li>
+                <li>Create channel branding (banner, profile, about)</li>
+                <li>Design thumbnail template in Canva</li>
                 <li>Publish first 2 videos</li>
-                <li>Test CTR/engagement</li>
+                <li>Test CTR and engagement on pilots</li>
             </ul>
 
             <h3>Days 31-60: Refine & Scale</h3>
             <ul class="checklist">
-                <li>Batch record 8 videos</li>
-                <li>Publish 2x/week consistently</li>
-                <li>Promote to Mindvalley email (soft announce)</li>
-                <li>Analyze first 10 video metrics</li>
-                <li>Adjust titles/thumbnails based on data</li>
-                <li>Begin guest outreach</li>
-                <li>Create 3 evergreen videos for SEO</li>
+                <li>Batch record 8 videos (first official batch)</li>
+                <li>Publish 2x/week consistently (no exceptions)</li>
+                <li>Soft announce to Mindvalley email list</li>
+                <li>Analyze first 10 videos for patterns</li>
+                <li>A/B test titles and thumbnails</li>
+                <li>Reach out to 5 guests for future videos</li>
+                <li>Create 3 evergreen SEO-optimized videos</li>
             </ul>
 
             <h3>Days 61-90: Optimize & Grow</h3>
             <ul class="checklist">
                 <li>Batch record next 8 videos</li>
-                <li>Launch YouTube Shorts strategy</li>
-                <li>Create first Quest integration video</li>
-                <li>Implement UTM tracking to Mindvalley</li>
+                <li>Launch YouTube Shorts strategy (repurpose content)</li>
+                <li>Create first Quest integration video with tracking</li>
+                <li>Implement UTM parameters for all Mindvalley links</li>
                 <li>Guest appearance on 2-3 aligned channels</li>
                 <li>Optimize top 5 videos based on analytics</li>
-                <li>Plan next 90 days based on data</li>
+                <li>Plan next 90 days based on performance data</li>
             </ul>
 
             <hr>
 
-            <h2>XIV. SUCCESS BENCHMARKS</h2>
+            <h2>XI. SUCCESS BENCHMARKS</h2>
 
-            <p style="font-size: 20px; color: #764ba2; font-weight: 600;">Daniel Priestley didn't go viral. He built CONSISTENT VALUE.</p>
+            <div class="big-quote" style="font-size: 24px;">
+                "Daniel Priestley didn't go viral. He built consistent value over years. That's the model."
+            </div>
 
-            <h3>Month 3:</h3>
+            <h3>Month 3 Targets:</h3>
             <ul>
-                <li>10,000 subscribers</li>
-                <li>2-3 videos with 50K+ views</li>
-                <li>Average CTR: 6-8%</li>
-                <li>100+ Quest sales attributed to YouTube</li>
+                <li>✅ 10,000 subscribers</li>
+                <li>✅ 2-3 videos with 50K+ views</li>
+                <li>✅ Average CTR: 6-8%</li>
+                <li>✅ 100+ Quest sales attributed to YouTube</li>
             </ul>
 
-            <h3>Month 6:</h3>
+            <h3>Month 6 Targets:</h3>
             <ul>
-                <li>25,000 subscribers</li>
-                <li>5-10 videos with 100K+ views</li>
-                <li>Average CTR: 8-10%</li>
-                <li>500+ Quest sales attributed to YouTube</li>
+                <li>✅ 25,000 subscribers</li>
+                <li>✅ 5-10 videos with 100K+ views</li>
+                <li>✅ Average CTR: 8-10%</li>
+                <li>✅ 500+ Quest sales attributed to YouTube</li>
             </ul>
 
-            <h3>Month 12:</h3>
+            <h3>Month 12 Targets:</h3>
             <ul>
-                <li>75,000-100,000 subscribers</li>
-                <li>20+ videos with 100K+ views</li>
-                <li>Average CTR: 10-12%</li>
-                <li>2,000+ Quest sales attributed to YouTube</li>
-                <li>$50K+ monthly revenue (YouTube-driven funnel)</li>
+                <li>✅ 75,000-100,000 subscribers</li>
+                <li>✅ 20+ videos with 100K+ views</li>
+                <li>✅ Average CTR: 10-12%</li>
+                <li>✅ 2,000+ Quest sales attributed to YouTube</li>
+                <li>✅ $50K+ monthly revenue from YouTube-driven funnel</li>
             </ul>
 
-            <h3>Month 24:</h3>
+            <h3>Month 24 Targets:</h3>
             <ul>
-                <li>250,000-500,000 subscribers</li>
-                <li>Established thought leader in consciousness space</li>
-                <li>$200K+ monthly revenue (YouTube-driven funnel)</li>
-                <li>Speaking opportunities, book deals from YouTube presence</li>
+                <li>✅ 250,000-500,000 subscribers</li>
+                <li>✅ Recognized as leading consciousness entrepreneur</li>
+                <li>✅ $200K+ monthly revenue from YouTube funnel</li>
+                <li>✅ Speaking invitations, media features, book deals</li>
             </ul>
 
             <hr>
 
-            <h2>XV. COMMON PITFALLS TO AVOID</h2>
+            <h2>XII. COMMON PITFALLS TO AVOID</h2>
 
-            <h3>What Priestley Does Right (Learn From This):</h3>
-            <ol>
-                <li><strong>Consistency Over Perfection:</strong> He publishes regularly, not perfectly</li>
-                <li><strong>Value Over Production:</strong> Message matters more than 4K cameras</li>
-                <li><strong>Frameworks Over Stories:</strong> Teach systems, not just inspiration</li>
-                <li><strong>Business Mind:</strong> Every video serves the business funnel</li>
-                <li><strong>Long-term Thinking:</strong> Building authority, not chasing viral hits</li>
-            </ol>
+            <h3>What Priestley Does Right (Model This):</h3>
+            <div class="success-box">
+                <ol>
+                    <li><strong>Consistency Over Perfection:</strong> He publishes on schedule, not when "perfect"</li>
+                    <li><strong>Value Over Production:</strong> Message matters more than 4K cameras</li>
+                    <li><strong>Frameworks Over Stories:</strong> Teach replicable systems, not just inspiration</li>
+                    <li><strong>Business Mindset:</strong> Every video serves the business funnel</li>
+                    <li><strong>Long-term Thinking:</strong> Building authority, not chasing viral moments</li>
+                </ol>
+            </div>
 
+            <h3>What To Avoid (Common Mistakes):</h3>
             <div class="warning-box">
-                <h3>What To Avoid:</h3>
                 <ul>
-                    <li>❌ <strong>Over-production:</strong> Don't wait for "perfect" setup</li>
-                    <li>❌ <strong>Rambling interviews:</strong> Keep tight, framework-focused</li>
-                    <li>❌ <strong>Chasing trends:</strong> Stay in your lane (consciousness/transformation)</li>
-                    <li>❌ <strong>Sporadic publishing:</strong> Consistency builds algorithm trust</li>
-                    <li>❌ <strong>No CTA:</strong> Every video should lead somewhere</li>
-                    <li>❌ <strong>Trying to please everyone:</strong> Speak to YOUR audience (growth-oriented, conscious entrepreneurs)</li>
+                    <li>❌ <strong>Over-production:</strong> Waiting for "perfect" setup instead of shipping</li>
+                    <li>❌ <strong>Rambling interviews:</strong> 60-minute podcasts instead of tight 15-min extractions</li>
+                    <li>❌ <strong>Chasing trends:</strong> Jumping on TikTok dances instead of staying in your lane</li>
+                    <li>❌ <strong>Sporadic publishing:</strong> Posting when you "feel inspired" instead of on schedule</li>
+                    <li>❌ <strong>No CTA:</strong> Creating value without directing viewers to next step</li>
+                    <li>❌ <strong>Broad targeting:</strong> Trying to please everyone instead of serving your specific audience</li>
                 </ul>
             </div>
 
             <hr>
 
-            <h2>XVI. THE PRIESTLEY SECRET SAUCE</h2>
+            <h2>XIII. THE PRIESTLEY SECRET SAUCE</h2>
 
-            <p>What makes Daniel Priestley's YouTube work isn't the tactics—it's the <strong>POSITIONING</strong>.</p>
+            <p style="font-size: 20px; line-height: 1.8;">What makes Daniel Priestley's YouTube work isn't the tactics—it's the <strong>POSITIONING</strong>.</p>
 
-            <div class="highlight-box">
-                <p><strong>He's not:</strong></p>
+            <div class="info-box">
+                <h4 style="margin-top: 0;">He's NOT:</h4>
                 <ul>
-                    <li>A YouTuber who does business</li>
-                    <li>A business coach who uses YouTube</li>
+                    <li>A YouTuber who does business content</li>
+                    <li>A business coach who uses YouTube for marketing</li>
                 </ul>
 
-                <p><strong>He's:</strong></p>
-                <ul>
+                <h4 style="margin-top: 30px;">He IS:</h4>
+                <ul style="margin-bottom: 0;">
                     <li><strong>A thought leader who happens to use YouTube as a distribution channel</strong></li>
                 </ul>
             </div>
 
             <div class="success-box">
-                <p><strong>Your equivalent:</strong></p>
-                <ul>
-                    <li><strong>A consciousness entrepreneur who uses YouTube to spread transformation at scale</strong></li>
-                </ul>
+                <h4 style="margin-top: 0;">Your Equivalent Positioning:</h4>
+                <p style="font-size: 20px; font-weight: 600; margin-bottom: 0;">
+                    "A consciousness entrepreneur who uses YouTube to spread transformation at scale"
+                </p>
             </div>
 
-            <p>This subtle shift changes everything:</p>
+            <p><strong>This subtle shift changes everything:</strong></p>
             <ul>
                 <li>Content quality matters more than quantity</li>
                 <li>Authority matters more than virality</li>
                 <li>Impact matters more than views</li>
                 <li>Business results matter more than ad revenue</li>
+                <li>Long-term brand matters more than short-term metrics</li>
             </ul>
 
             <hr>
 
-            <h2>XVII. FINAL IMPLEMENTATION CHECKLIST</h2>
-
-            <h3>✅ Before Recording First Video:</h3>
-            <ul class="checklist">
-                <li>Clear positioning statement written</li>
-                <li>4 content pillars defined</li>
-                <li>First 20 video topics outlined</li>
-                <li>Team hired (or roles assigned)</li>
-                <li>Equipment purchased and tested</li>
-                <li>Recording space set up</li>
-                <li>Thumbnail template created</li>
-                <li>Channel branding complete</li>
-            </ul>
-
-            <h3>✅ Before Publishing:</h3>
-            <ul class="checklist">
-                <li>Funnel integration planned (YouTube → Quest)</li>
-                <li>UTM tracking implemented</li>
-                <li>Metrics dashboard created</li>
-                <li>Content calendar mapped (90 days)</li>
-                <li>Mindvalley email announcement planned</li>
-            </ul>
-
-            <h3>✅ First 90 Days Commitment:</h3>
-            <ul class="checklist">
-                <li>2 videos per week (non-negotiable)</li>
-                <li>Weekly metrics review</li>
-                <li>Monthly strategy refinement</li>
-                <li>Zero excuses, complete consistency</li>
-            </ul>
-
-            <hr>
-
-            <h2>YOUR UNFAIR ADVANTAGES</h2>
+            <h2>XIV. YOUR UNFAIR ADVANTAGES</h2>
 
             <div class="success-box">
+                <h3 style="margin-top: 0; color: #27ae60;">You're Starting With Rocket Fuel:</h3>
                 <ol>
-                    <li><strong>Existing Audience:</strong> 10M+ Mindvalley students to tap into</li>
-                    <li><strong>World-Class Network:</strong> Access to top teachers for collaborations</li>
+                    <li><strong>Existing Audience:</strong> 10M+ Mindvalley students you can activate</li>
+                    <li><strong>World-Class Network:</strong> Direct access to Jim Kwik, Michael Beckwith, Dave Asprey, Neale Donald Walsch, etc.</li>
                     <li><strong>Proven Frameworks:</strong> 20+ years of tested transformation content</li>
-                    <li><strong>Business Credibility:</strong> $100M+ company validates your methods</li>
-                    <li><strong>Unique Positioning:</strong> Only consciousness entrepreneur at this scale</li>
+                    <li><strong>Business Credibility:</strong> $100M+ company validates your methods aren't theory</li>
+                    <li><strong>Unique Positioning:</strong> Only consciousness entrepreneur at this scale globally</li>
+                    <li><strong>Production Resources:</strong> Existing Mindvalley team and infrastructure</li>
                 </ol>
 
-                <p style="margin-top: 20px;"><strong>Daniel Priestley built his channel from scratch.</strong><br>
-                <strong>You're starting with rocket fuel already in the tank.</strong></p>
+                <p style="margin-top: 30px; font-size: 18px; margin-bottom: 0;">
+                    <strong>Daniel Priestley built his channel from zero.</strong><br>
+                    <strong>You're starting with rocket fuel already in the tank.</strong>
+                </p>
             </div>
 
             <hr>
 
-            <div class="highlight-box" style="text-align: center; padding: 40px;">
-                <h2 style="margin: 0 0 20px 0; border: none; padding: 0;">THE ONE-SENTENCE STRATEGY</h2>
-                <p style="font-size: 22px; line-height: 1.6; margin: 0;">
-                    <em>"Teach one transformative framework per week, demonstrate it through your life and business, and invite viewers into deeper transformation through Mindvalley."</em>
+            <div class="highlight-box" style="text-align: center; padding: 60px 40px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); border: none;">
+                <h2 style="margin: 0 0 30px 0; border: none; padding: 0; font-size: 38px; color: #667eea;">THE ONE-SENTENCE STRATEGY</h2>
+                <p style="font-size: 26px; line-height: 1.7; margin: 0; color: #2c3e50;">
+                    <em>"Teach one transformative framework per week, demonstrate it through my life and business, and invite viewers into deeper transformation through Mindvalley."</em>
                 </p>
-                <p style="margin-top: 30px; font-size: 18px; color: #764ba2; font-weight: 600;">
+                <p style="margin-top: 40px; font-size: 20px; color: #764ba2; font-weight: 600; margin-bottom: 0;">
                     That's it. Everything else is tactics.
                 </p>
             </div>
 
             <div class="section-divider">───</div>
 
-            <div style="text-align: center; font-size: 20px; line-height: 1.8; margin: 60px 0;">
-                <p><strong>Ready to start?</strong></p>
+            <div style="text-align: center; font-size: 20px; line-height: 1.9; margin: 80px 0;">
+                <h3 style="font-size: 32px; color: #667eea; margin-bottom: 30px;">Ready to Start?</h3>
                 <p>Your first action: Outline 4 pilot video topics and schedule your first recording day.</p>
-                <p style="margin-top: 30px; color: #764ba2;">The algorithm doesn't reward perfection. It rewards consistency and value.</p>
-                <p style="margin-top: 20px;"><strong>Daniel Priestley proves it.<br>Now it's your turn.</strong></p>
+                <p style="margin-top: 40px; color: #764ba2; font-weight: 600;">The algorithm doesn't reward perfection.<br>It rewards consistency and value.</p>
+                <p style="margin-top: 40px; font-size: 22px;"><strong>Daniel Priestley proved it.<br>Now it's your turn.</strong></p>
+            </div>
+
+            <div class="info-box" style="text-align: center; padding: 40px;">
+                <h3 style="margin-top: 0; margin-bottom: 20px;">Next Steps:</h3>
+                <ol style="text-align: left; display: inline-block; margin: 0;">
+                    <li>Schedule team strategy session (this week)</li>
+                    <li>Assign team roles (Content Strategist, Editor, Researcher)</li>
+                    <li>Order equipment (3-day delivery)</li>
+                    <li>Outline first 4 pilot videos</li>
+                    <li>Set first recording day (2 weeks from today)</li>
+                </ol>
             </div>
         </div>
 
         <div class="footer">
             <p><strong>Confidential Strategy Document</strong></p>
             <p>YouTube Strategy & Implementation Guide - Vishen Lakhiani Edition</p>
+            <p>Prepared by Strategic Team | November 2025</p>
             <p>© 2025 Mindvalley - All Rights Reserved</p>
         </div>
     </div>
@@ -1025,7 +1532,6 @@ real approach that actually works."
             if (password === 'blackpanther') {
                 document.getElementById('password-screen').style.display = 'none';
                 document.getElementById('content-screen').style.display = 'block';
-                // Store authentication in session
                 sessionStorage.setItem('authenticated', 'true');
             } else {
                 errorMessage.style.display = 'block';
