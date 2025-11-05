@@ -32,6 +32,9 @@ workspace/
 │   └── spiritual-mastery/     # Spiritual Mastery program materials
 │       └── spiritual-mastery-complete-curriculum.html
 │
+├── social-media/               # 📱 Social media strategy guides (GitHub Pages)
+│   └── youtube-strategy-guide.html  # Comprehensive YouTube strategy (password: blackpanther)
+│
 ├── reports/                    # 📊 Published analysis & conversion reports (GitHub Pages)
 │   ├── index.html             # Landing page for all reports
 │   ├── social-media-mastery-2025-feedback-report.html
@@ -168,6 +171,24 @@ workspace/
 
 **[Complete Curriculum](https://vishenl.github.io/workspace/campaigns/spiritual-mastery/spiritual-mastery-complete-curriculum.html)**
 - Full program structure and curriculum design
+
+## 📱 Social Media Strategy
+
+### YouTube Strategy Guide
+
+**🎬 [YouTube Strategy & Implementation Guide](https://vishenl.github.io/workspace/social-media/youtube-strategy-guide.html)** (Password: `blackpanther`)
+
+**Comprehensive YouTube strategy modeled after Daniel Priestley's approach:**
+- Strategic positioning as consciousness entrepreneur
+- 4 content pillars: Frameworks (40%), Behind-the-Scenes (25%), Experiments (20%), Guest Conversations (15%)
+- Sample thumbnail mockups with Mindvalley branding
+- Complete production workflow: batch recording, 2x/week publishing
+- Growth roadmap: 10K subs (Month 3) → 100K (Year 1) → 250K+ (Year 2)
+- Monetization funnel: YouTube → Free Masterclass → Quest Purchase → Membership
+- Revenue projections: $0 (Months 1-6) → $50K/mo (Year 1) → $200K+/mo (Year 2)
+- First 20 video topics ready to film
+- 90-day action plan with team roles and equipment list
+- Interactive charts, timelines, and visual strategy elements
 
 ## 📊 Published Reports (GitHub Pages)
 
