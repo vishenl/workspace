@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindvalley Audiowaves - The Most Advanced Meditation Experience on Earth</title>
+    <link rel="stylesheet" href="mindvalley-styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Grotesk-Regular, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #ffffff;
+            color: #0f131a;
+            line-height: 1.6;
+        }
+
+        /* Header Navigation */
+        .main-header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f131a;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #4a5568;
+            text-decoration: none;
+            font-size: 0.9375rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #3b82f6;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: #0f131a;
+            padding: 5rem 2rem 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.375rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            font-size: 0.9375rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .hero-features span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Search & Filters */
+        .search-section {
+            max-width: 1400px;
+            margin: -2rem auto 0;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-bar {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.25rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 8px;
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .filter-btn.active {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        /* Meditation Grid */
+        .meditation-library {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #0f131a;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-toggle button {
+            padding: 0.5rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .view-toggle button.active {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        .meditation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .meditation-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .meditation-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-color: #3b82f6;
+        }
+
+        .card-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card-content {
+            padding: 1.25rem;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.625rem;
+            background: #eff6ff;
+            color: #3b82f6;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .badge.tech-meditation { background: #dbeafe; color: #1e40af; }
+        .badge.tech-hypnotherapy { background: #fce7f3; color: #be185d; }
+        .badge.tech-breathwork { background: #fef3c7; color: #d97706; }
+        .badge.tech-sound-healing { background: #dcfce7; color: #16a34a; }
+        .badge.tech-visualization { background: #ede9fe; color: #6d28d9; }
+        .badge.tech-soundscapes { background: #e0e7ff; color: #4f46e5; }
+
+        .card-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #0f131a;
+            line-height: 1.4;
+        }
+
+        .card-author {
+            font-size: 0.875rem;
+            color: #718096;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-outcomes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .outcome-tag {
+            background: #f1f5f9;
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: #475569;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.875rem;
+            color: #fbbf24;
+        }
+
+        .rating-count {
+            color: #9ca3af;
+            font-size: 0.75rem;
+        }
+
+        .duration {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.875rem;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        /* Modal/Detail View */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #4a5568;
+            z-index: 10;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #f7fafc;
+            border-color: #cbd5e0;
+        }
+
+        .modal-hero {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-header {
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #0f131a;
+        }
+
+        .modal-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-description {
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            color: #4a5568;
+            margin-bottom: 2rem;
+        }
+
+        /* Audio Player */
+        .audio-player {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .play-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #3b82f6;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .play-btn:hover {
+            background: #2563eb;
+            transform: scale(1.05);
+        }
+
+        .progress-container {
+            flex: 1;
+        }
+
+        .progress-time {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #718096;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #3b82f6;
+            border-radius: 3px;
+            width: 35%;
+            transition: width 0.1s;
+        }
+
+        .player-options {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .player-option {
+            flex: 1;
+        }
+
+        .player-option label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #718096;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .player-option select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.875rem;
+        }
+
+        /* Transcript */
+        .transcript-section {
+            margin-bottom: 2rem;
+        }
+
+        .transcript-toggle {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-family: Grotesk-Medium, sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .transcript-toggle:hover {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .transcript-content {
+            display: none;
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            line-height: 1.8;
+            color: #4a5568;
+        }
+
+        .transcript-content.active {
+            display: block;
+        }
+
+        /* Related Meditations */
+        .related-section {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .related-card {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .related-card:hover {
+            transform: scale(1.02);
+        }
+
+        .related-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 0.75rem;
+        }
+
+        .related-title {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: #0f131a;
+            margin-bottom: 0.25rem;
+        }
+
+        .related-author {
+            font-size: 0.8125rem;
+            color: #718096;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f7fafc;
+            border-radius: 12px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #718096;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.125rem;
+            }
+
+            .hero-features {
+                font-size: 0.8125rem;
+                gap: 1rem;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .search-input {
+                min-width: 100%;
+            }
+
+            .filter-group {
+                width: 100%;
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+
+            .meditation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 1rem;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .stats-section {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="main-header">
+        <nav class="nav-container">
+            <div class="logo">Mindvalley Audiowaves</div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Explore</a></li>
+                <li><a href="#">My Practice</a></li>
+                <li><a href="#">Teachers</a></li>
+                <li><a href="#">Journeys</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">40+ MILLION PLAYS WORLDWIDE • FEATURED IN EVERY APPLE STORE</div>
+            <h1>The Most Advanced<br>Meditation Experience on Earth</h1>
+            <p>Drop into calm, focus, and presence — fast. Six proven sound technologies orchestrated to match your moment. No silence, discipline, or experience needed.</p>
+            <div class="hero-features">
+                <span>🎧 1,000+ Tracks</span>
+                <span>🧠 6 Sound Technologies</span>
+                <span>✨ 50+ Life Categories</span>
+                <span>🤖 EVE AI Guidance</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search & Filters -->
+    <section class="search-section">
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Ask EVE AI: 'I need help with sleep' or search by teacher, outcome..." id="searchInput">
+            <div class="filter-group">
+                <button class="filter-btn active" data-filter="all">All Modalities</button>
+                <button class="filter-btn" data-filter="meditation">Meditation</button>
+                <button class="filter-btn" data-filter="hypnotherapy">Hypnotherapy</button>
+                <button class="filter-btn" data-filter="breathwork">Breathwork</button>
+                <button class="filter-btn" data-filter="sound-healing">Sound Healing</button>
+                <button class="filter-btn" data-filter="visualization">Visualization</button>
+                <button class="filter-btn" data-filter="soundscapes">Soundscapes</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meditation Library -->
+    <section class="meditation-library">
+        <div class="section-header">
+            <h2 class="section-title">Explore by Life Category</h2>
+            <div class="view-toggle">
+                <button class="active">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="meditation-grid" id="meditationGrid">
+            <!-- Meditation cards will be dynamically inserted here -->
+        </div>
+    </section>
+
+    <!-- Modal for Meditation Detail -->
+    <div class="modal" id="meditationModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <img class="modal-hero" id="modalHeroImage" src="" alt="">
+            <div class="modal-body">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="modalTitle"></h1>
+                    <div class="modal-meta" id="modalMeta"></div>
+                    <p class="modal-description" id="modalDescription"></p>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="stats-section">
+                    <div class="stat-item">
+                        <div class="stat-value" id="modalRating">4.9</div>
+                        <div class="stat-label">Rating</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="modalReviews">1.2K</div>
+                        <div class="stat-label">Reviews</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="modalCompletion">87%</div>
+                        <div class="stat-label">Completion</div>
+                    </div>
+                </div>
+
+                <!-- Audio Player -->
+                <div class="audio-player">
+                    <div class="player-controls">
+                        <button class="play-btn">▶</button>
+                        <div class="progress-container">
+                            <div class="progress-time">
+                                <span>0:00</span>
+                                <span id="totalDuration">0:00</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="player-options">
+                        <div class="player-option">
+                            <label>Background Sound</label>
+                            <select>
+                                <option>None</option>
+                                <option>432 Hz - Peace & Well-Being</option>
+                                <option>528 Hz - Love & Miracles</option>
+                                <option>Nature Sounds</option>
+                                <option>Ocean Waves</option>
+                            </select>
+                        </div>
+                        <div class="player-option">
+                            <label>Playback Speed</label>
+                            <select>
+                                <option>1.0x</option>
+                                <option>0.75x</option>
+                                <option>1.25x</option>
+                                <option>1.5x</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transcript -->
+                <div class="transcript-section">
+                    <button class="transcript-toggle" onclick="toggleTranscript()">
+                        <span>📄 View Transcript</span>
+                        <span>▼</span>
+                    </button>
+                    <div class="transcript-content" id="transcriptContent">
+                        <p>Begin by finding a comfortable seated position. Allow your spine to be tall and relaxed. Gently close your eyes, or soften your gaze downward...</p>
+                        <p>Take a deep breath in through your nose, feeling your belly expand. Hold for a moment at the top. Now exhale slowly through your mouth, releasing any tension...</p>
+                        <p>Continue breathing naturally, bringing your awareness to the present moment. Notice the sensations in your body. The weight of your body on the seat. The temperature of the air around you...</p>
+                    </div>
+                </div>
+
+                <!-- Related Meditations -->
+                <div class="related-section">
+                    <h3 class="section-title">Continue Your Journey</h3>
+                    <div class="related-grid" id="relatedGrid">
+                        <!-- Related meditation cards will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample meditation data using our 33-field structure
+        const meditations = [
+            {
+                id: 1,
+                resourceType: "Meditation",
+                soundTechnology: "meditation",
+                title: "Drop into Calm in 10 Minutes",
+                slug: "10-min-daily-calm",
+                language: "English",
+                meditationType: "Vocal",
+                description: "Access stillness, presence, and inner clarity—even on chaotic days. This guided session helps you experience all the benefits of deep meditation, without needing silence, discipline, or experience.",
+                author: "Dr. Tai Ben-Shahar",
+                duration: 10,
+                difficultyLevel: "Beginner",
+                outcomes: ["Focus", "Mindfulness", "Stress Relief"],
+                lifeCategory: "Focus",
+                targetAudience: "Busy Professionals",
+                coverImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&h=800&fit=crop&q=80",
+                landscapeCover: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1920&h=1080&fit=crop&q=80",
+                rating: 4.97,
+                reviewCount: 336,
+                completionRate: 92,
+                platforms: ["iOS", "Android", "Web"],
+                published: true
+            },
+            {
+                id: 2,
+                resourceType: "Hypnotherapy",
+                soundTechnology: "hypnotherapy",
+                title: "Instant Confidence Hypnotic Trance",
+                slug: "instant-confidence",
+                language: "English",
+                meditationType: "Guided",
+                description: "Led by world-renowned hypnotherapist Paul McKenna, this session helps reshape limiting beliefs and build confidence. No force or willpower—just deep subconscious change, delivered through sound.",
+                author: "Paul McKenna",
+                duration: 22,
+                difficultyLevel: "Beginner",
+                outcomes: ["Confidence", "Self-Worth", "Inner Strength"],
+                lifeCategory: "Confidence",
+                targetAudience: "Anyone seeking confidence",
+                coverImage: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&h=800&fit=crop&q=80",
+                landscapeCover: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1920&h=1080&fit=crop&q=80",
+                rating: 4.89,
+                reviewCount: 860996,
+                completionRate: 88,
+                platforms: ["iOS", "Android", "Web", "tvOS"],
+                published: true
+            },
+            {
+                id: 3,
+                resourceType: "Visualization",
+                soundTechnology: "visualization",
+                title: "Picture Your Best Life - Creative Visualization",
+                slug: "creative-visualization",
+                language: "English",
+                meditationType: "Vocal",
+                description: "Mental rehearsal for your best life. Backed by science and used by Olympic champions, this session helps you create vivid mental images of your ideal future and reprogram your subconscious for success.",
+                author: "Vishen Lakhiani",
+                duration: 15,
+                difficultyLevel: "Intermediate",
+                outcomes: ["Clarity of Vision", "Manifestation", "Success Mindset"],
+                lifeCategory: "Clarity of Vision",
+                targetAudience: "Goal-oriented individuals",
+                coverImage: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=800&h=800&fit=crop&q=80",
+                landscapeCover: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=1920&h=1080&fit=crop&q=80",
+                rating: 4.92,
+                reviewCount: 524,
+                completionRate: 85,
+                platforms: ["iOS", "Android", "Web"],
+                published: true
+            },
+            {
+                id: 4,
+                resourceType: "Breathwork",
+                soundTechnology: "breathwork",
+                title: "Soma Breath: Energize & Reset",
+                slug: "soma-breath",
+                language: "English",
+                meditationType: "Guided",
+                description: "Harness the power of your breath to energize your body, clear your mind, and reset your nervous system. In just minutes, guided breathwork reduces stress, enhances focus, and oxygenates your body for peak performance.",
+                author: "Niraj Naik",
+                duration: 18,
+                difficultyLevel: "Intermediate",
+                outcomes: ["Energy", "Focus", "Vitality"],
+                lifeCategory: "Performance",
+                targetAudience: "High performers",
+                coverImage: "https://images.unsplash.com/photo-1545389336-cf090694435e?w=800&h=800&fit=crop&q=80",
+                landscapeCover: "https://images.unsplash.com/photo-1545389336-cf090694435e?w=1920&h=1080&fit=crop&q=80",
+                rating: 4.95,
+                reviewCount: 218,
+                completionRate: 78,
+                platforms: ["iOS", "Android", "Web"],
+                published: true
+            },
+            {
+                id: 5,
+                resourceType: "Sound Healing",
+                soundTechnology: "sound-healing",
+                title: "Solfeggio Frequencies: Heal Through Sound",
+                slug: "solfeggio-healing",
+                language: "Instrumental",
+                meditationType: "Instrumental",
+                description: "Let sound release what words cannot. Binaural beats, solfeggio frequencies, and ancient healing tones help clear stuck energy, emotional residue, and nervous system overload—without needing words, force, or conscious effort.",
+                author: "Sound Healing Collective",
+                duration: 28,
+                difficultyLevel: "Beginner",
+                outcomes: ["Emotional Release", "Energy Clearing", "Deep Healing"],
+                lifeCategory: "Wellness",
+                targetAudience: "Everyone",
+                coverImage: "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800&h=800&fit=crop&q=80",
+                landscapeCover: "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=1920&h=1080&fit=crop&q=80",
+                rating: 4.88,
+                reviewCount: 641,
+                completionRate: 90,
+                platforms: ["iOS", "Android", "Web", "visionOS"],
+                published: true
+            },
+            {
+                id: 6,
+                resourceType: "Soundscapes",
+                soundTechnology: "soundscapes",
+                title: "MAEJOR: Forest Rain Ambient",
+                slug: "forest-rain-maejor",
+                language: "Instrumental",
+                meditationType: "Instrumental",
+                description: "Curated by Grammy-nominated sound artist MAEJOR. These ambient audio environments are designed to quiet the mind, calm the body, and bring your nervous system back to balance.",
+                author: "MAEJOR",
+                duration: 45,
+                difficultyLevel: "Beginner",
+                outcomes: ["Relax", "Focus", "Calm"],
+                lifeCategory: "Relax",
+                targetAudience: "Everyone",
+                coverImage: "https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?w=800&h=800&fit=crop&q=80",
+                landscapeCover: "https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?w=1920&h=1080&fit=crop&q=80",
+                rating: 4.91,
+                reviewCount: 445,
+                completionRate: 82,
+                platforms: ["iOS", "Android", "Web", "tvOS"],
+                published: true
+            },
+            {
+                id: 7,
+                resourceType: "Hypnotherapy",
+                soundTechnology: "hypnotherapy",
+                title: "Deep Sleep Hypnotic Trance",
+                slug: "deep-sleep-hypnotherapy",
+                language: "English",
+                meditationType: "Vocal",
+                description: "Fall asleep fast and stay asleep longer. This hypnotherapy session rewires your subconscious patterns around sleep, releasing anxiety and preparing your mind and body for restorative rest.",
+                author: "Marisa Peer",
+                duration: 32,
+                difficultyLevel: "Beginner",
+                outcomes: ["Better Sleep", "Release Anxiety", "Deep Rest"],
+                lifeCategory: "Better Sleep",
+                targetAudience: "People with sleep challenges",
+                coverImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&h=800&fit=crop&q=80",
+                landscapeCover: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1920&h=1080&fit=crop&q=80",
+                rating: 4.85,
+                reviewCount: 1240,
+                completionRate: 95,
+                platforms: ["iOS", "Android", "Web"],
+                published: true
+            },
+            {
+                id: 8,
+                resourceType: "Meditation",
+                soundTechnology: "meditation",
+                title: "6 Phase Meditation - Complete",
+                slug: "6-phase-meditation",
+                language: "English",
+                meditationType: "Guided",
+                description: "Vishen's signature meditation combining compassion, gratitude, forgiveness, vision, perfect day, and blessing. Access altered states of consciousness and design your ideal reality.",
+                author: "Vishen Lakhiani",
+                duration: 20,
+                difficultyLevel: "Intermediate",
+                outcomes: ["Altered States", "Manifestation", "Gratitude"],
+                lifeCategory: "Altered States",
+                targetAudience: "Mindvalley members",
+                coverImage: "https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?w=800&h=800&fit=crop&q=80",
+                landscapeCover: "https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?w=1920&h=1080&fit=crop&q=80",
+                rating: 4.93,
+                reviewCount: 13639,
+                completionRate: 76,
+                platforms: ["iOS", "Android", "Web"],
+                published: true
+            }
+        ];
+
+        // Render meditation cards
+        function renderMeditations(filteredMeditations = meditations) {
+            const grid = document.getElementById('meditationGrid');
+            grid.innerHTML = filteredMeditations.map(med => `
+                <div class="meditation-card" onclick="openModal(${med.id})">
+                    <img src="${med.coverImage}" alt="${med.title}" class="card-image">
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span class="badge tech-${med.soundTechnology}">${med.resourceType}</span>
+                            <span class="badge">${med.duration} min</span>
+                        </div>
+                        <h3 class="card-title">${med.title}</h3>
+                        <p class="card-author">by ${med.author}</p>
+                        <div class="card-outcomes">
+                            ${med.outcomes.slice(0, 2).map(outcome =>
+                                `<span class="outcome-tag">${outcome}</span>`
+                            ).join('')}
+                        </div>
+                        <div class="card-footer">
+                            <div class="rating">
+                                <span>⭐</span>
+                                <span>${med.rating}</span>
+                                <span class="rating-count">(${med.reviewCount > 1000 ? (med.reviewCount/1000).toFixed(0) + 'K' : med.reviewCount})</span>
+                            </div>
+                            <div class="duration">${med.duration} min</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Open meditation detail modal
+        function openModal(id) {
+            const meditation = meditations.find(m => m.id === id);
+            if (!meditation) return;
+
+            document.getElementById('modalTitle').textContent = meditation.title;
+            document.getElementById('modalHeroImage').src = meditation.landscapeCover;
+            document.getElementById('modalDescription').textContent = meditation.description;
+            document.getElementById('modalRating').textContent = meditation.rating;
+            document.getElementById('modalReviews').textContent = meditation.reviewCount > 1000
+                ? (meditation.reviewCount / 1000).toFixed(1) + 'K'
+                : meditation.reviewCount;
+            document.getElementById('modalCompletion').textContent = meditation.completionRate + '%';
+            document.getElementById('totalDuration').textContent = meditation.duration + ':00';
+
+            // Set meta badges
+            const metaHtml = `
+                <span class="badge tech-${meditation.soundTechnology}">${meditation.resourceType}</span>
+                <span class="badge">${meditation.duration} minutes</span>
+                <span class="badge">${meditation.lifeCategory}</span>
+                <span style="color: #718096; font-size: 0.9375rem;">by ${meditation.author}</span>
+            `;
+            document.getElementById('modalMeta').innerHTML = metaHtml;
+
+            // Render related meditations (same life category or sound technology)
+            const related = meditations
+                .filter(m => m.id !== id && (m.lifeCategory === meditation.lifeCategory || m.soundTechnology === meditation.soundTechnology))
+                .slice(0, 4);
+
+            document.getElementById('relatedGrid').innerHTML = related.map(m => `
+                <div class="related-card" onclick="openModal(${m.id})">
+                    <img src="${m.coverImage}" alt="${m.title}" class="related-image">
+                    <div class="related-title">${m.title}</div>
+                    <div class="related-author">${m.author}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('meditationModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('meditationModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function toggleTranscript() {
+            document.getElementById('transcriptContent').classList.toggle('active');
+        }
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const filter = this.dataset.filter;
+                let filtered = meditations;
+
+                if (filter !== 'all') {
+                    filtered = meditations.filter(m => m.soundTechnology === filter);
+                }
+
+                renderMeditations(filtered);
+            });
+        });
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            const filtered = meditations.filter(m =>
+                m.title.toLowerCase().includes(query) ||
+                m.author.toLowerCase().includes(query) ||
+                m.description.toLowerCase().includes(query) ||
+                m.outcomes.some(o => o.toLowerCase().includes(query))
+            );
+            renderMeditations(filtered);
+        });
+
+        // Initialize
+        renderMeditations();
+
+        // Close modal on background click
+        document.getElementById('meditationModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
