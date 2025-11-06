@@ -14,229 +14,240 @@
 
         body {
             font-family: Grotesk-Regular, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #ffffff;
+            background: #f9fafb;
             color: #0f131a;
             line-height: 1.6;
         }
 
-        /* Header Navigation */
-        .main-header {
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        .app-container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
+        /* Left Sidebar */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid #e2e8f0;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .logo {
             font-family: Grotesk-Bold, sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: #0f131a;
         }
 
-        .nav-links {
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: #718096;
+            margin-top: 0.25rem;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 1rem 0;
+        }
+
+        .nav-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-section-title {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-item {
             display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
             color: #4a5568;
-            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
             font-size: 0.9375rem;
-            transition: color 0.2s;
         }
 
-        .nav-links a:hover,
-        .nav-links a.active {
+        .nav-item:hover {
+            background: #f7fafc;
             color: #3b82f6;
         }
 
-        /* Hero Section */
-        .hero {
-            background: #0f131a;
-            padding: 5rem 2rem 6rem;
-            text-align: center;
-            position: relative;
+        .nav-item.active {
+            background: #eff6ff;
+            color: #3b82f6;
+            border-left: 3px solid #3b82f6;
+            padding-left: calc(1.5rem - 3px);
+        }
+
+        .nav-item-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-item-badge {
+            margin-left: auto;
+            background: #e2e8f0;
+            color: #4a5568;
+            padding: 0.125rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .nav-item.active .nav-item-badge {
+            background: #3b82f6;
+            color: white;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
-        }
-
-        .hero-content {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .hero h1 {
-            font-family: Grotesk-Bold, sans-serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #ffffff;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.375rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 2.5rem;
-            line-height: 1.6;
-        }
-
-        .hero-features {
+        /* Top Bar */
+        .top-bar {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-            font-size: 0.9375rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .hero-features span {
-            display: flex;
+            gap: 1rem;
             align-items: center;
-            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .page-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f131a;
+            flex: 1;
+            min-width: 200px;
         }
 
         /* Search & Filters */
-        .search-section {
-            max-width: 1400px;
-            margin: -2rem auto 0;
-            padding: 0 2rem;
+        .search-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
             position: relative;
-            z-index: 10;
-        }
-
-        .search-bar {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            padding: 1.5rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            align-items: center;
         }
 
         .search-input {
-            flex: 1;
-            min-width: 300px;
-            padding: 0.875rem 1rem;
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.75rem;
             border: 2px solid #e2e8f0;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.9375rem;
             font-family: inherit;
+            background: #f9fafb;
         }
 
         .search-input:focus {
             outline: none;
             border-color: #3b82f6;
+            background: white;
         }
 
-        .filter-group {
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        .top-filters {
             display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
         }
 
-        .filter-btn {
-            padding: 0.75rem 1.25rem;
+        .filter-chip {
+            padding: 0.5rem 1rem;
             border: 2px solid #e2e8f0;
             background: white;
-            border-radius: 8px;
-            font-family: Grotesk-Medium, sans-serif;
+            border-radius: 20px;
             font-size: 0.875rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
+            white-space: nowrap;
         }
 
-        .filter-btn:hover {
+        .filter-chip:hover {
             border-color: #3b82f6;
             color: #3b82f6;
         }
 
-        .filter-btn.active {
+        .filter-chip.active {
             background: #3b82f6;
             border-color: #3b82f6;
             color: white;
         }
 
-        /* Meditation Grid */
-        .meditation-library {
-            max-width: 1400px;
-            margin: 4rem auto;
-            padding: 0 2rem;
+        .filter-dropdown {
+            position: relative;
         }
 
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .filter-dropdown select {
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            appearance: none;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .content-header {
             margin-bottom: 2rem;
+        }
+
+        .content-subtitle {
+            font-size: 0.9375rem;
+            color: #718096;
+            margin-top: 0.5rem;
         }
 
         .section-title {
             font-family: Grotesk-Bold, sans-serif;
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: #0f131a;
-        }
-
-        .view-toggle {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .view-toggle button {
-            padding: 0.5rem;
-            border: 2px solid #e2e8f0;
-            background: white;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .view-toggle button.active {
-            background: #3b82f6;
-            border-color: #3b82f6;
-            color: white;
+            margin-bottom: 0.5rem;
         }
 
         .meditation-grid {
@@ -655,35 +666,55 @@
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                bottom: 0;
+                z-index: 200;
+                transition: left 0.3s;
             }
 
-            .hero p {
-                font-size: 1.125rem;
+            .sidebar.open {
+                left: 0;
             }
 
-            .hero-features {
-                font-size: 0.8125rem;
-                gap: 1rem;
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 199;
             }
 
-            .search-bar {
-                flex-direction: column;
+            .sidebar-overlay.active {
+                display: block;
             }
 
-            .search-input {
-                min-width: 100%;
+            .top-bar {
+                padding: 1rem;
             }
 
-            .filter-group {
-                width: 100%;
-                justify-content: flex-start;
+            .page-title {
+                font-size: 1.25rem;
+            }
+
+            .top-filters {
                 overflow-x: auto;
+                width: 100%;
                 padding-bottom: 0.5rem;
             }
 
+            .search-container {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
             .meditation-grid {
                 grid-template-columns: 1fr;
             }
@@ -700,71 +731,211 @@
                 grid-template-columns: repeat(3, 1fr);
                 gap: 1rem;
             }
+
+            .content-area {
+                padding: 1rem;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            padding: 0.5rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-menu-btn {
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header Navigation -->
-    <header class="main-header">
-        <nav class="nav-container">
-            <div class="logo">Mindvalley Audiowaves</div>
-            <ul class="nav-links">
-                <li><a href="#" class="active">Explore</a></li>
-                <li><a href="#">My Practice</a></li>
-                <li><a href="#">Teachers</a></li>
-                <li><a href="#">Journeys</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">40+ MILLION PLAYS WORLDWIDE • FEATURED IN EVERY APPLE STORE</div>
-            <h1>The Most Advanced<br>Meditation Experience on Earth</h1>
-            <p>Drop into calm, focus, and presence — fast. Six proven sound technologies orchestrated to match your moment. No silence, discipline, or experience needed.</p>
-            <div class="hero-features">
-                <span>🎧 1,000+ Tracks</span>
-                <span>🧠 6 Sound Technologies</span>
-                <span>✨ 50+ Life Categories</span>
-                <span>🤖 EVE AI Guidance</span>
+    <div class="app-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">Mindvalley Audiowaves</div>
+                <div class="logo-subtitle">1,000+ Transformational Tracks</div>
             </div>
-        </div>
-    </section>
 
-    <!-- Search & Filters -->
-    <section class="search-section">
-        <div class="search-bar">
-            <input type="text" class="search-input" placeholder="Ask EVE AI: 'I need help with sleep' or search by teacher, outcome..." id="searchInput">
-            <div class="filter-group">
-                <button class="filter-btn active" data-filter="all">All Modalities</button>
-                <button class="filter-btn" data-filter="meditation">Meditation</button>
-                <button class="filter-btn" data-filter="hypnotherapy">Hypnotherapy</button>
-                <button class="filter-btn" data-filter="breathwork">Breathwork</button>
-                <button class="filter-btn" data-filter="sound-healing">Sound Healing</button>
-                <button class="filter-btn" data-filter="visualization">Visualization</button>
-                <button class="filter-btn" data-filter="soundscapes">Soundscapes</button>
-            </div>
-        </div>
-    </section>
+            <nav class="sidebar-nav">
+                <!-- EVE AI Section -->
+                <div class="nav-section">
+                    <div class="nav-section-title">EVE AI Suggestions</div>
+                    <div class="nav-item active" data-category="eve-for-you">
+                        <span class="nav-item-icon">✨</span>
+                        <span>For You</span>
+                        <span class="nav-item-badge">New</span>
+                    </div>
+                    <div class="nav-item" data-category="eve-morning">
+                        <span class="nav-item-icon">🌅</span>
+                        <span>Morning Boost</span>
+                    </div>
+                    <div class="nav-item" data-category="eve-sleep">
+                        <span class="nav-item-icon">🌙</span>
+                        <span>Better Sleep</span>
+                    </div>
+                    <div class="nav-item" data-category="eve-stressed">
+                        <span class="nav-item-icon">🧘</span>
+                        <span>When Stressed</span>
+                    </div>
+                </div>
 
-    <!-- Meditation Library -->
-    <section class="meditation-library">
-        <div class="section-header">
-            <h2 class="section-title">Explore by Life Category</h2>
-            <div class="view-toggle">
-                <button class="active">
+                <!-- Life Categories -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Life Categories</div>
+                    <div class="nav-item" data-category="focus">
+                        <span class="nav-item-icon">🎯</span>
+                        <span>Focus</span>
+                    </div>
+                    <div class="nav-item" data-category="confidence">
+                        <span class="nav-item-icon">💪</span>
+                        <span>Confidence</span>
+                    </div>
+                    <div class="nav-item" data-category="sleep">
+                        <span class="nav-item-icon">😴</span>
+                        <span>Better Sleep</span>
+                    </div>
+                    <div class="nav-item" data-category="relax">
+                        <span class="nav-item-icon">☮️</span>
+                        <span>Relax</span>
+                    </div>
+                    <div class="nav-item" data-category="performance">
+                        <span class="nav-item-icon">⚡</span>
+                        <span>Performance</span>
+                    </div>
+                    <div class="nav-item" data-category="money">
+                        <span class="nav-item-icon">💰</span>
+                        <span>Money Mindset</span>
+                    </div>
+                    <div class="nav-item" data-category="wellness">
+                        <span class="nav-item-icon">🌿</span>
+                        <span>Wellness</span>
+                    </div>
+                    <div class="nav-item" data-category="clarity">
+                        <span class="nav-item-icon">🔮</span>
+                        <span>Clarity of Vision</span>
+                    </div>
+                </div>
+
+                <!-- Sound Technologies -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Sound Technologies</div>
+                    <div class="nav-item" data-tech="meditation">
+                        <span class="nav-item-icon">🧘‍♀️</span>
+                        <span>Meditation</span>
+                    </div>
+                    <div class="nav-item" data-tech="hypnotherapy">
+                        <span class="nav-item-icon">🌀</span>
+                        <span>Hypnotherapy</span>
+                    </div>
+                    <div class="nav-item" data-tech="breathwork">
+                        <span class="nav-item-icon">💨</span>
+                        <span>Breathwork</span>
+                    </div>
+                    <div class="nav-item" data-tech="sound-healing">
+                        <span class="nav-item-icon">🔔</span>
+                        <span>Sound Healing</span>
+                    </div>
+                    <div class="nav-item" data-tech="visualization">
+                        <span class="nav-item-icon">👁️</span>
+                        <span>Visualization</span>
+                    </div>
+                    <div class="nav-item" data-tech="soundscapes">
+                        <span class="nav-item-icon">🎵</span>
+                        <span>Soundscapes</span>
+                    </div>
+                </div>
+
+                <!-- Collections -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Collections</div>
+                    <div class="nav-item" data-collection="trending">
+                        <span class="nav-item-icon">📈</span>
+                        <span>Trending Now</span>
+                    </div>
+                    <div class="nav-item" data-collection="most-played">
+                        <span class="nav-item-icon">🔥</span>
+                        <span>Most Played</span>
+                    </div>
+                    <div class="nav-item" data-collection="new">
+                        <span class="nav-item-icon">✨</span>
+                        <span>New This Week</span>
+                    </div>
+                    <div class="nav-item" data-collection="highest-rated">
+                        <span class="nav-item-icon">⭐</span>
+                        <span>Highest Rated</span>
+                    </div>
+                </div>
+
+                <!-- Teachers -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Featured Teachers</div>
+                    <div class="nav-item" data-teacher="all">
+                        <span class="nav-item-icon">👥</span>
+                        <span>All Teachers</span>
+                        <span class="nav-item-badge">200+</span>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
                     </svg>
                 </button>
-            </div>
-        </div>
 
-        <div class="meditation-grid" id="meditationGrid">
-            <!-- Meditation cards will be dynamically inserted here -->
-        </div>
-    </section>
+                <h1 class="page-title" id="pageTitle">For You</h1>
+
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="Ask EVE AI: 'I need help with sleep'" id="searchInput">
+                </div>
+
+                <div class="top-filters">
+                    <div class="filter-chip active" data-duration="all">All Durations</div>
+                    <div class="filter-chip" data-duration="5-10">5-10 min</div>
+                    <div class="filter-chip" data-duration="10-20">10-20 min</div>
+                    <div class="filter-chip" data-duration="20+">20+ min</div>
+
+                    <div class="filter-dropdown">
+                        <select id="sortBy">
+                            <option value="recommended">Recommended</option>
+                            <option value="popular">Most Popular</option>
+                            <option value="rating">Highest Rated</option>
+                            <option value="newest">Newest First</option>
+                            <option value="shortest">Shortest First</option>
+                            <option value="longest">Longest First</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="content-header">
+                    <h2 class="section-title" id="sectionTitle">Recommended For You</h2>
+                    <p class="content-subtitle" id="sectionSubtitle">EVE AI has selected these tracks to match your moment</p>
+                </div>
+
+                <div class="meditation-grid" id="meditationGrid">
+                    <!-- Meditation cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </main>
+    </div>
 
     <!-- Modal for Meditation Detail -->
     <div class="modal" id="meditationModal">
@@ -1125,37 +1296,207 @@
             document.getElementById('transcriptContent').classList.toggle('active');
         }
 
-        // Filter functionality
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        // State management
+        let currentFilters = {
+            category: 'eve-for-you',
+            duration: 'all',
+            sortBy: 'recommended',
+            searchQuery: ''
+        };
+
+        // Toggle sidebar (mobile)
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
+
+        // Update page title and subtitle
+        function updatePageHeader(title, subtitle) {
+            document.getElementById('pageTitle').textContent = title;
+            document.getElementById('sectionTitle').textContent = title;
+            document.getElementById('sectionSubtitle').textContent = subtitle;
+        }
+
+        // Sidebar navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active from all nav items
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
                 this.classList.add('active');
 
-                const filter = this.dataset.filter;
-                let filtered = meditations;
+                // Get filter type
+                const category = this.dataset.category;
+                const tech = this.dataset.tech;
+                const collection = this.dataset.collection;
+                const teacher = this.dataset.teacher;
 
-                if (filter !== 'all') {
-                    filtered = meditations.filter(m => m.soundTechnology === filter);
+                if (category) {
+                    currentFilters.category = category;
+                    handleCategoryNavigation(category);
+                } else if (tech) {
+                    currentFilters.category = `tech-${tech}`;
+                    handleTechNavigation(tech);
+                } else if (collection) {
+                    currentFilters.category = `collection-${collection}`;
+                    handleCollectionNavigation(collection);
+                } else if (teacher) {
+                    currentFilters.category = 'teachers';
+                    handleTeacherNavigation(teacher);
                 }
 
-                renderMeditations(filtered);
+                // Close sidebar on mobile
+                if (window.innerWidth <= 1024) {
+                    toggleSidebar();
+                }
+
+                applyFilters();
             });
         });
 
+        function handleCategoryNavigation(category) {
+            const titles = {
+                'eve-for-you': ['For You', 'EVE AI has selected these tracks to match your moment'],
+                'eve-morning': ['Morning Boost', 'Start your day with energy and clarity'],
+                'eve-sleep': ['Better Sleep Tonight', 'Prepare your mind and body for deep, restorative rest'],
+                'eve-stressed': ['When You\'re Stressed', 'Find instant calm and release tension'],
+                'focus': ['Focus', 'Enhance concentration and mental clarity'],
+                'confidence': ['Confidence', 'Build self-assurance and inner strength'],
+                'sleep': ['Better Sleep', 'Drift into deep, restorative sleep'],
+                'relax': ['Relax', 'Release tension and find inner peace'],
+                'performance': ['Performance', 'Optimize your mind and body for peak results'],
+                'money': ['Money Mindset', 'Transform your relationship with abundance'],
+                'wellness': ['Wellness', 'Nurture your body, mind, and spirit'],
+                'clarity': ['Clarity of Vision', 'See your path forward with crystal clarity']
+            };
+            const [title, subtitle] = titles[category] || ['Browse', 'Explore transformational audio'];
+            updatePageHeader(title, subtitle);
+        }
+
+        function handleTechNavigation(tech) {
+            const titles = {
+                'meditation': ['Meditation', 'Drop into calm, focus, and presence — fast'],
+                'hypnotherapy': ['Hypnotherapy', 'Rewire patterns and beliefs at the subconscious level'],
+                'breathwork': ['Breathwork', 'Energize, calm, and reconnect with your body'],
+                'sound-healing': ['Sound Healing', 'Let sound release what words cannot'],
+                'visualization': ['Creative Visualization', 'Picture it. Feel it. Become it faster.'],
+                'soundscapes': ['Soundscapes', 'Ambient environments to quiet your mind']
+            };
+            const [title, subtitle] = titles[tech] || ['Browse', 'Explore sound technologies'];
+            updatePageHeader(title, subtitle);
+        }
+
+        function handleCollectionNavigation(collection) {
+            const titles = {
+                'trending': ['Trending Now', 'What the community is listening to this week'],
+                'most-played': ['Most Played', 'The tracks with the highest play counts'],
+                'new': ['New This Week', 'Freshly added transformational audio'],
+                'highest-rated': ['Highest Rated', 'Top-rated tracks by our community']
+            };
+            const [title, subtitle] = titles[collection] || ['Browse', 'Explore collections'];
+            updatePageHeader(title, subtitle);
+        }
+
+        function handleTeacherNavigation(teacher) {
+            updatePageHeader('All Teachers', 'Explore tracks from 200+ world-class experts');
+        }
+
+        // Duration filter chips
+        document.querySelectorAll('.filter-chip[data-duration]').forEach(chip => {
+            chip.addEventListener('click', function() {
+                document.querySelectorAll('.filter-chip[data-duration]').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                currentFilters.duration = this.dataset.duration;
+                applyFilters();
+            });
+        });
+
+        // Sort dropdown
+        document.getElementById('sortBy').addEventListener('change', function() {
+            currentFilters.sortBy = this.value;
+            applyFilters();
+        });
+
+        // Apply all filters
+        function applyFilters() {
+            let filtered = [...meditations];
+
+            // Filter by category/tech/collection
+            if (currentFilters.category.startsWith('tech-')) {
+                const tech = currentFilters.category.replace('tech-', '');
+                filtered = filtered.filter(m => m.soundTechnology === tech);
+            } else if (currentFilters.category.startsWith('collection-')) {
+                const collection = currentFilters.category.replace('collection-', '');
+                filtered = filterByCollection(filtered, collection);
+            } else if (currentFilters.category !== 'eve-for-you' && currentFilters.category !== 'teachers') {
+                // Filter by life category
+                filtered = filtered.filter(m =>
+                    m.lifeCategory && m.lifeCategory.toLowerCase().includes(currentFilters.category)
+                );
+            }
+
+            // Filter by duration
+            if (currentFilters.duration === '5-10') {
+                filtered = filtered.filter(m => m.duration >= 5 && m.duration <= 10);
+            } else if (currentFilters.duration === '10-20') {
+                filtered = filtered.filter(m => m.duration > 10 && m.duration <= 20);
+            } else if (currentFilters.duration === '20+') {
+                filtered = filtered.filter(m => m.duration > 20);
+            }
+
+            // Filter by search
+            if (currentFilters.searchQuery) {
+                const query = currentFilters.searchQuery.toLowerCase();
+                filtered = filtered.filter(m =>
+                    m.title.toLowerCase().includes(query) ||
+                    m.author.toLowerCase().includes(query) ||
+                    m.description.toLowerCase().includes(query) ||
+                    m.outcomes.some(o => o.toLowerCase().includes(query))
+                );
+            }
+
+            // Sort
+            filtered = sortMeditations(filtered, currentFilters.sortBy);
+
+            renderMeditations(filtered);
+        }
+
+        function filterByCollection(meditations, collection) {
+            if (collection === 'trending') {
+                return meditations.sort((a, b) => b.completionRate - a.completionRate);
+            } else if (collection === 'most-played') {
+                return meditations.sort((a, b) => b.reviewCount - a.reviewCount);
+            } else if (collection === 'highest-rated') {
+                return meditations.filter(m => m.rating >= 4.9);
+            } else if (collection === 'new') {
+                return meditations.slice(0, 4); // Mock: return first 4 as "new"
+            }
+            return meditations;
+        }
+
+        function sortMeditations(meditations, sortBy) {
+            const sorted = [...meditations];
+            if (sortBy === 'popular') {
+                return sorted.sort((a, b) => b.reviewCount - a.reviewCount);
+            } else if (sortBy === 'rating') {
+                return sorted.sort((a, b) => b.rating - a.rating);
+            } else if (sortBy === 'newest') {
+                return sorted.reverse(); // Mock: reverse order as "newest"
+            } else if (sortBy === 'shortest') {
+                return sorted.sort((a, b) => a.duration - b.duration);
+            } else if (sortBy === 'longest') {
+                return sorted.sort((a, b) => b.duration - a.duration);
+            }
+            return sorted; // recommended (default order)
+        }
+
         // Search functionality
         document.getElementById('searchInput').addEventListener('input', function(e) {
-            const query = e.target.value.toLowerCase();
-            const filtered = meditations.filter(m =>
-                m.title.toLowerCase().includes(query) ||
-                m.author.toLowerCase().includes(query) ||
-                m.description.toLowerCase().includes(query) ||
-                m.outcomes.some(o => o.toLowerCase().includes(query))
-            );
-            renderMeditations(filtered);
+            currentFilters.searchQuery = e.target.value;
+            applyFilters();
         });
 
         // Initialize
-        renderMeditations();
+        applyFilters();
 
         // Close modal on background click
         document.getElementById('meditationModal').addEventListener('click', function(e) {
