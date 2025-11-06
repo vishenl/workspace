@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Profile - Mindvalley Audiowaves</title>
+    <link rel="stylesheet" href="mindvalley-styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Grotesk-Regular, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f9fafb;
+            color: #0f131a;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar - Same as other pages */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .logo {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f131a;
+            text-decoration: none;
+            display: block;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: #718096;
+            margin-top: 0.25rem;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 1rem 0;
+        }
+
+        .nav-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-section-title {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9375rem;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            background: #f7fafc;
+            color: #3b82f6;
+        }
+
+        .nav-item.active {
+            background: #eff6ff;
+            color: #3b82f6;
+            border-left: 3px solid #3b82f6;
+            padding-left: calc(1.5rem - 3px);
+        }
+
+        .nav-item-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-item-badge {
+            margin-left: auto;
+            background: #e2e8f0;
+            color: #4a5568;
+            padding: 0.125rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        /* Teacher Hero Section */
+        .teacher-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem 2rem;
+            color: white;
+        }
+
+        .teacher-hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .teacher-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255,255,255,0.3);
+            flex-shrink: 0;
+        }
+
+        .teacher-info {
+            flex: 1;
+        }
+
+        .teacher-name {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .teacher-specialty {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .teacher-stats-row {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-box {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .stat-box-value {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .stat-box-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        .follow-btn {
+            padding: 0.875rem 2rem;
+            background: white;
+            color: #3b82f6;
+            border: none;
+            border-radius: 8px;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .follow-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Teacher Bio */
+        .teacher-bio-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #0f131a;
+        }
+
+        .bio-text {
+            font-size: 1.0625rem;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 2rem;
+        }
+
+        .quote-box {
+            background: #f7fafc;
+            border-left: 4px solid #3b82f6;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .quote-text {
+            font-size: 1.25rem;
+            font-style: italic;
+            color: #0f131a;
+            line-height: 1.7;
+        }
+
+        .specialties-list {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .specialty-tag {
+            padding: 0.5rem 1rem;
+            background: #eff6ff;
+            color: #3b82f6;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        /* Teacher Tracks */
+        .teacher-tracks-section {
+            background: white;
+            padding: 3rem 2rem;
+        }
+
+        .tracks-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tracks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .track-card {
+            background: #f9fafb;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .track-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-color: #3b82f6;
+        }
+
+        .track-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .track-content {
+            padding: 1.25rem;
+        }
+
+        .track-meta {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .badge {
+            padding: 0.25rem 0.625rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .badge.tech-meditation { background: #dbeafe; color: #1e40af; }
+        .badge.tech-hypnotherapy { background: #fce7f3; color: #be185d; }
+        .badge.tech-breathwork { background: #fef3c7; color: #d97706; }
+
+        .track-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #0f131a;
+        }
+
+        .track-duration {
+            font-size: 0.875rem;
+            color: #718096;
+            margin-bottom: 0.75rem;
+        }
+
+        .track-stats {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .track-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.875rem;
+            color: #fbbf24;
+        }
+
+        .track-plays {
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+
+        /* Related Teachers */
+        .related-teachers-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .related-teacher-card {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .related-teacher-card:hover {
+            transform: scale(1.05);
+        }
+
+        .related-teacher-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+        }
+
+        .related-teacher-name {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f131a;
+            margin-bottom: 0.25rem;
+        }
+
+        .related-teacher-specialty {
+            font-size: 0.875rem;
+            color: #718096;
+        }
+
+        /* Mobile */
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                bottom: 0;
+                z-index: 200;
+                transition: left 0.3s;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .teacher-hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .teacher-name {
+                font-size: 2rem;
+            }
+
+            .teacher-stats-row {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tracks-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .teacher-hero {
+                padding: 2rem 1rem;
+            }
+
+            .teacher-stats-row {
+                gap: 1.5rem;
+            }
+
+            .stat-box-value {
+                font-size: 1.5rem;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            padding: 0.5rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 150;
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 199;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">Mindvalley Audiowaves</a>
+                <div class="logo-subtitle">1,000+ Transformational Tracks</div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <!-- Main Navigation -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Main</div>
+                    <a href="index.html" class="nav-item">
+                        <span class="nav-item-icon">✨</span>
+                        <span>Discover</span>
+                    </a>
+                    <a href="browse.html" class="nav-item">
+                        <span class="nav-item-icon">🔍</span>
+                        <span>Browse</span>
+                    </a>
+                    <a href="teachers.html" class="nav-item active">
+                        <span class="nav-item-icon">👥</span>
+                        <span>Teachers</span>
+                        <span class="nav-item-badge">200+</span>
+                    </a>
+                    <a href="collections.html" class="nav-item">
+                        <span class="nav-item-icon">📚</span>
+                        <span>Collections</span>
+                    </a>
+                </div>
+
+                <!-- My Content -->
+                <div class="nav-section">
+                    <div class="nav-section-title">My Content</div>
+                    <a href="library.html" class="nav-item">
+                        <span class="nav-item-icon">❤️</span>
+                        <span>My Library</span>
+                    </a>
+                    <a href="recent.html" class="nav-item">
+                        <span class="nav-item-icon">🕐</span>
+                        <span>Recently Played</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+            </svg>
+        </button>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-area">
+                <!-- Teacher Hero -->
+                <section class="teacher-hero">
+                    <div class="teacher-hero-content">
+                        <img id="teacherPhoto" class="teacher-photo" src="" alt="">
+                        <div class="teacher-info">
+                            <h1 id="teacherName" class="teacher-name"></h1>
+                            <p id="teacherSpecialty" class="teacher-specialty"></p>
+                            <div class="teacher-stats-row">
+                                <div class="stat-box">
+                                    <div id="trackCount" class="stat-box-value"></div>
+                                    <div class="stat-box-label">Tracks</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div id="totalPlays" class="stat-box-value"></div>
+                                    <div class="stat-box-label">Total Plays</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div id="rating" class="stat-box-value"></div>
+                                    <div class="stat-box-label">Rating</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div id="followers" class="stat-box-value"></div>
+                                    <div class="stat-box-label">Followers</div>
+                                </div>
+                            </div>
+                            <button class="follow-btn" onclick="toggleFollow()">
+                                <span id="followText">+ Follow</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Bio Section -->
+                <section class="teacher-bio-section">
+                    <h2 class="section-title">About</h2>
+                    <div id="bioContent" class="bio-text"></div>
+
+                    <div class="quote-box">
+                        <p id="quoteText" class="quote-text"></p>
+                    </div>
+
+                    <div class="specialties-list" id="specialtiesList"></div>
+                </section>
+
+                <!-- Teacher Tracks -->
+                <section class="teacher-tracks-section">
+                    <div class="tracks-container">
+                        <h2 class="section-title">All Tracks</h2>
+                        <div class="tracks-grid" id="tracksGrid"></div>
+                    </div>
+                </section>
+
+                <!-- Related Teachers -->
+                <section class="related-teachers-section">
+                    <h2 class="section-title">Related Teachers</h2>
+                    <div class="related-grid" id="relatedGrid"></div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Get teacher slug from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const teacherSlug = urlParams.get('teacher') || 'paul-mckenna';
+
+        // Teacher profiles database
+        const teacherProfiles = {
+            'paul-mckenna': {
+                name: "Paul McKenna",
+                specialty: "Hypnotherapy & Behavioral Change",
+                image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&q=80",
+                bio: "Paul McKenna, Ph.D. is one of the world's leading hypnotherapists and behavioral change experts. With over 30 years of experience, he has helped millions transform their lives through his revolutionary approach to rapid transformational therapy. His techniques have been scientifically proven to create lasting change in areas including confidence, sleep, weight management, and stress reduction.\n\nPaul's work combines cutting-edge neuroscience with practical hypnotherapy techniques, making deep transformation accessible to everyone. He has worked with Olympic athletes, celebrities, and business leaders, and his methods are used by therapists worldwide.",
+                quote: "You already have everything you need to create the life you want. My job is simply to help you unlock it.",
+                trackCount: 28,
+                totalPlays: "2.4M",
+                rating: 4.9,
+                followers: "145K",
+                specialties: ["Hypnotherapy", "Confidence Building", "Sleep Improvement", "Stress Management", "Weight Management"]
+            },
+            'vishen-lakhiani': {
+                name: "Vishen Lakhiani",
+                specialty: "Meditation & Consciousness Hacking",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&q=80",
+                bio: "Vishen Lakhiani is the founder of Mindvalley and one of the world's leading minds in personal transformation and consciousness hacking. His 6 Phase Meditation has been used by millions worldwide and is backed by scientific research showing its effectiveness in reducing stress and enhancing wellbeing.\n\nVishen combines ancient wisdom with modern neuroscience to create meditation practices that deliver fast, measurable results. His approach emphasizes that meditation doesn't require silence or discipline—just the right techniques.",
+                quote: "We're not meant to just survive. We're meant to thrive, to be extraordinary, to create lives of meaning and joy.",
+                trackCount: 45,
+                totalPlays: "1.8M",
+                rating: 4.8,
+                followers: "312K",
+                specialties: ["Meditation", "Consciousness", "Visualization", "Goal Achievement", "Altered States"]
+            },
+            'marisa-peer': {
+                name: "Marisa Peer",
+                specialty: "Rapid Transformational Therapy",
+                image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&q=80",
+                bio: "Marisa Peer is a world-renowned therapist with over 30 years of experience. She is the pioneer of Rapid Transformational Therapy (RTT), a method that combines the most effective principles of hypnotherapy, psychotherapy, NLP, and CBT to create fast, lasting change.\n\nMarisa has worked with international superstars, CEOs, royalty, and Olympic athletes. Her unique approach gets to the root cause of issues quickly, creating powerful breakthroughs in just a single session.",
+                quote: "You can't be sad or anxious when you're feeling confident. My job is to help you access that confidence instantly.",
+                trackCount: 32,
+                totalPlays: "1.5M",
+                rating: 4.9,
+                followers: "198K",
+                specialties: ["RTT", "Self-Worth", "Confidence", "Healing", "Belief Change"]
+            }
+        };
+
+        // Sample tracks for each teacher
+        const teacherTracks = {
+            'paul-mckenna': [
+                {
+                    title: "Instant Confidence Hypnotic Trance",
+                    duration: 22,
+                    soundTech: "hypnotherapy",
+                    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800",
+                    rating: 4.9,
+                    plays: "860K"
+                },
+                {
+                    title: "Deep Sleep Hypnotherapy",
+                    duration: 32,
+                    soundTech: "hypnotherapy",
+                    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800",
+                    rating: 4.8,
+                    plays: "1.2M"
+                },
+                {
+                    title: "Release Stress & Anxiety",
+                    duration: 25,
+                    soundTech: "hypnotherapy",
+                    image: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=800",
+                    rating: 4.9,
+                    plays: "340K"
+                }
+            ],
+            'vishen-lakhiani': [
+                {
+                    title: "6 Phase Meditation - Complete",
+                    duration: 20,
+                    soundTech: "meditation",
+                    image: "https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?w=800",
+                    rating: 4.9,
+                    plays: "13.6K"
+                },
+                {
+                    title: "Picture Your Best Life",
+                    duration: 15,
+                    soundTech: "meditation",
+                    image: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=800",
+                    rating: 4.8,
+                    plays: "524"
+                }
+            ],
+            'marisa-peer': [
+                {
+                    title: "I Am Enough - Self Worth",
+                    duration: 28,
+                    soundTech: "hypnotherapy",
+                    image: "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800",
+                    rating: 4.9,
+                    plays: "650K"
+                },
+                {
+                    title: "Confidence Booster",
+                    duration: 18,
+                    soundTech: "hypnotherapy",
+                    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800",
+                    rating: 4.8,
+                    plays: "420K"
+                }
+            ]
+        };
+
+        // Related teachers (simplified)
+        const relatedTeachers = [
+            { name: "Emily Fletcher", slug: "emily-fletcher", specialty: "Ziva Meditation", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400" },
+            { name: "Niraj Naik", slug: "niraj-naik", specialty: "Soma Breath", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400" },
+            { name: "Lisa Nichols", slug: "lisa-nichols", specialty: "Empowerment", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" },
+            { name: "Sadhguru", slug: "sadhguru", specialty: "Inner Engineering", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400" }
+        ];
+
+        // Load teacher profile
+        function loadTeacherProfile() {
+            const teacher = teacherProfiles[teacherSlug] || teacherProfiles['paul-mckenna'];
+
+            document.getElementById('teacherPhoto').src = teacher.image;
+            document.getElementById('teacherName').textContent = teacher.name;
+            document.getElementById('teacherSpecialty').textContent = teacher.specialty;
+            document.getElementById('trackCount').textContent = teacher.trackCount;
+            document.getElementById('totalPlays').textContent = teacher.totalPlays;
+            document.getElementById('rating').textContent = teacher.rating;
+            document.getElementById('followers').textContent = teacher.followers;
+            document.getElementById('bioContent').textContent = teacher.bio;
+            document.getElementById('quoteText').textContent = teacher.quote;
+
+            // Specialties
+            const specialtiesList = document.getElementById('specialtiesList');
+            specialtiesList.innerHTML = teacher.specialties.map(s =>
+                `<span class="specialty-tag">${s}</span>`
+            ).join('');
+
+            // Update page title
+            document.title = `${teacher.name} - Mindvalley Audiowaves`;
+        }
+
+        // Load tracks
+        function loadTracks() {
+            const tracks = teacherTracks[teacherSlug] || teacherTracks['paul-mckenna'];
+            const grid = document.getElementById('tracksGrid');
+
+            grid.innerHTML = tracks.map(track => `
+                <div class="track-card">
+                    <img src="${track.image}" alt="${track.title}" class="track-image">
+                    <div class="track-content">
+                        <div class="track-meta">
+                            <span class="badge tech-${track.soundTech}">${track.soundTech}</span>
+                            <span class="badge">${track.duration} min</span>
+                        </div>
+                        <h3 class="track-title">${track.title}</h3>
+                        <p class="track-duration">${track.duration} minutes</p>
+                        <div class="track-stats">
+                            <div class="track-rating">
+                                <span>⭐</span>
+                                <span>${track.rating}</span>
+                            </div>
+                            <div class="track-plays">${track.plays} plays</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Load related teachers
+        function loadRelatedTeachers() {
+            const grid = document.getElementById('relatedGrid');
+            grid.innerHTML = relatedTeachers.map(teacher => `
+                <a href="teacher-profile.html?teacher=${teacher.slug}" class="related-teacher-card">
+                    <img src="${teacher.image}" alt="${teacher.name}" class="related-teacher-image">
+                    <div class="related-teacher-name">${teacher.name}</div>
+                    <div class="related-teacher-specialty">${teacher.specialty}</div>
+                </a>
+            `).join('');
+        }
+
+        // Follow/Unfollow
+        let isFollowing = false;
+        function toggleFollow() {
+            isFollowing = !isFollowing;
+            const btn = document.getElementById('followText');
+            btn.textContent = isFollowing ? '✓ Following' : '+ Follow';
+        }
+
+        // Toggle sidebar
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
+
+        // Initialize
+        loadTeacherProfile();
+        loadTracks();
+        loadRelatedTeachers();
+    </script>
+</body>
+</html>
