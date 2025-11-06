@@ -21,6 +21,7 @@ meditation/
     ├── v1-collections.html                # Curated meditation collections
     ├── feature-analysis.html              # P0/P1/P2 feature roadmap (18 features)
     ├── recommendation-strategy-proposal.html  # HealthKit vs Journaling analysis
+    ├── reflections-framework.html         # Mind mastery training system
     └── mindvalley-styles.css              # Shared design system
 ```
 
@@ -34,13 +35,14 @@ meditation/
 | **v1 Profile** | Teacher profile example | [View Demo](https://vishenl.github.io/workspace/meditation/prototype/v1-teacher-profile.html?teacher=paul-mckenna) |
 | **v1 Collections** | Curated collections | [View Demo](https://vishenl.github.io/workspace/meditation/prototype/v1-collections.html) |
 | **Strategy Doc** | Recommendation system analysis | [Read Strategy](https://vishenl.github.io/workspace/meditation/prototype/recommendation-strategy-proposal.html) |
+| **Reflections Framework** | Mind mastery training system | [Read Framework](https://vishenl.github.io/workspace/meditation/prototype/reflections-framework.html) |
 | **Feature Analysis** | Priority roadmap | [View Analysis](https://vishenl.github.io/workspace/meditation/prototype/feature-analysis.html) |
 
 ## 📊 Project Stats
 
-- **Total Files**: 7 deliverables
+- **Total Files**: 8 deliverables
 - **Interactive Prototypes**: 4 (v1 suite)
-- **Strategy Documents**: 2 (recommendations + features)
+- **Strategy Documents**: 3 (recommendations + reflections + features)
 - **Teachers Featured**: 200+
 - **Sound Technologies**: 6 (Binaural Beats, Solfeggio, etc.)
 - **Life Categories**: 50+
