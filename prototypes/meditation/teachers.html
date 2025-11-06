@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers - Mindvalley Audiowaves</title>
+    <link rel="stylesheet" href="mindvalley-styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Grotesk-Regular, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f9fafb;
+            color: #0f131a;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Left Sidebar - Same as main app */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .logo {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f131a;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: #718096;
+            margin-top: 0.25rem;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 1rem 0;
+        }
+
+        .nav-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-section-title {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9375rem;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            background: #f7fafc;
+            color: #3b82f6;
+        }
+
+        .nav-item.active {
+            background: #eff6ff;
+            color: #3b82f6;
+            border-left: 3px solid #3b82f6;
+            padding-left: calc(1.5rem - 3px);
+        }
+
+        .nav-item-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-item-badge {
+            margin-left: auto;
+            background: #e2e8f0;
+            color: #4a5568;
+            padding: 0.125rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .nav-item.active .nav-item-badge {
+            background: #3b82f6;
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .top-bar {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .page-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f131a;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9375rem;
+            font-family: inherit;
+            background: #f9fafb;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-chip:hover {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .filter-chip.active {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .content-header {
+            margin-bottom: 2rem;
+        }
+
+        .content-subtitle {
+            font-size: 0.9375rem;
+            color: #718096;
+            margin-top: 0.5rem;
+        }
+
+        /* Teachers Grid */
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .teacher-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .teacher-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .teacher-content {
+            padding: 1.5rem;
+        }
+
+        .teacher-name {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f131a;
+            margin-bottom: 0.5rem;
+        }
+
+        .teacher-specialty {
+            font-size: 0.9375rem;
+            color: #718096;
+            margin-bottom: 1rem;
+        }
+
+        .teacher-stats {
+            display: flex;
+            gap: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .stat-value {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        /* Mobile */
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                bottom: 0;
+                z-index: 200;
+                transition: left 0.3s;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .teachers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-area {
+                padding: 1rem;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            padding: 0.5rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 199;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">Mindvalley Audiowaves</div>
+                <div class="logo-subtitle">1,000+ Transformational Tracks</div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <!-- Main Navigation -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Main</div>
+                    <a href="meditation-app.html" class="nav-item">
+                        <span class="nav-item-icon">✨</span>
+                        <span>Discover</span>
+                    </a>
+                    <a href="browse.html" class="nav-item">
+                        <span class="nav-item-icon">🔍</span>
+                        <span>Browse</span>
+                    </a>
+                    <a href="teachers.html" class="nav-item active">
+                        <span class="nav-item-icon">👥</span>
+                        <span>Teachers</span>
+                        <span class="nav-item-badge">200+</span>
+                    </a>
+                    <a href="collections.html" class="nav-item">
+                        <span class="nav-item-icon">📚</span>
+                        <span>Collections</span>
+                    </a>
+                </div>
+
+                <!-- My Content -->
+                <div class="nav-section">
+                    <div class="nav-section-title">My Content</div>
+                    <a href="library.html" class="nav-item">
+                        <span class="nav-item-icon">❤️</span>
+                        <span>My Library</span>
+                    </a>
+                    <a href="recent.html" class="nav-item">
+                        <span class="nav-item-icon">🕐</span>
+                        <span>Recently Played</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </button>
+
+                <h1 class="page-title">All Teachers</h1>
+
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="Search teachers by name or specialty..." id="searchInput">
+                </div>
+
+                <div class="filter-chips">
+                    <div class="filter-chip active" data-filter="all">All</div>
+                    <div class="filter-chip" data-filter="meditation">Meditation</div>
+                    <div class="filter-chip" data-filter="hypnotherapy">Hypnotherapy</div>
+                    <div class="filter-chip" data-filter="breathwork">Breathwork</div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="content-header">
+                    <p class="content-subtitle">Explore transformational audio from 200+ world-class experts, spiritual teachers, and sound healers</p>
+                </div>
+
+                <div class="teachers-grid" id="teachersGrid">
+                    <!-- Teachers will be dynamically inserted here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Teachers data
+        const teachers = [
+            {
+                id: 1,
+                name: "Paul McKenna",
+                slug: "paul-mckenna",
+                specialty: "Hypnotherapy & Behavioral Change",
+                image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&q=80",
+                trackCount: 28,
+                totalPlays: "2.4M",
+                rating: 4.9,
+                specialties: ["hypnotherapy", "confidence", "sleep"]
+            },
+            {
+                id: 2,
+                name: "Vishen Lakhiani",
+                slug: "vishen-lakhiani",
+                specialty: "Meditation & Consciousness",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&q=80",
+                trackCount: 45,
+                totalPlays: "1.8M",
+                rating: 4.8,
+                specialties: ["meditation", "visualization"]
+            },
+            {
+                id: 3,
+                name: "Marisa Peer",
+                slug: "marisa-peer",
+                specialty: "Rapid Transformational Therapy",
+                image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&q=80",
+                trackCount: 32,
+                totalPlays: "1.5M",
+                rating: 4.9,
+                specialties: ["hypnotherapy"]
+            },
+            {
+                id: 4,
+                name: "Emily Fletcher",
+                slug: "emily-fletcher",
+                specialty: "Ziva Meditation",
+                image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&q=80",
+                trackCount: 24,
+                totalPlays: "980K",
+                rating: 4.8,
+                specialties: ["meditation", "performance"]
+            },
+            {
+                id: 5,
+                name: "Niraj Naik",
+                slug: "niraj-naik",
+                specialty: "Soma Breath & Breathwork",
+                image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&q=80",
+                trackCount: 18,
+                totalPlays: "750K",
+                rating: 4.7,
+                specialties: ["breathwork"]
+            },
+            {
+                id: 6,
+                name: "Sadhguru",
+                slug: "sadhguru",
+                specialty: "Inner Engineering & Presence",
+                image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&q=80",
+                trackCount: 15,
+                totalPlays: "1.2M",
+                rating: 4.9,
+                specialties: ["meditation", "spirituality"]
+            },
+            {
+                id: 7,
+                name: "Lisa Nichols",
+                slug: "lisa-nichols",
+                specialty: "Motivational Speaking & Empowerment",
+                image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&q=80",
+                trackCount: 21,
+                totalPlays: "890K",
+                rating: 4.8,
+                specialties: ["meditation", "confidence"]
+            },
+            {
+                id: 8,
+                name: "MAEJOR",
+                slug: "maejor",
+                specialty: "Grammy-Nominated Sound Artist",
+                image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=400&h=400&fit=crop&q=80",
+                trackCount: 12,
+                totalPlays: "650K",
+                rating: 4.7,
+                specialties: ["soundscapes", "sound-healing"]
+            },
+            {
+                id: 9,
+                name: "Dr. Tai Ben-Shahar",
+                slug: "tai-ben-shahar",
+                specialty: "Positive Psychology & Happiness",
+                image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&q=80",
+                trackCount: 19,
+                totalPlays: "720K",
+                rating: 4.8,
+                specialties: ["meditation", "wellness"]
+            },
+            {
+                id: 10,
+                name: "Monroe Institute",
+                slug: "monroe-institute",
+                specialty: "Consciousness Exploration",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&q=80",
+                trackCount: 34,
+                totalPlays: "1.1M",
+                rating: 4.9,
+                specialties: ["sound-healing", "meditation"]
+            },
+            {
+                id: 11,
+                name: "Sonia Choquette",
+                slug: "sonia-choquette",
+                specialty: "Intuition & Spiritual Guidance",
+                image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&q=80",
+                trackCount: 16,
+                totalPlays: "580K",
+                rating: 4.7,
+                specialties: ["meditation", "visualization"]
+            },
+            {
+                id: 12,
+                name: "Burt Goldman",
+                slug: "burt-goldman",
+                specialty: "Quantum Jumping & Meditation",
+                image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&q=80",
+                trackCount: 22,
+                totalPlays: "810K",
+                rating: 4.8,
+                specialties: ["meditation", "visualization"]
+            }
+        ];
+
+        // Render teachers
+        function renderTeachers(filteredTeachers = teachers) {
+            const grid = document.getElementById('teachersGrid');
+            grid.innerHTML = filteredTeachers.map(teacher => `
+                <a href="teacher-profile.html?teacher=${teacher.slug}" class="teacher-card">
+                    <img src="${teacher.image}" alt="${teacher.name}" class="teacher-image">
+                    <div class="teacher-content">
+                        <h3 class="teacher-name">${teacher.name}</h3>
+                        <p class="teacher-specialty">${teacher.specialty}</p>
+                        <div class="teacher-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">${teacher.trackCount}</div>
+                                <div class="stat-label">Tracks</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">${teacher.totalPlays}</div>
+                                <div class="stat-label">Plays</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">${teacher.rating}</div>
+                                <div class="stat-label">Rating</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        // Filter chips
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+
+                const filter = this.dataset.filter;
+                let filtered = teachers;
+
+                if (filter !== 'all') {
+                    filtered = teachers.filter(t => t.specialties.includes(filter));
+                }
+
+                renderTeachers(filtered);
+            });
+        });
+
+        // Search
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            const filtered = teachers.filter(t =>
+                t.name.toLowerCase().includes(query) ||
+                t.specialty.toLowerCase().includes(query)
+            );
+            renderTeachers(filtered);
+        });
+
+        // Toggle sidebar
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
+
+        // Initialize
+        renderTeachers();
+    </script>
+</body>
+</html>
