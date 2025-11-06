@@ -22,6 +22,7 @@ meditation/
     ├── feature-analysis.html              # P0/P1/P2 feature roadmap (18 features)
     ├── recommendation-strategy-proposal.html  # HealthKit vs Journaling analysis
     ├── reflections-framework.html         # Mind mastery training system
+    ├── reflections-data-architecture.html # Technical implementation & data models
     └── mindvalley-styles.css              # Shared design system
 ```
 
@@ -36,13 +37,14 @@ meditation/
 | **v1 Collections** | Curated collections | [View Demo](https://vishenl.github.io/workspace/meditation/prototype/v1-collections.html) |
 | **Strategy Doc** | Recommendation system analysis | [Read Strategy](https://vishenl.github.io/workspace/meditation/prototype/recommendation-strategy-proposal.html) |
 | **Reflections Framework** | Mind mastery training system | [Read Framework](https://vishenl.github.io/workspace/meditation/prototype/reflections-framework.html) |
+| **Data Architecture** | Technical implementation guide | [View Architecture](https://vishenl.github.io/workspace/meditation/prototype/reflections-data-architecture.html) |
 | **Feature Analysis** | Priority roadmap | [View Analysis](https://vishenl.github.io/workspace/meditation/prototype/feature-analysis.html) |
 
 ## 📊 Project Stats
 
-- **Total Files**: 8 deliverables
+- **Total Files**: 9 deliverables
 - **Interactive Prototypes**: 4 (v1 suite)
-- **Strategy Documents**: 3 (recommendations + reflections + features)
+- **Strategy Documents**: 4 (recommendations + reflections + data architecture + features)
 - **Teachers Featured**: 200+
 - **Sound Technologies**: 6 (Binaural Beats, Solfeggio, etc.)
 - **Life Categories**: 50+
