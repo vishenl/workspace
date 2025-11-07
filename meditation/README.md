@@ -6,7 +6,7 @@
 
 **Team Hub URL**: https://vishenl.github.io/workspace/meditation/
 
-**Password**: `mindvalley2025`
+**Password**: Contact team for access
 
 ## 📁 Project Structure
 
@@ -122,7 +122,7 @@ meditation/
 
 ### Accessing Files
 1. Visit the team hub: https://vishenl.github.io/workspace/meditation/
-2. Enter password: `mindvalley2025`
+2. Enter the team password
 3. Browse all prototypes and documents
 4. All files open in new tabs for easy comparison
 
