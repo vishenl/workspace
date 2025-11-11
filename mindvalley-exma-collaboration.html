@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindvalley × EXMA Strategic Collaboration - Confidential</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #0F131A;
+            background: #FFFFFF;
+            min-height: 100vh;
+        }
+
+        #login-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(122, 18, 212, 0.08);
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid #F3F4F6;
+        }
+
+        .login-box h1 {
+            color: #0F131A;
+            margin-bottom: 10px;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .login-box p {
+            color: #595E67;
+            margin-bottom: 30px;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #CED1D7;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #FFFFFF;
+            color: #0F131A;
+        }
+
+        .login-box input:focus {
+            outline: none;
+            border-color: #7A12D4;
+            box-shadow: 0 0 0 3px rgba(122, 18, 212, 0.1);
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 14px;
+            background: #7A12D4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-box button:hover {
+            background: #6610B3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(122, 18, 212, 0.2);
+        }
+
+        .error {
+            color: #DC2626;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        #content {
+            display: none;
+            background: white;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .header {
+            background: #7A12D4;
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 24px;
+            opacity: 0.9;
+        }
+
+        .container {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            color: #0F131A;
+            font-size: 32px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #7A12D4;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .section h3 {
+            color: #7A12D4;
+            font-size: 24px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .section h4 {
+            color: #0F131A;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .alert {
+            background: #D1FAE5;
+            border-left: 4px solid #10B981;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .alert.info {
+            background: #DBEAFE;
+            border-left-color: #3B82F6;
+        }
+
+        .alert.opportunity {
+            background: #FFF9E6;
+            border-left-color: #FBBF24;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: #F9F9F9;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #7A12D4;
+            border: 1px solid #F3F4F6;
+        }
+
+        .stat-card .number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #7A12D4;
+            margin-bottom: 5px;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-card .label {
+            color: #595E67;
+            font-size: 14px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th {
+            background: #7A12D4;
+            color: white;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 16px;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .comparison-table tr:hover {
+            background: #F9F9F9;
+        }
+
+        .strategy-box {
+            background: #F9F9F9;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 12px;
+            border-left: 4px solid #10B981;
+            border: 1px solid #F3F4F6;
+        }
+
+        .strategy-box strong {
+            color: #0F131A;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .revenue-highlight {
+            background: #7A12D4;
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .revenue-highlight .big-number {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            #content {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="login-screen">
+        <div class="login-box">
+            <h1>Mindvalley × EXMA</h1>
+            <p>Strategic Collaboration Proposal - Confidential</p>
+            <input type="password" id="password" placeholder="Enter password" onkeypress="if(event.keyCode==13) checkPassword()">
+            <button onclick="checkPassword()">Access Proposal</button>
+            <div id="error" class="error"></div>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class="header">
+            <h1>MINDVALLEY × EXMA</h1>
+            <div class="subtitle">Strategic Collaboration Proposal</div>
+            <div style="margin-top: 20px; font-size: 16px; opacity: 0.8;">Bringing the World's Leading Personal Transformation Platform to Latin America</div>
+        </div>
+
+        <div class="container">
+            <!-- EXECUTIVE SUMMARY -->
+            <div class="section">
+                <h2>Executive Summary</h2>
+
+                <div class="alert">
+                    <strong>The Opportunity:</strong>
+                    <p>Unite Mindvalley's 1M+ subscriber transformation platform with EXMA's 10-year presence as Latin America's leading marketing event to create an unprecedented personal growth ecosystem in the Spanish-speaking world.</p>
+                </div>
+
+                <h3>The Vision</h3>
+                <p>Combine Mindvalley's proven online education model (100+ programs, "Quests", Mastery degrees) with EXMA's physical event expertise to create a comprehensive transformation ecosystem that serves 500,000+ Spanish-speaking professionals by 2027.</p>
+
+                <div class="revenue-highlight">
+                    <div class="big-number">$50M+</div>
+                    <div style="font-size: 24px; margin-bottom: 15px;">Combined Revenue Potential by Year 3</div>
+                    <div style="font-size: 16px; opacity: 0.9;">Through membership, events, certifications, and corporate training</div>
+                </div>
+
+                <h3>Why This Partnership Makes Sense</h3>
+
+                <table class="comparison-table">
+                    <tr>
+                        <th>What Mindvalley Brings</th>
+                        <th>What EXMA Brings</th>
+                        <th>Combined Strength</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ul style="margin: 0;">
+                                <li>1M+ global subscribers</li>
+                                <li>100+ world-class programs</li>
+                                <li>Proven business model ($33.25/mo)</li>
+                                <li>Technology platform</li>
+                                <li>World-renowned trainers</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul style="margin: 0;">
+                                <li>10-year LATAM presence</li>
+                                <li>Database of marketers/entrepreneurs</li>
+                                <li>Event production expertise</li>
+                                <li>Local market knowledge</li>
+                                <li>Spanish-speaking audience</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul style="margin: 0;">
+                                <li>#1 transformation platform in LATAM</li>
+                                <li>Online + offline dominance</li>
+                                <li>Year-round engagement</li>
+                                <li>Multiple revenue streams</li>
+                                <li>Unbeatable market position</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- THE COLLABORATION MODEL -->
+            <div class="section">
+                <h2>The Collaboration Model</h2>
+
+                <h3>1. Mindvalley en Español Platform</h3>
+
+                <div class="strategy-box">
+                    <strong>Launch Spanish-Language Mindvalley Platform</strong>
+                    <ul>
+                        <li><strong>Content:</strong> 100+ programs fully translated and localized for Spanish-speakers</li>
+                        <li><strong>Pricing:</strong> $29/month (adjusted for LATAM purchasing power) or $290/year</li>
+                        <li><strong>Target:</strong> 100,000 subscribers Year 1 → 500,000 by Year 3</li>
+                        <li><strong>Revenue Share:</strong> 30% to EXMA for marketing/community building</li>
+                        <li><strong>Marketing:</strong> EXMA promotes to database, event attendees, social followers</li>
+                    </ul>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="number">100K</div>
+                        <div class="label">Subscribers Year 1</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">$34.8M</div>
+                        <div class="label">Annual Recurring Revenue (ARR)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">$10.4M</div>
+                        <div class="label">EXMA's 30% Share</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">65%</div>
+                        <div class="label">Profit Margin</div>
+                    </div>
+                </div>
+
+                <h3>2. EXMA Powered by Mindvalley Events</h3>
+
+                <div class="strategy-box">
+                    <strong>Transform EXMA into Year-Round Experience</strong>
+                    <ul>
+                        <li><strong>Annual EXMA:</strong> Continue flagship Mexico City event (Nov 24-25, 2025)</li>
+                        <li><strong>Mindvalley Speakers:</strong> Bring 3-5 Mindvalley trainers as headliners</li>
+                        <li><strong>Exclusive Content:</strong> EXMA attendees get free 3-month Mindvalley membership</li>
+                        <li><strong>Mindvalley University in LATAM:</strong> 5-day transformational retreats in Mexico, Colombia, Argentina</li>
+                        <li><strong>Corporate Events:</strong> B2B transformation programs for companies</li>
+                    </ul>
+                </div>
+
+                <h4>Event Revenue Projections</h4>
+                <ul>
+                    <li><strong>EXMA Annual:</strong> 6,000 attendees × $800 = $4.8M</li>
+                    <li><strong>Regional EXMA Tours:</strong> 4 cities × 1,000 attendees × $400 = $1.6M</li>
+                    <li><strong>Mindvalley University LATAM:</strong> 2 retreats × 500 attendees × $2,500 = $2.5M</li>
+                    <li><strong>Corporate Training:</strong> 20 companies × $50K = $1M</li>
+                    <li><strong>TOTAL Event Revenue:</strong> <strong>$9.9M annually</strong></li>
+                </ul>
+
+                <h3>3. Mindvalley Mastery Degrees in Spanish</h3>
+
+                <div class="strategy-box">
+                    <strong>Elite Mastery Programs for LATAM</strong>
+                    <ul>
+                        <li><strong>Programs:</strong> AI Mastery, Social Media Mastery, Entrepreneur Mastery, Speaking Mastery</li>
+                        <li><strong>Format:</strong> 4-6 month intensive programs (2 hours/week)</li>
+                        <li><strong>Pricing:</strong> $3,000-5,000 per program</li>
+                        <li><strong>Target:</strong> 1,000 students Year 1</li>
+                        <li><strong>Delivery:</strong> EXMA provides local support, live events, networking</li>
+                        <li><strong>Revenue Share:</strong> 40% to EXMA for local coordination</li>
+                    </ul>
+                </div>
+
+                <h4>Mastery Revenue</h4>
+                <p><strong>1,000 students × $4,000 average = $4M revenue</strong></p>
+                <p><strong>EXMA's 40% share = $1.6M</strong></p>
+
+                <h3>4. Mindvalley Coach Certification in LATAM</h3>
+
+                <div class="strategy-box">
+                    <strong>Train 6,000 Certified Coaches in Spanish</strong>
+                    <ul>
+                        <li><strong>Program:</strong> 6-month Mindvalley Certified Coach training</li>
+                        <li><strong>Pricing:</strong> $4,000 per certification</li>
+                        <li><strong>Target:</strong> 500 coaches Year 1 → 2,000 Year 3</li>
+                        <li><strong>Live Components:</strong> Quarterly in-person intensives hosted by EXMA</li>
+                        <li><strong>Career Support:</strong> Help coaches build $100K+/year practices</li>
+                        <li><strong>Revenue Share:</strong> 35% to EXMA</li>
+                    </ul>
+                </div>
+
+                <h4>Coach Certification Revenue</h4>
+                <p><strong>500 coaches × $4,000 = $2M Year 1</strong></p>
+                <p><strong>EXMA's 35% share = $700K</strong></p>
+
+                <h3>5. Corporate B2B Transformation Programs</h3>
+
+                <div class="strategy-box">
+                    <strong>Bring Mindvalley to LATAM Corporations</strong>
+                    <ul>
+                        <li><strong>Target:</strong> Fortune 500 LATAM divisions + top regional companies</li>
+                        <li><strong>Offering:</strong> Corporate Mindvalley subscriptions + in-house workshops</li>
+                        <li><strong>Pricing:</strong> $50K-500K per company depending on size</li>
+                        <li><strong>EXMA's Role:</strong> Sales, relationship management, local delivery</li>
+                        <li><strong>Target:</strong> 50 corporate clients Year 1</li>
+                    </ul>
+                </div>
+
+                <h4>Corporate Revenue</h4>
+                <p><strong>50 companies × $100K average = $5M</strong></p>
+                <p><strong>Revenue share: 50/50 split = $2.5M to EXMA</strong></p>
+            </div>
+
+            <!-- REVENUE PROJECTIONS -->
+            <div class="section">
+                <h2>Combined Revenue Projections</h2>
+
+                <table class="comparison-table">
+                    <tr>
+                        <th>Revenue Stream</th>
+                        <th>Year 1</th>
+                        <th>Year 2</th>
+                        <th>Year 3</th>
+                    </tr>
+                    <tr>
+                        <td>Mindvalley en Español (subscriptions)</td>
+                        <td>$3.48M</td>
+                        <td>$17.4M</td>
+                        <td>$34.8M</td>
+                    </tr>
+                    <tr>
+                        <td>Events (EXMA + MV University)</td>
+                        <td>$6.5M</td>
+                        <td>$9M</td>
+                        <td>$12M</td>
+                    </tr>
+                    <tr>
+                        <td>Mastery Degrees</td>
+                        <td>$4M</td>
+                        <td>$8M</td>
+                        <td>$12M</td>
+                    </tr>
+                    <tr>
+                        <td>Coach Certifications</td>
+                        <td>$2M</td>
+                        <td>$4M</td>
+                        <td>$8M</td>
+                    </tr>
+                    <tr>
+                        <td>Corporate B2B</td>
+                        <td>$5M</td>
+                        <td>$8M</td>
+                        <td>$12M</td>
+                    </tr>
+                    <tr style="background: #f8f9fa; font-weight: bold; font-size: 18px;">
+                        <td>TOTAL REVENUE</td>
+                        <td>$20.98M</td>
+                        <td>$46.4M</td>
+                        <td>$78.8M</td>
+                    </tr>
+                    <tr style="background: #d4edda;">
+                        <td><strong>EXMA's Share (weighted avg 35%)</strong></td>
+                        <td><strong>$7.3M</strong></td>
+                        <td><strong>$16.2M</strong></td>
+                        <td><strong>$27.6M</strong></td>
+                    </tr>
+                </table>
+
+                <div class="alert">
+                    <p><strong>Note:</strong> These projections assume aggressive but achievable growth based on Mindvalley's proven model and EXMA's established audience. Conservative estimates would be 40-50% lower but still highly profitable.</p>
+                </div>
+            </div>
+
+            <!-- STRATEGIC ADVANTAGES -->
+            <div class="section">
+                <h2>Strategic Advantages</h2>
+
+                <h3>For EXMA</h3>
+                <ol>
+                    <li><strong>Recurring Revenue Model:</strong> Transform from annual event to year-round business with predictable income</li>
+                    <li><strong>Market Leadership:</strong> Become undisputed #1 transformation platform in LATAM</li>
+                    <li><strong>Asset Appreciation:</strong> Build valuable tech-enabled education business</li>
+                    <li><strong>Lower Risk:</strong> Diversified income streams reduce event dependency</li>
+                    <li><strong>Content Library:</strong> Access to 100+ world-class programs without production costs</li>
+                    <li><strong>Global Brand:</strong> Association with Mindvalley's premium brand</li>
+                </ol>
+
+                <h3>For Mindvalley</h3>
+                <ol>
+                    <li><strong>LATAM Market Entry:</strong> Immediate access to 650M Spanish speakers</li>
+                    <li><strong>Physical Presence:</strong> Leverage EXMA's event infrastructure</li>
+                    <li><strong>Local Expertise:</strong> EXMA knows LATAM market, culture, buying behavior</li>
+                    <li><strong>Established Audience:</strong> Tap into EXMA's database and community</li>
+                    <li><strong>Faster Growth:</strong> Skip years of market education with EXMA's credibility</li>
+                    <li><strong>B2B Channel:</strong> EXMA's corporate relationships open enterprise market</li>
+                </ol>
+
+                <h3>For LATAM Market</h3>
+                <ol>
+                    <li><strong>World-Class Education:</strong> Access to content previously unavailable in Spanish</li>
+                    <li><strong>Affordable Pricing:</strong> LATAM-adjusted pricing makes transformation accessible</li>
+                    <li><strong>Local Community:</strong> Spanish-speaking peers for support and networking</li>
+                    <li><strong>Career Opportunities:</strong> Coach certification creates income opportunities</li>
+                    <li><strong>Cultural Relevance:</strong> Content adapted for Hispanic audience</li>
+                </ol>
+            </div>
+
+            <!-- IMPLEMENTATION ROADMAP -->
+            <div class="section">
+                <h2>Implementation Roadmap</h2>
+
+                <h3>Phase 1: Foundation (Months 1-4)</h3>
+                <div class="strategy-box">
+                    <strong>Establish Partnership & Infrastructure</strong>
+                    <ul>
+                        <li><strong>Legal:</strong> Form joint venture entity (Mindvalley LATAM powered by EXMA)</li>
+                        <li><strong>Technology:</strong> Localize Mindvalley platform for Spanish</li>
+                        <li><strong>Content:</strong> Translate/adapt top 20 Quests for LATAM launch</li>
+                        <li><strong>Team:</strong> Hire 10-person LATAM team (Mexico City HQ)</li>
+                        <li><strong>Marketing:</strong> Soft launch beta to EXMA database</li>
+                        <li><strong>Investment Required:</strong> $500K</li>
+                    </ul>
+                </div>
+
+                <h3>Phase 2: Launch (Months 5-8)</h3>
+                <div class="strategy-box">
+                    <strong>Public Launch & Event Integration</strong>
+                    <ul>
+                        <li><strong>Platform Launch:</strong> Full public launch of Mindvalley en Español</li>
+                        <li><strong>EXMA 2025:</strong> Mindvalley headliners, exclusive membership offers</li>
+                        <li><strong>Marketing Blitz:</strong> $200K ad spend across Mexico/LATAM</li>
+                        <li><strong>Ambassador Program:</strong> Recruit 100 EXMA alumni as affiliates</li>
+                        <li><strong>First Mastery Cohort:</strong> Launch AI Mastery in Spanish</li>
+                        <li><strong>Target:</strong> 10,000 subscribers, 100 Mastery students</li>
+                    </ul>
+                </div>
+
+                <h3>Phase 3: Expansion (Months 9-18)</h3>
+                <div class="strategy-box">
+                    <strong>Scale to Full Ecosystem</strong>
+                    <ul>
+                        <li><strong>Content:</strong> Complete translation of all 100+ Quests</li>
+                        <li><strong>Events:</strong> Launch Mindvalley University LATAM (Mexico, Colombia)</li>
+                        <li><strong>Coach Training:</strong> First Spanish coach certification cohort</li>
+                        <li><strong>Corporate:</strong> Close first 10 enterprise clients</li>
+                        <li><strong>Regional EXMA:</strong> Launch in 3 additional cities</li>
+                        <li><strong>Target:</strong> 50,000 subscribers, 500 Mastery students, 200 coaches</li>
+                    </ul>
+                </div>
+
+                <h3>Phase 4: Dominance (Months 19-36)</h3>
+                <div class="strategy-box">
+                    <strong>Establish Market Leadership</strong>
+                    <ul>
+                        <li><strong>Scale:</strong> 100K+ subscribers across LATAM</li>
+                        <li><strong>Geographic:</strong> Expand to Argentina, Chile, Peru, Spain</li>
+                        <li><strong>Product:</strong> Launch LATAM-specific Quests with local teachers</li>
+                        <li><strong>Corporate:</strong> 50+ enterprise clients</li>
+                        <li><strong>Events:</strong> 6 cities annually + 3 Mindvalley Universities</li>
+                        <li><strong>Coaches:</strong> 2,000 certified coaches creating ecosystem</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- OPERATIONAL STRUCTURE -->
+            <div class="section">
+                <h2>Operational Structure</h2>
+
+                <h3>Joint Venture Entity</h3>
+                <div class="alert info">
+                    <p><strong>Mindvalley LATAM S.A. de C.V.</strong></p>
+                    <p>Ownership: 51% Mindvalley / 49% EXMA</p>
+                    <p>HQ: Mexico City</p>
+                </div>
+
+                <h3>Governance</h3>
+                <ul>
+                    <li><strong>Board of Directors:</strong> 3 from Mindvalley, 3 from EXMA</li>
+                    <li><strong>CEO:</strong> Appointed jointly (preferably LATAM native with tech background)</li>
+                    <li><strong>Key Decisions:</strong> Require 75% board approval</li>
+                    <li><strong>Reporting:</strong> Quarterly board meetings + monthly performance reviews</li>
+                </ul>
+
+                <h3>Revenue Split by Stream</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Revenue Stream</th>
+                        <th>Mindvalley</th>
+                        <th>EXMA</th>
+                        <th>Rationale</th>
+                    </tr>
+                    <tr>
+                        <td>Platform Subscriptions</td>
+                        <td>70%</td>
+                        <td>30%</td>
+                        <td>MV provides content, tech; EXMA provides marketing</td>
+                    </tr>
+                    <tr>
+                        <td>Mastery Degrees</td>
+                        <td>60%</td>
+                        <td>40%</td>
+                        <td>EXMA provides local coordination, support</td>
+                    </tr>
+                    <tr>
+                        <td>Coach Certifications</td>
+                        <td>65%</td>
+                        <td>35%</td>
+                        <td>EXMA hosts live intensives</td>
+                    </tr>
+                    <tr>
+                        <td>Events (EXMA branded)</td>
+                        <td>30%</td>
+                        <td>70%</td>
+                        <td>EXMA's core expertise, MV provides speakers</td>
+                    </tr>
+                    <tr>
+                        <td>Events (MV University)</td>
+                        <td>70%</td>
+                        <td>30%</td>
+                        <td>MV brand, EXMA provides local production</td>
+                    </tr>
+                    <tr>
+                        <td>Corporate B2B</td>
+                        <td>50%</td>
+                        <td>50%</td>
+                        <td>Equal partnership on sales & delivery</td>
+                    </tr>
+                </table>
+
+                <h3>Initial Investment</h3>
+                <ul>
+                    <li><strong>Technology/Platform:</strong> $300K (Mindvalley covers)</li>
+                    <li><strong>Content Translation:</strong> $200K (Mindvalley covers)</li>
+                    <li><strong>Marketing Launch:</strong> $300K (split 60/40 Mindvalley/EXMA)</li>
+                    <li><strong>Team Building:</strong> $500K first year (split 50/50)</li>
+                    <li><strong>Working Capital:</strong> $200K (split 50/50)</li>
+                    <li><strong>TOTAL:</strong> $1.5M (Mindvalley: $830K / EXMA: $670K)</li>
+                </ul>
+            </div>
+
+            <!-- RISK MITIGATION -->
+            <div class="section">
+                <h2>Risk Mitigation</h2>
+
+                <h3>Key Risks & Mitigation Strategies</h3>
+
+                <h4>1. Market Acceptance Risk</h4>
+                <p><strong>Risk:</strong> LATAM audience may not adopt subscription model</p>
+                <p><strong>Mitigation:</strong></p>
+                <ul>
+                    <li>Beta test with EXMA community before full launch</li>
+                    <li>Offer 3-month free trial to EXMA attendees</li>
+                    <li>Start with most popular programs (manifestation, business, health)</li>
+                    <li>LATAM-specific pricing ($29/mo vs $33.25)</li>
+                </ul>
+
+                <h4>2. Currency/Payment Risk</h4>
+                <p><strong>Risk:</strong> Currency volatility and payment processing challenges</p>
+                <p><strong>Mitigation:</strong></p>
+                <ul>
+                    <li>Accept multiple payment methods (cards, PayPal, OXXO, local transfers)</li>
+                    <li>Offer annual plans for price stability</li>
+                    <li>Price in USD but allow local currency payment</li>
+                    <li>Partner with Stripe for LATAM payment optimization</li>
+                </ul>
+
+                <h4>3. Partnership Alignment Risk</h4>
+                <p><strong>Risk:</strong> Strategic misalignment between partners</p>
+                <p><strong>Mitigation:</strong></p>
+                <ul>
+                    <li>Clear governance structure with defined decision rights</li>
+                    <li>Quarterly strategic reviews</li>
+                    <li>Exit provisions in partnership agreement</li>
+                    <li>6-month pilot period with option to extend/terminate</li>
+                </ul>
+
+                <h4>4. Execution Risk</h4>
+                <p><strong>Risk:</strong> Inability to deliver on ambitious growth targets</p>
+                <p><strong>Mitigation:</strong></p>
+                <ul>
+                    <li>Hire experienced LATAM tech/education leader as CEO</li>
+                    <li>Phase approach with clear milestones</li>
+                    <li>Monthly KPI tracking and adjustment</li>
+                    <li>Start with Mexico, expand only after proving model</li>
+                </ul>
+            </div>
+
+            <!-- COMPETITIVE ADVANTAGE -->
+            <div class="section">
+                <h2>Competitive Advantage</h2>
+
+                <h3>Why Mindvalley × EXMA Wins</h3>
+
+                <div class="strategy-box">
+                    <strong>1. First-Mover Advantage</strong>
+                    <p>No comprehensive Spanish-language personal growth platform exists at this scale. This partnership creates immediate category leadership.</p>
+                </div>
+
+                <div class="strategy-box">
+                    <strong>2. Unbeatable Combination</strong>
+                    <p>Online + Offline integration is rare. Most companies are either digital or events-based, not both.</p>
+                </div>
+
+                <div class="strategy-box">
+                    <strong>3. Trust Transfer</strong>
+                    <p>EXMA's 10-year reputation + Mindvalley's global brand creates instant credibility impossible for new entrants to match.</p>
+                </div>
+
+                <div class="strategy-box">
+                    <strong>4. Network Effects</strong>
+                    <p>As more people join, value increases (community, coaches, local events), creating moat against competition.</p>
+                </div>
+
+                <div class="strategy-box">
+                    <strong>5. Capital Efficiency</strong>
+                    <p>Leveraging existing assets (content, audience, brand) means faster profitability vs. building from scratch.</p>
+                </div>
+            </div>
+
+            <!-- NEXT STEPS -->
+            <div class="section">
+                <h2>Next Steps</h2>
+
+                <h3>Immediate Actions (Next 30 Days)</h3>
+                <ol>
+                    <li><strong>Initial Meeting:</strong> EXMA leadership + Mindvalley CEO Vishen Lakhiani</li>
+                    <li><strong>Market Validation:</strong> Survey EXMA community (5,000 people) on interest</li>
+                    <li><strong>Financial Modeling:</strong> Detailed P&L and cash flow projections</li>
+                    <li><strong>Legal Framework:</strong> Draft term sheet for joint venture</li>
+                    <li><strong>Product Demo:</strong> Showcase Mindvalley platform capabilities</li>
+                </ol>
+
+                <h3>Pilot Phase (Months 2-6)</h3>
+                <ol>
+                    <li><strong>Beta Launch:</strong> Invite 1,000 EXMA community members to test platform</li>
+                    <li><strong>Content Testing:</strong> Identify top 5 programs for LATAM audience</li>
+                    <li><strong>Event Integration:</strong> Bring 2 Mindvalley trainers to EXMA 2025</li>
+                    <li><strong>Metrics:</strong> Track engagement, retention, willingness to pay</li>
+                    <li><strong>Go/No-Go Decision:</strong> Evaluate results and decide on full partnership</li>
+                </ol>
+
+                <h3>Full Launch Decision (Month 7)</h3>
+                <p><strong>Success Criteria for Full Launch:</strong></p>
+                <ul>
+                    <li>60%+ of beta users actively engage with content</li>
+                    <li>40%+ willing to pay for annual subscription</li>
+                    <li>Net Promoter Score (NPS) of 50+</li>
+                    <li>Both partners aligned on 3-year strategy</li>
+                </ul>
+
+                <div class="alert">
+                    <strong>Low-Risk Approach:</strong>
+                    <p>Start with 6-month pilot requiring only $200K investment split between partners. This proves the model before committing to full $1.5M investment.</p>
+                </div>
+            </div>
+
+            <!-- CONCLUSION -->
+            <div class="section">
+                <h2>Conclusion</h2>
+
+                <div class="revenue-highlight">
+                    <h3 style="margin-bottom: 20px;">The Opportunity</h3>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; text-align: center;">
+                        <div>
+                            <div class="big-number" style="font-size: 48px;">$78.8M</div>
+                            <div>Combined Revenue by Year 3</div>
+                        </div>
+                        <div>
+                            <div class="big-number" style="font-size: 48px;">500K+</div>
+                            <div>Subscribers Across LATAM</div>
+                        </div>
+                        <div>
+                            <div class="big-number" style="font-size: 48px;">#1</div>
+                            <div>Transformation Platform in LATAM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="font-size: 18px; margin-top: 30px;">
+                    This partnership represents a once-in-a-generation opportunity to bring world-class personal transformation education to 650 million Spanish speakers. By combining Mindvalley's proven platform with EXMA's market leadership, we can create an unprecedented ecosystem that transforms millions of lives while building a highly profitable, asset-light business.
+                </p>
+
+                <p style="font-size: 18px; margin-top: 20px;">
+                    The question is not whether this will work—Mindvalley has proven the model globally, and EXMA has demonstrated LATAM demand. The question is: <strong>Who will do it first?</strong>
+                </p>
+
+                <p style="font-size: 18px; margin-top: 20px;">
+                    This partnership ensures it's us.
+                </p>
+
+                <div class="alert opportunity" style="margin-top: 40px;">
+                    <strong>Recommended Action:</strong>
+                    <p>Schedule exploratory call between EXMA leadership and Vishen Lakhiani within 2 weeks to discuss partnership framework and pilot phase.</p>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div style="background: #f8f9fa; padding: 40px; text-align: center; margin-top: 60px; border-top: 3px solid #667eea;">
+                <h3 style="color: #764ba2; margin-bottom: 20px;">Mindvalley × EXMA Strategic Partnership</h3>
+                <p style="color: #666; margin-bottom: 10px;">Confidential Proposal - Prepared for EXMA Leadership</p>
+                <p style="color: #666; font-size: 14px;">November 2025</p>
+                <p style="color: #999; font-size: 12px; margin-top: 20px;">This document contains proprietary information. Do not distribute without authorization.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            const correctPassword = 'exma2026';
+
+            if (password === correctPassword) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                document.getElementById('error').textContent = '';
+            } else {
+                document.getElementById('error').textContent = 'Incorrect password. Please try again.';
+                document.getElementById('password').value = '';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('password').focus();
+        });
+    </script>
+</body>
+</html>

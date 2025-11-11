@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXMA Strategic Proposals - Confidential Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: #FFFFFF;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #login-screen {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(122, 18, 212, 0.08);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid #F3F4F6;
+        }
+
+        #login-screen h1 {
+            color: #0F131A;
+            margin-bottom: 10px;
+            font-size: 36px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        #login-screen .subtitle {
+            color: #595E67;
+            margin-bottom: 40px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        #login-screen input {
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #CED1D7;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            color: #0F131A;
+            background: #FFFFFF;
+        }
+
+        #login-screen input:focus {
+            outline: none;
+            border-color: #7A12D4;
+            box-shadow: 0 0 0 3px rgba(122, 18, 212, 0.1);
+        }
+
+        #login-screen button {
+            width: 100%;
+            padding: 16px;
+            background: #7A12D4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #login-screen button:hover {
+            background: #6610B3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(122, 18, 212, 0.2);
+        }
+
+        .error {
+            color: #DC2626;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        #content {
+            display: none;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            max-width: 1000px;
+            width: 100%;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #content h1 {
+            color: #0F131A;
+            margin-bottom: 10px;
+            font-size: 42px;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        #content .subtitle {
+            text-align: center;
+            color: #595E67;
+            margin-bottom: 50px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .proposal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .proposal-card {
+            background: #FFFFFF;
+            padding: 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            border: 1px solid #F3F4F6;
+            display: block;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .proposal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(122, 18, 212, 0.12);
+            border-color: #7A12D4;
+        }
+
+        .proposal-card .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .proposal-card h2 {
+            color: #0F131A;
+            font-size: 24px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .proposal-card p {
+            color: #595E67;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .proposal-card .lang-badge {
+            display: inline-block;
+            background: #7A12D4;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 16px;
+            font-weight: 600;
+        }
+
+        .proposal-card .note {
+            font-size: 13px;
+            color: #71767F;
+            font-style: italic;
+            margin-top: 12px;
+        }
+
+        .mv-card {
+            background: linear-gradient(135deg, #F9F9F9 0%, #FFFFFF 100%);
+            border: 1px solid #7A12D4;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #71767F;
+            font-size: 13px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+            padding: 32px;
+            background: #F9F9F9;
+            border-radius: 12px;
+            border: 1px solid #F3F4F6;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat .number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #7A12D4;
+            letter-spacing: -0.02em;
+        }
+
+        .stat .label {
+            font-size: 14px;
+            color: #595E67;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            #content {
+                padding: 40px 24px;
+            }
+
+            #content h1 {
+                font-size: 32px;
+            }
+
+            .proposal-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="login-screen">
+        <h1>EXMA Proposals</h1>
+        <p class="subtitle">Confidential Strategic Planning Portal</p>
+        <input type="password" id="password" placeholder="Enter access code" onkeypress="if(event.keyCode==13) checkPassword()">
+        <button onclick="checkPassword()">Access Proposals</button>
+        <div id="error" class="error"></div>
+    </div>
+
+    <div id="content">
+        <h1>EXMA Strategic Proposals</h1>
+        <p class="subtitle">Comprehensive Marketing & Partnership Strategies</p>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="number">3</div>
+                <div class="label">Strategic Proposals</div>
+            </div>
+            <div class="stat">
+                <div class="number">$78M+</div>
+                <div class="label">Combined Revenue Potential</div>
+            </div>
+            <div class="stat">
+                <div class="number">2025-2027</div>
+                <div class="label">Implementation Timeline</div>
+            </div>
+        </div>
+
+        <div class="proposal-grid">
+            <a href="exma-marketing-proposal.html" class="proposal-card">
+                <div class="icon">📊</div>
+                <h2>EXMA Marketing Strategy</h2>
+                <p>Comprehensive marketing consulting proposal to maximize seminar seat sales and reverse the 70% attendance decline trend. Includes 4-phase campaign strategy, website optimization, and expansion plans.</p>
+                <p><strong>Key Targets:</strong> 6,000+ attendees | $5.45M revenue</p>
+                <span class="lang-badge">🇪🇸 Español</span>
+            </a>
+
+            <a href="exma-marketing-proposal-en.html" class="proposal-card">
+                <div class="icon">📈</div>
+                <h2>EXMA Marketing Strategy</h2>
+                <p>Complete marketing strategy to increase seminar attendance, optimize conversion rates, and expand revenue streams. Features EXMA Insider membership model and regional expansion roadmap.</p>
+                <p><strong>Key Targets:</strong> 6,000+ attendees | $5.45M revenue</p>
+                <span class="lang-badge">🇬🇧 English</span>
+                <div class="note">Note: English version mirrors Spanish proposal structure with identical strategies and projections</div>
+            </a>
+
+            <a href="mindvalley-exma-collaboration.html" class="proposal-card mv-card">
+                <div class="icon">🤝</div>
+                <h2>Mindvalley × EXMA Partnership</h2>
+                <p>Strategic collaboration proposal bringing Mindvalley's 1M+ subscriber transformation platform to Latin America through EXMA's event expertise and market presence. Joint venture creating the #1 personal growth ecosystem in Spanish.</p>
+                <p><strong>Key Opportunity:</strong> $78.8M by Year 3 | 500K+ subscribers</p>
+                <span class="lang-badge">🇬🇧 English</span>
+            </a>
+        </div>
+
+        <div style="margin-top: 50px; padding: 40px; background: #7A12D4; border-radius: 12px; color: white;">
+            <h3 style="font-size: 24px; margin-bottom: 15px; text-align: center; font-weight: 600;">Strategic Overview</h3>
+            <p style="text-align: center; font-size: 16px; line-height: 1.8; opacity: 0.95;">
+                These proposals represent a comprehensive strategy to position EXMA as the dominant force in Latin American marketing education and personal transformation. The standalone EXMA strategy focuses on immediate revenue growth and event optimization, while the Mindvalley partnership creates a long-term platform play that could generate $78M+ annually while serving 500,000+ Spanish-speaking professionals across LATAM.
+            </p>
+        </div>
+
+        <div style="margin-top: 40px; padding: 32px; background: #F9F9F9; border-left: 4px solid #7A12D4; border-radius: 8px;">
+            <h4 style="color: #0F131A; margin-bottom: 12px; font-weight: 600;">Implementation Priority</h4>
+            <p style="color: #595E67; font-size: 15px; line-height: 1.7;">
+                <strong style="color: #0F131A;">Immediate (2025):</strong> Implement EXMA Marketing Strategy quick wins and launch Super Early Bird campaign<br>
+                <strong style="color: #0F131A;">Parallel Track (2025-2026):</strong> Explore Mindvalley partnership with 6-month pilot program<br>
+                <strong style="color: #0F131A;">Long-term (2026+):</strong> Full ecosystem integration if partnership pilot succeeds
+            </p>
+        </div>
+
+        <div class="footer">
+            <p><strong>Confidential Documents | November 2025</strong></p>
+            <p style="margin-top: 10px;">Prepared for EXMA Executive Leadership</p>
+            <p style="margin-top: 5px;">© 2025 All Rights Reserved | Password: exma2026</p>
+        </div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            const correctPassword = 'exma2026';
+
+            if (password === correctPassword) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                document.getElementById('error').textContent = '';
+            } else {
+                document.getElementById('error').textContent = 'Incorrect password. Please try again.';
+                document.getElementById('password').value = '';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('password').focus();
+        });
+    </script>
+</body>
+</html>
