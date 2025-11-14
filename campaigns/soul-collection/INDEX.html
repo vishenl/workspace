@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Collection A/B Tests - Complete Package</title>
+    <style>
+        :root {
+            --purple-dark: #2D1B4E;
+            --purple-medium: #4A2C6D;
+            --purple-light: #6B4A94;
+            --gold: #D4AF37;
+            --gold-light: #F4E5B8;
+            --white: #FFFFFF;
+            --off-white: #F9F7F4;
+            --text-dark: #1A1A1A;
+            --text-medium: #4A4A4A;
+            --border-light: #E5E5E5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--off-white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple-medium) 100%);
+            color: var(--white);
+            padding: 80px 40px;
+            border-radius: 12px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .funnel-section {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .funnel-section h2 {
+            color: var(--purple-dark);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            border-bottom: 4px solid var(--gold);
+            padding-bottom: 15px;
+        }
+
+        .funnel-section p {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            margin-bottom: 30px;
+        }
+
+        .page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .page-card {
+            background: var(--off-white);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .page-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .page-card h3 {
+            color: var(--purple-medium);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .page-card .label {
+            display: inline-block;
+            background: var(--purple-dark);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .page-card .label.var-a {
+            background: #007BFF;
+        }
+
+        .page-card .label.var-b {
+            background: #28A745;
+        }
+
+        .page-card .label.guide {
+            background: var(--gold);
+            color: var(--purple-dark);
+        }
+
+        .page-card .description {
+            color: var(--text-medium);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .page-card .features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .page-card .features li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-medium);
+        }
+
+        .page-card .features li:last-child {
+            border-bottom: none;
+        }
+
+        .page-card .features li::before {
+            content: "✓ ";
+            color: var(--gold);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .page-card a {
+            display: inline-block;
+            background: var(--purple-dark);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .page-card a:hover {
+            background: var(--purple-medium);
+            transform: translateX(5px);
+        }
+
+        .documentation-section {
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--off-white) 100%);
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 60px;
+            border: 3px solid var(--gold);
+        }
+
+        .documentation-section h2 {
+            color: var(--purple-dark);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .doc-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .doc-card h3 {
+            color: var(--purple-dark);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .doc-card p {
+            color: var(--text-medium);
+            margin-bottom: 20px;
+        }
+
+        .doc-card a {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--purple-dark);
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .doc-card a:hover {
+            background: var(--purple-dark);
+            color: var(--gold);
+        }
+
+        .summary {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border-left: 5px solid var(--purple-dark);
+        }
+
+        .summary h3 {
+            color: var(--purple-dark);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .summary ul {
+            margin-left: 25px;
+        }
+
+        .summary li {
+            color: var(--text-medium);
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .footer {
+            background: var(--purple-dark);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .page-grid, .doc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Soul Collection A/B Tests</h1>
+            <p>Complete package of landing page variations and implementation guides for Duality and Silva Ultramind funnels</p>
+        </div>
+
+        <div class="summary">
+            <h3>📦 What's Inside</h3>
+            <p>Two complete A/B test packages solving the same conversion challenge: users watch a webinar about ONE program but we're selling them a subscription to 21 programs.</p>
+            <ul>
+                <li><strong>6 total pages:</strong> 2 variations for Duality, 2 for Silva, 2 implementation guides</li>
+                <li><strong>2 documentation files:</strong> Team message and strategy memo</li>
+                <li><strong>Test variable:</strong> Comparison table placement (early vs late)</li>
+                <li><strong>Expected lift:</strong> 15-35% conversion improvement</li>
+            </ul>
+        </div>
+
+        <!-- DUALITY FUNNEL -->
+        <div class="funnel-section">
+            <h2>🧘 Duality Masterclass Funnel</h2>
+            <p><strong>Context:</strong> Users watched Jeffrey Allen's webinar about awakening your energy body, sensing chakras, and living between physical and spiritual realms. They want Duality—we're offering Soul Collection subscription.</p>
+
+            <div class="page-grid">
+                <div class="page-card">
+                    <span class="label var-a">Variation A</span>
+                    <h3>Subscription as Smart Choice</h3>
+                    <p class="description">Shows comparison table in Section 2 (early, immediately after hero). Pre-emptive objection handling.</p>
+                    <ul class="features">
+                        <li>Comparison table in Section 2</li>
+                        <li>Value proof upfront</li>
+                        <li>Best for analytical buyers</li>
+                        <li>Same $299 price reveal early</li>
+                    </ul>
+                    <a href="https://vishenl.github.io/workspace/campaigns/soul-collection/soul-collection-var-a.html" target="_blank">View Variation A →</a>
+                </div>
+
+                <div class="page-card">
+                    <span class="label var-b">Variation B</span>
+                    <h3>Subscription as Upgrade</h3>
+                    <p class="description">Builds desire for Duality first, then shows comparison in Section 4. Sequential persuasion approach.</p>
+                    <ul class="features">
+                        <li>Duality spotlight first</li>
+                        <li>Journey enhancement section</li>
+                        <li>Best for emotional buyers</li>
+                        <li>Comparison table after education</li>
+                    </ul>
+                    <a href="https://vishenl.github.io/workspace/campaigns/soul-collection/soul-collection-var-b.html" target="_blank">View Variation B →</a>
+                </div>
+
+                <div class="page-card">
+                    <span class="label guide">Implementation Guide</span>
+                    <h3>Duality Testing Docs</h3>
+                    <p class="description">Complete testing documentation including analytics setup, success metrics, and what we changed from var110.</p>
+                    <ul class="features">
+                        <li>Analytics event tracking</li>
+                        <li>Statistical significance guidelines</li>
+                        <li>Pre-launch checklist</li>
+                        <li>Troubleshooting guide</li>
+                    </ul>
+                    <a href="https://vishenl.github.io/workspace/campaigns/soul-collection/soul-collection-implementation-guide.html" target="_blank">View Guide →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SILVA FUNNEL -->
+        <div class="funnel-section">
+            <h2>🧠 Silva Ultramind Funnel</h2>
+            <p><strong>Context:</strong> Users watched 35-minute Helen Hadsell VSL about Mental Screen Technique, 3 Scenes Method, and manifestation. They want Silva—we're offering Soul Collection subscription. <strong>This is HARDER</strong> because the VSL is deeply program-specific and mentions "$1.50/day" pricing.</p>
+
+            <div class="page-grid">
+                <div class="page-card">
+                    <span class="label var-a">Variation A</span>
+                    <h3>Silva Smart Choice</h3>
+                    <p class="description">Shows comparison table in Section 2 (early). Includes price clarification box addressing "$1.50/day" discrepancy.</p>
+                    <ul class="features">
+                        <li>Price clarification box prominent</li>
+                        <li>Silva techniques spotlight</li>
+                        <li>Creative Visualization bonus featured</li>
+                        <li>Helen Hadsell story continuity</li>
+                    </ul>
+                    <a href="https://vishenl.github.io/workspace/campaigns/soul-collection/silva-ultramind-var-a.html" target="_blank">View Variation A →</a>
+                </div>
+
+                <div class="page-card">
+                    <span class="label var-b">Variation B</span>
+                    <h3>Silva Smart Upgrade</h3>
+                    <p class="description">Builds desire for Silva first with techniques spotlight, explains multi-program synergy, then comparison in Section 4.</p>
+                    <ul class="features">
+                        <li>Silva techniques spotlight first</li>
+                        <li>"Why Silva is Just the Beginning" section</li>
+                        <li>Program synergy education</li>
+                        <li>Late comparison reveal</li>
+                    </ul>
+                    <a href="https://vishenl.github.io/workspace/campaigns/soul-collection/silva-ultramind-var-b.html" target="_blank">View Variation B →</a>
+                </div>
+
+                <div class="page-card">
+                    <span class="label guide">Implementation Guide</span>
+                    <h3>Silva Testing Docs</h3>
+                    <p class="description">Silva-specific implementation guide addressing price discrepancy, technique continuity, and bonus expectations from VSL.</p>
+                    <ul class="features">
+                        <li>VSL-to-page message continuity</li>
+                        <li>Price transparency strategy</li>
+                        <li>Technique verification approach</li>
+                        <li>Silva-specific analytics events</li>
+                    </ul>
+                    <a href="https://vishenl.github.io/workspace/campaigns/soul-collection/silva-ultramind-implementation-guide.html" target="_blank">View Guide →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- DOCUMENTATION -->
+        <div class="documentation-section">
+            <h2>📚 Documentation & Strategy</h2>
+            <p>Complete strategic documentation explaining the psychology, research, and decision-making behind every change.</p>
+
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3>Team Message</h3>
+                    <p>Friendly, accessible overview for the implementation team covering both Duality and Silva funnels, what we're testing, expected results, and pre-launch checklist.</p>
+                    <a href="https://vishenl.github.io/workspace/campaigns/soul-collection/TEAM-MESSAGE.md" target="_blank">Read Team Message →</a>
+                </div>
+
+                <div class="doc-card">
+                    <h3>Silva Strategy Memo</h3>
+                    <p>Comprehensive strategic analysis explaining why we simplified the Silva page, what we removed and why, message continuity from Helen Hadsell VSL, conversion psychology, and risk mitigation.</p>
+                    <a href="https://vishenl.github.io/workspace/campaigns/soul-collection/SILVA-STRATEGY-MEMO.html" target="_blank">Read Strategy Memo →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>🚀 Ready to Launch</strong></p>
+            <p>All pages are production-ready, fully responsive, and use Mindvalley's design system. Start with 10% traffic soft launch, monitor metrics, then ramp to 50/50 split. Minimum 2 weeks testing or until 95% statistical significance.</p>
+            <p style="margin-top: 20px; opacity: 0.7;">Created with Claude Code • November 14, 2025</p>
+        </div>
+    </div>
+</body>
+</html>
