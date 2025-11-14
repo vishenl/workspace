@@ -1051,6 +1051,83 @@
                 font-size: 0.75rem;
             }
         }
+
+        /* ============================================
+           FAQ ACCORDION STYLES
+           ============================================ */
+        .faq-item {
+            background: #FAFAFA;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #8A2BE2;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .faq-item:hover {
+            background: #F8F5FF;
+        }
+
+        .faq-question-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.5rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .faq-question {
+            font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin: 0;
+            flex: 1;
+        }
+
+        .faq-toggle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #8A2BE2;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 300;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-left: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-toggle:hover {
+            background: #DA70D6;
+            transform: scale(1.1);
+        }
+
+        .faq-answer-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer-wrapper.active {
+            max-height: 500px;
+            padding: 0 2.5rem 2.5rem 2.5rem;
+        }
+
+        .faq-answer {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #404040;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
     </style>
 </head>
 <body>
@@ -1901,68 +1978,108 @@
             </div>
 
             <div style="max-width: 900px; margin: 4rem auto 0;">
-                <!-- FAQ Item -->
-                <div class="reveal" style="margin-bottom: 2rem; padding: 2.5rem; background: #FAFAFA; border-radius: 16px; border-left: 4px solid #8A2BE2;">
-                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #1A1A1A;">Do I need prior coaching experience?</h4>
-                    <p style="font-size: 1rem; line-height: 1.7; color: #404040; margin: 0;">
-                        No prior coaching experience is required. However, you must have completed Mindvalley's Manifesting Mastery Quest. This certification is designed to take you from manifesting enthusiast to professional coach, regardless of your starting point. We'll teach you everything you need to know about coaching methodology, client enrollment, and building a practice.
-                    </p>
+                <!-- FAQ Item 1 -->
+                <div class="faq-item reveal">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <h4 class="faq-question">Do I need prior coaching experience?</h4>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer-wrapper">
+                        <p class="faq-answer">
+                            No prior coaching experience is required. However, you must have completed Mindvalley's Manifesting Mastery Quest. This certification is designed to take you from manifesting enthusiast to professional coach, regardless of your starting point. We'll teach you everything you need to know about coaching methodology, client enrollment, and building a practice.
+                        </p>
+                    </div>
                 </div>
 
-                <!-- FAQ Item -->
-                <div class="reveal" style="margin-bottom: 2rem; padding: 2.5rem; background: #FAFAFA; border-radius: 16px; border-left: 4px solid #8A2BE2;">
-                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #1A1A1A;">What if I can't attend the full 3 days in Sevilla?</h4>
-                    <p style="font-size: 1rem; line-height: 1.7; color: #404040; margin: 0;">
-                        Full attendance at the 3-day Sevilla immersion is mandatory for certification. The in-person experience is where you'll build deep connections with your cohort, receive personalized mentorship from Vishen and Regan, and embody the teachings. We record sessions for review purposes, but physical presence is required for certification.
-                    </p>
+                <!-- FAQ Item 2 -->
+                <div class="faq-item reveal">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <h4 class="faq-question">What if I can't attend the full 3 days in Sevilla?</h4>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer-wrapper">
+                        <p class="faq-answer">
+                            Full attendance at the 3-day Sevilla immersion is mandatory for certification. The in-person experience is where you'll build deep connections with your cohort, receive personalized mentorship from Vishen and Regan, and embody the teachings. We record sessions for review purposes, but physical presence is required for certification.
+                        </p>
+                    </div>
                 </div>
 
-                <!-- FAQ Item -->
-                <div class="reveal" style="margin-bottom: 2rem; padding: 2.5rem; background: #FAFAFA; border-radius: 16px; border-left: 4px solid #8A2BE2;">
-                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #1A1A1A;">How much time do I need to commit after the Sevilla immersion?</h4>
-                    <p style="font-size: 1rem; line-height: 1.7; color: #404040; margin: 0;">
-                        The 2-month online coach training with Ajit Nawalkha requires 2-3 hours per week. This includes live training calls, practice sessions, homework assignments, and peer practice. Most participants find it manageable alongside full-time work or existing businesses. Sessions are scheduled in advance so you can plan accordingly.
-                    </p>
+                <!-- FAQ Item 3 -->
+                <div class="faq-item reveal">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <h4 class="faq-question">How much time do I need to commit after the Sevilla immersion?</h4>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer-wrapper">
+                        <p class="faq-answer">
+                            The 2-month online coach training with Ajit Nawalkha requires 2-3 hours per week. This includes live training calls, practice sessions, homework assignments, and peer practice. Most participants find it manageable alongside full-time work or existing businesses. Sessions are scheduled in advance so you can plan accordingly.
+                        </p>
+                    </div>
                 </div>
 
-                <!-- FAQ Item -->
-                <div class="reveal" style="margin-bottom: 2rem; padding: 2.5rem; background: #FAFAFA; border-radius: 16px; border-left: 4px solid #8A2BE2;">
-                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #1A1A1A;">Will I really be able to charge $250/session as a new coach?</h4>
-                    <p style="font-size: 1rem; line-height: 1.7; color: #404040; margin: 0;">
-                        Yes. $250/session is actually on the conservative end for certified manifestation coaches. With Mindvalley certification, professional training from Ajit, and our business-building modules, you'll have the credentials, confidence, and systems to command premium rates from day one. Many graduates start at $200-300/session and increase their rates within 3-6 months as they build testimonials and expertise.
-                    </p>
+                <!-- FAQ Item 4 -->
+                <div class="faq-item reveal">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <h4 class="faq-question">Will I really be able to charge $250/session as a new coach?</h4>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer-wrapper">
+                        <p class="faq-answer">
+                            Yes. $250/session is actually on the conservative end for certified manifestation coaches. With Mindvalley certification, professional training from Ajit, and our business-building modules, you'll have the credentials, confidence, and systems to command premium rates from day one. Many graduates start at $200-300/session and increase their rates within 3-6 months as they build testimonials and expertise.
+                        </p>
+                    </div>
                 </div>
 
-                <!-- FAQ Item -->
-                <div class="reveal" style="margin-bottom: 2rem; padding: 2.5rem; background: #FAFAFA; border-radius: 16px; border-left: 4px solid #8A2BE2;">
-                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #1A1A1A;">What's included in the hotel/travel costs?</h4>
-                    <p style="font-size: 1rem; line-height: 1.7; color: #404040; margin: 0;">
-                        The $9,899 certification fee does NOT include flights, hotel accommodation, or meals outside of scheduled group experiences. You'll need to arrange your own travel to Sevilla and book accommodation. We recommend staying at Hotel Colón Gran Meliá (where the training is held) for maximum convenience. Estimated additional costs: $800-1,500 for flights (depending on location), $400-800 for 3 nights' accommodation, $300-500 for meals and incidentals.
-                    </p>
+                <!-- FAQ Item 5 -->
+                <div class="faq-item reveal">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <h4 class="faq-question">What's included in the hotel/travel costs?</h4>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer-wrapper">
+                        <p class="faq-answer">
+                            The $9,899 certification fee does NOT include flights, hotel accommodation, or meals outside of scheduled group experiences. You'll need to arrange your own travel to Sevilla and book accommodation. We recommend staying at Hotel Colón Gran Meliá (where the training is held) for maximum convenience. Estimated additional costs: $800-1,500 for flights (depending on location), $400-800 for 3 nights' accommodation, $300-500 for meals and incidentals.
+                        </p>
+                    </div>
                 </div>
 
-                <!-- FAQ Item -->
-                <div class="reveal" style="margin-bottom: 2rem; padding: 2.5rem; background: #FAFAFA; border-radius: 16px; border-left: 4px solid #8A2BE2;">
-                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #1A1A1A;">What if I'm not confident I can build a coaching business?</h4>
-                    <p style="font-size: 1rem; line-height: 1.7; color: #404040; margin: 0;">
-                        We don't just teach you coaching skills—we give you the complete business-building system: client enrollment scripts, pricing frameworks, marketing templates, and ongoing support. You'll have access to our community of certified coaches and continued learning resources to help you build a thriving practice. Your success is our success.
-                    </p>
+                <!-- FAQ Item 6 -->
+                <div class="faq-item reveal">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <h4 class="faq-question">What if I'm not confident I can build a coaching business?</h4>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer-wrapper">
+                        <p class="faq-answer">
+                            We don't just teach you coaching skills—we give you the complete business-building system: client enrollment scripts, pricing frameworks, marketing templates, and ongoing support. You'll have access to our community of certified coaches and continued learning resources to help you build a thriving practice. Your success is our success.
+                        </p>
+                    </div>
                 </div>
 
-                <!-- FAQ Item -->
-                <div class="reveal" style="margin-bottom: 2rem; padding: 2.5rem; background: #FAFAFA; border-radius: 16px; border-left: 4px solid #8A2BE2;">
-                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #1A1A1A;">Is this certification recognized internationally?</h4>
-                    <p style="font-size: 1rem; line-height: 1.7; color: #404040; margin: 0;">
-                        Yes. Your Mindvalley Certified Manifesting Coach credential is recognized worldwide and signals to clients that you've been trained by industry leaders. While coaching certifications aren't regulated like medical licenses, Mindvalley's reputation and the professional training from Ajit Nawalkha (whose programs are ICF-aligned) give you significant credibility in the marketplace. You'll also receive marketing materials and a digital badge to showcase your certification.
-                    </p>
+                <!-- FAQ Item 7 -->
+                <div class="faq-item reveal">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <h4 class="faq-question">Is this certification recognized internationally?</h4>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer-wrapper">
+                        <p class="faq-answer">
+                            Yes. Your Mindvalley Certified Manifesting Coach credential is recognized worldwide and signals to clients that you've been trained by industry leaders. While coaching certifications aren't regulated like medical licenses, Mindvalley's reputation and the professional training from Ajit Nawalkha (whose programs are ICF-aligned) give you significant credibility in the marketplace. You'll also receive marketing materials and a digital badge to showcase your certification.
+                        </p>
+                    </div>
                 </div>
 
-                <!-- FAQ Item -->
-                <div class="reveal" style="margin-bottom: 2rem; padding: 2.5rem; background: #FAFAFA; border-radius: 16px; border-left: 4px solid #8A2BE2;">
-                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #1A1A1A;">Can I get a refund if I change my mind?</h4>
-                    <p style="font-size: 1rem; line-height: 1.7; color: #404040; margin: 0;">
-                        Due to the exclusive nature of this certification and limited seats, we have a 14-day refund policy from the date of enrollment (not from the event date). Once you're within 30 days of the Sevilla immersion, all sales are final. We encourage you to be certain about your commitment before enrolling. If you have questions or concerns, please reach out to our team before purchasing.
-                    </p>
+                <!-- FAQ Item 8 -->
+                <div class="faq-item reveal">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <h4 class="faq-question">Can I get a refund if I change my mind?</h4>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer-wrapper">
+                        <p class="faq-answer">
+                            Due to the exclusive nature of this certification and limited seats, we have a 14-day refund policy from the date of enrollment (not from the event date). Once you're within 30 days of the Sevilla immersion, all sales are final. We encourage you to be certain about your commitment before enrolling. If you have questions or concerns, please reach out to our team before purchasing.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2051,6 +2168,16 @@
                 }
             });
         });
+
+        // FAQ Accordion Toggle Function
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const answerWrapper = element.nextElementSibling;
+
+            // Toggle active class
+            faqItem.classList.toggle('active');
+            answerWrapper.classList.toggle('active');
+        }
     </script>
 
 </body>
