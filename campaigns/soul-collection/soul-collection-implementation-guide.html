@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Collection A/B Test Implementation Guide | Mindvalley</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --purple-dark: #2D1B4E;
+            --purple-medium: #4A2C6D;
+            --purple-light: #6B4A94;
+            --gold: #D4AF37;
+            --gold-light: #F4E5B8;
+            --white: #FFFFFF;
+            --off-white: #F9F7F4;
+            --text-dark: #1A1A1A;
+            --text-medium: #4A4A4A;
+            --border-light: #E5E5E5;
+            --blue: #3B82F6;
+            --green: #10B981;
+            --red: #EF4444;
+            --yellow: #F59E0B;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--off-white);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple-medium) 100%);
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .meta-info {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        section {
+            background: var(--white);
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            font-size: 32px;
+            color: var(--purple-dark);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 24px;
+            color: var(--purple-dark);
+            margin: 30px 0 16px 0;
+            font-weight: 600;
+        }
+
+        h4 {
+            font-size: 18px;
+            color: var(--purple-medium);
+            margin: 20px 0 12px 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--text-medium);
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            margin: 16px 0 16px 24px;
+            color: var(--text-medium);
+        }
+
+        li {
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .variation-card {
+            background: var(--off-white);
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px solid var(--border-light);
+        }
+
+        .variation-card h3 {
+            margin-top: 0;
+            color: var(--purple-dark);
+        }
+
+        .variation-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .badge-a {
+            background: var(--blue);
+            color: var(--white);
+        }
+
+        .badge-b {
+            background: var(--green);
+            color: var(--white);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple-medium) 100%);
+            color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .highlight-box h3 {
+            color: var(--gold);
+            margin-top: 0;
+        }
+
+        .highlight-box p,
+        .highlight-box ul,
+        .highlight-box li {
+            color: var(--white);
+            opacity: 0.95;
+        }
+
+        .info-box {
+            background: var(--off-white);
+            padding: 24px;
+            border-left: 4px solid var(--gold);
+            margin: 24px 0;
+            border-radius: 4px;
+        }
+
+        .info-box strong {
+            color: var(--purple-dark);
+        }
+
+        .warning-box {
+            background: #FEF3C7;
+            padding: 24px;
+            border-left: 4px solid var(--yellow);
+            margin: 24px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box strong {
+            color: #92400E;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        th {
+            background: var(--purple-dark);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: var(--off-white);
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .metric-card {
+            background: var(--off-white);
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .metric-description {
+            font-size: 13px;
+            color: var(--text-medium);
+            margin-top: 8px;
+        }
+
+        code {
+            background: var(--off-white);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--purple-dark);
+        }
+
+        .code-block {
+            background: var(--text-dark);
+            color: var(--off-white);
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .section-flow {
+            display: grid;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .flow-item {
+            background: var(--off-white);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--purple-medium);
+        }
+
+        .flow-number {
+            display: inline-block;
+            background: var(--purple-dark);
+            color: var(--white);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 700;
+            margin-right: 12px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 24px;
+            }
+
+            header {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Soul Collection A/B Test Implementation Guide</h1>
+        <p class="subtitle">Comprehensive documentation for testing subscription value proposition strategies</p>
+        <div class="meta-info">
+            <div class="meta-item">
+                <span>📊</span>
+                <span>Test Type: A/B/N Split Test</span>
+            </div>
+            <div class="meta-item">
+                <span>🎯</span>
+                <span>Goal: Increase Subscription Conversion</span>
+            </div>
+            <div class="meta-item">
+                <span>⏱️</span>
+                <span>Recommended Duration: 2-4 weeks</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>Executive Summary</h2>
+            <p>This A/B test evaluates two distinct psychological approaches to positioning the Soul Collection subscription against single-program purchases. The test addresses a critical conversion challenge: <strong>users who want one specific program (Duality) but are being offered a subscription to 21 programs instead.</strong></p>
+
+            <div class="highlight-box">
+                <h3>Core Hypothesis</h3>
+                <p>The placement and framing of the value comparison significantly impacts subscription conversion rates. We're testing whether early comparison (pre-emptive objection handling) or late comparison (desire-first, then upgrade) better addresses subscription hesitation.</p>
+            </div>
+
+            <h3>Key Test Variables</h3>
+            <ul>
+                <li><strong>Information Architecture:</strong> When do we show the comparison table?</li>
+                <li><strong>Messaging Strategy:</strong> "Smart choice" vs "Smart upgrade"</li>
+                <li><strong>Psychological Approach:</strong> Pre-emptive vs sequential persuasion</li>
+                <li><strong>User Journey:</strong> Value-first vs desire-first</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>The Two Variations Explained</h2>
+
+            <div class="comparison-grid">
+                <div class="variation-card">
+                    <div class="variation-badge badge-a">Variation A</div>
+                    <h3>Subscription as Smart Choice</h3>
+                    <h4>Strategy: Early Comparison</h4>
+                    <p><strong>Psychological Approach:</strong> Address the "but I only want one program" objection immediately by showing the value comparison upfront.</p>
+
+                    <h4>Section Flow:</h4>
+                    <div class="section-flow">
+                        <div class="flow-item">
+                            <span class="flow-number">1</span>
+                            <strong>Hero:</strong> "Get Duality + 20 Programs for the Same Price"
+                        </div>
+                        <div class="flow-item">
+                            <span class="flow-number">2</span>
+                            <strong>Comparison Table:</strong> Immediate value comparison (pre-emptive)
+                        </div>
+                        <div class="flow-item">
+                            <span class="flow-number">3</span>
+                            <strong>Duality Spotlight:</strong> What you came for is included
+                        </div>
+                        <div class="flow-item">
+                            <span class="flow-number">4</span>
+                            <strong>20 Programs Grid:</strong> What else you get
+                        </div>
+                        <div class="flow-item">
+                            <span class="flow-number">5</span>
+                            <strong>Meditations:</strong> Plus 250+ meditations
+                        </div>
+                        <div class="flow-item">
+                            <span class="flow-number">6</span>
+                            <strong>Offer:</strong> Final conversion
+                        </div>
+                    </div>
+
+                    <h4>Best For:</h4>
+                    <ul>
+                        <li>Analytical decision-makers</li>
+                        <li>Value-conscious buyers</li>
+                        <li>Users with price objections</li>
+                        <li>Comparison shoppers</li>
+                    </ul>
+                </div>
+
+                <div class="variation-card">
+                    <div class="variation-badge badge-b">Variation B</div>
+                    <h3>Subscription as Upgrade</h3>
+                    <h4>Strategy: Late Comparison</h4>
+                    <p><strong>Psychological Approach:</strong> Build desire for Duality first, then show why the full collection is the smarter upgrade.</p>
+
+                    <h4>Section Flow:</h4>
+                    <div class="section-flow">
+                        <div class="flow-item">
+                            <span class="flow-number">1</span>
+                            <strong>Hero:</strong> "You Discovered Duality. Now Upgrade."
+                        </div>
+                        <div class="flow-item">
+                            <span class="flow-number">2</span>
+                            <strong>Duality Spotlight:</strong> Build desire for what you want
+                        </div>
+                        <div class="flow-item">
+                            <span class="flow-number">3</span>
+                            <strong>Journey Enhancement:</strong> Why one program isn't enough
+                        </div>
+                        <div class="flow-item">
+                            <span class="flow-number">4</span>
+                            <strong>Comparison Table:</strong> "And here's why collection is better"
+                        </div>
+                        <div class="flow-item">
+                            <span class="flow-number">5</span>
+                            <strong>20 Programs Grid:</strong> Your complete toolkit
+                        </div>
+                        <div class="flow-item">
+                            <span class="flow-number">6</span>
+                            <strong>Meditations:</strong> Plus 250+ meditations
+                        </div>
+                        <div class="flow-item">
+                            <span class="flow-number">7</span>
+                            <strong>Offer:</strong> Final conversion
+                        </div>
+                    </div>
+
+                    <h4>Best For:</h4>
+                    <ul>
+                        <li>Emotionally-driven buyers</li>
+                        <li>Committed spiritual seekers</li>
+                        <li>Users who trust teachers</li>
+                        <li>Growth-oriented mindset</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>What We Changed from Original var110</h2>
+
+            <h3>Sections Removed and Why</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Removed Section</th>
+                        <th>Original Placement</th>
+                        <th>Reason for Removal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Social Proof (20M+ students)</strong></td>
+                        <td>Early in page</td>
+                        <td>Not addressing the core objection. Users already trust Mindvalley—they just question why they need a subscription vs one program.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Platform Features</strong></td>
+                        <td>Mid-page</td>
+                        <td>Mobile app, offline access, etc. are table stakes, not differentiators. Doesn't address subscription hesitation.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Generic Testimonials</strong></td>
+                        <td>Throughout</td>
+                        <td>Replaced with specific value propositions. Testimonials work better when they address specific objections (e.g., "I only wanted one program but..."). Consider adding later.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>"How It Works" Section</strong></td>
+                        <td>Mid-page</td>
+                        <td>Users understand how subscriptions work. The friction isn't "how" but "why."</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mindvalley Brand Story</strong></td>
+                        <td>Late in page</td>
+                        <td>Users already on a Mindvalley page know the brand. Focus on value proposition instead.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Sections Added and Why</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>New Section</th>
+                        <th>Purpose</th>
+                        <th>Psychological Trigger</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Comparison Table (Enhanced)</strong></td>
+                        <td>Make the value difference crystal clear</td>
+                        <td>Loss aversion: "Same price, why would you choose less?"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Journey Enhancement (Var B only)</strong></td>
+                        <td>Explain why spiritual growth needs multiple tools</td>
+                        <td>Education: Reframe from "more programs" to "complete toolkit"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2,000% Value Highlight</strong></td>
+                        <td>Quantify the savings/value in concrete terms</td>
+                        <td>Anchoring: Show the mathematical value difference</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Subscription-Specific FAQ</strong></td>
+                        <td>Address every subscription objection directly</td>
+                        <td>Objection handling: "Can I cancel?" "What if I only want one?"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <strong>Design Philosophy:</strong> Every section must either build desire for Duality or address a specific subscription objection. If it doesn't do one of these two things, it's diluting the message.
+            </div>
+        </section>
+
+        <section>
+            <h2>Success Metrics to Track</h2>
+
+            <h3>Primary Metrics (North Star)</h3>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Subscription Conversion Rate</div>
+                    <div style="font-size: 32px; font-weight: 700; color: var(--purple-dark); margin: 16px 0;">%</div>
+                    <div class="metric-description">Visitors who complete subscription purchase</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Revenue Per Visitor</div>
+                    <div style="font-size: 32px; font-weight: 700; color: var(--purple-dark); margin: 16px 0;">$</div>
+                    <div class="metric-description">Average revenue generated per page view</div>
+                </div>
+            </div>
+
+            <h3>Secondary Metrics (User Behavior)</h3>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Time to Conversion</div>
+                    <div class="metric-description">How long users spend before subscribing</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Scroll Depth</div>
+                    <div class="metric-description">How far users scroll before deciding</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Section Engagement</div>
+                    <div class="metric-description">Which sections get the most attention</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">FAQ Interaction Rate</div>
+                    <div class="metric-description">How many users click FAQ questions</div>
+                </div>
+            </div>
+
+            <h3>Tertiary Metrics (Quality Signals)</h3>
+            <ul>
+                <li><strong>Bounce Rate:</strong> Users leaving without engaging</li>
+                <li><strong>Cart Abandonment Rate:</strong> Starting checkout but not completing</li>
+                <li><strong>Refund Rate (15-day window):</strong> Quality of conversions</li>
+                <li><strong>Programs Accessed (First 30 days):</strong> Are subscribers using multiple programs?</li>
+                <li><strong>Day 30/60/90 Retention:</strong> Long-term subscription health</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h3>What Success Looks Like</h3>
+                <ul>
+                    <li><strong>Conversion Lift:</strong> 15-30% increase in subscription conversion rate</li>
+                    <li><strong>Revenue Impact:</strong> Positive lift in revenue per visitor</li>
+                    <li><strong>User Understanding:</strong> Lower refund rate = better expectation setting</li>
+                    <li><strong>Multi-program Usage:</strong> Subscribers accessing 3+ programs in first month</li>
+                    <li><strong>Retention Stability:</strong> No negative impact on 60/90-day retention</li>
+                </ul>
+            </div>
+
+            <h3>Segmentation for Analysis</h3>
+            <p>Analyze results across these segments to find patterns:</p>
+            <ul>
+                <li><strong>Traffic Source:</strong> Organic, paid, email, social</li>
+                <li><strong>Device Type:</strong> Mobile, desktop, tablet</li>
+                <li><strong>User Intent:</strong> Branded search (Duality) vs generic (energy healing)</li>
+                <li><strong>Existing Customer:</strong> New visitor vs returning Mindvalley customer</li>
+                <li><strong>Geographic Region:</strong> North America, Europe, Asia, etc.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Implementation Instructions</h2>
+
+            <h3>Step 1: Technical Setup</h3>
+
+            <h4>A/B Testing Platform Configuration</h4>
+            <div class="code-block">
+// Example configuration for Google Optimize or VWO
+
+Experiment Name: "Soul Collection Value Proposition Test"
+URL Targeting: /duality OR /soul-collection
+Traffic Split: 50/50 (Variation A / Variation B)
+Primary Goal: Purchase Completed (Event: subscription_purchase)
+Secondary Goals:
+  - CTA Clicks (Event: cta_click)
+  - Scroll Depth (Event: scroll_75%, scroll_100%)
+  - FAQ Clicks (Event: faq_interaction)
+            </div>
+
+            <h4>Event Tracking Setup</h4>
+            <div class="code-block">
+// Google Analytics 4 Event Examples
+
+// Track CTA clicks
+function trackCTAClick(location) {
+  gtag('event', 'cta_click', {
+    'event_category': 'engagement',
+    'event_label': location,
+    'value': 1
+  });
+}
+
+// Track FAQ interactions
+function trackFAQClick(question) {
+  gtag('event', 'faq_interaction', {
+    'event_category': 'engagement',
+    'event_label': question,
+    'value': 1
+  });
+}
+
+// Track comparison table views
+window.addEventListener('scroll', function() {
+  if (isInViewport(comparisonTable) && !comparisonViewed) {
+    gtag('event', 'comparison_table_view', {
+      'event_category': 'engagement',
+      'value': 1
+    });
+    comparisonViewed = true;
+  }
+});
+            </div>
+
+            <h3>Step 2: Quality Assurance Checklist</h3>
+            <ul>
+                <li>✅ All images load correctly (use fallback SVGs)</li>
+                <li>✅ FAQ toggles work on all devices</li>
+                <li>✅ Program grid "Show More" expands/collapses properly</li>
+                <li>✅ CTA buttons link to correct checkout page</li>
+                <li>✅ Comparison table is readable on mobile</li>
+                <li>✅ All anchor links scroll smoothly</li>
+                <li>✅ Page loads under 3 seconds</li>
+                <li>✅ Responsive design works on mobile/tablet/desktop</li>
+                <li>✅ Analytics events fire correctly</li>
+                <li>✅ No console errors in browser</li>
+            </ul>
+
+            <h3>Step 3: Pre-Launch Testing</h3>
+            <ol>
+                <li><strong>Device Testing:</strong> Test on iPhone, Android, iPad, and desktop browsers (Chrome, Safari, Firefox)</li>
+                <li><strong>User Testing:</strong> Get 5-10 people to go through both variations and provide feedback</li>
+                <li><strong>Analytics Verification:</strong> Confirm all events are tracking in your analytics platform</li>
+                <li><strong>Load Testing:</strong> Ensure page performance under traffic</li>
+                <li><strong>Legal Review:</strong> Verify pricing, guarantees, and cancellation policy language is accurate</li>
+            </ol>
+
+            <div class="warning-box">
+                <strong>Critical Pre-Launch Check:</strong> Ensure the $299/year pricing, 15-day guarantee, and all program names/descriptions are accurate and approved by legal/compliance teams.
+            </div>
+
+            <h3>Step 4: Launch Process</h3>
+            <ol>
+                <li><strong>Soft Launch:</strong> Start with 10% traffic for 24-48 hours</li>
+                <li><strong>Monitor Closely:</strong> Check for technical issues, unusual bounce rates, or conversion drops</li>
+                <li><strong>Ramp Up:</strong> If everything looks good, increase to 50/50 split</li>
+                <li><strong>Let It Run:</strong> Maintain test for minimum 2 weeks or until statistical significance</li>
+                <li><strong>Document Everything:</strong> Screenshot both variations, export analytics data</li>
+            </ol>
+
+            <h3>Step 5: Analysis Timeline</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timeframe</th>
+                        <th>Action</th>
+                        <th>What to Look For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Days 1-3</strong></td>
+                        <td>Monitor for technical issues</td>
+                        <td>Page errors, tracking problems, user complaints</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Day 7</strong></td>
+                        <td>First data review</td>
+                        <td>Early trends, engagement patterns, any red flags</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Day 14</strong></td>
+                        <td>Statistical significance check</td>
+                        <td>Conversion rate difference, confidence level (95%+)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Day 21-28</strong></td>
+                        <td>Final analysis & decision</td>
+                        <td>Winner declaration, implementation plan, learnings</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Day 45-60</strong></td>
+                        <td>Post-launch monitoring</td>
+                        <td>Refund rates, retention, multi-program usage</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Statistical Significance Guidelines</h2>
+
+            <h3>Sample Size Requirements</h3>
+            <p>To detect a 15% lift in conversion rate with 95% confidence:</p>
+            <ul>
+                <li><strong>Baseline 2% conversion:</strong> ~4,200 visitors per variation</li>
+                <li><strong>Baseline 5% conversion:</strong> ~1,800 visitors per variation</li>
+                <li><strong>Baseline 10% conversion:</strong> ~900 visitors per variation</li>
+            </ul>
+
+            <div class="info-box">
+                <strong>Recommendation:</strong> Run test until you have at least 100 conversions in the winning variation to ensure the result is stable and reliable.
+            </div>
+
+            <h3>When to Stop the Test</h3>
+            <div class="section-flow">
+                <div class="flow-item">
+                    <strong>✅ Stop if:</strong> One variation has 95%+ confidence AND 100+ conversions
+                </div>
+                <div class="flow-item">
+                    <strong>✅ Stop if:</strong> 4 weeks have passed and no clear winner (call it inconclusive)
+                </div>
+                <div class="flow-item">
+                    <strong>❌ Don't stop if:</strong> You see early trends but haven't reached significance
+                </div>
+                <div class="flow-item">
+                    <strong>❌ Don't stop if:</strong> Results are fluctuating daily (wait for stability)
+                </div>
+            </div>
+
+            <h3>Interpreting Results</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Scenario</th>
+                        <th>What It Means</th>
+                        <th>Recommended Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Clear Winner (15%+ lift)</td>
+                        <td>One approach significantly outperforms</td>
+                        <td>Implement winning variation immediately</td>
+                    </tr>
+                    <tr>
+                        <td>Marginal Winner (5-10% lift)</td>
+                        <td>Small but meaningful improvement</td>
+                        <td>Implement winner, continue optimizing</td>
+                    </tr>
+                    <tr>
+                        <td>No Significant Difference</td>
+                        <td>Both variations perform similarly</td>
+                        <td>Choose based on secondary metrics or user experience</td>
+                    </tr>
+                    <tr>
+                        <td>Inconclusive (high variance)</td>
+                        <td>Results are too unstable to trust</td>
+                        <td>Run longer or redesign test</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Expected Learnings and Next Steps</h2>
+
+            <h3>What We'll Learn from This Test</h3>
+            <ol>
+                <li><strong>Objection Handling Timing:</strong> Does early comparison or late comparison work better?</li>
+                <li><strong>Psychological Framing:</strong> "Smart choice" vs "smart upgrade"—which resonates?</li>
+                <li><strong>Information Processing:</strong> Do users need to see value upfront or desire first?</li>
+                <li><strong>Subscription Psychology:</strong> What truly addresses "I only want one program" hesitation?</li>
+            </ol>
+
+            <h3>Potential Follow-up Tests (Based on Results)</h3>
+
+            <h4>If Variation A Wins (Early Comparison)</h4>
+            <ul>
+                <li>Test different comparison table designs (visual vs text-heavy)</li>
+                <li>Test moving comparison even earlier (in hero section itself)</li>
+                <li>Test emphasizing different value points (quantity vs quality)</li>
+                <li>Test adding price anchoring (showing individual program prices)</li>
+            </ul>
+
+            <h4>If Variation B Wins (Late Comparison)</h4>
+            <ul>
+                <li>Test expanding the "Journey Enhancement" section further</li>
+                <li>Test different ways to build Duality desire (video, testimonials, benefits)</li>
+                <li>Test positioning collection as "next natural step" vs "upgrade"</li>
+                <li>Test adding a timeline showing typical spiritual journey progression</li>
+            </ul>
+
+            <h4>If No Clear Winner</h4>
+            <ul>
+                <li>Test hybrid approach: Early teaser of value + late detailed comparison</li>
+                <li>Test different page lengths (shorter vs longer)</li>
+                <li>Test video explainer of subscription value proposition</li>
+                <li>Test different pricing displays (monthly vs annual vs both)</li>
+            </ul>
+
+            <h3>Long-term Optimization Roadmap</h3>
+            <ol>
+                <li><strong>Test #1 (Current):</strong> Information architecture and value positioning</li>
+                <li><strong>Test #2:</strong> Pricing display and payment options</li>
+                <li><strong>Test #3:</strong> Social proof and testimonial placement</li>
+                <li><strong>Test #4:</strong> Program discovery and browsing experience</li>
+                <li><strong>Test #5:</strong> Mobile-specific optimizations</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Troubleshooting Common Issues</h2>
+
+            <h3>Issue: Low Overall Traffic</h3>
+            <p><strong>Problem:</strong> Not enough visitors to reach statistical significance in reasonable time.</p>
+            <p><strong>Solutions:</strong></p>
+            <ul>
+                <li>Increase traffic through paid ads to this specific test page</li>
+                <li>Run test during higher-traffic periods (product launches, promotions)</li>
+                <li>Consider lowering the minimum detectable effect (test for smaller lifts)</li>
+                <li>Use Sequential Testing methodology instead of fixed-horizon testing</li>
+            </ul>
+
+            <h3>Issue: High Bounce Rate on Both Variations</h3>
+            <p><strong>Problem:</strong> Users leaving immediately regardless of variation.</p>
+            <p><strong>Solutions:</strong></p>
+            <ul>
+                <li>Check traffic source quality—are users expecting this offer?</li>
+                <li>Verify page load speed—slow pages kill conversions</li>
+                <li>Review messaging match between ads/links and landing page</li>
+                <li>Consider adding exit-intent popup with simplified value prop</li>
+            </ul>
+
+            <h3>Issue: Conversions Dropping vs Baseline</h3>
+            <p><strong>Problem:</strong> Both new variations perform worse than original page.</p>
+            <p><strong>Solutions:</strong></p>
+            <ul>
+                <li>Immediately stop test and investigate what changed</li>
+                <li>Check if pricing or offer details are different from original</li>
+                <li>Verify checkout flow wasn't accidentally broken</li>
+                <li>Consider that the original var110 messaging may have been strong already</li>
+            </ul>
+
+            <h3>Issue: Results Fluctuating Day-to-Day</h3>
+            <p><strong>Problem:</strong> Winner keeps changing based on which day you look.</p>
+            <p><strong>Solutions:</strong></p>
+            <ul>
+                <li>Run test longer—7 days minimum to account for day-of-week variance</li>
+                <li>Check if traffic sources are inconsistent (email blast one day, organic next)</li>
+                <li>Use statistical significance calculator, don't eyeball results</li>
+                <li>Accept that some tests just need more time/data to stabilize</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Files and Resources</h2>
+
+            <h3>Test Files</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Description</th>
+                        <th>Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>soul-collection-var-a.html</code></td>
+                        <td>Variation A: Subscription as Smart Choice</td>
+                        <td>Early comparison, value-first approach</td>
+                    </tr>
+                    <tr>
+                        <td><code>soul-collection-var-b.html</code></td>
+                        <td>Variation B: Subscription as Upgrade</td>
+                        <td>Late comparison, desire-first approach</td>
+                    </tr>
+                    <tr>
+                        <td><code>soul-collection-implementation-guide.html</code></td>
+                        <td>This document</td>
+                        <td>Complete implementation and analysis guide</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Design System Reference</h3>
+            <ul>
+                <li><strong>Primary Purple:</strong> #2D1B4E (Dark), #4A2C6D (Medium)</li>
+                <li><strong>Gold Accent:</strong> #D4AF37</li>
+                <li><strong>Typography:</strong> System fonts (-apple-system, BlinkMacSystemFont, etc.)</li>
+                <li><strong>Image CDN:</strong> https://storyblok-cdn.mindvalley.com/f/60579/</li>
+            </ul>
+
+            <h3>Key Numbers</h3>
+            <ul>
+                <li><strong>Subscription Price:</strong> $299/year</li>
+                <li><strong>Programs Included:</strong> 21 total (Duality + 20 others)</li>
+                <li><strong>Meditations Included:</strong> 250+</li>
+                <li><strong>Total Value:</strong> $6,279/year (if purchased separately)</li>
+                <li><strong>Savings:</strong> $5,980/year (95% off)</li>
+                <li><strong>Guarantee Period:</strong> 15 days</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Final Checklist Before Launch</h2>
+
+            <h3>Content & Legal</h3>
+            <ul>
+                <li>☐ All pricing is accurate and approved</li>
+                <li>☐ Guarantee terms match company policy</li>
+                <li>☐ Cancellation policy language is correct</li>
+                <li>☐ All program names and descriptions are accurate</li>
+                <li>☐ No conflicting offers or messaging on page</li>
+                <li>☐ Legal/compliance team has reviewed copy</li>
+            </ul>
+
+            <h3>Technical</h3>
+            <ul>
+                <li>☐ A/B testing tool properly configured</li>
+                <li>☐ All analytics events firing correctly</li>
+                <li>☐ Page loads under 3 seconds on mobile</li>
+                <li>☐ No console errors in browser</li>
+                <li>☐ All images have fallbacks</li>
+                <li>☐ CTAs link to correct checkout flow</li>
+                <li>☐ Responsive design tested on all devices</li>
+            </ul>
+
+            <h3>User Experience</h3>
+            <ul>
+                <li>☐ FAQ toggles work smoothly</li>
+                <li>☐ Program grid expansion functions properly</li>
+                <li>☐ Comparison table is readable on mobile</li>
+                <li>☐ Smooth scrolling works for anchor links</li>
+                <li>☐ All interactive elements have hover states</li>
+                <li>☐ Page is accessible (screen reader compatible)</li>
+            </ul>
+
+            <h3>Testing & Validation</h3>
+            <ul>
+                <li>☐ Internal team has reviewed both variations</li>
+                <li>☐ User testing completed (5-10 people minimum)</li>
+                <li>☐ Cross-browser testing completed</li>
+                <li>☐ Mobile testing on real devices completed</li>
+                <li>☐ Baseline metrics documented for comparison</li>
+                <li>☐ Test success criteria clearly defined</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h3>Ready to Launch?</h3>
+                <p>If all items above are checked, you're ready to start your test. Remember:</p>
+                <ul>
+                    <li>Start with 10% traffic for 24 hours to catch any issues</li>
+                    <li>Monitor closely in the first few days</li>
+                    <li>Don't stop the test early—let it run to significance</li>
+                    <li>Document everything for future reference</li>
+                </ul>
+                <p><strong>Good luck! May the best variation win.</strong></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Questions or Support</h2>
+            <p>If you encounter any issues during implementation or have questions about the test strategy, consider these resources:</p>
+
+            <h3>Common Questions</h3>
+            <ul>
+                <li><strong>How long should I run this test?</strong> Minimum 2 weeks, ideally until 95% confidence with 100+ conversions in the winner.</li>
+                <li><strong>What if both variations perform worse than the original?</strong> Stop the test immediately and investigate. The original var110 may have had strong elements worth preserving.</li>
+                <li><strong>Can I run this test on mobile only?</strong> Yes, but you'll need separate desktop variations. Mobile and desktop users may respond differently.</li>
+                <li><strong>Should I test pricing at the same time?</strong> No. Test one variable at a time to isolate what's driving results.</li>
+                <li><strong>What if I don't have enough traffic?</strong> Consider paid traffic to the test page or run the test during high-traffic periods.</li>
+            </ul>
+
+            <h3>Additional Resources</h3>
+            <ul>
+                <li>Statistical significance calculator: <code>https://www.optimizely.com/sample-size-calculator/</code></li>
+                <li>A/B testing best practices: Research "Evan Miller A/B Testing" for statistical methodology</li>
+                <li>Conversion optimization: "Don't Make Me Think" by Steve Krug, "Influence" by Robert Cialdini</li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>
