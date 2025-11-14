@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ Item - Left Border Accent</title>
+    <title>FAQ Item - Accordion with Toggle</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/gilroy-bold" rel="stylesheet">
     <style>
@@ -27,15 +27,24 @@
 
         .faq-item {
             background: #FAFAFA;
-            padding: 2.5rem;
             border-radius: 16px;
             margin-bottom: 2rem;
             border-left: 4px solid #8A2BE2;
             transition: all 0.3s ease;
+            overflow: hidden;
         }
 
         .faq-item:hover {
             background: #F8F5FF;
+        }
+
+        .faq-question-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.5rem;
+            cursor: pointer;
+            user-select: none;
         }
 
         .faq-question {
@@ -43,7 +52,41 @@
             font-size: 1.25rem;
             font-weight: 600;
             color: #1A1A1A;
-            margin-bottom: 1rem;
+            margin: 0;
+            flex: 1;
+        }
+
+        .faq-toggle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #8A2BE2;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 300;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-left: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-toggle:hover {
+            background: #DA70D6;
+            transform: scale(1.1);
+        }
+
+        .faq-answer-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer-wrapper.active {
+            max-height: 500px;
+            padding: 0 2.5rem 2.5rem 2.5rem;
         }
 
         .faq-answer {
@@ -51,30 +94,60 @@
             line-height: 1.7;
             color: #404040;
         }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="faq-item">
-            <h4 class="faq-question">Do I need prior coaching experience to join?</h4>
-            <p class="faq-answer">
-                No prior coaching experience is required. This certification is designed to take you from complete beginner to confident, skilled coach. We'll teach you everything from the spiritual foundations to the business systems.
-            </p>
+            <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                <h4 class="faq-question">Do I need prior coaching experience to join?</h4>
+                <div class="faq-toggle">+</div>
+            </div>
+            <div class="faq-answer-wrapper">
+                <p class="faq-answer">
+                    No prior coaching experience is required. This certification is designed to take you from complete beginner to confident, skilled coach. We'll teach you everything from the spiritual foundations to the business systems.
+                </p>
+            </div>
         </div>
 
         <div class="faq-item">
-            <h4 class="faq-question">What's the time commitment for the 2-month online portion?</h4>
-            <p class="faq-answer">
-                Expect to invest 5-8 hours per week for the online training. This includes live group calls (recorded if you can't attend), self-paced modules, practice sessions with peers, and implementation work.
-            </p>
+            <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                <h4 class="faq-question">What's the time commitment for the 2-month online portion?</h4>
+                <div class="faq-toggle">+</div>
+            </div>
+            <div class="faq-answer-wrapper">
+                <p class="faq-answer">
+                    Expect to invest 5-8 hours per week for the online training. This includes live group calls (recorded if you can't attend), self-paced modules, practice sessions with peers, and implementation work.
+                </p>
+            </div>
         </div>
 
         <div class="faq-item">
-            <h4 class="faq-question">Is travel and accommodation included in the investment?</h4>
-            <p class="faq-answer">
-                No, the $7,777 investment covers the full certification program (3-day Sevilla immersion + 2-month online training). Travel, accommodation, and meals are separate and arranged by you.
-            </p>
+            <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                <h4 class="faq-question">Is travel and accommodation included in the investment?</h4>
+                <div class="faq-toggle">+</div>
+            </div>
+            <div class="faq-answer-wrapper">
+                <p class="faq-answer">
+                    No, the $7,777 investment covers the full certification program (3-day Sevilla immersion + 2-month online training). Travel, accommodation, and meals are separate and arranged by you.
+                </p>
+            </div>
         </div>
     </div>
+
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const answerWrapper = element.nextElementSibling;
+
+            // Toggle active class
+            faqItem.classList.toggle('active');
+            answerWrapper.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
