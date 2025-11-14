@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silva Ultramind A/B Test - Implementation Guide</title>
+    <style>
+        :root {
+            --purple-dark: #2D1B4E;
+            --purple-medium: #4A2C6D;
+            --purple-light: #6B4A94;
+            --gold: #D4AF37;
+            --gold-light: #F4E5B8;
+            --white: #FFFFFF;
+            --off-white: #F9F7F4;
+            --text-dark: #1A1A1A;
+            --text-medium: #4A4A4A;
+            --border-light: #E5E5E5;
+            --green: #28A745;
+            --yellow: #FFC107;
+            --red: #DC3545;
+            --blue: #007BFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--off-white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--purple-dark);
+            margin-bottom: 20px;
+            border-bottom: 4px solid var(--gold);
+            padding-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--purple-dark);
+            margin: 40px 0 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border-light);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--purple-medium);
+            margin: 30px 0 15px;
+        }
+
+        h4 {
+            font-size: 1.2rem;
+            color: var(--purple-medium);
+            margin: 20px 0 10px;
+        }
+
+        p, li {
+            margin-bottom: 15px;
+            color: var(--text-medium);
+        }
+
+        .intro {
+            background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple-medium) 100%);
+            color: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .intro h2 {
+            color: var(--gold);
+            border: none;
+            margin: 0 0 20px 0;
+            padding: 0;
+        }
+
+        .intro p {
+            color: var(--white);
+            font-size: 1.1rem;
+        }
+
+        .challenge-box {
+            background: #FFF3CD;
+            border-left: 5px solid var(--yellow);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .challenge-box h3 {
+            color: #856404;
+            margin-top: 0;
+        }
+
+        .challenge-box p {
+            color: #856404;
+        }
+
+        .highlight-box {
+            background: var(--off-white);
+            border: 2px solid var(--gold);
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 12px;
+        }
+
+        .warning-box {
+            background: #F8D7DA;
+            border-left: 5px solid var(--red);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box strong {
+            color: #721C24;
+        }
+
+        .success-box {
+            background: #D4EDDA;
+            border-left: 5px solid var(--green);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .success-box strong {
+            color: #155724;
+        }
+
+        .info-box {
+            background: #D1ECF1;
+            border-left: 5px solid var(--blue);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .info-box p {
+            color: #0C5460;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: var(--purple-dark);
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: var(--off-white);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .variation-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .variation-card h3 {
+            color: var(--purple-dark);
+            margin-top: 0;
+        }
+
+        .variation-a {
+            border-top: 5px solid var(--blue);
+        }
+
+        .variation-b {
+            border-top: 5px solid var(--green);
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        code {
+            background: var(--off-white);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--purple-dark);
+        }
+
+        .section-icon {
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .intro {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Silva Ultramind A/B Test Implementation Guide</h1>
+
+        <div class="intro">
+            <h2>🧠 Understanding the Silva Conversion Challenge</h2>
+            <p><strong>This is a HARDER conversion than Duality.</strong> Here's why:</p>
+            <p>Users just watched a 30+ minute video that deeply, specifically sells Silva Ultramind. Vishen explained the Mental Screen Technique, the 3 Scenes Technique, told Helen Hadsell's story, showed Richard Bach testimonials, and promised Creative Visualization with Lisa Nichols.</p>
+            <p><strong>They're primed to buy SILVA—not a subscription to 21 programs.</strong></p>
+            <p>This test addresses that conversion gap head-on with message continuity, price transparency, and strategic value positioning.</p>
+        </div>
+
+        <h2>🎯 The Two Biggest Test Variables</h2>
+
+        <div class="comparison-grid">
+            <div class="variation-card variation-a">
+                <h3>📊 Variation A: "Smart Choice" (Early Comparison)</h3>
+                <p><strong>Strategy:</strong> Show the value comparison in Section 2, immediately after hero.</p>
+                <p><strong>Psychology:</strong> Pre-emptive objection handling. Address "I only want Silva" before they can think it.</p>
+                <p><strong>Hero Message:</strong> "Get Silva Ultramind + 20 Programs for the Same Price"</p>
+                <p><strong>Best For:</strong></p>
+                <ul>
+                    <li>Analytical buyers</li>
+                    <li>Comparison shoppers</li>
+                    <li>Value-conscious decision makers</li>
+                    <li>Users who skip long copy</li>
+                </ul>
+            </div>
+
+            <div class="variation-card variation-b">
+                <h3>🌟 Variation B: "Smart Upgrade" (Late Comparison)</h3>
+                <p><strong>Strategy:</strong> Build desire for Silva first, explain multi-program benefits, THEN show comparison in Section 4.</p>
+                <p><strong>Psychology:</strong> Sequential persuasion. Let them fall in love with Silva, understand why one program isn't enough, then discover the collection is the same price.</p>
+                <p><strong>Hero Message:</strong> "You Discovered Silva Ultramind. Now Unlock the Complete Soul Collection."</p>
+                <p><strong>Best For:</strong></p>
+                <ul>
+                    <li>Emotional buyers</li>
+                    <li>Committed spiritual seekers</li>
+                    <li>Growth-oriented mindset</li>
+                    <li>Users who read full copy</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>🚨 Silva-Specific Challenges & How We Addressed Them</h2>
+
+        <h3>Challenge #1: Price Discrepancy</h3>
+        <div class="challenge-box">
+            <h3>The Problem</h3>
+            <p><strong>Video says:</strong> "$1.50 per day for Silva Ultramind"</p>
+            <p><strong>Reality:</strong> Soul Collection subscription is $299/year ($0.82/day)</p>
+            <p><strong>Risk:</strong> Users feel deceived or confused when they see different pricing.</p>
+        </div>
+
+        <div class="success-box">
+            <strong>✅ How We Fixed It:</strong>
+            <p>Added prominent <strong>Price Clarification Box</strong> in both variations:</p>
+            <ul>
+                <li>Acknowledges the video mentioned $1.50/day</li>
+                <li>Explains Soul Collection is actually BETTER VALUE at $0.82/day</li>
+                <li>Frames it as upgrade, not contradiction</li>
+                <li>Shows transparency builds trust</li>
+            </ul>
+        </div>
+
+        <h3>Challenge #2: Creative Visualization Bonus Confusion</h3>
+        <div class="challenge-box">
+            <h3>The Problem</h3>
+            <p>Video promises <strong>"$249 Creative Visualization program with Lisa Nichols"</strong> as a bonus.</p>
+            <p><strong>Risk:</strong> Users expect to get Silva + bonus. Landing page must show this is INCLUDED in subscription, not an additional upsell.</p>
+        </div>
+
+        <div class="success-box">
+            <strong>✅ How We Fixed It:</strong>
+            <p>Featured Creative Visualization prominently with:</p>
+            <ul>
+                <li><strong>"BONUS - As Promised in the Video"</strong> badge</li>
+                <li>$249 Value - INCLUDED messaging</li>
+                <li>Describes 12 guided visualizations (money, love, health, success)</li>
+                <li>Shows it's part of Soul Collection, not extra cost</li>
+            </ul>
+        </div>
+
+        <h3>Challenge #3: Technique-Specific Expectations</h3>
+        <div class="challenge-box">
+            <h3>The Problem</h3>
+            <p>The video goes DEEP into specific Silva techniques:</p>
+            <ul>
+                <li>🧘 The Centering Exercise (22-minute audio to access Alpha level)</li>
+                <li>🎬 Mental Screen Technique (visualize goals with 5 senses)</li>
+                <li>🎯 3 Scenes Technique (program subconscious mind)</li>
+                <li>🌟 Mental Video Technique (access Delta level for insights)</li>
+            </ul>
+            <p><strong>Risk:</strong> If users don't see these EXACT techniques on landing page, they'll feel bait-and-switched.</p>
+        </div>
+
+        <div class="success-box">
+            <strong>✅ How We Fixed It:</strong>
+            <p>Created <strong>"Silva Techniques Spotlight"</strong> section with:</p>
+            <ul>
+                <li>All 4 techniques mentioned by name with descriptions</li>
+                <li>Section titled <strong>"Everything Vishen Promised in the Video—and More"</strong></li>
+                <li>Message continuity from video to landing page</li>
+                <li>Reinforces "you're getting what was promised PLUS 20 programs"</li>
+            </ul>
+        </div>
+
+        <h3>Challenge #4: Success Stories Continuity</h3>
+        <div class="info-box">
+            <p><strong>Video Features:</strong> Helen Hadsell (winning contests), Richard Bach (author transformations), Vishen's own story</p>
+            <p><strong>Landing Page:</strong> References these same success stories in social proof section</p>
+            <p><strong>Result:</strong> Creates narrative thread from video → landing page → purchase decision</p>
+        </div>
+
+        <h2>📋 What We Changed from var110 - Silva Edition</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Change</th>
+                    <th>Rationale</th>
+                    <th>Silva-Specific Consideration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>✅ ADDED: Price Clarification Box</strong></td>
+                    <td>Addresses "$1.50/day" discrepancy immediately</td>
+                    <td>Video mentioned specific price point—must acknowledge it transparently</td>
+                </tr>
+                <tr>
+                    <td><strong>✅ ADDED: Silva Techniques Spotlight</strong></td>
+                    <td>Shows all promised techniques are included</td>
+                    <td>Video went DEEP into specific techniques—must prove they're all here</td>
+                </tr>
+                <tr>
+                    <td><strong>✅ ADDED: Creative Visualization Bonus</strong></td>
+                    <td>Fulfills video promise, shows Lisa Nichols program included</td>
+                    <td>$249 bonus was promised in video—must feature prominently</td>
+                </tr>
+                <tr>
+                    <td><strong>✅ ENHANCED: Comparison Table</strong></td>
+                    <td>Shows Silva Only vs Soul Collection, same $299 price</td>
+                    <td>Makes "why subscribe?" question crystal clear</td>
+                </tr>
+                <tr>
+                    <td><strong>✅ ADDED: "Why Silva is Just the Beginning" (Var B)</strong></td>
+                    <td>Educates users that spiritual growth needs multiple modalities</td>
+                    <td>Silva teaches altered states—other programs teach what to DO in those states</td>
+                </tr>
+                <tr>
+                    <td><strong>❌ REMOVED: Generic Platform Features</strong></td>
+                    <td>Mobile app, offline access are table stakes</td>
+                    <td>Users coming from deep Silva video don't care about app features—they care about techniques</td>
+                </tr>
+                <tr>
+                    <td><strong>❌ REMOVED: Generic Social Proof</strong></td>
+                    <td>"20M students" doesn't address subscription hesitation</td>
+                    <td>Need Silva-specific testimonials (e.g., "I only wanted Silva but now use 5 programs")</td>
+                </tr>
+                <tr>
+                    <td><strong>❌ REMOVED: "How It Works" Section</strong></td>
+                    <td>Users understand subscriptions—question is "why should I?"</td>
+                    <td>Silva video was 30+ minutes of WHAT you get—now show WHY subscription vs single program</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🎬 User Journey: From Video to Conversion</h2>
+
+        <div class="highlight-box">
+            <h3>Step 1: User Watches Silva Video (30-60 minutes)</h3>
+            <p><strong>What They Learn:</strong></p>
+            <ul>
+                <li>Jose Silva discovered how to access Alpha brainwave state</li>
+                <li>Mental Screen Technique for visualization</li>
+                <li>3 Scenes Technique for manifestation</li>
+                <li>Helen Hadsell won contests using Silva Method</li>
+                <li>Richard Bach wrote Jonathan Livingston Seagull using these techniques</li>
+                <li>Vishen's personal story with Silva Method</li>
+                <li><strong>Promise:</strong> Get Silva Ultramind for "$1.50/day" + Creative Visualization bonus</li>
+            </ul>
+            <p><strong>User's Mental State:</strong> "I want to learn SILVA. I want those specific techniques."</p>
+        </div>
+
+        <div class="highlight-box">
+            <h3>Step 2: User Clicks to Landing Page</h3>
+            <p><strong>What They Expect:</strong> Silva Ultramind purchase page for $1.50/day (~$45-50/month)</p>
+            <p><strong>What They See:</strong> Soul Collection subscription for $299/year ($0.82/day)</p>
+            <p><strong>Cognitive Dissonance:</strong></p>
+            <ul>
+                <li>"Wait, this is different pricing than the video mentioned"</li>
+                <li>"I only want Silva, why are they showing me 21 programs?"</li>
+                <li>"Is this a bait-and-switch?"</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <h3>Step 3A: Variation A Experience (Early Comparison)</h3>
+            <p><strong>Section 1 - Hero:</strong> "Get Silva Ultramind + 20 Programs for the Same Price"</p>
+            <p><strong>Immediate Reaction:</strong> "Wait, SAME price? Let me see..."</p>
+
+            <p><strong>Section 2 - Comparison Table:</strong></p>
+            <ul>
+                <li>Silva Only: $299 → 1 program, 20 sessions</li>
+                <li>Soul Collection: $299 → 21 programs, 400+ sessions</li>
+            </ul>
+            <p><strong>User Thinks:</strong> "Oh... that's a no-brainer. Why would I choose less for the same price?"</p>
+
+            <p><strong>Section 2 - Price Clarification Box:</strong></p>
+            <p>"The video mentioned $1.50/day, but subscription is actually $0.82/day—BETTER value!"</p>
+            <p><strong>User Thinks:</strong> "Okay, they're being transparent. I appreciate that."</p>
+
+            <p><strong>Section 3 - Silva Techniques:</strong></p>
+            <p>"Everything promised in video: Mental Screen, 3 Scenes, Mental Video, Centering Exercise"</p>
+            <p><strong>User Thinks:</strong> "Good, I'm getting what was promised. Plus 20 more programs."</p>
+
+            <p><strong>Conversion Trigger:</strong> Immediate value proof removes "I only want Silva" objection before it forms.</p>
+        </div>
+
+        <div class="highlight-box">
+            <h3>Step 3B: Variation B Experience (Late Comparison)</h3>
+            <p><strong>Section 1 - Hero:</strong> "You Discovered Silva Ultramind. Now Unlock the Complete Soul Collection."</p>
+            <p><strong>Immediate Reaction:</strong> "Upgrade? Tell me more..."</p>
+
+            <p><strong>Section 2 - Silva Spotlight:</strong></p>
+            <p>Shows all promised techniques (Mental Screen, 3 Scenes, etc.) + Creative Visualization bonus</p>
+            <p><strong>User Thinks:</strong> "Yes! This is what I came for. Everything from the video is here."</p>
+
+            <p><strong>Section 3 - Why Silva is Just the Beginning:</strong></p>
+            <ul>
+                <li>"Silva teaches you to ACCESS altered states..."</li>
+                <li>"Superbrain (Jim Kwik) teaches you WHAT TO DO in those states—boost memory, learning"</li>
+                <li>"Energy Medicine (Donna Eden) teaches you to FEEL energy in your body, not just visualize it"</li>
+                <li>"Duality (Jeffrey Allen) combines energy work with Silva's visualization"</li>
+            </ul>
+            <p><strong>User Thinks:</strong> "Hmm, I never thought about it that way. Silva is foundational, but other modalities enhance it..."</p>
+
+            <p><strong>Section 4 - Comparison Table:</strong></p>
+            <p>"And Here's Why the Soul Collection is the Smarter Choice"</p>
+            <ul>
+                <li>Silva Only: $299 → 1 program</li>
+                <li>Soul Collection: $299 → 21 programs (including Silva)</li>
+            </ul>
+            <p><strong>User Thinks:</strong> "Wait, it's the SAME PRICE?! I was going to buy Silva anyway. Why wouldn't I get 20 more?"</p>
+
+            <p><strong>Conversion Trigger:</strong> Built desire + educated about multi-program value + shocked by same-price reveal = "This is obvious."</p>
+        </div>
+
+        <h2>📊 Analytics Tracking Setup</h2>
+
+        <h3>Required Event Tracking</h3>
+
+        <div class="info-box">
+            <p><strong>Add these analytics events to measure conversion funnel:</strong></p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Trigger</th>
+                    <th>Why It Matters</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>silva_page_view</code></td>
+                    <td>Page load</td>
+                    <td>Total traffic to each variation</td>
+                </tr>
+                <tr>
+                    <td><code>silva_comparison_view</code></td>
+                    <td>Comparison table scrolls into view</td>
+                    <td>Are users reaching the key conversion section?</td>
+                </tr>
+                <tr>
+                    <td><code>silva_price_clarification_view</code></td>
+                    <td>Price clarification box scrolls into view</td>
+                    <td>Critical for measuring if transparency helps or hurts</td>
+                </tr>
+                <tr>
+                    <td><code>silva_techniques_view</code></td>
+                    <td>Silva Techniques Spotlight scrolls into view</td>
+                    <td>Message continuity effectiveness</td>
+                </tr>
+                <tr>
+                    <td><code>silva_cta_click</code></td>
+                    <td>Any "Start Your Journey" button click</td>
+                    <td>Click-through rate to checkout</td>
+                </tr>
+                <tr>
+                    <td><code>silva_faq_expand</code></td>
+                    <td>User expands FAQ item</td>
+                    <td>Which objections need addressing?</td>
+                </tr>
+                <tr>
+                    <td><code>silva_journey_view</code> (Var B only)</td>
+                    <td>"Why Silva is Just the Beginning" section view</td>
+                    <td>Does education section help or slow conversion?</td>
+                </tr>
+                <tr>
+                    <td><code>silva_subscription_purchase</code></td>
+                    <td>Successful checkout completion</td>
+                    <td>FINAL CONVERSION METRIC</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Sample Google Analytics 4 Code</h3>
+
+        <div class="info-box">
+            <p><strong>Example implementation:</strong></p>
+            <pre><code>// Page view
+gtag('event', 'silva_page_view', {
+  'variation': 'A', // or 'B'
+  'traffic_source': 'silva_video',
+  'user_id': userId
+});
+
+// Comparison table view (Intersection Observer)
+const comparisonObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      gtag('event', 'silva_comparison_view', {
+        'variation': 'A',
+        'time_to_view': Date.now() - pageLoadTime
+      });
+      comparisonObserver.unobserve(entry.target);
+    }
+  });
+});
+
+comparisonObserver.observe(document.querySelector('.comparison-section'));
+
+// CTA clicks
+document.querySelectorAll('.cta-button').forEach(button => {
+  button.addEventListener('click', () => {
+    gtag('event', 'silva_cta_click', {
+      'variation': 'A',
+      'button_location': button.dataset.location // 'hero', 'comparison', 'footer'
+    });
+  });
+});</code></pre>
+        </div>
+
+        <h2>🎯 Success Metrics</h2>
+
+        <h3>Primary Metric: Subscription Conversion Rate</h3>
+        <div class="success-box">
+            <strong>Formula:</strong> (Subscriptions / Page Views) × 100
+            <p><strong>Current Baseline (var110):</strong> [Insert your current conversion rate]</p>
+            <p><strong>Target Improvement:</strong> 15-25% relative lift</p>
+            <p><strong>Example:</strong> If var110 converts at 8%, we're targeting 9.2-10% with winning variation</p>
+        </div>
+
+        <h3>Secondary Metrics to Monitor</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>What It Tells Us</th>
+                    <th>Warning Signs</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Bounce Rate</strong></td>
+                    <td>Are users immediately leaving?</td>
+                    <td>> 70% = messaging mismatch from video</td>
+                </tr>
+                <tr>
+                    <td><strong>Avg. Time on Page</strong></td>
+                    <td>Are users reading or skimming?</td>
+                    <td>< 45 seconds = not engaging with content</td>
+                </tr>
+                <tr>
+                    <td><strong>Scroll Depth</strong></td>
+                    <td>How far down page are users scrolling?</td>
+                    <td>< 50% = losing them before comparison table (Var A) or journey section (Var B)</td>
+                </tr>
+                <tr>
+                    <td><strong>CTA Click Rate</strong></td>
+                    <td>Are users clicking but not converting?</td>
+                    <td>High clicks + low conversions = checkout page issue, not landing page</td>
+                </tr>
+                <tr>
+                    <td><strong>FAQ Expansion Rate</strong></td>
+                    <td>Which objections are users researching?</td>
+                    <td>High expansion of "What if I only want Silva?" = core objection still unresolved</td>
+                </tr>
+                <tr>
+                    <td><strong>Price Clarification View Rate</strong></td>
+                    <td>Are users seeing the "$1.50/day" explanation?</td>
+                    <td>Low view rate = they're bouncing before seeing price transparency</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Segmentation: Dig Deeper</h3>
+        <div class="info-box">
+            <p><strong>Analyze conversion rate by:</strong></p>
+            <ul>
+                <li><strong>Device:</strong> Mobile vs Desktop vs Tablet</li>
+                <li><strong>Traffic Source:</strong> Email vs Organic vs Paid vs Social</li>
+                <li><strong>New vs Returning:</strong> First-time Mindvalley visitors vs existing users</li>
+                <li><strong>Geography:</strong> US vs EU vs Asia (price sensitivity varies)</li>
+                <li><strong>Time on Video:</strong> Watched 0-10 min vs 10-20 min vs full 30+ min</li>
+            </ul>
+            <p><strong>Why?</strong> One variation might crush it for mobile users while the other wins on desktop. Need to know WHO each variation works best for.</p>
+        </div>
+
+        <h2>📈 Statistical Significance Guidelines</h2>
+
+        <h3>Don't Stop the Test Early!</h3>
+        <div class="warning-box">
+            <strong>⚠️ Common Mistake:</strong> Seeing early trends after 3 days and declaring a winner.
+            <p><strong>Problem:</strong> Small sample sizes create random fluctuations. You'll pick the "lucky" variation, not the truly better one.</p>
+        </div>
+
+        <h3>Minimum Requirements Before Calling a Winner</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Requirement</th>
+                    <th>Threshold</th>
+                    <th>Why</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Statistical Confidence</strong></td>
+                    <td>95% or higher</td>
+                    <td>< 5% chance the result is random luck</td>
+                </tr>
+                <tr>
+                    <td><strong>Minimum Conversions Per Variation</strong></td>
+                    <td>100+ conversions each</td>
+                    <td>Small sample sizes = unreliable data</td>
+                </tr>
+                <tr>
+                    <td><strong>Minimum Test Duration</strong></td>
+                    <td>2 weeks (14 days)</td>
+                    <td>Accounts for weekly traffic patterns (weekend vs weekday behavior)</td>
+                </tr>
+                <tr>
+                    <td><strong>Consistent Results</strong></td>
+                    <td>Winner holds for 3+ days straight</td>
+                    <td>Prevents declaring winner during temporary spike</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Recommended A/B Testing Tools</h3>
+        <ul>
+            <li><strong>Google Optimize</strong> (free, integrates with GA4)</li>
+            <li><strong>Optimizely</strong> (enterprise, powerful segmentation)</li>
+            <li><strong>VWO (Visual Website Optimizer)</strong> (mid-market, easy setup)</li>
+            <li><strong>AB Tasty</strong> (good for complex tests)</li>
+        </ul>
+
+        <h3>Statistical Significance Calculator</h3>
+        <div class="info-box">
+            <p><strong>Use these tools to check significance:</strong></p>
+            <ul>
+                <li><a href="https://www.optimizely.com/sample-size-calculator/">Optimizely Sample Size Calculator</a></li>
+                <li><a href="https://vwo.com/ab-split-test-significance-calculator/">VWO Significance Calculator</a></li>
+                <li><a href="https://www.evanmiller.org/ab-testing/sample-size.html">Evan Miller A/B Test Calculator</a></li>
+            </ul>
+        </div>
+
+        <h2>✅ Pre-Launch Checklist</h2>
+
+        <div class="highlight-box">
+            <h3>Before You Hit "Go"</h3>
+            <p><strong>Content & Accuracy:</strong></p>
+            <ul>
+                <li>☐ Pricing is accurate ($299/year for Soul Collection)</li>
+                <li>☐ "$1.50/day" price clarification language is approved by legal</li>
+                <li>☐ Creative Visualization bonus ($249 value) details are correct</li>
+                <li>☐ All Silva techniques mentioned in video are listed on page</li>
+                <li>☐ 15-day money-back guarantee language matches policy</li>
+                <li>☐ Program count is accurate (21 programs in Soul Collection)</li>
+            </ul>
+
+            <p><strong>Technical Setup:</strong></p>
+            <ul>
+                <li>☐ All CTAs link to correct checkout flow</li>
+                <li>☐ Analytics events are firing correctly (test in preview mode)</li>
+                <li>☐ A/B testing tool configured (50/50 traffic split)</li>
+                <li>☐ Test on mobile (iOS Safari + Android Chrome)</li>
+                <li>☐ Test on tablet (iPad + Android tablet)</li>
+                <li>☐ Test on desktop (Chrome, Firefox, Safari, Edge)</li>
+                <li>☐ Images load properly (Silva techniques icons, program logos)</li>
+                <li>☐ Comparison table is responsive on all screen sizes</li>
+                <li>☐ FAQ accordions work properly</li>
+            </ul>
+
+            <p><strong>Legal & Compliance:</strong></p>
+            <ul>
+                <li>☐ Legal team reviewed price clarification language</li>
+                <li>☐ Testimonials comply with FTC guidelines</li>
+                <li>☐ Guarantee terms are clearly stated</li>
+                <li>☐ Privacy policy linked in footer</li>
+            </ul>
+
+            <p><strong>Team Alignment:</strong></p>
+            <ul>
+                <li>☐ Customer support knows about the test (expect questions about pricing)</li>
+                <li>☐ Marketing team understands the hypothesis</li>
+                <li>☐ Analytics team set up dashboards for monitoring</li>
+                <li>☐ Decision-makers agree on success criteria and test duration</li>
+            </ul>
+        </div>
+
+        <h2>🚦 How to Run the Test</h2>
+
+        <div class="highlight-box">
+            <h3>Phase 1: Soft Launch (Days 1-2)</h3>
+            <p><strong>Traffic:</strong> 10% of total traffic (5% to Var A, 5% to Var B)</p>
+            <p><strong>Goal:</strong> Catch technical bugs, ensure everything works</p>
+            <p><strong>Monitor:</strong></p>
+            <ul>
+                <li>Are pages loading correctly?</li>
+                <li>Are analytics events firing?</li>
+                <li>Are CTAs working?</li>
+                <li>Any JavaScript errors?</li>
+                <li>Mobile rendering issues?</li>
+            </ul>
+            <p><strong>Action:</strong> Fix any issues before ramping up</p>
+        </div>
+
+        <div class="highlight-box">
+            <h3>Phase 2: Full Test (Days 3-16+)</h3>
+            <p><strong>Traffic:</strong> 50/50 split (50% Var A, 50% Var B)</p>
+            <p><strong>Goal:</strong> Gather statistically significant data</p>
+            <p><strong>Monitor Daily:</strong></p>
+            <ul>
+                <li>Conversion rate for each variation</li>
+                <li>Bounce rate</li>
+                <li>Time on page</li>
+                <li>Scroll depth to key sections</li>
+                <li>CTA click-through rate</li>
+            </ul>
+            <p><strong>DON'T:</strong></p>
+            <ul>
+                <li>❌ Stop test after 3-5 days (too early!)</li>
+                <li>❌ Change variations mid-test (invalidates results)</li>
+                <li>❌ Panic if one variation leads early (could be random)</li>
+                <li>❌ Declare winner before 95% confidence + 100 conversions each</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <h3>Phase 3: Analysis (After Test Completes)</h3>
+            <p><strong>Compare Final Results:</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Variation A</th>
+                        <th>Variation B</th>
+                        <th>Winner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Conversion Rate</td>
+                        <td>____%</td>
+                        <td>____%</td>
+                        <td>____</td>
+                    </tr>
+                    <tr>
+                        <td>Conversions</td>
+                        <td>____</td>
+                        <td>____</td>
+                        <td>____</td>
+                    </tr>
+                    <tr>
+                        <td>Confidence Level</td>
+                        <td colspan="2">____%</td>
+                        <td>95%+?</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>🔍 Troubleshooting Guide</h2>
+
+        <h3>Problem: Both Variations Have Low Conversion Rates</h3>
+        <div class="warning-box">
+            <strong>Symptoms:</strong> Both variations converting < 5% (below var110 baseline)
+            <p><strong>Possible Causes:</strong></p>
+            <ul>
+                <li>Traffic quality issue (wrong audience from video)</li>
+                <li>Checkout page problem (not landing page)</li>
+                <li>Price sensitivity (too expensive for this audience)</li>
+                <li>Message mismatch from video to landing page</li>
+            </ul>
+            <p><strong>Diagnosis:</strong></p>
+            <ul>
+                <li>Check CTA click-through rate. High clicks + low conversions = checkout problem</li>
+                <li>Review video traffic source. Is it qualified traffic?</li>
+                <li>Compare bounce rate to var110. Much higher? Message mismatch.</li>
+                <li>Check FAQ expansion rate. High = users have unaddressed objections</li>
+            </ul>
+        </div>
+
+        <h3>Problem: High Bounce Rate (> 70%)</h3>
+        <div class="warning-box">
+            <strong>Symptoms:</strong> Users landing on page and immediately leaving
+            <p><strong>Possible Causes:</strong></p>
+            <ul>
+                <li>Message mismatch from Silva video to landing page</li>
+                <li>Price shock ("$299/year" vs expected "$1.50/day")</li>
+                <li>Slow page load time</li>
+                <li>Hero section unclear or unappealing</li>
+            </ul>
+            <p><strong>Solutions:</strong></p>
+            <ul>
+                <li>Test more prominent price clarification in hero section</li>
+                <li>Add "As seen in the video with Vishen" trust element to hero</li>
+                <li>Optimize page load speed (images, scripts)</li>
+                <li>A/B test different hero headlines</li>
+            </ul>
+        </div>
+
+        <h3>Problem: Users Not Scrolling to Comparison Table</h3>
+        <div class="warning-box">
+            <strong>Symptoms:</strong> Low scroll depth (< 50%), comparison table not viewed
+            <p><strong>Diagnosis:</strong></p>
+            <ul>
+                <li>Check scroll depth analytics</li>
+                <li>Review comparison_view event—is it firing?</li>
+                <li>Look at time on page—are users reading or bouncing quickly?</li>
+            </ul>
+            <p><strong>Solutions:</strong></p>
+            <ul>
+                <li>Add visual "scroll indicator" arrow below hero</li>
+                <li>Test sticky comparison table summary that follows user</li>
+                <li>Add teaser text in hero: "See why the subscription is the same price below ↓"</li>
+                <li>For Var A: Move comparison even EARLIER (Section 1.5, right after hero)</li>
+            </ul>
+        </div>
+
+        <h3>Problem: No Clear Winner After 2 Weeks</h3>
+        <div class="info-box">
+            <p><strong>Symptoms:</strong> Both variations performing nearly identically</p>
+            <p><strong>What This Means:</strong></p>
+            <ul>
+                <li>Test variable (comparison placement) doesn't significantly impact this audience</li>
+                <li>Both approaches work equally well (or poorly)</li>
+                <li>Need to test a BIGGER difference</li>
+            </ul>
+            <p><strong>Next Steps:</strong></p>
+            <ul>
+                <li>Pick the variation with slightly better numbers (even if not statistically significant)</li>
+                <li>Test a more dramatic change (e.g., different pricing display, testimonial placement, guarantee prominence)</li>
+                <li>Review qualitative feedback (customer support questions, user testing)</li>
+            </ul>
+        </div>
+
+        <h2>🎯 Follow-Up Tests (Based on Results)</h2>
+
+        <h3>If Variation A Wins (Early Comparison)</h3>
+        <div class="success-box">
+            <strong>Insight:</strong> This audience wants value proof upfront. They're analytical, comparison-focused.
+            <p><strong>Next Tests:</strong></p>
+            <ol>
+                <li><strong>Comparison Table Design:</strong> Test different table layouts (grid vs side-by-side vs checklist)</li>
+                <li><strong>Value Quantification:</strong> Test "2,000% more value" vs "$6,279 value" vs "20x more programs"</li>
+                <li><strong>Price Anchoring:</strong> Test showing "$549 if purchased separately" before "$299" reveal</li>
+                <li><strong>Urgency Elements:</strong> Test limited-time discount or bonus</li>
+            </ol>
+        </div>
+
+        <h3>If Variation B Wins (Late Comparison)</h3>
+        <div class="success-box">
+            <strong>Insight:</strong> This audience needs education and desire-building before pricing. They're growth-oriented, big-picture thinkers.
+            <p><strong>Next Tests:</strong></p>
+            <ol>
+                <li><strong>Journey Section Expansion:</strong> Test showing 3 program synergies vs 6</li>
+                <li><strong>Testimonial Timing:</strong> Test adding subscription-specific testimonials in Section 3</li>
+                <li><strong>Visual Hierarchy:</strong> Test infographic showing "spiritual growth stack" (Silva → Duality → Energy Medicine)</li>
+                <li><strong>CTA Copy:</strong> Test "Start My Complete Journey" vs "Get Silva + 20 Programs"</li>
+            </ol>
+        </div>
+
+        <h3>If Both Variations Perform Similarly</h3>
+        <div class="info-box">
+            <p><strong>Test Bigger Variables:</strong></p>
+            <ol>
+                <li><strong>Social Proof Placement:</strong> Add success stories section prominently</li>
+                <li><strong>Guarantee Strength:</strong> Test 30-day vs 15-day guarantee</li>
+                <li><strong>Bonus Stacking:</strong> Test adding exclusive Silva masterclass with Jeffrey Allen as bonus</li>
+                <li><strong>Pricing Display:</strong> Test "$299/year" vs "$0.82/day" vs "Less than a coffee per day"</li>
+            </ol>
+        </div>
+
+        <h2>🧠 Key Takeaways</h2>
+
+        <div class="highlight-box">
+            <h3>Why This Test Matters</h3>
+            <p><strong>The Silva funnel is uniquely challenging because:</strong></p>
+            <ol>
+                <li>The video is deeply, specifically about ONE program (unlike broader personal growth content)</li>
+                <li>Users have precise expectations (Mental Screen Technique, 3 Scenes, Creative Visualization)</li>
+                <li>The video mentions a specific price point ($1.50/day) that differs from reality</li>
+                <li>We're asking users to make a bigger mental leap: "I want Silva" → "I'll subscribe to 21 programs"</li>
+            </ol>
+
+            <p><strong>Success requires:</strong></p>
+            <ul>
+                <li>✅ Message continuity (video → landing page)</li>
+                <li>✅ Price transparency (acknowledge discrepancy, explain better value)</li>
+                <li>✅ Technique verification (show all promised Silva methods are included)</li>
+                <li>✅ Value clarity (comparison table makes subscription choice obvious)</li>
+                <li>✅ Education (explain why multiple programs > one program for spiritual growth)</li>
+            </ul>
+        </div>
+
+        <div class="success-box">
+            <strong>Bottom Line:</strong>
+            <p>These variations are designed to turn the "I only want Silva" objection into "Silva is included—why wouldn't I get 20 more programs for the same price?"</p>
+            <p>One will work better than the other. Let the data decide. 📊</p>
+        </div>
+
+        <h2>📞 Need Help?</h2>
+
+        <div class="info-box">
+            <p><strong>Common Issues Covered in This Guide:</strong></p>
+            <ul>
+                <li>✅ Price discrepancy handling</li>
+                <li>✅ Message continuity from video</li>
+                <li>✅ Analytics event tracking</li>
+                <li>✅ Statistical significance requirements</li>
+                <li>✅ Troubleshooting low conversions</li>
+                <li>✅ Follow-up test ideas</li>
+            </ul>
+            <p><strong>If you encounter issues not covered here, check:</strong></p>
+            <ul>
+                <li>Analytics dashboard for unusual patterns</li>
+                <li>Customer support feedback (what questions are users asking?)</li>
+                <li>Mobile vs desktop performance (segment your data)</li>
+                <li>Video completion rate (are users watching full video before clicking?)</li>
+            </ul>
+        </div>
+
+        <div style="background: var(--purple-dark); color: white; padding: 40px; border-radius: 12px; margin-top: 60px; text-align: center;">
+            <h2 style="color: var(--gold); border: none; margin: 0 0 20px 0; padding: 0;">Ready to Launch? 🚀</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 0; color: white;">Run this test for minimum 2 weeks, gather 100+ conversions per variation, achieve 95% confidence, and let the data reveal which psychology works best for your Silva audience.</p>
+        </div>
+    </div>
+</body>
+</html>
