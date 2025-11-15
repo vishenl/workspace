@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindvalley Component Library</title>
+    <style>
+        /* Mindvalley Airtable Design System - Purple/Gold Theme */
+
+        :root {
+            /* Brand Colors */
+            --mv-purple: #8A2BE2;
+            --mv-purple-light: #DA70D6;
+            --mv-purple-dark: #6A0DAD;
+            --mv-gold: #DAA520;
+            --mv-gold-light: #FFD700;
+            --mv-white: #FFFFFF;
+            --mv-black: #000000;
+            --mv-dark: #1A1A1A;
+            --mv-gray: #404040;
+            --mv-gray-light: #F5F5F5;
+
+            /* Spacing Scale */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+            --space-3xl: 6rem;
+
+            /* Typography Scale */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+            --text-5xl: 3rem;
+
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(138, 43, 226, 0.1);
+            --shadow-md: 0 8px 30px rgba(138, 43, 226, 0.15);
+            --shadow-lg: 0 20px 60px rgba(138, 43, 226, 0.2);
+
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+
+            /* Transitions */
+            --transition-fast: 150ms ease;
+            --transition-base: 250ms ease;
+            --transition-slow: 400ms ease;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--mv-dark);
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8f5 100%);
+            min-height: 100vh;
+            padding: var(--space-lg);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            padding: var(--space-xl) var(--space-lg);
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+        }
+
+        .header h1 {
+            font-size: var(--text-5xl);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: var(--text-lg);
+            color: var(--mv-gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Back Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--mv-purple);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            transition: all var(--transition-base);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            background: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .back-link:hover {
+            transform: translateX(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Airtable Embed Container */
+        .airtable-container {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .airtable-embed {
+            border: none;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            min-height: 600px;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-xl);
+        }
+
+        .stat-card {
+            background: white;
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            transition: all var(--transition-base);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-number {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-xs);
+        }
+
+        .stat-label {
+            color: var(--mv-gray);
+            font-size: var(--text-sm);
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: var(--space-sm);
+            }
+
+            .header h1 {
+                font-size: var(--text-3xl);
+            }
+
+            .header p {
+                font-size: var(--text-base);
+            }
+
+            .airtable-embed {
+                min-height: 500px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Link -->
+        <a href="./team-achievements-claude-ai.html" class="back-link">
+            ← Back to Team Achievements
+        </a>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>Mindvalley Component Library</h1>
+            <p>
+                Browse our complete collection of reusable UI components,
+                cataloged and documented for faster deployment of marketing pages and campaigns.
+            </p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">15</div>
+                <div class="stat-label">Components Cataloged</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">36</div>
+                <div class="stat-label">Pages Deployed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">740KB</div>
+                <div class="stat-label">CSS Optimized</div>
+            </div>
+        </div>
+
+        <!-- Airtable Embed -->
+        <div class="airtable-container">
+            <iframe
+                class="airtable-embed"
+                src="https://airtable.com/embed/appeEKr8u6nsrOaAu/shr2CXGeDnSAiZoZC?backgroundColor=purple&viewControls=on"
+                frameborder="0"
+                width="100%"
+                height="800">
+            </iframe>
+        </div>
+    </div>
+</body>
+</html>
