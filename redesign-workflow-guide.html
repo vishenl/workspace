@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindvalley Page Builder: Redesign Workflow Guide</title>
+    <meta name="description" content="Complete guide to using the mindvalley-page-builder agent to analyze and redesign existing pages with conversion optimization">
+    <link rel="stylesheet" href="reference-pages/public/css/airtable-components.css">
+    <style>
+        /* Additional styles for code blocks and tables */
+        pre {
+            background: var(--mv-dark);
+            color: var(--mv-white);
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-lg) 0;
+            border-left: 4px solid var(--mv-gold);
+        }
+
+        code {
+            background: rgba(138, 43, 226, 0.1);
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-lg) 0;
+            background: var(--mv-white);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        th, td {
+            padding: var(--space-md);
+            text-align: left;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: var(--mv-purple);
+            color: var(--mv-white);
+            font-weight: 600;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-3xl) var(--space-md);
+        }
+
+        .toc {
+            background: rgba(138, 43, 226, 0.05);
+            border-left: 4px solid var(--mv-purple);
+            padding: var(--space-lg);
+            margin: var(--space-xl) 0;
+            border-radius: var(--radius-md);
+        }
+
+        .toc h3 {
+            margin-bottom: var(--space-md);
+            color: var(--mv-purple);
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: var(--space-xs);
+        }
+
+        .toc a {
+            color: var(--mv-gray);
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            color: var(--mv-purple);
+        }
+
+        h2 {
+            margin-top: var(--space-3xl);
+            margin-bottom: var(--space-lg);
+            padding-top: var(--space-lg);
+            border-top: 2px solid rgba(138, 43, 226, 0.1);
+        }
+
+        h2:first-of-type {
+            border-top: none;
+            margin-top: 0;
+        }
+
+        h3 {
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-md);
+        }
+
+        ul, ol {
+            margin: var(--space-md) 0;
+            padding-left: var(--space-xl);
+        }
+
+        li {
+            margin-bottom: var(--space-sm);
+            line-height: 1.7;
+        }
+
+        .example-box {
+            background: var(--mv-gray-light);
+            border-left: 4px solid var(--mv-gold);
+            padding: var(--space-lg);
+            margin: var(--space-lg) 0;
+            border-radius: var(--radius-md);
+        }
+
+        .tip-box {
+            background: rgba(218, 165, 32, 0.1);
+            border: 1px solid var(--mv-gold);
+            padding: var(--space-lg);
+            margin: var(--space-lg) 0;
+            border-radius: var(--radius-md);
+        }
+
+        .warning-box {
+            background: rgba(255, 0, 0, 0.05);
+            border-left: 4px solid #ff4444;
+            padding: var(--space-lg);
+            margin: var(--space-lg) 0;
+            border-radius: var(--radius-md);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: var(--space-xl);
+            color: var(--mv-purple);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero" style="min-height: 50vh;">
+        <div class="hero-content">
+            <div class="hero-badge">
+                🔄 Redesign Capability
+            </div>
+            <h1>Mindvalley Page Builder: Redesign Workflow Guide</h1>
+            <p class="hero-subtitle">
+                Complete guide to analyzing and redesigning existing pages using AI-powered conversion optimization
+            </p>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <a href="team-achievements-claude-ai.html" class="back-link">← Back to Team Achievements</a>
+
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#when-to-use">When to Use Redesign Mode</a></li>
+                <li><a href="#5-phase-process">How It Works: 5-Phase Process</a></li>
+                <li><a href="#example-usage">Example Usage</a></li>
+                <li><a href="#analysis-checklist">What the Agent Analyzes</a></li>
+                <li><a href="#component-mapping">Component Mapping Strategy</a></li>
+                <li><a href="#expected-outputs">Expected Outputs</a></li>
+                <li><a href="#how-to-invoke">How to Invoke</a></li>
+                <li><a href="#tips">Tips for Best Results</a></li>
+                <li><a href="#what-makes-different">What Makes This Different</a></li>
+            </ul>
+        </div>
+
+        <h2 id="overview">Overview</h2>
+        <p>The <code>mindvalley-page-builder</code> agent can now <strong>analyze and redesign existing pages</strong> in addition to building new ones. This guide explains how to use the redesign capability.</p>
+
+        <h2 id="when-to-use">When to Use Redesign Mode</h2>
+        <p>Use the redesign workflow when you:</p>
+        <ul>
+            <li>Have an existing page URL that needs optimization</li>
+            <li>Want to convert a competitor's page to Mindvalley style</li>
+            <li>Need to analyze conversion weaknesses in a current page</li>
+            <li>Want to modernize an outdated landing page</li>
+            <li>Need to apply Mindvalley's design system to external content</li>
+        </ul>
+
+        <h2 id="5-phase-process">How It Works: 5-Phase Process</h2>
+
+        <h3>Phase 1: URL Analysis & Content Extraction</h3>
+        <p>The agent uses Firecrawl to:</p>
+        <ul>
+            <li>Scrape the page content (markdown + HTML)</li>
+            <li>Extract headlines, copy, CTAs, images</li>
+            <li>Identify page structure and sections</li>
+            <li>Optionally take screenshots for visual analysis</li>
+        </ul>
+
+        <h3>Phase 2: Conversion Optimization Analysis</h3>
+        <p>The agent analyzes:</p>
+        <ul>
+            <li><strong>Hero section</strong>: Value prop clarity, CTA effectiveness</li>
+            <li><strong>Visual hierarchy</strong>: F/Z patterns, white space, font sizes</li>
+            <li><strong>Social proof</strong>: Testimonials, trust signals, positioning</li>
+            <li><strong>Content clarity</strong>: Benefit focus, scannability, objection handling</li>
+            <li><strong>Mobile experience</strong>: Thumb zones, touch targets, simplification</li>
+            <li><strong>Technical issues</strong>: Images, contrast, accessibility, semantics</li>
+        </ul>
+        <p>Then prioritizes improvements by impact (HIGH/MEDIUM/LOW).</p>
+
+        <h3>Phase 3: Strategic Questions</h3>
+        <p>The agent asks you:</p>
+        <ol>
+            <li><strong>Conversion goal</strong> - What action do you want users to take?</li>
+            <li><strong>Audience context</strong> - Cold traffic? Warm leads? Customers?</li>
+            <li><strong>Optimization priorities</strong> - What matters most?</li>
+            <li><strong>Content preservation</strong> - Keep all content or condense?</li>
+            <li><strong>Brand alignment</strong> - What to preserve from original?</li>
+        </ol>
+        <p>Plus optional questions about pricing, images, and CTAs.</p>
+
+        <h3>Phase 4: Component Mapping & Rebuild</h3>
+        <p>The agent:</p>
+        <ul>
+            <li>Maps original sections to Mindvalley components</li>
+            <li>Fetches official components from Airtable</li>
+            <li>Rebuilds the page using Design Tokens + Typography System</li>
+            <li>Applies conversion optimizations identified in analysis</li>
+            <li>Documents all improvements made</li>
+        </ul>
+
+        <h3>Phase 5: Validation & Delivery</h3>
+        <p>The agent delivers:</p>
+        <ul>
+            <li>✅ Complete redesigned HTML file</li>
+            <li>📊 Optimization summary (before/after)</li>
+            <li>📈 Expected conversion impact predictions</li>
+            <li>✅ Testing recommendations</li>
+            <li>🔍 Component usage documentation</li>
+        </ul>
+
+        <h2 id="example-usage">Example Usage</h2>
+
+        <div class="example-box">
+            <h4>Simple Redesign Request</h4>
+            <pre><code>User: "Take this URL and redesign it with better conversion in Mindvalley style:
+https://example.com/landing"
+
+Agent: [Automatically enters REDESIGN MODE]
+1. Fetches page using Firecrawl
+2. Analyzes conversion weaknesses
+3. Asks strategic questions
+4. Rebuilds using Mindvalley components
+5. Delivers optimized page with improvement notes</code></pre>
+        </div>
+
+        <div class="example-box">
+            <h4>Detailed Analysis Request</h4>
+            <pre><code>User: "Analyze this competitor page and rebuild it for our meditation course:
+https://competitor.com/course"
+
+Agent: [REDESIGN MODE]
+1. Scrapes competitor page
+2. Extracts their value prop, features, pricing
+3. Identifies what works (strengths) and what doesn't (weaknesses)
+4. Asks about your specific course positioning
+5. Rebuilds with Mindvalley components optimized for meditation audience
+6. Explains each optimization decision</code></pre>
+        </div>
+
+        <div class="example-box">
+            <h4>Quick Optimization</h4>
+            <pre><code>User: "This page isn't converting well, can you improve it?
+https://mysite.com/offer"
+
+Agent: [REDESIGN MODE]
+1. Analyzes current page
+2. Identifies top 3 conversion blockers
+3. Asks which to prioritize
+4. Rebuilds with fixes applied
+5. Predicts conversion impact of each change</code></pre>
+        </div>
+
+        <h2 id="analysis-checklist">What the Agent Analyzes</h2>
+
+        <h3>Conversion Optimization Checklist</h3>
+
+        <h4>Hero Section:</h4>
+        <ul>
+            <li>☐ Clear value proposition</li>
+            <li>☐ Benefit-focused headline</li>
+            <li>☐ Single primary CTA above fold</li>
+            <li>☐ Action-oriented CTA text</li>
+            <li>☐ Supporting hero image</li>
+        </ul>
+
+        <h4>Visual Hierarchy:</h4>
+        <ul>
+            <li>☐ F-pattern or Z-pattern flow</li>
+            <li>☐ CTAs in high-visibility zones</li>
+            <li>☐ 50-100% white space around CTAs</li>
+            <li>☐ 3-4 font sizes maximum</li>
+            <li>☐ No competing elements</li>
+        </ul>
+
+        <h4>Social Proof:</h4>
+        <ul>
+            <li>☐ Authentic testimonials with photos</li>
+            <li>☐ Positioned early (above fold or after hero)</li>
+            <li>☐ Credible statistics</li>
+            <li>☐ Trust signals (logos, badges)</li>
+        </ul>
+
+        <h4>Content Clarity:</h4>
+        <ul>
+            <li>☐ Benefit-focused (not feature-focused)</li>
+            <li>☐ Scannable (bullets, short paragraphs)</li>
+            <li>☐ Objections addressed (FAQ)</li>
+            <li>☐ Clear narrative flow</li>
+        </ul>
+
+        <h4>Mobile Experience:</h4>
+        <ul>
+            <li>☐ CTAs in thumb-friendly zones (bottom third)</li>
+            <li>☐ 44×44px touch targets</li>
+            <li>☐ Condensed content for scanning</li>
+            <li>☐ Simplified forms (≤3 fields)</li>
+        </ul>
+
+        <h4>Technical Quality:</h4>
+        <ul>
+            <li>☐ Image dimensions set (prevent CLS)</li>
+            <li>☐ 4.5:1 color contrast</li>
+            <li>☐ Keyboard accessible</li>
+            <li>☐ Logical heading hierarchy</li>
+        </ul>
+
+        <h2 id="component-mapping">Component Mapping Strategy</h2>
+
+        <p>The agent automatically maps existing page sections to Mindvalley components:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Original Section</th>
+                    <th>Mindvalley Component</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Hero section</td>
+                    <td>Hero - Dark Background with Image Overlay</td>
+                </tr>
+                <tr>
+                    <td>Feature cards</td>
+                    <td>Technique Card - White Glass (grid)</td>
+                </tr>
+                <tr>
+                    <td>Course curriculum</td>
+                    <td>Curriculum Module - Two Column with Image</td>
+                </tr>
+                <tr>
+                    <td>Pricing table</td>
+                    <td>Comparison Table - Details Column</td>
+                </tr>
+                <tr>
+                    <td>Stats/metrics</td>
+                    <td>Trust Signals - 4 Column Stats Grid</td>
+                </tr>
+                <tr>
+                    <td>Testimonials</td>
+                    <td>Technique Card - White Glass (adapted)</td>
+                </tr>
+                <tr>
+                    <td>FAQ</td>
+                    <td>FAQ Item - Left Border Accent</td>
+                </tr>
+                <tr>
+                    <td>Important notices</td>
+                    <td>Price Clarification Box - White Glass</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="expected-outputs">Expected Outputs</h2>
+
+        <h3>Redesigned Page Includes:</h3>
+        <ol>
+            <li><strong>Full HTML file</strong> with all Mindvalley components integrated</li>
+            <li><strong>Design Tokens + Typography System</strong> (foundation)</li>
+            <li><strong>All content</strong> from original page (preserved or optimized)</li>
+            <li><strong>Conversion optimizations</strong> applied based on analysis</li>
+            <li><strong>WCAG 2.2 AA compliance</strong> (accessibility)</li>
+            <li><strong>Mobile-first responsive design</strong> (62.54% traffic)</li>
+            <li><strong>Core Web Vitals optimization</strong> (LCP, INP, CLS)</li>
+        </ol>
+
+        <h3>Documentation Includes:</h3>
+        <ol>
+            <li><strong>Original page analysis</strong> - What was found, strengths/weaknesses</li>
+            <li><strong>Optimization improvements</strong> - Specific changes made with rationale</li>
+            <li><strong>Expected conversion impact</strong> - Research-backed predictions</li>
+            <li><strong>Component list</strong> - Which components used (with Airtable IDs)</li>
+            <li><strong>Testing recommendations</strong> - A/B test suggestions, metrics to track</li>
+        </ol>
+
+        <h2>Research-Backed Predictions</h2>
+
+        <p>When the agent delivers a redesign, it provides evidence-based impact predictions:</p>
+
+        <ul>
+            <li><strong>CTA above fold</strong>: +20-30% conversion increase</li>
+            <li><strong>Early trust signals</strong>: +40% credibility boost</li>
+            <li><strong>Simplified forms</strong>: +50% completion rate</li>
+            <li><strong>Mobile optimization</strong>: Addresses 62.54% of traffic</li>
+            <li><strong>Benefit-focused headlines</strong>: +371% CTA improvement</li>
+            <li><strong>Authentic social proof</strong>: Significant trust increase</li>
+        </ul>
+
+        <h2 id="how-to-invoke">How to Invoke</h2>
+
+        <h3>Method 1: Direct URL</h3>
+        <pre><code>"Redesign this page: https://example.com/page"</code></pre>
+
+        <h3>Method 2: Optimization Request</h3>
+        <pre><code>"This page isn't converting: https://mysite.com/offer - can you improve it?"</code></pre>
+
+        <h3>Method 3: Analysis Request</h3>
+        <pre><code>"Analyze this competitor page and rebuild it Mindvalley-style: https://competitor.com"</code></pre>
+
+        <h3>Method 4: Explicit Agent Call</h3>
+        <pre><code>"Use the mindvalley-page-builder agent to redesign: https://example.com"</code></pre>
+
+        <h2 id="tips">Tips for Best Results</h2>
+
+        <h3>Be Specific About Goals</h3>
+        <div class="warning-box">
+            <strong>❌ Don't say:</strong> "Make this better"
+        </div>
+        <div class="tip-box">
+            <strong>✅ Do say:</strong> "Optimize this for email signups from cold traffic"
+        </div>
+
+        <h3>Provide Context</h3>
+        <div class="warning-box">
+            <strong>❌ Don't say:</strong> "Redesign this page"
+        </div>
+        <div class="tip-box">
+            <strong>✅ Do say:</strong> "Redesign this for our meditation course launch targeting skeptical beginners"
+        </div>
+
+        <h3>Answer Strategic Questions</h3>
+        <p>The agent will ask 5-8 strategic questions - thoughtful answers lead to better redesigns:</p>
+        <ul>
+            <li>Conversion goal</li>
+            <li>Target audience</li>
+            <li>Optimization priorities</li>
+            <li>Content preferences</li>
+            <li>Brand requirements</li>
+        </ul>
+
+        <h3>Review the Analysis</h3>
+        <p>The agent identifies HIGH/MEDIUM/LOW impact opportunities - review these before rebuild to ensure alignment.</p>
+
+        <h2 id="what-makes-different">What Makes This Different</h2>
+
+        <h3>Traditional Page Builder:</h3>
+        <ul>
+            <li>Build from scratch with user specifications</li>
+            <li>Generic conversion best practices</li>
+            <li>Component assembly only</li>
+        </ul>
+
+        <h3>Mindvalley Page Builder (Enhanced):</h3>
+        <ul>
+            <li>✅ Analyzes existing pages intelligently</li>
+            <li>✅ Identifies specific conversion blockers</li>
+            <li>✅ Asks strategic questions for context</li>
+            <li>✅ Maps content to optimal components</li>
+            <li>✅ Applies evidence-based optimizations</li>
+            <li>✅ Predicts conversion impact</li>
+            <li>✅ Documents all improvements</li>
+            <li>✅ Maintains Mindvalley brand consistency</li>
+        </ul>
+
+        <h2>Quick Reference Card</h2>
+
+        <div class="tip-box">
+            <h3>REDESIGN MODE AUTO-TRIGGERS WHEN:</h3>
+            <ul>
+                <li>User provides a URL</li>
+                <li>User says "redesign", "optimize", "improve", "analyze"</li>
+                <li>User mentions converting/rebuilding existing page</li>
+            </ul>
+
+            <h3>5-PHASE WORKFLOW:</h3>
+            <ol>
+                <li><strong>Scrape</strong> → Firecrawl extracts content</li>
+                <li><strong>Analyze</strong> → Identifies conversion weaknesses</li>
+                <li><strong>Question</strong> → Asks strategic clarifications</li>
+                <li><strong>Rebuild</strong> → Maps to Mindvalley components</li>
+                <li><strong>Deliver</strong> → Page + optimization documentation</li>
+            </ol>
+
+            <h3>KEY CAPABILITIES:</h3>
+            <ul>
+                <li>✅ URL analysis & content extraction</li>
+                <li>✅ Conversion optimization diagnosis</li>
+                <li>✅ Strategic question framework</li>
+                <li>✅ Component mapping intelligence</li>
+                <li>✅ Evidence-based improvement predictions</li>
+                <li>✅ Full Mindvalley design system application</li>
+            </ul>
+
+            <h3>ALWAYS INCLUDED:</h3>
+            <ul>
+                <li>Design Tokens (CSS variables)</li>
+                <li>Typography System (Gilroy/Inter)</li>
+                <li>Official Mindvalley components</li>
+                <li>WCAG 2.2 AA compliance</li>
+                <li>Mobile-first responsive</li>
+                <li>Core Web Vitals optimization</li>
+                <li>Conversion best practices</li>
+            </ul>
+        </div>
+
+        <div class="section text-center" style="margin-top: var(--space-3xl);">
+            <a href="redesign-visual-workflow.html" class="btn btn-primary">
+                View Visual Workflow →
+            </a>
+            <a href="team-achievements-claude-ai.html" class="btn btn-secondary">
+                ← Back to Achievements
+            </a>
+        </div>
+    </div>
+
+    <footer style="background: var(--mv-dark); color: white; padding: var(--space-xl); text-center; margin-top: var(--space-3xl);">
+        <p>Mindvalley Development Team | November 2025</p>
+    </footer>
+</body>
+</html>
