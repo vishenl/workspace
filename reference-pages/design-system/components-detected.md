@@ -1,0 +1,856 @@
+# Mindvalley Academy - Component Library
+
+**Extracted from:** https://www.mindvalley.com/academy
+**Date:** 2025-11-14
+**Total Components:** 15
+**Extraction Method:** Manual deep analysis of HTML structure and CSS classes
+
+---
+
+## 1. Header Navigation Bar
+
+**Component ID:** `header-navbar`
+
+**Purpose:**
+Fixed navigation header with logo and menu toggle for mobile
+
+**Required Content:**
+- Mindvalley logo (SVG, 154x24px)
+- Hamburger menu icon (mobile)
+
+**Optional Content:**
+- Link to homepage
+- Navigation menu items (hidden on mobile)
+
+**CSS Classes:**
+```
+pb-Container, header, min-h-fit, mv-container, navbar-popup, bg-mastery-950, is-mastery, grid, grid-cols-6, items-center, justify-between, px-4, py-3
+```
+
+**HTML Structure:**
+```html
+<section class="pb-Container header min-h-fit">
+  <div class="mv-container">
+    <div class="navbar-popup bg-mastery-950 is-mastery">
+      <div class="grid grid-cols-6 items-center justify-between px-4 py-3">
+        <div class="col-span-3">
+          <a href="[homepage-url]">
+            <img src="[logo.svg]" class="navbar-logo">
+          </a>
+        </div>
+        <div class="col-start-6 flex justify-end items-center">
+          <svg>[hamburger icon]</svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+**Mobile Behavior:**
+6-column grid; Logo takes 3 columns (50% width); Hamburger menu aligned right; Fixed positioning on scroll
+
+**Source Page:** academy
+
+---
+
+## 2. Hero Section
+
+**Component ID:** `hero-section`
+
+**Purpose:**
+Primary hero section with eyebrow text, headline, body copy, CTA button, and hero image
+
+**Required Content:**
+- Eyebrow text (h4, mv-type--title4)
+- Mindvalley Academy logo
+- Body copy paragraph
+- Primary CTA button ("Book your call")
+- Hero image (desktop: 1174x726, mobile: 718x474)
+
+**Optional Content:**
+- Secondary CTA
+- Trust badges or social proof
+
+**CSS Classes:**
+```
+pb-Container, hero-section, min-h-fit, bg-overview, pt-20, md_py-32, pt-8, pb-16, mv-container, grid, grid-cols-12, gap-8, md_gap-3, items-center, lg_pt-10, col-span-12, md_col-span-6, mv-type--title4, text-mastery-400, mv-type--body, text-white, base-button, mv-btn--mastery--small, mv-btn--mastery, hidden, md_block
+```
+
+**HTML Structure:**
+```html
+<section class="pb-Container hero-section bg-overview pt-20">
+  <div class="md_py-32 pt-8 pb-16 mv-container">
+    <div class="grid grid-cols-12 gap-8 md_gap-3 items-center lg_pt-10">
+      <div class="col-span-12 md_col-span-6">
+        <div class="mv-type--title4 text-mastery-400">
+          <h4>[Eyebrow text]</h4>
+        </div>
+        <div class="py-5">
+          <img src="[academy-logo]" alt="Mindvalley Academy Logo">
+        </div>
+        <div class="mv-type--body">
+          <p><span class="text-white">[Body copy]</span></p>
+        </div>
+        <a href="[booking-url]" class="base-button mv-btn--mastery--small mv-btn--mastery mt-12">
+          [CTA text]
+        </a>
+      </div>
+      <div class="col-span-12 md_col-span-6">
+        <div class="hidden md_block">
+          <img src="[hero-desktop.webp]" alt="[Alt text]">
+        </div>
+        <div class="block md_hidden">
+          <img src="[hero-mobile.webp]" alt="[Alt text]">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+**Mobile Behavior:**
+Stacks vertically (12 columns); Desktop: 50/50 split (6 columns each) at md breakpoint (768px+); Different hero images for mobile vs desktop; Padding adjusts from pt-8/pb-16 (mobile) to py-32 (desktop)
+
+**Source Page:** academy
+
+---
+
+## 3. Featured Logos Strip
+
+**Component ID:** `featured-logos-strip`
+
+**Purpose:**
+Social proof section displaying media logos in auto-scrolling carousel
+
+**Required Content:**
+- "Featured on" heading (optional on desktop)
+- Logo SVGs (CNN, Google, Forbes, etc.)
+- Auto-carousel container
+
+**Optional Content:**
+- Additional logo variants
+- Animation speed controls
+
+**CSS Classes:**
+```
+pb-Container, featured-logos, min-h-fit, w-full, bg-cool-grey-650, py-6, lg_py-10, block, lg_hidden, mv-type--title7, text-center, mb-5, text-white, icon-auto-carousel, --strip, --desktop, --item-desktop
+```
+
+**HTML Structure:**
+```html
+<section class="pb-Container featured-logos w-full bg-cool-grey-650 py-6 lg_py-10">
+  <div class="block lg_hidden">
+    <div class="mv-type--title7 text-center mb-5 text-white">
+      <p>Featured on</p>
+    </div>
+    <div class="icon-auto-carousel">
+      <div class="--strip --desktop">
+        <div class="--item-desktop">
+          <svg>[Logo 1]</svg>
+        </div>
+        <div class="--item-desktop">
+          <svg>[Logo 2]</svg>
+        </div>
+        <!-- Repeat for each logo -->
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+**Mobile Behavior:**
+Full width bg (100vw); Vertical padding py-6 (mobile) to lg_py-10 (desktop 1024px+); "Featured on" text hidden on desktop (lg_hidden); Auto-scrolling carousel on all screen sizes
+
+**Source Page:** academy
+
+---
+
+## 4. Section with Eyebrow + Headline
+
+**Component ID:** `section-with-eyebrow-headline`
+
+**Purpose:**
+Standard content section with overline eyebrow text and headline
+
+**Required Content:**
+- Eyebrow/overline text (mv-type--overline)
+- Headline (h1 or h2)
+
+**Optional Content:**
+- Body copy paragraph
+- CTA button
+- Supporting visual
+
+**CSS Classes:**
+```
+pb-Container, min-h-fit, mv-section__gutter, mv-container, w-full, lg_w-4/6, mx-auto, text-center, mv-type--overline, mb-2, md_text-center, text-left, text-mastery-800, mv-type--title1, text-grey-700
+```
+
+**HTML Structure:**
+```html
+<section class="pb-Container [name] min-h-fit mv-section__gutter mv-container">
+  <div class="w-full lg_w-4/6 mx-auto text-center">
+    <div class="mv-type--overline mb-2 md_text-center text-left">
+      <p><span class="text-mastery-800">[Eyebrow text]</span></p>
+    </div>
+    <div class="mv-type--title1 text-grey-700">
+      <h1>[Headline]</h1>
+    </div>
+    <!-- Optional body copy -->
+    <div class="mv-type--body">
+      <p>[Body text]</p>
+    </div>
+  </div>
+</section>
+```
+
+**Mobile Behavior:**
+Full width on mobile; 66.67% width (4/6 cols) on desktop (lg breakpoint); Center-aligned on desktop, left-aligned on mobile for overline; Standard mv-section__gutter spacing (typically 80-120px vertical)
+
+**Source Page:** academy
+
+---
+
+## 5. Statistics Grid
+
+**Component ID:** `stats-grid`
+
+**Purpose:**
+Highlight key metrics with large numbers and descriptions in gradient background card
+
+**Required Content:**
+- 3-4 stat items with number + description
+- Large display numbers (mv-type--title1)
+- Descriptive labels (mv-type--body)
+
+**Optional Content:**
+- Icons or visual accents
+- Additional context
+
+**CSS Classes:**
+```
+pb-Container, stats, min-h-fit, mv-section__gutter--small, mv-container, rounded-lg, gap-6, w-full, lg_w-5/6, mx-auto, bg-mastery-gradient-mist, py-8, px-8, lg_p-16, flex, flex-col, md_flex-row, items-start, lg_items-center, justify-between, mv-type--title1, text-cool-grey-700, mv-type--body
+```
+
+**HTML Structure:**
+```html
+<section class="pb-Container stats min-h-fit mv-section__gutter--small mv-container">
+  <div class="rounded-lg gap-6 w-full lg_w-5/6 mx-auto bg-mastery-gradient-mist py-8 px-8 lg_p-16 flex flex-col md_flex-row items-start lg_items-center justify-between">
+    <div class="flex flex-col md_items-center">
+      <div class="mv-type--title1 text-cool-grey-700">
+        <h1>[Number, e.g., "19K+"]</h1>
+      </div>
+      <div class="mv-type--body">
+        <p>[Description]</p>
+      </div>
+    </div>
+    <!-- Repeat for 2-3 more stats -->
+  </div>
+</section>
+```
+
+**Mobile Behavior:**
+Vertical stack on mobile (flex-col); Horizontal row on md+ (md_flex-row); Padding increases from py-8/px-8 (mobile) to p-16 (desktop); Items left-aligned on mobile, center-aligned on desktop
+
+**Source Page:** academy
+
+---
+
+## 6. Testimonial Quote with Logo
+
+**Component ID:** `testimonial-quote-with-logo`
+
+**Purpose:**
+Social proof testimonial with media logo and quote
+
+**Required Content:**
+- Media logo (SVG or image)
+- Quote text (mv-type--title6)
+- Source attribution
+
+**Optional Content:**
+- Author photo
+- Author name and title
+- Link to full article
+
+**CSS Classes:**
+```
+pb-Container, cnn, min-h-fit, mv-section__gutter--small, mv-container, w-full, md_w-5/6, lg_w-4/6, mx-auto, flex, flex-col, md_flex-row, gap-4, lg_gap-12, items-start, md_items-center, w-2/6, md_w-fit, flex-1, mv-type--title6, text-cool-grey-700, mb-3, mv-type--caption1, text-cool-grey-500
+```
+
+**HTML Structure:**
+```html
+<section class="pb-Container cnn min-h-fit mv-section__gutter--small mv-container">
+  <div class="w-full md_w-5/6 lg_w-4/6 mx-auto flex flex-col md_flex-row gap-4 lg_gap-12 items-start md_items-center">
+    <div class="w-2/6 md_w-fit">
+      <img src="[logo-cnn.svg]" alt="CNN">
+    </div>
+    <div class="flex-1">
+      <div class="mv-type--title6 text-cool-grey-700 mb-3">
+        <p>"[Quote text]"</p>
+      </div>
+      <div class="mv-type--caption1 text-cool-grey-500">
+        <p>[Source attribution]</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+**Mobile Behavior:**
+Vertical stack on mobile; Logo 33.33% width (w-2/6) on mobile; Horizontal row on md+; Logo fixed width on desktop; Gap increases from gap-4 to lg_gap-12
+
+**Source Page:** academy
+
+---
+
+## 7. CTA Card with Gradient Background
+
+**Component ID:** `cta-card-with-gradient`
+
+**Purpose:**
+Call-to-action section with gradient background, headline, body, and button
+
+**Required Content:**
+- Eyebrow text (mv-type--overline)
+- Headline (mv-type--display3)
+- Body copy (mv-type--body)
+- Primary CTA button
+
+**Optional Content:**
+- Secondary CTA
+- Supporting visual/image
+- Additional trust elements
+
+**CSS Classes:**
+```
+pb-Container, explore-mindvalley-academy, min-h-fit, mv-section__gutter, bg-mastery-gradient-fog, mx-2, lg_mx-3, rounded-lg, py-10, lg_py-20, mv-container, w-full, md_w-5/6, lg_w-4/6, mx-auto, text-center, mv-type--overline, mb-2, text-mastery-800, mv-type--display3, text-cool-grey-700, mv-type--body
+```
+
+**HTML Structure:**
+```html
+<section class="pb-Container explore-mindvalley-academy min-h-fit mv-section__gutter bg-mastery-gradient-fog mx-2 lg_mx-3 rounded-lg">
+  <div class="py-10 lg_py-20 mv-container">
+    <div class="w-full md_w-5/6 lg_w-4/6 mx-auto text-center">
+      <div class="mv-type--overline mb-2">
+        <p><span class="text-mastery-800">[Eyebrow]</span></p>
+      </div>
+      <div class="mv-type--display3 text-cool-grey-700">
+        <h2>[Headline]</h2>
+      </div>
+      <div class="mv-type--body">
+        <p>[Body copy]</p>
+      </div>
+      <a href="[url]" class="base-button mv-btn--mastery">
+        [CTA text]
+      </a>
+    </div>
+    <!-- Optional: Supporting visual -->
+    <div>
+      <img src="[visual.webp]" class="w-full rounded">
+    </div>
+  </div>
+</section>
+```
+
+**Mobile Behavior:**
+Horizontal margin mx-2 (mobile) to mx-3 (desktop); Vertical padding py-10 (mobile) to py-20 (desktop); Content width 100% (mobile) to 66.67% (desktop lg_w-4/6); Rounded corners on card
+
+**Source Page:** academy
+
+---
+
+## 8. Programs Grid with Category Tabs
+
+**Component ID:** `programs-grid`
+
+**Purpose:**
+Filterable program grid showing different learning tracks with images and descriptions
+
+**Required Content:**
+- Section eyebrow + headline
+- Category filter tabs
+- Program cards (image + title + description)
+- "View All" CTA button
+
+**Optional Content:**
+- Featured badge
+- Duration indicator
+- Instructor avatars
+- Difficulty level
+
+**CSS Classes:**
+```
+pb-Container, what-you-can-learn, min-h-fit, mt-3, programs-bg-image, py-10, lg_py-32, mv-container, mv-type--overline, mv-type--display2, text-white, grid, grid-cols-2, md_grid-cols-3, lg_grid-cols-4, gap-4, rounded-lg
+```
+
+**HTML Structure:**
+```html
+<section id="academy-programs" class="pb-Container what-you-can-learn min-h-fit mt-3 programs-bg-image py-10 lg_py-32">
+  <div class="mv-container">
+    <div class="w-full md_w-5/6 lg_w-4/6 mx-auto flex flex-col items-center">
+      <div class="mv-type--overline mb-2">
+        <p><span class="text-mastery-400">Programs</span></p>
+      </div>
+      <div class="mv-type--display2 text-white">
+        <h2>[Headline]</h2>
+      </div>
+
+      <!-- Category filter tabs -->
+      <div class="flex flex-wrap gap-2 mt-6">
+        <button class="category-tab">[Category 1]</button>
+        <button class="category-tab">[Category 2]</button>
+        <!-- More tabs -->
+      </div>
+
+      <!-- Programs grid -->
+      <div class="grid grid-cols-2 md_grid-cols-3 lg_grid-cols-4 gap-4 mt-8 w-full">
+        <div class="program-card rounded-lg overflow-hidden">
+          <img src="[program-image.webp]">
+          <div class="p-4">
+            <h3>[Program title]</h3>
+            <p>[Description]</p>
+          </div>
+        </div>
+        <!-- Repeat for each program -->
+      </div>
+
+      <a href="[all-programs-url]" class="base-button mt-8">
+        View All Programs
+      </a>
+    </div>
+  </div>
+</section>
+```
+
+**Mobile Behavior:**
+2 columns on mobile (grid-cols-2); 3 columns on tablet (md_grid-cols-3); 4 columns on desktop (lg_grid-cols-4); Padding py-10 (mobile) to py-32 (desktop); Gap spacing consistent at gap-4
+
+**Source Page:** academy
+
+---
+
+## 9. Stories/Testimonials Carousel
+
+**Component ID:** `stories-carousel`
+
+**Purpose:**
+Scrollable carousel of student testimonials with photos and quotes
+
+**Required Content:**
+- Section eyebrow + headline
+- Testimonial cards (photo + quote + name)
+- Carousel navigation controls
+
+**Optional Content:**
+- Video testimonials
+- Social media handles
+- Location/demographic info
+- Before/after metrics
+
+**CSS Classes:**
+```
+pb-Container, stories, min-h-fit, mv-section__gutter, mv-container, mv-type--overline, text-mastery-800, mv-type--display2, text-cool-grey-700, flex, gap-4, overflow-x-auto
+```
+
+**HTML Structure:**
+```html
+<section class="pb-Container stories min-h-fit mv-section__gutter">
+  <div class="mv-container">
+    <div class="w-full lg_w-4/6 mx-auto text-center">
+      <div class="mv-type--overline mb-2">
+        <p><span class="text-mastery-800">stories</span></p>
+      </div>
+      <div class="mv-type--display2 text-cool-grey-700">
+        <h2>[Headline]</h2>
+      </div>
+    </div>
+
+    <!-- Carousel container -->
+    <div class="flex gap-4 overflow-x-auto mt-8 pb-4">
+      <div class="story-card min-w-[300px] md_min-w-[400px] rounded-lg p-6">
+        <img src="[photo.jpg]" class="w-16 h-16 rounded-full">
+        <p class="quote">"[Testimonial]"</p>
+        <p class="name">[Name]</p>
+        <p class="title">[Title/Location]</p>
+      </div>
+      <!-- Repeat for each story -->
+    </div>
+  </div>
+</section>
+```
+
+**Mobile Behavior:**
+Horizontal scroll (overflow-x-auto); Cards min-width 300px (mobile) to 400px (tablet); Gap spacing gap-4 consistent; Center content section narrows to 66.67% on desktop (lg_w-4/6)
+
+**Source Page:** academy
+
+---
+
+## 10. Feature Rows with Images
+
+**Component ID:** `feature-rows-with-images`
+
+**Purpose:**
+Alternating text + image rows explaining product features or benefits
+
+**Required Content:**
+- Feature headline
+- Feature description
+- Supporting image (desktop/mobile variants)
+- Optional icon or number
+
+**Optional Content:**
+- CTA button per feature
+- Expandable details
+- Video alternative to image
+
+**CSS Classes:**
+```
+pb-Container, the-future-of-learning, min-h-fit, mv-section__gutter, bg-mastery-gradient-fog, py-10, md_py-20, mx-2, lg_mx-3, rounded-lg, mv-container, grid, grid-cols-1, md_grid-cols-2, gap-8, items-center, mv-type--overline, mv-type--title2, text-cool-grey-700, mv-type--body, rounded-lg, w-full
+```
+
+**HTML Structure:**
+```html
+<section class="pb-Container the-future-of-learning min-h-fit mv-section__gutter">
+  <div class="bg-mastery-gradient-fog py-10 md_py-20 mx-2 lg_mx-3 rounded-lg">
+    <div class="mv-container">
+      <div class="lg_text-center w-full md_w-5/6 lg_w-4/6 mx-auto flex flex-col">
+        <div class="mv-type--overline mb-2 lg_text-center">
+          <p><span class="text-mastery-800">How it works</span></p>
+        </div>
+        <div class="mv-type--display2">
+          <h2>[Section headline]</h2>
+        </div>
+      </div>
+
+      <!-- Feature rows -->
+      <div class="grid grid-cols-1 md_grid-cols-2 gap-8 items-center mt-12">
+        <div>
+          <div class="mv-type--title2 text-cool-grey-700">
+            <h3>[Feature headline]</h3>
+          </div>
+          <div class="mv-type--body">
+            <p>[Feature description]</p>
+          </div>
+        </div>
+        <div>
+          <img src="[feature-image.webp]" class="rounded-lg w-full">
+        </div>
+      </div>
+      <!-- Repeat, alternating image position -->
+    </div>
+  </div>
+</section>
+```
+
+**Mobile Behavior:**
+Stacks vertically (grid-cols-1); Side-by-side 50/50 on md+ (grid-cols-2); Image order can be reversed per row; Padding py-10 (mobile) to py-20 (desktop); Horizontal margin mx-2 to mx-3
+
+**Source Page:** academy
+
+---
+
+## 11. Summit/Event Promo Card
+
+**Component ID:** `summit-promo-card`
+
+**Purpose:**
+Featured event promotion with gradient background, event details, and registration CTA
+
+**Required Content:**
+- Event eyebrow label
+- Event headline
+- Event description
+- Event details (date, speakers, format)
+- Registration CTA button
+
+**Optional Content:**
+- Speaker photos grid
+- Event logo
+- Countdown timer
+- Early bird pricing
+
+**CSS Classes:**
+```
+pb-Container, mindvalley-summit, min-h-fit, py-20, bg-mastery-gradient-surface-fog, mv-container, mv-type--overline, text-mastery-800, mv-type--display2, text-cool-grey-700, mv-type--body, grid, grid-cols-4, gap-1, rounded
+```
+
+**HTML Structure:**
+```html
+<section class="pb-Container mindvalley-summit min-h-fit py-20 bg-mastery-gradient-surface-fog">
+  <div class="mv-container">
+    <div class="w-full md_w-5/6 flex flex-col pb-0 md_pb-14">
+      <div class="mv-type--overline mb-2">
+        <p><span class="text-mastery-800">Mindvalley Summit</span></p>
+      </div>
+      <div class="mv-type--display2 text-cool-grey-700">
+        <h2>[Event headline]</h2>
+      </div>
+      <div class="mv-type--body">
+        <p>[Event description]</p>
+      </div>
+
+      <!-- Event details -->
+      <div class="mt-6">
+        <p>[Date, time, format]</p>
+      </div>
+
+      <!-- Speaker photos grid -->
+      <div class="grid grid-cols-4 gap-1 mt-6">
+        <img src="[speaker1.webp]" class="rounded">
+        <img src="[speaker2.webp]" class="rounded">
+        <img src="[speaker3.webp]" class="rounded">
+        <img src="[speaker4.webp]" class="rounded">
+      </div>
+
+      <a href="[registration-url]" class="base-button mt-8">
+        [CTA text]
+      </a>
+    </div>
+  </div>
+</section>
+```
+
+**Mobile Behavior:**
+Full width background gradient; Content width 100% (mobile) to 83.33% (md_w-5/6) on tablet; 4-column speaker grid (grid-cols-4) with minimal gap (gap-1); Bottom padding removed on mobile (pb-0), added on md+ (md_pb-14)
+
+**Source Page:** academy
+
+---
+
+## 12. Newsletter Signup Banner
+
+**Component ID:** `newsletter-signup-banner`
+
+**Purpose:**
+Email capture banner with background image, headline, and inline signup form
+
+**Required Content:**
+- Headline (mv-type--title7)
+- Subheadline/value prop
+- Email input field
+- Submit button
+
+**Optional Content:**
+- Privacy policy link
+- Social proof count
+- Benefits list
+
+**CSS Classes:**
+```
+pb-Container, newsletter, min-h-fit, newsletter-bg, py-8, flex, flex-col, md_flex-row, items-center, justify-between, mv-container, mv-type--title7, text-white, mb-1.5, mv-type--caption1
+```
+
+**HTML Structure:**
+```html
+<section id="newsletter" class="pb-Container newsletter min-h-fit newsletter-bg">
+  <div class="py-8 flex flex-col md_flex-row items-center justify-between mv-container">
+    <div class="w-full">
+      <div class="mv-type--title7 text-white mb-1.5">
+        <p>[Headline]</p>
+      </div>
+      <div class="mv-type--caption1">
+        <p>[Subheadline]</p>
+      </div>
+    </div>
+
+    <form class="w-full md_w-auto mt-4 md_mt-0 flex gap-2">
+      <input
+        type="email"
+        placeholder="Enter your email"
+        class="flex-1 md_w-64 px-4 py-2 rounded"
+      >
+      <button type="submit" class="base-button">
+        [Submit text]
+      </button>
+    </form>
+  </div>
+</section>
+```
+
+**Mobile Behavior:**
+Vertical stack on mobile (flex-col); Horizontal row on md+ (md_flex-row); Form full width on mobile, auto width on desktop; Input flex-1 on mobile, fixed w-64 on desktop; Gap spacing gap-2 between form elements
+
+**Source Page:** academy
+
+---
+
+## 13. Text + Image Split Section
+
+**Component ID:** `text-image-split`
+
+**Purpose:**
+Simple 50/50 split section with headline/copy on one side and image on other
+
+**Required Content:**
+- Headline (mv-type--title1)
+- Body copy
+- Image (full-width in container)
+
+**Optional Content:**
+- CTA button
+- Bullet points
+- Subheadline
+
+**CSS Classes:**
+```
+pb-Container, the-future, min-h-fit, mv-section__gutter, mv-container, grid, grid-cols-12, gap-6, items-center, col-span-12, md_col-span-6, lg_col-span-5, lg_col-span-7, mv-type--title1, text-cool-grey-700, w-full, placeholder, lazyload
+```
+
+**HTML Structure:**
+```html
+<section class="pb-Container the-future min-h-fit mv-section__gutter mv-container">
+  <div class="grid grid-cols-12 gap-6 items-center">
+    <div class="col-span-12 md_col-span-6 lg_col-span-5">
+      <div class="mv-type--title1 text-cool-grey-700">
+        <h1>[Headline]</h1>
+      </div>
+      <div class="mv-type--body mt-4">
+        <p>[Body copy]</p>
+      </div>
+    </div>
+    <div class="col-span-12 md_col-span-6 lg_col-span-7">
+      <img src="[image.webp]" alt="[Alt text]" class="w-full lazyload">
+    </div>
+  </div>
+</section>
+```
+
+**Mobile Behavior:**
+Stacks vertically (col-span-12); 50/50 split on md (md_col-span-6); Asymmetric split on lg (5/7 columns); Text first, image second in source order; Gap-6 spacing maintained; Lazy-loaded images
+
+**Source Page:** academy
+
+---
+
+## 14. Centered CTA Gradient Card
+
+**Component ID:** `cta-gradient-card-centered`
+
+**Purpose:**
+Final conversion section with gradient background and prominent CTA button
+
+**Required Content:**
+- Headline (mv-type--title6 or larger)
+- Academy membership copy
+- Primary CTA button
+- Pricing/offer details
+
+**Optional Content:**
+- Money-back guarantee
+- Trust badges
+- Social proof count
+- Additional CTAs
+
+**CSS Classes:**
+```
+pb-Container, get-started, min-h-fit, mv-section__gutter, bg-mastery-gradient, py-8, lg_py-12, px-6, lg_px-10, rounded-t-lg, overflow-hidden, text-white, text-center, mv-container, --full-mobile, mv-type--title6, mv-type--display1
+```
+
+**HTML Structure:**
+```html
+<section class="pb-Container get-started min-h-fit mv-section__gutter">
+  <div class="bg-mastery-gradient py-8 lg_py-12 px-6 lg_px-10 rounded-t-lg overflow-hidden">
+    <div class="text-white text-center w-full mv-container --full-mobile">
+      <div class="mv-type--title6">
+        <p>[Eyebrow or subheadline]</p>
+      </div>
+      <div class="mv-type--display1 mt-3">
+        <h2>[Main headline]</h2>
+      </div>
+      <div class="mv-type--body mt-4">
+        <p>[Offer details / value prop]</p>
+      </div>
+
+      <a href="[enrollment-url]" class="base-button mv-btn--white mt-8 inline-block">
+        [CTA text]
+      </a>
+
+      <!-- Optional: Guarantee/trust elements -->
+      <div class="mt-6 mv-type--caption1">
+        <p>[Guarantee text]</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+**Mobile Behavior:**
+Full-width card with rounded top corners (rounded-t-lg); Padding py-8/px-6 (mobile) to py-12/px-10 (desktop); Center-aligned text throughout; --full-mobile class for edge-to-edge on mobile; Overflow hidden for gradient effects
+
+**Source Page:** academy
+
+---
+
+## 15. Footer
+
+**Component ID:** `footer`
+
+**Purpose:**
+Site footer with links, legal, social media, and company information
+
+**Required Content:**
+- Mindvalley logo
+- Navigation link groups
+- Social media icons
+- Copyright notice
+- Legal links (Privacy, Terms)
+
+**Optional Content:**
+- Newsletter signup
+- App download links
+- Language selector
+- Trust badges
+
+**CSS Classes:**
+```
+footer, bg-mastery-950, text-white, py-12, lg_py-20, mv-container, grid, grid-cols-2, md_grid-cols-4, gap-8, mv-type--caption1, flex, gap-4, items-center
+```
+
+**HTML Structure:**
+```html
+<footer class="footer bg-mastery-950 text-white py-12 lg_py-20">
+  <div class="mv-container">
+    <!-- Logo section -->
+    <div class="mb-8">
+      <img src="[mindvalley-logo-white.svg]" alt="Mindvalley" class="w-32">
+    </div>
+
+    <!-- Link groups grid -->
+    <div class="grid grid-cols-2 md_grid-cols-4 gap-8 mb-12">
+      <div>
+        <h4 class="font-bold mb-4">[Group title]</h4>
+        <ul class="mv-type--caption1 space-y-2">
+          <li><a href="[url]">[Link]</a></li>
+          <!-- More links -->
+        </ul>
+      </div>
+      <!-- Repeat for each link group -->
+    </div>
+
+    <!-- Social + Legal -->
+    <div class="flex flex-col md_flex-row justify-between items-center gap-4 pt-8 border-t border-mastery-800">
+      <div class="flex gap-4 items-center">
+        <a href="[facebook]"><svg>[icon]</svg></a>
+        <a href="[instagram]"><svg>[icon]</svg></a>
+        <a href="[linkedin]"><svg>[icon]</svg></a>
+        <!-- More social icons -->
+      </div>
+      <div class="mv-type--caption1 text-center md_text-right">
+        <p>&copy; [Year] Mindvalley. All rights reserved.</p>
+        <a href="[privacy]">Privacy</a> | <a href="[terms]">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+```
+
+**Mobile Behavior:**
+2-column grid on mobile (grid-cols-2); 4-column grid on md+ (grid-cols-4); Social + legal stack vertically on mobile (flex-col), horizontal on md+ (flex-row); Padding py-12 (mobile) to py-20 (desktop); Gap-8 for link groups, gap-4 for social icons
+
+**Source Page:** academy
+
+---
+

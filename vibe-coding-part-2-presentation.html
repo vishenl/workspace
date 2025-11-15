@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding Part II | Mindvalley Entrepreneurship Mastery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Slide Container */
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 120px;
+            position: relative;
+        }
+
+        /* Slide Number */
+        .slide-number {
+            position: absolute;
+            top: 40px;
+            right: 60px;
+            font-size: 24px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            letter-spacing: 2px;
+        }
+
+        .light-slide .slide-number {
+            color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Video Slide */
+        .video-slide {
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .video-slide video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .video-slide .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .video-slide h2 {
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+            position: relative;
+            z-index: 3;
+        }
+
+        .video-slide .slide-number {
+            z-index: 3;
+        }
+
+        /* Image Slide Alternative */
+        .image-slide-bg {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        .image-slide-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .image-slide-bg > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Steve Jobs Style: Minimal, Bold Typography */
+        .slide h1 {
+            font-size: 120px;
+            font-weight: 700;
+            line-height: 1.1;
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: -3px;
+        }
+
+        .slide h2 {
+            font-size: 80px;
+            font-weight: 600;
+            line-height: 1.2;
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+        }
+
+        .slide h3 {
+            font-size: 60px;
+            font-weight: 500;
+            line-height: 1.3;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 48px;
+            font-weight: 300;
+            color: #999;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Mindvalley Brand Colors */
+        .mv-purple {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .mv-gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Title Slide */
+        #title-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Dark Slides */
+        .dark-slide {
+            background: #000;
+            color: #fff;
+        }
+
+        /* Light Accent Slides */
+        .light-slide {
+            background: #fff;
+            color: #000;
+        }
+
+        /* Image Slide */
+        .image-slide {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .image-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .image-slide * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Big Number Style */
+        .big-number {
+            font-size: 280px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        /* List Styles */
+        .simple-list {
+            list-style: none;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .simple-list li {
+            font-size: 56px;
+            font-weight: 300;
+            margin: 40px 0;
+            opacity: 0.9;
+        }
+
+        /* Quote Style */
+        .quote {
+            font-size: 72px;
+            font-weight: 300;
+            font-style: italic;
+            text-align: center;
+            max-width: 1200px;
+            line-height: 1.4;
+        }
+
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            width: 100%;
+            max-width: 1400px;
+            align-items: center;
+        }
+
+        .col-title {
+            font-size: 64px;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        .col-text {
+            font-size: 42px;
+            font-weight: 300;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        /* Demo Section */
+        .demo-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            padding: 60px;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 60px;
+        }
+
+        .demo-title {
+            font-size: 52px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #667eea;
+        }
+
+        .demo-text {
+            font-size: 36px;
+            font-weight: 300;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Process Steps */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+            width: 100%;
+            max-width: 1400px;
+            margin-top: 80px;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            font-size: 120px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .step-title {
+            font-size: 42px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .step-desc {
+            font-size: 28px;
+            font-weight: 300;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        /* Highlight Box */
+        .highlight {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border-left: 6px solid #667eea;
+            padding: 50px 60px;
+            margin: 60px 0;
+            max-width: 1200px;
+            border-radius: 10px;
+        }
+
+        /* Call to Action */
+        .cta {
+            font-size: 64px;
+            font-weight: 600;
+            text-align: center;
+            padding: 40px 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            margin-top: 80px;
+            display: inline-block;
+        }
+
+        /* Section Marker */
+        .section-marker {
+            font-size: 32px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #667eea;
+            margin-bottom: 60px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .slide { padding: 60px 80px; }
+            .slide-number { top: 30px; right: 40px; font-size: 20px; }
+            .slide h1 { font-size: 90px; }
+            .slide h2 { font-size: 64px; }
+            .slide h3 { font-size: 48px; }
+            .subtitle { font-size: 36px; }
+            .big-number { font-size: 200px; }
+            .simple-list li { font-size: 42px; }
+            .quote { font-size: 56px; }
+            .two-col { grid-template-columns: 1fr; gap: 40px; }
+            .col-title { font-size: 48px; }
+            .col-text { font-size: 32px; }
+            .steps { grid-template-columns: 1fr; gap: 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .slide { padding: 40px 30px; }
+            .slide-number { top: 20px; right: 20px; font-size: 16px; }
+            .slide h1 { font-size: 56px; }
+            .slide h2 { font-size: 42px; }
+            .slide h3 { font-size: 32px; }
+            .subtitle { font-size: 24px; }
+            .big-number { font-size: 120px; }
+            .simple-list li { font-size: 28px; }
+            .quote { font-size: 36px; }
+            .col-title { font-size: 32px; }
+            .col-text { font-size: 24px; }
+            .demo-title { font-size: 32px; }
+            .demo-text { font-size: 24px; }
+            .step-number { font-size: 80px; }
+            .step-title { font-size: 28px; }
+            .step-desc { font-size: 20px; }
+            .cta { font-size: 36px; padding: 30px 50px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1: Title -->
+<div id="title-slide" class="slide">
+    <div class="slide-number">01</div>
+    <h1>VIBE CODING</h1>
+    <h2>Part II</h2>
+    <p class="subtitle">Mindvalley Entrepreneurship Mastery</p>
+</div>
+
+<!-- SLIDE 2: The Opening Hook -->
+<div class="slide dark-slide">
+    <div class="slide-number">02</div>
+    <p class="quote">
+        "What if the difference between<br>
+        someone with an idea<br>
+        and someone running a million-dollar business<br>
+        is just knowing which AI to talk to first?"
+    </p>
+</div>
+
+<!-- SLIDE 3: Part I Recap Title -->
+<div class="slide dark-slide">
+    <div class="slide-number">03</div>
+    <p class="section-marker">PART I RECAP</p>
+    <h2>The Three Levels of<br>Vibe Coding</h2>
+</div>
+
+<!-- SLIDE 4: Level 1 -->
+<div class="slide dark-slide">
+    <div class="slide-number">04</div>
+    <div class="big-number">1</div>
+    <h3>Describe What You Want</h3>
+    <p class="subtitle">Vision → Words → Reality</p>
+</div>
+
+<!-- SLIDE 5: Level 2 -->
+<div class="slide dark-slide">
+    <div class="slide-number">05</div>
+    <div class="big-number">2</div>
+    <h3>Iterate with AI</h3>
+    <p class="subtitle">Plain English Refinement</p>
+</div>
+
+<!-- SLIDE 6: Level 3 -->
+<div class="slide dark-slide">
+    <div class="slide-number">06</div>
+    <div class="big-number">3</div>
+    <h3>Ship & Learn</h3>
+    <p class="subtitle">Fast Feedback Loops</p>
+</div>
+
+<!-- SLIDE 7: Today's Journey -->
+<div class="slide mv-purple">
+    <div class="slide-number">07</div>
+    <h2>Today's Journey</h2>
+    <ul class="simple-list">
+        <li>Strategic AI Usage</li>
+        <li>Live Platform Demo</li>
+        <li>Build an Application</li>
+        <li>Solve a Marketing Problem</li>
+    </ul>
+</div>
+
+<!-- SLIDE 8: Jumping Into A New World -->
+<div class="slide dark-slide" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 80px 120px;">
+    <div class="slide-number">08</div>
+
+    <!-- Left: Text -->
+    <div style="text-align: left;">
+        <h2 style="font-size: 90px; line-height: 1.1; margin-bottom: 40px;">You're about to jump into<br>a whole new world</h2>
+        <div style="width: 150px; height: 4px; background: white; opacity: 0.8;"></div>
+    </div>
+
+    <!-- Right: Image -->
+    <div style="display: flex; justify-content: center; align-items: center; height: 80vh;">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAH0ASwDASIAAhEBAxEB/8QAHAAAAgMBAQEBAAAAAAAAAAAAAwQCBQYBAAcI/8QAVRAAAQMDAgQDBgMEBggDBgcAAQACAwQFERIhBjFBUSJhcRMygZGhsQdCwRQj0fAVUnKS4RYkM0NTgvHCQ4OiFyVjdLLS4/I0NYSz8jU2RJOUlf/EABsBAAIDAQEBAAAAAAAAAAAAAAECAAMEBQYH/8QAPxEAAQMBBQUGBAUEAgEDBQAAAQACEQMEEiExQQVRYXGBIjKRobHRE8Hw4QYjQlLxFDNichVDU4KisrPCJP/aAAwDAQACEQMRAD8A+cXSbpVtRJqccr7JdqtJmj+q+b3R16qmdNu8oj6/xtI9F7anedS4qP8AEUagFuNPIXj/AGJ/mlpj6oxPylS+TL/5KH11ZVXG7+J+Qv3xgfl+ar5JPdB/iq7PaPojaG6VbOg19T1KH7Z3VV1yPVHHJWnLYKQgAj9fVUfNJzyHqidUUxwP8VV7aMxTfD1ykdZOqQnQHgHml5SzSw49yjdT3CiKeQRPJ94KA7LKgpN8ym6IM6DqnpC30P8AJOPjeImj1VfAD4vQogqLrp2RGGwpOKdWMG7LoY3LscoCqKiT/bIjajLmCYjI96lVlaWn9JC8u+0YWvj2cq4A5lENTAPcA8yrWWO9VhBmpGuB/wBUaF9ZEc3MLvRzYyuPsVSqaNPOVT/t8A91vomIs5I3ynp5X6DdpQHV5dmBqp1rGPbDjdTtoYKrLuSGRoI/VeLWk8lcMqZA/wABHopvqZ3N96L5K/gNO+TU0hUhtnuQc1EE7D4gh1TjjDNPmpVlRG5wdpz5K1mqbTKlG7j6K2jqX+H3tRQK+Y/7T1VhHLThoHugeS+1Wmtk9gyomaJxA6KjpdtbdTmNqrBsLj23hNsI/wD5iq25u/aKh7x0KvK58ro3+Ibqisicypxkg4X08dNRF/cW/wAlq9r18Q7Ol3WgnLWu8CmKKj9lT6v6ImqUf7K9fSDZXVtOO53j9nqq7iN+r9kPH/qsO0rbsj5B/CtJtrdqhXdB+Ef2V5RN/KDv1Tv+yfruhiLk48uH+/ZSjgHD1VvK0FmlvcqiLbpAEqy1V0vn8YAE4+lm5SBYwDKs0Mz/AMSfj/gN00aZ0/UgQS7Hkk2bW/UrbsZ7W2R6HqhLNOq7qjutb+yk7Ox/kF0BXqFzO+w5lSTLdJHr+ih7FrPzEjzXjGwcwhPaB3qFDr/5hL+0aP6ypyA5APiqr3W7qS3VjFIR2xf+vVFZXP6tHqULp287kcG/8WJ4/wDMBWfs3/lIhz3fwg/PovEj9Qy/IqB2lUhVUf8Acl/+Q/yQnVcruZHopvl0j/aQjjqkj0RcTl+YEi6rcd1H23/LlTR9pCrSjEm6i6rdyK6/5cpjhPNSK+gNDkw2Qji09FC96e6hZBzbN/AYvBPVU/JuBIfjVCM7HZNi0xEgDVOUkPibqSrmWihXUn4u6BVvdStzAEqqI2/quFg3J3VlE38PxTBTBKNDQ1Ls0w+NvMBQLWjmlYjqjf2KLvqq6YhKXW77K0V2OQUZ6kvcDGR8kGoZqk0uOUAYQF2gBzqQnNV++JwB5r6bHEImaaXHkvBdLj5rU1gqvQnOxshnb1XHD1X6Ev8AwovNyozVQO0YBcQMJ1PspChqOZNfp0pXXEj+q+fD/wCYI/qV4fmb6L6Gx9yjTEPkk1YdnJ0AJ+gIY/FDMg6AEdgvgF1nfG+mpphh8j/ytzc+GmzsbA6ufAXy64a6PChsG+P71VUtVuGy72RDyOCpZg/MfoE+zyVXWUsdXI6lrTLgP0ZjDR5rTVdQI6Z+PzDC+K8aSy0lXWwQaHy63/8AFFrGy+IuzdXBTyJGiu8+MKy1qbxumH+OgkaQ1sY5Z281yrqmVEL43+Hf4ImgbLhZnhMzXOXujqm/S6Kc3nIqiqqqdwla0xhoWJikeWNAcfEd1vLsWvLiDj+K+e1uqJ+poA6L1VkFo3ElfN6cNq5lDqGWN2w+67/nRwZy3/goa13hGyrwwYbv+JXPBhOULtUz9v8ABeO/EEuC65S+I+hXP2XxNc+XTnG+R3TvDLB7aR5DPCO+6yrrm4XZ0AfI9h31Okf7H+9YbZVsqbba3DLmN8/1XqdpWQ1LFkF1+OFW/gOvRN/hP2f9nIy5pBOPNHqT+0V0jWt09wMJHgNouFouXvd4Q47HPRUWzB+FWO5j8V1/xz4D6LJ+0TgNs2gDDTuf94C/Rd2u2k+tFKPHR+fkQvmreMr+zDS+cnHIlWVB+ItUXh1RG2TzxhdPuODvoufW2W8AlrsevopS25lUhzmvacxB9lqP+Pr6h+l2xPkj/wCyrK7jnKOQCx0H4l1se0rNvMLScXcZ09ZTvaT7STGwC3J7PwMn7hWSs7JH+ixsm6xdQ7+qfwWi2Xb+w0mvbWmvqpCE3M/8qj/FAfBJ0U+h2c4Wvh5r5NpBGDuqFXq7B/iruz1T43akLEQ6nk/LZA+cKq/aIwNgPqjutVU/+Eq8+zPAkqhfHn+yfiQuBo6H5q0MYWOS6GRHO4/VQc1o5Ad1Y+yn/u/VR0T/AO78/wDVFv0+aVTgOX5hUtRU+Fwxw/qFH+0Hyp0sc1rgPd9VHVIefmFU1DwMZa30GUf2cvQfRLVVpxsCnb0+a71DQSSN8q9/+kQkkdP9U1I2T+6+qUlNQQco28/moytOd1Wgp+0g5gnqI/qpCZ2PdfopxOn6t+SjKwgDB2R7rV3VG34qQjdgE5y3q3++pKP7NzjtKfir+EZaRlUFU47+iBJ1UcU2QNlOD/dP/wCgn6VnhLRyJwqyl/utH+6f8gpxk6SRyKFO6pVkMYLxMlUXvH6BWZqXkBuogeCqJ7iGd/iu03Fjdwc+a4Nptp6jnLVcJUBqJa4Bg6qdRVOe3YlB+sy/rhdYBBYnzkeSp6HWt8W9RJ26r4Z+M4zXTjvle1e8V/xV1+0Nla5rvC5vIrW7KLntcMhB6fJYto05Nk5FPcOQfvG+Y/BeeSx4btuRj1VHf+Bnx1PvMEZPNuQk6q+VNNVyU0o0ywkB4x/FZvb13p0y2LgNVltm0XVBiJCd4p4Sna2SW2xF8fNuNk/w9wtdqN0Mry2Rg2wD/FfQqDiGOqp2+33kA/IUKrq3N1M19RkLxa45C59m/FEOGNx/daH8Nv2WJr6ZobtgLMWKrdUPLWz6hwxsq6+17WvfJ1cfNJbCrR/G/d58F5uVZf6g3L2LW5h2n5pu9VjWU4Y2Sc4YR+8cXLDfv0g/OwANOPDnc/RMSTyNAGkc+qy+w7OaD31Mc/wq+lX+NUbTbnJ+gTC0klxH7d3O3v8A/DaVE+y/v5B/7V/8lUftz9m4Ow3bcK1YXujcXj3cD1Qm3nN1bZBHc/Nb4KYAYHuphnjy7p/kkm1UX9/PwafsmxXP6W2aAD/e/wD2hJ21E+UqDaRw3jlP0TMLdTyfzdFbx+8B6BINmY4+6Gn4pph6/JIdZVjJqA8h/JObKEGT8y+QRDNk/wAf8ESmoXyuw7A7lLU1ZTwtxE0fNMfOdU2k0ZBPNZQ8TvAcZHhx2wBhUVbdX1TnZ0gnoEn7qyXJrWlc36sPbFTI8s1tbg46r4WCQcNbglfdNWSQ+0cXHUTv6Lek5ydRx/M+G43jP1Z4jHu+5/RZpvvD1RhN+8b/APPJazWz+8b8lKNjP+aL5pHsd+nqTmV13y//AEn5q4iqBU6cO2wN1F8QA5xf6g/yVtYMSfkvJTaxwTT1IkZbFIHkfovP/qvaOyA5mGhzlmWQB4WZyrtRO6dJ71J0o3QjqLsALp1Bx0jySWzDTBunaCKpDmmVufIqPsdX5gPRcMJazcJ/+dVTk4lkLdDi/Jw9Ny/IrMwRkuGNlqmU+k7FIzw4dvkYKfZU7rVbVqUQQ1sMDM8C8sfPmqSUYBw4HyW2odTWjGCslVU7oyRzb6rpW8tbhniqbb3xAypb8AhzUZPHn8wP1QZG+I7M9UzM33uR9FlNt7aGzR2K54dwUvCsP8KjcPH+D6H+D/8AxL0v/TdX+sL49X8u+fMr9CfhPbjb7Q6SqaGzyOy7IOy/Pdd7zhy+64VsGtY2gwM4eZC8+ys1+2ZJVjTn3QOy4p4H86V3Q4ddQHwPyCTwXHJcGk47Fb6LyUq66Oz0Nq5AYP8AF4Vg2rjxh4kA/wByQqsrKd/LV80hVQujJw5zviujsvby+mNDPTVZ7fsY0n9x5HM8FR3a93Cne5lDLNCCf7Jxb9ENlfcqk/7ZxcDgAc11rXaaqoY11RI4Rt2OeadLqVKEMB3BXftvtB7jG/BjJ9TW30tN2S9xGDuPJZ6uvbuRnU7kOikLozWQ09VV1NdeaPTLPPqDsfqquztq2epuNdCMTfVLrC/j8VXOq5c7fJNR1A0M14+ahU11RE7LXuCj+2lmPf8AnKYFSqw08wnIKQBR9v7P5qD6ruUsySNjXZIKkK03FVQvFMmXVJClqQr+Eu/LyHQVPv8A1RDU4HO64vKXtrpvCo1v0QXVXf5ovfJ60g91Wb7A+6r/AOSBLUZH+S9nf/JM6A2cD6BezG33SD0yuOwMHB5YUgw/1UdwR3CkafVJQtjPrv8ARBDAMjkcZ8k2N2k8z0R4WZjOefl6pbK29Ua4jKyYqxGIiufQlP8AtI48tdjJ52VXQxPfS6Tc5S5j8YdGT9MJG/MdTW8RgOIfrJ9+39Uuy6CG2GEWnEr8q77t0SYnNaG+yy1V1lq6l4fJLI4klVFRJ7RmAc52wQZHPa8gf5VHVnJ4Pn1WmhT+HT0TF9qh7yXXp3cktO/0SMzubj3ytHTxtJDfeg6LO1URqqdsvLbcqzY2YA+ELb7J27XbbX93VpPyqTvZANXqc/opOi1YJ6e6puiLQWuIz5LoYRzbOPiFcQ+4qQqBZfgqPsYyTnBPZObaqVtOSQWt7bY9UzbhEADgAk8u69FRa1+vf5pXrA1sjZeRv/6Kno+Hqmo4bq6iOPpC9shJbjbKurvbpnCBzBl8Y1P0Y23OCuR2/wBJzaBkOvKjyKGpLswI+Hny03SrRvXC4m9AHmV7g26VVv4gp/2ZuSHZA7Y5r6RVtZuXNP0XxWlpnxVHtXN0gYaM917Z+2GE06uzw6YPkVfbNa1rS2tOv6Vr/wBlZ/VH/VeNLH/VX/VY/wDpap/vfgvftzh/aH0VXGKw1v5a3r4WEYfTjHTSDkJb2X94/wBVlYeKn6gfZf8ACtrHxjDI0aoDGfI5CXrVbtVtl36I03ZrTEwuiKY/5X/Sf5FafZa8KS7b0FKuR0D5JtlqZ/Wl/wAqmKGAHJlk/wAqd1NQZvNsErrJ8WmR+Yx34hVkMAb/AFUA/QJhrAGnHJEDS3kQjRRtLhh2D6qA1Z2cRbvKaLWcx8kvpHMEHupENc3l/qjtihJw0NKO2kY3+r+CLrPO0wdEq/YnhvJQU3N/Nj5L2k4yWn+ajJSgkEE4RAAA4HqnqVxbOE4bSOqENbv9R0TkLQcjkQjCENwToI8kxDbwBu/5LDW2xUKg7VMHv9lS19zCbYxfMDyMWnPXL0V9bXyiO5sDi0j8xBA9SuQ/tVNEHQ7n84CvH07QCOQ7hVk1ub9tqKh0uqKN7B+bc74hQp7eKe3SSB+Xy5/7rRabeaQZAJw5c0L2+3Wlxs1C1rQ38ufxTj4pHt3x6c11aWkxc+cOsKm/bD1j+qItjiHVMNf4QMdM/wAE1F+y6vdt37g/BcGwYPiPP0Ux0X/pH9FYxPYI9iAf6w+qi99L/Wb8j/BdGwW/bOvh9VDV0/p5fkUqNz0Vp3Zz+8/VEMzB+Y58/wD5L39Dw8wfj/8AJdAvfCcOzvj+iTcYvVDM0bSc4+KI6SBw1OjIK58Kl/Yf+L+S8bZB/Yb8ShtJyEQOqtZhY3v8lT1cMbz4nADzVoDEGkNbsCo1FsZNJma3kZuZI09ll22e0uP6fH7LLG1GD2T5KiMbdvF+Sp6r2YOA4flz3ytr/Rbf+nm+v+i6bLSn/pxfKE+1V5c4LI1DqcRDTKCfMH/VSEUZGWv+YwP4FaX9ji/syP8ASuGy0v8Ad/BcZ+w6P9v8VPXd+iqqaDc5d4XZ/RWcTGxRBu/kpC10v/Sb+i6LPTaYlg+RV1LdkNUF0o6+8e30QX8/gVxuQSASTzXC4gbpS/NLUWcz3nYdFOJzpWN7pyp9yIdYP0WVpqxsd2dJM4xxa2jyK3dJfaR0bXCRnhAHPusFse1UG1aYDTr3cnei0Oy6lQ1GhoLieQ5K5qSamQ+Y2ySNqtN+7D9fTZRkFHUH9zJ5YKiaMxGxTFSl+qj46eKLWHgnbxZP/FU1fxV7ZhDm+HHNZOoaXnMw1DPJApywHOdvJZ37IaG3u8pDqCKFR1vubS7Dxqx/wuMvVGY1aotc1vqcKn/p6DrhV9RctAGOSK7Z9k+HQh0aLlWmL2rnE/w2QZrmwZGXZGdiuuYx/Nv1SUjGhqqqaFKqPEPeC+hbL7TacuWZ/wBUtcLqxmxIPms5LUucCXAbbhLOjA3JJXoWsL3EEfkJ+izvoWlxe7IGS5lAR3RnuPJU873lhw8hG1jmuDTgHA8ll5GmOLWx7sAbEIZx+QE+vDyXN/p+hDoPu/5qj+0XXqhAzLh32n+K5lTFnzGSz+SqKi7VFSd1BtPM76pZHRbZIi32aPZRqWaW9M8lFobgj8wG+6rZa/VJ4QPAzj0J6rUUgG81wRB3BN2NpvaxsLvDknauVunGc9kqyo5uOU/UaWsaDuewXBfVq1TDWyea+0aQpsOgGVVTyHTkp0xb+5eTl2kEYcD6FScRnDTqI6LtnqJKqndI6rLIg4gt067q2yX+QXSswGuoaMSVY+RujQZ35dyoVFa9wmZjr2Xo6ivpaWNxtrnR6sscTnKz5q3y0N20SBhqB0JKtbKx7Yw+M91oYY5Jhqexxj/vGZOR5FVs95dJMRnc9Qpa34eJ/u5/d8V/mVgPG7T0GflhJyV2nJi+aAKg/eZ3RY69gdlzfQ/qv0Bs6pQFJoyb3d0XbXg17IA/K3Z7vPsvpO+KuXHs+vKvG1WTLJmeg+q1Fw45rbVE78UgMZ/2OeXkuW++0d+pneKOYN93PVRpaR81xdQVRa1od71zj0VfpRvS+bSRo3A4hd7tJh1I+K+cRNqA2d0AaA3HMjmUejqL5RBznUbzq0nIzjI/RLWbQqOa1sTAQc8/JN/daMQCX+XNayhFdqx++oHAd2ORz0d1rbnxKIIGHt6Jx9HVwMLzRPkH+5+oWSp32ydv7K01JJPujlwqHWS3mRoMhboiQIwB/wBCqjWqRgqXWipH6fJZyWquF8m1SOkmeR+ZxyB65wFp6SxwU0TNMgIY3d2r/JW1Dbq+4M/pGvLAz+5iHpus3dZamtkElvjDGMODIdm/Deqv+Ay1CYg5wOMJfj11s/kFZzUbnjdI19O+BxdhtRA9vsXt3wQsnHw5xDFI2WOOORuDj22PwKsoaKWQaajUJScGY+/1wPRGp6K7Wcuj0Pjx/wAsmPqnN/l7Hxo/NV6y7Rplv5YqtxEwcfJJ2+P/AEvC6POmA2PdaaiiijZ+0y+2qHfmOw/AclVGplmqz7EaAf6x6J2O3y6WmbIk/MeQT1P8LIAPBXUKLrY6XDJdPVaLhjhK6XCKPiC46omN1Npp9y1x2Li3kB2J5r6PZr8BJLU1TTE6Ua4S44A/jss3RUsr62GOItGTq36dPqmDa66KBhkiDvaCcAnwrbb0LGwKV4O/V5/ALP7Y2naqk/CGmh5DITGJBxyU6e30dxkdcbhW+ziaS2GBnvuHqeQ8lKjpbTdXPp6OuJlh8UlKXZc3HPI6q/4Yt3s4Kmuq3BsryWw+RI/zqK01qtm2vYu1KFItEYZEf/qqHbGzwx3u1Pdy0d48V9dp4HCSmmqaePw6cPp+Wf0KyNdYq+nj1z2+oaSdnNLuW27e3VbnUe36ow4OaMdT18lm79V1lLKG0cbnB34fXPxVj2UM30Y5R+iv2Ttv4VIWGqw4ZHQjNUMcDxUa3xu/dH8wA+CtLXamQSSzQPb7J/vN8lWXi4sliEMT2sfk5LeY+CG66VDSGOc1rw4BwIz/ABUoWcVqk1KuIGAy+SX43pKTQPMnJW+XWCWT8zbj+eQtTVw/+mB/d3/RRNpJPiawOQHb+9d+w3Buo++wn/qrdS30P93f9VRc/p7B/wC36qSxsYDi0gD+8mGQu/NjboB0XhhpOdR/9pLqV2T/ANs/+2/yRuuxMh+rn+io4aDU4HQD5gKwoqM5yM+iv6ejDSN3Fo3+JVmyjy/8jG/GE9Ew4BPW1hqDx/VXnDg1R6vwjutfb6bDvkszYaeTAAyP+6tHb6fC+K7T+JUqiAAtzVtrqRoQr+hp0eCLyU+R7JlsGAujHJDawOORyXFRTptGn/lLnuqveyEapx6v+i4aRvoq+uqGQiOKM6ntbtgnJ+a5Xz6ppIxk5J/RKv2va6KIe8lSWLvl3/VWo09Pdd/o/wAR/LHlqLhv9VQ1TGnO+PJI/wDqCb4SfzP/AOkqH71f32/9pVW0flj8s+Wm/p4A/Vfkn/2boo/q//VW1Lpb8v4qsopACMZWimjGjt+i8hti8GvYCfrN+OC+j2U99lvfB6JIUmJHd/kqS5VYopNPQkY8sLE1N3q/2mRgDGgt93rkFV1TV1D3aj+7xzcVopWbXpvZ+8w2l0j92/IJ+C7VEUDnRNy97tTu2O6qaZ8lUS+V5f5YAU/ai+naNY2kJJ7haWhga3T4gSAtL7JQdT7RuBx0SVTSQXe3/s7O0bho7gr5e61/ttwkrwS+R2SfIL7Q9vxWB/4jy8/IFYP+HaruDIwBkB6lcqOH70yZ7R4g0kKrqeHrpESDAwAfxC2P9n/Q+qafF8wrk7Rc7QjvAH/ilV8N1lJJqfGMDntutXBw4/8Afhv/AHk3W3qnpKCerhe0SwxOewk55bLKWy3XS4RRy8a1wfA7P9UkOGnnyTnYrjSeyubqLhwbtA/w4zghNbWqV2v+EajYPfnT5L6b+BU4/ZajAxqLfuuh4p7XO4A77r07YbgzQdhK0Z/guU+mqAc6T2PyXAqfBqqd0G15vYjHgfBc1O1a/wCd5hcNlc6pqP8A6p/JKT+MHYjy+qGX9lNrz/VK+87xf3VZTMPUOPkAupWyWLhyLkZ0fgaP7wW/ojnZcMQPz9P9V1tN5/RdhbyC69z+rj81O8/LqnGjkBzPJdWmP7oSLQNzsE8cYwB6rzWgd0RjWkDV4U+Fx3UTt/NU1ZFUT6YaOB0j3ZxjkOmSVaRRBjQ1o0gL3sHN8QO4TJY1zSThO1mcJhgFcw0AdGgk/BdY1ziS8k6T37pr2IblreZ3XjCOiqbS0KjuW/Nb1I3MKXsp+yk2kB3cf/KUtc7lI8ZcOq9iH+6R8P4p1toc4/vB8lRfNQnF7EYJJaAF+qP+G6UUqNTJjt5n/EL89wta1gBdy3K1n4Z2Vpro6iZmG048uy48Lke0FotFzFWfyaexK/RnFGxbj+5WGqMMnDcZ2O6+m8SwMI0u2O4XwuC6ys1lsL3FhJIJC/YG1KVV9kcG5ZryvHbEqWN1Yz8eo8eQ+S2tOy+9pSiRgDdXUtGD70bvg0n6KH9DjobVpvR+b/4q3C3XE+IvPkAj/sw/5WP3/NV1LT20TDZP6DyVbW0GhulrQfwjPwClZZ3NqW1NpcCwSNnaAfAQM6CfLZVkj/8AZVY/4n/1Wv2O70qmQjh6eakq2z9kz2k/mfqlKmBzDv8A7v8ApKs/hQ77h2/qo1FtNPE57qZ+sSFjW4/MD3Vz9jVD9lH66f4ovsp3dEjwfZC0eayvEH/m0/8Ad/0VRwPJ/T9I+sYD/R+sPjH/AHW7f8OqjLc+J5C1sNOkfK1z98LE0yqRVAdh+atvHr8ly/L/AADd/wAxJxB8+i/T1xFNBE5rWRt07L5L+O1xhe+Ghh8TW5z5L9CztZ/VH0XxD8Y6dlNxbHEANWvL8blf/pxj33UxjzC+m/3av2fKZpb2VnI55K64oTnBPRdXWNnE0xxbDC6qX8dR9V88gYDM5h/K7C/QVdT+Kq/usB/Efa+w3vg+0tr89V+i9n70DvReAtPaXeWt4eoLnQfKJ2mHXjsPJfJCzvd2KrrfbnnHhdjqBz+C3dNQ5gP6K5pLW0M++E7tO8ZBrpXA95Wtu7g6oZBs1gGvL9yF+iZj7r/+k/yXxp8bnA7aN+q/RdTGHsexw0uHMbgry/4uDp+W5uP/ANL6I06VPPYpa8cmfkVUvpo2/MhGZBGeTgVNrhzXAB2VdV7vAZOCG8+Y04iVCCNjv/8AghQ0kf8AsVYgbeaCY8e9j4rl7aQdgM+AQ0Quw8D5WDNRHSLi/wDmjh3i/kvkVVS4/K0/IfeafJU8Vu0kE4z5r6hVU7RnO3koS07BjbBPL/VTYp7MgQf5cUPpUfJfIhb4/wAwDsHJ+K+hV1BHuCBhYiuog043PwRprSfA1v6LN8CiwQB5Kh/CG+vhrbk3SPfb/wC2V9ZuNA2RxyM58l8Y4VtFdRXyKQ6GQD+73X2OguzNI/M3y6fdee/Edlc22X4yd/kvR/hS3ftFhfSfBp+S13sAeih7EdU0ZAePrheNp/qLBm2H5BX/ABA/+xt/+Mf9VRQ2t2N2n/qK0X7J/VTpbPsO0p+R/ipT2vLo4hRNqzP7k4gD96sfReOzt/VK+Sy+DgS6/+gv/tFUFVQOwRodjzaQsw+lqr3e309OxjqaAh0j3nYfHmut2QCInmk/wjtQa59J+A5YaL6BT1DS0ZIHwUtTf61WxYBpAx8Eap2d1X/KLRqdv+R+ir6+o0M1HOOHVZ05d1JPmjT0D3Y/9q8+inx0Eb2FhBaRzaQhMoYn+8Q7zkjZO0tE2M+8VZ1NjhLtRaN/NeJt1pmEYXDDQRhJ1dUJYiWk/wClqtbnNbtYyVYzW5jT+UE9ynp8D2a0bR/xZlkEBhYG+QBXBbKY/mgj/wBwHyWhfbm+AQJunYY2hrRgBKy1wgH7BEe0beSPb4Gxuw5rARzI2VvbqIDcFXNDag0akt+rkoFYnZqy/Fq1KkYuPy+S21FRBwySPRC/YmDqNk83BjHqjUZB2VlP4c5K9Ntp/l+X+qPHHy5ehVl7MtO34qMkYP5c+h/8ltbXS/EXmh+ZlUNfUxujOe6+ScQXQwW6R0UmKZwJDh+VxX0x7T3X5y/H26T0VVLSxOPsx+fzC2fhywufVbVrOEB7d95wVe3OYfLXWuoqKRgG0c8TsH+7IB+i+rfiv4b5HKBuP+kL4vw9emRR4JA28l+g/wASL0K667SvjMZOdo8ZW6/7LLZLb31gD+f8yvM1BuPqq6M5JPl91P0TDAcZ/wDBzso/sm+T+i7E6g60+cT80JtJ4V01M6Nge0Z2JHdXFtr5IhljnOIPVBLfEAtfRYhpmY+TSpf7baPLc/TZa5g1NGOYUyAMLkbsN2TQRhS2TSOKZpyX6fRLlm6dihLzkjDRz3KLQjVYaRozuQOq/PNhp2v+IUg36r9L1NvaMeI/9JXwB1vd/T8rYWu9qFpxO3D0Vf45WZRsxg95X134kw6rlS1Jb4XsI+a6eBbsbfxjBgANcHfNFm2dRr7V20NPP9V6Ku51j7I8bvxXvyKZaQ3OWjblgeC5LcJJXO1Sd/RXPGVta7hlzDHp/Z5sj1C+eMeDv+XG3grP6NVazC+TbQs4psHxX/3P8F+rbt1+i+AfitJq4lqRjb6L6g/ku+Db+rS01jy79vkuz0fT7x+S0V/QqNrRjJ6qQkGOi5J+VdIAWO24r2O5S+aF9rDdlFxJ6clc2a2yVT2lzXBoPMhbabZ8wA55KgZh1w9eXdU+rVw7n+3yU2vCkHgxO/7p+iur5wk+O0S1tNqkkjGQ0cyPgsGW4I/Cp7SvOvsUHEOJw5dF73HHTQ8lC4H91z/L+iGPIFEkPs74WV3LfBS/KfRXX4P1/sOJe2qyHd/BYVX3BNT/AE6h/wBkfRfP2JxqFUfEvZn9I2d1QO/qM8f/AG/0X0K41gZ4RzWblqNXvdPRQD8Ak71UZo3Nnmn+w0abTt4KuFuTCy6ovuaDdrrm6F/wLVu2H5lpI/CcKubcA4YynqaZjseCdv8A1FKbDVjK6Tp7Vt1QnZE/J/2r6TbqFjomuIzjC+w/hJcg+jeQQ0u/ivn9sg1PGV9N/CCmDaeMkYK+l1qjjbwCvi1QG7Q1Zr9kCMC0PaFKQZ7KIb16hO6cLJUf2JeNhsuaGqqUFQMlIljZdWysaeZ3CBVW0ODiMbqzomvLWgOPfK9uuwZoU2X5Ocz/ACWjZNo+DWc8NZbOeWvdVscZB5Jt8TiXK6xobzPXsr2CmIfndJtrGZSr2y2p1vJBVzwtUYu+OjutdT2J7o2yeJYa6WGV9dUOj6c1ooDo7WOFvB9cP2SJruiy3/iDXh2iqRHNfS/wsM4sgp5/dc7l/wBSyL+KOMraQy13ymkjYOQBSQ3FP+Cv/wDKWn/kv/u1c12Ud4FqmxPdD+Rse+yD0v8AR+i+afj3dBQ8OuoA7NRU+Hb+6vhNBRUzM6a1z/7hX0f/AIjLpJU3enoJSNUBc5zPLr91xz+GNq1tqVK0DugdZ+YXX2jSoiizE1O9xyzzK9Lbxf8AY0rh/wDaEKw8OVl1qxBbaeRxd08lkqy28QTRtH7DJjP54wtvUuBY0jsF+gLNs+jY/hkxj3j+qT2dtG0VrWG1sP7x+5QmpwfJdD0BzQ3dc1LN7OpzqVgDgsvcuKbJTT6JbhTxv7GQBUXEdfa5bI+OzTQywzDwSMJJz2JXy+upWwVErY3HMZI92vBbJoOojQdV9F2n+IrzIFX1P+F/FtN+yz0xqGmCd+rT5r0zLFAORCg+kiOwas7/AMDn/wBsP/s1dHC8x6M/yvVv/B7P91uT6FV32S5fiVbj+mZgDl2uv0Wq/wDYL/75Ly/k3SPBh/qG/S/nqv0dW8Fx/szqr/vvFY+78MVpq8MxlS8DH/V3/wC8LJX6u2M87WZVI/FVxH7uLPkv0NdPwkl/pgO9m4+3z1Gn9VzSbVvdpnv7m5fNKXAF1qgNJp/IhdFvuNJGnVHI1w78lZUMEfJ88H+8F+lqz8GLg8Vf5AdW/wDVY2s/AVzz/Rs3hn2R7S2u5fN/hvtuvp0bHW66Q/1SszdaBshLgvtUfBg/8xb/AJgvk3FPAksVbNKxr2wS+IgZwF9J2daKVqo36Y1+qQ2jtqjRrspVZw5ZZcVhG07uhCNFDkeBXh2M80VrGAdFRqsl+lI1wjJCE6kHRXT47f0UXMI6ItRx1UHE7xqUjNRjsCm9YP5VF4J6/JHuimTqVfJGQ3PVM0LnQuy0ZOPR3hHh8l1gB5p66uY01GWguacEAY8WAsF/xHxaW5O0xt9F87OHv2jj2qjLwPaCXQT+70X1r8eJJabh9lTGxr2Mdy6A5/ivyyw4W4/Hqt8eGX3mCkK1PGrLe9gC1NG4OhBwuNGH/JC7nkQQs1I6S4+MFW2UJHgq9jmP2QavUIzusfx+YX/05Vt2ETvuslN+KnE8MDIIqgujaABuFfbNo067b/LfzCb2qBQcafPy3L7RbbiFvyFMSPxzXxCX8TL/AHGDQZwwt+uV8f4w4hu1XcXBtfUNZ/dlIA+S+h2Hw0zWvPM5XhvxVs9J9VtSDUZw4e6fNT2dWfTZg5JqWbuqOt5+RVjT0zjzC7OzLOy0kErCX5Ks07ILGjzUxG4nwqTYp3dFMgqg5M1UofCc9FFgc9w8vVStlM1rAcdla6WNAVr9lqgtzZ5PqLLdRr9oRgFpWN4m4+FopJaWh/22q5hrMF38OqOxWG/Ei/8AtZHU0bvC08wr21uFGy/NnBFnfsO1Vu0o6fef0V1d+PIy/QJnN7uWf7dFzh7jm2OpGxzyx4Bzg4/slesm0a9dxJuM5nTovNM2jY7L8Fuo45yB0K/NWyP+l26p7nw4/wCSu+HauOeRkjC1ze4KvYpGlpVPw3cG01T4S3J2/wAhK0rbhG8eOxO/7Rvf0VbrNt8aRJd/dKu+/T2fD/t/+VL9taOqRFd/dK/PjZAW7YI+CWFYB+lPf0BX/wC2f+1FZ8S/m/DU++fyD5X1/cOqA+raOqz//wAZV3/Aof8AtQqKq7f1U7dD0WH/AOO6/wD+5E+cL6VxgwHhquySPY5Wf/Fj/wC7Q/7SveM/+XLP/wDM/wCzXF/FL/7lP+74/wDSV9r2T8N9f/SvNax1y+SN8HNQmJaO6B8Wr9M+FTD/ANVycr71uWyOt2yzTaMw2F+d9tO+/wCKpT17fUfkvmE3BFc+qdJC9u2cLK3L8LbpPOamqkyXHP0X2J7S15afzDC66IuzgV97sbNdrrW4+FrYf7S+O7a2WbfUhT/Q3+Qj0X0+/wD4UU+P2aiB1HH0XzP9j4lo7u+CqYXRj6r9H1EJ3B3HMOCjHAN9BH/dCwe3f+H6lK0Moi82tNd+C/K0tpqI29V2kjc1wJlPyX6Pm4Xoo6h0lLPJFL+k49VL9kXcNvf5hcmpsPadL/8Ab+i/NltqnRVTXNc+Pzb+i9c7iXe0c9ryTz2X6KvfCtXbqWWdswlfF/R/sXzGo4DvdTKKk1Bmkb+8Tz+9R9DaNq/+Y1uAfPV3/wBKQ2lZv7VU/NebF+c31r4zqDyD1BXqWWmrWuipayRz2cg3mva/w2uPx+y1s/6jn4VujxHk5/Ni+tLFjcJLvfKJ8E0cbGuq2e4wj80n4F7y0+E8/VdXYtrrVXuYWO1HHD0Pp+k/JfoipDXdliuJeG7dRVDq6loooqt+M1EbGh0p/vOA3Kw3Cf8AxAU9MaW38SQthvNvdjSevmF+guF+K+Cby8yWu7GSmfnXS18Rc6llaevk9yQpLxfXXNLX32azcvzVdeGKKrlbVSvMVQ13teGVUbO0sdZm9a16wH+a+7Wfi31O8E/JP5qiuXBF6plUOu/CzpKCnmMdRURRasE7axjllaIX68W82n/2Fvrv/UcD/wDmC82jxHXNFzb+zy+S+70v4icK3U0FBf7Z7Gaq01e7v/b9F+F/w+oqSs4rjZdJvZUzQXvc7onX1Fa221BvfCvt6Tb7Njd+8J57F7R2fRt/7g4T1y6Kw4v4auVl45vTaiilip5JMhzW4wqy0cU1lNO1zn5A/hv2XTbXsd+sWvGPcb4uNh2u66+LUGkNHRa+u45t76FlOwBxaNndx5+fwXzLiy3Xev4hlr7VQSyU0zujaXfvfVejDQPqzXcY0HJn1KzUv+NfZvsXY+S/Sd/4DkoqV9d7COphaPGCw5V/wLeRBYRUSQuOp2/P9V+d/wAReLr/AHniWF9NQvdAYw3D258l+i/xPrXU/CMcdO1mXdXfwC8hslvs1SouNfQKh4u4oqaS6sog2KppZXAFrmZ5r5/+O1EGOprG1oAqG6i0dh5pzjqtrK6R0d1d7LVv7pGPxVrUUj7pXmV1PpFW4tOdmiN+Xdc+2GqBVwjI9PxX6I4Av8ktrBomtMtKA44H5ltvw3n1cGmAuOaUjC+CcJ38Wm5h9PI+mmqHBvIcvPsvtXDtztt00TWyu0gN5h2COyp2nSu1BS4z4LkbToWhmMn3eY10TM0M+h2G6T0Cx3FN5q7rxBJdIWyMpqeQ6SBz0/1Wr4lvrLZw/c6xzyPY076WE/mL9sL4E1/slkkkqC6pmdo05+aF+B0NaWVKoMQRH/SufV+7aG1mD8wgZyeWCqIpJ5JNMbmDHM8v1X6AsDf/AHKz/pBfnymxLKwHlknyX6LuTmx22WL8gYCAVDd8LVA1DpXxuY3O7j/P+C1XC2m22Sqj/dvkxjHdb79mH4b29u/1K+0gEYA5DHwXx/i7iptu4rqaJ4OPE0u/uhfF5b9HJcm30skWlvV7Tt+qZ+z3vdQ2ql8s+jvzWP8ADWJlK0kZJOP+S+0Vl9pqm71JgkaKYDSwnsFh/wAEb2+0XWshlcPDhz2+R/gvp1TwoItQglGfL+S18qdVu0Aqv/mZw3gZ6KMU7oH+IZ9VdcN329R1tPLVXeqmhJw+On/LG3v5Bc4s4Rm4nnpah1dHC6EOa7wbjI35qHDFF/7Q0Lf3xjdny/RK3NzKwvtDgZH8+K01KlPb1N1GmfhG53cvPNHm4Jnkdy7fNeC/Q39EzPAaZwD8l1lwp2x6myAY5rNT2VcKkV6j7H9Qvz7w5cbrQ1boqO6VET5Bt7PG3kvpH4P8H8W2biN0V/ukkVGWnT7Q+Ivx8F+hY7JTlgOg7pqGnawYa3H0Xvv+HqFUu+K8g55fLku72u2gzuCDrK5RmZ04ijjfJ5MG6yt1rK+kvzBU2p9TQV8TaWt27fqvpP7PRubohfI31b/sldY6HNUt3BbfvZr9AcU8N8CUvDNSzhh9S+rpYTIRrLo6hr8ZB5bn+S/LFT/W/wC8u/VfsHjLhWs/+kx8O/tBj9uSP29u/LT/AMF+ROK+F62w3SehuTNM8Z0kHr2Pfkvff8P3W1trD+XiI+a8j+KLLUpvY9whtQQYk5ag/wByqHDA2BXd/imyRhcGx6u/LkAf1X7VubJad7YqowvkbqjOPxL8AWZ+mZjgXN+YTLcqLmSQmr8A6pGu5T4r9PNBF0kd0qo/5V+mqaPTLGTyvZ+i/MTa5rRpxhdG43/1L9G7Dp0TbpAk+x81I2taLbT+HA0VdN+YOWJukZrq2SCd0jIwTrkacd+SzUVzpKWuNZA9+Y2uDfZuy1xdsM+Wc/ReZ21WdUDmu/KyEBbNhsbWtgpjGRSI1rQ0O2+i+icSfi9a+F7ZJLJd6eok02jy2xhfN7Zf2V9K2SWUNePzaX6vov0xR2aAQmCKNpmrR+8jDeTQP0aF/Ct1+LUb/E/qr6FPutvHH7dV8qb+P1hrrgKCklmc4+4HRdP7yvpX4YW3/wBv2h11rKCOWuL/AAUTt3xj/KV8a4lrG+zm3JiaT/Bf0z+En4WxcHWb9vu1NHLcZ2+OQDBjj8vJK/YI/LfaPn9F6P8AEe0X0bPTtrMW7ufDqvj37bVMlnpHcyTKxZ6upTU87HRtcHOIyuc/iV0aQBheUr8Vcf3aaCKsn1RkDHxXAy+Vdh1VDjJZGSPkv09wZ+F73Xa8MtTF07yuhxOL+sKltsdjP/lFfo2K1cUi2Ug/Z88v6pX2o1Bjt7S+ik12e7Wz/kP0Uj8l8bpL1caJ5dBWSlx3y4rRW7iKv1OfNPJI7uc7r8vcUXW5UPE9XS0dRLHBG7AC/Xnu8EqHKTI99P8AaQP0X55+xG1/0PW/Lmf0Un7S2v8A+2f/AGF+i5Rp2A/BcEjnDd2yzk/7G4Tm0rfMfqvzDHc7iYGM9s7S0AY8lyKpqIYhG2Rw0/hX6PhmjJOZWfCZF73fB//Z" alt="Woman jumping into new world" style="max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
+    </div>
+</div>
+
+<!-- SLIDE 9: Section - Strategic Layer -->
+<div class="slide dark-slide">
+    <div class="slide-number">09</div>
+    <p class="section-marker">THE STRATEGIC LAYER</p>
+    <h2>Choosing the Right AI<br>for the Right Job</h2>
+</div>
+
+<!-- SLIDE 10: The Problem -->
+<div class="slide light-slide">
+    <div class="slide-number">10</div>
+    <h2 style="color: #000;">Not all AI tools<br>are created equal</h2>
+    <p class="subtitle" style="color: #666;">Different phases need different tools</p>
+</div>
+
+<!-- SLIDE 11: Two Phase Framework -->
+<div class="slide dark-slide">
+    <div class="slide-number">11</div>
+    <div class="two-col">
+        <div>
+            <div class="col-title mv-gradient-text">Phase 1</div>
+            <div class="col-text">Ideation<br>& Strategy</div>
+        </div>
+        <div>
+            <div class="col-title mv-gradient-text">Phase 2</div>
+            <div class="col-text">Execution<br>& Building</div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 12: ChatGPT - The Visionary -->
+<div class="slide dark-slide">
+    <div class="slide-number">12</div>
+    <h2>ChatGPT</h2>
+    <p class="subtitle">The Visionary Mind</p>
+    <ul class="simple-list">
+        <li>User psychology & emotions</li>
+        <li>Cultural nuances</li>
+        <li>Metaphors & storytelling</li>
+        <li>User transformation vision</li>
+    </ul>
+</div>
+
+<!-- SLIDE 13: Claude - The Builder -->
+<div class="slide dark-slide">
+    <div class="slide-number">13</div>
+    <h2>Claude Code / Lovable</h2>
+    <p class="subtitle">The Builder Mind</p>
+    <ul class="simple-list">
+        <li>Structure, logic & flow</li>
+        <li>Live prototypes & mockups</li>
+        <li>Data models & architecture</li>
+        <li>Production-ready code</li>
+    </ul>
+</div>
+
+<!-- SLIDE 14: The AI-Vibe Loop -->
+<div class="slide dark-slide">
+    <div class="slide-number">14</div>
+    <h2>The AI-Vibe Loop</h2>
+    <p class="subtitle">An iterative dance</p>
+    <div class="steps">
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-title">Vision</div>
+            <div class="step-desc">ChatGPT defines<br>transformation</div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-title">Feature</div>
+            <div class="step-desc">Claude builds<br>the prototype</div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-title">Test</div>
+            <div class="step-desc">ChatGPT simulates<br>user reactions</div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 15: The 5-Step Development Loop -->
+<div class="slide dark-slide">
+    <div class="slide-number">15</div>
+    <h3>The Complete Loop</h3>
+    <ul class="simple-list">
+        <li>1. Prompt Ideation (ChatGPT)</li>
+        <li>2. Rapid Mockup (Claude)</li>
+        <li>3. Emotional Test (ChatGPT)</li>
+        <li>4. Data Model (Claude)</li>
+        <li>5. Feedback Integration (ChatGPT)</li>
+    </ul>
+</div>
+
+<!-- SLIDE 15B: Keeping AI Human -->
+<div class="slide light-slide">
+    <div class="slide-number">16</div>
+    <h2 style="color: #000;">But what about the soul?</h2>
+    <p class="quote" style="color: #333; font-size: 52px;">
+        "AI shouldn't replace your voice.<br>
+        It should amplify it."
+    </p>
+</div>
+
+<!-- SLIDE 16: Real Example -->
+<div class="slide mv-purple">
+    <div class="slide-number">17</div>
+    <h2>Let me show you</h2>
+    <p class="subtitle">A real platform built this way</p>
+</div>
+
+<!-- SLIDE 17: Demo Introduction -->
+<div class="slide dark-slide">
+    <div class="slide-number">18</div>
+    <p class="section-marker">LIVE DEMO</p>
+    <h2>Mindvalley Peers</h2>
+    <p class="subtitle">Student Connections & Entrepreneurship Mastery</p>
+</div>
+
+<!-- SLIDE 18: What is Mindvalley Peers -->
+<div class="slide dark-slide">
+    <div class="slide-number">19</div>
+    <h2>What is it?</h2>
+    <div class="demo-box">
+        <div class="demo-text">
+            A platform connecting Mindvalley students<br>
+            for collaboration, partnerships,<br>
+            and entrepreneurial growth
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 18: The Problem It Solves -->
+<div class="slide light-slide">
+    <div class="slide-number">20</div>
+    <h2 style="color: #000;">The Problem</h2>
+    <p class="quote" style="color: #333;">
+        "I know there are amazing entrepreneurs<br>
+        in Mindvalley, but I can't find them"
+    </p>
+</div>
+
+<!-- SLIDE 19: Key Features -->
+<div class="slide dark-slide">
+    <div class="slide-number">20</div>
+    <h2>Key Features</h2>
+    <ul class="simple-list">
+        <li>Profile discovery</li>
+        <li>Skills & interests matching</li>
+        <li>Project collaboration</li>
+        <li>Direct messaging</li>
+    </ul>
+</div>
+
+<!-- SLIDE 20: Demo Transition -->
+<div class="slide mv-purple">
+    <div class="slide-number">21</div>
+    <h1>DEMO TIME</h1>
+    <p class="subtitle">Watch what's possible</p>
+</div>
+
+<!-- SLIDE 21: After Demo -->
+<div class="slide dark-slide">
+    <div class="slide-number">22</div>
+    <h2>Built in 3 days</h2>
+    <p class="subtitle">Using the exact process<br>we're teaching today</p>
+</div>
+
+<!-- SLIDE 23: Workshop Section -->
+<div class="slide mv-purple">
+    <div class="slide-number">23</div>
+    <p class="section-marker">HANDS-ON WORKSHOP</p>
+    <h1>Let's Build<br>Together</h1>
+</div>
+
+<!-- SLIDE 25: What You Want to Build -->
+<div class="slide dark-slide">
+    <div class="slide-number">26</div>
+    <h2>What you want to build today</h2>
+    <ul class="simple-list">
+        <li>Landing pages & funnels</li>
+        <li>CRM & database integrations</li>
+        <li>Quizzes & lead magnets</li>
+        <li>Apps & custom tools</li>
+    </ul>
+</div>
+
+<!-- SLIDE 26: Workshop 1 Title -->
+<div class="slide dark-slide">
+    <div class="slide-number">27</div>
+    <p class="section-marker">WORKSHOP 1</p>
+    <h2>Building an Application</h2>
+    <p class="subtitle">From idea to working prototype</p>
+</div>
+
+<!-- SLIDE 27: The Process -->
+<div class="slide dark-slide">
+    <div class="slide-number">28</div>
+    <h3>What we'll do together</h3>
+    <div class="steps">
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-title">Clarify</div>
+            <div class="step-desc">What problem<br>are we solving?</div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-title">Ideate</div>
+            <div class="step-desc">ChatGPT helps<br>explore solutions</div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-title">Build</div>
+            <div class="step-desc">Claude creates<br>the prototype</div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 28: Workshop 1 Live Coding -->
+<div class="slide mv-purple">
+    <div class="slide-number">29</div>
+    <h1>LIVE<br>CODING</h1>
+</div>
+
+<!-- SLIDE 29: Workshop 2 Title -->
+<div class="slide dark-slide">
+    <div class="slide-number">30</div>
+    <p class="section-marker">WORKSHOP 2</p>
+    <h2>Marketing Problem Solving</h2>
+    <p class="subtitle">Using AI to create marketing assets</p>
+</div>
+
+<!-- SLIDE 30: Marketing Use Cases -->
+<div class="slide dark-slide">
+    <div class="slide-number">31</div>
+    <h3>What AI can create</h3>
+    <ul class="simple-list">
+        <li>Landing pages that convert</li>
+        <li>Email sequences</li>
+        <li>Lead magnets</li>
+        <li>Sales funnels</li>
+    </ul>
+</div>
+
+<!-- SLIDE 31: Workshop 2 Live Demo -->
+<div class="slide mv-purple">
+    <div class="slide-number">32</div>
+    <h1>LIVE<br>DEMO</h1>
+</div>
+
+<!-- SLIDE 32: Key Insights -->
+<div class="slide dark-slide">
+    <div class="slide-number">33</div>
+    <p class="section-marker">KEY INSIGHTS</p>
+    <h2>What You Learned Today</h2>
+</div>
+
+<!-- SLIDE 33: Insight 1 -->
+<div class="slide light-slide">
+    <div class="slide-number">34</div>
+    <h2 style="color: #000;">Different tools<br>for different phases</h2>
+    <p class="subtitle" style="color: #666;">Strategy vs. Execution</p>
+</div>
+
+<!-- SLIDE 34: Insight 2 -->
+<div class="slide dark-slide">
+    <div class="slide-number">35</div>
+    <h2>Speed comes from<br>the right workflow</h2>
+    <p class="subtitle">Not just the right tools</p>
+</div>
+
+<!-- SLIDE 35: Insight 3 -->
+<div class="slide light-slide">
+    <div class="slide-number">36</div>
+    <h2 style="color: #000;">Real businesses<br>are being built<br>this way</h2>
+    <p class="subtitle" style="color: #666;">Today, not tomorrow</p>
+</div>
+
+<!-- SLIDE 36: Your Turn -->
+<div class="slide mv-purple">
+    <div class="slide-number">37</div>
+    <h2>Your Turn</h2>
+    <p class="subtitle">What will you build next?</p>
+</div>
+
+<!-- SLIDE 37: Remember -->
+<div class="slide dark-slide">
+    <div class="slide-number">38</div>
+    <p class="quote">
+        "The best way to predict the future<br>
+        is to build it"
+    </p>
+    <p class="subtitle" style="margin-top: 60px;">— You, starting today</p>
+</div>
+
+<!-- SLIDE 38: Action Steps -->
+<div class="slide dark-slide">
+    <div class="slide-number">39</div>
+    <h2>This Week</h2>
+    <ul class="simple-list">
+        <li>Pick one idea</li>
+        <li>Use ChatGPT to refine it</li>
+        <li>Use Claude to build it</li>
+        <li>Share it with the community</li>
+    </ul>
+</div>
+
+<!-- SLIDE 39: Community -->
+<div class="slide dark-slide">
+    <div class="slide-number">40</div>
+    <h2>You're Not Alone</h2>
+    <p class="subtitle">Join #VibeCoding</p>
+    <div class="highlight">
+        <div class="demo-text">
+            Share your builds<br>
+            Get feedback<br>
+            Help others<br>
+            Grow together
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 40: The Invitation -->
+<div class="slide mv-purple">
+    <div class="slide-number">41</div>
+    <h2>Three months from now...</h2>
+    <p class="quote" style="font-size: 56px; margin-top: 60px;">
+        You'll either be someone who<br>
+        "attended that AI class once"<br><br>
+        Or someone who built three apps,<br>
+        launched a business,<br>
+        and changed their life
+    </p>
+</div>
+
+<!-- SLIDE 41: The Choice -->
+<div class="slide dark-slide">
+    <div class="slide-number">42</div>
+    <h1 style="font-size: 100px; margin-bottom: 80px;">The choice is yours</h1>
+    <p class="subtitle" style="font-size: 48px;">Start building today</p>
+</div>
+
+<!-- SLIDE 42: Thank You -->
+<div class="slide mv-purple">
+    <div class="slide-number">43</div>
+    <h1>Thank You</h1>
+    <p class="subtitle">Now go build something amazing</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mindvalley Official Components - Navbar, Footer, Buttons, Badges</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       MINDVALLEY DESIGN TOKENS - MASTERY THEME
+       ============================================ */
+    :root {
+      /* Mastery Colors */
+      --mastery-950: #061e27;
+      --mastery-900: #09262f;
+      --mastery-850: #0b2d38;
+      --mastery-800: #0d3542;
+      --mastery-700: #134554;
+      --mastery-600: #1a5466;
+      --mastery-500: #206478;
+      --mastery-400: #dafd71;
+      --mastery-300: #e4fd9c;
+      --mastery-200: #eefec7;
+      --mastery-100: #f5fee1;
+
+      /* Cool Grey */
+      --cool-grey-700: #0f131a;
+      --cool-grey-650: #181d26;
+      --cool-grey-600: #222831;
+      --cool-grey-500: #404856;
+
+      /* Surface Colors */
+      --surface-white: #ffffff;
+      --surface-fog: #ebf2f1;
+      --surface-mist: #c3d9d5;
+
+      /* Typography */
+      --font-grotesk: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+      /* Spacing */
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 0.75rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      --spacing-2xl: 3rem;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+      --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.2);
+
+      /* Transitions */
+      --transition-base: all 0.2s ease;
+      --transition-slow: all 0.3s ease;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-grotesk);
+      background: #f5f5f5;
+      padding: 2rem;
+    }
+
+    .preview-section {
+      background: white;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .preview-section h2 {
+      margin-top: 0;
+      color: var(--cool-grey-700);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .preview-section p {
+      color: var(--cool-grey-500);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .code-block {
+      background: var(--cool-grey-700);
+      color: var(--mastery-400);
+      padding: 1.5rem;
+      border-radius: 8px;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.875rem;
+      overflow-x: auto;
+      margin-top: 2rem;
+    }
+
+    /* ============================================
+       COMPONENT 1: NAVBAR - MASTERY THEME
+       ============================================ */
+    .mv-navbar {
+      background: var(--mastery-950);
+      position: relative;
+      z-index: 100;
+    }
+
+    .mv-navbar__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .mv-navbar__content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+    }
+
+    .mv-navbar__logo-link {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .mv-navbar__logo {
+      height: 24px;
+      width: auto;
+    }
+
+    .mv-navbar__menu-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-base);
+    }
+
+    .mv-navbar__menu-button:hover {
+      opacity: 0.8;
+    }
+
+    .mv-navbar__menu-icon {
+      width: 24px;
+      height: 24px;
+      stroke: white;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    /* ============================================
+       COMPONENT 2: FOOTER - MINIMAL
+       ============================================ */
+    .mv-footer {
+      background: var(--mastery-950);
+      color: rgba(255, 255, 255, 0.8);
+      padding: 2rem 1rem;
+    }
+
+    .mv-footer__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .mv-footer__logo {
+      height: 32px;
+      width: auto;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+
+    .mv-footer__links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      list-style: none;
+      padding: 0;
+    }
+
+    .mv-footer__link {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: var(--transition-base);
+    }
+
+    .mv-footer__link:hover {
+      color: var(--mastery-400);
+    }
+
+    .mv-footer__copyright {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0;
+    }
+
+    .mv-footer__divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 1.5rem 0;
+      border: none;
+    }
+
+    /* ============================================
+       COMPONENT 3: BUTTON SYSTEM
+       ============================================ */
+    .base-button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      font-family: var(--font-grotesk);
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: var(--transition-base);
+      border: none;
+      line-height: 1.5;
+    }
+
+    /* Primary Mastery Button */
+    .mv-btn--mastery {
+      background-color: var(--mastery-400);
+      color: var(--mastery-850);
+    }
+
+    .mv-btn--mastery:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .mv-btn--mastery:active {
+      transform: translateY(0);
+    }
+
+    /* Small Variant */
+    .mv-btn--mastery--small {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      min-width: fit-content;
+    }
+
+    /* Secondary White Button */
+    .mv-btn--mastery-white {
+      background-color: var(--surface-white);
+      color: var(--mastery-850);
+      border: 2px solid var(--mastery-400);
+    }
+
+    .mv-btn--mastery-white:hover {
+      background-color: var(--mastery-400);
+      transform: translateY(-1px);
+    }
+
+    /* Outline Mastery Button */
+    .mv-btn--mastery-secondary {
+      background-color: transparent;
+      color: var(--mastery-400);
+      border: 2px solid var(--mastery-400);
+    }
+
+    .mv-btn--mastery-secondary:hover {
+      background-color: var(--mastery-400);
+      color: var(--mastery-850);
+      transform: translateY(-1px);
+    }
+
+    /* White Button (for dark backgrounds) */
+    .mv-btn--white {
+      background-color: var(--surface-white);
+      color: var(--cool-grey-700);
+    }
+
+    .mv-btn--white:hover {
+      background-color: var(--surface-fog);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Dark Button */
+    .mv-btn--dark {
+      background-color: var(--mastery-950);
+      color: var(--surface-white);
+    }
+
+    .mv-btn--dark:hover {
+      background-color: var(--mastery-900);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* ============================================
+       COMPONENT 4: BADGES / TAGS
+       ============================================ */
+    .mv-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Mastery Badge (Lime Green) */
+    .mv-badge--mastery {
+      background-color: var(--mastery-400);
+      color: var(--mastery-850);
+    }
+
+    /* Dark Badge */
+    .mv-badge--dark {
+      background-color: var(--mastery-950);
+      color: var(--mastery-400);
+    }
+
+    /* White Badge (for dark backgrounds) */
+    .mv-badge--white {
+      background-color: var(--surface-white);
+      color: var(--mastery-850);
+    }
+
+    /* Outline Badge */
+    .mv-badge--outline {
+      background-color: transparent;
+      color: var(--mastery-400);
+      border: 1px solid var(--mastery-400);
+    }
+
+    /* Floating Badge (for cards/images) */
+    .mv-badge--floating {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Medium Size */
+    .mv-badge--md {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    /* Large Size */
+    .mv-badge--lg {
+      padding: 0.625rem 1.25rem;
+      font-size: 1rem;
+    }
+
+    /* Preview Grid */
+    .preview-grid {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .dark-bg {
+      background: var(--mastery-950);
+      padding: 2rem;
+      border-radius: 8px;
+    }
+
+    .badge-showcase {
+      position: relative;
+      background: linear-gradient(135deg, #f8f5ff 0%, #fff5e6 100%);
+      height: 200px;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<h1 style="text-align: center; color: var(--mastery-950); margin-bottom: 3rem;">Mindvalley Official Components</h1>
+
+<!-- ============================================
+     COMPONENT 1: NAVBAR
+     ============================================ -->
+<div class="preview-section">
+  <h2>Component 1: Navbar - Mastery Theme</h2>
+  <p><strong>Usage:</strong> Main navigation header for Mindvalley Academy pages. Dark mastery background with logo and menu.</p>
+
+  <nav class="mv-navbar">
+    <div class="mv-navbar__container">
+      <div class="mv-navbar__content">
+        <a href="/" class="mv-navbar__logo-link">
+          <img src="https://res.cloudinary.com/dhjte1wpy/image/upload/v1733971547/mindvalley-logo-white_ek2qm8.svg"
+               alt="Mindvalley Academy"
+               class="mv-navbar__logo">
+        </a>
+        <button class="mv-navbar__menu-button" aria-label="Toggle menu">
+          <svg class="mv-navbar__menu-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="code-block">
+&lt;!-- HTML --&gt;
+&lt;nav class="mv-navbar"&gt;
+  &lt;div class="mv-navbar__container"&gt;
+    &lt;div class="mv-navbar__content"&gt;
+      &lt;a href="/" class="mv-navbar__logo-link"&gt;
+        &lt;img src="logo.svg" alt="Mindvalley" class="mv-navbar__logo"&gt;
+      &lt;/a&gt;
+      &lt;button class="mv-navbar__menu-button"&gt;
+        &lt;svg class="mv-navbar__menu-icon"&gt;...&lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;
+
+/* CSS */
+.mv-navbar {
+  background: var(--mastery-950);
+  position: relative;
+  z-index: 100;
+}
+.mv-navbar__logo { height: 24px; }
+  </div>
+</div>
+
+<!-- ============================================
+     COMPONENT 2: FOOTER
+     ============================================ -->
+<div class="preview-section">
+  <h2>Component 2: Footer - Minimal</h2>
+  <p><strong>Usage:</strong> Simple footer with logo, links, and copyright. Works on all Mindvalley pages.</p>
+
+  <footer class="mv-footer">
+    <div class="mv-footer__container">
+      <img src="https://res.cloudinary.com/dhjte1wpy/image/upload/v1733971547/mindvalley-logo-white_ek2qm8.svg"
+           alt="Mindvalley"
+           class="mv-footer__logo">
+
+      <ul class="mv-footer__links">
+        <li><a href="/about" class="mv-footer__link">About</a></li>
+        <li><a href="/programs" class="mv-footer__link">Programs</a></li>
+        <li><a href="/teachers" class="mv-footer__link">Teachers</a></li>
+        <li><a href="/blog" class="mv-footer__link">Blog</a></li>
+        <li><a href="/contact" class="mv-footer__link">Contact</a></li>
+      </ul>
+
+      <hr class="mv-footer__divider">
+
+      <p class="mv-footer__copyright">
+        © 2025 Mindvalley Academy. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <div class="code-block">
+&lt;!-- HTML --&gt;
+&lt;footer class="mv-footer"&gt;
+  &lt;div class="mv-footer__container"&gt;
+    &lt;img src="logo.svg" class="mv-footer__logo"&gt;
+    &lt;ul class="mv-footer__links"&gt;
+      &lt;li&gt;&lt;a href="/about"&gt;About&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="/programs"&gt;Programs&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p class="mv-footer__copyright"&gt;© 2025 Mindvalley&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;
+
+/* CSS */
+.mv-footer {
+  background: var(--mastery-950);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 2rem 1rem;
+}
+  </div>
+</div>
+
+<!-- ============================================
+     COMPONENT 3: BUTTON SYSTEM
+     ============================================ -->
+<div class="preview-section">
+  <h2>Component 3: Button System - All Variants</h2>
+  <p><strong>Usage:</strong> Complete button system with Mindvalley mastery colors. All buttons include hover states and transitions.</p>
+
+  <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Primary Buttons (Light Background)</h3>
+  <div class="button-row">
+    <a href="#" class="base-button mv-btn--mastery">Primary Mastery</a>
+    <a href="#" class="base-button mv-btn--mastery mv-btn--mastery--small">Small Size</a>
+    <a href="#" class="base-button mv-btn--mastery-white">White Filled</a>
+    <a href="#" class="base-button mv-btn--mastery-secondary">Outline Mastery</a>
+    <a href="#" class="base-button mv-btn--dark">Dark Button</a>
+  </div>
+
+  <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Buttons on Dark Background</h3>
+  <div class="dark-bg">
+    <div class="button-row">
+      <a href="#" class="base-button mv-btn--mastery">Primary Mastery</a>
+      <a href="#" class="base-button mv-btn--white">White Button</a>
+      <a href="#" class="base-button mv-btn--mastery-secondary">Outline Mastery</a>
+    </div>
+  </div>
+
+  <div class="code-block">
+&lt;!-- HTML --&gt;
+&lt;a href="#" class="base-button mv-btn--mastery"&gt;Primary&lt;/a&gt;
+&lt;a href="#" class="base-button mv-btn--mastery--small"&gt;Small&lt;/a&gt;
+&lt;a href="#" class="base-button mv-btn--mastery-white"&gt;White&lt;/a&gt;
+&lt;a href="#" class="base-button mv-btn--mastery-secondary"&gt;Outline&lt;/a&gt;
+&lt;a href="#" class="base-button mv-btn--white"&gt;White (Dark BG)&lt;/a&gt;
+&lt;a href="#" class="base-button mv-btn--dark"&gt;Dark&lt;/a&gt;
+
+/* CSS */
+.base-button {
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+.mv-btn--mastery {
+  background: var(--mastery-400);
+  color: var(--mastery-850);
+}
+  </div>
+</div>
+
+<!-- ============================================
+     COMPONENT 4: BADGES
+     ============================================ -->
+<div class="preview-section">
+  <h2>Component 4: Badges / Tags</h2>
+  <p><strong>Usage:</strong> Labels and tags for cards, images, and content sections. Includes floating variant for overlays.</p>
+
+  <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Badge Variants</h3>
+  <div class="button-row">
+    <span class="mv-badge mv-badge--mastery">New Quest</span>
+    <span class="mv-badge mv-badge--dark">Bestseller</span>
+    <span class="mv-badge mv-badge--white">Featured</span>
+    <span class="mv-badge mv-badge--outline">Coming Soon</span>
+  </div>
+
+  <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Badge Sizes</h3>
+  <div class="button-row">
+    <span class="mv-badge mv-badge--mastery">Small (Default)</span>
+    <span class="mv-badge mv-badge--mastery mv-badge--md">Medium</span>
+    <span class="mv-badge mv-badge--mastery mv-badge--lg">Large</span>
+  </div>
+
+  <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Floating Badge (on Cards/Images)</h3>
+  <div class="badge-showcase">
+    <span class="mv-badge mv-badge--mastery mv-badge--floating">12 Weeks</span>
+  </div>
+
+  <div class="dark-bg">
+    <h4 style="color: white; margin-bottom: 1rem;">Badges on Dark Background</h4>
+    <div class="button-row">
+      <span class="mv-badge mv-badge--mastery">Mastery</span>
+      <span class="mv-badge mv-badge--white">White</span>
+      <span class="mv-badge mv-badge--outline">Outline</span>
+    </div>
+  </div>
+
+  <div class="code-block">
+&lt;!-- HTML --&gt;
+&lt;span class="mv-badge mv-badge--mastery"&gt;Badge Text&lt;/span&gt;
+&lt;span class="mv-badge mv-badge--dark"&gt;Dark Badge&lt;/span&gt;
+&lt;span class="mv-badge mv-badge--white"&gt;White Badge&lt;/span&gt;
+&lt;span class="mv-badge mv-badge--outline"&gt;Outline&lt;/span&gt;
+
+&lt;!-- Sizes --&gt;
+&lt;span class="mv-badge mv-badge--mastery mv-badge--md"&gt;Medium&lt;/span&gt;
+&lt;span class="mv-badge mv-badge--mastery mv-badge--lg"&gt;Large&lt;/span&gt;
+
+&lt;!-- Floating on Card --&gt;
+&lt;div style="position: relative;"&gt;
+  &lt;img src="card-image.jpg"&gt;
+  &lt;span class="mv-badge mv-badge--mastery mv-badge--floating"&gt;
+    12 Weeks
+  &lt;/span&gt;
+&lt;/div&gt;
+
+/* CSS */
+.mv-badge {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 100px;
+  text-transform: uppercase;
+}
+.mv-badge--floating {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+  </div>
+</div>
+
+<!-- Summary Card -->
+<div class="preview-section" style="background: var(--mastery-950); color: white;">
+  <h2 style="color: var(--mastery-400);">🎯 Component Summary</h2>
+  <div style="display: grid; gap: 1.5rem; margin-top: 1.5rem;">
+    <div>
+      <strong style="color: var(--mastery-400);">1. Navbar</strong> - Dark mastery header with logo + menu button
+    </div>
+    <div>
+      <strong style="color: var(--mastery-400);">2. Footer</strong> - Minimal footer with links and copyright
+    </div>
+    <div>
+      <strong style="color: var(--mastery-400);">3. Buttons</strong> - 6 variants (mastery, white, dark, outline, small)
+    </div>
+    <div>
+      <strong style="color: var(--mastery-400);">4. Badges</strong> - Tags with floating variant for cards/images
+    </div>
+  </div>
+
+  <hr class="mv-footer__divider">
+
+  <p style="text-align: center; color: rgba(255,255,255,0.8); margin-bottom: 0;">
+    All components use official Mindvalley mastery colors and design tokens.
+  </p>
+</div>
+
+</body>
+</html>

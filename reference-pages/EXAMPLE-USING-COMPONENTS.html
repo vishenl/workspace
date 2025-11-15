@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example: Building with Official Components</title>
+
+    <style>
+        /* ========================================
+         * STEP 1: ALWAYS INCLUDE DESIGN TOKENS
+         * Source: Airtable "Design Tokens" component
+         * ======================================== */
+        :root {
+            /* Colors */
+            --mv-purple: #8A2BE2;
+            --mv-purple-light: #DA70D6;
+            --mv-gold: #DAA520;
+            --mv-dark: #1A1A1A;
+            --mv-gray: #404040;
+            --mv-gray-light: #FAFAFA;
+            --mv-white: #FFFFFF;
+
+            /* Typography */
+            --font-heading: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            /* Font Sizes */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: clamp(1rem, 2vw, 1.125rem);
+            --text-xl: clamp(1.125rem, 2.5vw, 1.375rem);
+            --text-2xl: clamp(1.25rem, 2.5vw, 1.75rem);
+            --text-3xl: clamp(1.5rem, 3.5vw, 2rem);
+            --text-4xl: clamp(2rem, 5vw, 3rem);
+            --text-5xl: clamp(2.5rem, 6vw, 4.5rem);
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 2.5rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            --space-4xl: 5rem;
+            --space-5xl: 6rem;
+
+            /* Shadows */
+            --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 8px 30px rgba(138, 43, 226, 0.15);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 100px;
+        }
+
+        /* ========================================
+         * STEP 2: ALWAYS INCLUDE TYPOGRAPHY SYSTEM
+         * Source: Airtable "Typography System" component
+         * ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.65;
+            color: var(--mv-gray);
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: var(--text-5xl);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--mv-dark);
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--mv-dark);
+        }
+
+        h3 {
+            font-family: var(--font-heading);
+            font-size: var(--text-3xl);
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--mv-dark);
+        }
+
+        p {
+            font-family: var(--font-body);
+            font-size: var(--text-lg);
+            line-height: 1.65;
+            color: var(--mv-gray);
+        }
+
+        /* ========================================
+         * STEP 3: INCLUDE COMPONENT-SPECIFIC CSS
+         * Copy from Airtable for each component you use
+         * ======================================== */
+
+        /* Component: Trust Signals - 4 Column Stats Grid */
+        .trust-signals {
+            margin-top: 2.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 3rem 1rem;
+        }
+
+        .trust-signal {
+            text-align: center;
+        }
+
+        .trust-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--mv-purple);
+            margin-bottom: 0.25rem;
+        }
+
+        .trust-label {
+            font-size: 0.875rem;
+            color: var(--mv-gray);
+        }
+
+        /* Component: FAQ Item - Left Border Accent */
+        .faq-container {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+        }
+
+        .faq-item {
+            background: var(--mv-gray-light);
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--mv-purple);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .faq-item:hover {
+            background: #F8F5FF;
+        }
+
+        .faq-question-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.5rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .faq-question {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--mv-dark);
+            margin: 0;
+            flex: 1;
+        }
+
+        .faq-toggle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--mv-purple);
+            color: var(--mv-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 300;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-left: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-toggle:hover {
+            background: var(--mv-purple-light);
+            transform: scale(1.1);
+        }
+
+        .faq-answer-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer-wrapper.active {
+            max-height: 500px;
+            padding: 0 2.5rem 2.5rem 2.5rem;
+        }
+
+        .faq-answer {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--mv-gray);
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* Component: Program Card - 16:9 Image Box */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+        }
+
+        .program-card {
+            background: var(--mv-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .program-card-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #f8f5ff 0%, #fff5e6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .program-card-content {
+            padding: 2.5rem;
+        }
+
+        .program-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--mv-gold);
+        }
+
+        .program-card-content h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--mv-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .program-card-content .author {
+            color: var(--mv-purple);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .program-card-content p {
+            color: var(--mv-gray);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        /* Page-specific styling */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            margin-bottom: 1rem;
+        }
+
+        .note {
+            background: #FFF9E6;
+            border-left: 4px solid var(--mv-gold);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .note h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--mv-gold);
+        }
+
+        .note code {
+            background: rgba(0,0,0,0.05);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section-header">
+            <h1>Example: Building with Official Components</h1>
+            <p>This page demonstrates how to use Mindvalley's official components from Airtable</p>
+        </div>
+
+        <div class="note">
+            <h3>📋 What's on this page</h3>
+            <p>This example page uses 3 official components from the Airtable library:</p>
+            <ul style="margin-left: 2rem; margin-top: 1rem;">
+                <li><strong>Design Tokens</strong> - CSS variables (required on every page)</li>
+                <li><strong>Typography System</strong> - Text styling (required on every page)</li>
+                <li><strong>Trust Signals - 4 Column Stats Grid</strong> - Social proof numbers</li>
+                <li><strong>Program Card - 16:9 Image Box</strong> - Course/program listings</li>
+                <li><strong>FAQ Item - Left Border Accent</strong> - Interactive Q&A</li>
+            </ul>
+        </div>
+
+        <!-- ========================================
+         * COMPONENT 1: Trust Signals
+         * Source: Airtable "Trust Signals - 4 Column Stats Grid"
+         * ======================================== -->
+        <div class="section-header">
+            <h2>Component 1: Trust Signals</h2>
+            <p>4-column stats grid for social proof</p>
+        </div>
+
+        <div class="trust-signals">
+            <div class="trust-signal">
+                <div class="trust-number">850,000+</div>
+                <div class="trust-label">Summit Attendees</div>
+            </div>
+            <div class="trust-signal">
+                <div class="trust-number">19,000+</div>
+                <div class="trust-label">Enrolled Students</div>
+            </div>
+            <div class="trust-signal">
+                <div class="trust-number">195+</div>
+                <div class="trust-label">Countries Reached</div>
+            </div>
+            <div class="trust-signal">
+                <div class="trust-number">22+</div>
+                <div class="trust-label">Years of Excellence</div>
+            </div>
+        </div>
+
+        <div class="note">
+            <h3>How to use this component:</h3>
+            <p>1. Copy the <code>.trust-signals</code> CSS from Airtable<br>
+            2. Use the HTML structure exactly as shown<br>
+            3. Change only the numbers and labels<br>
+            4. Works responsively: 4 cols → 2 cols → 1 col</p>
+        </div>
+
+        <!-- ========================================
+         * COMPONENT 2: Program Cards
+         * Source: Airtable "Program Card - 16:9 Image Box"
+         * ======================================== -->
+        <div class="section-header" style="margin-top: 4rem;">
+            <h2>Component 2: Program Cards</h2>
+            <p>Grid of course/program listings with 16:9 images</p>
+        </div>
+
+        <div class="programs-grid">
+            <div class="program-card">
+                <div class="program-card-image">16:9 Image Placeholder</div>
+                <div class="program-card-content">
+                    <h3>Manifestation Mastery</h3>
+                    <p class="author">with Dr. Jane Smith</p>
+                    <p>Transform your reality by mastering the art and science of manifestation. Learn proven techniques from neuroscience and spiritual wisdom.</p>
+                </div>
+            </div>
+
+            <div class="program-card">
+                <div class="program-card-image">16:9 Image Placeholder</div>
+                <div class="program-card-content">
+                    <h3>AI Business Mastery</h3>
+                    <p class="author">with John Doe</p>
+                    <p>Harness AI to scale your business exponentially. Master ChatGPT, automation, and AI-driven marketing strategies.</p>
+                </div>
+            </div>
+
+            <div class="program-card">
+                <div class="program-card-image">16:9 Image Placeholder</div>
+                <div class="program-card-content">
+                    <h3>Social Media Mastery</h3>
+                    <p class="author">with Sarah Johnson</p>
+                    <p>Build a powerful personal brand and create viral content. Learn the frameworks behind every viral post.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="note">
+            <h3>How to use this component:</h3>
+            <p>1. Copy the <code>.programs-grid</code> and <code>.program-card</code> CSS from Airtable<br>
+            2. Use the exact HTML structure (program-card → program-card-image → program-card-content)<br>
+            3. Replace image placeholder with actual images or background-image<br>
+            4. Hover effects work automatically (gold border + lift)</p>
+        </div>
+
+        <!-- ========================================
+         * COMPONENT 3: FAQ Items
+         * Source: Airtable "FAQ Item - Left Border Accent"
+         * ======================================== -->
+        <div class="section-header" style="margin-top: 4rem;">
+            <h2>Component 3: FAQ Items</h2>
+            <p>Interactive accordion-style Q&A section</p>
+        </div>
+
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                    <h3 class="faq-question">How do I use these components in my own pages?</h3>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer-wrapper">
+                    <p class="faq-answer">Simply copy the CSS from the Airtable component library and paste it into your page's style section. Then copy the HTML structure and customize only the content (text, images). Keep all class names and HTML structure exactly the same for best results.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                    <h3 class="faq-question">Can I customize the colors and styles?</h3>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer-wrapper">
+                    <p class="faq-answer">Yes! Use CSS variables like var(--mv-purple) instead of hardcoded colors. You can change the color values in the Design Tokens section at the top of your CSS, and all components will update automatically. This maintains consistency across your entire page.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                    <h3 class="faq-question">What if I need a component that doesn't exist?</h3>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer-wrapper">
+                    <p class="faq-answer">First, check if you can combine existing components to achieve your goal. If you truly need something new, build it following the same patterns: use CSS variables, maintain responsive design, include hover states, and document it in Airtable for future reuse.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="note">
+            <h3>How to use this component:</h3>
+            <p>1. Copy the <code>.faq-item</code> CSS from Airtable<br>
+            2. Include the JavaScript function (see below)<br>
+            3. Duplicate the .faq-item HTML for each question<br>
+            4. Click anywhere on the question to toggle (+ rotates to × on open)</p>
+        </div>
+
+        <div class="section-header" style="margin-top: 4rem;">
+            <h2>✅ Checklist</h2>
+            <p>Every page should have these essentials:</p>
+        </div>
+
+        <div class="note">
+            <h3>Before Publishing Any Page:</h3>
+            <ul style="margin-left: 2rem; margin-top: 1rem; line-height: 2;">
+                <li>✓ Design Tokens CSS variables included</li>
+                <li>✓ Typography System CSS included</li>
+                <li>✓ Component CSS copied exactly from Airtable</li>
+                <li>✓ HTML structure matches component exactly</li>
+                <li>✓ Only content customized (text, images)</li>
+                <li>✓ Tested at mobile (375px), tablet (768px), desktop (1024px+)</li>
+                <li>✓ Hover states work correctly</li>
+                <li>✓ Interactive elements (FAQs, buttons) function properly</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ========================================
+     * JAVASCRIPT for Interactive Components
+     * Copy this if using FAQ or other interactive components
+     * ======================================== -->
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const answerWrapper = element.nextElementSibling;
+
+            // Close all other FAQs (optional - remove if you want multiple open at once)
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                    item.querySelector('.faq-answer-wrapper').classList.remove('active');
+                }
+            });
+
+            // Toggle current FAQ
+            faqItem.classList.toggle('active');
+            answerWrapper.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindvalley Outcomes Simplification Strategy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .header .meta {
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+        }
+
+        .toc h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            padding: 8px 0;
+        }
+
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin: 30px 0 15px 0;
+        }
+
+        h4 {
+            color: #5a6c7d;
+            font-size: 1.2em;
+            margin: 25px 0 12px 0;
+        }
+
+        p {
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+
+        .callout {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px 30px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .callout.info {
+            border-left-color: #3498db;
+            background: #f0f8ff;
+        }
+
+        .callout.success {
+            border-left-color: #27ae60;
+            background: #f0fef6;
+        }
+
+        .callout h3, .callout h4 {
+            margin-top: 0;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .code-inline {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #e83e8c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e1e8ed;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #f0f4f8;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin: 8px 0;
+            line-height: 1.8;
+        }
+
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li:before {
+            content: "☐ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .semantic-group {
+            background: white;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .semantic-group:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .semantic-group h4 {
+            color: #667eea;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .semantic-group .keywords {
+            color: #8492a6;
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .example-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .example-box h4 {
+            margin-top: 0;
+            color: #667eea;
+        }
+
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .before-after > div {
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .before {
+            background: #fff5f5;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .after {
+            background: #f0fef6;
+            border-left: 4px solid #27ae60;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            text-align: center;
+            color: #8492a6;
+            border-top: 1px solid #e1e8ed;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .back-button {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .content {
+                padding: 20px;
+            }
+            .back-button {
+                position: static;
+                display: block;
+                margin-bottom: 20px;
+            }
+            .before-after {
+                grid-template-columns: 1fr;
+            }
+            table {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="outcomes-index.html" class="back-button">← Back to Index</a>
+            <h1>Outcomes Simplification Strategy</h1>
+            <div class="subtitle">Complete Methodology & Technical Framework</div>
+            <div class="meta">
+                <strong>Date:</strong> November 11, 2025<br>
+                <strong>Objective:</strong> Reduce outcomes from 200-300 to a more manageable number
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="toc">
+                <h2>Table of Contents</h2>
+                <ul>
+                    <li><a href="#executive-summary">Executive Summary</a></li>
+                    <li><a href="#criteria">Analysis Criteria</a></li>
+                    <li><a href="#semantic-groups">Semantic Groups</a></li>
+                    <li><a href="#implementation">Implementation Process</a></li>
+                    <li><a href="#expected-results">Expected Results</a></li>
+                    <li><a href="#examples">Example Merge Scenarios</a></li>
+                    <li><a href="#qa">Quality Assurance Checklist</a></li>
+                    <li><a href="#tools">Tools & Scripts</a></li>
+                    <li><a href="#next-steps">Next Steps</a></li>
+                </ul>
+            </div>
+
+            <section id="executive-summary" class="section">
+                <h2 class="section-title">Executive Summary</h2>
+                <p>This document provides a comprehensive strategy for simplifying the Mindvalley Outcomes table (SARE) based on usage metrics and semantic similarity analysis.</p>
+
+                <div class="callout success">
+                    <p><strong>Target:</strong> Reduce outcomes by 40-60% through:</p>
+                    <ul>
+                        <li><strong>Deletion:</strong> Remove outcomes with no or very low usage (≤2 total uses)</li>
+                        <li><strong>Merging:</strong> Consolidate semantically similar outcomes into primary outcomes with highest usage</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="criteria" class="section">
+                <h2 class="section-title">Analysis Criteria</h2>
+
+                <h3>1. DELETION CRITERIA</h3>
+                <div class="callout">
+                    <p>Mark <span class="code-inline">UPDATE TYPE</span> as "Deleted" if:</p>
+                    <ul>
+                        <li><strong>Zero Usage:</strong> <span class="code-inline">Program Count = 0 AND Meditation Count = 0 AND Audio Count = 0</span></li>
+                        <li><strong>Very Low Usage:</strong> Total usage <span class="code-inline">(Program + Meditation + Audio Count) ≤ 2</span></li>
+                    </ul>
+                </div>
+
+                <p><strong>Rationale:</strong> Outcomes with no usage provide no value and can be safely removed. Outcomes with ≤2 uses likely represent:</p>
+                <ul>
+                    <li>Experimental outcomes that didn't gain traction</li>
+                    <li>Duplicate variations that split usage</li>
+                    <li>Over-specific outcomes that should be generalized</li>
+                </ul>
+
+                <h3>2. MERGE CRITERIA</h3>
+                <div class="callout">
+                    <p>Mark <span class="code-inline">UPDATE TYPE</span> as "Merged" if:</p>
+                    <ul>
+                        <li><strong>Identical Descriptions:</strong> Two outcomes have the exact same description</li>
+                        <li><strong>Semantic Similarity:</strong> Outcomes belong to the same semantic group (see below)</li>
+                        <li><strong>Primary Selection:</strong> When merging, the outcome with the highest usage becomes the primary</li>
+                    </ul>
+                </div>
+
+                <p><strong>Merge Process:</strong></p>
+                <ol>
+                    <li>Identify semantically similar outcomes</li>
+                    <li>Calculate total usage for each</li>
+                    <li>Select highest usage as primary</li>
+                    <li>Mark others for merge with note pointing to primary</li>
+                </ol>
+            </section>
+
+            <section id="semantic-groups" class="section">
+                <h2 class="section-title">Semantic Groups for Merge Analysis</h2>
+                <p>These groups represent outcomes that express similar concepts and should be evaluated for merging:</p>
+
+                <h3>Emotional States</h3>
+                <div class="grid">
+                    <div class="semantic-group">
+                        <h4>1. Stress/Tension Group</h4>
+                        <p class="keywords">stress, anxiety, worry, tension, anxious, worried, tense, stressed</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>2. Happiness/Joy Group</h4>
+                        <p class="keywords">happiness, joy, bliss, contentment, happy, joyful, blissful, content</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>3. Calm/Peace Group</h4>
+                        <p class="keywords">calm, peace, tranquility, serenity, peaceful, tranquil, serene, calmness</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>4. Anger/Frustration Group</h4>
+                        <p class="keywords">anger, frustration, irritation, angry, frustrated, irritated</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>5. Fear Group</h4>
+                        <p class="keywords">fear, scared, frightened, afraid, fearful</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>6. Sadness Group</h4>
+                        <p class="keywords">sadness, depression, melancholy, sad, depressed</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>7. Love Group</h4>
+                        <p class="keywords">love, loving, self-love, loving-kindness</p>
+                    </div>
+                </div>
+
+                <h3>Cognitive States</h3>
+                <div class="grid">
+                    <div class="semantic-group">
+                        <h4>8. Focus/Concentration Group</h4>
+                        <p class="keywords">focus, concentration, attention, focused, concentrate, attentive</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>9. Clarity Group</h4>
+                        <p class="keywords">clarity, clear-thinking, mental clarity, clear, clearness</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>10. Mindfulness/Presence Group</h4>
+                        <p class="keywords">mindfulness, presence, awareness, mindful, present, aware</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>11. Creativity Group</h4>
+                        <p class="keywords">creativity, innovation, imagination, creative, innovative, imaginative</p>
+                    </div>
+                </div>
+
+                <h3>Physical States</h3>
+                <div class="grid">
+                    <div class="semantic-group">
+                        <h4>12. Energy Group</h4>
+                        <p class="keywords">energy, vitality, vigor, energized, energetic, vital, vigorous</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>13. Relaxation/Rest Group</h4>
+                        <p class="keywords">relaxation, rest, recovery, relax, relaxed, rested, recover</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>14. Sleep Group</h4>
+                        <p class="keywords">sleep, rest, sleep quality, sleeping, restful</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>15. Pain Group</h4>
+                        <p class="keywords">pain, pain relief, chronic pain, back pain</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>16. Healing Group</h4>
+                        <p class="keywords">healing, recovery, restoration, heal, restore, recovered</p>
+                    </div>
+                </div>
+
+                <h3>Personal Development</h3>
+                <div class="grid">
+                    <div class="semantic-group">
+                        <h4>17. Confidence Group</h4>
+                        <p class="keywords">confidence, self-esteem, self-worth, self-confidence, confident</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>18. Motivation Group</h4>
+                        <p class="keywords">motivation, drive, ambition, motivated, driven, ambitious</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>19. Resilience Group</h4>
+                        <p class="keywords">resilience, strength, fortitude, resilient, strong</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>20. Self-Awareness Group</h4>
+                        <p class="keywords">self-awareness, self-discovery, self-knowledge</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>21. Purpose Group</h4>
+                        <p class="keywords">purpose, life purpose, meaning, meaningful</p>
+                    </div>
+                </div>
+
+                <h3>Interpersonal/Social</h3>
+                <div class="grid">
+                    <div class="semantic-group">
+                        <h4>22. Gratitude Group</h4>
+                        <p class="keywords">gratitude, thankfulness, appreciation, grateful, thankful, appreciative</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>23. Compassion Group</h4>
+                        <p class="keywords">compassion, empathy, kindness, compassionate, empathetic, kind</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>24. Connection Group</h4>
+                        <p class="keywords">connection, social connection, belonging, connected</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>25. Forgiveness Group</h4>
+                        <p class="keywords">forgiveness, letting go, release, forgive, let go</p>
+                    </div>
+                </div>
+
+                <h3>Spiritual/Material</h3>
+                <div class="grid">
+                    <div class="semantic-group">
+                        <h4>26. Spiritual Group</h4>
+                        <p class="keywords">spiritual, spirituality, spiritual growth, spiritual awakening</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>27. Intuition Group</h4>
+                        <p class="keywords">intuition, inner wisdom, gut feeling, intuitive, instinct</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>28. Abundance Group</h4>
+                        <p class="keywords">abundance, prosperity, wealth, abundant, prosperous, wealthy</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>29. Success Group</h4>
+                        <p class="keywords">success, achievement, accomplishment, successful, achieve</p>
+                    </div>
+                    <div class="semantic-group">
+                        <h4>30. Balance Group</h4>
+                        <p class="keywords">balance, harmony, equilibrium, balanced, harmonious</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="implementation" class="section">
+                <h2 class="section-title">Implementation Process</h2>
+
+                <h3>Phase 1: Data Collection & Initial Analysis</h3>
+                <ol>
+                    <li><strong>Fetch Outcomes Data</strong>
+                        <div class="code-block"># Use provided Python script: fetch-and-analyze-outcomes.py
+# Requires: AIRTABLE_API_KEY environment variable</div>
+                    </li>
+                    <li><strong>Generate Analysis Report</strong>
+                        <ul>
+                            <li>Identify all outcomes with zero usage</li>
+                            <li>Identify all outcomes with ≤2 total usage</li>
+                            <li>Map all outcomes to semantic groups</li>
+                            <li>Identify merge candidates within each group</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3>Phase 2: Review & Validation</h3>
+                <ol>
+                    <li><strong>Review Deletion Candidates</strong>
+                        <ul>
+                            <li>Verify usage counts are accurate</li>
+                            <li>Check if any zero-usage outcomes are strategically important</li>
+                            <li>Identify any false positives</li>
+                        </ul>
+                    </li>
+                    <li><strong>Review Merge Candidates</strong>
+                        <ul>
+                            <li>Verify semantic groupings are appropriate</li>
+                            <li>Confirm primary outcome selection (highest usage)</li>
+                            <li>Check for any nuanced differences that warrant keeping separate</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3>Phase 3: Batch Updates</h3>
+                <ol>
+                    <li><strong>Update Records in Batches of 10</strong>
+                        <div class="code-block"># Use MCP Airtable update_records tool
+# Format: baseId="app4ulN4GnBRvcfAL", tableId="tblLA13fGO7KM1JHA"</div>
+                    </li>
+                    <li><strong>Set UPDATE TYPE and UPDATE NOTE</strong>
+                        <ul>
+                            <li>Deleted: <span class="code-inline">"No usage"</span> or <span class="code-inline">"Low usage: Total=X"</span></li>
+                            <li>Merged: <span class="code-inline">"Merge into [Primary Outcome] (usage=Y)"</span></li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3>Phase 4: Content Migration</h3>
+                <p>After marking outcomes for merge:</p>
+                <ol>
+                    <li><strong>Migrate Usage</strong>
+                        <ul>
+                            <li>Update Programs, Meditations, Audios to use primary outcome</li>
+                            <li>Redirect any references from merged outcomes to primary</li>
+                        </ul>
+                    </li>
+                    <li><strong>Preserve Data</strong>
+                        <ul>
+                            <li>Keep merged outcomes in archive view</li>
+                            <li>Don't permanently delete until migration complete</li>
+                        </ul>
+                    </li>
+                </ol>
+            </section>
+
+            <section id="expected-results" class="section">
+                <h2 class="section-title">Expected Results</h2>
+                <p>Based on typical outcome distributions:</p>
+
+                <h3>Estimated Reductions</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Expected Count</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total Outcomes</td>
+                            <td>200-300</td>
+                            <td>Starting point</td>
+                        </tr>
+                        <tr>
+                            <td>Zero Usage</td>
+                            <td>40-60 (15-20%)</td>
+                            <td>Immediate deletion candidates</td>
+                        </tr>
+                        <tr>
+                            <td>Low Usage (≤2)</td>
+                            <td>30-50 (10-17%)</td>
+                            <td>Deletion candidates</td>
+                        </tr>
+                        <tr>
+                            <td>Merge Candidates</td>
+                            <td>50-80 (17-27%)</td>
+                            <td>Semantic consolidation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Final Count</strong></td>
+                            <td><strong>80-150</strong></td>
+                            <td><strong>40-60% reduction</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Benefits</h3>
+                <div class="grid">
+                    <div class="callout info">
+                        <h4>1. Improved Discoverability</h4>
+                        <ul>
+                            <li>Fewer, more focused outcomes</li>
+                            <li>Reduced decision paralysis for users</li>
+                            <li>Clearer outcome definitions</li>
+                        </ul>
+                    </div>
+                    <div class="callout info">
+                        <h4>2. Better Usage Metrics</h4>
+                        <ul>
+                            <li>Consolidated usage data</li>
+                            <li>More meaningful analytics</li>
+                            <li>Easier to identify popular outcomes</li>
+                        </ul>
+                    </div>
+                    <div class="callout info">
+                        <h4>3. Simplified Maintenance</h4>
+                        <ul>
+                            <li>Fewer records to manage</li>
+                            <li>Clearer outcome hierarchy</li>
+                            <li>Reduced duplication</li>
+                        </ul>
+                    </div>
+                    <div class="callout info">
+                        <h4>4. Enhanced Quality</h4>
+                        <ul>
+                            <li>Each outcome has sufficient usage data</li>
+                            <li>More robust recommendations</li>
+                            <li>Better user experience</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="examples" class="section">
+                <h2 class="section-title">Example Merge Scenarios</h2>
+
+                <h3>Example 1: Stress/Anxiety Group</h3>
+                <div class="before-after">
+                    <div class="before">
+                        <h4>Before</h4>
+                        <ul>
+                            <li>"Reduce stress" (Program=5, Meditation=12, Audio=8) → Usage: 25</li>
+                            <li>"Manage anxiety" (Program=2, Meditation=6, Audio=3) → Usage: 11</li>
+                            <li>"Less worry" (Program=0, Meditation=2, Audio=1) → Usage: 3</li>
+                            <li>"Release tension" (Program=1, Meditation=4, Audio=2) → Usage: 7</li>
+                        </ul>
+                    </div>
+                    <div class="after">
+                        <h4>After</h4>
+                        <ul>
+                            <li><strong>Primary:</strong> "Reduce stress" (Usage: 25) → KEEP</li>
+                            <li>"Manage anxiety" → MERGE (note: "Merge into 'Reduce stress'")</li>
+                            <li>"Less worry" → DELETE (low usage)</li>
+                            <li>"Release tension" → MERGE (note: "Merge into 'Reduce stress'")</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="callout success">
+                    <strong>Result:</strong> 4 outcomes → 1 outcome (75% reduction)
+                </div>
+
+                <h3>Example 2: Sleep Group</h3>
+                <div class="before-after">
+                    <div class="before">
+                        <h4>Before</h4>
+                        <ul>
+                            <li>"Better sleep" (Program=8, Meditation=15, Audio=12) → Usage: 35</li>
+                            <li>"Improve sleep quality" (Program=3, Meditation=7, Audio=4) → Usage: 14</li>
+                            <li>"Restful sleep" (Program=1, Meditation=3, Audio=2) → Usage: 6</li>
+                            <li>"Fall asleep faster" (Program=2, Meditation=5, Audio=3) → Usage: 10</li>
+                        </ul>
+                    </div>
+                    <div class="after">
+                        <h4>After</h4>
+                        <ul>
+                            <li><strong>Primary:</strong> "Better sleep" (Usage: 35) → KEEP</li>
+                            <li>"Improve sleep quality" → MERGE</li>
+                            <li>"Restful sleep" → MERGE</li>
+                            <li>"Fall asleep faster" → KEEP (specific enough to warrant separate outcome)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="callout success">
+                    <strong>Result:</strong> 4 outcomes → 2 outcomes (50% reduction)
+                </div>
+            </section>
+
+            <section id="qa" class="section">
+                <h2 class="section-title">Quality Assurance Checklist</h2>
+                <p>Before finalizing updates:</p>
+                <ul class="checklist">
+                    <li>All zero-usage outcomes marked for deletion</li>
+                    <li>All ≤2 usage outcomes reviewed</li>
+                    <li>Semantic groups validated</li>
+                    <li>Primary outcomes have highest usage in their group</li>
+                    <li>UPDATE NOTE provides clear reasoning</li>
+                    <li>No strategically important outcomes accidentally deleted</li>
+                    <li>Migration plan in place for merged outcomes</li>
+                    <li>Stakeholders notified of changes</li>
+                </ul>
+            </section>
+
+            <section id="tools" class="section">
+                <h2 class="section-title">Tools & Scripts</h2>
+
+                <h3>1. Analysis Script</h3>
+                <p><strong>File:</strong> <span class="code-inline">/scripts/fetch-and-analyze-outcomes.py</span></p>
+
+                <p><strong>Usage:</strong></p>
+                <div class="code-block">export AIRTABLE_API_KEY="your_key_here"
+python3 scripts/fetch-and-analyze-outcomes.py</div>
+
+                <p><strong>Output:</strong></p>
+                <ul>
+                    <li>Console report with recommendations</li>
+                    <li><span class="code-inline">outcome-updates.json</span> with batch update data</li>
+                </ul>
+
+                <h3>2. Update Script Template</h3>
+                <div class="code-block"># Use MCP Airtable tools
+from mcp__airtable__update_records import update_records
+
+# Load batch from outcome-updates.json
+with open('outcome-updates.json') as f:
+    data = json.load(f)
+
+# Update each batch
+for batch in data['batches']:
+    update_records(
+        baseId="app4ulN4GnBRvcfAL",
+        tableId="tblLA13fGO7KM1JHA",
+        records=batch
+    )
+    time.sleep(0.5)  # Rate limiting</div>
+            </section>
+
+            <section id="next-steps" class="section">
+                <h2 class="section-title">Next Steps</h2>
+
+                <div class="grid">
+                    <div class="callout">
+                        <h4>1. Immediate</h4>
+                        <ul>
+                            <li>Run analysis script to generate current state report</li>
+                            <li>Review and validate recommendations</li>
+                            <li>Get stakeholder approval</li>
+                        </ul>
+                    </div>
+                    <div class="callout">
+                        <h4>2. Short-term</h4>
+                        <ul>
+                            <li>Execute batch updates for deletions</li>
+                            <li>Execute batch updates for merges</li>
+                            <li>Verify UPDATE TYPE and UPDATE NOTE fields</li>
+                        </ul>
+                    </div>
+                    <div class="callout">
+                        <h4>3. Medium-term</h4>
+                        <ul>
+                            <li>Migrate content from merged outcomes to primary</li>
+                            <li>Update any hardcoded references</li>
+                            <li>Archive deleted/merged outcomes</li>
+                        </ul>
+                    </div>
+                    <div class="callout">
+                        <h4>4. Long-term</h4>
+                        <ul>
+                            <li>Monitor usage of consolidated outcomes</li>
+                            <li>Establish governance for new outcome creation</li>
+                            <li>Regular audits to prevent future bloat</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Appendix: Field Definitions</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field Name</th>
+                            <th>Field ID</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Outcome</td>
+                            <td>fldCP33pFkB25Ynee</td>
+                            <td>Outcome name</td>
+                        </tr>
+                        <tr>
+                            <td>Program Count</td>
+                            <td>fldE9oQRoudmUiZ2I</td>
+                            <td>Number of programs using this outcome</td>
+                        </tr>
+                        <tr>
+                            <td>Meditation Count</td>
+                            <td>fldkVIkUgZcbBwkaD</td>
+                            <td>Number of meditations using this outcome</td>
+                        </tr>
+                        <tr>
+                            <td>Audio Count</td>
+                            <td>fldTmPvCIb4e2Bm98</td>
+                            <td>Number of audios using this outcome</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>fldpAfFrmwipYiYAw</td>
+                            <td>Outcome description</td>
+                        </tr>
+                        <tr>
+                            <td>UPDATE TYPE</td>
+                            <td>flddtQoH4JfAU0uTv</td>
+                            <td>Simplification action (Deleted/Merged)</td>
+                        </tr>
+                        <tr>
+                            <td>UPDATE NOTE</td>
+                            <td>fldo4SmxBXYHqOu4R</td>
+                            <td>Reasoning for action</td>
+                        </tr>
+                        <tr>
+                            <td>SIMPLIFY</td>
+                            <td>fld8ZyXVebrFFmeOR</td>
+                            <td>Additional simplification tracking</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+
+        <div class="footer">
+            <p><strong>Mindvalley Outcomes Simplification Project</strong></p>
+            <p>Created by: Claude Code | Date: November 11, 2025</p>
+            <p>Base ID: app4ulN4GnBRvcfAL | Table ID: tblLA13fGO7KM1JHA</p>
+            <p style="margin-top: 15px;"><a href="outcomes-index.html">← Return to Index</a></p>
+        </div>
+    </div>
+</body>
+</html>

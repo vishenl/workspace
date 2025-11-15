@@ -1,0 +1,641 @@
+/**
+ * Mindvalley Academy - Airtable Component System
+ * Design System with Purple/Gold color scheme
+ */
+
+/* ============================================
+   DESIGN TOKENS - BASE VARIABLES
+   ============================================ */
+:root {
+  /* Brand Colors */
+  --mv-purple: #8A2BE2;
+  --mv-purple-light: #DA70D6;
+  --mv-gold: #DAA520;
+  --mv-dark: #1A1A1A;
+  --mv-gray: #404040;
+  --mv-gray-light: #FAFAFA;
+  --mv-white: #FFFFFF;
+
+  /* Spacing Scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 8rem;
+  --space-5xl: 12rem;
+
+  /* Shadows */
+  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 8px 30px rgba(138, 43, 226, 0.15);
+  --shadow-lg: 0 16px 50px rgba(138, 43, 226, 0.25);
+  --shadow-glow: 0 0 40px rgba(138, 43, 226, 0.3);
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 100px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Typography Scale */
+  --text-5xl: clamp(2.5rem, 6vw, 4.5rem);
+  --text-4xl: clamp(2rem, 5vw, 3rem);
+  --text-3xl: clamp(1.75rem, 4vw, 2.25rem);
+  --text-2xl: clamp(1.5rem, 3vw, 2rem);
+  --text-xl: clamp(1.25rem, 2.5vw, 1.5rem);
+  --text-lg: clamp(1.125rem, 2vw, 1.25rem);
+  --text-base: clamp(1rem, 2vw, 1.125rem);
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+
+  /* Font Families */
+  --font-heading: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ============================================
+   TYPOGRAPHY SYSTEM
+   ============================================ */
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  color: var(--mv-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--text-5xl);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: var(--text-4xl);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: var(--text-3xl);
+  font-weight: 600;
+}
+
+h4 {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+
+h5 {
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+h6 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.text-purple { color: var(--mv-purple); }
+.text-gold { color: var(--mv-gold); }
+.text-dark { color: var(--mv-dark); }
+.text-gray { color: var(--mv-gray); }
+.text-white { color: var(--mv-white); }
+
+/* ============================================
+   HERO - DARK BACKGROUND WITH IMAGE OVERLAY
+   ============================================ */
+.hero {
+  min-height: 80vh;
+  background: linear-gradient(135deg, #1A1A1A 0%, #2D1B3D 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: var(--space-4xl) var(--space-md);
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.35;
+  filter: saturate(1.3) brightness(1.1);
+  z-index: 0;
+}
+
+.hero-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--mv-white);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero h1 {
+  color: var(--mv-white);
+  margin-bottom: var(--space-md);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+  font-size: var(--text-xl);
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 700px;
+  margin: 0 auto var(--space-xl);
+  line-height: 1.6;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  font-size: var(--text-base);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  cursor: pointer;
+  border: none;
+  font-family: var(--font-body);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+  color: var(--mv-white);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+  background: var(--mv-white);
+  color: var(--mv-purple);
+  border: 2px solid var(--mv-white);
+}
+
+.btn-secondary:hover {
+  background: transparent;
+  color: var(--mv-white);
+}
+
+.btn-gold {
+  background: var(--mv-gold);
+  color: var(--mv-dark);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(218, 165, 32, 0.3);
+}
+
+/* ============================================
+   STAT CARD - PURPLE NUMBERS
+   ============================================ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-lg);
+  padding: var(--space-3xl) var(--space-md);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  text-align: center;
+  padding: var(--space-xl);
+  background: var(--mv-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-number {
+  font-size: var(--text-5xl);
+  font-weight: 700;
+  color: var(--mv-purple);
+  font-family: var(--font-heading);
+  line-height: 1;
+  margin-bottom: var(--space-sm);
+  background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: var(--text-base);
+  color: var(--mv-gray);
+  font-weight: 500;
+}
+
+/* ============================================
+   TECHNIQUE CARD - WHITE GLASS
+   ============================================ */
+.technique-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  padding: var(--space-3xl) var(--space-md);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.technique-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: var(--space-xl);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.technique-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--mv-purple);
+}
+
+.technique-card-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.technique-card h3 {
+  color: var(--mv-purple);
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-sm);
+}
+
+.technique-card p {
+  color: var(--mv-gray);
+  line-height: 1.65;
+}
+
+/* ============================================
+   PROGRAM CARD - 16:9 IMAGE BOX
+   ============================================ */
+.program-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-xl);
+  padding: var(--space-3xl) var(--space-md);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.program-card {
+  background: var(--mv-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.program-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--mv-gold);
+}
+
+.program-card-image {
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, #f8f5ff 0%, #fff5e6 100%);
+  overflow: hidden;
+  position: relative;
+}
+
+.program-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.program-card:hover .program-card-image img {
+  transform: scale(1.05);
+}
+
+.program-card-badge {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: var(--mv-purple);
+  color: var(--mv-white);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.program-card-content {
+  padding: var(--space-xl);
+}
+
+.program-card h3 {
+  color: var(--mv-dark);
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-sm);
+}
+
+.program-card-description {
+  color: var(--mv-gray);
+  margin-bottom: var(--space-md);
+}
+
+.program-card-meta {
+  display: flex;
+  gap: var(--space-md);
+  font-size: var(--text-sm);
+  color: var(--mv-gray);
+  margin-bottom: var(--space-md);
+}
+
+/* ============================================
+   SECTION HEADER - EYEBROW + TITLE + DESCRIPTION
+   ============================================ */
+.section {
+  padding: var(--space-4xl) var(--space-md);
+  background: var(--mv-gray-light);
+}
+
+.section-dark {
+  background: var(--mv-dark);
+  color: var(--mv-white);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto var(--space-3xl);
+}
+
+.section-eyebrow {
+  display: inline-block;
+  color: var(--mv-purple);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-sm);
+}
+
+.section-title {
+  margin-bottom: var(--space-md);
+}
+
+.section-description {
+  font-size: var(--text-lg);
+  color: var(--mv-gray);
+  line-height: 1.7;
+}
+
+.section-dark .section-description {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ============================================
+   FAQ ITEM - LEFT BORDER ACCENT
+   ============================================ */
+.faq-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-3xl) var(--space-md);
+}
+
+.faq-item {
+  background: var(--mv-gray-light);
+  border-left: 4px solid var(--mv-purple);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+  transition: all var(--transition-base);
+}
+
+.faq-item:hover {
+  box-shadow: var(--shadow-sm);
+  border-left-width: 6px;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  gap: var(--space-md);
+}
+
+.faq-question h4 {
+  color: var(--mv-dark);
+  font-size: var(--text-xl);
+  margin: 0;
+}
+
+.faq-toggle {
+  background: var(--mv-purple);
+  color: var(--mv-white);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  transition: transform var(--transition-base);
+}
+
+.faq-item.active .faq-toggle {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-base);
+}
+
+.faq-item.active .faq-answer {
+  max-height: 500px;
+  margin-top: var(--space-md);
+}
+
+.faq-answer p {
+  color: var(--mv-gray);
+  line-height: 1.7;
+}
+
+/* ============================================
+   TEACHER CARDS - THREE COLUMN GRID
+   ============================================ */
+.teacher-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-3xl) var(--space-md);
+}
+
+.teacher-card {
+  text-align: center;
+  background: var(--mv-white);
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.teacher-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+}
+
+.teacher-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto var(--space-md);
+  border: 4px solid var(--mv-purple);
+  overflow: hidden;
+}
+
+.teacher-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.teacher-card h4 {
+  color: var(--mv-dark);
+  margin-bottom: var(--space-xs);
+}
+
+.teacher-role {
+  color: var(--mv-purple);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+}
+
+.teacher-bio {
+  color: var(--mv-gray);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-xs { margin-bottom: var(--space-xs); }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }
+.mb-2xl { margin-bottom: var(--space-2xl); }
+
+.mt-xs { margin-top: var(--space-xs); }
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mt-xl { margin-top: var(--space-xl); }
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 60vh;
+    padding: var(--space-2xl) var(--space-md);
+  }
+
+  .stats-grid,
+  .technique-grid,
+  .program-grid,
+  .teacher-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: var(--space-2xl) var(--space-md);
+  }
+}

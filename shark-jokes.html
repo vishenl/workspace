@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shark Jokes - Dive Into Laughter | Mindvalley</title>
+    <meta name="description" content="Dive deep into the ocean of humor with our fin-tastic collection of shark jokes. Guaranteed to make you smile or your money back (just kidding, it's free!).">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Shark Jokes - Dive Into Laughter">
+    <meta property="og:description" content="Fin-tastic shark jokes that will make you smile!">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1560275619-4662e36fa65c?w=1200&h=630&fit=crop">
+    <meta property="og:url" content="https://mindvalley.com/shark-jokes">
+
+    <style>
+        /* LAYER 1: Design Tokens - FOUNDATION */
+        :root {
+            /* Mindvalley Brand Colors */
+            --mv-purple: #8A2BE2;
+            --mv-purple-light: #DA70D6;
+            --mv-gold: #DAA520;
+            --mv-dark: #1A1A1A;
+            --mv-gray: #404040;
+            --mv-gray-light: #FAFAFA;
+            --mv-white: #FFFFFF;
+            --mv-ocean-blue: #006994;
+            --mv-ocean-light: #4A90A4;
+
+            /* Typography */
+            --font-heading: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+
+            /* Font Sizes - Fluid Typography */
+            --text-5xl: clamp(2.5rem, 6vw, 4.5rem);
+            --text-4xl: clamp(2rem, 5vw, 3rem);
+            --text-3xl: clamp(1.5rem, 3.5vw, 2rem);
+            --text-2xl: clamp(1.25rem, 2.5vw, 1.75rem);
+            --text-xl: clamp(1.125rem, 2vw, 1.5rem);
+            --text-lg: clamp(1rem, 1.5vw, 1.25rem);
+            --text-base: 1rem;
+            --text-sm: 0.875rem;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 2.5rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            --space-4xl: 5rem;
+            --space-5xl: 6rem;
+
+            /* Shadows */
+            --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 8px 30px rgba(138, 43, 226, 0.15);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 100px;
+        }
+
+        /* LAYER 2: Typography System - BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--mv-dark);
+            line-height: 1.6;
+            background: var(--mv-white);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: var(--space-md);
+        }
+
+        h1 { font-size: var(--text-5xl); }
+        h2 { font-size: var(--text-4xl); }
+        h3 { font-size: var(--text-2xl); }
+        h4 { font-size: var(--text-xl); }
+        h5 { font-size: var(--text-lg); }
+        h6 { font-size: var(--text-base); }
+
+        p {
+            margin-bottom: var(--space-sm);
+            line-height: 1.8;
+        }
+
+        a {
+            color: var(--mv-purple);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--mv-purple-light);
+        }
+
+        /* Responsive Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        section {
+            padding: var(--space-4xl) 0;
+        }
+
+        /* COMPONENT: Hero Section - Dark Ocean Theme */
+        .hero {
+            background: linear-gradient(135deg, var(--mv-ocean-blue) 0%, var(--mv-dark) 100%);
+            color: var(--mv-white);
+            padding: var(--space-5xl) 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '🦈';
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.05;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            color: var(--mv-white);
+            margin-bottom: var(--space-lg);
+        }
+
+        .hero p {
+            font-size: var(--text-xl);
+            max-width: 700px;
+            margin: 0 auto var(--space-xl);
+            opacity: 0.9;
+        }
+
+        .hero-emoji {
+            font-size: 5rem;
+            margin-bottom: var(--space-lg);
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* COMPONENT: Technique Card - White Glass (from Airtable) */
+        .techniques-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .technique-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .technique-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.15);
+        }
+
+        .technique-card h3 {
+            font-family: 'Gilroy', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #8A2BE2;
+            margin-bottom: 1.5rem;
+        }
+
+        .technique-card p {
+            color: #404040;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .technique-card .joke-emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* COMPONENT: FAQ Item - Left Border Accent (from Airtable) */
+        .faq-section {
+            background: var(--mv-gray-light);
+            margin-top: var(--space-4xl);
+        }
+
+        .faq-item {
+            background: #FAFAFA;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #8A2BE2;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .faq-item:hover {
+            background: #F8F5FF;
+        }
+
+        .faq-question-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.5rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .faq-question {
+            font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin: 0;
+            flex: 1;
+        }
+
+        .faq-toggle {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            min-height: 32px;
+            border-radius: 50%;
+            background: #8A2BE2;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 300;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-left: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-toggle:hover {
+            background: #DA70D6;
+            transform: scale(1.1);
+        }
+
+        .faq-answer-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer-wrapper.active {
+            max-height: 500px;
+            padding: 0 2.5rem 2.5rem 2.5rem;
+        }
+
+        .faq-answer {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #404040;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-4xl);
+        }
+
+        .section-header h2 {
+            color: var(--mv-dark);
+            margin-bottom: var(--space-md);
+        }
+
+        .section-header p {
+            font-size: var(--text-lg);
+            color: var(--mv-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding: var(--space-3xl) 0;
+            }
+
+            .hero-emoji {
+                font-size: 3rem;
+            }
+
+            .techniques-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .technique-card {
+                padding: 2rem;
+            }
+
+            .faq-question-wrapper {
+                padding: 2rem;
+            }
+
+            .faq-question {
+                font-size: 1.125rem;
+            }
+
+            .faq-toggle {
+                width: 28px;
+                height: 28px;
+                min-width: 28px;
+                min-height: 28px;
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Accessibility - Focus States */
+        .faq-question-wrapper:focus-visible,
+        .technique-card:focus-visible {
+            outline: 2px solid var(--mv-purple);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- COMPONENT: Hero - Dark Ocean Theme -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-emoji">🦈</span>
+                <h1>Shark Jokes That'll Make You Smile</h1>
+                <p>Dive deep into the ocean of humor with our fin-tastic collection of shark jokes. Warning: May cause uncontrollable laughter and a sudden urge to share with friends!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPONENT: Technique Cards - White Glass (Shark Jokes) -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Finest Shark Jokes</h2>
+                <p>Carefully curated from the deepest parts of the comedy ocean</p>
+            </div>
+
+            <div class="techniques-grid">
+                <!-- Joke 1 -->
+                <div class="technique-card" tabindex="0">
+                    <span class="joke-emoji">🦈</span>
+                    <h3>The Shark's Favorite Game</h3>
+                    <p>What's a shark's favorite game? Swallow the leader! (Don't worry, no leaders were harmed in the making of this joke.)</p>
+                </div>
+
+                <!-- Joke 2 -->
+                <div class="technique-card" tabindex="0">
+                    <span class="joke-emoji">🎵</span>
+                    <h3>Musical Sharks</h3>
+                    <p>What do you get when you cross a shark with a snowman? Frostbite! Perfect for those cold winter swims.</p>
+                </div>
+
+                <!-- Joke 3 -->
+                <div class="technique-card" tabindex="0">
+                    <span class="joke-emoji">💼</span>
+                    <h3>Shark Business Advice</h3>
+                    <p>Why don't sharks like fast food? Because they can't catch it! They prefer slow-moving business opportunities.</p>
+                </div>
+
+                <!-- Joke 4 -->
+                <div class="technique-card" tabindex="0">
+                    <span class="joke-emoji">🎸</span>
+                    <h3>Shark Band Names</h3>
+                    <p>What's a shark's favorite instrument? The bass guitar, naturally! They're also pretty good at the shark-ophone.</p>
+                </div>
+
+                <!-- Joke 5 -->
+                <div class="technique-card" tabindex="0">
+                    <span class="joke-emoji">🧠</span>
+                    <h3>Philosophical Sharks</h3>
+                    <p>Why are sharks so good at making decisions? They have a great sense of porpoise! (Wait, wrong marine animal... but the joke still swims!)</p>
+                </div>
+
+                <!-- Joke 6 -->
+                <div class="technique-card" tabindex="0">
+                    <span class="joke-emoji">👔</span>
+                    <h3>Shark Fashion</h3>
+                    <p>What do sharks wear to a business meeting? A loan shark suit! They're very professional when it comes to underwater finance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPONENT: FAQ Item - Left Border Accent -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Shark Questions</h2>
+                <p>Everything you wanted to know about shark humor (but were too afraid to ask)</p>
+            </div>
+
+            <!-- FAQ 1 -->
+            <div class="faq-item">
+                <div class="faq-question-wrapper" onclick="toggleFAQ(this)" tabindex="0" role="button" aria-expanded="false">
+                    <h3 class="faq-question">Are these jokes scientifically accurate?</h3>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer-wrapper">
+                    <p class="faq-answer">Absolutely not! These jokes are 100% fabricated for your entertainment. Real sharks are fascinating creatures that deserve our respect and protection. But they probably wouldn't mind a good laugh either!</p>
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="faq-item">
+                <div class="faq-question-wrapper" onclick="toggleFAQ(this)" tabindex="0" role="button" aria-expanded="false">
+                    <h3 class="faq-question">Why are shark jokes so fin-tastic?</h3>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer-wrapper">
+                    <p class="faq-answer">Because they have the perfect bite-sized humor! Plus, sharks are universally recognized as both terrifying and somehow adorable. That combination creates comedy gold in the deep blue sea of entertainment.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="faq-item">
+                <div class="faq-question-wrapper" onclick="toggleFAQ(this)" tabindex="0" role="button" aria-expanded="false">
+                    <h3 class="faq-question">Can I share these jokes at parties?</h3>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer-wrapper">
+                    <p class="faq-answer">Please do! These jokes are free to share. Warning: May cause groaning, eye-rolling, and requests for more jokes. We take no responsibility for your newfound reputation as the "shark joke person."</p>
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="faq-item">
+                <div class="faq-question-wrapper" onclick="toggleFAQ(this)" tabindex="0" role="button" aria-expanded="false">
+                    <h3 class="faq-question">Do sharks actually have a sense of humor?</h3>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer-wrapper">
+                    <p class="faq-answer">Marine biologists are still debating this, but we like to think they do! Have you seen a hammerhead shark? That's either evolution's greatest joke or proof that sharks have a playful side. We're going with the latter.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="faq-item">
+                <div class="faq-question-wrapper" onclick="toggleFAQ(this)" tabindex="0" role="button" aria-expanded="false">
+                    <h3 class="faq-question">Where can I learn more about real sharks?</h3>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer-wrapper">
+                    <p class="faq-answer">While we love shark jokes, we also love real sharks! Check out organizations like the Shark Trust, Oceana, or your local aquarium to learn about shark conservation. These magnificent creatures need our help to survive in the wild!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for FAQ Interactivity -->
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const answerWrapper = element.nextElementSibling;
+            const isActive = faqItem.classList.contains('active');
+
+            // Close all other FAQs
+            document.querySelectorAll('.faq-item.active').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                    item.querySelector('.faq-answer-wrapper').classList.remove('active');
+                    item.querySelector('.faq-question-wrapper').setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Toggle current FAQ
+            faqItem.classList.toggle('active');
+            answerWrapper.classList.toggle('active');
+            element.setAttribute('aria-expanded', !isActive);
+        }
+
+        // Keyboard accessibility for FAQ items
+        document.querySelectorAll('.faq-question-wrapper').forEach(wrapper => {
+            wrapper.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleFAQ(this);
+                }
+            });
+        });
+
+        // Keyboard accessibility for technique cards
+        document.querySelectorAll('.technique-card').forEach(card => {
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

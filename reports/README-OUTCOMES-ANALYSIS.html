@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>README: Mindvalley Outcomes Simplification Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+        }
+
+        .toc h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            padding: 8px 0;
+        }
+
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin: 30px 0 15px 0;
+        }
+
+        h4 {
+            color: #5a6c7d;
+            font-size: 1.2em;
+            margin: 25px 0 12px 0;
+        }
+
+        p {
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+
+        .callout {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px 30px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .callout h3 {
+            margin-top: 0;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .code-inline {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #e83e8c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e1e8ed;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #f0f4f8;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin: 8px 0;
+            line-height: 1.8;
+        }
+
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li:before {
+            content: "☐ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px 10px 10px 0;
+            transition: transform 0.2s;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #667eea;
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.15);
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .stat-card .number {
+            font-size: 2.5em;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            text-align: center;
+            color: #8492a6;
+            border-top: 1px solid #e1e8ed;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .back-button {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .content {
+                padding: 20px;
+            }
+            .back-button {
+                position: static;
+                display: block;
+                margin-bottom: 20px;
+            }
+            table {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="outcomes-index.html" class="back-button">← Back to Index</a>
+            <h1>📖 README: Outcomes Simplification</h1>
+            <div class="subtitle">Complete Project Overview & Quick Start Guide</div>
+        </div>
+
+        <div class="content">
+            <div class="toc">
+                <h2>Table of Contents</h2>
+                <ul>
+                    <li><a href="#quick-start">Quick Start</a></li>
+                    <li><a href="#project-structure">Project Structure</a></li>
+                    <li><a href="#documents">Documents Overview</a></li>
+                    <li><a href="#criteria">Analysis Criteria Summary</a></li>
+                    <li><a href="#semantic-groups">Semantic Groups Quick Reference</a></li>
+                    <li><a href="#expected-results">Expected Results</a></li>
+                    <li><a href="#implementation">Implementation Timeline</a></li>
+                    <li><a href="#tools">Tools & Scripts</a></li>
+                    <li><a href="#workflows">Workflow Examples</a></li>
+                    <li><a href="#qa">Quality Assurance</a></li>
+                </ul>
+            </div>
+
+            <section id="quick-start" class="section">
+                <h2 class="section-title">Quick Start</h2>
+
+                <h3>For Technical Users (Automated Approach)</h3>
+                <div class="code-block">
+# 1. Set your Airtable API key
+export AIRTABLE_API_KEY="your_key_here"
+
+# 2. Run the analysis script
+cd /Users/vishen/Documents/Github/workspace
+python3 scripts/fetch-and-analyze-outcomes.py
+
+# 3. Review the output
+# - Console will show detailed report
+# - outcome-updates.json will contain batch updates
+
+# 4. Apply updates using MCP tools (see strategy doc)
+                </div>
+
+                <div class="callout">
+                    <strong>Time:</strong> 1-2 days<br>
+                    <strong>Output:</strong> Automated recommendations with usage data
+                </div>
+
+                <h3>For Non-Technical Users (Manual Approach)</h3>
+                <ol>
+                    <li>Open the Manual Analysis Guide: <span class="code-inline">/reports/outcomes-manual-analysis-guide.md</span></li>
+                    <li>Follow the step-by-step process</li>
+                    <li>Use Airtable filters and batch updates</li>
+                    <li>Track progress using the CSV template</li>
+                </ol>
+
+                <div class="callout">
+                    <strong>Time:</strong> 4-5 days<br>
+                    <strong>Output:</strong> Manual recommendations with full control
+                </div>
+            </section>
+
+            <section id="project-structure" class="section">
+                <h2 class="section-title">Project Structure</h2>
+                <div class="code-block">
+workspace/
+├── reports/
+│   ├── README-OUTCOMES-ANALYSIS.md          ← You are here
+│   ├── outcomes-analysis-executive-summary.md   ← Start here for overview
+│   ├── outcomes-simplification-strategy.md      ← Complete methodology
+│   ├── outcomes-manual-analysis-guide.md        ← Step-by-step process
+│   └── outcomes-analysis-template.csv          ← Progress tracking template
+│
+└── scripts/
+    ├── fetch-and-analyze-outcomes.py           ← Main analysis script
+    ├── analyze-outcomes.py                     ← Core analysis logic
+    ├── outcomes-analyzer.py                    ← Extended analyzer
+    └── process-outcomes-analysis.sh            ← Bash wrapper
+                </div>
+            </section>
+
+            <section id="documents" class="section">
+                <h2 class="section-title">Documents Overview</h2>
+
+                <div class="card">
+                    <h3>1. Executive Summary</h3>
+                    <p><strong>File:</strong> <span class="code-inline">outcomes-analysis-executive-summary.md</span></p>
+                    <p><strong>Purpose:</strong> High-level overview for stakeholders</p>
+                    <p><strong>Contents:</strong></p>
+                    <ul>
+                        <li>Key findings and recommendations</li>
+                        <li>Expected results (40-60% reduction)</li>
+                        <li>Implementation plan (6-8 days)</li>
+                        <li>Risk assessment</li>
+                        <li>Resource requirements</li>
+                    </ul>
+                    <p><strong>Read this first</strong> if you need to understand the project at a glance or present to stakeholders.</p>
+                    <a href="outcomes-analysis-executive-summary.html" class="button">Read Executive Summary →</a>
+                </div>
+
+                <div class="card">
+                    <h3>2. Simplification Strategy</h3>
+                    <p><strong>File:</strong> <span class="code-inline">outcomes-simplification-strategy.md</span></p>
+                    <p><strong>Purpose:</strong> Complete methodology and framework</p>
+                    <p><strong>Contents:</strong></p>
+                    <ul>
+                        <li>Detailed deletion criteria</li>
+                        <li>Detailed merge criteria</li>
+                        <li>30 semantic groups with examples</li>
+                        <li>Implementation process (5 phases)</li>
+                        <li>Example merge scenarios</li>
+                        <li>Quality assurance checklist</li>
+                        <li>Tools and scripts documentation</li>
+                    </ul>
+                    <p><strong>Read this</strong> for the complete technical approach and methodology.</p>
+                    <a href="outcomes-simplification-strategy.html" class="button">Read Strategy →</a>
+                </div>
+
+                <div class="card">
+                    <h3>3. Manual Analysis Guide</h3>
+                    <p><strong>File:</strong> <span class="code-inline">outcomes-manual-analysis-guide.md</span></p>
+                    <p><strong>Purpose:</strong> Step-by-step instructions for manual analysis</p>
+                    <p><strong>Contents:</strong></p>
+                    <ul>
+                        <li>Quick start checklist</li>
+                        <li>Phase-by-phase process</li>
+                        <li>All 30 semantic groups with search terms</li>
+                        <li>Decision tree for each outcome</li>
+                        <li>Batch update workflow</li>
+                        <li>Quality control checklist</li>
+                        <li>Example work session (2 hours)</li>
+                        <li>Progress tracking</li>
+                    </ul>
+                    <p><strong>Use this</strong> if you're doing manual analysis in Airtable interface.</p>
+                    <a href="outcomes-manual-analysis-guide.html" class="button">Read Manual Guide →</a>
+                </div>
+
+                <div class="card">
+                    <h3>4. Analysis Template</h3>
+                    <p><strong>File:</strong> <span class="code-inline">outcomes-analysis-template.csv</span></p>
+                    <p><strong>Purpose:</strong> Track your progress</p>
+                    <p><strong>Contents:</strong></p>
+                    <ul>
+                        <li>CSV template with all necessary columns</li>
+                        <li>Example entries showing format</li>
+                        <li>Can be imported into Excel/Google Sheets</li>
+                    </ul>
+                    <p><strong>Use this</strong> to track which outcomes you've reviewed and your decisions.</p>
+                    <a href="outcomes-analysis-template.html" class="button">View Template →</a>
+                </div>
+            </section>
+
+            <section id="criteria" class="section">
+                <h2 class="section-title">Analysis Criteria Summary</h2>
+
+                <h3>Deletion (Zero Usage)</h3>
+                <div class="code-block">
+IF Program Count = 0
+   AND Meditation Count = 0
+   AND Audio Count = 0
+THEN UPDATE TYPE = "Deleted"
+     UPDATE NOTE = "No usage: Program Count=0, Meditation Count=0, Audio Count=0"
+                </div>
+
+                <h3>Deletion (Low Usage)</h3>
+                <div class="code-block">
+IF (Program Count + Meditation Count + Audio Count) <= 2
+THEN UPDATE TYPE = "Deleted"
+     UPDATE NOTE = "Low usage: Total=X (Program=Y, Meditation=Z, Audio=W)"
+                </div>
+
+                <h3>Merge (Semantic Similarity)</h3>
+                <div class="code-block">
+IF Outcome matches semantic group
+   AND NOT highest usage in group
+THEN UPDATE TYPE = "Merged"
+     UPDATE NOTE = "Merge into '[Primary]' (usage=X). Current usage=Y. Semantic group: [terms]"
+                </div>
+            </section>
+
+            <section id="semantic-groups" class="section">
+                <h2 class="section-title">Semantic Groups Quick Reference</h2>
+                <p>30 semantic groups identified for merge analysis:</p>
+
+                <div class="grid">
+                    <div>
+                        <h4>Emotional States</h4>
+                        <ol>
+                            <li>Stress/Anxiety/Worry</li>
+                            <li>Happiness/Joy/Bliss</li>
+                            <li>Calm/Peace/Serenity</li>
+                            <li>Anger/Frustration</li>
+                            <li>Fear/Scared</li>
+                            <li>Sadness/Depression</li>
+                            <li>Love/Loving</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h4>Cognitive States</h4>
+                        <ol start="8">
+                            <li>Focus/Concentration</li>
+                            <li>Clarity/Clear-thinking</li>
+                            <li>Mindfulness/Presence</li>
+                            <li>Creativity/Innovation</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h4>Physical States</h4>
+                        <ol start="12">
+                            <li>Energy/Vitality</li>
+                            <li>Relaxation/Rest</li>
+                            <li>Sleep/Sleeping</li>
+                            <li>Pain/Pain relief</li>
+                            <li>Healing/Recovery</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h4>Personal Development</h4>
+                        <ol start="17">
+                            <li>Confidence/Self-esteem</li>
+                            <li>Motivation/Drive</li>
+                            <li>Resilience/Strength</li>
+                            <li>Self-awareness</li>
+                            <li>Purpose/Meaning</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h4>Interpersonal</h4>
+                        <ol start="22">
+                            <li>Gratitude/Appreciation</li>
+                            <li>Compassion/Empathy</li>
+                            <li>Connection/Belonging</li>
+                            <li>Forgiveness/Release</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h4>Spiritual/Material</h4>
+                        <ol start="26">
+                            <li>Spiritual/Spirituality</li>
+                            <li>Intuition/Wisdom</li>
+                            <li>Abundance/Prosperity</li>
+                            <li>Success/Achievement</li>
+                            <li>Balance/Harmony</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <section id="expected-results" class="section">
+                <h2 class="section-title">Expected Results</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Before</th>
+                            <th>After</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total Outcomes</td>
+                            <td>200-300</td>
+                            <td>80-150</td>
+                            <td>-40% to -60%</td>
+                        </tr>
+                        <tr>
+                            <td>Zero Usage</td>
+                            <td>40-60</td>
+                            <td>0</td>
+                            <td>-100%</td>
+                        </tr>
+                        <tr>
+                            <td>Low Usage (≤2)</td>
+                            <td>30-50</td>
+                            <td>0</td>
+                            <td>-100%</td>
+                        </tr>
+                        <tr>
+                            <td>Semantic Duplicates</td>
+                            <td>50-80</td>
+                            <td>10-20</td>
+                            <td>-70% to -80%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="implementation" class="section">
+                <h2 class="section-title">Implementation Timeline</h2>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="number">1-2</span>
+                        <span class="label">Days: Automated Approach</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="number">4-5</span>
+                        <span class="label">Days: Manual Approach</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="number">2-3</span>
+                        <span class="label">Days: Content Migration</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="number">6-12</span>
+                        <span class="label">Total Days</span>
+                    </div>
+                </div>
+
+                <h3>Automated Approach (1-2 days)</h3>
+                <ul>
+                    <li><strong>Day 1 AM:</strong> Run Python script, review recommendations</li>
+                    <li><strong>Day 1 PM:</strong> Stakeholder review and approval</li>
+                    <li><strong>Day 2 AM:</strong> Apply batch updates via MCP tools</li>
+                    <li><strong>Day 2 PM:</strong> Validate results</li>
+                </ul>
+
+                <h3>Manual Approach (4-5 days)</h3>
+                <ul>
+                    <li><strong>Day 1:</strong> Setup + Zero usage deletions (~40-60 outcomes)</li>
+                    <li><strong>Day 2:</strong> Low usage deletions (~30-50 outcomes)</li>
+                    <li><strong>Day 3:</strong> Semantic groups 1-15 (~25-40 merges)</li>
+                    <li><strong>Day 4:</strong> Semantic groups 16-30 (~25-40 merges)</li>
+                    <li><strong>Day 5:</strong> Review + quality control</li>
+                </ul>
+
+                <h3>Content Migration (2-3 days)</h3>
+                <ul>
+                    <li>Update Programs to use primary outcomes</li>
+                    <li>Update Meditations to use primary outcomes</li>
+                    <li>Update Audios to use primary outcomes</li>
+                    <li>Verify all references updated</li>
+                </ul>
+            </section>
+
+            <section id="tools" class="section">
+                <h2 class="section-title">Tools & Scripts</h2>
+
+                <div class="callout">
+                    <h3>Airtable Information</h3>
+                    <p><strong>Base ID:</strong> app4ulN4GnBRvcfAL</p>
+                    <p><strong>Base Name:</strong> Mindvalley Brain</p>
+                    <p><strong>Table ID:</strong> tblLA13fGO7KM1JHA</p>
+                    <p><strong>Table Name:</strong> 🪽Outcomes</p>
+                    <p><strong>Recommended View:</strong> 🔧 by AOG (viwoAhFaw8vu6ADUm)</p>
+                </div>
+
+                <h3>Python Analysis Script</h3>
+                <p><strong>File:</strong> <span class="code-inline">/scripts/fetch-and-analyze-outcomes.py</span></p>
+                <p><strong>Features:</strong></p>
+                <ul>
+                    <li>Fetches all outcomes without UPDATE TYPE</li>
+                    <li>Applies deletion criteria automatically</li>
+                    <li>Identifies semantic groups</li>
+                    <li>Generates merge recommendations</li>
+                    <li>Outputs detailed console report</li>
+                    <li>Creates <span class="code-inline">outcome-updates.json</span> for batch processing</li>
+                </ul>
+
+                <p><strong>Requirements:</strong></p>
+                <ul>
+                    <li>Python 3.x</li>
+                    <li><span class="code-inline">requests</span> library (<span class="code-inline">pip install requests</span>)</li>
+                    <li>AIRTABLE_API_KEY environment variable</li>
+                </ul>
+
+                <p><strong>Usage:</strong></p>
+                <div class="code-block">
+export AIRTABLE_API_KEY="your_key"
+python3 scripts/fetch-and-analyze-outcomes.py
+                </div>
+            </section>
+
+            <section id="workflows" class="section">
+                <h2 class="section-title">Workflow Examples</h2>
+
+                <h3>Example 1: Zero Usage Deletion</h3>
+                <p><strong>Before:</strong></p>
+                <div class="code-block">
+Outcome: "Reduce procrastination"
+Program Count: 0
+Meditation Count: 0
+Audio Count: 0
+UPDATE TYPE: [blank]
+                </div>
+
+                <p><strong>After:</strong></p>
+                <div class="code-block">
+Outcome: "Reduce procrastination"
+Program Count: 0
+Meditation Count: 0
+Audio Count: 0
+UPDATE TYPE: "Deleted"
+UPDATE NOTE: "No usage: Program Count=0, Meditation Count=0, Audio Count=0"
+                </div>
+
+                <h3>Example 2: Semantic Merge</h3>
+                <p><strong>Before:</strong></p>
+                <div class="code-block">
+Outcome A: "Reduce stress" (Program=8, Meditation=15, Audio=12) Total: 35
+Outcome B: "Manage anxiety" (Program=3, Meditation=7, Audio=4) Total: 14
+Outcome C: "Less worry" (Program=1, Meditation=3, Audio=2) Total: 6
+                </div>
+
+                <p><strong>After:</strong></p>
+                <div class="code-block">
+Outcome A: "Reduce stress" (Primary) - KEEP
+UPDATE TYPE: [blank]
+
+Outcome B: "Manage anxiety" - MERGE
+UPDATE TYPE: "Merged"
+UPDATE NOTE: "Merge into 'Reduce stress' (usage=35). Current usage=14. Semantic group: stress/anxiety/worry"
+
+Outcome C: "Less worry" - MERGE
+UPDATE TYPE: "Merged"
+UPDATE NOTE: "Merge into 'Reduce stress' (usage=35). Current usage=6. Semantic group: stress/anxiety/worry"
+                </div>
+
+                <p><strong>Result:</strong> 3 outcomes → 1 outcome (66% reduction in this group)</p>
+            </section>
+
+            <section id="qa" class="section">
+                <h2 class="section-title">Quality Assurance</h2>
+
+                <h3>Before Finalizing</h3>
+                <ul class="checklist">
+                    <li>All zero-usage outcomes reviewed</li>
+                    <li>All low-usage outcomes reviewed</li>
+                    <li>Semantic groupings validated</li>
+                    <li>Primary selections confirmed (highest usage)</li>
+                    <li>UPDATE NOTEs are clear and specific</li>
+                    <li>No strategic outcomes accidentally deleted</li>
+                    <li>Stakeholder approval obtained</li>
+                </ul>
+
+                <h3>After Updates</h3>
+                <ul class="checklist">
+                    <li>All UPDATE TYPEs set correctly</li>
+                    <li>All UPDATE NOTEs present and clear</li>
+                    <li>Spot-check 20 random updates</li>
+                    <li>Verify no unexpected outcomes marked</li>
+                    <li>Document any edge cases or exceptions</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Common Questions</h2>
+
+                <div class="callout">
+                    <h4>Q: What if an outcome has zero usage but is strategically important?</h4>
+                    <p><strong>A:</strong> Mark it with a note "Strategic outcome - new feature pending" and skip the deletion. Review again in 30 days.</p>
+                </div>
+
+                <div class="callout">
+                    <h4>Q: Should "fall asleep faster" merge with "better sleep"?</h4>
+                    <p><strong>A:</strong> No - this is specific enough to warrant separate outcome. Keep both if both have >5 usage.</p>
+                </div>
+
+                <div class="callout">
+                    <h4>Q: What if two outcomes have same usage?</h4>
+                    <p><strong>A:</strong> Choose the one with clearer, more intuitive name as primary.</p>
+                </div>
+
+                <div class="callout">
+                    <h4>Q: Can I undo a merge?</h4>
+                    <p><strong>A:</strong> Yes - outcomes are soft-deleted (marked but not removed). Can be reverted within 30 days.</p>
+                </div>
+
+                <div class="callout">
+                    <h4>Q: How do I handle outcomes with identical descriptions?</h4>
+                    <p><strong>A:</strong> Always merge these - they're true duplicates. Keep the one with better name or higher usage.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Next Steps</h2>
+
+                <ol>
+                    <li><strong>Choose Your Approach:</strong>
+                        <ul>
+                            <li>Technical/Fast: Use Python script</li>
+                            <li>Manual/Control: Use manual guide</li>
+                        </ul>
+                    </li>
+                    <li><strong>Review Documentation:</strong>
+                        <ul>
+                            <li>Read executive summary for overview</li>
+                            <li>Read strategy for methodology</li>
+                            <li>Read manual guide for process</li>
+                        </ul>
+                    </li>
+                    <li><strong>Setup:</strong>
+                        <ul>
+                            <li>Get Airtable access</li>
+                            <li>Set up API key (if automated)</li>
+                            <li>Download CSV template</li>
+                        </ul>
+                    </li>
+                    <li><strong>Execute:</strong>
+                        <ul>
+                            <li>Run analysis</li>
+                            <li>Review results</li>
+                            <li>Get approval</li>
+                            <li>Apply updates</li>
+                        </ul>
+                    </li>
+                    <li><strong>Validate:</strong>
+                        <ul>
+                            <li>Check results</li>
+                            <li>Migrate content</li>
+                            <li>Document learnings</li>
+                            <li>Establish governance</li>
+                        </ul>
+                    </li>
+                </ol>
+            </section>
+
+            <div class="callout">
+                <h3>Ready to begin?</h3>
+                <p>Start with the Executive Summary for overview, then choose your approach (automated vs manual) and dive in!</p>
+                <a href="outcomes-analysis-executive-summary.html" class="button">Read Executive Summary</a>
+                <a href="outcomes-simplification-strategy.html" class="button">Read Full Strategy</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Mindvalley Outcomes Simplification Project</strong></p>
+            <p>Documentation v1.0 | Generated November 11, 2025</p>
+            <p style="margin-top: 15px;"><a href="outcomes-index.html">← Return to Index</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding Part II - Speaker Notes | Mindvalley</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Slide Container with Notes */
+        .slide-wrapper {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 60% 40%;
+            border-bottom: 1px solid #333;
+        }
+
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 80px;
+            background: #000;
+        }
+
+        .speaker-notes {
+            background: #1a1a1a;
+            padding: 60px 40px;
+            overflow-y: auto;
+            border-left: 3px solid #667eea;
+        }
+
+        /* Typography */
+        .slide-content h1 {
+            font-size: 72px;
+            font-weight: 700;
+            line-height: 1.1;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .slide-content h2 {
+            font-size: 52px;
+            font-weight: 600;
+            line-height: 1.2;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .slide-content h3 {
+            font-size: 42px;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .slide-content .subtitle {
+            font-size: 32px;
+            font-weight: 300;
+            color: #999;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        /* Notes Typography */
+        .notes-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .notes-section {
+            margin-bottom: 30px;
+        }
+
+        .notes-section h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #999;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .notes-section p, .notes-section li {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .notes-section ul, .notes-section ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .notes-section li {
+            margin-bottom: 8px;
+        }
+
+        .timing {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .warning {
+            background: rgba(255, 107, 107, 0.2);
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning p {
+            color: #ffb3b3;
+            font-weight: 500;
+        }
+
+        .tip {
+            background: rgba(72, 219, 251, 0.2);
+            border-left: 4px solid #48dbfb;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .tip p {
+            color: #a8e6ff;
+            font-weight: 500;
+        }
+
+        /* Mindvalley Colors */
+        .mv-purple {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .mv-gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Simple List */
+        .simple-list {
+            list-style: none;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .simple-list li {
+            font-size: 32px;
+            font-weight: 300;
+            margin: 20px 0;
+        }
+
+        /* Big Number */
+        .big-number {
+            font-size: 180px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        /* Steps */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            font-size: 64px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .step-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+
+        .step-desc {
+            font-size: 16px;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+
+        .section-marker {
+            font-size: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #667eea;
+            margin-bottom: 30px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .slide-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .speaker-notes {
+                border-left: none;
+                border-top: 3px solid #667eea;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1 -->
+<div class="slide-wrapper">
+    <div class="slide-content mv-purple">
+        <h1>VIBE CODING</h1>
+        <h2>Part II</h2>
+        <p class="subtitle">Mindvalley Entrepreneurship Mastery</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">0:00 - 0:30 | 30 seconds</div>
+        <div class="notes-title">Opening Slide</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Welcome back to Vibe Coding Part II! In Part I, we covered the fundamentals of building with AI. Today, we're going deeper into the strategic and advanced applications."</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Energy Level:</h4>
+            <p>HIGH - Start with enthusiasm and energy. This sets the tone for the entire session.</p>
+        </div>
+
+        <div class="tip">
+            <p><strong>Pro Tip:</strong> Pause for 3 seconds after this slide appears. Let it sink in. Steve Jobs always let his title slides breathe.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <p class="quote">
+            "What if the difference between<br>
+            someone with an idea<br>
+            and someone running a million-dollar business<br>
+            is just knowing which AI to talk to first?"
+        </p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">0:30 - 1:30 | 1 minute</div>
+        <div class="notes-title">The Opening Hook</div>
+
+        <div class="notes-section">
+            <h4>Delivery:</h4>
+            <p>Read this slowly. Let each line land. Pause between "idea" and "million-dollar business."</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>What to Say After:</h4>
+            <p>"That sounds dramatic. But I'm dead serious. Most people use AI wrong. They ask ChatGPT to build their app. Or they ask Claude to brainstorm their business model. That's backwards."</p>
+            <p>"Today, I'm going to show you the EXACT workflow that's creating real businesses. Not theories. Real platforms. Real revenue. Real transformation."</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Energy:</h4>
+            <p>CONFIDENT. This is a bold promise. Own it. The rest of the presentation will prove it.</p>
+        </div>
+
+        <div class="tip">
+            <p><strong>Key Moment:</strong> This is where you earn their attention for the next hour. Make them curious.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <p class="section-marker">PART I RECAP</p>
+        <h2>The Three Levels of<br>Vibe Coding</h2>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">1:00 - 1:30 | 30 seconds</div>
+        <div class="notes-title">Recap Introduction</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Let's do a 2-minute recap of Part I for those who weren't here and as a refresher for everyone else."</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Purpose:</h4>
+            <p>Ground everyone in the same foundation. Even those who attended Part I will benefit from the reminder.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDES 4-6: The Three Levels -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <div class="big-number">1</div>
+        <h3>Describe What You Want</h3>
+        <p class="subtitle">Vision → Words → Reality</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">1:30 - 2:00 | 30 seconds</div>
+        <div class="notes-title">Level 1: Description</div>
+
+        <div class="notes-section">
+            <h4>Key Point:</h4>
+            <p>"Level 1 is about clarity. You describe your vision in plain English. The clearer you are, the better AI understands."</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Example to Use:</h4>
+            <p>"Instead of 'make a website', you say 'Create a landing page for wellness coaches that collects email addresses and showcases a 30-day program.'"</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <div class="big-number">2</div>
+        <h3>Iterate with AI</h3>
+        <p class="subtitle">Plain English Refinement</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">2:00 - 2:30 | 30 seconds</div>
+        <div class="notes-title">Level 2: Iteration</div>
+
+        <div class="notes-section">
+            <h4>Key Point:</h4>
+            <p>"Level 2 is the iteration dance. AI builds something, you give feedback in plain English, AI refines. No code required."</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Emphasis:</h4>
+            <p>This is where most people get stuck - they think they need to know code to make changes. They don't.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <div class="big-number">3</div>
+        <h3>Ship & Learn</h3>
+        <p class="subtitle">Fast Feedback Loops</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">2:30 - 3:00 | 30 seconds</div>
+        <div class="notes-title">Level 3: Shipping</div>
+
+        <div class="notes-section">
+            <h4>Key Point:</h4>
+            <p>"Level 3 is about speed. Ship fast, get real user feedback, improve. The faster you learn, the faster you succeed."</p>
+        </div>
+
+        <div class="tip">
+            <p><strong>Callback:</strong> "Remember: Perfect is the enemy of done. Shipped beats perfect every time."</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 7 -->
+<div class="slide-wrapper">
+    <div class="slide-content mv-purple">
+        <h2>Today's Journey</h2>
+        <ul class="simple-list">
+            <li>Strategic AI Usage</li>
+            <li>Live Platform Demo</li>
+            <li>Build an Application</li>
+            <li>Solve a Marketing Problem</li>
+        </ul>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">3:00 - 4:00 | 1 minute</div>
+        <div class="notes-title">Session Overview</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Here's what we're covering today:"</p>
+            <ul>
+                <li>"First, we'll talk about STRATEGIC AI usage - when to use which tool"</li>
+                <li>"Then I'll show you Mindvalley Peers, a real platform I built using this exact process"</li>
+                <li>"Then we'll bring up volunteers and BUILD together - one app, one marketing solution"</li>
+            </ul>
+        </div>
+
+        <div class="notes-section">
+            <h4>Set Expectations:</h4>
+            <p>"This is going to be hands-on. We're not just talking theory - we're building real things today."</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 8 -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <p class="section-marker">THE STRATEGIC LAYER</p>
+        <h2>Choosing the Right AI<br>for the Right Job</h2>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">4:00 - 4:30 | 30 seconds</div>
+        <div class="notes-title">Strategic Section Intro</div>
+
+        <div class="notes-section">
+            <h4>Transition:</h4>
+            <p>"Now let's talk about something most people get wrong - they use the same AI tool for everything. That's like using a hammer for every job."</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Hook:</h4>
+            <p>"What I'm about to show you will save you HOURS of frustration."</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 9 -->
+<div class="slide-wrapper">
+    <div class="slide-content" style="background: #fff; color: #000;">
+        <h2 style="color: #000;">Not all AI tools<br>are created equal</h2>
+        <p class="subtitle" style="color: #666;">Different phases need different tools</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">4:30 - 5:00 | 30 seconds</div>
+        <div class="notes-title">The Core Insight</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Here's the truth: ChatGPT is amazing for some things. Claude is amazing for others. Lovable excels at different things. Using the right tool for the right phase is the difference between frustration and flow."</p>
+        </div>
+
+        <div class="warning">
+            <p><strong>Common Mistake:</strong> Don't let this become a tools comparison. This is about STRATEGY.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 10 -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; max-width: 900px;">
+            <div style="text-align: center;">
+                <div class="mv-gradient-text" style="font-size: 42px; font-weight: 600; margin-bottom: 20px;">Phase 1</div>
+                <div style="font-size: 28px; font-weight: 300;">Ideation<br>& Strategy</div>
+            </div>
+            <div style="text-align: center;">
+                <div class="mv-gradient-text" style="font-size: 42px; font-weight: 600; margin-bottom: 20px;">Phase 2</div>
+                <div style="font-size: 28px; font-weight: 300;">Execution<br>& Building</div>
+            </div>
+        </div>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">5:00 - 6:00 | 1 minute</div>
+        <div class="notes-title">Two-Phase Framework</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Think of your project in two phases:"</p>
+            <p><strong>Phase 1 - Ideation:</strong> This is where you're exploring. What should I build? What features? Who's it for? What's the business model?"</p>
+            <p><strong>Phase 2 - Execution:</strong> This is where you're building. Turn those ideas into working code."</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Key Insight:</h4>
+            <p>"Most people try to do both phases with one tool. That's the mistake. Different phases need different AI strengths."</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 12 -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <h2>ChatGPT</h2>
+        <p class="subtitle">The Visionary Mind</p>
+        <ul class="simple-list">
+            <li>User psychology & emotions</li>
+            <li>Cultural nuances</li>
+            <li>Metaphors & storytelling</li>
+            <li>User transformation vision</li>
+        </ul>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">6:00 - 7:00 | 1 minute</div>
+        <div class="notes-title">ChatGPT - The Visionary</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Think of ChatGPT as the VISIONARY in your AI studio:"</p>
+            <ul>
+                <li>"It understands user PSYCHOLOGY: 'What emotion do we want users to feel?'"</li>
+                <li>"It gets cultural nuances: How different personas will react"</li>
+                <li>"It creates metaphors and stories: The 'why' behind your features"</li>
+                <li>"It articulates transformation: 'What change do we want to create?'"</li>
+            </ul>
+        </div>
+
+        <div class="tip">
+            <p><strong>Key Insight:</strong> "ChatGPT handles the conceptual, emotional, and visionary design. It helps you see possibilities you hadn't imagined."</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 13 -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <h2>Claude Code / Lovable</h2>
+        <p class="subtitle">The Builder Mind</p>
+        <ul class="simple-list">
+            <li>Structure, logic & flow</li>
+            <li>Live prototypes & mockups</li>
+            <li>Data models & architecture</li>
+            <li>Production-ready code</li>
+        </ul>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">7:00 - 8:00 | 1 minute</div>
+        <div class="notes-title">Claude - The Builder</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Claude Code and Lovable are the BUILDERS in your studio:"</p>
+            <ul>
+                <li>"Structure and logic: Turns ideas into working systems"</li>
+                <li>"Live prototypes: Creates clickable wireframes and mock UIs instantly"</li>
+                <li>"Data models: Designs tables, relationships, scalable architecture"</li>
+                <li>"Production code: Clean, maintainable, professional"</li>
+            </ul>
+        </div>
+
+        <div class="notes-section">
+            <h4>Key Distinction:</h4>
+            <p>"ChatGPT asks 'WHAT transformation?' Claude answers 'HOW do we make that transformation inevitable?'"</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 14 -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <h2>The AI-Vibe Loop</h2>
+        <p class="subtitle">An iterative dance</p>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-title">Vision</div>
+                <div class="step-desc">ChatGPT defines<br>transformation</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-title">Feature</div>
+                <div class="step-desc">Claude builds<br>the prototype</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-title">Test</div>
+                <div class="step-desc">ChatGPT simulates<br>user reactions</div>
+            </div>
+        </div>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">8:00 - 9:00 | 1 minute</div>
+        <div class="notes-title">The AI-Vibe Loop</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"This is the dance - the AI-Vibe Loop that creates magic:"</p>
+            <ol>
+                <li>"VISION with ChatGPT: 'What transformation do we want users to experience?'"</li>
+                <li>"FEATURE TRANSLATION with Claude: Turn that vision into working prototypes"</li>
+                <li>"TEST with ChatGPT: Simulate different user types - introverts, coaches, CEOs - see how they react"</li>
+            </ol>
+        </div>
+
+        <div class="tip">
+            <p><strong>The Secret:</strong> "It's a REPEATING loop. Code, energy, feedback, code again. This is how you build products that feel alive."</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 15 -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <h3>The Complete Loop</h3>
+        <ul class="simple-list">
+            <li>1. Prompt Ideation (ChatGPT)</li>
+            <li>2. Rapid Mockup (Claude)</li>
+            <li>3. Emotional Test (ChatGPT)</li>
+            <li>4. Data Model (Claude)</li>
+            <li>5. Feedback Integration (ChatGPT)</li>
+        </ul>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">9:00 - 10:30 | 1.5 minutes</div>
+        <div class="notes-title">The 5-Step Development Loop</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Let me break down the complete loop - every feature runs through these 5 steps:"</p>
+            <ol>
+                <li>"PROMPT IDEATION (ChatGPT): 'What's a new way users could bond faster?'"</li>
+                <li>"RAPID MOCKUP (Claude): Turn the best idea into a clickable prototype"</li>
+                <li>"EMOTIONAL TEST (ChatGPT): 'What will users FEEL when they use this?'"</li>
+                <li>"DATA MODEL (Claude): Build the backend - tables, APIs, integrations"</li>
+                <li>"FEEDBACK INTEGRATION (ChatGPT): Refine UX copy, onboarding, mission statements"</li>
+            </ol>
+        </div>
+
+        <div class="tip">
+            <p><strong>Real Example:</strong> "For Mindvalley Peers, I asked ChatGPT: 'Imagine 6App as a living organism - what instincts does it have?' That one question led to 3 features I never would have thought of."</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Emphasize:</h4>
+            <p>"This is an ITERATIVE dance. Code, energy, feedback, code again. That's how products come alive."</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 16 -->
+<div class="slide-wrapper">
+    <div class="slide-content mv-purple">
+        <h2>Let me show you</h2>
+        <p class="subtitle">A real platform built this way</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">10:30 - 11:00 | 30 seconds</div>
+        <div class="notes-title">Demo Transition</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Theory is great. But let me show you a REAL example. I built Mindvalley Peers using this EXACT loop. Let me show you what's possible when you dance with AI."</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Energy Shift:</h4>
+            <p>Build anticipation. Pause slightly before clicking to next slide.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 15 -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <p class="section-marker">LIVE DEMO</p>
+        <h2>Mindvalley Peers</h2>
+        <p class="subtitle">Student Connections & Entrepreneurship Mastery</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">9:30 - 10:00 | 30 seconds</div>
+        <div class="notes-title">Demo Introduction</div>
+
+        <div class="notes-section">
+            <h4>Setup:</h4>
+            <p>Have the Mindvalley Peers platform open in another tab, ready to switch.</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Mindvalley Peers is a platform I built to connect our students for collaboration and entrepreneurship. Let me show you what it does."</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 16-18: Demo Context Slides -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <h2>What is it?</h2>
+        <div style="background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 20px; padding: 40px; max-width: 800px; margin-top: 40px;">
+            <div style="font-size: 24px; font-weight: 300; line-height: 1.6;">
+                A platform connecting Mindvalley students<br>
+                for collaboration, partnerships,<br>
+                and entrepreneurial growth
+            </div>
+        </div>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">10:00 - 10:30 | 30 seconds</div>
+        <div class="notes-title">Platform Purpose</div>
+
+        <div class="notes-section">
+            <h4>Context:</h4>
+            <p>"We have thousands of entrepreneurs in Mindvalley, but no way for them to find and connect with each other. This platform solves that."</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="slide-content" style="background: #fff; color: #000;">
+        <h2 style="color: #000;">The Problem</h2>
+        <p style="font-size: 48px; font-style: italic; text-align: center; max-width: 900px; line-height: 1.4; color: #333; margin-top: 60px;">
+            "I know there are amazing entrepreneurs<br>
+            in Mindvalley, but I can't find them"
+        </p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">10:30 - 11:00 | 30 seconds</div>
+        <div class="notes-title">Problem Statement</div>
+
+        <div class="notes-section">
+            <h4>Story:</h4>
+            <p>"I kept hearing this from students. They'd say 'I know there are others like me here, but I have no way to find them.' That was the problem to solve."</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <h2>Key Features</h2>
+        <ul class="simple-list">
+            <li>Profile discovery</li>
+            <li>Skills & interests matching</li>
+            <li>Project collaboration</li>
+            <li>Direct messaging</li>
+        </ul>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">11:00 - 11:30 | 30 seconds</div>
+        <div class="notes-title">Feature Overview</div>
+
+        <div class="notes-section">
+            <h4>Quick List:</h4>
+            <p>Don't spend time here. Just quick overview. The demo will show these in action.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 19 -->
+<div class="slide-wrapper">
+    <div class="slide-content mv-purple">
+        <h1>DEMO TIME</h1>
+        <p class="subtitle">Watch what's possible</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">11:30 - 18:00 | 6-7 minutes</div>
+        <div class="notes-title">Live Demo Section</div>
+
+        <div class="notes-section">
+            <h4>Demo Flow:</h4>
+            <ol>
+                <li><strong>Homepage (30s):</strong> Show the landing view</li>
+                <li><strong>Discovery (1min):</strong> Browse profiles, show filtering</li>
+                <li><strong>Profile Detail (1min):</strong> Click into someone's profile, show skills/interests</li>
+                <li><strong>Matching (1min):</strong> Demonstrate the matching algorithm</li>
+                <li><strong>Collaboration (1min):</strong> Show project boards</li>
+                <li><strong>Messaging (30s):</strong> Quick view of direct messaging</li>
+                <li><strong>Behind the Scenes (1-2min):</strong> Show a bit of the code/architecture</li>
+            </ol>
+        </div>
+
+        <div class="warning">
+            <p><strong>Important:</strong> Have backup screenshots ready in case of technical issues. Never let a demo failure derail you.</p>
+        </div>
+
+        <div class="tip">
+            <p><strong>Narration Focus:</strong> As you demo, emphasize: "Notice how clean this is. Notice how fast it loads. This is what AI-assisted development produces."</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 20 -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <h2>Built in 3 days</h2>
+        <p class="subtitle">Using the exact process<br>we're teaching today</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">18:00 - 19:00 | 1 minute</div>
+        <div class="notes-title">Impact Statement</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"What you just saw took me 3 days to build. Three days. Day 1: Ideation with ChatGPT. Day 2-3: Building with Claude."</p>
+            <p>"A traditional developer would quote you 3-6 MONTHS for this. And charge $50,000-$100,000."</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Let it Sink In:</h4>
+            <p>Pause here. Let them absorb the time/cost savings. This is a powerful moment.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 23 -->
+<div class="slide-wrapper">
+    <div class="slide-content mv-purple">
+        <p class="section-marker">HANDS-ON WORKSHOP</p>
+        <h1>Let's Build<br>Together</h1>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">19:00 - 19:30 | 30 seconds</div>
+        <div class="notes-title">Workshop Transition</div>
+
+        <div class="notes-section">
+            <h4>Energy Shift:</h4>
+            <p>HIGH ENERGY. This is where things get interactive and fun.</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Alright! Now for the fun part. We're going to build TWO things together, live, right now. And I need volunteers."</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 24 -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <h2>We need volunteers</h2>
+        <ul class="simple-list">
+            <li>1 person with an app idea</li>
+            <li>1 person with a marketing challenge</li>
+        </ul>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">25:30 - 27:00 | 1.5 minutes</div>
+        <div class="notes-title">Volunteer Selection</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"I need two volunteers:"</p>
+            <p>"First: Someone who has an APP IDEA but doesn't know how to start building it. Maybe it's a tool for your business, maybe it's something you want to create for others. Who has that?"</p>
+            <p>"Second: Someone who has a MARKETING CHALLENGE. Maybe you need a landing page, maybe you need an email sequence, maybe you need a lead magnet. Who needs help with marketing?"</p>
+        </div>
+
+        <div class="warning">
+            <p><strong>Pre-screen if possible:</strong> If you can, identify volunteers before the session starts. Have them ready to go. This saves time.</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Selection Criteria:</h4>
+            <ul>
+                <li>Choose ideas that are CLEAR and SIMPLE</li>
+                <li>Avoid complex, multi-faceted projects</li>
+                <li>Pick people who can articulate their needs well</li>
+                <li>Have backup volunteers in case first choices don't work</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDES 25-27: Workshop 1 -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <p class="section-marker">WORKSHOP 1</p>
+        <h2>Building an Application</h2>
+        <p class="subtitle">From idea to working prototype</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">27:00 - 27:30 | 30 seconds</div>
+        <div class="notes-title">Workshop 1 Setup</div>
+
+        <div class="notes-section">
+            <h4>Introduction:</h4>
+            <p>"Okay [Volunteer Name], tell us about your app idea. What problem does it solve? Who is it for?"</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Your Role:</h4>
+            <p>Act as the facilitator. Ask clarifying questions. Help them articulate their vision clearly.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <h3>What we'll do together</h3>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-title">Clarify</div>
+                <div class="step-desc">What problem<br>are we solving?</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-title">Ideate</div>
+                <div class="step-desc">ChatGPT helps<br>explore solutions</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-title">Build</div>
+                <div class="step-desc">Claude creates<br>the prototype</div>
+            </div>
+        </div>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">27:30 - 28:00 | 30 seconds</div>
+        <div class="notes-title">Process Preview</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Here's what we're going to do in the next 10 minutes: First, we'll get crystal clear on the problem. Then we'll use ChatGPT to explore solutions. Then we'll use Claude to build a working prototype. Ready?"</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="slide-content mv-purple">
+        <h1>LIVE<br>CODING</h1>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">28:00 - 38:00 | 10 minutes</div>
+        <div class="notes-title">Live Coding Session 1</div>
+
+        <div class="notes-section">
+            <h4>Flow:</h4>
+            <ol>
+                <li><strong>Clarify (2min):</strong> Ask questions, define the MVP, identify core feature</li>
+                <li><strong>ChatGPT Ideation (3min):</strong> Screen share ChatGPT, explore 2-3 approaches, pick the best one</li>
+                <li><strong>Claude Building (5min):</strong> Screen share Claude Code, show the prompt, watch it generate code, run it live</li>
+            </ol>
+        </div>
+
+        <div class="warning">
+            <p><strong>Time Management:</strong> Set a timer. Don't go over 10 minutes. It's better to show partial progress than to run long.</p>
+        </div>
+
+        <div class="tip">
+            <p><strong>Narration:</strong> Talk through your thinking. "Notice how I'm asking ChatGPT to explore multiple options..." "See how I'm giving Claude a clear, specific prompt..."</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Teaching Points:</h4>
+            <ul>
+                <li>Show how you ask clarifying questions</li>
+                <li>Demonstrate prompt crafting</li>
+                <li>Show iteration when something isn't quite right</li>
+                <li>Emphasize the PROCESS not the code</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDES 28-30: Workshop 2 -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <p class="section-marker">WORKSHOP 2</p>
+        <h2>Marketing Problem Solving</h2>
+        <p class="subtitle">Using AI to create marketing assets</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">38:00 - 38:30 | 30 seconds</div>
+        <div class="notes-title">Workshop 2 Setup</div>
+
+        <div class="notes-section">
+            <h4>Transition:</h4>
+            <p>"Great! Now let's tackle a marketing challenge. [Volunteer Name], tell us what you need help with."</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <h3>What AI can create</h3>
+        <ul class="simple-list">
+            <li>Landing pages that convert</li>
+            <li>Email sequences</li>
+            <li>Lead magnets</li>
+            <li>Sales funnels</li>
+        </ul>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">38:30 - 39:00 | 30 seconds</div>
+        <div class="notes-title">Marketing Capabilities</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"AI can create all of these. What we build depends on what [Volunteer] needs. But I'll show you the process for any of them."</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="slide-content mv-purple">
+        <h1>LIVE<br>DEMO</h1>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">39:00 - 48:00 | 8-9 minutes</div>
+        <div class="notes-title">Live Coding Session 2</div>
+
+        <div class="notes-section">
+            <h4>Approach Options:</h4>
+            <ul>
+                <li><strong>Landing Page:</strong> Build a complete landing page with headline, benefits, CTA</li>
+                <li><strong>Email Sequence:</strong> Create a 3-email welcome sequence</li>
+                <li><strong>Lead Magnet:</strong> Generate a PDF checklist or guide</li>
+                <li><strong>Sales Copy:</strong> Write compelling sales page copy</li>
+            </ul>
+        </div>
+
+        <div class="notes-section">
+            <h4>Process:</h4>
+            <ol>
+                <li><strong>Understand the Offer (2min):</strong> What are they selling? Who to? What's the transformation?</li>
+                <li><strong>Strategic Copy with ChatGPT (3min):</strong> Generate headlines, angles, hooks</li>
+                <li><strong>Build with Claude (4min):</strong> Create the actual asset</li>
+            </ol>
+        </div>
+
+        <div class="tip">
+            <p><strong>Copy Frameworks:</strong> Reference proven frameworks: PAS (Problem-Agitate-Solution), AIDA (Attention-Interest-Desire-Action), or simple Before-After-Bridge</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDES 31-34: Key Insights -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <p class="section-marker">KEY INSIGHTS</p>
+        <h2>What You Learned Today</h2>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">48:00 - 48:30 | 30 seconds</div>
+        <div class="notes-title">Reflection Section</div>
+
+        <div class="notes-section">
+            <h4>Transition:</h4>
+            <p>"Let's take a moment and recap what you learned today. These are the insights that will save you hundreds of hours."</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="slide-content" style="background: #fff; color: #000;">
+        <h2 style="color: #000;">Different tools<br>for different phases</h2>
+        <p class="subtitle" style="color: #666;">Strategy vs. Execution</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">48:30 - 49:00 | 30 seconds</div>
+        <div class="notes-title">Insight 1</div>
+
+        <div class="notes-section">
+            <h4>Emphasis:</h4>
+            <p>"Remember: ChatGPT for thinking. Claude/Lovable for building. Use the right tool for the right phase."</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <h2>Speed comes from<br>the right workflow</h2>
+        <p class="subtitle">Not just the right tools</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">49:00 - 49:30 | 30 seconds</div>
+        <div class="notes-title">Insight 2</div>
+
+        <div class="notes-section">
+            <h4>Key Point:</h4>
+            <p>"Having the tools isn't enough. It's about having the RIGHT PROCESS. That's what makes you fast."</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="slide-content" style="background: #fff; color: #000;">
+        <h2 style="color: #000;">Real businesses<br>are being built<br>this way</h2>
+        <p class="subtitle" style="color: #666;">Today, not tomorrow</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">49:30 - 50:00 | 30 seconds</div>
+        <div class="notes-title">Insight 3</div>
+
+        <div class="notes-section">
+            <h4>Reality Check:</h4>
+            <p>"This isn't future tech. This is NOW. You saw real platforms, real solutions, built in days not months."</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDES 35-39: Closing -->
+<div class="slide-wrapper">
+    <div class="slide-content mv-purple">
+        <h2>Your Turn</h2>
+        <p class="subtitle">What will you build next?</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">50:00 - 50:30 | 30 seconds</div>
+        <div class="notes-title">Call to Action</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Now it's your turn. You have the process. You have the tools. What are you going to build?"</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <p style="font-size: 48px; font-style: italic; text-align: center; max-width: 900px; line-height: 1.4;">
+            "The best way to predict the future<br>
+            is to build it"
+        </p>
+        <p class="subtitle" style="margin-top: 60px;">— You, starting today</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">50:30 - 51:00 | 30 seconds</div>
+        <div class="notes-title">Inspiration</div>
+
+        <div class="notes-section">
+            <h4>Delivery:</h4>
+            <p>Pause after the quote. Let it land. Then smile and say: "Starting today."</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <h2>This Week</h2>
+        <ul class="simple-list">
+            <li>Pick one idea</li>
+            <li>Use ChatGPT to refine it</li>
+            <li>Use Claude to build it</li>
+            <li>Share it with the community</li>
+        </ul>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">51:00 - 52:00 | 1 minute</div>
+        <div class="notes-title">Action Steps</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Here's your homework for this week:"</p>
+            <ul>
+                <li>"Pick ONE idea - don't try to build everything"</li>
+                <li>"Spend 30 minutes with ChatGPT refining it"</li>
+                <li>"Spend a few hours with Claude building it"</li>
+                <li>"Then share it in our community - we want to see what you create"</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <h2>You're Not Alone</h2>
+        <p class="subtitle">Join #VibeCoding</p>
+        <div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%); border-left: 6px solid #667eea; padding: 40px; margin: 60px 0; border-radius: 10px; max-width: 800px;">
+            <div style="font-size: 24px; font-weight: 300; line-height: 1.8;">
+                Share your builds<br>
+                Get feedback<br>
+                Help others<br>
+                Grow together
+            </div>
+        </div>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">52:00 - 53:00 | 1 minute</div>
+        <div class="notes-title">Community</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Join the #VibeCoding channel in our community. Share what you're building. Ask questions. Help others. This is how we all grow faster."</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Details to Share:</h4>
+            <ul>
+                <li>Community link: [Insert actual link]</li>
+                <li>Weekly office hours: [Insert schedule]</li>
+                <li>Resource library: [Insert link]</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 41: The Invitation -->
+<div class="slide-wrapper">
+    <div class="slide-content mv-purple">
+        <h2>Three months from now...</h2>
+        <p class="quote" style="font-size: 56px; margin-top: 60px;">
+            You'll either be someone who<br>
+            "attended that AI class once"<br><br>
+            Or someone who built three apps,<br>
+            launched a business,<br>
+            and changed their life
+        </p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">53:00 - 54:00 | 1 minute</div>
+        <div class="notes-title">The Fork in the Road</div>
+
+        <div class="notes-section">
+            <h4>Delivery:</h4>
+            <p>Start soft on "Three months from now..." Build intensity as you read the choice.</p>
+            <p>Pause for 3 full seconds after reading this slide. Let it land.</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"I see this all the time. People come to workshops. They get inspired. They take notes. And then... nothing."</p>
+            <p>"The difference between those two people isn't talent. It's not time. It's not resources."</p>
+            <p>"It's ONE decision: To start. Today."</p>
+        </div>
+
+        <div class="tip">
+            <p><strong>Energy Shift:</strong> This is the moment of truth. Vulnerable, real, challenging.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 42: The Choice -->
+<div class="slide-wrapper">
+    <div class="slide-content">
+        <h1 style="font-size: 100px; margin-bottom: 80px;">The choice is yours</h1>
+        <p class="subtitle" style="font-size: 48px;">Start building today</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">54:00 - 54:30 | 30 seconds</div>
+        <div class="notes-title">The Call</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"You have everything you need. The tools exist. The community is here. The only question is: Will you do it?"</p>
+            <p>"Don't wait for the perfect idea. Don't wait to feel ready. Start messy. Start small. But START."</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Delivery:</h4>
+            <p>DIRECT. Eye contact. This is peer to peer, not teacher to student.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 43: Thank You -->
+<div class="slide-wrapper">
+    <div class="slide-content mv-purple">
+        <h1>Thank You</h1>
+        <p class="subtitle">Now go build something amazing</p>
+    </div>
+    <div class="speaker-notes">
+        <div class="timing">54:30 - 60:00 | 5-6 minutes</div>
+        <div class="notes-title">Closing & Q&A</div>
+
+        <div class="notes-section">
+            <h4>What to Say:</h4>
+            <p>"Thank you for being here. Thank you for being willing to build. The world needs what you're going to create."</p>
+            <p>"I'll stick around for questions. Who's got one?"</p>
+        </div>
+
+        <div class="notes-section">
+            <h4>Q&A Approach:</h4>
+            <ul>
+                <li>Take 5-6 minutes for questions</li>
+                <li>Repeat each question for the audience</li>
+                <li>Keep answers concise and actionable</li>
+                <li>End with energy: "Go build!"</li>
+            </ul>
+        </div>
+
+        <div class="notes-section">
+            <h4>Anticipated Questions:</h4>
+            <ol>
+                <li>"Which tool first?" → "ChatGPT for vision, Claude for building. In that order."</li>
+                <li>"Cost?" → "$20-40/month. Less than Netflix. More ROI than a degree."</li>
+                <li>"Need to know code?" → "No. You need to know what problem you're solving."</li>
+                <li>"How long?" → "First build: One weekend. Tenth build: One afternoon."</li>
+                <li>"What if I fail?" → "You will. That's step one. Ship anyway."</li>
+            </ol>
+        </div>
+
+        <div class="tip">
+            <p><strong>Final Moment:</strong> End with "See you in the community. Now GO BUILD!" Big smile. High energy exit.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

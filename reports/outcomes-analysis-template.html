@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outcomes Analysis Progress Tracking Template</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .callout {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px 30px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .callout.info {
+            border-left-color: #3498db;
+            background: #f0f8ff;
+        }
+
+        .callout h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin: 30px 0 15px 0;
+        }
+
+        p {
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px 10px 10px 0;
+            transition: transform 0.2s;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            min-width: 1200px;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e1e8ed;
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #f0f4f8;
+        }
+
+        .example-row {
+            background: #fff9e6 !important;
+        }
+
+        .example-row:hover {
+            background: #fff3d1 !important;
+        }
+
+        .example-badge {
+            display: inline-block;
+            background: #f39c12;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .status-keep {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .status-deleted {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .status-merged {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .column-descriptions {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .column-descriptions h4 {
+            color: #667eea;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        .column-descriptions h4:first-child {
+            margin-top: 0;
+        }
+
+        .download-section {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .download-section h3 {
+            margin-top: 0;
+        }
+
+        ul {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin: 8px 0;
+            line-height: 1.8;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            text-align: center;
+            color: #8492a6;
+            border-top: 1px solid #e1e8ed;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .back-button, .download-section {
+                display: none;
+            }
+            table {
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .content {
+                padding: 20px;
+            }
+            .back-button {
+                position: static;
+                display: block;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="outcomes-index.html" class="back-button">← Back to Index</a>
+            <h1>Progress Tracking Template</h1>
+            <div class="subtitle">Interactive CSV Template for Outcomes Analysis</div>
+        </div>
+
+        <div class="content">
+            <div class="callout info">
+                <h3>About This Template</h3>
+                <p>This CSV template helps you track your progress as you analyze and simplify outcomes. Use it to record your decisions, notes, and ensure consistent processing of all outcomes.</p>
+                <p><strong>Usage:</strong> Download the CSV file below and import it into Excel, Google Sheets, or Airtable to start tracking your analysis progress.</p>
+            </div>
+
+            <div class="download-section">
+                <h3>Download CSV Template</h3>
+                <p>Click the button below to download the template as a CSV file:</p>
+                <a href="outcomes-analysis-template.csv" class="button" download>Download CSV Template</a>
+                <p style="margin-top: 20px; font-size: 0.9em; color: #8492a6;">The CSV file is located in the same directory as this HTML file</p>
+            </div>
+
+            <h2>Template Structure</h2>
+
+            <div class="column-descriptions">
+                <h4>Outcome ID</h4>
+                <p>The unique Airtable record ID for the outcome (e.g., rec001, rec002, etc.)</p>
+
+                <h4>Outcome Name</h4>
+                <p>The name/title of the outcome being analyzed</p>
+
+                <h4>Program Count</h4>
+                <p>Number of programs using this outcome</p>
+
+                <h4>Meditation Count</h4>
+                <p>Number of meditations using this outcome</p>
+
+                <h4>Audio Count</h4>
+                <p>Number of audios using this outcome</p>
+
+                <h4>Total Usage</h4>
+                <p>Sum of Program Count + Meditation Count + Audio Count</p>
+
+                <h4>Recommendation</h4>
+                <p>Initial recommendation: KEEP, DELETE, or MERGE</p>
+
+                <h4>Primary Outcome (if merge)</h4>
+                <p>If merging, the name of the primary outcome this should merge into</p>
+
+                <h4>UPDATE TYPE</h4>
+                <p>Final decision: blank (KEEP), "Deleted", or "Merged"</p>
+
+                <h4>UPDATE NOTE</h4>
+                <p>Detailed reasoning for the decision</p>
+
+                <h4>Reviewed By</h4>
+                <p>Name or initials of person who reviewed this outcome</p>
+
+                <h4>Review Date</h4>
+                <p>Date when the outcome was reviewed (YYYY-MM-DD format)</p>
+
+                <h4>Notes</h4>
+                <p>Any additional notes, context, or considerations</p>
+            </div>
+
+            <h2>Example Data</h2>
+            <p>Below is an example of how to fill out the template with different types of outcomes:</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Outcome ID</th>
+                            <th>Outcome Name</th>
+                            <th>Program Count</th>
+                            <th>Meditation Count</th>
+                            <th>Audio Count</th>
+                            <th>Total Usage</th>
+                            <th>Recommendation</th>
+                            <th>Primary Outcome</th>
+                            <th>UPDATE TYPE</th>
+                            <th>UPDATE NOTE</th>
+                            <th>Reviewed By</th>
+                            <th>Review Date</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="example-row">
+                            <td>rec001</td>
+                            <td>Example Outcome 1 <span class="example-badge">EXAMPLE</span></td>
+                            <td>5</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>23</td>
+                            <td class="status-keep">KEEP</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Analyst</td>
+                            <td>2025-11-11</td>
+                            <td>Unique outcome with good usage</td>
+                        </tr>
+                        <tr class="example-row">
+                            <td>rec002</td>
+                            <td>Example Outcome 2 <span class="example-badge">EXAMPLE</span></td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td class="status-deleted">DELETE</td>
+                            <td></td>
+                            <td>Deleted</td>
+                            <td>No usage: Program Count=0, Meditation Count=0, Audio Count=0</td>
+                            <td>Analyst</td>
+                            <td>2025-11-11</td>
+                            <td></td>
+                        </tr>
+                        <tr class="example-row">
+                            <td>rec003</td>
+                            <td>Example Outcome 3 <span class="example-badge">EXAMPLE</span></td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>2</td>
+                            <td class="status-deleted">DELETE</td>
+                            <td></td>
+                            <td>Deleted</td>
+                            <td>Low usage: Total=2 (Program=1, Meditation=1, Audio=0)</td>
+                            <td>Analyst</td>
+                            <td>2025-11-11</td>
+                            <td></td>
+                        </tr>
+                        <tr class="example-row">
+                            <td>rec004</td>
+                            <td>Example Outcome 4 <span class="example-badge">EXAMPLE</span></td>
+                            <td>2</td>
+                            <td>5</td>
+                            <td>3</td>
+                            <td>10</td>
+                            <td class="status-merged">MERGE</td>
+                            <td>Example Outcome 1</td>
+                            <td>Merged</td>
+                            <td>Merge into 'Example Outcome 1' (usage=23). Current usage=10. Semantic group: stress/anxiety</td>
+                            <td>Analyst</td>
+                            <td>2025-11-11</td>
+                            <td>Similar to primary</td>
+                        </tr>
+                        <tr class="example-row">
+                            <td>rec005</td>
+                            <td>Example Outcome 5 <span class="example-badge">EXAMPLE</span></td>
+                            <td>15</td>
+                            <td>20</td>
+                            <td>12</td>
+                            <td>47</td>
+                            <td class="status-keep">KEEP (PRIMARY)</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Analyst</td>
+                            <td>2025-11-11</td>
+                            <td>Highest usage in semantic group</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>How to Use This Template</h2>
+
+            <h3>Step 1: Export Outcomes from Airtable</h3>
+            <ol>
+                <li>Open the 🪽Outcomes table in Airtable</li>
+                <li>Use the 🔧 by AOG view</li>
+                <li>Export to CSV (ensure you include: Outcome ID, Outcome Name, Program Count, Meditation Count, Audio Count)</li>
+            </ol>
+
+            <h3>Step 2: Enhance with Template Columns</h3>
+            <ol>
+                <li>Open the exported CSV in Excel or Google Sheets</li>
+                <li>Add the additional columns from this template:
+                    <ul>
+                        <li>Total Usage (formula: Program + Meditation + Audio)</li>
+                        <li>Recommendation (formula or manual)</li>
+                        <li>Primary Outcome (if merge)</li>
+                        <li>UPDATE TYPE</li>
+                        <li>UPDATE NOTE</li>
+                        <li>Reviewed By</li>
+                        <li>Review Date</li>
+                        <li>Notes</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>Step 3: Process Each Outcome</h3>
+            <ol>
+                <li>Review each outcome using the decision tree from the manual guide</li>
+                <li>Fill in the Recommendation column</li>
+                <li>For merges, specify the Primary Outcome</li>
+                <li>Complete UPDATE TYPE and UPDATE NOTE</li>
+                <li>Add your initials and date</li>
+                <li>Add any relevant notes</li>
+            </ol>
+
+            <h3>Step 4: Track Progress</h3>
+            <ol>
+                <li>Use filters to see outcomes by status</li>
+                <li>Count completed reviews vs. total outcomes</li>
+                <li>Generate summary statistics (deletions, merges, keeps)</li>
+                <li>Share with team for validation</li>
+            </ol>
+
+            <h3>Step 5: Apply Updates</h3>
+            <ol>
+                <li>Once validated, use the template data to update Airtable</li>
+                <li>Import UPDATE TYPE and UPDATE NOTE back into Airtable</li>
+                <li>Or use the data to generate batch update scripts</li>
+            </ol>
+
+            <div class="callout">
+                <h3>Pro Tips</h3>
+                <ul>
+                    <li><strong>Color code rows:</strong> Use conditional formatting to highlight KEEP (green), DELETE (red), MERGE (blue)</li>
+                    <li><strong>Sort strategically:</strong> Sort by Total Usage (ascending) to tackle low-usage outcomes first</li>
+                    <li><strong>Use filters:</strong> Filter by Recommendation to work on one category at a time</li>
+                    <li><strong>Add formulas:</strong> Create automatic recommendations based on usage thresholds</li>
+                    <li><strong>Share for review:</strong> Use Google Sheets for collaborative review with stakeholders</li>
+                    <li><strong>Version control:</strong> Save dated versions as you progress (e.g., outcomes-analysis-2025-11-11.csv)</li>
+                </ul>
+            </div>
+
+            <div class="callout info">
+                <h3>Example Formula for Auto-Recommendation</h3>
+                <p>In Excel or Google Sheets, you can use this formula in the Recommendation column:</p>
+                <p><code>=IF(AND(C2=0,D2=0,E2=0),"DELETE: No usage",IF((C2+D2+E2)<=2,"DELETE: Low usage","REVIEW: Check for merges"))</code></p>
+                <p>Where C2, D2, E2 are Program Count, Meditation Count, and Audio Count respectively.</p>
+            </div>
+
+            <h2>Sample Workflow</h2>
+            <div class="callout">
+                <p><strong>Morning Session (2 hours):</strong></p>
+                <ol>
+                    <li>Filter for outcomes with Recommendation = "DELETE: No usage"</li>
+                    <li>Review each one (spot check for strategic importance)</li>
+                    <li>Fill in UPDATE TYPE and UPDATE NOTE</li>
+                    <li>Mark as reviewed with date</li>
+                    <li>Expected output: 40-60 outcomes processed</li>
+                </ol>
+
+                <p><strong>Afternoon Session (2 hours):</strong></p>
+                <ol>
+                    <li>Filter for outcomes containing "stress" or "anxiety"</li>
+                    <li>Sort by Total Usage descending</li>
+                    <li>Identify primary (highest usage)</li>
+                    <li>Mark others for merge with reference to primary</li>
+                    <li>Repeat for 2-3 more semantic groups</li>
+                    <li>Expected output: 20-30 merge recommendations</li>
+                </ol>
+            </div>
+
+            <div class="download-section">
+                <h3>Ready to Start?</h3>
+                <p>Download the template and begin your analysis:</p>
+                <a href="outcomes-analysis-template.csv" class="button" download>Download CSV Template</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Mindvalley Outcomes Simplification Project</strong></p>
+            <p>Progress Tracking Template v1.0 | November 11, 2025</p>
+            <p style="margin-top: 15px;"><a href="outcomes-index.html">← Return to Index</a></p>
+        </div>
+    </div>
+</body>
+</html>
