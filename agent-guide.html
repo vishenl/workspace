@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use the Mindvalley Page Builder Agent</title>
+    <style>
+        /* Mindvalley Airtable Design System - Purple/Gold Theme */
+
+        :root {
+            /* Brand Colors */
+            --mv-purple: #8A2BE2;
+            --mv-purple-light: #DA70D6;
+            --mv-purple-dark: #6A0DAD;
+            --mv-gold: #DAA520;
+            --mv-gold-light: #FFD700;
+            --mv-white: #FFFFFF;
+            --mv-black: #000000;
+            --mv-dark: #1A1A1A;
+            --mv-gray: #404040;
+            --mv-gray-light: #F5F5F5;
+
+            /* Spacing Scale */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+            --space-3xl: 6rem;
+
+            /* Typography Scale */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+            --text-5xl: 3rem;
+
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(138, 43, 226, 0.1);
+            --shadow-md: 0 8px 30px rgba(138, 43, 226, 0.15);
+            --shadow-lg: 0 20px 60px rgba(138, 43, 226, 0.2);
+
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+
+            /* Transitions */
+            --transition-fast: 150ms ease;
+            --transition-base: 250ms ease;
+            --transition-slow: 400ms ease;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--mv-dark);
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8f5 100%);
+            min-height: 100vh;
+            padding: var(--space-lg);
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            padding: var(--space-xl) var(--space-lg);
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+        }
+
+        .header h1 {
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: var(--text-lg);
+            color: var(--mv-gray);
+        }
+
+        /* Back Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--mv-purple);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            transition: all var(--transition-base);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            background: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .back-link:hover {
+            transform: translateX(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Content Card */
+        .content-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        /* Typography */
+        h2 {
+            font-size: var(--text-3xl);
+            color: var(--mv-purple);
+            margin-bottom: var(--space-md);
+            margin-top: var(--space-xl);
+        }
+
+        h2:first-child {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-size: var(--text-xl);
+            color: var(--mv-dark);
+            margin-bottom: var(--space-sm);
+            margin-top: var(--space-lg);
+        }
+
+        p {
+            margin-bottom: var(--space-md);
+            color: var(--mv-gray);
+        }
+
+        ul, ol {
+            margin-bottom: var(--space-md);
+            margin-left: var(--space-lg);
+            color: var(--mv-gray);
+        }
+
+        li {
+            margin-bottom: var(--space-xs);
+        }
+
+        strong {
+            color: var(--mv-dark);
+        }
+
+        /* Code Blocks */
+        code {
+            background: var(--mv-gray-light);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: var(--text-sm);
+            color: var(--mv-purple-dark);
+        }
+
+        pre {
+            background: var(--mv-dark);
+            color: white;
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin-bottom: var(--space-md);
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: var(--mv-gold-light);
+            font-size: var(--text-base);
+        }
+
+        /* Quick Start Badge */
+        .quick-start {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-gold) 100%);
+            color: white;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-lg);
+            font-weight: 700;
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        /* Examples Box */
+        .example-box {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.05) 0%, rgba(218, 165, 32, 0.05) 100%);
+            border-left: 4px solid var(--mv-purple);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-md);
+        }
+
+        /* Pro Tip Box */
+        .pro-tip {
+            background: linear-gradient(135deg, rgba(218, 165, 32, 0.1) 0%, rgba(138, 43, 226, 0.1) 100%);
+            border-left: 4px solid var(--mv-gold);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-md);
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            position: relative;
+            padding-left: var(--space-lg);
+            margin-bottom: var(--space-sm);
+        }
+
+        .checklist li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--mv-purple);
+            font-weight: bold;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-gold) 100%);
+            color: white;
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: var(--text-lg);
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-md);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Divider */
+        hr {
+            border: none;
+            border-top: 2px solid var(--mv-gray-light);
+            margin: var(--space-xl) 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: var(--space-sm);
+            }
+
+            .header h1 {
+                font-size: var(--text-3xl);
+            }
+
+            h2 {
+                font-size: var(--text-2xl);
+            }
+
+            .content-card {
+                padding: var(--space-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Link -->
+        <a href="./team-achievements-claude-ai.html" class="back-link">
+            ← Back to Team Achievements
+        </a>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>How to Use the Mindvalley Page Builder Agent</h1>
+            <p>Build production-ready campaign pages in 30-60 seconds using official Mindvalley components</p>
+        </div>
+
+        <!-- Quick Start -->
+        <div class="content-card">
+            <span class="quick-start">🚀 Quick Start (30 seconds)</span>
+
+            <h3>Step 1: Invoke the Agent</h3>
+            <p>Type this in Claude:</p>
+            <pre><code>/agent mindvalley-page-builder</code></pre>
+
+            <h3>Step 2: Tell It What You Want</h3>
+            <p>Be specific about the page type:</p>
+            <pre><code>Build me a sales page for a manifestation course</code></pre>
+
+            <h3>Step 3: Wait for the Magic</h3>
+            <p>The agent will:</p>
+            <ul class="checklist">
+                <li>Fetch components from Airtable</li>
+                <li>Use Design Tokens + Typography System</li>
+                <li>Build the page with official components only</li>
+                <li>Give you the complete HTML file</li>
+            </ul>
+            <p><strong>That's it! 🎉</strong></p>
+        </div>
+
+        <!-- Usage Examples -->
+        <div class="content-card">
+            <h2>📋 Usage Examples</h2>
+
+            <div class="example-box">
+                <h3>Example 1: Landing Page</h3>
+                <pre><code>/agent mindvalley-page-builder
+
+Build a landing page for our new AI Mastery program.
+Include:
+- Hero section with dark background
+- Trust signals showing 19,000+ students
+- 3 program cards for related courses
+- FAQ section with 5 questions</code></pre>
+            </div>
+
+            <div class="example-box">
+                <h3>Example 2: Sales Page</h3>
+                <pre><code>/agent mindvalley-page-builder
+
+Create a sales page for the Spiritual Mastery certification.
+I need:
+- Compelling hero section
+- Social proof stats
+- Comparison table for 2 pricing tiers
+- FAQ section
+- Price clarification box</code></pre>
+            </div>
+
+            <div class="example-box">
+                <h3>Example 3: Course Page</h3>
+                <pre><code>/agent mindvalley-page-builder
+
+Build a course overview page for Social Media Mastery.
+Include:
+- Hero section
+- 6 curriculum modules with images
+- Trust signals
+- FAQ section</code></pre>
+            </div>
+
+            <div class="example-box">
+                <h3>Example 4: Simple Request</h3>
+                <pre><code>/agent mindvalley-page-builder
+
+Build a landing page for a meditation course</code></pre>
+                <p><em>The agent will ask follow-up questions if needed</em></p>
+            </div>
+        </div>
+
+        <!-- Pro Tips -->
+        <div class="content-card">
+            <h2>💡 Pro Tips</h2>
+
+            <div class="pro-tip">
+                <h3>Tip 1: Be Specific (But Not Too Specific)</h3>
+                <p><strong>Good:</strong></p>
+                <pre><code>Build a sales page for a manifestation course with pricing comparison</code></pre>
+
+                <p><strong>Too Vague:</strong></p>
+                <pre><code>Build me a page</code></pre>
+
+                <p><strong>Too Specific (let the agent decide components):</strong></p>
+                <pre><code>Build a sales page using hero component, 3 technique cards,
+comparison table with exactly 4 rows, FAQ with purple borders...</code></pre>
+            </div>
+
+            <div class="pro-tip">
+                <h3>Tip 2: Mention Key Content</h3>
+                <pre><code>Build a landing page for AI Mastery with:
+- 3 key benefits
+- Stats: 5,000+ students, 95% satisfaction
+- 4 FAQ questions about pricing and access</code></pre>
+            </div>
+
+            <div class="pro-tip">
+                <h3>Tip 3: Reference Existing Pages</h3>
+                <pre><code>Build a page similar to the Spiritual Summit page,
+but for a business coaching program</code></pre>
+            </div>
+        </div>
+
+        <!-- What the Agent Does Automatically -->
+        <div class="content-card">
+            <h2>🎯 What the Agent Does Automatically</h2>
+            <p>You don't need to mention these - the agent handles them:</p>
+
+            <ul class="checklist">
+                <li>Fetches components from Airtable</li>
+                <li>Includes Design Tokens (CSS variables)</li>
+                <li>Includes Typography System</li>
+                <li>Uses exact component CSS and HTML</li>
+                <li>Adds proper HTML5 structure</li>
+                <li>Makes it responsive</li>
+                <li>Uses CSS variables (no hardcoded colors)</li>
+                <li>Adds component comments in HTML</li>
+            </ul>
+        </div>
+
+        <!-- What to Tell the Agent -->
+        <div class="content-card">
+            <h2>🔍 What to Tell the Agent</h2>
+
+            <h3>Always Mention:</h3>
+            <ul>
+                <li><strong>Page type</strong> (landing, sales, course, etc.)</li>
+                <li><strong>Topic/product</strong> (AI Mastery, Manifestation, etc.)</li>
+                <li><strong>Key sections needed</strong> (hero, FAQs, pricing, etc.)</li>
+            </ul>
+
+            <h3>Optionally Mention:</h3>
+            <ul>
+                <li>Specific stats/numbers to include</li>
+                <li>How many items (e.g., "5 FAQs", "3 program cards")</li>
+                <li>Pricing tiers or comparison needs</li>
+                <li>Special requirements (e.g., "needs a price clarification")</li>
+            </ul>
+
+            <h3>Don't Mention:</h3>
+            <ul>
+                <li>Which specific components to use (agent knows best)</li>
+                <li>CSS details (agent handles this)</li>
+                <li>Responsive breakpoints (automatic)</li>
+                <li>Colors/fonts (uses design tokens)</li>
+            </ul>
+        </div>
+
+        <!-- Common Page Types -->
+        <div class="content-card">
+            <h2>📊 Common Page Types & What You Get</h2>
+
+            <h3>Landing Page</h3>
+            <p><strong>You say:</strong></p>
+            <pre><code>Build a landing page for [topic]</code></pre>
+            <p><strong>Agent uses:</strong></p>
+            <ul>
+                <li>Design Tokens</li>
+                <li>Typography System</li>
+                <li>Hero - Dark Background</li>
+                <li>Trust Signals</li>
+                <li>Program Cards (grid)</li>
+                <li>FAQ Items</li>
+            </ul>
+
+            <h3>Sales Page</h3>
+            <p><strong>You say:</strong></p>
+            <pre><code>Build a sales page for [product]</code></pre>
+            <p><strong>Agent uses:</strong></p>
+            <ul>
+                <li>Design Tokens</li>
+                <li>Typography System</li>
+                <li>Hero - Dark Background</li>
+                <li>Trust Signals</li>
+                <li>Technique Cards (features)</li>
+                <li>Comparison Table</li>
+                <li>Price Clarification Box</li>
+                <li>FAQ Items</li>
+            </ul>
+
+            <h3>Course Page</h3>
+            <p><strong>You say:</strong></p>
+            <pre><code>Build a course page for [course name]</code></pre>
+            <p><strong>Agent uses:</strong></p>
+            <ul>
+                <li>Design Tokens</li>
+                <li>Typography System</li>
+                <li>Hero section</li>
+                <li>Curriculum Modules</li>
+                <li>Program Cards (related)</li>
+                <li>FAQ Items</li>
+            </ul>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="content-card">
+            <h2>🔧 Troubleshooting</h2>
+
+            <h3>"The agent isn't using Airtable components"</h3>
+            <p><strong>Check:</strong> Did you invoke with <code>/agent mindvalley-page-builder</code>?</p>
+            <p><strong>Fix:</strong> Make sure you start with the exact command</p>
+
+            <h3>"I want to modify a component"</h3>
+            <p><strong>Remember:</strong> The agent uses components exactly as-is</p>
+            <p><strong>If you need changes:</strong> After the page is built, ask for content customization only</p>
+
+            <h3>"The agent is taking too long"</h3>
+            <p><strong>Normal:</strong> Fetching from Airtable takes a moment</p>
+            <p><strong>Wait:</strong> Usually 30-60 seconds for a complete page</p>
+
+            <h3>"I want to add just one component to an existing page"</h3>
+            <p><strong>Better approach:</strong> Use the slash command instead</p>
+            <pre><code>/mindvalley-components
+
+Add an FAQ section with 5 questions about pricing</code></pre>
+        </div>
+
+        <!-- Learning Progression -->
+        <div class="content-card">
+            <h2>🎓 Learning Progression</h2>
+
+            <h3>First Time (Do This Now!)</h3>
+            <pre><code>/agent mindvalley-page-builder
+
+Build me a simple landing page for a test product.
+Include hero, stats, and 3 FAQs.</code></pre>
+            <p>See what it does and how the components look.</p>
+
+            <h3>Second Time</h3>
+            <pre><code>/agent mindvalley-page-builder
+
+Build a sales page for [your actual project]</code></pre>
+            <p>Use it for real work.</p>
+
+            <h3>After That</h3>
+            <p>You'll know exactly how to request pages quickly!</p>
+        </div>
+
+        <!-- Checklist -->
+        <div class="content-card">
+            <h2>✅ Checklist for Using the Agent</h2>
+
+            <h3>Before invoking:</h3>
+            <ul class="checklist">
+                <li>Know what type of page you need</li>
+                <li>Know the topic/product</li>
+                <li>Have a rough idea of sections needed</li>
+            </ul>
+
+            <h3>After agent delivers:</h3>
+            <ul class="checklist">
+                <li>Check that Design Tokens are included</li>
+                <li>Verify Typography System is included</li>
+                <li>Confirm components match your request</li>
+                <li>Test responsive (375px, 768px, 1024px)</li>
+                <li>Customize content (text, images) as needed</li>
+                <li>Use quality checklist for final QA</li>
+            </ul>
+        </div>
+
+        <!-- Ready to Try -->
+        <div class="content-card" style="text-align: center;">
+            <h2>🚀 Ready to Try?</h2>
+            <p style="font-size: var(--text-lg); margin-bottom: var(--space-lg);">
+                Copy and paste this right now:
+            </p>
+            <pre style="text-align: left;"><code>/agent mindvalley-page-builder
+
+Build me a simple landing page for a meditation course.
+Include a hero section, trust signals showing student count,
+and 3 FAQ items about the course format and access.</code></pre>
+            <p style="font-size: var(--text-xl); color: var(--mv-purple); margin-top: var(--space-lg);">
+                <strong>Then watch the magic happen! ✨</strong>
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="content-card">
+            <h2>📞 Need Help?</h2>
+
+            <h3>Agent not working?</h3>
+            <ul>
+                <li>Check you typed <code>/agent mindvalley-page-builder</code> exactly</li>
+                <li>Make sure Airtable MCP connection is active</li>
+            </ul>
+
+            <h3>Want different components?</h3>
+            <ul>
+                <li>Just ask the agent: "Use curriculum modules instead of program cards"</li>
+            </ul>
+
+            <p style="margin-top: var(--space-xl); color: var(--mv-gray); font-size: var(--text-sm);">
+                <strong>Last Updated:</strong> November 2025<br>
+                <strong>Agent File:</strong> <code>.claude/agents/mindvalley-page-builder.md</code>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
