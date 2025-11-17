@@ -63,31 +63,30 @@
 
         /* Slide Container */
         .slide-container {
-            scroll-snap-type: y mandatory;
             height: 100vh;
-            overflow-y: scroll;
-            scroll-behavior: smooth;
+            overflow: hidden;
+            position: relative;
         }
 
         /* Base Slide Styles */
         .slide {
             min-height: 100vh;
-            display: flex;
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: var(--spacing-3xl) var(--spacing-xl);
-            scroll-snap-align: start;
-            position: relative;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.6, -0.05, 0.01, 0.99),
-                        transform 0.8s cubic-bezier(0.6, -0.05, 0.01, 0.99);
+            transition: opacity 0.5s ease;
         }
 
-        .slide.visible {
+        .slide.active {
+            display: flex;
             opacity: 1;
-            transform: translateY(0);
         }
 
         /* Typography */
@@ -564,6 +563,48 @@
             background: white;
             border-radius: 20px;
             box-shadow: var(--shadow-sm);
+        }
+
+        /* Arrow Navigation */
+        .arrow-nav {
+            position: fixed;
+            bottom: var(--spacing-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+
+        .arrow-button {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-ocean-deep), var(--color-ocean-medium));
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .arrow-button:hover:not(:disabled) {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .arrow-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .arrow-button:active:not(:disabled) {
+            transform: scale(0.95);
         }
 
         /* Responsive Design */
@@ -1523,6 +1564,16 @@
     <!-- Navigation Dots -->
     <nav class="slide-nav" id="slideNav" aria-label="Slide navigation"></nav>
 
+    <!-- Arrow Navigation -->
+    <div class="arrow-nav">
+        <button class="arrow-button" id="prevButton" aria-label="Previous slide">
+            ←
+        </button>
+        <button class="arrow-button" id="nextButton" aria-label="Next slide">
+            →
+        </button>
+    </div>
+
     <!-- Slide Counter -->
     <div class="slide-counter" id="slideCounter">1 / 27</div>
 
@@ -1532,6 +1583,8 @@
         const slides = document.querySelectorAll('.slide');
         const slideNav = document.getElementById('slideNav');
         const slideCounter = document.getElementById('slideCounter');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
         const totalSlides = slides.length;
         let currentSlide = 0;
 
@@ -1541,123 +1594,116 @@
             dot.classList.add('nav-dot');
             dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
             if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => scrollToSlide(index));
+            dot.addEventListener('click', () => goToSlide(index));
             slideNav.appendChild(dot);
         });
 
         const navDots = document.querySelectorAll('.nav-dot');
 
-        // Scroll to specific slide
-        function scrollToSlide(index) {
-            const slide = slides[index];
-            slide.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Go to specific slide
+        function goToSlide(index) {
+            if (index < 0 || index >= totalSlides) return;
+
+            // Hide current slide
+            slides[currentSlide].classList.remove('active');
+            navDots[currentSlide].classList.remove('active');
+
+            // Show new slide
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+            navDots[currentSlide].classList.add('active');
+
+            // Update counter
+            slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+            // Update button states
+            prevButton.disabled = currentSlide === 0;
+            nextButton.disabled = currentSlide === totalSlides - 1;
         }
 
-        // Update active slide based on scroll position
-        function updateActiveSlide() {
-            const scrollPosition = slideContainer.scrollTop;
-            const windowHeight = window.innerHeight;
-
-            slides.forEach((slide, index) => {
-                const slideTop = slide.offsetTop;
-                const slideBottom = slideTop + slide.offsetHeight;
-
-                if (scrollPosition + (windowHeight / 2) >= slideTop &&
-                    scrollPosition + (windowHeight / 2) < slideBottom) {
-
-                    if (currentSlide !== index) {
-                        currentSlide = index;
-                        navDots.forEach(dot => dot.classList.remove('active'));
-                        navDots[index].classList.add('active');
-                        slideCounter.textContent = `${index + 1} / ${totalSlides}`;
-                    }
-
-                    slide.classList.add('visible');
-                } else if (scrollPosition + windowHeight < slideTop) {
-                    slide.classList.remove('visible');
-                }
-            });
+        // Next slide
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                goToSlide(currentSlide + 1);
+            }
         }
 
-        // Intersection Observer for slide visibility
-        const observerOptions = {
-            root: slideContainer,
-            threshold: 0.5,
-            rootMargin: '0px'
-        };
+        // Previous slide
+        function prevSlide() {
+            if (currentSlide > 0) {
+                goToSlide(currentSlide - 1);
+            }
+        }
 
-        const slideObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        slides.forEach(slide => {
-            slideObserver.observe(slide);
-        });
-
-        // Listen for scroll events
-        let scrollTimeout;
-        slideContainer.addEventListener('scroll', () => {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(updateActiveSlide, 50);
-        });
+        // Button event listeners
+        nextButton.addEventListener('click', nextSlide);
+        prevButton.addEventListener('click', prevSlide);
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
                 e.preventDefault();
-                if (currentSlide < totalSlides - 1) {
-                    scrollToSlide(currentSlide + 1);
-                }
-            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
                 e.preventDefault();
-                if (currentSlide > 0) {
-                    scrollToSlide(currentSlide - 1);
-                }
+                prevSlide();
             } else if (e.key === 'Home') {
                 e.preventDefault();
-                scrollToSlide(0);
+                goToSlide(0);
             } else if (e.key === 'End') {
                 e.preventDefault();
-                scrollToSlide(totalSlides - 1);
+                goToSlide(totalSlides - 1);
             }
         });
 
         // Touch/swipe support for mobile
+        let touchStartX = 0;
         let touchStartY = 0;
+        let touchEndX = 0;
         let touchEndY = 0;
 
         slideContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
             touchStartY = e.changedTouches[0].screenY;
         });
 
         slideContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
             touchEndY = e.changedTouches[0].screenY;
             handleSwipe();
         });
 
         function handleSwipe() {
             const swipeThreshold = 50;
-            const swipeDistance = touchStartY - touchEndY;
+            const horizontalDistance = touchStartX - touchEndX;
+            const verticalDistance = touchStartY - touchEndY;
 
-            if (Math.abs(swipeDistance) > swipeThreshold) {
-                if (swipeDistance > 0 && currentSlide < totalSlides - 1) {
-                    scrollToSlide(currentSlide + 1);
-                } else if (swipeDistance < 0 && currentSlide > 0) {
-                    scrollToSlide(currentSlide - 1);
+            // Check if horizontal swipe is more significant than vertical
+            if (Math.abs(horizontalDistance) > Math.abs(verticalDistance)) {
+                if (Math.abs(horizontalDistance) > swipeThreshold) {
+                    if (horizontalDistance > 0) {
+                        // Swipe left - next slide
+                        nextSlide();
+                    } else {
+                        // Swipe right - previous slide
+                        prevSlide();
+                    }
+                }
+            } else {
+                if (Math.abs(verticalDistance) > swipeThreshold) {
+                    if (verticalDistance > 0) {
+                        // Swipe up - next slide
+                        nextSlide();
+                    } else {
+                        // Swipe down - previous slide
+                        prevSlide();
+                    }
                 }
             }
         }
 
-        // Initialize first slide as visible
-        slides[0].classList.add('visible');
-        updateActiveSlide();
-
-        // Update on load
-        window.addEventListener('load', updateActiveSlide);
+        // Initialize first slide
+        goToSlide(0);
     </script>
 </body>
 </html>
