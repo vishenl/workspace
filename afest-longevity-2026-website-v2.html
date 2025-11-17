@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Fest Longevity Edition | September 17-20, 2026 | Amrit Ocean Resort</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* A-Fest Brand Colors */
+            --color-primary: #a053c1;
+            --color-primary-dark: #7d3a9a;
+            --color-primary-light: #c07dd9;
+
+            /* Amrit Ocean Colors */
+            --color-ocean-deep: #004E71;
+            --color-ocean-medium: #0077B6;
+            --color-ocean-light: #00B4D8;
+            --color-sand: #F5F1E8;
+
+            /* Longevity Theme */
+            --color-coral: #FF7F5C;
+            --color-terracotta: #D4735E;
+            --color-gold: #D4AF37;
+
+            /* Neutrals */
+            --color-white: #FFFFFF;
+            --color-black: #1A1A1A;
+            --color-text-primary: #2C2C2C;
+            --color-text-secondary: #666666;
+
+            /* Typography */
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            --spacing-3xl: 6rem;
+            --spacing-4xl: 8rem;
+
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+            --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.20);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .nav-cta {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Hero Section with Video Background */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #a053c1 0%, #7d3a9a 50%, #004E71 100%);
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(160, 83, 193, 0.9) 0%, rgba(125, 58, 154, 0.8) 50%, rgba(0, 78, 113, 0.9) 100%);
+            z-index: 1;
+        }
+
+        .hero-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            padding: var(--spacing-2xl);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: var(--spacing-md);
+            font-weight: 600;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-lg);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1.25rem, 3vw, 2.25rem);
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: var(--spacing-xl);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.4;
+            font-weight: 300;
+        }
+
+        .hero-details {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xl);
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .hero-detail {
+            text-align: center;
+        }
+
+        .hero-detail-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .hero-detail-label {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-detail-value {
+            font-size: 1.25rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .hero-cta-container {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 1.25rem 3rem;
+            background: white;
+            color: var(--color-primary);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.125rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            padding: 1.25rem 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid white;
+            border-radius: 50px;
+            font-size: 1.125rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Image Hero Section */
+        .image-hero {
+            min-height: 80vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(160, 83, 193, 0.7), rgba(0, 78, 113, 0.7));
+        }
+
+        .image-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: var(--spacing-2xl);
+            color: white;
+            max-width: 1200px;
+        }
+
+        .image-hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            font-weight: 800;
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.2;
+        }
+
+        .image-hero-text {
+            font-size: clamp(1.125rem, 2vw, 1.5rem);
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Section Base Styles */
+        section {
+            padding: var(--spacing-4xl) var(--spacing-lg);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .section-subtitle {
+            font-size: 0.875rem;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            color: var(--color-text-primary);
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .section-description {
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Full-Width Image Section */
+        .full-image-section {
+            padding: 0;
+            margin: var(--spacing-4xl) 0;
+        }
+
+        .full-image {
+            width: 100%;
+            height: 70vh;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, #F5F1E8 0%, #E8E1D6 100%);
+            padding: var(--spacing-3xl) var(--spacing-lg);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-xl);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: var(--spacing-xl);
+        }
+
+        .stat-number {
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            line-height: 1;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .stat-label {
+            font-size: 1.125rem;
+            color: var(--color-text-secondary);
+            font-weight: 600;
+        }
+
+        /* Why A-Fest Section */
+        .why-afest {
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(160, 83, 193, 0.03), rgba(0, 78, 113, 0.03));
+            padding: var(--spacing-xl);
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-title {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .feature-description {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            font-size: 1.0625rem;
+        }
+
+        /* Speakers Section */
+        .speakers {
+            background: linear-gradient(135deg, #F5F1E8 0%, #E8E1D6 100%);
+        }
+
+        .speakers-intro {
+            max-width: 1000px;
+            margin: 0 auto var(--spacing-3xl);
+            text-align: center;
+            font-size: 1.25rem;
+            line-height: 1.9;
+            color: var(--color-text-secondary);
+        }
+
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--spacing-2xl);
+        }
+
+        .speaker-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .speaker-image-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-ocean-light));
+        }
+
+        .speaker-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .speaker-card:hover .speaker-image {
+            transform: scale(1.05);
+        }
+
+        .speaker-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+        }
+
+        .speaker-info {
+            padding: var(--spacing-xl);
+        }
+
+        .speaker-name {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .speaker-title {
+            font-size: 0.875rem;
+            color: var(--color-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .speaker-bio {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .speaker-topic {
+            color: var(--color-text-primary);
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* Community Collage Section */
+        .community-collage {
+            padding: 0;
+            margin: var(--spacing-4xl) 0;
+        }
+
+        .collage-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Experience Journey Section */
+        .experience-journey {
+            background: white;
+            padding: var(--spacing-4xl) var(--spacing-lg);
+        }
+
+        .journey-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-3xl);
+            margin-top: var(--spacing-3xl);
+            align-items: center;
+        }
+
+        .journey-image {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .journey-content h3 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .journey-content p {
+            font-size: 1.125rem;
+            line-height: 1.9;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .journey-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .journey-content li {
+            padding: var(--spacing-sm) 0;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1.0625rem;
+            color: var(--color-text-secondary);
+        }
+
+        .journey-content li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        /* Agenda Section */
+        .agenda {
+            background: linear-gradient(135deg, #a053c1 0%, #7d3a9a 50%, #004E71 100%);
+            color: white;
+        }
+
+        .agenda .section-title {
+            color: white;
+        }
+
+        .agenda .section-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .day-tabs {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-2xl);
+            flex-wrap: wrap;
+        }
+
+        .day-tab {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .day-tab.active {
+            background: white;
+            color: var(--color-primary);
+            border-color: white;
+        }
+
+        .day-content {
+            display: none;
+        }
+
+        .day-content.active {
+            display: block;
+        }
+
+        .timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-md);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(8px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .timeline-time {
+            font-size: 0.875rem;
+            color: var(--color-coral);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-speaker {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-description {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+            font-size: 1.0625rem;
+        }
+
+        /* Venue Section */
+        .venue {
+            background: white;
+        }
+
+        .venue-intro {
+            max-width: 900px;
+            margin: 0 auto var(--spacing-3xl);
+            text-align: center;
+            font-size: 1.25rem;
+            line-height: 1.9;
+            color: var(--color-text-secondary);
+        }
+
+        .venue-images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .venue-image-large {
+            grid-column: span 2;
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .venue-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .venue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-3xl);
+        }
+
+        .venue-card {
+            background: linear-gradient(135deg, rgba(0, 78, 113, 0.05), rgba(0, 180, 216, 0.05));
+            border-radius: 20px;
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+        }
+
+        .venue-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .venue-icon {
+            font-size: 3.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .venue-title {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .venue-description {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            font-size: 1.0625rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: linear-gradient(135deg, #F5F1E8 0%, #E8E1D6 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-3xl);
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: var(--spacing-xl);
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .testimonial-quote {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--color-text-secondary);
+            font-style: italic;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-ocean-medium));
+        }
+
+        .testimonial-info {
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            color: var(--color-text-primary);
+            font-size: 1.125rem;
+        }
+
+        .testimonial-title {
+            color: var(--color-text-secondary);
+            font-size: 0.9375rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: white;
+        }
+
+        .pricing-card {
+            max-width: 700px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(160, 83, 193, 0.05), rgba(0, 78, 113, 0.05));
+            border-radius: 30px;
+            padding: var(--spacing-3xl);
+            box-shadow: var(--shadow-xl);
+            text-align: center;
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--color-coral), var(--color-terracotta));
+            color: white;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pricing-amount {
+            font-family: var(--font-serif);
+            font-size: 6rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            line-height: 1;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pricing-period {
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-xl);
+            font-weight: 500;
+        }
+
+        .pricing-includes {
+            text-align: left;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pricing-includes-title {
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-md);
+            font-size: 1.25rem;
+        }
+
+        .pricing-includes ul {
+            list-style: none;
+        }
+
+        .pricing-includes li {
+            padding: 0.875rem 0;
+            padding-left: 2.5rem;
+            position: relative;
+            color: var(--color-text-secondary);
+            font-size: 1.0625rem;
+        }
+
+        .pricing-includes li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background: linear-gradient(135deg, #F5F1E8 0%, #E8E1D6 100%);
+        }
+
+        .faq-list {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: var(--spacing-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .faq-question {
+            padding: var(--spacing-xl);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            transition: background 0.3s ease;
+            font-size: 1.125rem;
+        }
+
+        .faq-question:hover {
+            background: rgba(160, 83, 193, 0.05);
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 var(--spacing-xl);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 var(--spacing-xl) var(--spacing-xl);
+        }
+
+        .faq-answer-content {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            font-size: 1.0625rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-black);
+            color: white;
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: var(--spacing-md);
+            font-size: 1.0625rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+            margin-top: var(--spacing-lg);
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        /* Sticky CTA Bar */
+        .sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
+            padding: var(--spacing-md);
+            z-index: 999;
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        .sticky-cta.visible {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .sticky-cta-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .sticky-cta-text {
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-details {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+
+            .hero-cta-container {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+
+            .speakers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-amount {
+                font-size: 4rem;
+            }
+
+            .sticky-cta-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            section {
+                padding: var(--spacing-2xl) var(--spacing-md);
+            }
+
+            .journey-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .venue-images {
+                grid-template-columns: 1fr;
+            }
+
+            .venue-image-large {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">A-FEST LONGEVITY</a>
+            <a href="#pricing" class="nav-cta">Secure Your Spot</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="https://www.amritocean.com/content/uploads/2025/03/KE7A5135-scaled.jpg" alt="Amrit Ocean Resort" class="hero-bg-image">
+        <div class="hero-content">
+            <div class="hero-subtitle">September 17-20, 2026 · Amrit Ocean Resort · Singer Island, Florida</div>
+            <h1 class="hero-title">A-Fest Longevity Edition</h1>
+            <p class="hero-tagline">Where Ancient Wisdom Meets Modern Science. 4 Transformative Days. 13 World-Class Masters. Your Blueprint for a 100+ Year Life.</p>
+
+            <div class="hero-details">
+                <div class="hero-detail">
+                    <div class="hero-detail-icon">📅</div>
+                    <div class="hero-detail-label">Dates</div>
+                    <div class="hero-detail-value">Sept 17-20, 2026</div>
+                </div>
+                <div class="hero-detail">
+                    <div class="hero-detail-icon">📍</div>
+                    <div class="hero-detail-label">Location</div>
+                    <div class="hero-detail-value">Amrit Ocean Resort</div>
+                </div>
+                <div class="hero-detail">
+                    <div class="hero-detail-icon">👥</div>
+                    <div class="hero-detail-label">Community</div>
+                    <div class="hero-detail-value">300 Visionaries</div>
+                </div>
+                <div class="hero-detail">
+                    <div class="hero-detail-icon">🎯</div>
+                    <div class="hero-detail-label">Investment</div>
+                    <div class="hero-detail-value">$4,997</div>
+                </div>
+            </div>
+
+            <div class="hero-cta-container">
+                <a href="#pricing" class="btn-primary">Reserve Your Spot Now</a>
+                <a href="#agenda" class="btn-secondary">Explore the Journey</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">13</div>
+                    <div class="stat-label">World-Class Masters</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Immersive Days</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">40K</div>
+                    <div class="stat-label">Sq Ft Wellness Spa</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">300</div>
+                    <div class="stat-label">Visionary Attendees</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Years to Live</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Collage -->
+    <section class="community-collage">
+        <img src="https://a.storyblok.com/f/60579/1440x649/2ce6389b30/afest-about-collage-desktop.png" alt="A-Fest Community" class="collage-image">
+    </section>
+
+    <!-- Why A-Fest Longevity -->
+    <section class="why-afest">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">The Experience</div>
+                <h2 class="section-title">This Isn't Just Another Wellness Retreat</h2>
+                <p class="section-description">
+                    For 15 years, A-Fest has been the world's most transformational gathering. Now, we're partnering with Amrit Ocean Resort—Florida's premier longevity destination—to create something unprecedented: where celebration meets science, where ancient wisdom meets biohacking, where community becomes family.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧬</div>
+                    <h3 class="feature-title">Biohacking Royalty</h3>
+                    <p class="feature-description">Learn from the pioneers who defined human optimization: Gary Brecka (methylation & genetics), Dave Asprey (mitochondrial health), Ben Greenfield (boundless energy), and Dr. Gabrielle Lyon (muscle-centric medicine). These aren't just speakers—they're the architects of modern longevity.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🕉️</div>
+                    <h3 class="feature-title">Ancient Wisdom Keepers</h3>
+                    <p class="feature-description">Experience Kundalini awakening with Dawn Hoang, Qigong mastery with Lee Holden, and Samurai philosophy with Zen Samurai. These practices have kept humans vital for millennia—now they're yours to embody.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌊</div>
+                    <h3 class="feature-title">World's Largest Wellness Spa</h3>
+                    <p class="feature-description">Unlimited access to Amrit's 40,000 sq ft Aayush Hydrothermal Experience. Hammam, cryotherapy, infrared saunas, float therapy, and regenerative treatments. Your body's playground for 4 days.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">Mind Mastery</h3>
+                    <p class="feature-description">Hypnotherapy legend Marisa Peer will rewire your relationship with aging. Vishen Lakhiani reveals consciousness engineering secrets. Dr. Tara Swart unlocks brain longevity. Your mind is the operating system—we're upgrading it.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💪</div>
+                    <h3 class="feature-title">Movement Medicine</h3>
+                    <p class="feature-description">Kristine Bullock brings functional fitness designed for lifelong vitality. Every morning, your body learns to move with power, grace, and longevity built into every rep.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎉</div>
+                    <h3 class="feature-title">A-Fest's Legendary Community</h3>
+                    <p class="feature-description">This is where lifelong friendships are forged. Beach dinners under the stars. Dance celebrations. Deep conversations until sunrise. 300 visionaries who become your tribe. Because longevity without joy is just existing—we're here to LIVE.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Hero: The Vision -->
+    <section class="image-hero">
+        <img src="https://a.storyblok.com/f/60579/1440x960/4b2624fae0/hotel-1.webp" alt="A-Fest Gathering" class="image-hero-bg">
+        <div class="image-hero-overlay"></div>
+        <div class="image-hero-content">
+            <h2 class="image-hero-title">The Vision: Live to 100+ With Vitality</h2>
+            <p class="image-hero-text">
+                This isn't about adding years to your life—it's about adding LIFE to your years. Imagine waking up at 80 with the energy of 40. Dancing at 90. Learning, loving, contributing at 100. This is the future we're creating together.
+            </p>
+        </div>
+    </section>
+
+    <!-- Speakers Section -->
+    <section class="speakers">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Your Teachers</div>
+                <h2 class="section-title">13 Masters Who Define Longevity</h2>
+                <p class="section-description">
+                    These aren't just speakers. They're the pioneers who've cracked the code on human optimization, consciousness, and vitality. Each one a master in their field. Together, they're your blueprint for extraordinary living.
+                </p>
+            </div>
+
+            <div class="speakers-intro">
+                Most people at this caliber command $50K-$100K per speaking engagement. They're here because A-Fest is different—it transforms the teachers as much as the attendees. Mark Hyman met his wife at A-Fest. Speakers return year after year not for the fee, but for the magic.
+            </div>
+
+            <div class="speakers-grid">
+                <!-- Gary Brecka -->
+                <div class="speaker-card">
+                    <div class="speaker-image-container">
+                        <div class="speaker-image-placeholder">🧬</div>
+                    </div>
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Gary Brecka</h3>
+                        <div class="speaker-title">Human Biologist & Longevity Pioneer</div>
+                        <p class="speaker-bio">
+                            Co-founder of 10X Health Systems and host of The Ultimate Human Podcast. Gary has spent decades studying human biology and created protocols that have helped thousands reverse biological aging. His methylation expertise has changed lives.
+                        </p>
+                        <p class="speaker-topic">
+                            "Genetic Optimization: How to Hack Your DNA for Longevity"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Dave Asprey -->
+                <div class="speaker-card">
+                    <div class="speaker-image-container">
+                        <div class="speaker-image-placeholder">🧪</div>
+                    </div>
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Dave Asprey</h3>
+                        <div class="speaker-title">Father of Biohacking</div>
+                        <p class="speaker-bio">
+                            Founder of Bulletproof and author of multiple NYT bestsellers. Dave spent $2 million hacking his own biology and reversed his biological age by 20 years. He literally wrote the book on biohacking.
+                        </p>
+                        <p class="speaker-topic">
+                            "Mitochondrial Magic: The Secret to Boundless Energy at Any Age"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Ben Greenfield -->
+                <div class="speaker-card">
+                    <div class="speaker-image-container">
+                        <div class="speaker-image-placeholder">💪</div>
+                    </div>
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Ben Greenfield</h3>
+                        <div class="speaker-title">Fitness & Longevity Expert</div>
+                        <p class="speaker-bio">
+                            Named one of the world's top 100 most influential people in health and fitness. Ben's holistic approach combines ancient wisdom with cutting-edge science. Creator of Mindvalley's Longevity Blueprint.
+                        </p>
+                        <p class="speaker-topic">
+                            "Boundless: The Complete System for Physical Longevity"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Dr. Gabrielle Lyon -->
+                <div class="speaker-card">
+                    <div class="speaker-image-container">
+                        <div class="speaker-image-placeholder">🥩</div>
+                    </div>
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Dr. Gabrielle Lyon</h3>
+                        <div class="speaker-title">Founder of Muscle-Centric Medicine®</div>
+                        <p class="speaker-bio">
+                            Board-certified physician who's revolutionizing how we think about aging. Dr. Lyon's muscle-centric approach has shown that skeletal muscle is the organ of longevity. Trained in geriatric nutritional sciences.
+                        </p>
+                        <p class="speaker-topic">
+                            "Muscle: The Secret Organ of Longevity"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Vishen Lakhiani -->
+                <div class="speaker-card">
+                    <div class="speaker-image-container">
+                        <div class="speaker-image-placeholder">🔮</div>
+                    </div>
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Vishen Lakhiani</h3>
+                        <div class="speaker-title">Founder of Mindvalley & A-Fest</div>
+                        <p class="speaker-bio">
+                            NYT bestselling author of The Code of the Extraordinary Mind and The Buddha and the Badass. Vishen has built a movement reaching 20M+ students in 195 countries. He's dedicated his life to discovering what makes humans extraordinary.
+                        </p>
+                        <p class="speaker-topic">
+                            "Consciousness Engineering: The Operating System for 100+ Years"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Marisa Peer -->
+                <div class="speaker-card">
+                    <div class="speaker-image-container">
+                        <div class="speaker-image-placeholder">🧠</div>
+                    </div>
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Marisa Peer</h3>
+                        <div class="speaker-title">Hypnotherapist to Royals & Olympians</div>
+                        <p class="speaker-bio">
+                            Voted UK's #1 therapist. Creator of Rapid Transformational Therapy® (RTT). Marisa has spent 30+ years treating royalty, rockstars, Hollywood A-listers, and Olympic athletes. Her work rewires the subconscious for healing and transformation.
+                        </p>
+                        <p class="speaker-topic">
+                            "RTT for Longevity: Rewiring Your Relationship with Aging"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Dawn Hoang -->
+                <div class="speaker-card">
+                    <div class="speaker-image-container">
+                        <div class="speaker-image-placeholder">🌟</div>
+                    </div>
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Dawn Hoang</h3>
+                        <div class="speaker-title">Kundalini Activator</div>
+                        <p class="speaker-bio">
+                            Master of 30+ healing modalities with 20 years of experience. Dawn has the rare ability to activate spontaneous Kundalini awakenings in groups. She's guided 700+ people through awakening experiences at Mindvalley University.
+                        </p>
+                        <p class="speaker-topic">
+                            "Kundalini Awakening: Igniting Your Life Force for Vitality"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Lee Holden -->
+                <div class="speaker-card">
+                    <div class="speaker-image-container">
+                        <div class="speaker-image-placeholder">🐉</div>
+                    </div>
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Lee Holden</h3>
+                        <div class="speaker-title">Qigong & Tai Chi Master</div>
+                        <p class="speaker-bio">
+                            Internationally renowned Qigong master whose practices have helped millions reduce stress and increase vitality. Lee's simple yet profound techniques are rooted in 5,000 years of Chinese wisdom.
+                        </p>
+                        <p class="speaker-topic">
+                            "Qigong for Longevity: Energy Cultivation Practices"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Zen Samurai -->
+                <div class="speaker-card">
+                    <div class="speaker-image-container">
+                        <div class="speaker-image-placeholder">⚔️</div>
+                    </div>
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Zen Samurai</h3>
+                        <div class="speaker-title">Samurai Philosopher</div>
+                        <p class="speaker-bio">
+                            Master of Bushido—the way of the warrior. Zen Samurai teaches the discipline, honor, and philosophical practices that allowed samurai to live with vitality and purpose well into old age.
+                        </p>
+                        <p class="speaker-topic">
+                            "The Way of the Samurai: Discipline & Longevity"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Kristine Bullock -->
+                <div class="speaker-card">
+                    <div class="speaker-image-container">
+                        <div class="speaker-image-placeholder">🏋️</div>
+                    </div>
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Kristine Bullock</h3>
+                        <div class="speaker-title">Movement & Functional Fitness Expert</div>
+                        <p class="speaker-bio">
+                            Renowned for her functional movement approach that builds strength, mobility, and resilience for life. Kristine's programs are designed to keep you moving powerfully at any age.
+                        </p>
+                        <p class="speaker-topic">
+                            "Movement Medicine: Functional Fitness for Lifelong Strength"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Nevin Jain -->
+                <div class="speaker-card">
+                    <div class="speaker-image-container">
+                        <div class="speaker-image-placeholder">💎</div>
+                    </div>
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Nevin Jain</h3>
+                        <div class="speaker-title">Consciousness & Longevity Pioneer</div>
+                        <p class="speaker-bio">
+                            At the forefront of next-generation longevity research and consciousness expansion. Nevin bridges cutting-edge technology with ancient wisdom to explore the future of human potential.
+                        </p>
+                        <p class="speaker-topic">
+                            "Next-Gen Longevity: Where Technology Meets Consciousness"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Ronan Diego -->
+                <div class="speaker-card">
+                    <div class="speaker-image-container">
+                        <div class="speaker-image-placeholder">🌺</div>
+                    </div>
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Ronan Diego</h3>
+                        <div class="speaker-title">Integrative Longevity Coach</div>
+                        <p class="speaker-bio">
+                            Holistic health expert who integrates nutrition, movement, mindset, and energy work into comprehensive longevity protocols. Ronan's work creates sustainable transformation.
+                        </p>
+                        <p class="speaker-topic">
+                            "Holistic Longevity: Integrating Body, Mind, and Spirit"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Dr. Tara Swart -->
+                <div class="speaker-card">
+                    <div class="speaker-image-container">
+                        <div class="speaker-image-placeholder">🩺</div>
+                    </div>
+                    <div class="speaker-info">
+                        <h3 class="speaker-name">Dr. Tara Swart</h3>
+                        <div class="speaker-title">Neuroscientist & MIT Senior Lecturer</div>
+                        <p class="speaker-bio">
+                            Medical doctor, neuroscientist, and bestselling author of The Source. Dr. Swart teaches at MIT Sloan and advises Fortune 500 companies on mental resilience and peak performance. Her work bridges neuroscience with intuition and spirituality.
+                        </p>
+                        <p class="speaker-topic">
+                            "Neuroplasticity & Brain Longevity: Keeping Your Mind Sharp for Decades"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Image Break -->
+    <section class="full-image-section">
+        <img src="https://a.storyblok.com/f/60579/1440x960/f3ebbacad6/hotel-2.webp" alt="A-Fest Celebration" class="full-image">
+    </section>
+
+    <!-- Experience Journey Section -->
+    <section class="experience-journey">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">The Journey</div>
+                <h2 class="section-title">What Actually Happens Over 4 Days</h2>
+            </div>
+
+            <div class="journey-grid">
+                <div class="journey-image-container">
+                    <img src="https://a.storyblok.com/f/60579/1440x960/f4c3886931/hotel-3.webp" alt="A-Fest Experience" class="journey-image">
+                </div>
+                <div class="journey-content">
+                    <h3>Mornings: Awakening</h3>
+                    <p>
+                        7 AM. Sunrise on the Atlantic. You're on the beach with 300 souls practicing Qigong with Lee Holden. Energy flows. The ocean breathes. Your body remembers what it means to be alive.
+                    </p>
+                    <ul>
+                        <li>Kundalini activation sessions</li>
+                        <li>Qigong & breathwork</li>
+                        <li>Movement medicine with Kristine</li>
+                        <li>Meditation & mindfulness</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="journey-grid" style="margin-top: var(--spacing-3xl);">
+                <div class="journey-content">
+                    <h3>Midday: Learning & Integration</h3>
+                    <p>
+                        Gary Brecka breaks down methylation like you've never heard it. Dave Asprey reveals mitochondrial secrets. Dr. Gabrielle Lyon teaches you why muscle is everything. This isn't theory—this is your body's instruction manual.
+                    </p>
+                    <ul>
+                        <li>2-3 hour deep-dive sessions</li>
+                        <li>Biohacking workshops</li>
+                        <li>Hypnotherapy with Marisa Peer</li>
+                        <li>Consciousness work with Vishen</li>
+                    </ul>
+                </div>
+                <div class="journey-image-container">
+                    <img src="https://a.storyblok.com/f/60579/1440x960/f0b2138d5f/hotel-4.webp" alt="Learning Sessions" class="journey-image">
+                </div>
+            </div>
+
+            <div class="journey-grid" style="margin-top: var(--spacing-3xl);">
+                <div class="journey-image-container">
+                    <img src="https://www.amritocean.com/content/uploads/2025/03/AOR-Amrit-Ocean-Resort-Offer-Discover-276x175.jpg" alt="Spa Experience" class="journey-image">
+                </div>
+                <div class="journey-content">
+                    <h3>Afternoons: Restoration & Play</h3>
+                    <p>
+                        Free time is sacred. Dive into Amrit's 40,000 sq ft spa. Float therapy. Cryotherapy. Infrared saunas. Or simply lie on the beach. Rest is part of the protocol.
+                    </p>
+                    <ul>
+                        <li>Unlimited spa access</li>
+                        <li>Optional wellness treatments</li>
+                        <li>Beach time & ocean swims</li>
+                        <li>Integration & journaling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="journey-grid" style="margin-top: var(--spacing-3xl);">
+                <div class="journey-content">
+                    <h3>Evenings: Celebration & Connection</h3>
+                    <p>
+                        This is where magic happens. Long tables on the beach. Gourmet longevity cuisine. Conversations that change your life. Dance parties under the stars. Sound healing sessions. You're not networking—you're finding your tribe.
+                    </p>
+                    <ul>
+                        <li>Beach dinners for 300</li>
+                        <li>Dance celebrations with DJ</li>
+                        <li>Sound baths & healing ceremonies</li>
+                        <li>Deep conversations until dawn</li>
+                    </ul>
+                </div>
+                <div class="journey-image-container">
+                    <img src="https://www.amritocean.com/content/uploads/2025/03/AOR-Amrit-Ocean-Resort-Dine-Kentucky-Derby-5-276x175.jpg" alt="Evening Celebrations" class="journey-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agenda Section -->
+    <section class="agenda" id="agenda">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Your 4-Day Blueprint</div>
+                <h2 class="section-title">The Complete Longevity Immersion</h2>
+                <p class="section-description">
+                    Every session is intentional. Every meal nourishes. Every moment designed to transform. This is your roadmap to extraordinary living.
+                </p>
+            </div>
+
+            <div class="day-tabs">
+                <button class="day-tab active" data-day="day1">Thursday, Sept 17</button>
+                <button class="day-tab" data-day="day2">Friday, Sept 18</button>
+                <button class="day-tab" data-day="day3">Saturday, Sept 19</button>
+                <button class="day-tab" data-day="day4">Sunday, Sept 20</button>
+            </div>
+
+            <!-- Day 1 -->
+            <div class="day-content active" id="day1">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-time">2:00 PM - 5:00 PM</div>
+                        <h3 class="timeline-title">Arrival & Welcome to Paradise</h3>
+                        <p class="timeline-description">Check into your oceanfront sanctuary. Receive your welcome gift. Meet fellow visionaries at our beachside reception. The energy is palpable—you can feel it the moment you arrive.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">5:00 PM - 6:30 PM</div>
+                        <h3 class="timeline-title">Opening Ceremony: The Longevity Vision</h3>
+                        <div class="timeline-speaker">with Vishen Lakhiani</div>
+                        <p class="timeline-description">Set your intentions for the journey ahead. Vishen shares the vision of extraordinary longevity—not just living longer, but living BETTER. The rules are about to change.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">7:00 PM - 9:00 PM</div>
+                        <h3 class="timeline-title">Beach Dinner Under the Stars</h3>
+                        <p class="timeline-description">300 changemakers. Long tables on the sand. Ocean breeze. Gourmet longevity cuisine. This is where friendships begin that last decades.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">9:00 PM - 11:00 PM</div>
+                        <h3 class="timeline-title">Sunset Sound Bath & Beach Bonfire</h3>
+                        <p class="timeline-description">Release into the experience. Healing frequencies wash over you. Intimate fireside conversations. The journey has begun.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="day-content" id="day2">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-time">7:00 AM - 8:00 AM</div>
+                        <h3 class="timeline-title">Sunrise Qigong on the Beach</h3>
+                        <div class="timeline-speaker">with Lee Holden</div>
+                        <p class="timeline-description">Cultivate morning energy with 5,000-year-old Chinese longevity practices. The Atlantic Ocean as your witness. Your body awakens.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">8:30 AM - 10:00 AM</div>
+                        <h3 class="timeline-title">Breakfast & Aayush Spa Immersion</h3>
+                        <p class="timeline-description">Nutrient-dense breakfast fuels your day. Then lose yourself in 40,000 sq ft of hydrothermal heaven. Hammam, float tanks, cryotherapy—your playground.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">10:30 AM - 12:30 PM</div>
+                        <h3 class="timeline-title">The Science of Longevity: Genetic Optimization</h3>
+                        <div class="timeline-speaker">with Gary Brecka & Dave Asprey</div>
+                        <p class="timeline-description">DEEP DIVE. Methylation. Genetic expression. Mitochondrial health. The latest breakthroughs in human performance. Gary and Dave reveal what's actually possible when you hack your biology correctly.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">12:30 PM - 2:30 PM</div>
+                        <h3 class="timeline-title">Longevity Lunch & Free Time</h3>
+                        <p class="timeline-description">Organic, nutrient-dense cuisine designed by wellness chefs. Afternoon yours—spa, beach, rest, explore. Integration is essential.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">3:00 PM - 4:30 PM</div>
+                        <h3 class="timeline-title">Muscle: The Secret Organ of Longevity</h3>
+                        <div class="timeline-speaker">with Dr. Gabrielle Lyon</div>
+                        <p class="timeline-description">Why muscle is THE organ of longevity. Protein optimization. Metabolic health. Dr. Lyon's revolutionary muscle-centric approach that's changing how we age.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">5:00 PM - 6:30 PM</div>
+                        <h3 class="timeline-title">Hypnotherapy for Longevity Mindset</h3>
+                        <div class="timeline-speaker">with Marisa Peer</div>
+                        <p class="timeline-description">RTT session that rewires limiting beliefs about aging. Marisa guides you into your subconscious to unlock your longevity potential. Transformation happens here.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">7:00 PM - 9:00 PM</div>
+                        <h3 class="timeline-title">Gala Dinner & Keynote: Boundless Energy</h3>
+                        <div class="timeline-speaker">with Ben Greenfield</div>
+                        <p class="timeline-description">Elegant dinner. Ben reveals his holistic longevity system—the same protocols that reversed his biological age. Leave with actionable strategies.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">9:00 PM - 1:00 AM</div>
+                        <h3 class="timeline-title">Dance Celebration</h3>
+                        <p class="timeline-description">DJ. Dancing. Connection. A-Fest's legendary party culture celebrating vitality and JOY. Because what's the point of living to 100 if you're not dancing?</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="day-content" id="day3">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-time">7:00 AM - 8:00 AM</div>
+                        <h3 class="timeline-title">Kundalini Awakening</h3>
+                        <div class="timeline-speaker">with Dawn Hoang</div>
+                        <p class="timeline-description">Powerful energy activation. Dawn channels energy across the room. Some experience spontaneous awakenings. Your life force ignites.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">8:30 AM - 10:00 AM</div>
+                        <h3 class="timeline-title">Breakfast & Movement Medicine</h3>
+                        <div class="timeline-speaker">with Kristine Bullock</div>
+                        <p class="timeline-description">Functional fitness training designed for lifelong strength. Your body learns to move with power and grace.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">10:30 AM - 12:00 PM</div>
+                        <h3 class="timeline-title">The Way of the Samurai: Discipline & Longevity</h3>
+                        <div class="timeline-speaker">with Zen Samurai</div>
+                        <p class="timeline-description">Bushido philosophy. Warrior discipline. The samurai lived with vitality and purpose into old age—their secrets are now yours.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">12:00 PM - 3:00 PM</div>
+                        <h3 class="timeline-title">Sacred Free Time</h3>
+                        <p class="timeline-description">Spa treatments. Beach meditation. Optional workshops. Explore Palm Beach. Or simply BE. Rest is resistance in our culture—embrace it.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">3:00 PM - 4:30 PM</div>
+                        <h3 class="timeline-title">Brain Health & Neuroplasticity</h3>
+                        <div class="timeline-speaker">with Dr. Tara Swart</div>
+                        <p class="timeline-description">Neuroscience of cognitive longevity. Keep your brain sharp for decades. Dr. Swart bridges science with intuition.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">5:00 PM - 6:30 PM</div>
+                        <h3 class="timeline-title">Next-Gen Longevity & Consciousness</h3>
+                        <div class="timeline-speaker">with Nevin Jain & Ronan Diego</div>
+                        <p class="timeline-description">Emerging technologies. Consciousness expansion. The future of human potential. Where are we going as a species?</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">7:00 PM - 11:00 PM</div>
+                        <h3 class="timeline-title">Experiential Evening: Choose Your Journey</h3>
+                        <p class="timeline-description">Multiple rooms, multiple experiences. Sound healing sanctuary. Lucid dreaming workshop. Deep meditation chambers. You choose your path. Deep inner work happens here.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 4 -->
+            <div class="day-content" id="day4">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-time">7:00 AM - 8:00 AM</div>
+                        <h3 class="timeline-title">Sunrise Meditation & Gratitude</h3>
+                        <p class="timeline-description">Final morning practice together on the beach. Gratitude. Reflection. Integration. The ocean witnesses your commitment.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">8:30 AM - 10:00 AM</div>
+                        <h3 class="timeline-title">Farewell Breakfast</h3>
+                        <p class="timeline-description">Final meal together. Exchange contacts. Share revelations. Plan future gatherings. You're family now.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">10:30 AM - 12:00 PM</div>
+                        <h3 class="timeline-title">Integration Workshop: Your 100-Year Plan</h3>
+                        <div class="timeline-speaker">with Vishen Lakhiani</div>
+                        <p class="timeline-description">Design your personalized longevity roadmap. Take home actionable protocols for the next 50+ years. This is where theory becomes practice.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">12:00 PM - 1:30 PM</div>
+                        <h3 class="timeline-title">Closing Ceremony: The Promise</h3>
+                        <p class="timeline-description">Celebration. Commitment. The promise to meet again. You're now part of the A-Fest Longevity tribe. This is just the beginning.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">2:00 PM</div>
+                        <h3 class="timeline-title">Departure (Late Checkout Available)</h3>
+                        <p class="timeline-description">Leave transformed. With lifelong friends. And your longevity blueprint in hand. The world will notice you've changed.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Venue Section -->
+    <section class="venue">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Your Home for 4 Days</div>
+                <h2 class="section-title">Amrit Ocean Resort</h2>
+                <p class="section-description">
+                    Florida's premier wellness destination where luxury meets longevity infrastructure. Every detail designed to optimize your body, mind, and spirit.
+                </p>
+            </div>
+
+            <div class="venue-intro">
+                Singer Island, Palm Beach. Direct oceanfront. 40,000 square feet of wellness facilities. This isn't a hotel—it's a longevity laboratory disguised as paradise.
+            </div>
+
+            <div class="venue-images">
+                <img src="https://www.amritocean.com/content/uploads/2025/03/KE7A5135-scaled.jpg" alt="Amrit Ocean Resort Exterior" class="venue-image-large">
+                <img src="https://www.amritocean.com/content/uploads/2025/03/Lala_Salmon-Poke-Bowl_02-276x175.jpg" alt="Longevity Cuisine" class="venue-image">
+                <img src="https://www.amritocean.com/content/uploads/2025/03/AOR-Amrit-Ocean-Resort-Dining-Amrit-31-276x175.jpg" alt="Dining Experience" class="venue-image">
+            </div>
+
+            <div class="venue-grid">
+                <div class="venue-card">
+                    <div class="venue-icon">🌊</div>
+                    <h3 class="venue-title">Aayush Hydrothermal Experience</h3>
+                    <p class="venue-description">40,000 sq ft of wellness heaven. Florida's largest spa. Hammam rituals. Cryotherapy chambers. Infrared saunas. Float therapy. Regenerative treatments. Everything included in your ticket.</p>
+                </div>
+                <div class="venue-card">
+                    <div class="venue-icon">🏖️</div>
+                    <h3 class="venue-title">Private Oceanfront Beach</h3>
+                    <p class="venue-description">Direct access to pristine Singer Island beach. Sunrise yoga. Ocean meditation. Beach celebrations. The Atlantic Ocean is your backyard.</p>
+                </div>
+                <div class="venue-card">
+                    <div class="venue-icon">🏨</div>
+                    <h3 class="venue-title">Luxury Wellness Rooms</h3>
+                    <p class="venue-description">Ocean-view accommodations optimized for recovery. Circadian lighting. Medical-grade air purification. Premium bedding. Every detail supports your transformation.</p>
+                </div>
+                <div class="venue-card">
+                    <div class="venue-icon">🥗</div>
+                    <h3 class="venue-title">Longevity Cuisine</h3>
+                    <p class="venue-description">Every meal is medicine. Organic, nutrient-dense, chef-prepared. Designed to fuel your longevity. No compromises on quality or taste.</p>
+                </div>
+                <div class="venue-card">
+                    <div class="venue-icon">🧘</div>
+                    <h3 class="venue-title">World-Class Event Spaces</h3>
+                    <p class="venue-description">State-of-the-art seminar rooms. Meditation sanctuaries. Oceanfront venues for celebrations. Every space designed for transformation.</p>
+                </div>
+                <div class="venue-card">
+                    <div class="venue-icon">🌴</div>
+                    <h3 class="venue-title">Palm Beach Paradise</h3>
+                    <p class="venue-description">Singer Island location with access to unique venues: MacArthur Park mangroves, Peanut Island, yacht experiences. Exotic Florida awaits.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Voices from A-Fest</div>
+                <h2 class="section-title">This Is What Transformation Looks Like</h2>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">
+                        "A-Fest changed my life. I met my wife there, discovered practices that transformed my health, and found a community I didn't know I was missing. If you're on the fence, jump. You won't regret it."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"></div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Dr. Mark Hyman</div>
+                            <div class="testimonial-title">A-Fest Alumni & Speaker</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">
+                        "I've been to hundreds of events. A-Fest is different. The caliber of speakers, the depth of connection, the celebration of life—nothing compares. It's not networking, it's soul-finding."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"></div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Sarah M.</div>
+                            <div class="testimonial-title">Entrepreneur, 3x A-Fest Attendee</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">
+                        "Within 6 months of A-Fest, I had implemented protocols that dropped my biological age by 12 years. But the real magic? The friendships I made are supporting my journey every single day."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"></div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">James T.</div>
+                            <div class="testimonial-title">Tech CEO, Biohacker</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Your Investment</div>
+                <h2 class="section-title">This Is Your Future</h2>
+                <p class="section-description">
+                    $4,997 for 4 days that could add 20+ healthy years to your life. That's $125/day. Or $5/hour. What's 20 extra years of vitality worth to you?
+                </p>
+            </div>
+
+            <div class="pricing-card">
+                <div class="pricing-badge">Early Bird - Only 300 Spots</div>
+                <div class="pricing-amount">$4,997</div>
+                <div class="pricing-period">4 Days · 4 Nights · All-Inclusive Transformation</div>
+
+                <div class="pricing-includes">
+                    <div class="pricing-includes-title">Everything Included:</div>
+                    <ul>
+                        <li>4 nights luxury oceanfront accommodation</li>
+                        <li>All gourmet longevity meals & beverages</li>
+                        <li>13 world-class teachers & comprehensive workshops</li>
+                        <li>Unlimited Aayush Spa access (40,000 sq ft hydrothermal experience)</li>
+                        <li>Daily Kundalini, Qigong, and movement sessions</li>
+                        <li>All beach celebrations, dinners, and evening events</li>
+                        <li>Personalized 100-year longevity plan with Vishen</li>
+                        <li>Lifetime access to A-Fest Longevity community</li>
+                        <li>Welcome gift package & comprehensive course materials</li>
+                        <li>Lifetime access to session recordings</li>
+                        <li>Airport transfer assistance (optional)</li>
+                        <li>Exclusive access to post-event integration resources</li>
+                    </ul>
+                </div>
+
+                <a href="#register" class="btn-primary" style="width: 100%; margin-bottom: var(--spacing-md);">Secure Your Spot Now</a>
+
+                <p style="color: var(--color-text-secondary); font-size: 0.9375rem; line-height: 1.7;">
+                    ✓ Only 300 spots available<br>
+                    ✓ Payment plans available (contact us)<br>
+                    ✓ 100% money-back guarantee if not satisfied after Day 1<br>
+                    ✓ Group discounts for 5+ attendees<br>
+                    ✓ Scholarships available (limited)
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Questions?</div>
+                <h2 class="section-title">Everything You Need to Know</h2>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What's actually included in the $4,997?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            EVERYTHING. 4 nights luxury accommodation. All meals (breakfast, lunch, dinner, snacks). 13 world-class teachers. Unlimited spa access worth $2,000+ alone. All workshops, practices, and experiences. Beach celebrations and evening events. Materials, recordings, community access. The only things not included: your flight to Florida and optional premium spa add-ons (deep tissue massage, etc).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Who is this actually for?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Visionaries. High-achievers. Entrepreneurs. Anyone serious about living an extraordinary, extended life. Whether you're 25 or 75, if you're committed to optimizing your health, consciousness, and vitality for DECADES to come, this is for you. Past A-Festers include CEOs, artists, doctors, athletes, and anyone willing to invest in themselves.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>I'm not fit or experienced in wellness. Will I fit in?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            YES. All fitness levels welcome. Movement sessions are fully adaptable. Qigong and Kundalini are accessible to EVERYONE. This is about learning and beginning your journey—wherever you are right now. Some attendees are ultra-marathon runners, others haven't exercised in years. All are welcome. The only requirement is an open mind.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I really get a refund after Day 1?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes. 100% money-back guarantee. Attend Day 1. Experience it fully. If you genuinely feel this isn't for you, we'll refund your investment in full. No questions asked. We're that confident you'll want to stay. (Spoiler: Nobody has ever left after Day 1.)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What if I can't attend all 4 days?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            The experience is designed as a complete 4-day immersion. Each day builds on the previous. The transformation happens through the FULL journey. That said, life happens. Contact us at longevity@afest.com to discuss partial attendance options.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Are payment plans available?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes! Flexible payment plans available. We believe money shouldn't stop you from transformation. Email longevity@afest.com and we'll create a plan that works for you.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I bring my partner/friend?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Absolutely! Many attendees bring partners or friends. Transformation is better together. Each person needs their own ticket. Couples can request adjoining rooms (subject to availability). Group discounts available for 5+ people.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I get to Amrit Ocean Resort?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Fly into Palm Beach International Airport (PBI)—only 15 minutes from the resort. We'll provide detailed travel instructions upon registration and can help arrange shared airport transfers if desired. Uber/Lyft also readily available.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What should I bring?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Comfortable clothes for movement sessions. Swimwear for spa and beach. One elegant outfit for gala dinner. Journal and pen. Open heart. Curious mind. We'll send a detailed packing list upon registration. Everything else—including transformation—we provide.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is this just for young people trying to live forever?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            No! Our attendees range from 25-75+. Longevity isn't about age—it's about vitality. It's about waking up energized, moving without pain, thinking clearly, loving deeply. Whether you're 30 wanting to optimize or 70 wanting to feel 50 again, the science and wisdom here serves YOU.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="image-hero">
+        <img src="https://a.storyblok.com/f/60579/1440x960/f0b2138d5f/hotel-4.webp" alt="A-Fest Community" class="image-hero-bg">
+        <div class="image-hero-overlay"></div>
+        <div class="image-hero-content">
+            <h2 class="image-hero-title">Your Extraordinary Life Is Waiting</h2>
+            <p class="image-hero-text" style="margin-bottom: var(--spacing-xl);">
+                300 spots. 13 masters. 4 transformative days. One question: Are you ready to live to 100+ with vitality, purpose, and joy?
+            </p>
+            <div class="hero-cta-container">
+                <a href="#pricing" class="btn-primary">Secure Your Spot — $4,997</a>
+            </div>
+            <p style="color: rgba(255,255,255,0.9); margin-top: var(--spacing-lg); font-size: 1.0625rem;">
+                📅 September 17-20, 2026 · 🌊 Amrit Ocean Resort, Florida · 👥 Only 300 Spots Available
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">A-FEST LONGEVITY EDITION</div>
+            <p class="footer-text">
+                A transformative partnership between A-Fest and Amrit Ocean Resort.<br>
+                Where ancient wisdom meets modern science. Where celebration meets transformation.<br>
+                Where you discover what it truly means to LIVE.
+            </p>
+            <div class="footer-links">
+                <a href="mailto:longevity@afest.com" class="footer-link">Contact Us</a>
+                <a href="#" class="footer-link">Terms & Conditions</a>
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="https://afest.com" class="footer-link" target="_blank">About A-Fest</a>
+                <a href="https://www.amritocean.com" class="footer-link" target="_blank">About Amrit</a>
+            </div>
+            <p class="footer-text" style="margin-top: var(--spacing-lg); font-size: 0.875rem;">
+                © 2026 A-Fest. All rights reserved. · Created with ❤️ for extraordinary humans
+            </p>
+        </div>
+    </footer>
+
+    <!-- Sticky CTA Bar -->
+    <div class="sticky-cta" id="stickyCta">
+        <div class="sticky-cta-content">
+            <div class="sticky-cta-text">
+                🎯 Only 300 Spots · Sept 17-20, 2026 · $4,997 All-Inclusive
+            </div>
+            <a href="#pricing" class="nav-cta">Reserve Your Spot</a>
+        </div>
+    </div>
+
+    <script>
+        // Day Tabs Navigation
+        const dayTabs = document.querySelectorAll('.day-tab');
+        const dayContents = document.querySelectorAll('.day-content');
+
+        dayTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetDay = tab.getAttribute('data-day');
+                dayTabs.forEach(t => t.classList.remove('active'));
+                dayContents.forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(targetDay).classList.add('active');
+            });
+        });
+
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(faq => faq.classList.remove('active'));
+                if (!isActive) item.classList.add('active');
+            });
+        });
+
+        // Sticky CTA Bar
+        const stickyCta = document.getElementById('stickyCta');
+        const hero = document.querySelector('.hero');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > hero.offsetHeight) {
+                stickyCta.classList.add('visible');
+            } else {
+                stickyCta.classList.remove('visible');
+            }
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
