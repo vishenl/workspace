@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Fest x Amrit Ocean Resort Partnership Proposal</title>
+
+    <!-- Preload variable fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Mindvalley Brand Colors */
+            --color-background: #FFFFFF;
+            --color-text-primary: #1A1A1A;
+            --color-text-secondary: #404040;
+            --color-ocean-deep: #004E71;
+            --color-ocean-medium: #0077B6;
+            --color-ocean-light: #00B4D8;
+            --color-gold: #D4AF37;
+            --color-gold-light: #F4E4BC;
+            --color-wellness-green: #2D6A4F;
+            --color-accent: #0096C7;
+
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+
+            /* Spacing (8px grid) */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            --spacing-3xl: 6rem;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-background);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* Slide Container */
+        .slide-container {
+            scroll-snap-type: y mandatory;
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+        }
+
+        /* Base Slide Styles */
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-3xl) var(--spacing-xl);
+            scroll-snap-align: start;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.6, -0.05, 0.01, 0.99),
+                        transform 0.8s cubic-bezier(0.6, -0.05, 0.01, 0.99);
+        }
+
+        .slide.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typography Styles */
+        h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-text-primary);
+        }
+
+        h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.015em;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-ocean-deep);
+        }
+
+        h3 {
+            font-family: var(--font-sans);
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text-primary);
+        }
+
+        h4 {
+            font-family: var(--font-sans);
+            font-size: clamp(1.25rem, 2vw, 1.75rem);
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-ocean-medium);
+        }
+
+        p, li {
+            font-size: clamp(1rem, 1.5vw, 1.25rem);
+            line-height: 1.6;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .subtitle {
+            font-size: clamp(1.125rem, 2vw, 1.5rem);
+            font-weight: 400;
+            color: var(--color-text-secondary);
+            margin-top: var(--spacing-sm);
+            font-style: italic;
+        }
+
+        .accent-text {
+            color: var(--color-ocean-medium);
+            font-weight: 600;
+        }
+
+        .gold-text {
+            color: var(--color-gold);
+            font-weight: 600;
+        }
+
+        /* Title Slide Styles */
+        .slide-title {
+            background: linear-gradient(135deg, #004E71 0%, #0077B6 50%, #00B4D8 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .slide-title h1 {
+            color: white;
+            max-width: 1000px;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .slide-title .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(1.25rem, 2.5vw, 2rem);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .partnership-logos {
+            display: flex;
+            gap: var(--spacing-2xl);
+            align-items: center;
+            justify-content: center;
+            margin-top: var(--spacing-xl);
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 600;
+        }
+
+        .partnership-logos .divider {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            opacity: 0.7;
+        }
+
+        /* Content Container */
+        .content {
+            max-width: 1200px;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .content-center {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Grid Layouts */
+        .two-column {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-md);
+            font-size: 2rem;
+        }
+
+        .icon-ocean {
+            background: linear-gradient(135deg, #0077B6, #00B4D8);
+        }
+
+        .icon-gold {
+            background: linear-gradient(135deg, #D4AF37, #F4E4BC);
+        }
+
+        .icon-wellness {
+            background: linear-gradient(135deg, #2D6A4F, #40916C);
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            background: white;
+            border-radius: 16px;
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            margin-top: var(--spacing-xl);
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 200px 1fr 1fr;
+            gap: var(--spacing-lg);
+            padding: var(--spacing-md) 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-label {
+            font-weight: 600;
+            color: var(--color-ocean-deep);
+        }
+
+        .comparison-value {
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            padding-left: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--color-ocean-medium), var(--color-ocean-light));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: var(--spacing-xl);
+            padding-left: var(--spacing-lg);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--color-ocean-medium);
+            border: 3px solid white;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* List Styles */
+        .benefits-list {
+            list-style: none;
+            margin-top: var(--spacing-lg);
+        }
+
+        .benefits-list li {
+            padding-left: var(--spacing-xl);
+            position: relative;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-wellness-green);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        /* Stats Display */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .stat {
+            text-align: center;
+            padding: var(--spacing-lg);
+            background: linear-gradient(135deg, rgba(0, 119, 182, 0.05), rgba(0, 180, 216, 0.05));
+            border-radius: 12px;
+        }
+
+        .stat-number {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--color-ocean-deep);
+            line-height: 1;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            padding: var(--spacing-md) var(--spacing-2xl);
+            background: linear-gradient(135deg, var(--color-ocean-deep), var(--color-ocean-medium));
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .cta-button:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Background Patterns */
+        .bg-pattern-ocean {
+            background:
+                linear-gradient(135deg, rgba(0, 119, 182, 0.03) 0%, rgba(0, 180, 216, 0.03) 100%);
+        }
+
+        .bg-pattern-light {
+            background:
+                linear-gradient(135deg, rgba(244, 228, 188, 0.2) 0%, rgba(255, 255, 255, 0.8) 100%);
+        }
+
+        /* Visual Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(244, 228, 188, 0.15));
+            border-left: 4px solid var(--color-gold);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            margin: var(--spacing-lg) 0;
+        }
+
+        /* Image Placeholder Styles */
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(0, 119, 182, 0.1), rgba(0, 180, 216, 0.1));
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed rgba(0, 119, 182, 0.3);
+            margin: var(--spacing-md) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-placeholder::before {
+            content: '📸';
+            font-size: 3rem;
+            margin-bottom: var(--spacing-sm);
+            opacity: 0.5;
+        }
+
+        .image-caption {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            font-style: italic;
+            text-align: center;
+            padding: 0 var(--spacing-md);
+        }
+
+        .split-image-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .single-image-large {
+            height: 400px;
+        }
+
+        @media (max-width: 768px) {
+            .split-image-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .image-placeholder {
+                height: 250px;
+            }
+        }
+
+        /* Synergy Grid */
+        .synergy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .synergy-card {
+            background: white;
+            padding: var(--spacing-xl);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            border-top: 4px solid var(--color-ocean-medium);
+            transition: transform 0.3s ease;
+        }
+
+        .synergy-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .synergy-number {
+            display: inline-block;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-ocean-medium), var(--color-ocean-light));
+            color: white;
+            text-align: center;
+            line-height: 48px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Navigation */
+        .slide-nav {
+            position: fixed;
+            right: var(--spacing-lg);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0, 119, 182, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--color-ocean-medium);
+            transform: scale(1.3);
+        }
+
+        /* Slide Counter */
+        .slide-counter {
+            position: fixed;
+            bottom: var(--spacing-lg);
+            right: var(--spacing-lg);
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            font-weight: 600;
+            z-index: 1000;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .slide {
+                padding: var(--spacing-xl) var(--spacing-md);
+            }
+
+            .comparison-row {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-sm);
+            }
+
+            .partnership-logos {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+
+            .slide-nav {
+                display: none;
+            }
+
+            .two-column,
+            .three-column,
+            .synergy-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation for reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .slide {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .slide {
+                page-break-after: always;
+                min-height: 100vh;
+            }
+
+            .slide-nav,
+            .slide-counter {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container" id="slideContainer">
+
+        <!-- Slide 1: Title Slide -->
+        <section class="slide slide-title" data-slide="1">
+            <div class="content content-center">
+                <h1>A-Fest × Amrit Ocean Resort</h1>
+                <p class="subtitle">A Strategic Partnership for Longevity-Focused Transformation</p>
+                <div class="partnership-logos">
+                    <span>A-FEST</span>
+                    <span class="divider">×</span>
+                    <span>AMRIT</span>
+                </div>
+                <p style="margin-top: var(--spacing-2xl); font-size: 0.875rem; color: rgba(255, 255, 255, 0.7);">
+                    Photo sources: Instagram @mindvalley.events | @amritocean<br>
+                    Galleries: afest.com | amritocean.com/gallery
+                </p>
+            </div>
+        </section>
+
+        <!-- Slide 2: Executive Summary -->
+        <section class="slide bg-pattern-ocean" data-slide="2">
+            <div class="content">
+                <h2>Executive Summary</h2>
+                <div class="highlight-box">
+                    <p style="font-size: 1.25rem; line-height: 1.8; color: var(--color-text-primary);">
+                        A groundbreaking partnership between A-Fest and Amrit Ocean Resort to create
+                        <span class="accent-text">the world's premier longevity-focused transformational event</span>,
+                        combining A-Fest's 15-year legacy with Amrit's cutting-edge wellness infrastructure.
+                    </p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-number">400</div>
+                        <div class="stat-label">Attendees</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Days</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">195+</div>
+                        <div class="stat-label">Countries Reached</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">1M+</div>
+                        <div class="stat-label">Subscriber Base</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Partnership Vision -->
+        <section class="slide" data-slide="3">
+            <div class="content content-center">
+                <h2>Partnership Vision</h2>
+                <h3 style="max-width: 900px; margin: var(--spacing-xl) auto;">
+                    Host the first <span class="accent-text">A-Fest Longevity Edition</span> at Amrit Ocean Resort
+                </h3>
+
+                <div class="split-image-layout">
+                    <div class="image-placeholder">
+                        <div class="image-caption">
+                            <strong>A-Fest Experience</strong><br>
+                            Source: @mindvalley.events Instagram<br>
+                            Community, transformation, celebration
+                        </div>
+                    </div>
+                    <div class="image-placeholder">
+                        <div class="image-caption">
+                            <strong>Amrit Ocean Resort</strong><br>
+                            Source: @amritocean Instagram<br>
+                            Oceanfront luxury wellness destination
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-column" style="margin-top: var(--spacing-xl);">
+                    <div class="card">
+                        <div class="card-icon icon-ocean">🎯</div>
+                        <h4>A-Fest's Legacy</h4>
+                        <p>15 years of transformational experiences reaching global visionaries and changemakers</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon icon-wellness">🌊</div>
+                        <h4>Amrit's Innovation</h4>
+                        <p>Cutting-edge longevity and wellness infrastructure purpose-built for human optimization</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Shared Core Values -->
+        <section class="slide bg-pattern-light" data-slide="4">
+            <div class="content">
+                <h2>Shared Core Values</h2>
+                <p style="font-size: 1.25rem; margin-bottom: var(--spacing-xl);">
+                    A rare alignment of <span class="accent-text">mission, philosophy, and vision</span>
+                </p>
+                <div class="comparison-table">
+                    <div class="comparison-row">
+                        <div class="comparison-label">Mission</div>
+                        <div class="comparison-value">
+                            <strong>A-Fest:</strong> "World's most powerful life transformation platform" unlocking human potential
+                        </div>
+                        <div class="comparison-value">
+                            <strong>Amrit:</strong> "Helping people live healthier, happier, and longer" through personalized wellness
+                        </div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="comparison-label">Philosophy</div>
+                        <div class="comparison-value">
+                            Integration of spiritual wisdom with science-backed practices
+                        </div>
+                        <div class="comparison-value">
+                            Integration of Eastern wisdom (Ayurveda) with Western science and modern technology
+                        </div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="comparison-label">Community</div>
+                        <div class="comparison-value">
+                            Global visionaries and changemakers seeking transformation
+                        </div>
+                        <div class="comparison-value">
+                            High-achieving individuals and wellness professionals seeking optimization
+                        </div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="comparison-label">Experience</div>
+                        <div class="comparison-value">
+                            Luxury settings with transformational programming
+                        </div>
+                        <div class="comparison-value">
+                            Luxury wellness with science-backed regenerative therapies
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Perfect Synergies -->
+        <section class="slide" data-slide="5">
+            <div class="content">
+                <h2>Six Perfect Synergies</h2>
+                <div class="synergy-grid">
+                    <div class="synergy-card">
+                        <div class="synergy-number">1</div>
+                        <h4>Longevity Focus Alignment</h4>
+                        <p>A-Fest features longevity experts. Amrit is purpose-built for longevity programs. Natural thematic convergence.</p>
+                    </div>
+                    <div class="synergy-card">
+                        <div class="synergy-number">2</div>
+                        <h4>Transformational Design</h4>
+                        <p>Complementary 5-day and 3-night formats that seamlessly integrate for optimal participant experience.</p>
+                    </div>
+                    <div class="synergy-card">
+                        <div class="synergy-number">3</div>
+                        <h4>Founder Vision</h4>
+                        <p>Both driven by purpose over profit, committed to elevating human wellbeing and consciousness.</p>
+                    </div>
+                    <div class="synergy-card">
+                        <div class="synergy-number">4</div>
+                        <h4>Audience Match</h4>
+                        <p>Nearly identical demographic profiles: high-achieving, wellness-conscious visionaries and changemakers.</p>
+                    </div>
+                    <div class="synergy-card">
+                        <div class="synergy-number">5</div>
+                        <h4>Infrastructure & Facilities</h4>
+                        <p>Amrit's 40,000 sq ft spa, oceanfront setting, and wellness programming perfectly suited for A-Fest needs.</p>
+                    </div>
+                    <div class="synergy-card">
+                        <div class="synergy-number">6</div>
+                        <h4>Geographic Strategy</h4>
+                        <p>Florida location provides accessibility for North American market while maintaining luxury resort experience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Benefits for A-Fest -->
+        <section class="slide bg-pattern-ocean" data-slide="6">
+            <div class="content">
+                <h2>Benefits for A-Fest</h2>
+                <div class="two-column">
+                    <div>
+                        <ul class="benefits-list">
+                            <li>
+                                <strong>Perfect Venue for Longevity Theme</strong><br>
+                                Access to world-class longevity infrastructure without building it
+                            </li>
+                            <li>
+                                <strong>Enhanced Attendee Experience</strong><br>
+                                Signature spa treatments, hydrothermal circuits, wellness programming
+                            </li>
+                            <li>
+                                <strong>Operational Excellence</strong><br>
+                                Professional "Gather" event division handles all logistics
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="benefits-list">
+                            <li>
+                                <strong>Market Differentiation</strong><br>
+                                First longevity-themed A-Fest positions 2026 comeback uniquely
+                            </li>
+                            <li>
+                                <strong>Content Synergies</strong><br>
+                                Natural fit for Mindvalley longevity experts and partners
+                            </li>
+                            <li>
+                                <strong>Brand Alignment</strong><br>
+                                Partnership with values-aligned organization strengthens positioning
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Benefits for Amrit -->
+        <section class="slide" data-slide="7">
+            <div class="content">
+                <h2>Benefits for Amrit Ocean Resort</h2>
+
+                <div class="image-placeholder single-image-large">
+                    <div class="image-caption">
+                        <strong>Amrit's 40,000 sq ft Aayush Spa - Florida's Largest</strong><br>
+                        Source: amritocean.com/gallery | Perfect venue for A-Fest wellness programming
+                    </div>
+                </div>
+
+                <div class="three-column">
+                    <div class="card">
+                        <div class="card-icon icon-ocean">📢</div>
+                        <h4>Global Exposure</h4>
+                        <p>195+ countries, 1M+ subscribers, 100M+ podcast plays, 50M+ video views</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon icon-gold">💎</div>
+                        <h4>High-Value Pipeline</h4>
+                        <p>400 wellness-conscious attendees, future bookings, corporate retreat inquiries</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon icon-wellness">✨</div>
+                        <h4>Showcase Opportunity</h4>
+                        <p>5-day immersive experience demonstrates ROI of longevity investment</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon icon-ocean">💰</div>
+                        <h4>Revenue Streams</h4>
+                        <p>Room revenue, spa add-ons, extended stays, future bookings</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon icon-gold">📸</div>
+                        <h4>Content Assets</h4>
+                        <p>Professional photography, videos, testimonials, social media content</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon icon-wellness">🎯</div>
+                        <h4>Strategic Positioning</h4>
+                        <p>Establishes Amrit as premier longevity event destination</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Event Concept -->
+        <section class="slide bg-pattern-light" data-slide="8">
+            <div class="content content-center">
+                <h2>A-Fest Longevity Edition</h2>
+                <h3 style="max-width: 1000px;">
+                    "The Extraordinary Life Extension"
+                </h3>
+                <p class="subtitle" style="max-width: 900px; margin-bottom: var(--spacing-2xl);">
+                    Transforming Consciousness & Biology for a 100+ Year Life
+                </p>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Days / 4 Nights</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">400</div>
+                        <div class="stat-label">Participants</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">Q1/Q4</div>
+                        <div class="stat-label">2026 Target</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">$4K-7K</div>
+                        <div class="stat-label">Premium Pricing</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Programming Framework -->
+        <section class="slide" data-slide="9">
+            <div class="content">
+                <h2>Integrated Programming Framework</h2>
+
+                <div class="split-image-layout" style="margin-bottom: var(--spacing-xl);">
+                    <div class="image-placeholder">
+                        <div class="image-caption">
+                            <strong>Morning Wellness Sessions</strong><br>
+                            Yoga, meditation, spa experiences<br>
+                            Source: @amritocean
+                        </div>
+                    </div>
+                    <div class="image-placeholder">
+                        <div class="image-caption">
+                            <strong>Evening Celebrations</strong><br>
+                            A-Fest's signature gatherings<br>
+                            Source: @mindvalley.events
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Morning (7:00 AM - 12:00 PM)</h4>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li>☀️ Sunrise meditation on the beach</li>
+                            <li>🧘 Yoga and embodiment practices</li>
+                            <li>🔬 Longevity optimization workshops</li>
+                            <li>💧 Access to Aayush hydrothermal circuit</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Afternoon (2:00 PM - 6:00 PM)</h4>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li>🎤 Keynote talks from longevity experts</li>
+                            <li>🧠 Breakout workshops (brain health, hormones, regenerative medicine)</li>
+                            <li>📊 Personalized wellness assessments (optional)</li>
+                            <li>🌿 Amrit's signature programming integration</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Evening (7:00 PM - 11:00 PM)</h4>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li>🍽️ Wellness-focused gourmet dinners</li>
+                            <li>🎉 Celebration events and performances</li>
+                            <li>🌟 Starlight beach gatherings</li>
+                            <li>💫 Sacred connection experiences</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 10: Revenue Model Options -->
+        <section class="slide bg-pattern-ocean" data-slide="10">
+            <div class="content">
+                <h2>Revenue Sharing Models</h2>
+                <div class="three-column">
+                    <div class="card">
+                        <h4 style="color: var(--color-ocean-deep);">Option 1</h4>
+                        <h4>Traditional Partnership</h4>
+                        <p style="margin-top: var(--spacing-md);">
+                            • A-Fest pays negotiated venue rate<br>
+                            • Discounted group pricing<br>
+                            • A-Fest keeps ticket revenue<br>
+                            • Amrit keeps spa revenue<br>
+                            • Joint marketing
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--color-ocean-deep);">Option 2</h4>
+                        <h4>Co-Created Experience</h4>
+                        <p style="margin-top: var(--spacing-md);">
+                            • Revenue split (60/40 or 70/30)<br>
+                            • Shared content & operations<br>
+                            • Joint marketing investment<br>
+                            • Co-owned event IP<br>
+                            • Future edition rights
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--color-ocean-deep);">Option 3</h4>
+                        <h4>Hybrid Model</h4>
+                        <p style="margin-top: var(--spacing-md);">
+                            • Base facility fee to Amrit<br>
+                            • Revenue share above threshold<br>
+                            • Shared upside incentive<br>
+                            • Ancillary services to Amrit<br>
+                            • Membership discounts
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 11: Success Metrics -->
+        <section class="slide" data-slide="11">
+            <div class="content">
+                <h2>Success Metrics</h2>
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: var(--color-ocean-medium); margin-bottom: var(--spacing-lg);">For A-Fest</h3>
+                        <ul class="benefits-list">
+                            <li>Sell out 400 tickets within 3 months</li>
+                            <li>9.0+ average satisfaction score</li>
+                            <li>30%+ attendees return to Amrit</li>
+                            <li>50+ pieces of content generated</li>
+                            <li>Foundation for annual edition</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--color-wellness-green); margin-bottom: var(--spacing-lg);">For Amrit</h3>
+                        <ul class="benefits-list">
+                            <li>$1M+ in direct event revenue</li>
+                            <li>50+ future bookings within 12 months</li>
+                            <li>10+ corporate retreat inquiries</li>
+                            <li>100M+ brand impressions</li>
+                            <li>Premier longevity destination status</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 12: Implementation Timeline -->
+        <section class="slide bg-pattern-light" data-slide="12">
+            <div class="content">
+                <h2>Implementation Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>6 Months Pre-Event</h4>
+                        <p>Partnership agreement finalized • Event dates confirmed • Website launched • Speaker outreach • Early bird sales begin</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>3 Months Pre-Event</h4>
+                        <p>Programming finalized • Marketing intensifies • Community building • Logistics coordination • Staff training</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>1 Month Pre-Event</h4>
+                        <p>Final attendee communications • Scheduling & assignments • VIP experiences • Media outreach • Technical rehearsals</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Post-Event</h4>
+                        <p>Feedback collection • Partnership debrief • Content distribution • Attendee follow-up • Next edition planning</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 13: Long-Term Vision -->
+        <section class="slide" data-slide="13">
+            <div class="content content-center">
+                <h2>Long-Term Partnership Vision</h2>
+                <div style="max-width: 900px; margin-top: var(--spacing-xl);">
+                    <div class="highlight-box">
+                        <h4 style="color: var(--color-ocean-deep);">Year 1</h4>
+                        <p>Establish successful inaugural A-Fest Longevity Edition at Amrit</p>
+                    </div>
+                    <div class="highlight-box">
+                        <h4 style="color: var(--color-ocean-deep);">Years 2-3</h4>
+                        <p>Annual flagship partnership • Multiple cohorts per year • VIP alumni experiences • Expanded programming themes</p>
+                    </div>
+                    <div class="highlight-box">
+                        <h4 style="color: var(--color-ocean-deep);">Ongoing Collaboration</h4>
+                        <p>Mindvalley Quest filming at Amrit • Joint longevity research • Co-developed certifications • Corporate retreats • Digital platform integration</p>
+                    </div>
+                    <div class="highlight-box" style="background: linear-gradient(135deg, rgba(0, 119, 182, 0.15), rgba(0, 180, 216, 0.15)); border-left-color: var(--color-ocean-medium);">
+                        <h4 style="color: var(--color-ocean-deep);">Shared Mission Impact</h4>
+                        <p><strong>Collective reach helping millions optimize for longevity • Thought leadership at transformation + longevity intersection • Industry-leading partnership model</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 14: Market Opportunity -->
+        <section class="slide bg-pattern-ocean" data-slide="14">
+            <div class="content content-center">
+                <h2>The Perfect Moment</h2>
+                <p style="font-size: 1.25rem; max-width: 900px; margin-bottom: var(--spacing-2xl);">
+                    This partnership represents a rare confluence of timing, alignment, and opportunity
+                </p>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-number">$600B+</div>
+                        <div class="stat-label">Global Longevity Market</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">2026</div>
+                        <div class="stat-label">A-Fest Comeback Year</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Values Alignment</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Growth Potential</div>
+                    </div>
+                </div>
+                <div style="margin-top: var(--spacing-2xl); max-width: 800px;">
+                    <div class="card">
+                        <h4 style="text-align: center; margin-bottom: var(--spacing-md);">Five Alignment Factors</h4>
+                        <p style="text-align: left;">
+                            ✓ <strong>Shared Values:</strong> Mission to elevate human potential<br>
+                            ✓ <strong>Complementary Strengths:</strong> Content + Infrastructure<br>
+                            ✓ <strong>Perfect Timing:</strong> Comeback + Scale opportunity<br>
+                            ✓ <strong>Win-Win Economics:</strong> Multiple revenue streams<br>
+                            ✓ <strong>Market Opportunity:</strong> Growing longevity demand
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 15: Call to Action -->
+        <section class="slide" data-slide="15">
+            <div class="content content-center">
+                <h2>Next Steps</h2>
+                <div class="timeline" style="max-width: 800px; margin-top: var(--spacing-2xl);">
+                    <div class="timeline-item">
+                        <h4>1. Initial Meeting</h4>
+                        <p>Vishen Lakhiani + Dilip & Neera Barot introductory call</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>2. Site Visit</h4>
+                        <p>Mindvalley team experiences Amrit's facilities firsthand</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>3. Partnership Workshop</h4>
+                        <p>Full-day collaboration to co-create detailed event vision</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>4. Agreement</h4>
+                        <p>Finalize partnership terms, revenue structure, responsibilities</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>5. Launch</h4>
+                        <p>Public announcement of A-Fest Longevity Edition partnership</p>
+                    </div>
+                </div>
+                <a href="#contact" class="cta-button">Let's Create Something Extraordinary</a>
+            </div>
+        </section>
+
+        <!-- Slide 16: Founder Vision Alignment -->
+        <section class="slide bg-pattern-light" data-slide="16">
+            <div class="content content-center">
+                <h2>Founder Vision Alignment</h2>
+
+                <div class="split-image-layout">
+                    <div class="image-placeholder">
+                        <div class="image-caption">
+                            <strong>Vishen Lakhiani</strong><br>
+                            Founder, Mindvalley & A-Fest<br>
+                            Source: vishen.com
+                        </div>
+                    </div>
+                    <div class="image-placeholder">
+                        <div class="image-caption">
+                            <strong>Dilip & Neera Barot</strong><br>
+                            Founders, Amrit Ocean Resort<br>
+                            Source: amritocean.com
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-column" style="margin-top: var(--spacing-xl);">
+                    <div class="card" style="text-align: center;">
+                        <h3 style="color: var(--color-ocean-deep); margin-bottom: var(--spacing-md);">Vishen Lakhiani</h3>
+                        <p style="font-size: 1.25rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8;">
+                            "Reimagining the human experience through consciousness, transformation, and meditation"
+                        </p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <h3 style="color: var(--color-wellness-green); margin-bottom: var(--spacing-md);">Dilip & Neera Barot</h3>
+                        <p style="font-size: 1.25rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8;">
+                            "Doing good is more inspirational than making money — creating transformative experiences for healthier, longer lives"
+                        </p>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: var(--spacing-2xl); max-width: 800px;">
+                    <h4 style="text-align: center; color: var(--color-gold); font-size: 1.5rem;">
+                        Both founders driven by purpose over profit, committed to elevating human wellbeing
+                    </h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 17: Closing Slide -->
+        <section class="slide slide-title" data-slide="17">
+            <div class="content content-center">
+                <h1 style="max-width: 1100px;">This is the future of wellness events</h1>
+                <p class="subtitle" style="font-size: clamp(1.5rem, 3vw, 2.5rem); max-width: 1000px; margin-bottom: var(--spacing-xl);">
+                    This is A-Fest Longevity Edition
+                </p>
+                <p class="subtitle" style="font-size: clamp(1.25rem, 2.5vw, 2rem); max-width: 900px;">
+                    This is where extraordinary lives are extended
+                </p>
+                <div style="margin-top: var(--spacing-3xl); padding-top: var(--spacing-2xl); border-top: 1px solid rgba(255, 255, 255, 0.3);">
+                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 1rem;">
+                        Prepared for: Vishen Lakhiani & Mindvalley Team<br>
+                        January 2025
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Navigation Dots -->
+    <nav class="slide-nav" id="slideNav" aria-label="Slide navigation"></nav>
+
+    <!-- Slide Counter -->
+    <div class="slide-counter" id="slideCounter">1 / 17</div>
+
+    <script>
+        // Slide Navigation & Animation System
+        const slideContainer = document.getElementById('slideContainer');
+        const slides = document.querySelectorAll('.slide');
+        const slideNav = document.getElementById('slideNav');
+        const slideCounter = document.getElementById('slideCounter');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+
+        // Create navigation dots
+        slides.forEach((slide, index) => {
+            const dot = document.createElement('button');
+            dot.classList.add('nav-dot');
+            dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => scrollToSlide(index));
+            slideNav.appendChild(dot);
+        });
+
+        const navDots = document.querySelectorAll('.nav-dot');
+
+        // Scroll to specific slide
+        function scrollToSlide(index) {
+            const slide = slides[index];
+            slide.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Update active slide based on scroll position
+        function updateActiveSlide() {
+            const scrollPosition = slideContainer.scrollTop;
+            const windowHeight = window.innerHeight;
+
+            slides.forEach((slide, index) => {
+                const slideTop = slide.offsetTop;
+                const slideBottom = slideTop + slide.offsetHeight;
+                const slideMiddle = slideTop + (slide.offsetHeight / 2);
+
+                // Check if slide is in viewport center
+                if (scrollPosition + (windowHeight / 2) >= slideTop &&
+                    scrollPosition + (windowHeight / 2) < slideBottom) {
+
+                    // Update current slide
+                    if (currentSlide !== index) {
+                        currentSlide = index;
+
+                        // Update navigation
+                        navDots.forEach(dot => dot.classList.remove('active'));
+                        navDots[index].classList.add('active');
+
+                        // Update counter
+                        slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+                    }
+
+                    // Add visible class for animation
+                    slide.classList.add('visible');
+                } else if (scrollPosition + windowHeight < slideTop) {
+                    // Reset slides that are below viewport
+                    slide.classList.remove('visible');
+                }
+            });
+        }
+
+        // Intersection Observer for slide visibility
+        const observerOptions = {
+            root: slideContainer,
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const slideObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        slides.forEach(slide => {
+            slideObserver.observe(slide);
+        });
+
+        // Listen for scroll events
+        let scrollTimeout;
+        slideContainer.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(updateActiveSlide, 50);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                e.preventDefault();
+                if (currentSlide < totalSlides - 1) {
+                    scrollToSlide(currentSlide + 1);
+                }
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                e.preventDefault();
+                if (currentSlide > 0) {
+                    scrollToSlide(currentSlide - 1);
+                }
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                scrollToSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                scrollToSlide(totalSlides - 1);
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        slideContainer.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        slideContainer.addEventListener('touchend', (e) => {
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const swipeDistance = touchStartY - touchEndY;
+
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+                if (swipeDistance > 0 && currentSlide < totalSlides - 1) {
+                    // Swipe up - next slide
+                    scrollToSlide(currentSlide + 1);
+                } else if (swipeDistance < 0 && currentSlide > 0) {
+                    // Swipe down - previous slide
+                    scrollToSlide(currentSlide - 1);
+                }
+            }
+        }
+
+        // Initialize first slide as visible
+        slides[0].classList.add('visible');
+        updateActiveSlide();
+
+        // Update on load
+        window.addEventListener('load', updateActiveSlide);
+    </script>
+</body>
+</html>
