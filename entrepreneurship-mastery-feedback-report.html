@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrepreneurship Mastery Feedback Analysis - Internal Report</title>
+    <meta name="description" content="Comprehensive feedback analysis for Mindvalley Entrepreneurship Mastery program with actionable insights and recommendations">
+
+    <style>
+        /* ========== DESIGN TOKENS ========== */
+        :root {
+            /* Colors */
+            --mv-purple: #8A2BE2;
+            --mv-purple-light: #DA70D6;
+            --mv-gold: #DAA520;
+            --mv-dark: #1A1A1A;
+            --mv-gray: #404040;
+            --mv-gray-light: #FAFAFA;
+            --mv-white: #FFFFFF;
+
+            /* Typography */
+            --font-heading: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            /* Font Sizes */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: clamp(1rem, 2vw, 1.125rem);
+            --text-xl: clamp(1.125rem, 2.5vw, 1.375rem);
+            --text-2xl: clamp(1.25rem, 2.5vw, 1.75rem);
+            --text-3xl: clamp(1.5rem, 3.5vw, 2rem);
+            --text-4xl: clamp(2rem, 5vw, 3rem);
+            --text-5xl: clamp(2.5rem, 6vw, 4.5rem);
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 2.5rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            --space-4xl: 5rem;
+            --space-5xl: 6rem;
+
+            /* Shadows */
+            --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 8px 30px rgba(138, 43, 226, 0.15);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 100px;
+
+            /* Status Colors */
+            --color-critical: #FF4757;
+            --color-high: #FFA502;
+            --color-medium: #FFC312;
+            --color-success: #4CAF50;
+        }
+
+        /* ========== TYPOGRAPHY SYSTEM ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.65;
+            color: var(--mv-gray);
+            background: linear-gradient(180deg, #FFFFFF 0%, #F8F5FF 100%);
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: var(--text-5xl);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--mv-dark);
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: var(--text-4xl);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--mv-dark);
+        }
+
+        h3 {
+            font-family: var(--font-heading);
+            font-size: var(--text-3xl);
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--mv-dark);
+        }
+
+        h4 {
+            font-family: var(--font-heading);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--mv-dark);
+        }
+
+        h5 {
+            font-family: var(--font-heading);
+            font-size: 1.125rem;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--mv-dark);
+        }
+
+        p {
+            font-family: var(--font-body);
+            font-size: var(--text-lg);
+            line-height: 1.65;
+            color: var(--mv-gray);
+        }
+
+        /* ========== LAYOUT ========== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .section {
+            padding: var(--space-4xl) 0;
+        }
+
+        /* ========== HEADER ========== */
+        .report-header {
+            background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+            color: var(--mv-white);
+            padding: var(--space-5xl) 0;
+            text-align: center;
+        }
+
+        .report-header h1 {
+            color: var(--mv-white);
+            margin-bottom: var(--space-md);
+        }
+
+        .report-meta {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-2xl);
+            margin-top: var(--space-xl);
+            font-size: var(--text-base);
+            opacity: 0.95;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        /* ========== EXECUTIVE SUMMARY ========== */
+        .executive-summary {
+            background: var(--mv-white);
+            padding: var(--space-3xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border-left: 6px solid var(--mv-purple);
+            margin-bottom: var(--space-3xl);
+        }
+
+        .executive-summary h2 {
+            margin-bottom: var(--space-lg);
+            color: var(--mv-purple);
+        }
+
+        .executive-summary p {
+            font-size: var(--text-xl);
+            line-height: 1.7;
+        }
+
+        /* ========== STATS GRID ========== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-xl);
+            margin: var(--space-3xl) 0;
+        }
+
+        .stat-card {
+            background: var(--mv-white);
+            padding: var(--space-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--mv-purple);
+            margin-bottom: var(--space-sm);
+        }
+
+        .stat-label {
+            color: var(--mv-dark);
+            font-weight: 600;
+            font-size: var(--text-base);
+        }
+
+        /* ========== PRIORITY BADGES ========== */
+        .priority-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .priority-critical {
+            background: var(--color-critical);
+            color: var(--mv-white);
+        }
+
+        .priority-high {
+            background: var(--color-high);
+            color: var(--mv-white);
+        }
+
+        .priority-medium {
+            background: var(--color-medium);
+            color: var(--mv-dark);
+        }
+
+        /* ========== TREND CARDS ========== */
+        .trends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-xl);
+            margin: var(--space-3xl) 0;
+        }
+
+        .trend-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            border-left: 4px solid var(--mv-purple);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .trend-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .trend-card.critical {
+            border-left-color: var(--color-critical);
+        }
+
+        .trend-card.high {
+            border-left-color: var(--color-high);
+        }
+
+        .trend-card .trend-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-md);
+        }
+
+        .trend-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .trend-card h4 {
+            margin-bottom: var(--space-md);
+            color: var(--mv-purple);
+        }
+
+        .trend-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .trend-card li {
+            padding-left: var(--space-md);
+            margin-bottom: var(--space-sm);
+            position: relative;
+            font-size: var(--text-base);
+            line-height: 1.6;
+        }
+
+        .trend-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--mv-purple);
+            font-weight: 700;
+        }
+
+        /* ========== TEACHER CARDS ========== */
+        .teachers-section {
+            margin: var(--space-4xl) 0;
+        }
+
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-3xl);
+        }
+
+        .teacher-card {
+            background: var(--mv-white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border-top: 4px solid;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .teacher-card.excellent {
+            border-top-color: #4CAF50;
+        }
+
+        .teacher-card.very-good {
+            border-top-color: #8BC34A;
+        }
+
+        .teacher-card.good {
+            border-top-color: #FFC312;
+        }
+
+        .teacher-card.mixed {
+            border-top-color: #FFA502;
+        }
+
+        .teacher-name {
+            font-family: var(--font-heading);
+            font-size: var(--text-3xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            color: var(--mv-purple);
+        }
+
+        .teacher-rating {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+            color: var(--mv-white);
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+        }
+
+        .teacher-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .teacher-section h5 {
+            color: var(--mv-purple);
+            margin-bottom: var(--space-sm);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .teacher-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .teacher-section li {
+            padding-left: var(--space-md);
+            margin-bottom: var(--space-xs);
+            position: relative;
+            font-size: var(--text-base);
+        }
+
+        .teacher-section.strengths li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: 700;
+        }
+
+        .teacher-section.improvements li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--color-high);
+            font-weight: 700;
+        }
+
+        /* ========== ACTION ITEMS ========== */
+        .action-items-grid {
+            display: grid;
+            gap: var(--space-lg);
+            margin: var(--space-3xl) 0;
+        }
+
+        .action-item {
+            background: var(--mv-white);
+            padding: var(--space-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border-left: 6px solid;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: var(--space-lg);
+            align-items: start;
+        }
+
+        .action-item.critical {
+            border-left-color: var(--color-critical);
+        }
+
+        .action-item.high {
+            border-left-color: var(--color-high);
+        }
+
+        .action-item.medium {
+            border-left-color: var(--color-medium);
+        }
+
+        .action-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+            color: var(--mv-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .action-content h4 {
+            margin-bottom: var(--space-sm);
+        }
+
+        .action-content ul {
+            list-style: none;
+            padding: 0;
+            margin-top: var(--space-sm);
+        }
+
+        .action-content li {
+            padding-left: var(--space-md);
+            margin-bottom: var(--space-xs);
+            position: relative;
+        }
+
+        .action-content li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--mv-purple);
+            font-weight: 700;
+        }
+
+        /* ========== SENTIMENT CHART ========== */
+        .sentiment-section {
+            background: var(--mv-white);
+            padding: var(--space-3xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            margin: var(--space-3xl) 0;
+        }
+
+        .sentiment-bars {
+            margin-top: var(--space-2xl);
+        }
+
+        .sentiment-bar {
+            margin-bottom: var(--space-xl);
+        }
+
+        .sentiment-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-sm);
+            font-weight: 600;
+        }
+
+        .sentiment-progress {
+            height: 40px;
+            background: var(--mv-gray-light);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .sentiment-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--mv-white);
+            font-weight: 700;
+            transition: width 1s ease;
+        }
+
+        .sentiment-fill.positive {
+            background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);
+        }
+
+        .sentiment-fill.frustrated {
+            background: linear-gradient(90deg, #FFA502 0%, #FFC312 100%);
+        }
+
+        .sentiment-fill.critical {
+            background: linear-gradient(90deg, #FF4757 0%, #FF6348 100%);
+        }
+
+        /* ========== SECTION HEADER ========== */
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+        }
+
+        .section-eyebrow {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--mv-purple);
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+
+        .section-header h2 {
+            margin-bottom: var(--space-md);
+        }
+
+        .section-description {
+            font-size: var(--text-xl);
+            line-height: 1.6;
+            color: var(--mv-gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ========== QUOTE BOX ========== */
+        .quote-box {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.05) 0%, rgba(218, 112, 214, 0.05) 100%);
+            border-left: 4px solid var(--mv-purple);
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            margin: var(--space-lg) 0;
+            font-style: italic;
+        }
+
+        .quote-box::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--mv-purple);
+            line-height: 0;
+            vertical-align: -0.4em;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .report-meta {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .stats-grid,
+            .trends-grid,
+            .teachers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-item {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="report-header">
+        <div class="container">
+            <h1>Entrepreneurship Mastery<br>Feedback Analysis</h1>
+            <div class="report-meta">
+                <div class="meta-item">
+                    <span>📅</span>
+                    <span>November 18, 2025</span>
+                </div>
+                <div class="meta-item">
+                    <span>💬</span>
+                    <span>100+ Feedback Submissions</span>
+                </div>
+                <div class="meta-item">
+                    <span>🔒</span>
+                    <span>Internal Leadership Review</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXECUTIVE SUMMARY -->
+    <div class="section">
+        <div class="container">
+            <div class="executive-summary">
+                <h2>Executive Summary</h2>
+                <p>Based on comprehensive analysis of student feedback across all lessons and teachers, several powerful trends emerge that require immediate attention and action to optimize the learning experience. The content quality is exceptional, but delivery pace, resource accessibility, and beginner support need improvement.</p>
+            </div>
+
+            <!-- SENTIMENT STATS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">80%</div>
+                    <div class="stat-label">Positive & Grateful</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15%</div>
+                    <div class="stat-label">Frustrated</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5%</div>
+                    <div class="stat-label">Considering Leaving</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Teachers Analyzed</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KEY TRENDS -->
+    <div class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Critical Insights</span>
+                <h2>Key Trends & Patterns</h2>
+                <p class="section-description">Seven major themes emerged from the feedback analysis, ranked by frequency and impact</p>
+            </div>
+
+            <div class="trends-grid">
+                <!-- TREND 1: PACE -->
+                <div class="trend-card critical">
+                    <div class="trend-header">
+                        <div>
+                            <div class="trend-icon">⚡</div>
+                            <h4>Pace & Delivery Speed</h4>
+                        </div>
+                        <span class="priority-badge priority-critical">Critical</span>
+                    </div>
+                    <p style="margin-bottom: 1rem;"><strong>Most consistent complaint across multiple teachers</strong></p>
+                    <ul>
+                        <li>Students feeling overwhelmed and unable to follow</li>
+                        <li>Primarily affects Vishen and Daniel sessions</li>
+                        <li>Even high-rated sessions marked as "too fast"</li>
+                        <li>Students missing key concepts in real-time</li>
+                    </ul>
+                    <div class="quote-box" style="margin-top: 1rem;">
+                        "Amazing content, but presented at a pace that assumes quite advanced skills"
+                    </div>
+                </div>
+
+                <!-- TREND 2: BEGINNER GAP -->
+                <div class="trend-card critical">
+                    <div class="trend-header">
+                        <div>
+                            <div class="trend-icon">📚</div>
+                            <h4>Beginner vs. Advanced Gap</h4>
+                        </div>
+                        <span class="priority-badge priority-critical">Critical</span>
+                    </div>
+                    <p style="margin-bottom: 1rem;"><strong>Content assumes higher knowledge than many possess</strong></p>
+                    <ul>
+                        <li>Many students are first-time entrepreneurs</li>
+                        <li>No existing business or website yet</li>
+                        <li>Limited AI/tech literacy</li>
+                        <li>Solo entrepreneurs without teams</li>
+                    </ul>
+                    <div class="quote-box" style="margin-top: 1rem;">
+                        "I am questioning if I have been wise to join. I am sure the content is good, but a lot goes over my head"
+                    </div>
+                </div>
+
+                <!-- TREND 3: RESOURCES -->
+                <div class="trend-card high">
+                    <div class="trend-header">
+                        <div>
+                            <div class="trend-icon">📁</div>
+                            <h4>Resource Accessibility</h4>
+                        </div>
+                        <span class="priority-badge priority-high">High</span>
+                    </div>
+                    <p style="margin-bottom: 1rem;"><strong>Students struggling to access materials</strong></p>
+                    <ul>
+                        <li>Materials not shared before sessions</li>
+                        <li>Chat/Q&A not in replays</li>
+                        <li>Downloadable resources have errors</li>
+                        <li>AI prompts missing from resources</li>
+                        <li>Unclear recording access</li>
+                    </ul>
+                </div>
+
+                <!-- TREND 4: PLATFORM -->
+                <div class="trend-card high">
+                    <div class="trend-header">
+                        <div>
+                            <div class="trend-icon">💻</div>
+                            <h4>Platform Issues</h4>
+                        </div>
+                        <span class="priority-badge priority-high">High</span>
+                    </div>
+                    <p style="margin-bottom: 1rem;"><strong>Webinar format creating engagement barriers</strong></p>
+                    <ul>
+                        <li>Students prefer interactive Zoom over webinar style</li>
+                        <li>Want to see and connect with other participants</li>
+                        <li>App issues with links and navigation</li>
+                        <li>Sound cuts off when switching pages</li>
+                    </ul>
+                    <div class="quote-box" style="margin-top: 1rem;">
+                        "Ajit's interactive Zoom format is so powerful for connecting with other entrepreneurs in resonance"
+                    </div>
+                </div>
+
+                <!-- TREND 5: HOW-TO -->
+                <div class="trend-card">
+                    <div class="trend-header">
+                        <div>
+                            <div class="trend-icon">🛠️</div>
+                            <h4>Need for Practical "How-To"</h4>
+                        </div>
+                        <span class="priority-badge priority-medium">Medium-High</span>
+                    </div>
+                    <p style="margin-bottom: 1rem;"><strong>Students want more tactical implementation</strong></p>
+                    <ul>
+                        <li>Templates and step-by-step guides needed</li>
+                        <li>AI tool comparison/cheat sheets requested</li>
+                        <li>Clear "next steps" after each lesson</li>
+                        <li>More practical application vs. conceptual</li>
+                    </ul>
+                </div>
+
+                <!-- TREND 6: COMMUNITY -->
+                <div class="trend-card">
+                    <div class="trend-header">
+                        <div>
+                            <div class="trend-icon">👥</div>
+                            <h4>Community & Pods</h4>
+                        </div>
+                        <span class="priority-badge priority-medium">Medium</span>
+                    </div>
+                    <p style="margin-bottom: 1rem;"><strong>Students want structured peer collaboration</strong></p>
+                    <ul>
+                        <li>Request for assigned accountability pods</li>
+                        <li>Want to work together on GPT building</li>
+                        <li>Peer learning opportunities missing</li>
+                        <li>Community feel vs. just content access</li>
+                    </ul>
+                </div>
+
+                <!-- TREND 7: COSTS -->
+                <div class="trend-card high">
+                    <div class="trend-header">
+                        <div>
+                            <div class="trend-icon">💰</div>
+                            <h4>Hidden Costs</h4>
+                        </div>
+                        <span class="priority-badge priority-high">High</span>
+                    </div>
+                    <p style="margin-bottom: 1rem;"><strong>Unexpected additional investments required</strong></p>
+                    <ul>
+                        <li>ChatGPT Plus/Pro needed but not disclosed</li>
+                        <li>Multiple AI tool subscriptions required</li>
+                        <li>Students feeling surprised by extra costs</li>
+                        <li>No upfront "Tech Stack You'll Need" document</li>
+                    </ul>
+                    <div class="quote-box" style="margin-top: 1rem;">
+                        "I didn't realize we would need to invest in ChatGPT Plus to do the things noted - would have been useful to know from the start"
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEACHER INSIGHTS -->
+    <div class="section teachers-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Individual Performance</span>
+                <h2>Teacher-Specific Insights</h2>
+                <p class="section-description">Detailed analysis of each teacher's strengths and areas for improvement</p>
+            </div>
+
+            <div class="teachers-grid">
+                <!-- AJIT NAWALKHA -->
+                <div class="teacher-card excellent">
+                    <div class="teacher-name">Ajit Nawalkha</div>
+                    <span class="teacher-rating">⭐ Highest Rated Teacher</span>
+
+                    <div class="teacher-section strengths">
+                        <h5>Strengths</h5>
+                        <ul>
+                            <li>Clear frameworks and actionable steps</li>
+                            <li>Approachable teaching style</li>
+                            <li>Makes complex things feel simple</li>
+                            <li>Warm, kind delivery</li>
+                            <li>Interactive Zoom format praised</li>
+                            <li>"Blow away" factor - exceeds expectations</li>
+                        </ul>
+                    </div>
+
+                    <div class="quote-box">
+                        "Wow - continue to be blown away by Ajit and the quality and application of the content!!"
+                    </div>
+
+                    <p style="margin-top: 1rem;"><strong>Performance:</strong> Consistently 9-10 ratings, very few complaints. Students want MORE sessions with Ajit.</p>
+                </div>
+
+                <!-- SHADÉ ZAHRAI -->
+                <div class="teacher-card excellent">
+                    <div class="teacher-name">Shadé Zahrai</div>
+                    <span class="teacher-rating">⭐ Second Highest Rated</span>
+
+                    <div class="teacher-section strengths">
+                        <h5>Strengths</h5>
+                        <ul>
+                            <li>Inspirational and positive</li>
+                            <li>Clear, never hasty speaker</li>
+                            <li>Brings motivational stories</li>
+                            <li>Understandable examples</li>
+                            <li>Personal sharing is powerful</li>
+                            <li>Practical 4-Pillars model</li>
+                        </ul>
+                    </div>
+
+                    <div class="quote-box">
+                        "Never disappointed by Shade's sessions - so concise, precise, engaging and full of applicable advice. She's the best!"
+                    </div>
+
+                    <p style="margin-top: 1rem;"><strong>Performance:</strong> Students want more time for Q&A with Shadé. Described as having the clearest answers.</p>
+                </div>
+
+                <!-- VISHEN LAKHIANI -->
+                <div class="teacher-card mixed">
+                    <div class="teacher-name">Vishen Lakhiani</div>
+                    <span class="teacher-rating">⚠️ High Content, Pace Issues</span>
+
+                    <div class="teacher-section strengths">
+                        <h5>Strengths</h5>
+                        <ul>
+                            <li>Incredible energy and enthusiasm</li>
+                            <li>Inspiring vision</li>
+                            <li>Cutting-edge AI knowledge</li>
+                            <li>Real-time demos highly valued</li>
+                        </ul>
+                    </div>
+
+                    <div class="teacher-section improvements">
+                        <h5>Areas for Improvement</h5>
+                        <ul>
+                            <li><strong>Pace too fast</strong> (most common complaint)</li>
+                            <li>Assumes high level of AI proficiency</li>
+                            <li>Material sharing/documentation issues</li>
+                            <li>Need to slow down for absorption</li>
+                        </ul>
+                    </div>
+
+                    <div class="quote-box">
+                        "Amazing! If it just would not be sooo fast. Well we can rewatch, but I get a little scrambled by Vishen's speed"
+                    </div>
+
+                    <p style="margin-top: 1rem;"><strong>Student Sentiment:</strong> Love him but struggling to keep up. Content is excellent but delivery overwhelming.</p>
+                </div>
+
+                <!-- DANIEL PRIESTLEY -->
+                <div class="teacher-card very-good">
+                    <div class="teacher-name">Daniel Priestley</div>
+                    <span class="teacher-rating">✅ Strong Performance</span>
+
+                    <div class="teacher-section strengths">
+                        <h5>Strengths</h5>
+                        <ul>
+                            <li>SO HAPPY he's included</li>
+                            <li>Fantastic content</li>
+                            <li>Clear and understandable</li>
+                            <li>Very useful prompts and marketing insights</li>
+                            <li>"THE BEST SESSION" (one student)</li>
+                        </ul>
+                    </div>
+
+                    <div class="teacher-section improvements">
+                        <h5>Areas for Improvement</h5>
+                        <ul>
+                            <li>Pace a bit too quick</li>
+                            <li>Would prefer interactive format vs webinar style</li>
+                            <li>Students familiar with his workshops prefer that format</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CAMERON HEROLD -->
+                <div class="teacher-card very-good">
+                    <div class="teacher-name">Cameron Herold</div>
+                    <span class="teacher-rating">✅ Strong Performance</span>
+
+                    <div class="teacher-section strengths">
+                        <h5>Strengths</h5>
+                        <ul>
+                            <li>Well-reasoned and grounded</li>
+                            <li>Logical and practical</li>
+                            <li>Vivid Vision framework highly valued</li>
+                            <li>Eloquent presentation</li>
+                            <li>"Rare to find content that's both soulful and operational"</li>
+                        </ul>
+                    </div>
+
+                    <p style="margin-top: 1rem;"><strong>Performance:</strong> Strong positive feedback, practical mindset approach appreciated.</p>
+                </div>
+
+                <!-- NAVEEN JAIN -->
+                <div class="teacher-card good">
+                    <div class="teacher-name">Naveen Jain</div>
+                    <span class="teacher-rating">Mixed Feedback</span>
+
+                    <div class="teacher-section strengths">
+                        <h5>Strengths</h5>
+                        <ul>
+                            <li>Extremely inspirational</li>
+                            <li>Incredibly smart</li>
+                            <li>Refreshes "why"</li>
+                            <li>Think bigger mindset</li>
+                            <li>Resonates with ambitious thinkers</li>
+                        </ul>
+                    </div>
+
+                    <div class="teacher-section improvements">
+                        <h5>Areas for Improvement</h5>
+                        <ul>
+                            <li>Would love more recognizable case studies</li>
+                            <li>More concrete examples needed</li>
+                            <li>Q&A drifted from course intention</li>
+                            <li>AI perspective vs. entrepreneurship focus</li>
+                        </ul>
+                    </div>
+
+                    <p style="margin-top: 1rem;"><strong>Mixed Feedback:</strong> Love the inspiration, want more application to entrepreneurship specifically.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRIORITY ACTION ITEMS -->
+    <div class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Implementation Plan</span>
+                <h2>Priority Action Items</h2>
+                <p class="section-description">Critical issues requiring immediate attention, ranked by urgency and impact</p>
+            </div>
+
+            <div class="action-items-grid">
+                <!-- ACTION 1 -->
+                <div class="action-item critical">
+                    <div class="action-number">1</div>
+                    <div class="action-content">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                            <h4>SLOW DOWN THE PACE</h4>
+                            <span class="priority-badge priority-critical">Critical</span>
+                        </div>
+                        <p><strong>Teachers Affected:</strong> Vishen (primary), Daniel</p>
+                        <ul>
+                            <li>Reduce content volume per session OR extend session time</li>
+                            <li>Build in "pause points" for students to absorb</li>
+                            <li>Add real-time check-ins: "Is everyone following?"</li>
+                            <li>Consider "basic" vs "advanced" track options</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ACTION 2 -->
+                <div class="action-item critical">
+                    <div class="action-number">2</div>
+                    <div class="action-content">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                            <h4>FIX RESOURCE ACCESSIBILITY</h4>
+                            <span class="priority-badge priority-critical">Critical</span>
+                        </div>
+                        <ul>
+                            <li>Share all materials (slides, docs, prompts) BEFORE the session</li>
+                            <li>Make chat/Q&A available in replay</li>
+                            <li>Create downloadable resource packs for each lesson</li>
+                            <li>Quality check all PDFs/workbooks for completeness</li>
+                            <li>Create "AI Tools Cheat Sheet" - what each tool does, when to use it</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ACTION 3 -->
+                <div class="action-item high">
+                    <div class="action-number">3</div>
+                    <div class="action-content">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                            <h4>BRIDGE THE BEGINNER GAP</h4>
+                            <span class="priority-badge priority-high">High</span>
+                        </div>
+                        <ul>
+                            <li>Create "foundations" module for complete beginners</li>
+                            <li>Provide "no business yet" pathway</li>
+                            <li>Offer pre-work assignments to level-set knowledge</li>
+                            <li>Include "if you're brand new, start here" guides</li>
+                            <li>Consider offering "office hours" for beginners</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ACTION 4 -->
+                <div class="action-item high">
+                    <div class="action-number">4</div>
+                    <div class="action-content">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                            <h4>SWITCH TO INTERACTIVE ZOOM FORMAT</h4>
+                            <span class="priority-badge priority-high">High</span>
+                        </div>
+                        <ul>
+                            <li>Adopt Ajit's interactive Zoom model across ALL sessions</li>
+                            <li>Enable participant visibility and interaction</li>
+                            <li>Create breakout room exercises</li>
+                            <li>Allow real Q&A vs. just submitted questions</li>
+                            <li>Foster community connection</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ACTION 5 -->
+                <div class="action-item high">
+                    <div class="action-number">5</div>
+                    <div class="action-content">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                            <h4>INCREASE AJIT & SHADÉ'S INVOLVEMENT</h4>
+                            <span class="priority-badge priority-high">High</span>
+                        </div>
+                        <p><strong>Rationale:</strong> These are your strongest performers</p>
+                        <ul>
+                            <li>Give them more sessions</li>
+                            <li>Have them co-teach with other instructors</li>
+                            <li>Use their teaching style as model for others</li>
+                            <li>Leverage their ability to make complex simple</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ACTION 6 -->
+                <div class="action-item medium">
+                    <div class="action-number">6</div>
+                    <div class="action-content">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                            <h4>CREATE POD STRUCTURE</h4>
+                            <span class="priority-badge priority-medium">Medium</span>
+                        </div>
+                        <ul>
+                            <li>Assign students to small accountability pods</li>
+                            <li>Provide pod exercises/challenges</li>
+                            <li>Enable peer learning and support</li>
+                            <li>Foster long-term relationships beyond program</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ACTION 7 -->
+                <div class="action-item high">
+                    <div class="action-number">7</div>
+                    <div class="action-content">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                            <h4>DISCLOSE ALL COSTS UPFRONT</h4>
+                            <span class="priority-badge priority-high">High</span>
+                        </div>
+                        <ul>
+                            <li>Create "Tech Stack You'll Need" document before enrollment</li>
+                            <li>List all tools and their costs</li>
+                            <li>Offer alternatives for budget-conscious students</li>
+                            <li>No surprise expenses</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SENTIMENT BREAKDOWN -->
+    <div class="section">
+        <div class="container">
+            <div class="sentiment-section">
+                <h2 style="margin-bottom: 1rem;">Overall Sentiment Analysis</h2>
+                <p style="font-size: var(--text-xl); margin-bottom: 2rem;">Based on 100+ student feedback submissions across all lessons</p>
+
+                <div class="sentiment-bars">
+                    <div class="sentiment-bar">
+                        <div class="sentiment-label">
+                            <span><strong>Positive</strong> - Deeply grateful, high engagement</span>
+                            <span><strong>80%</strong></span>
+                        </div>
+                        <div class="sentiment-progress">
+                            <div class="sentiment-fill positive" style="width: 80%;">
+                                80% Positive
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sentiment-bar">
+                        <div class="sentiment-label">
+                            <span><strong>Frustrated</strong> - Can't keep up, missing resources</span>
+                            <span><strong>15%</strong></span>
+                        </div>
+                        <div class="sentiment-progress">
+                            <div class="sentiment-fill frustrated" style="width: 15%;">
+                                15% Frustrated
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sentiment-bar">
+                        <div class="sentiment-label">
+                            <span><strong>Considering Leaving</strong> - Overwhelmed, questioning fit</span>
+                            <span><strong>5%</strong></span>
+                        </div>
+                        <div class="sentiment-progress">
+                            <div class="sentiment-fill critical" style="width: 5%;">
+                                5% Critical
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1.5rem; background: var(--mv-gray-light); border-radius: var(--radius-md);">
+                    <h4 style="margin-bottom: 0.5rem;">Key Insight</h4>
+                    <p>Students are NOT asking for less content - they're asking for <strong>more time to absorb it</strong> and <strong>better tools to implement it</strong>. The gap is not in quality but in delivery pace, resource accessibility, and beginner support.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHAT'S WORKING -->
+    <div class="section" style="background: linear-gradient(135deg, rgba(138, 43, 226, 0.03) 0%, rgba(218, 112, 214, 0.03) 100%);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Success Factors</span>
+                <h2>What's Working Brilliantly</h2>
+                <p class="section-description">These elements are highly praised and should be maintained and amplified</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto;">
+                <div style="background: var(--mv-white); padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎬</div>
+                    <h4 style="margin-bottom: 0.5rem;">Real-Time Demos</h4>
+                    <p style="font-size: var(--text-base);">Students LOVE watching creation happen live</p>
+                </div>
+
+                <div style="background: var(--mv-white); padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">💝</div>
+                    <h4 style="margin-bottom: 0.5rem;">Personal Stories</h4>
+                    <p style="font-size: var(--text-base);">Authentic sharing creates powerful connection</p>
+                </div>
+
+                <div style="background: var(--mv-white); padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🗺️</div>
+                    <h4 style="margin-bottom: 0.5rem;">Clear Frameworks</h4>
+                    <p style="font-size: var(--text-base);">Vivid Vision, 4 Pillars Model - named systems work</p>
+                </div>
+
+                <div style="background: var(--mv-white); padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🤝</div>
+                    <h4 style="margin-bottom: 0.5rem;">Interactive Format</h4>
+                    <p style="font-size: var(--text-base);">Ajit's Zoom approach creates community feel</p>
+                </div>
+
+                <div style="background: var(--mv-white); padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⭐</div>
+                    <h4 style="margin-bottom: 0.5rem;">Guest Teachers</h4>
+                    <p style="font-size: var(--text-base);">Students excited about the stellar lineup</p>
+                </div>
+
+                <div style="background: var(--mv-white); padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🌍</div>
+                    <h4 style="margin-bottom: 0.5rem;">Mission Alignment</h4>
+                    <p style="font-size: var(--text-base);">"Save the world" businesses resonate deeply</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- IMMEDIATE NEXT STEPS -->
+    <div class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Implementation Timeline</span>
+                <h2>Immediate Next Steps</h2>
+            </div>
+
+            <div style="display: grid; gap: 2rem; max-width: 900px; margin: 0 auto;">
+                <!-- THIS WEEK -->
+                <div style="background: var(--mv-white); padding: 2.5rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border-left: 6px solid var(--color-critical);">
+                    <h3 style="margin-bottom: 1rem; color: var(--color-critical);">This Week</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding-left: 1.5rem; margin-bottom: 0.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--color-critical); font-weight: 700;">1.</span>
+                            Create "AI Tools Cheat Sheet" - what, when, why, cost
+                        </li>
+                        <li style="padding-left: 1.5rem; margin-bottom: 0.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--color-critical); font-weight: 700;">2.</span>
+                            Make ALL session materials downloadable BEFORE each class
+                        </li>
+                        <li style="padding-left: 1.5rem; margin-bottom: 0.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--color-critical); font-weight: 700;">3.</span>
+                            Fix replay chat accessibility
+                        </li>
+                        <li style="padding-left: 1.5rem; margin-bottom: 0.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--color-critical); font-weight: 700;">4.</span>
+                            Send "catch-up guide" to overwhelmed students
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- THIS MONTH -->
+                <div style="background: var(--mv-white); padding: 2.5rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border-left: 6px solid var(--color-high);">
+                    <h3 style="margin-bottom: 1rem; color: var(--color-high);">This Month</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding-left: 1.5rem; margin-bottom: 0.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--color-high); font-weight: 700;">1.</span>
+                            Reduce Vishen's pace or extend session times
+                        </li>
+                        <li style="padding-left: 1.5rem; margin-bottom: 0.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--color-high); font-weight: 700;">2.</span>
+                            Pilot interactive Zoom format across all sessions
+                        </li>
+                        <li style="padding-left: 1.5rem; margin-bottom: 0.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--color-high); font-weight: 700;">3.</span>
+                            Create beginner "foundations" module
+                        </li>
+                        <li style="padding-left: 1.5rem; margin-bottom: 0.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--color-high); font-weight: 700;">4.</span>
+                            Launch student pods program
+                        </li>
+                        <li style="padding-left: 1.5rem; margin-bottom: 0.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--color-high); font-weight: 700;">5.</span>
+                            Audit all downloadable resources for errors
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- ONGOING -->
+                <div style="background: var(--mv-white); padding: 2.5rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border-left: 6px solid var(--mv-purple);">
+                    <h3 style="margin-bottom: 1rem; color: var(--mv-purple);">Ongoing Improvements</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding-left: 1.5rem; margin-bottom: 0.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--mv-purple); font-weight: 700;">•</span>
+                            Increase Ajit and Shadé's teaching hours
+                        </li>
+                        <li style="padding-left: 1.5rem; margin-bottom: 0.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--mv-purple); font-weight: 700;">•</span>
+                            Train all teachers on "beginner-friendly" delivery
+                        </li>
+                        <li style="padding-left: 1.5rem; margin-bottom: 0.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--mv-purple); font-weight: 700;">•</span>
+                            Build comprehensive resource library
+                        </li>
+                        <li style="padding-left: 1.5rem; margin-bottom: 0.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--mv-purple); font-weight: 700;">•</span>
+                            Implement "Rule of Three" across all sessions
+                        </li>
+                        <li style="padding-left: 1.5rem; margin-bottom: 0.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--mv-purple); font-weight: 700;">•</span>
+                            Create "Implementation Bridge" for every concept
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FINAL RECOMMENDATION -->
+    <div class="section" style="background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%); color: var(--mv-white);">
+        <div class="container">
+            <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+                <h2 style="color: var(--mv-white); margin-bottom: 1.5rem;">Final Recommendation</h2>
+                <p style="font-size: var(--text-xl); line-height: 1.7; color: rgba(255, 255, 255, 0.95); margin-bottom: 2rem;">
+                    You have <strong>exceptional content and exceptional teachers</strong>. The gap is not in quality but in <strong>delivery pace, resource accessibility, and beginner support</strong>.
+                </p>
+                <p style="font-size: var(--text-xl); line-height: 1.7; color: rgba(255, 255, 255, 0.95);">
+                    Your highest-rated teachers (Ajit, Shadé) share common traits: <strong>Clear, not rushed. Warm and approachable. Actionable, not just inspirational. Patient with beginners.</strong>
+                </p>
+                <div style="margin-top: 2.5rem; padding: 2rem; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: var(--radius-md); border: 1px solid rgba(255, 255, 255, 0.2);">
+                    <p style="font-size: var(--text-lg); line-height: 1.7; color: rgba(255, 255, 255, 0.95); margin: 0;">
+                        By slowing down, providing better resources, and creating more interactive experiences, you can transform good ratings (7-8) into exceptional ones (9-10) across the board.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div style="background: var(--mv-dark); color: rgba(255, 255, 255, 0.7); padding: 3rem 0; text-align: center;">
+        <div class="container">
+            <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 0.5rem;">
+                <strong style="color: var(--mv-white);">Prepared by:</strong> Claude (AI Analysis)
+            </p>
+            <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 0.5rem;">
+                <strong style="color: var(--mv-white);">For:</strong> Vishen Lakhiani & Mindvalley Entrepreneurship Mastery Team
+            </p>
+            <p style="color: rgba(255, 255, 255, 0.7);">
+                <strong style="color: var(--mv-white);">Date:</strong> November 18, 2025
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
