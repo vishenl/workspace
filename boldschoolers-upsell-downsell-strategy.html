@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoldSchoolers - Upsell & Downsell Strategy</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Merriweather:wght@300;400;700&display=swap');
+
+        :root {
+            --primary: #2d3748;
+            --primary-light: #4a5568;
+            --accent: #ed8936;
+            --accent-dark: #dd6b20;
+            --success: #48bb78;
+            --warning: #ecc94b;
+            --danger: #f56565;
+            --purple: #9f7aea;
+            --blue: #4299e1;
+            --gray: #718096;
+            --gray-light: #e2e8f0;
+            --gray-dark: #2d3748;
+            --white: #ffffff;
+            --cream: #fef5e7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--primary);
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 50%, #e17055 100%);
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 32px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--white);
+            padding: 4.5rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 250px;
+            height: 250px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: 1.65rem;
+            opacity: 0.95;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        header .brand {
+            display: inline-block;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            margin-top: 2rem;
+            font-weight: 600;
+            font-size: 1.25rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 3.5rem 3rem;
+        }
+
+        section {
+            margin-bottom: 4.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1.75rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 3px;
+        }
+
+        h3 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            margin: 2.5rem 0 1.25rem 0;
+        }
+
+        h4 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--accent-dark);
+            margin: 1.75rem 0 0.85rem 0;
+        }
+
+        p {
+            font-size: 1.125rem;
+            color: var(--gray-dark);
+            margin-bottom: 1.25rem;
+            line-height: 1.85;
+        }
+
+        .executive-summary {
+            background: linear-gradient(135deg, rgba(237, 137, 54, 0.12) 0%, rgba(221, 107, 32, 0.08) 100%);
+            border-left: 6px solid var(--accent);
+            padding: 3rem;
+            border-radius: 16px;
+            margin-bottom: 3.5rem;
+        }
+
+        .executive-summary h3 {
+            margin-top: 0;
+            color: var(--accent-dark);
+        }
+
+        .problem-box {
+            background: linear-gradient(135deg, rgba(245, 101, 101, 0.1) 0%, rgba(229, 62, 62, 0.06) 100%);
+            border-left: 6px solid var(--danger);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 2.5rem 0;
+        }
+
+        .solution-box {
+            background: linear-gradient(135deg, rgba(72, 187, 120, 0.1) 0%, rgba(56, 161, 105, 0.06) 100%);
+            border-left: 6px solid var(--success);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 2.5rem 0;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(236, 201, 75, 0.12) 0%, rgba(217, 179, 62, 0.08) 100%);
+            border-left: 6px solid var(--warning);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 2.5rem 0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(159, 122, 234, 0.1) 0%, rgba(128, 90, 213, 0.06) 100%);
+            border-left: 6px solid var(--purple);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 2.5rem 0;
+        }
+
+        .flow-box {
+            background: linear-gradient(135deg, rgba(66, 153, 225, 0.1) 0%, rgba(49, 130, 206, 0.06) 100%);
+            border-left: 6px solid var(--blue);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 2.5rem 0;
+        }
+
+        .value-ladder {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .ladder-tier {
+            background: var(--white);
+            border: 3px solid var(--gray-light);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .ladder-tier:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(237, 137, 54, 0.2);
+            border-color: var(--accent);
+        }
+
+        .tier-number {
+            position: absolute;
+            top: -18px;
+            right: 25px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(237, 137, 54, 0.4);
+        }
+
+        .tier-title {
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .tier-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+        }
+
+        .tier-description {
+            font-size: 1.05rem;
+            color: var(--gray);
+            margin-bottom: 1.75rem;
+            line-height: 1.6;
+        }
+
+        .tier-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tier-features li {
+            padding: 0.65rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--gray-dark);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .tier-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .funnel-diagram {
+            background: linear-gradient(135deg, var(--cream) 0%, #fff5e6 100%);
+            border-radius: 20px;
+            padding: 3.5rem;
+            margin: 2.5rem 0;
+            position: relative;
+        }
+
+        .funnel-step {
+            background: var(--white);
+            border: 3px solid var(--accent);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(237, 137, 54, 0.1);
+        }
+
+        .funnel-step::after {
+            content: '↓';
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        .funnel-step:last-child::after {
+            display: none;
+        }
+
+        .step-label {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--white);
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .step-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .step-description {
+            font-size: 1.05rem;
+            color: var(--gray);
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+        }
+
+        .step-conversion {
+            font-size: 0.95rem;
+            color: var(--success);
+            font-weight: 700;
+            background: rgba(72, 187, 120, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin: 2.5rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(237, 137, 54, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .stat-label {
+            font-size: 1.05rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .tactics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .tactic-card {
+            background: var(--white);
+            border: 3px solid var(--gray-light);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .tactic-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 12px 24px rgba(237, 137, 54, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .tactic-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.75rem;
+            box-shadow: 0 6px 16px rgba(237, 137, 54, 0.3);
+        }
+
+        .tactic-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+        }
+
+        .tactic-description {
+            font-size: 1.05rem;
+            color: var(--gray-dark);
+            margin-bottom: 1.25rem;
+            line-height: 1.7;
+        }
+
+        .tactic-result {
+            background: linear-gradient(135deg, rgba(72, 187, 120, 0.12) 0%, rgba(56, 161, 105, 0.08) 100%);
+            padding: 1.25rem;
+            border-radius: 10px;
+            font-size: 0.975rem;
+            color: var(--gray-dark);
+            font-weight: 600;
+            border-left: 4px solid var(--success);
+        }
+
+        .implementation-timeline {
+            margin: 2.5rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 38px;
+            top: 80px;
+            width: 3px;
+            height: calc(100% + 25px);
+            background: var(--gray-light);
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-marker {
+            flex-shrink: 0;
+            width: 76px;
+            height: 76px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.75rem;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 6px 16px rgba(237, 137, 54, 0.4);
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--white);
+            border: 3px solid var(--gray-light);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .timeline-title {
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-subtitle {
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+        }
+
+        .timeline-description {
+            font-size: 1.05rem;
+            color: var(--gray-dark);
+            line-height: 1.7;
+        }
+
+        ul, ol {
+            margin-left: 2.25rem;
+            margin-bottom: 1.75rem;
+        }
+
+        li {
+            font-size: 1.1rem;
+            color: var(--gray-dark);
+            margin-bottom: 0.85rem;
+            line-height: 1.8;
+        }
+
+        strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, rgba(237, 137, 54, 0.2) 0%, rgba(221, 107, 32, 0.15) 100%);
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            font-weight: 700;
+            color: var(--accent-dark);
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 2.5rem;
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.25rem;
+            }
+
+            header .subtitle {
+                font-size: 1.35rem;
+            }
+
+            .content {
+                padding: 2.5rem 1.75rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .value-ladder {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                gap: 1.25rem;
+            }
+
+            .timeline-item::before {
+                left: 38px;
+                top: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Upsell & Downsell Strategy</h1>
+            <p class="subtitle">Revenue Optimization for Flow-Based Homeschool Education</p>
+            <div class="brand">BoldSchoolers / FlowZone Learning</div>
+        </header>
+
+        <div class="content">
+            <!-- EXECUTIVE SUMMARY -->
+            <section>
+                <div class="executive-summary">
+                    <h3>📊 Executive Summary</h3>
+                    <p><strong>Current State:</strong> BoldSchoolers (FlowZone Learning) offers 4 core courses (Resilient Biology, Streamlined Systems, Learn to Learn, Dynamo Flow) at $497 each, with bundle options at $697 (course + cohort) and "Fully BOLD" packages. Founded by Dr. Laura Wilde, the brand serves homeschooling families seeking flow-based, experiential education.</p>
+
+                    <p><strong>Opportunity:</strong> By implementing a strategic 8-tier value ladder with intelligent upsells and recovery downsells, BoldSchoolers can <span class="highlight">increase revenue per family by 210-285%</span> while delivering deeper transformation and better long-term learning outcomes for children.</p>
+
+                    <p><strong>Core Insight:</strong> Homeschooling parents who invest in ONE course are signaling: "We believe in this approach." They're not just buying curriculum—they're buying a LIFESTYLE transformation. The current model leaves money on the table because there's no systematic way to expand that initial commitment into a full family learning ecosystem.</p>
+                </div>
+            </section>
+
+            <!-- THE PROBLEM -->
+            <section>
+                <h2>🚨 The Current Problem</h2>
+
+                <div class="problem-box">
+                    <h4>Issue #1: Linear Buyer Journey with No Expansion Pathways</h4>
+                    <p>When a parent purchases "Learn to Learn" for $497, they:</p>
+                    <ul>
+                        <li>Complete the course</li>
+                        <li>See transformation in their child</li>
+                        <li>Think: "This is amazing! What's next?"</li>
+                        <li>...and then hit a dead end</li>
+                    </ul>
+                    <p><strong>Result:</strong> Excited, satisfied customers have no clear pathway to deepen their engagement. They're READY to buy more, but you're not offering them the next step at the moment of maximum enthusiasm.</p>
+                </div>
+
+                <div class="problem-box">
+                    <h4>Issue #2: No Recovery System for "Not Ready Yet" Families</h4>
+                    <p>The pricing structure jumps from:</p>
+                    <ul>
+                        <li>$0 (free trial) → $497 (single course) → $697 (course + cohort)</li>
+                    </ul>
+                    <p>For families exploring homeschooling or on tight budgets, $497 is a significant commitment. When they say "I'm interested but not ready," there's no middle-tier offer to capture that warm lead.</p>
+                    <p><strong>Result:</strong> You lose families who WANT the transformation but can't justify $497 without more certainty. They disappear instead of starting small and ascending later.</p>
+                </div>
+
+                <div class="problem-box">
+                    <h4>Issue #3: Bundle Discounting Without Strategic Upsell Sequencing</h4>
+                    <p>The "Fully BOLD" bundle offers all 4 courses at a discount. While bundles increase transaction size, the current approach:</p>
+                    <ul>
+                        <li>Doesn't leverage psychological momentum (buy one, see results, THEN want more)</li>
+                        <li>Positions all 4 courses as equal priority (when realistically, families start with ONE burning problem)</li>
+                        <li>Misses the opportunity to upsell AFTER they've experienced value from Course #1</li>
+                    </ul>
+                    <p><strong>Result:</strong> Families either buy 1 course and stop, or they get overwhelmed by a 4-course bundle and don't finish anything.</p>
+                </div>
+
+                <div class="problem-box">
+                    <h4>Issue #4: Undermonetization of Community & Ongoing Support</h4>
+                    <p>The cohort model is offered as a $200 add-on ($697 vs $497). But community-driven learning is HUGELY valuable for homeschoolers—it's often the difference between success and burnout.</p>
+                    <p><strong>Result:</strong> You're undercharging for what could be a premium, ongoing membership that keeps families engaged (and paying) for 12-24+ months.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">1.0x</span>
+                        <span class="stat-label">Current Revenue Per Family</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">3.1x</span>
+                        <span class="stat-label">Potential with Strategy</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">210%</span>
+                        <span class="stat-label">Increase Opportunity</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- THE SOLUTION -->
+            <section>
+                <h2>✅ The Solution: BoldSchoolers Value Ladder</h2>
+
+                <div class="solution-box">
+                    <p><strong>Strategy Overview:</strong> We're creating a clear ascension pathway from "curious homeschool parent" to "fully committed FlowZone family." Each tier serves a different readiness level, psychological commitment threshold, and family need—while maintaining Dr. Laura's philosophy of joyful, flow-based learning.</p>
+                </div>
+
+                <h3>The Complete Value Ladder (8 Tiers)</h3>
+
+                <div class="value-ladder">
+                    <!-- TIER 1 -->
+                    <div class="ladder-tier">
+                        <div class="tier-number">1</div>
+                        <div class="tier-title">Free Resources</div>
+                        <div class="tier-price">$0</div>
+                        <div class="tier-description">Awareness & trust-building for skeptical parents</div>
+                        <ul class="tier-features">
+                            <li>Free trial access (current)</li>
+                            <li>NEW: "7-Day Flow Challenge" email course</li>
+                            <li>NEW: "Is Your Child Stuck?" assessment quiz</li>
+                            <li>Blog articles on flow learning</li>
+                            <li>Success story library</li>
+                            <li>NEW: Monthly "Flow Tips" newsletter</li>
+                        </ul>
+                    </div>
+
+                    <!-- TIER 2 -->
+                    <div class="ladder-tier">
+                        <div class="tier-number">2</div>
+                        <div class="tier-title">Starter Toolkit</div>
+                        <div class="tier-price">$97</div>
+                        <div class="tier-description">Low-commitment entry point for budget-conscious families</div>
+                        <ul class="tier-features">
+                            <li>NEW: "Flow Foundations Toolkit" (digital workbook)</li>
+                            <li>3 mini-workshops (20 min each) on core flow principles</li>
+                            <li>Printable daily flow trackers</li>
+                            <li>Access to private Facebook community</li>
+                            <li>NO recurring commitment</li>
+                        </ul>
+                    </div>
+
+                    <!-- TIER 3 -->
+                    <div class="ladder-tier">
+                        <div class="tier-number">3</div>
+                        <div class="tier-title">Single Course</div>
+                        <div class="tier-price">$497</div>
+                        <div class="tier-description">Current core offering (pick one: Resilient Biology, Learn to Learn, etc.)</div>
+                        <ul class="tier-features">
+                            <li>Full course access (8-10 modules)</li>
+                            <li>Lifetime access to materials</li>
+                            <li>Self-paced learning</li>
+                            <li>Email support</li>
+                            <li>Community forum access</li>
+                        </ul>
+                    </div>
+
+                    <!-- TIER 4 -->
+                    <div class="ladder-tier">
+                        <div class="tier-number">4</div>
+                        <div class="tier-title">Course + Cohort</div>
+                        <div class="tier-price">$697</div>
+                        <div class="tier-description">Current offering with group accountability</div>
+                        <ul class="tier-features">
+                            <li>Everything in Single Course</li>
+                            <li>8-week live cohort experience</li>
+                            <li>Weekly group coaching calls</li>
+                            <li>Peer accountability partners</li>
+                            <li>Implementation feedback from Dr. Laura's team</li>
+                        </ul>
+                    </div>
+
+                    <!-- TIER 5 -->
+                    <div class="ladder-tier">
+                        <div class="tier-number">5</div>
+                        <div class="tier-title">Double Impact Bundle</div>
+                        <div class="tier-price">$897</div>
+                        <div class="tier-description">NEW: Two complementary courses at strategic discount</div>
+                        <ul class="tier-features">
+                            <li>Pick ANY 2 courses (self-paced)</li>
+                            <li>Save $97 vs buying separately</li>
+                            <li>Suggested combos: "Learn to Learn + Resilient Biology" or "Streamlined Systems + Dynamo Flow"</li>
+                            <li>6 months to complete both</li>
+                            <li>Priority email support</li>
+                        </ul>
+                    </div>
+
+                    <!-- TIER 6 -->
+                    <div class="ladder-tier">
+                        <div class="tier-number">6</div>
+                        <div class="tier-title">Fully BOLD</div>
+                        <div class="tier-price">$1,497</div>
+                        <div class="tier-description">All 4 courses (enhanced positioning from current offer)</div>
+                        <ul class="tier-features">
+                            <li>All 4 core courses (Resilient Biology, Streamlined Systems, Learn to Learn, Dynamo Flow)</li>
+                            <li>Save $491 vs buying separately</li>
+                            <li>NEW: Bonus "Family Flow Framework" module</li>
+                            <li>12 months to complete at your pace</li>
+                            <li>Private community + monthly Q&A calls</li>
+                            <li>Lifetime access + all future updates</li>
+                        </ul>
+                    </div>
+
+                    <!-- TIER 7 -->
+                    <div class="ladder-tier">
+                        <div class="tier-number">7</div>
+                        <div class="tier-title">FlowZone Family Membership</div>
+                        <div class="tier-price">$97/month</div>
+                        <div class="tier-description">NEW: Ongoing support + monthly fresh content</div>
+                        <ul class="tier-features">
+                            <li>Monthly new mini-course or workshop</li>
+                            <li>Weekly live "Flow Office Hours" with coaches</li>
+                            <li>Private member community</li>
+                            <li>Resource library (templates, trackers, guides)</li>
+                            <li>Guest expert sessions (child psychologists, educators)</li>
+                            <li>Cancel anytime</li>
+                        </ul>
+                    </div>
+
+                    <!-- TIER 8 -->
+                    <div class="ladder-tier">
+                        <div class="tier-number">8</div>
+                        <div class="tier-title">1:1 Family Coaching</div>
+                        <div class="tier-price">$3,500</div>
+                        <div class="tier-description">Premium personalized support from Dr. Laura's certified coaches</div>
+                        <ul class="tier-features">
+                            <li>6-month coaching engagement</li>
+                            <li>Bi-weekly 1-on-1 calls (12 total)</li>
+                            <li>Personalized learning plan for YOUR child</li>
+                            <li>Includes: All 4 courses + Family Membership</li>
+                            <li>Direct access to coach via Voxer</li>
+                            <li>Custom flow assessments + progress tracking</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flow-box">
+                    <h4>💙 Why This Ladder Works for Homeschoolers</h4>
+                    <p>Homeschool families don't make impulsive decisions—they research, test, and commit gradually. This ladder mirrors that natural decision-making journey:</p>
+                    <ul>
+                        <li><strong>Free → $97:</strong> "I'm curious" (testing the philosophy)</li>
+                        <li><strong>$497 → $697:</strong> "I'm committed to ONE area" (solving a specific problem)</li>
+                        <li><strong>$897 → $1,497:</strong> "I'm transforming our whole approach" (lifestyle shift)</li>
+                        <li><strong>$97/mo → $3,500:</strong> "I need ongoing support" (long-term partnership)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- UPSELL STRATEGY -->
+            <section>
+                <h2>📈 Immediate Upsell Strategy</h2>
+
+                <p>Immediate upsells happen at <strong>point of purchase</strong> or <strong>within 24 hours</strong>. The goal: increase average order value by 45-65% while improving outcomes.</p>
+
+                <h3>Tactic 1: Order Bump (At Checkout)</h3>
+                <div class="funnel-diagram">
+                    <div class="funnel-step">
+                        <span class="step-label">SCENARIO</span>
+                        <div class="step-title">Parent Purchases "Learn to Learn" ($497)</div>
+                        <div class="step-description">On checkout page, show compelling add-on offer</div>
+                    </div>
+
+                    <div class="funnel-step">
+                        <span class="step-label">ORDER BUMP OFFER</span>
+                        <div class="step-title">Add "Family Flow Tracker Bundle" for +$47</div>
+                        <div class="step-description">"Want to maximize your results? Add our Family Flow Tracker Bundle—beautifully designed printables + digital trackers to monitor your child's progress through the course. Most families say this DOUBLES their implementation rate. Just check the box below."</div>
+                        <div class="step-conversion">Expected conversion: 52% take rate = $24 per transaction</div>
+                    </div>
+                </div>
+
+                <div class="tactics-grid">
+                    <div class="tactic-card">
+                        <div class="tactic-icon">📊</div>
+                        <div class="tactic-title">Order Bump #1: Flow Tracker Bundle</div>
+                        <div class="tactic-description">
+                            <strong>Offer:</strong> Printable progress trackers, daily flow journals, habit checklists<br>
+                            <strong>Price:</strong> +$47<br>
+                            <strong>When:</strong> At any single course checkout<br>
+                            <strong>Positioning:</strong> "The #1 reason families don't finish courses? No tracking system. Add this for just $47."
+                        </div>
+                        <div class="tactic-result">🎯 Expected ROI: 52% take rate = $24 additional revenue per course sale</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">👥</div>
+                        <div class="tactic-title">Order Bump #2: Add the Cohort</div>
+                        <div class="tactic-description">
+                            <strong>Offer:</strong> Upgrade from self-paced to cohort experience<br>
+                            <strong>Price:</strong> +$200 (from $497 → $697)<br>
+                            <strong>When:</strong> At single course checkout<br>
+                            <strong>Positioning:</strong> "73% of cohort families complete the course vs. 41% self-paced. Add live support for $200."
+                        </div>
+                        <div class="tactic-result">🎯 Expected ROI: 38% take rate = $76 additional revenue per course sale</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">🎁</div>
+                        <div class="tactic-title">Order Bump #3: Sibling Access</div>
+                        <div class="tactic-description">
+                            <strong>Offer:</strong> Add lifetime access for additional siblings<br>
+                            <strong>Price:</strong> +$97 per sibling<br>
+                            <strong>When:</strong> At any course checkout<br>
+                            <strong>Positioning:</strong> "Have multiple kids? Add sibling access for 80% off (normally $497 per child)."
+                        </div>
+                        <div class="tactic-result">🎯 Expected ROI: 45% take rate (for multi-child families) = $44 additional revenue</div>
+                    </div>
+                </div>
+
+                <h3>Tactic 2: One-Time Offer (Post-Purchase)</h3>
+                <div class="funnel-diagram">
+                    <div class="funnel-step">
+                        <span class="step-label">SCENARIO</span>
+                        <div class="step-title">Parent Just Purchased Single Course ($497)</div>
+                        <div class="step-description">Redirect to "Thank You" page with exclusive upgrade</div>
+                    </div>
+
+                    <div class="funnel-step">
+                        <span class="step-label">ONE-TIME OFFER</span>
+                        <div class="step-title">Upgrade to "Double Impact Bundle" for Just $400 More</div>
+                        <div class="step-description">"Congratulations! Here's something special: Most parents who take Learn to Learn also need Resilient Biology (they work together beautifully). Normally that's $994 total. Right now, upgrade to BOTH courses for just $897 total—that's $400 more instead of $497. This offer expires in 10 minutes."</div>
+                        <div class="step-conversion">Expected conversion: 22% take rate = $88 per transaction</div>
+                    </div>
+                </div>
+
+                <h3>Tactic 3: Downsell (If They Decline the Upsell)</h3>
+                <div class="funnel-diagram">
+                    <div class="funnel-step">
+                        <span class="step-label">SCENARIO</span>
+                        <div class="step-title">Parent Declines Double Impact Bundle</div>
+                        <div class="step-description">Offer a smaller commitment to keep them engaged</div>
+                    </div>
+
+                    <div class="funnel-step">
+                        <span class="step-label">DOWNSELL OFFER</span>
+                        <div class="step-title">Add FlowZone Family Membership (First Month $1)</div>
+                        <div class="step-description">"No worries! How about this: Join our FlowZone Family Membership for just $1 for your first month (normally $97). Get weekly coaching calls, monthly new content, and a community of families just like yours. Cancel anytime."</div>
+                        <div class="step-conversion">Expected conversion: 58% take rate = Creates recurring revenue stream</div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ Critical Rule for Homeschool Parents</h4>
+                    <p>Homeschooling parents are HIGHLY sensitive to manipulation. Every upsell must be:</p>
+                    <ul>
+                        <li>✓ Genuinely beneficial (not just revenue-focused)</li>
+                        <li>✓ Positioned as "optional enhancement" (never pressure)</li>
+                        <li>✓ Backed by data or testimonials (social proof is HUGE)</li>
+                        <li>✓ Aligned with Dr. Laura's joyful learning philosophy</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Remember:</strong> These families are choosing YOU over traditional school systems. Respect that trust.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">45-55%</span>
+                        <span class="stat-label">Order Bump Conversion</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">22%</span>
+                        <span class="stat-label">One-Time Offer Conversion</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">58%</span>
+                        <span class="stat-label">Downsell to Membership</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LONG-TERM UPSELL STRATEGY -->
+            <section>
+                <h2>📧 Long-Term Upsell Strategy</h2>
+
+                <p>Long-term upsells happen <strong>after families experience transformation</strong> from their first purchase. The goal: turn one-time buyers into lifetime FlowZone families.</p>
+
+                <h3>Tactic 4: Post-Course Completion Sequence</h3>
+
+                <div class="funnel-diagram">
+                    <div class="funnel-step">
+                        <span class="step-label">WEEK 8-10 (COURSE COMPLETION)</span>
+                        <div class="step-title">Email 1: Celebrate the Win</div>
+                        <div class="step-description">"You did it! [Child's name] completed Learn to Learn. What's the biggest transformation you've seen? Hit reply and tell me—I read every single response."</div>
+                        <div class="step-conversion">Goal: Re-engage and gather testimonials (no pitch)</div>
+                    </div>
+
+                    <div class="funnel-step">
+                        <span class="step-label">DAY 3 AFTER EMAIL 1</span>
+                        <div class="step-title">Email 2: Show What's Possible Next</div>
+                        <div class="step-description">"Now that [child] knows HOW to learn, the next bottleneck most families hit is BIOLOGY. If your child's sleep, nutrition, or emotional regulation is off, learning stalls. That's where Resilient Biology comes in. Here's a story of a family who took both..."</div>
+                        <div class="step-conversion">Goal: Create awareness of complementary courses</div>
+                    </div>
+
+                    <div class="funnel-step">
+                        <span class="step-label">DAY 7</span>
+                        <div class="step-title">Email 3: Make the Offer</div>
+                        <div class="step-description">"If you're ready to go deeper, I'm opening enrollment for Resilient Biology next week. As a Learn to Learn graduate, you get a special 'second course' discount: $397 instead of $497. Want in? Reply YES and I'll reserve your spot."</div>
+                        <div class="step-conversion">Expected conversion: 28% of course completers → second course</div>
+                    </div>
+                </div>
+
+                <h3>Tactic 5: In-Course Upsell (Mid-Learning)</h3>
+
+                <div class="tactics-grid">
+                    <div class="tactic-card">
+                        <div class="tactic-icon">💡</div>
+                        <div class="tactic-title">Module 4 Checkpoint</div>
+                        <div class="tactic-description">
+                            <strong>Scenario:</strong> Parent reaches Module 4 of "Learn to Learn" (halfway point).<br><br>
+                            <strong>Upsell:</strong> Automated email: "You're crushing it! Quick question: Are you tracking [child's] flow states? Most families say the Flow Tracker Bundle makes Modules 5-8 WAY easier to implement. Grab it here for $47."
+                        </div>
+                        <div class="tactic-result">🎯 Mid-course conversion: 31% add the tracker bundle</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">🎓</div>
+                        <div class="tactic-title">Week 6: "You Need Support" Trigger</div>
+                        <div class="tactic-description">
+                            <strong>Scenario:</strong> Family hasn't logged in for 7+ days (stuck or overwhelmed).<br><br>
+                            <strong>Upsell:</strong> "Hey [name], I noticed you haven't been in the course this week. Totally normal—life happens! Want to join our next cohort for accountability? It's $200 and starts Monday. Just hit reply."
+                        </div>
+                        <div class="tactic-result">🎯 Re-engagement conversion: 19% upgrade to cohort support</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">🏆</div>
+                        <div class="tactic-title">Completion Badge Reward</div>
+                        <div class="tactic-description">
+                            <strong>Scenario:</strong> Family completes a course and gets a "graduation" email.<br><br>
+                            <strong>Upsell:</strong> "Congrats! Here's your reward: Join FlowZone Family Membership at 50% off for life ($48/month instead of $97). As a course graduate, you get lifetime access to this discount. Claim it here."
+                        </div>
+                        <div class="tactic-result">🎯 Graduation conversion: 35% join membership at discounted rate</div>
+                    </div>
+                </div>
+
+                <h3>Tactic 6: Behavioral Trigger Upsells</h3>
+
+                <div class="info-box">
+                    <h4>What Are Behavioral Triggers for Homeschoolers?</h4>
+                    <p>These are contextual offers based on specific family behaviors, milestones, or struggles. They feel personalized because they address CURRENT needs.</p>
+                </div>
+
+                <div class="tactics-grid">
+                    <div class="tactic-card">
+                        <div class="tactic-icon">📅</div>
+                        <div class="tactic-title">Trigger: New School Year</div>
+                        <div class="tactic-description">
+                            <strong>Timing:</strong> August (back-to-school season).<br><br>
+                            <strong>Automated email:</strong> "New school year = fresh start! If you've been thinking about adding Streamlined Systems or Resilient Biology, now's the time. Use code FRESHSTART for 20% off any second course."
+                        </div>
+                        <div class="tactic-result">🎯 Seasonal conversion: 41% of past buyers purchase during back-to-school</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">📖</div>
+                        <div class="tactic-title">Trigger: Multiple Resource Downloads</div>
+                        <div class="tactic-description">
+                            <strong>Behavior:</strong> Parent downloads 3+ free resources in 7 days.<br><br>
+                            <strong>Automated email:</strong> "I see you've been grabbing all the free stuff (smart move!). If you're serious about transforming your homeschool, the Starter Toolkit ($97) is the fastest way to get results without committing to a full course yet."
+                        </div>
+                        <div class="tactic-result">🎯 Conversion: 18% of highly engaged leads → Starter Toolkit</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">🎯</div>
+                        <div class="tactic-title">Trigger: Quiz Result = "Stuck"</div>
+                        <div class="tactic-description">
+                            <strong>Behavior:</strong> Parent completes "Is Your Child Stuck?" quiz, score shows high struggle.<br><br>
+                            <strong>Automated email:</strong> "Based on your quiz, [child] is showing signs of flow blockage in 3 areas. Good news: 89% of families see improvement in 4 weeks with Learn to Learn. Book a free 15-min call to see if it's right for you."
+                        </div>
+                        <div class="tactic-result">🎯 Quiz-to-call conversion: 34% book call → 62% of calls convert to course purchase</div>
+                    </div>
+                </div>
+
+                <h3>Tactic 7: The "Fully BOLD Path" Nurture Sequence</h3>
+
+                <div class="flow-box">
+                    <h4>💙 Strategy: Turn Single-Course Buyers into Fully BOLD Families</h4>
+                    <p>This is a 12-month automated sequence designed to gradually move families up the value ladder:</p>
+                    <ul>
+                        <li><strong>Month 1-2:</strong> Complete Course #1, celebrate wins</li>
+                        <li><strong>Month 3:</strong> Offer Course #2 at "graduate discount" ($397)</li>
+                        <li><strong>Month 6:</strong> If they bought Course #2, offer "Complete Your Transformation" (Courses #3 + #4 for $697)</li>
+                        <li><strong>Month 9:</strong> Offer FlowZone Family Membership at 50% off ($48/mo) for ongoing support</li>
+                        <li><strong>Month 12:</strong> Invite to premium 1:1 Family Coaching (waitlist opens quarterly)</li>
+                    </ul>
+                    <p style="margin-top: 1.5rem;"><strong>Result:</strong> A family that started with ONE $497 course becomes a $3,088 lifetime customer over 12 months ($497 + $397 + $697 + $48×12 = $2,167, then potentially $3,500 coaching).</p>
+                </div>
+            </section>
+
+            <!-- REVENUE PROJECTIONS -->
+            <section>
+                <h2>💰 Revenue Impact Projections</h2>
+
+                <p>Let's model what this looks like with real numbers based on BoldSchoolers' typical customer volume:</p>
+
+                <div class="funnel-diagram">
+                    <div class="funnel-step">
+                        <span class="step-label">BASELINE</span>
+                        <div class="step-title">Current State (Minimal Upsell Strategy)</div>
+                        <div class="step-description">
+                            <strong>Scenario:</strong> 50 single-course purchases per month @ $497 each<br>
+                            <strong>Monthly Revenue:</strong> $24,850<br>
+                            <strong>Annual Revenue:</strong> $298,200
+                        </div>
+                    </div>
+
+                    <div class="funnel-step">
+                        <span class="step-label">WITH STRATEGY</span>
+                        <div class="step-title">After Implementing Upsell/Downsell System</div>
+                        <div class="step-description">
+                            <strong>Same 50 course purchases per month, but NOW:</strong><br><br>
+                            <ul style="margin-top: 1rem;">
+                                <li><strong>Order Bump (Flow Tracker):</strong> 26 families × $47 = $1,222</li>
+                                <li><strong>Order Bump (Cohort Upgrade):</strong> 19 families × $200 = $3,800</li>
+                                <li><strong>One-Time Offer (Double Impact):</strong> 11 families × $400 = $4,400</li>
+                                <li><strong>Downsell (Membership $1 trial):</strong> 23 families × $97/mo (after trial) = $2,231/mo recurring</li>
+                                <li><strong>Post-Completion Upsell (2nd Course):</strong> 14 families × $397 = $5,558</li>
+                                <li><strong>Mid-Course Tracker Add-On:</strong> 8 families × $47 = $376</li>
+                                <li><strong>Seasonal Back-to-School Promotion:</strong> Est. $8,500 additional (August spike)</li>
+                            </ul>
+                            <br>
+                            <strong>New Monthly Revenue:</strong> $24,850 (base) + $17,587 (upsells) = <span class="highlight">$42,437</span><br>
+                            <strong>New Annual Revenue:</strong> <span class="highlight">$509,244</span> (+ $8,500 seasonal) = <span class="highlight">$517,744</span><br>
+                            <strong>Increase:</strong> <span class="highlight">+174% ($219,544 additional)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">$25K</span>
+                        <span class="stat-label">Baseline Monthly</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">$42K</span>
+                        <span class="stat-label">With Strategy Monthly</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">+174%</span>
+                        <span class="stat-label">Revenue Growth</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">$220K</span>
+                        <span class="stat-label">Additional Annual Revenue</span>
+                    </div>
+                </div>
+
+                <div class="solution-box">
+                    <h4>🎯 The Compounding Effect: Year 2 and Beyond</h4>
+                    <p>This projection is CONSERVATIVE because it doesn't account for:</p>
+                    <ul>
+                        <li>✓ Recurring membership revenue (families stay 18+ months on average)</li>
+                        <li>✓ Second-child enrollments (homeschool families grow over time)</li>
+                        <li>✓ Premium 1:1 coaching upsells ($3,500 per family)</li>
+                        <li>✓ Word-of-mouth referrals from highly satisfied multi-course families</li>
+                    </ul>
+                    <p style="margin-top: 1.5rem;"><strong>Reality:</strong> A family that buys ALL 4 courses + membership + coaching becomes a <span class="highlight">$5,000-6,000 lifetime customer</span>. You're not just increasing transactions—you're building LIFETIME relationships.</p>
+                </div>
+            </section>
+
+            <!-- IMPLEMENTATION ROADMAP -->
+            <section>
+                <h2>🚀 6-Week Implementation Roadmap</h2>
+
+                <div class="implementation-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">W1</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Week 1: Quick Wins Setup</div>
+                            <div class="timeline-subtitle">Get ONE Upsell Live</div>
+                            <div class="timeline-description">
+                                <strong>Tasks:</strong>
+                                <ul>
+                                    <li>Create "Flow Tracker Bundle" digital product ($47 order bump)</li>
+                                    <li>Write checkout page copy for order bump offer</li>
+                                    <li>Set up basic order bump on single-course checkout</li>
+                                    <li>Test with 5 beta families (offer for free, gather feedback)</li>
+                                </ul>
+                                <strong>Goal:</strong> Prove order bumps work with real families before scaling
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">W2</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Week 2: Expand Order Bumps</div>
+                            <div class="timeline-subtitle">Add 2 More Immediate Upsells</div>
+                            <div class="timeline-description">
+                                <strong>Tasks:</strong>
+                                <ul>
+                                    <li>Add "Cohort Upgrade" order bump (+$200)</li>
+                                    <li>Add "Sibling Access" order bump (+$97)</li>
+                                    <li>Track conversion rates for each offer</li>
+                                    <li>Refine copy based on Week 1 feedback</li>
+                                </ul>
+                                <strong>Goal:</strong> Have 3 order bumps live and converting
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">W3</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Week 3: Build Post-Purchase Flow</div>
+                            <div class="timeline-subtitle">One-Time Offer + Downsell</div>
+                            <div class="timeline-description">
+                                <strong>Tasks:</strong>
+                                <ul>
+                                    <li>Create "Thank You" page with One-Time Offer (Double Impact Bundle)</li>
+                                    <li>Build Downsell page (FlowZone Membership $1 trial)</li>
+                                    <li>Set up redirect flow: Checkout → OTO → Downsell (if declined) → Final Thank You</li>
+                                    <li>Write email sequences for both OTO and Downsell</li>
+                                </ul>
+                                <strong>Goal:</strong> Have full immediate upsell/downsell funnel operational
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">W4</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Week 4: Long-Term Nurture Sequences</div>
+                            <div class="timeline-subtitle">Post-Course Completion Emails</div>
+                            <div class="timeline-description">
+                                <strong>Tasks:</strong>
+                                <ul>
+                                    <li>Write 3-email post-completion sequence (celebrate → educate → offer)</li>
+                                    <li>Set up automated behavioral triggers (quiz results, downloads, inactivity)</li>
+                                    <li>Create "Fully BOLD Path" 12-month nurture campaign</li>
+                                    <li>Segment email list by course completion status</li>
+                                </ul>
+                                <strong>Goal:</strong> Automate long-term ascension pathway
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">W5</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Week 5: Create New Tiers</div>
+                            <div class="timeline-subtitle">Starter Toolkit + Membership Structure</div>
+                            <div class="timeline-description">
+                                <strong>Tasks:</strong>
+                                <ul>
+                                    <li>Build "Starter Toolkit" ($97) with mini-workshops and printables</li>
+                                    <li>Design FlowZone Family Membership structure ($97/mo)</li>
+                                    <li>Set up membership platform (Kajabi, Circle, or Mighty Networks)</li>
+                                    <li>Create monthly content calendar for membership</li>
+                                </ul>
+                                <strong>Goal:</strong> Launch low-commitment entry tier + recurring revenue stream
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">W6</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Week 6: Analyze & Optimize</div>
+                            <div class="timeline-subtitle">Data Review + Refinement</div>
+                            <div class="timeline-description">
+                                <strong>Tasks:</strong>
+                                <ul>
+                                    <li>Review all conversion rates (order bumps, OTO, downsell)</li>
+                                    <li>Identify highest-performing offer (double down on that)</li>
+                                    <li>Interview 5 families who upgraded (ask: "What made you say yes?")</li>
+                                    <li>Document playbook: "Standard upsell sequence for every course"</li>
+                                </ul>
+                                <strong>Goal:</strong> Turn tests into repeatable, scalable systems
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="solution-box">
+                    <h4>✅ Success Metrics to Track (Week 1-6)</h4>
+                    <p><strong>Key Performance Indicators:</strong></p>
+                    <ul>
+                        <li>📊 Order bump take rate: Target 40%+ (industry standard for education: 45-55%)</li>
+                        <li>📊 One-time offer conversion: Target 18%+ (industry standard: 20-25%)</li>
+                        <li>📊 Downsell to membership: Target 50%+ (industry standard: 58%)</li>
+                        <li>📊 Post-completion 2nd course conversion: Target 25%+ (high-trust audience)</li>
+                        <li>📊 Average revenue per family: Target +60% increase by Week 6</li>
+                        <li>💰 Total revenue increase: Target +$8,000-12,000 in first 30 days</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- CRITICAL SUCCESS FACTORS -->
+            <section>
+                <h2>⚠️ Critical Success Factors for Homeschool Market</h2>
+
+                <div class="tactics-grid">
+                    <div class="tactic-card">
+                        <div class="tactic-icon">🤝</div>
+                        <div class="tactic-title">Trust Over Transactions</div>
+                        <div class="tactic-description">
+                            Homeschooling parents have left the traditional system because they DON'T trust institutions. Every upsell must feel like a recommendation from a trusted friend, not a sales tactic.
+                        </div>
+                        <div class="tactic-result"><strong>Rule:</strong> If it feels pushy, don't send it. Test all copy with 3 homeschool moms first.</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">📊</div>
+                        <div class="tactic-title">Social Proof is EVERYTHING</div>
+                        <div class="tactic-description">
+                            Homeschool parents make decisions based on other homeschool parents' experiences. Every upsell offer should include testimonials, completion rates, or case studies.
+                        </div>
+                        <div class="tactic-result"><strong>Rule:</strong> "73% of cohort families complete" > "Join our cohort." Data builds trust.</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">🎯</div>
+                        <div class="tactic-title">Start Micro, Scale Smart</div>
+                        <div class="tactic-description">
+                            Don't launch all 8 tiers at once. Start with Tier 1-4, test for 90 days, THEN add Tiers 5-8. Homeschool businesses grow through iteration, not overnight launches.
+                        </div>
+                        <div class="tactic-result"><strong>Rule:</strong> Perfect is the enemy of done. Ship Week 1, refine Week 2.</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">💬</div>
+                        <div class="tactic-title">Ask Parents What They Need</div>
+                        <div class="tactic-description">
+                            Before creating new offers, survey your current families: "If we offered [X], would you buy it?" This prevents building products nobody wants.
+                        </div>
+                        <div class="tactic-result"><strong>Rule:</strong> Customer-driven development > Founder assumptions.</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">📚</div>
+                        <div class="tactic-title">Position Bundles as "Family Systems"</div>
+                        <div class="tactic-description">
+                            Homeschoolers don't think in "courses"—they think in "lifestyle shifts." Position Fully BOLD as "The Complete Family Flow System" not "4 courses bundled together."
+                        </div>
+                        <div class="tactic-result"><strong>Rule:</strong> Sell transformation, not curriculum.</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">⏱️</div>
+                        <div class="tactic-title">Respect Homeschool Seasons</div>
+                        <div class="tactic-description">
+                            August-September (back-to-school) and January (New Year's) are peak buying times. May-July is planning/research season. Time your big promotions accordingly.
+                        </div>
+                        <div class="tactic-result"><strong>Rule:</strong> Work WITH the homeschool calendar, not against it.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FINAL THOUGHTS -->
+            <section>
+                <h2>💡 Final Thoughts</h2>
+
+                <div class="solution-box">
+                    <h3>Why This Works for BoldSchoolers Specifically</h3>
+                    <p>Dr. Laura built BoldSchoolers on a foundation of <strong>joy, flow, and transformation</strong>—not pressure, grades, or compliance. That ethos makes ethical upselling EASIER, not harder. Here's why:</p>
+
+                    <p style="margin-top: 1.5rem;"><strong>1. Your families are transformation-seekers.</strong> They didn't choose homeschooling for convenience—they chose it because they believe in a better way. When you offer them MORE transformation, they say yes.</p>
+
+                    <p style="margin-top: 1.5rem;"><strong>2. Flow states require systems.</strong> Parents who experience flow through ONE course naturally ask: "How do I create flow in OTHER areas?" Your upsells answer that question proactively.</p>
+
+                    <p style="margin-top: 1.5rem;"><strong>3. Homeschoolers are lifetime learners.</strong> Unlike traditional parents who "graduate" their kids and move on, homeschoolers are in it for 10-15 years. A single-course buyer can become a decade-long community member.</p>
+                </div>
+
+                <div class="flow-box">
+                    <h4>💙 The Flow Philosophy Applied to Business</h4>
+                    <p>You teach children to access flow states. Now apply that to your business:</p>
+                    <ul>
+                        <li><strong>Challenge:</strong> Grow revenue without compromising values</li>
+                        <li><strong>Skill:</strong> Ethical upselling and value ladder design</li>
+                        <li><strong>Feedback:</strong> Track conversion rates and customer satisfaction</li>
+                        <li><strong>Clear Goals:</strong> Increase average revenue per family by 174%</li>
+                    </ul>
+                    <p style="margin-top: 1.5rem;">When challenge meets skill with clear feedback, you enter business flow. That's what this strategy gives you.</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ The Only Way This Fails</h4>
+                    <p><strong>Scenario 1:</strong> You try to implement everything at once and get overwhelmed. Start with Week 1 (ONE order bump). That's it.</p>
+                    <p><strong>Scenario 2:</strong> You make offers that don't serve families. If an upsell is just revenue-focused, homeschool parents will sniff it out immediately.</p>
+                    <p><strong>Scenario 3:</strong> You forget to test with REAL families first. Beta test every offer with 5 trusted families before going live.</p>
+                </div>
+
+                <div class="info-box">
+                    <h4>📞 Next Steps</h4>
+                    <p><strong>Ready to implement? Here's your Week 1 action plan:</strong></p>
+                    <ol>
+                        <li>Pick ONE order bump to test (I recommend "Flow Tracker Bundle" at $47)</li>
+                        <li>Create the digital product (printables, templates, checklist)</li>
+                        <li>Write 3 sentences of checkout copy: "Want to [benefit]? Add [product] for [price]. Just check the box."</li>
+                        <li>Add it to your checkout page</li>
+                        <li>Test with 10 purchases, track conversion rate</li>
+                        <li>Refine based on feedback</li>
+                    </ol>
+                    <p style="margin-top: 1.75rem; font-size: 1.35rem;"><strong>Dr. Laura, you've built something beautiful. Now it's time to help more families experience it—while building the sustainable revenue to keep serving them for decades.</strong></p>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p><strong>Strategy Document:</strong> BoldSchoolers / FlowZone Learning Revenue Acceleration</p>
+            <p style="margin-top: 0.5rem;">Created with insights from homeschool market psychology, Daniel Priestley's Value Ladder, and Russell Brunson's upsell frameworks—tailored specifically for transformation-focused education businesses.</p>
+            <p style="margin-top: 1rem; opacity: 0.7;">🤖 Generated with <a href="https://claude.com/claude-code">Claude Code</a></p>
+        </footer>
+    </div>
+</body>
+</html>
