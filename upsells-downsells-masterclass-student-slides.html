@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Power of Upsells & Downsells: A Mindvalley Case Study</title>
+
+    <!-- Mindvalley Fonts -->
+    <link rel="preconnect" href="https://storyblok-assets.mindvalley.com">
+    <style>
+        @font-face {
+            font-display: swap;
+            font-family: 'Grotesk-Regular';
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBook-19.ed0b68c.woff2) format("woff2");
+        }
+        @font-face {
+            font-display: swap;
+            font-family: 'Grotesk-Medium';
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrMedium-20.36349e7.woff2) format("woff2");
+        }
+        @font-face {
+            font-display: swap;
+            font-family: 'Grotesk-Bold';
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrSmBold-21.2e6314a.woff2) format("woff2");
+        }
+        @font-face {
+            font-display: swap;
+            font-family: 'Grotesk-Bold-16';
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBold-16.d5a4b9e.woff2) format("woff2");
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --mastery-950: #061e27;
+            --mastery-900: #09262f;
+            --mastery-850: #0b2d38;
+            --mastery-800: #0d3542;
+            --mastery-700: #134554;
+            --mastery-600: #1a5466;
+            --mastery-500: #206478;
+            --mastery-400: #dafd71;
+            --mastery-300: #e4fd9c;
+            --mastery-200: #eefec7;
+            --mastery-100: #f5fee1;
+
+            --cool-grey-700: #0f131a;
+            --cool-grey-600: #222831;
+            --cool-grey-500: #404856;
+
+            --surface-white: #ffffff;
+            --surface-fog: #ebf2f1;
+        }
+
+        body {
+            font-family: 'Grotesk-Regular', -apple-system, sans-serif;
+            background: var(--cool-grey-700);
+            color: var(--surface-white);
+            overflow-x: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            width: 100%;
+            min-height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            z-index: 2;
+        }
+
+        /* Title Slide */
+        .slide--title {
+            background: linear-gradient(135deg, var(--mastery-950) 0%, var(--mastery-800) 100%);
+            text-align: center;
+        }
+
+        .slide--title h1 {
+            font-family: 'Grotesk-Bold-16', sans-serif;
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--mastery-400) 0%, var(--mastery-200) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slide--title .subtitle {
+            font-size: 1.75rem;
+            color: var(--mastery-300);
+            margin-bottom: 3rem;
+            font-family: 'Grotesk-Medium', sans-serif;
+        }
+
+        .slide--title .instructor {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 3rem;
+        }
+
+        /* Section Divider Slides */
+        .slide--section {
+            background: linear-gradient(135deg, var(--mastery-900) 0%, var(--cool-grey-700) 100%);
+            text-align: center;
+        }
+
+        .slide--section h2 {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--mastery-400);
+        }
+
+        .slide--section .section-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Content Slides */
+        .slide--content {
+            background: var(--mastery-950);
+        }
+
+        .slide--content h2 {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 3rem;
+            color: var(--mastery-400);
+            margin-bottom: 2rem;
+        }
+
+        .slide--content h3 {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 2rem;
+            color: var(--mastery-300);
+            margin: 2rem 0 1rem;
+        }
+
+        .slide--content p {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 1.5rem;
+        }
+
+        .slide--content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .slide--content li {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .slide--content li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--mastery-400);
+            font-weight: bold;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(218, 253, 113, 0.1) 0%, rgba(228, 253, 156, 0.05) 100%);
+            border-left: 4px solid var(--mastery-400);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .highlight-box h4 {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 1.75rem;
+            color: var(--mastery-400);
+            margin-bottom: 1rem;
+        }
+
+        /* Stats Display */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--mastery-900) 0%, var(--mastery-850) 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px solid var(--mastery-400);
+        }
+
+        .stat-number {
+            font-family: 'Grotesk-Bold-16', sans-serif;
+            font-size: 4rem;
+            color: var(--mastery-400);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 2rem 0;
+        }
+
+        /* Image Placeholder */
+        .image-placeholder {
+            background: linear-gradient(135deg, var(--mastery-800) 0%, var(--mastery-700) 100%);
+            border-radius: 16px;
+            padding: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--mastery-400);
+            text-align: center;
+            border: 2px solid var(--mastery-400);
+        }
+
+        /* Navigation */
+        .slide-nav {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-button {
+            background: var(--mastery-400);
+            color: var(--mastery-950);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .nav-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 20px rgba(218, 253, 113, 0.4);
+        }
+
+        /* Slide Counter */
+        .slide-counter {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(0,0,0,0.5);
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-family: 'Grotesk-Medium', sans-serif;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Case Study Box */
+        .case-study {
+            background: linear-gradient(135deg, rgba(13, 53, 66, 0.5) 0%, rgba(9, 38, 47, 0.5) 100%);
+            border: 2px solid var(--mastery-400);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+        }
+
+        .case-study h4 {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 1.75rem;
+            color: var(--mastery-400);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Framework Box */
+        .framework {
+            background: var(--mastery-900);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            border: 2px solid var(--mastery-400);
+        }
+
+        .framework-title {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 2rem;
+            color: var(--mastery-400);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .framework-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .framework-step {
+            background: rgba(218, 253, 113, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--mastery-400);
+        }
+
+        .framework-step-number {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 1.5rem;
+            color: var(--mastery-400);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Quote */
+        .quote {
+            font-size: 2rem;
+            font-style: italic;
+            color: var(--mastery-400);
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            border-top: 2px solid var(--mastery-400);
+            border-bottom: 2px solid var(--mastery-400);
+        }
+
+        .quote-author {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 1rem;
+            font-style: normal;
+        }
+
+        @media (max-width: 768px) {
+            .slide--title h1 {
+                font-size: 2.5rem;
+            }
+
+            .slide--content h2 {
+                font-size: 2rem;
+            }
+
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-counter" id="slideCounter">Slide 1 / 25</div>
+
+    <div class="slide-nav">
+        <button class="nav-button" onclick="previousSlide()">←</button>
+        <button class="nav-button" onclick="nextSlide()">→</button>
+    </div>
+
+    <div class="slide-container" id="slideContainer">
+
+        <!-- SLIDE 1: Title -->
+        <section class="slide slide--title">
+            <div class="slide-content">
+                <h1>The Power of Upsells & Downsells</h1>
+                <p class="subtitle">A Mindvalley Masterclass for Marketers</p>
+                <div class="stats-grid" style="margin-top: 4rem;">
+                    <div class="stat-card">
+                        <span class="stat-number">3x</span>
+                        <span class="stat-label">Revenue Multiplier</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">67%</span>
+                        <span class="stat-label">Take Upsells</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">$4M+</span>
+                        <span class="stat-label">Annual Impact</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: Today's Journey -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>What We'll Cover Today</h2>
+                <div class="framework-steps">
+                    <div class="framework-step">
+                        <div class="framework-step-number">Part 1: The Psychology of Buying</div>
+                        <p style="font-size: 1.25rem; color: rgba(255,255,255,0.8);">Why customers actually want more (when done right)</p>
+                    </div>
+                    <div class="framework-step">
+                        <div class="framework-step-number">Part 2: Immediate Upsells & Downsells</div>
+                        <p style="font-size: 1.25rem; color: rgba(255,255,255,0.8);">Cart & checkout optimization strategies</p>
+                    </div>
+                    <div class="framework-step">
+                        <div class="framework-step-number">Part 3: Long-Term Upsell Sequences</div>
+                        <p style="font-size: 1.25rem; color: rgba(255,255,255,0.8);">Email, in-app, and customer journey upsells</p>
+                    </div>
+                    <div class="framework-step">
+                        <div class="framework-step-number">Part 4: The Mindvalley Model</div>
+                        <p style="font-size: 1.25rem; color: rgba(255,255,255,0.8);">Real examples, metrics, and lessons learned</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: Section Divider -->
+        <section class="slide slide--section">
+            <div class="slide-content">
+                <h2>Part 1</h2>
+                <p class="section-subtitle">The Psychology of Buying:<br>Why Upsells Work</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: The Truth About Buying -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>The Truth About Buying</h2>
+                <p style="font-size: 1.75rem; margin-bottom: 2rem;">Most marketers think upsells are "pushy." The data tells a different story.</p>
+
+                <div class="highlight-box">
+                    <h4>The Moment of Maximum Receptivity</h4>
+                    <p style="font-size: 1.35rem;">When someone has just purchased from you, they are in their most open, trusting, and "yes-minded" state. This is not manipulation—it's meeting them where they already are.</p>
+                </div>
+
+                <div class="two-col" style="margin-top: 3rem;">
+                    <div>
+                        <h3 style="color: var(--mastery-400); margin-bottom: 1rem;">What They're Thinking:</h3>
+                        <ul style="font-size: 1.25rem;">
+                            <li>"I made the right choice"</li>
+                            <li>"I trust this brand"</li>
+                            <li>"I'm committed to transformation"</li>
+                            <li>"What else can help me succeed?"</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--mastery-400); margin-bottom: 1rem;">What They're Open To:</h3>
+                        <ul style="font-size: 1.25rem;">
+                            <li>Accelerating their results</li>
+                            <li>Getting more value</li>
+                            <li>Reducing risk of failure</li>
+                            <li>Supporting their investment</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: Daniel Priestley Framework -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>Daniel Priestley's "Value Ladder"</h2>
+
+                <div class="quote">
+                    "People don't buy products. They buy outcomes. And they'll pay more for certainty of achieving that outcome."
+                    <div class="quote-author">— Daniel Priestley, Key Person of Influence</div>
+                </div>
+
+                <div class="framework">
+                    <div class="framework-title">The Value Ladder Principle</div>
+                    <div class="image-placeholder" style="height: 400px;">
+                        Visual: Ascending ladder showing low-ticket → mid-ticket → high-ticket → retained services
+                    </div>
+                    <p style="text-align: center; margin-top: 2rem; font-size: 1.35rem;">Each step increases value delivery AND price. The goal: Move customers UP naturally.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: The 3 Types of Upsells -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>The 3 Types of Upsells (And When to Use Each)</h2>
+
+                <div class="framework-steps">
+                    <div class="framework-step">
+                        <div class="framework-step-number">1. The "Better" Upsell</div>
+                        <p style="font-size: 1.25rem;">Upgrade to premium version of what they just bought</p>
+                        <p style="font-size: 1.1rem; color: var(--mastery-400); margin-top: 0.5rem;">Example: Quest → Quest + Live Calls</p>
+                    </div>
+
+                    <div class="framework-step">
+                        <div class="framework-step-number">2. The "Faster" Upsell</div>
+                        <p style="font-size: 1.25rem;">Add-ons that accelerate results or reduce friction</p>
+                        <p style="font-size: 1.1rem; color: var(--mastery-400); margin-top: 0.5rem;">Example: Course → Course + 1-on-1 Coaching</p>
+                    </div>
+
+                    <div class="framework-step">
+                        <div class="framework-step-number">3. The "More" Upsell</div>
+                        <p style="font-size: 1.25rem;">Complementary products that enhance the core offer</p>
+                        <p style="font-size: 1.1rem; color: var(--mastery-400); margin-top: 0.5rem;">Example: Fitness Quest → Nutrition Quest</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 3rem;">
+                    <p style="font-size: 1.35rem;"><strong>Key Insight:</strong> All three work. The question is which matches customer intent in that moment.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: Section Divider -->
+        <section class="slide slide--section">
+            <div class="slide-content">
+                <h2>Part 2</h2>
+                <p class="section-subtitle">Immediate Upsells & Downsells:<br>Checkout Optimization</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 8: The Checkout Moment -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>The Checkout Moment: Peak Readiness</h2>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">63%</span>
+                        <span class="stat-label">Accept Order Bump</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">30%</span>
+                        <span class="stat-label">Accept Post-Purchase</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">1-Click</span>
+                        <span class="stat-label">Friction = Higher Conversion</span>
+                    </div>
+                </div>
+
+                <div class="two-col" style="margin-top: 3rem;">
+                    <div>
+                        <h3>Order Bump Upsells</h3>
+                        <p style="font-size: 1.25rem;">Displayed BEFORE payment completion</p>
+                        <ul style="margin-top: 1rem;">
+                            <li>Single checkbox to add</li>
+                            <li>$20-$197 sweet spot</li>
+                            <li>Positioned as "don't forget"</li>
+                            <li>Converts 40-60% when done right</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>One-Click Upsells (OTO)</h3>
+                        <p style="font-size: 1.25rem;">Displayed AFTER payment completion</p>
+                        <ul style="margin-top: 1rem;">
+                            <li>No re-entering payment info</li>
+                            <li>$97-$997+ price range</li>
+                            <li>Positioned as "special offer"</li>
+                            <li>Converts 20-35% with right offer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 9: Order Bump Best Practices -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>Order Bump: The Psychology & Copy</h2>
+
+                <div class="case-study">
+                    <h4>Mindvalley Example: Lifebook Order Bump</h4>
+                    <div class="image-placeholder" style="margin: 1.5rem 0;">
+                        Screenshot: Lifebook Quest checkout with "Add Lifebook Planning Kit for $37" checkbox
+                    </div>
+                    <p style="font-size: 1.25rem; margin-bottom: 1rem;"><strong>Positioning:</strong> "Most students find the physical planner essential for completing exercises"</p>
+                    <p style="font-size: 1.25rem;"><strong>Result:</strong> 57% take-rate, adding $400K+ annually</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>5 Rules for High-Converting Order Bumps</h4>
+                    <ol style="font-size: 1.25rem; padding-left: 2rem; list-style: decimal;">
+                        <li style="margin-bottom: 1rem;"><strong>Logical Connection:</strong> Must enhance the core offer</li>
+                        <li style="margin-bottom: 1rem;"><strong>Low Friction:</strong> Single checkbox, no extra steps</li>
+                        <li style="margin-bottom: 1rem;"><strong>Price Anchoring:</strong> 10-30% of main offer price</li>
+                        <li style="margin-bottom: 1rem;"><strong>Fear of Missing Out:</strong> "Only available at checkout"</li>
+                        <li><strong>Social Proof:</strong> "67% of customers add this"</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 10: One-Click Upsell Strategy -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>One-Click Upsells: Post-Purchase Power</h2>
+
+                <div class="framework">
+                    <div class="framework-title">The Perfect OTO Sequence</div>
+                    <div class="framework-steps">
+                        <div class="framework-step">
+                            <div class="framework-step-number">Step 1: Thank You Page</div>
+                            <p style="font-size: 1.2rem;">"Congratulations! Your order is confirmed. One moment..."</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Step 2: The Special Offer</div>
+                            <p style="font-size: 1.2rem;">"Because you just joined [Product], we have a one-time opportunity..."</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Step 3: Clear Value Prop</div>
+                            <p style="font-size: 1.2rem;">"Get [Outcome] 3X faster with [Upsell Product]"</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Step 4: One-Click Accept</div>
+                            <p style="font-size: 1.2rem;">Big button: "Yes! Add to My Order" (no payment re-entry)</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Step 5: Easy Decline</div>
+                            <p style="font-size: 1.2rem;">Small text link: "No thanks, I'll pass on this offer"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 11: Downsells -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>The Art of the Downsell</h2>
+
+                <div class="highlight-box">
+                    <h4>What is a Downsell?</h4>
+                    <p style="font-size: 1.35rem;">When a customer declines your upsell, you offer a lower-priced alternative. The goal: Capture SOME additional revenue instead of none.</p>
+                </div>
+
+                <div class="case-study">
+                    <h4>Mindvalley Downsell Example</h4>
+                    <p style="font-size: 1.25rem; margin-bottom: 1rem;"><strong>Scenario:</strong> Customer buys $395 Quest but declines $997 All-Access upgrade</p>
+                    <p style="font-size: 1.25rem; margin-bottom: 2rem;"><strong>Downsell Offer:</strong> "Not ready for All-Access? Try 3 months for $147"</p>
+                    <div class="stats-grid" style="margin: 2rem 0;">
+                        <div class="stat-card">
+                            <span class="stat-number">42%</span>
+                            <span class="stat-label">Accept Downsell</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">$1.2M</span>
+                            <span class="stat-label">Annual Recovered Revenue</span>
+                        </div>
+                    </div>
+                    <p style="font-size: 1.25rem;"><strong>Key Insight:</strong> The downsell captures customers who wanted MORE but couldn't justify the big jump.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 12: Downsell Psychology -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>Why Downsells Work</h2>
+
+                <div class="two-col">
+                    <div>
+                        <h3 style="color: var(--mastery-400);">The Customer's Mind:</h3>
+                        <ul style="font-size: 1.25rem; margin-top: 1rem;">
+                            <li>"I do want more value..."</li>
+                            <li>"But $997 feels like too much"</li>
+                            <li>"$147 feels achievable"</li>
+                            <li>"I can always upgrade later"</li>
+                        </ul>
+                        <div class="highlight-box" style="margin-top: 2rem;">
+                            <p style="font-size: 1.2rem;"><strong>Psychological Principle:</strong> Loss Aversion + Door-in-the-Face Technique</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--mastery-400);">Best Practices:</h3>
+                        <ol style="font-size: 1.25rem; padding-left: 2rem; list-style: decimal; margin-top: 1rem;">
+                            <li style="margin-bottom: 1rem;">Show downsell ONLY after decline</li>
+                            <li style="margin-bottom: 1rem;">Price: 30-50% of original upsell</li>
+                            <li style="margin-bottom: 1rem;">Frame as "last chance" offer</li>
+                            <li style="margin-bottom: 1rem;">Limit to 1 downsell (don't overdo it)</li>
+                            <li>Make acceptance easy (1-click)</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 13: Section Divider -->
+        <section class="slide slide--section">
+            <div class="slide-content">
+                <h2>Part 3</h2>
+                <p class="section-subtitle">Long-Term Upsell Sequences:<br>Post-Purchase Journey</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 14: The Customer Journey -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>Beyond the Checkout: Long-Term Upsells</h2>
+
+                <div class="highlight-box">
+                    <h4>The Big Shift</h4>
+                    <p style="font-size: 1.35rem;">Immediate upsells capture "hot" buyers. Long-term upsells capture customers who need to EXPERIENCE value first before buying more.</p>
+                </div>
+
+                <div class="framework">
+                    <div class="framework-title">The 3 Phases of Long-Term Upselling</div>
+                    <div class="framework-steps">
+                        <div class="framework-step">
+                            <div class="framework-step-number">Phase 1: Onboarding (Days 1-14)</div>
+                            <p style="font-size: 1.2rem;">Focus: Get them using the product, experiencing quick wins</p>
+                            <p style="font-size: 1.1rem; color: var(--mastery-400);">Upsell Trigger: First milestone completion</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Phase 2: Engagement (Days 15-60)</div>
+                            <p style="font-size: 1.2rem;">Focus: Deepen usage, build habit, deliver core transformation</p>
+                            <p style="font-size: 1.1rem; color: var(--mastery-400);">Upsell Trigger: High engagement signals</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Phase 3: Advocacy (Days 60+)</div>
+                            <p style="font-size: 1.2rem;">Focus: Turn them into evangelists, offer premium/community</p>
+                            <p style="font-size: 1.1rem; color: var(--mastery-400);">Upsell Trigger: Completion or high satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 15: Email Upsell Sequences -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>Email Upsell Sequences That Convert</h2>
+
+                <div class="case-study">
+                    <h4>Mindvalley Example: Quest Completion Upsell</h4>
+                    <p style="font-size: 1.25rem; margin-bottom: 1.5rem;"><strong>Trigger:</strong> Student completes 80% of Quest</p>
+
+                    <div class="framework-steps">
+                        <div class="framework-step">
+                            <div class="framework-step-number">Email 1: Celebrate + Introduce</div>
+                            <p style="font-size: 1.1rem;">"Congrats on completing [Quest]! Based on your results, here's what to explore next..."</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Email 2: Social Proof</div>
+                            <p style="font-size: 1.1rem;">"Students who took [Quest 1] + [Quest 2] reported 3X faster results..."</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Email 3: Limited Offer</div>
+                            <p style="font-size: 1.1rem;">"Special upgrade pricing for Quest graduates - 48 hours only"</p>
+                        </div>
+                    </div>
+
+                    <p style="font-size: 1.25rem; margin-top: 2rem;"><strong>Conversion Rate:</strong> 18% take next Quest within 7 days</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 16: In-App Upsells -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>In-App Upsells: Context is King</h2>
+
+                <div class="two-col">
+                    <div>
+                        <h3>When to Trigger:</h3>
+                        <ul style="font-size: 1.25rem; margin-top: 1rem;">
+                            <li>Lesson completion (momentum high)</li>
+                            <li>Streak milestones (7, 14, 30 days)</li>
+                            <li>Community engagement spikes</li>
+                            <li>Feature usage patterns</li>
+                            <li>"Locked content" encounters</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>What to Offer:</h3>
+                        <ul style="font-size: 1.25rem; margin-top: 1rem;">
+                            <li>Complementary courses</li>
+                            <li>Membership upgrade</li>
+                            <li>Premium features unlock</li>
+                            <li>Live event tickets</li>
+                            <li>1-on-1 sessions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 3rem;">
+                    <h4>Daniel Priestley Principle: Micro-Commitments</h4>
+                    <p style="font-size: 1.35rem;">"Every small 'yes' makes the big 'yes' easier. In-app upsells work because the customer has already said 'yes' repeatedly by engaging with your product."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 17: Behavioral Triggers -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>Behavioral Triggers: When to Upsell</h2>
+
+                <div class="framework">
+                    <div class="framework-title">The Upsell Trigger Framework</div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number" style="font-size: 3rem;">🎯</span>
+                            <span class="stat-label">High Engagement</span>
+                            <p style="font-size: 1rem; margin-top: 0.5rem; color: rgba(255,255,255,0.7);">5+ lessons in 7 days</p>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" style="font-size: 3rem;">✅</span>
+                            <span class="stat-label">Milestone Reached</span>
+                            <p style="font-size: 1rem; margin-top: 0.5rem; color: rgba(255,255,255,0.7);">Completed module/quest</p>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" style="font-size: 3rem;">💬</span>
+                            <span class="stat-label">Community Active</span>
+                            <p style="font-size: 1rem; margin-top: 0.5rem; color: rgba(255,255,255,0.7);">3+ comments/week</p>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" style="font-size: 3rem;">🔄</span>
+                            <span class="stat-label">Return Visitor</span>
+                            <p style="font-size: 1rem; margin-top: 0.5rem; color: rgba(255,255,255,0.7);">7+ day login streak</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 3rem;">
+                    <p style="font-size: 1.35rem;"><strong>Key Principle:</strong> Never interrupt low-engagement users with upsells. They need activation, not more offers. Upsell to your ENGAGED customers who are already winning.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 18: Section Divider -->
+        <section class="slide slide--section">
+            <div class="slide-content">
+                <h2>Part 4</h2>
+                <p class="section-subtitle">The Mindvalley Model:<br>Real Numbers, Real Strategies</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 19: Mindvalley's Upsell Ecosystem -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>How Mindvalley Structures Upsells</h2>
+
+                <div class="framework">
+                    <div class="framework-title">The Mindvalley Value Ladder</div>
+                    <div class="framework-steps">
+                        <div class="framework-step">
+                            <div class="framework-step-number">Entry: Free Masterclass ($0)</div>
+                            <p style="font-size: 1.15rem;">Goal: Build trust, demonstrate value, collect email</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Tier 1: Single Quest ($395-495)</div>
+                            <p style="font-size: 1.15rem;">Goal: Deliver transformation, create raving fans</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Tier 2: Quest Bundle ($697)</div>
+                            <p style="font-size: 1.15rem;">Goal: Multi-category engagement, increase LTV</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Tier 3: All-Access Membership ($999/year)</div>
+                            <p style="font-size: 1.15rem;">Goal: Unlimited access, recurring revenue, retention</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Tier 4: Live Events ($2,000-10,000)</div>
+                            <p style="font-size: 1.15rem;">Goal: Deep connection, community, premium experience</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Tier 5: Certifications & Partnerships ($10K+)</div>
+                            <p style="font-size: 1.15rem;">Goal: Professional development, B2B opportunities</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 20: Mindvalley Metrics -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>The Numbers: What Actually Works</h2>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">32%</span>
+                        <span class="stat-label">All-Access Upsell at Checkout</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">18%</span>
+                        <span class="stat-label">Quest Completion → Next Quest</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">$847</span>
+                        <span class="stat-label">Average Customer LTV</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">2.4x</span>
+                        <span class="stat-label">Revenue Per Customer (with upsells)</span>
+                    </div>
+                </div>
+
+                <div class="case-study" style="margin-top: 3rem;">
+                    <h4>Case Study: A-Fest Upsell Strategy</h4>
+                    <p style="font-size: 1.25rem; margin-bottom: 1rem;"><strong>Context:</strong> $3,000 ticket to live transformational event</p>
+                    <p style="font-size: 1.25rem; margin-bottom: 2rem;"><strong>Challenge:</strong> How to upsell at already-premium price?</p>
+
+                    <h4 style="color: var(--mastery-300); margin-top: 1.5rem;">The Strategy:</h4>
+                    <ul style="font-size: 1.25rem; margin-top: 1rem;">
+                        <li><strong>Immediate Upsell:</strong> VIP Experience (+$2K) → 23% take-rate</li>
+                        <li><strong>Long-Term Upsell:</strong> Next A-Fest early bird → 67% conversion</li>
+                        <li><strong>Post-Event:</strong> Online courses from speakers → 41% purchase</li>
+                    </ul>
+                    <p style="font-size: 1.25rem; margin-top: 2rem;"><strong>Result:</strong> Average A-Fest attendee spends $6,200 total (2x ticket price)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 21: Email Sequence Deep Dive -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>Mindvalley's Post-Purchase Email Sequence</h2>
+
+                <div class="framework">
+                    <div class="framework-title">30-Day Upsell Nurture Sequence</div>
+                    <div class="framework-steps">
+                        <div class="framework-step">
+                            <div class="framework-step-number">Day 0: Welcome Email</div>
+                            <p style="font-size: 1.1rem;">Confirm purchase, set expectations, first steps</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Day 3: Quick Win Email</div>
+                            <p style="font-size: 1.1rem;">"Here's your first breakthrough exercise..."</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Day 7: Social Proof</div>
+                            <p style="font-size: 1.1rem;">"See what others are achieving with [Product]..."</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Day 14: Soft Upsell</div>
+                            <p style="font-size: 1.1rem;">"Students who also took [Related Product] report..."</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Day 21: Hard Upsell</div>
+                            <p style="font-size: 1.1rem;">"Special upgrade offer for [Original Product] students"</p>
+                        </div>
+                        <div class="framework-step">
+                            <div class="framework-step-number">Day 30: Membership Pitch</div>
+                            <p style="font-size: 1.1rem;">"Get unlimited access to everything for $83/month"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p style="font-size: 1.35rem;"><strong>Key Insight:</strong> Upsell emails are mixed with VALUE emails (9:1 ratio). Never just pitch—always give first.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 22: Lessons Learned -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>What We Learned the Hard Way</h2>
+
+                <div class="two-col">
+                    <div>
+                        <h3 style="color: #ef4444;">❌ What Doesn't Work</h3>
+                        <ul style="font-size: 1.25rem; margin-top: 1rem;">
+                            <li>Upselling before value delivery</li>
+                            <li>Too many upsell attempts (fatigue)</li>
+                            <li>Unrelated product suggestions</li>
+                            <li>High-friction checkout processes</li>
+                            <li>Ignoring customer journey stage</li>
+                            <li>Generic, untargeted offers</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--mastery-400);">✅ What Does Work</h3>
+                        <ul style="font-size: 1.25rem; margin-top: 1rem;">
+                            <li>Upselling engaged, happy customers</li>
+                            <li>Clear, logical product progression</li>
+                            <li>1-click acceptance (remove friction)</li>
+                            <li>Limited-time or exclusive offers</li>
+                            <li>Social proof at every stage</li>
+                            <li>Personal relevance (AI-powered)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 3rem;">
+                    <h4>Daniel Priestley's Golden Rule</h4>
+                    <p style="font-size: 1.35rem;">"If your upsell doesn't make the customer MORE likely to succeed with their original purchase, you're doing it wrong."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 23: Action Framework -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>Your Upsell Action Plan</h2>
+
+                <div class="framework">
+                    <div class="framework-title">The 4-Week Implementation Roadmap</div>
+
+                    <div class="framework-steps">
+                        <div class="framework-step">
+                            <div class="framework-step-number">Week 1: Audit & Map</div>
+                            <p style="font-size: 1.15rem;">✓ Map your current customer journey<br>
+                            ✓ Identify existing upsell opportunities<br>
+                            ✓ Calculate current LTV and AOV</p>
+                        </div>
+
+                        <div class="framework-step">
+                            <div class="framework-step-number">Week 2: Design Your Value Ladder</div>
+                            <p style="font-size: 1.15rem;">✓ Create 3-5 tier product structure<br>
+                            ✓ Ensure logical progression<br>
+                            ✓ Price for 3-5x value delivery</p>
+                        </div>
+
+                        <div class="framework-step">
+                            <div class="framework-step-number">Week 3: Build Immediate Upsells</div>
+                            <p style="font-size: 1.15rem;">✓ Design 1 order bump offer<br>
+                            ✓ Create 1 one-click upsell page<br>
+                            ✓ Write 1 downsell offer<br>
+                            ✓ Set up tracking & analytics</p>
+                        </div>
+
+                        <div class="framework-step">
+                            <div class="framework-step-number">Week 4: Launch & Test</div>
+                            <p style="font-size: 1.15rem;">✓ Go live with checkout upsells<br>
+                            ✓ A/B test offers and copy<br>
+                            ✓ Monitor conversion rates<br>
+                            ✓ Plan email sequence (30-60 days out)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 24: Resources -->
+        <section class="slide slide--content">
+            <div class="slide-content">
+                <h2>Tools & Resources</h2>
+
+                <div class="two-col">
+                    <div>
+                        <h3>Recommended Platforms</h3>
+                        <ul style="font-size: 1.25rem; margin-top: 1rem;">
+                            <li><strong>ClickFunnels:</strong> All-in-one funnel builder</li>
+                            <li><strong>ThriveCart:</strong> Cart + upsells + affiliates</li>
+                            <li><strong>Samcart:</strong> Checkout optimization</li>
+                            <li><strong>Stripe:</strong> Payment processing + APIs</li>
+                            <li><strong>Recharge:</strong> Subscription management</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Further Reading</h3>
+                        <ul style="font-size: 1.25rem; margin-top: 1rem;">
+                            <li><strong>Daniel Priestley:</strong> "Key Person of Influence"</li>
+                            <li><strong>Russell Brunson:</strong> "DotCom Secrets"</li>
+                            <li><strong>Alex Hormozi:</strong> "$100M Offers"</li>
+                            <li><strong>Donald Miller:</strong> "Building a StoryBrand"</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="case-study" style="margin-top: 3rem;">
+                    <h4>Download: Mindvalley Upsell Templates</h4>
+                    <p style="font-size: 1.25rem; margin-bottom: 1.5rem;">Get our proven email templates, page layouts, and copy frameworks:</p>
+                    <div class="image-placeholder" style="padding: 2rem;">
+                        [QR Code / Download Link]<br>
+                        mindvalley.com/upsell-toolkit
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 25: Closing -->
+        <section class="slide slide--title">
+            <div class="slide-content">
+                <h1 style="font-size: 3.5rem;">The Bottom Line</h1>
+
+                <div class="quote" style="margin: 3rem 0;">
+                    "Upsells aren't about squeezing more money from customers. They're about serving your best customers at the highest level—and getting paid fairly for that value."
+                </div>
+
+                <div class="stats-grid" style="margin-top: 4rem;">
+                    <div class="stat-card">
+                        <span class="stat-number">3x</span>
+                        <span class="stat-label">Potential LTV Increase</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">30%</span>
+                        <span class="stat-label">Avg. Upsell Take Rate</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">$0</span>
+                        <span class="stat-label">Extra Customer Acquisition Cost</span>
+                    </div>
+                </div>
+
+                <p style="font-size: 1.5rem; margin-top: 4rem; color: var(--mastery-300);">
+                    Questions? Let's discuss.
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Slide navigation
+        const slideContainer = document.getElementById('slideContainer');
+        const slides = document.querySelectorAll('.slide');
+        const slideCounter = document.getElementById('slideCounter');
+        let currentSlide = 0;
+
+        function updateSlideCounter() {
+            slideCounter.textContent = `Slide ${currentSlide + 1} / ${slides.length}`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+                updateSlideCounter();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+                updateSlideCounter();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+
+        // Track scroll position
+        slideContainer.addEventListener('scroll', () => {
+            const scrollPosition = slideContainer.scrollTop;
+            const slideHeight = slides[0].offsetHeight;
+            currentSlide = Math.round(scrollPosition / slideHeight);
+            updateSlideCounter();
+        });
+
+        // Initialize
+        updateSlideCounter();
+    </script>
+</body>
+</html>
