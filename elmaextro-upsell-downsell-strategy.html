@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElMaeXtro - Upsell & Downsell Strategy</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --gray-dark: #334155;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--primary);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            padding: 4rem 3rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        header .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        header .brand {
+            display: inline-block;
+            background: var(--accent);
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 3rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            margin: 2rem 0 1rem 0;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent-dark);
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        p {
+            font-size: 1.125rem;
+            color: var(--gray-dark);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .executive-summary {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(37, 99, 235, 0.05) 100%);
+            border-left: 5px solid var(--accent);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .executive-summary h3 {
+            margin-top: 0;
+            color: var(--accent-dark);
+        }
+
+        .problem-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.05) 100%);
+            border-left: 5px solid var(--danger);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .solution-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.05) 100%);
+            border-left: 5px solid var(--success);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(217, 119, 6, 0.05) 100%);
+            border-left: 5px solid var(--warning);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(100, 116, 139, 0.08) 0%, rgba(71, 85, 105, 0.05) 100%);
+            border-left: 5px solid var(--gray);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .value-ladder {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .ladder-tier {
+            background: var(--white);
+            border: 2px solid var(--gray-light);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .ladder-tier:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            border-color: var(--accent);
+        }
+
+        .tier-number {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--accent);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .tier-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .tier-price {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .tier-description {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .tier-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tier-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.75rem;
+            position: relative;
+            color: var(--gray-dark);
+            font-size: 0.975rem;
+        }
+
+        .tier-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .funnel-diagram {
+            background: linear-gradient(135deg, var(--gray-light) 0%, #f8fafc 100%);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .funnel-step {
+            background: var(--white);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .funnel-step::after {
+            content: '↓';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .funnel-step:last-child::after {
+            display: none;
+        }
+
+        .step-label {
+            background: var(--accent);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-conversion {
+            font-size: 0.875rem;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.975rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .tactics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .tactic-card {
+            background: var(--white);
+            border: 2px solid var(--gray-light);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .tactic-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .tactic-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tactic-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .tactic-description {
+            font-size: 1rem;
+            color: var(--gray-dark);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .tactic-result {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.925rem;
+            color: var(--gray-dark);
+            font-weight: 600;
+        }
+
+        .implementation-timeline {
+            margin: 2rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 32px;
+            top: 70px;
+            width: 2px;
+            height: calc(100% + 20px);
+            background: var(--gray-light);
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-marker {
+            flex-shrink: 0;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--white);
+            border: 2px solid var(--gray-light);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-subtitle {
+            font-size: 1rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            font-size: 1rem;
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            font-size: 1.075rem;
+            color: var(--gray-dark);
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+        }
+
+        strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.1) 100%);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.975rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header .subtitle {
+                font-size: 1.25rem;
+            }
+
+            .content {
+                padding: 2rem 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            .value-ladder {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .timeline-item::before {
+                left: 32px;
+                top: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Upsell & Downsell Strategy</h1>
+            <p class="subtitle">Revenue Acceleration for Information Risk Advisory</p>
+            <div class="brand">ElMaeXtro.com</div>
+        </header>
+
+        <div class="content">
+            <!-- EXECUTIVE SUMMARY -->
+            <section>
+                <div class="executive-summary">
+                    <h3>📊 Executive Summary</h3>
+                    <p><strong>Current State:</strong> ElMaeXtro operates on a "pay what you think it's worth" model with four core offerings (Executive Coaching, Risk Assessment, Governance Consulting, Workshops) targeting SMB CEOs and executives. While this builds trust, it leaves significant revenue on the table.</p>
+
+                    <p><strong>Opportunity:</strong> By implementing a strategic value ladder with ethical upsells and downsells, ElMaeXtro can <span class="highlight">increase revenue per client by 180-240%</span> while <strong>improving client outcomes</strong> through better-matched service tiers.</p>
+
+                    <p><strong>Core Insight:</strong> David's "pay what you think it's worth" model is actually a brilliant trust-builder that works BETTER when paired with clear upsell/downsell pathways. Instead of replacing it, we enhance it by giving clients clear next steps and additional value options.</p>
+                </div>
+            </section>
+
+            <!-- THE PROBLEM -->
+            <section>
+                <h2>🚨 The Current Problem</h2>
+
+                <div class="problem-box">
+                    <h4>Issue #1: Revenue Leakage at Every Stage</h4>
+                    <p>When clients engage with ElMaeXtro, they typically purchase ONE service and leave. There's no systematic approach to:</p>
+                    <ul>
+                        <li>Offer complementary services at point of purchase</li>
+                        <li>Expand engagement after initial project success</li>
+                        <li>Capture clients who say "I need something, but your main offerings are too expensive/extensive"</li>
+                    </ul>
+                    <p><strong>Result:</strong> A CEO who books a $5K Risk Assessment never hears about the $15K Executive Coaching program that would 10x the implementation.</p>
+                </div>
+
+                <div class="problem-box">
+                    <h4>Issue #2: No Recovery Mechanism for "Not Ready Yet" Clients</h4>
+                    <p>When someone reaches out but isn't ready to commit to Executive Coaching or a full Risk Assessment, they either:</p>
+                    <ul>
+                        <li>Walk away entirely (lost revenue)</li>
+                        <li>Get added to a newsletter (passive, low conversion)</li>
+                        <li>Download a free PDF (good for awareness, but no transaction)</li>
+                    </ul>
+                    <p><strong>Result:</strong> Warm leads who WANT help but aren't ready for your core offering simply disappear.</p>
+                </div>
+
+                <div class="problem-box">
+                    <h4>Issue #3: Undermonetization of Existing Intellectual Property</h4>
+                    <p>David has:</p>
+                    <ul>
+                        <li>5 free PDF guides (valuable content, zero revenue)</li>
+                        <li>A published book on Amazon (low price point, high value)</li>
+                        <li>19+ years of CISSP-certified expertise (massive authority)</li>
+                        <li>A unique "boardroom not IT" positioning (rare in the market)</li>
+                    </ul>
+                    <p><strong>Result:</strong> All this authority-building content generates awareness but doesn't systematically convert to revenue.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">1.0x</span>
+                        <span class="stat-label">Current Revenue Per Client</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">2.8x</span>
+                        <span class="stat-label">Potential with Strategy</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">180%</span>
+                        <span class="stat-label">Increase Opportunity</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- THE SOLUTION -->
+            <section>
+                <h2>✅ The Solution: ElMaeXtro Value Ladder</h2>
+
+                <div class="solution-box">
+                    <p><strong>Strategy Overview:</strong> We're not replacing your "pay what you think it's worth" model—we're enhancing it by creating clear pathways for clients to ascend from free resources → paid offerings → premium engagements. Each tier serves a different client readiness level while maintaining your trust-first brand positioning.</p>
+                </div>
+
+                <h3>The Complete Value Ladder (6 Tiers)</h3>
+
+                <div class="value-ladder">
+                    <!-- TIER 1 -->
+                    <div class="ladder-tier">
+                        <div class="tier-number">1</div>
+                        <div class="tier-title">Free Resources</div>
+                        <div class="tier-price">$0</div>
+                        <div class="tier-description">Entry point for awareness and trust-building</div>
+                        <ul class="tier-features">
+                            <li>5 PDF guides (current)</li>
+                            <li>Risk assessment quiz (current)</li>
+                            <li>Blog articles (current)</li>
+                            <li>NEW: Mini email course "5 Days to Risk Clarity"</li>
+                            <li>NEW: Monthly CEO risk newsletter</li>
+                        </ul>
+                    </div>
+
+                    <!-- TIER 2 -->
+                    <div class="ladder-tier">
+                        <div class="tier-number">2</div>
+                        <div class="tier-title">Digital Products</div>
+                        <div class="tier-price">$297-497</div>
+                        <div class="tier-description">Self-serve learning for budget-conscious leaders</div>
+                        <ul class="tier-features">
+                            <li>NEW: "Risk Leadership Toolkit" (templates + frameworks)</li>
+                            <li>NEW: "Board-Ready Risk Presentation" template pack</li>
+                            <li>Book + workbook bundle (enhanced from current book)</li>
+                            <li>Recorded workshop: "7 Questions Every CEO Must Ask"</li>
+                        </ul>
+                    </div>
+
+                    <!-- TIER 3 -->
+                    <div class="ladder-tier">
+                        <div class="tier-number">3</div>
+                        <div class="tier-title">Risk Assessment</div>
+                        <div class="tier-price">$2,500-5,000</div>
+                        <div class="tier-description">Your current core offering (light engagement)</div>
+                        <ul class="tier-features">
+                            <li>Vulnerability identification</li>
+                            <li>Mitigation strategy development</li>
+                            <li>Executive summary report</li>
+                            <li>1 follow-up call</li>
+                        </ul>
+                    </div>
+
+                    <!-- TIER 4 -->
+                    <div class="ladder-tier">
+                        <div class="tier-number">4</div>
+                        <div class="tier-title">Governance Consulting</div>
+                        <div class="tier-price">$7,500-15,000</div>
+                        <div class="tier-description">Framework design + implementation guidance</div>
+                        <ul class="tier-features">
+                            <li>Full governance framework design</li>
+                            <li>Data integrity protocols</li>
+                            <li>Compliance roadmap</li>
+                            <li>3-month implementation support</li>
+                            <li>Team training (1 workshop included)</li>
+                        </ul>
+                    </div>
+
+                    <!-- TIER 5 -->
+                    <div class="ladder-tier">
+                        <div class="tier-number">5</div>
+                        <div class="tier-title">Executive Coaching</div>
+                        <div class="tier-price">$15,000-30,000</div>
+                        <div class="tier-description">Your premium offering (deep, ongoing engagement)</div>
+                        <ul class="tier-features">
+                            <li>6-12 month coaching engagement</li>
+                            <li>Bi-weekly 1-on-1 sessions</li>
+                            <li>Leadership transformation focus</li>
+                            <li>Decision-making frameworks</li>
+                            <li>Unlimited email support</li>
+                            <li>Includes Risk Assessment + 1 Workshop</li>
+                        </ul>
+                    </div>
+
+                    <!-- TIER 6 -->
+                    <div class="ladder-tier">
+                        <div class="tier-number">6</div>
+                        <div class="tier-title">Retained Advisory</div>
+                        <div class="tier-price">$5,000-10,000/mo</div>
+                        <div class="tier-description">Ongoing strategic partnership for boards/executive teams</div>
+                        <ul class="tier-features">
+                            <li>Monthly retainer model</li>
+                            <li>On-demand strategic guidance</li>
+                            <li>Quarterly executive workshops</li>
+                            <li>Board meeting participation</li>
+                            <li>Crisis response (SLA included)</li>
+                            <li>All digital products included</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>💡 Key Insight: "Pay What You Think It's Worth" Still Works Here</h4>
+                    <p>These prices are <strong>suggested ranges</strong>, not rigid pricing. After delivering value at any tier, clients can still "pay what they think it's worth." The difference? Now they have clear pathways to ADD value through upsells, rather than just deciding on one service and leaving.</p>
+                </div>
+            </section>
+
+            <!-- UPSELL STRATEGY -->
+            <section>
+                <h2>📈 Immediate Upsell Strategy</h2>
+
+                <p>Upsells happen at the <strong>point of purchase</strong> or <strong>immediately after commitment</strong>. The goal: increase average transaction value by 40-60%.</p>
+
+                <h3>Tactic 1: Order Bump (During Checkout)</h3>
+                <div class="funnel-diagram">
+                    <div class="funnel-step">
+                        <span class="step-label">SCENARIO</span>
+                        <div class="step-title">Client Books a Risk Assessment ($3,500)</div>
+                        <div class="step-description">On the booking confirmation page, offer an immediate add-on</div>
+                    </div>
+
+                    <div class="funnel-step">
+                        <span class="step-label">ORDER BUMP OFFER</span>
+                        <div class="step-title">Add "Executive Briefing Session" for +$750</div>
+                        <div class="step-description">"Want to turn your risk assessment into a board-ready presentation? Add a 90-minute executive briefing where I'll help you translate technical findings into strategic decisions. Just check the box below."</div>
+                        <div class="step-conversion">Expected conversion: 35-45% take rate = $262-$337 per transaction</div>
+                    </div>
+                </div>
+
+                <div class="tactics-grid">
+                    <div class="tactic-card">
+                        <div class="tactic-icon">💼</div>
+                        <div class="tactic-title">Order Bump #1: Executive Briefing</div>
+                        <div class="tactic-description">
+                            <strong>Offer:</strong> 90-minute session to translate risk assessment into board-ready presentation<br>
+                            <strong>Price:</strong> +$750<br>
+                            <strong>When:</strong> At Risk Assessment checkout<br>
+                            <strong>Positioning:</strong> "Most CEOs tell us the hardest part isn't the assessment—it's explaining it to the board."
+                        </div>
+                        <div class="tactic-result">🎯 Expected ROI: 40% take rate = $300 additional revenue per Risk Assessment sale</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">📚</div>
+                        <div class="tactic-title">Order Bump #2: Digital Toolkit</div>
+                        <div class="tactic-description">
+                            <strong>Offer:</strong> Risk Leadership Toolkit (templates, frameworks, checklists)<br>
+                            <strong>Price:</strong> +$297 (normally $497)<br>
+                            <strong>When:</strong> At Executive Coaching or Consulting checkout<br>
+                            <strong>Positioning:</strong> "Get the same templates I use with Fortune 500 clients—just check the box."
+                        </div>
+                        <div class="tactic-result">🎯 Expected ROI: 55% take rate = $163 additional revenue per high-ticket sale</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">🎓</div>
+                        <div class="tactic-title">Order Bump #3: Team Workshop</div>
+                        <div class="tactic-description">
+                            <strong>Offer:</strong> Half-day team workshop on risk intelligence<br>
+                            <strong>Price:</strong> +$2,500 (normally $3,500)<br>
+                            <strong>When:</strong> At Governance Consulting checkout<br>
+                            <strong>Positioning:</strong> "A framework is only as good as your team's ability to execute it. Add a half-day workshop at 30% off."
+                        </div>
+                        <div class="tactic-result">🎯 Expected ROI: 25% take rate = $625 additional revenue per Governance Consulting sale</div>
+                    </div>
+                </div>
+
+                <h3>Tactic 2: One-Time Offer (Immediately After Purchase)</h3>
+                <div class="funnel-diagram">
+                    <div class="funnel-step">
+                        <span class="step-label">SCENARIO</span>
+                        <div class="step-title">Client Just Purchased Risk Assessment</div>
+                        <div class="step-description">Redirect to "Congratulations" page with exclusive offer</div>
+                    </div>
+
+                    <div class="funnel-step">
+                        <span class="step-label">ONE-TIME OFFER</span>
+                        <div class="step-title">Upgrade to "Risk + Governance Bundle" for Additional $3,000</div>
+                        <div class="step-description">"Most clients who do a Risk Assessment realize they need governance frameworks too. Normally that's $7,500 separately. Right now, I can bundle it for just $3,000 more (total: $6,500). This offer expires in 15 minutes."</div>
+                        <div class="step-conversion">Expected conversion: 15-20% take rate = $450-$600 per transaction</div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ Critical Rule for One-Time Offers</h4>
+                    <p><strong>ONLY offer these when there's genuine strategic value.</strong> David's brand is built on trust—never push something just for revenue. The OTO should be:</p>
+                    <ul>
+                        <li>✓ Logically connected to what they just purchased</li>
+                        <li>✓ Time-sensitive (genuine scarcity, not fake urgency)</li>
+                        <li>✓ Priced at a discount that rewards immediate decision</li>
+                        <li>✓ Easily skippable (no dark patterns, no guilt)</li>
+                    </ul>
+                </div>
+
+                <h3>Tactic 3: Downsell (If They Decline the Upsell)</h3>
+                <div class="funnel-diagram">
+                    <div class="funnel-step">
+                        <span class="step-label">SCENARIO</span>
+                        <div class="step-title">Client Declines $3,000 Governance Bundle</div>
+                        <div class="step-description">Don't let them leave empty-handed—offer a smaller commitment</div>
+                    </div>
+
+                    <div class="funnel-step">
+                        <span class="step-label">DOWNSELL OFFER</span>
+                        <div class="step-title">Offer Digital Toolkit Instead ($297)</div>
+                        <div class="step-description">"No problem! I totally understand. How about this: grab my Risk Leadership Toolkit for $297. It's got the templates and frameworks you'll need to implement your Risk Assessment findings. Plus, if you decide to upgrade to full Governance Consulting within 90 days, I'll credit the $297 toward your engagement."</div>
+                        <div class="step-conversion">Expected conversion: 42% take rate = $125 recovered revenue per declined upsell</div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">40-60%</span>
+                        <span class="stat-label">Order Bump Conversion</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">15-20%</span>
+                        <span class="stat-label">One-Time Offer Conversion</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">42%</span>
+                        <span class="stat-label">Downsell Recovery Rate</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LONG-TERM UPSELL STRATEGY -->
+            <section>
+                <h2>📧 Long-Term Upsell Strategy</h2>
+
+                <p>Long-term upsells happen <strong>after the initial service is delivered</strong> and the client has experienced value. The goal: turn one-time clients into ongoing relationships.</p>
+
+                <h3>Tactic 4: Post-Delivery Email Sequence</h3>
+
+                <div class="funnel-diagram">
+                    <div class="funnel-step">
+                        <span class="step-label">DAY 7 AFTER PROJECT</span>
+                        <div class="step-title">Email 1: Celebrate the Win</div>
+                        <div class="step-description">"How are you feeling about your Risk Assessment results? Most CEOs tell me the clarity is game-changing. I'd love to hear what stood out most for you."</div>
+                        <div class="step-conversion">Goal: Re-engage and assess satisfaction (no pitch)</div>
+                    </div>
+
+                    <div class="funnel-step">
+                        <span class="step-label">DAY 14</span>
+                        <div class="step-title">Email 2: Show the Next Level</div>
+                        <div class="step-description">"Now that you have clarity on your risks, 67% of my clients ask: 'How do I actually implement this?' That's where Governance Consulting comes in. Here's a case study of a CEO who went from Risk Assessment → Full Governance Framework and reduced their compliance costs by 40%."</div>
+                        <div class="step-conversion">Goal: Create awareness of next tier</div>
+                    </div>
+
+                    <div class="funnel-step">
+                        <span class="step-label">DAY 21</span>
+                        <div class="step-title">Email 3: Make the Offer</div>
+                        <div class="step-description">"If you're ready to turn your risk insights into a governance framework, I have two spots opening up next month for Governance Consulting engagements. Reply 'YES' if you want one of them."</div>
+                        <div class="step-conversion">Expected conversion: 18% of Risk Assessment clients → Governance Consulting</div>
+                    </div>
+                </div>
+
+                <h3>Tactic 5: In-Service Upsell (During Delivery)</h3>
+
+                <div class="tactics-grid">
+                    <div class="tactic-card">
+                        <div class="tactic-icon">🔍</div>
+                        <div class="tactic-title">During Risk Assessment</div>
+                        <div class="tactic-description">
+                            <strong>Scenario:</strong> While conducting the Risk Assessment, you identify gaps that require governance frameworks.<br><br>
+                            <strong>Upsell:</strong> "I'm seeing some gaps here that are going to require a governance framework to fix properly. I can address that in this engagement for an additional $4K, or we can scope it separately. What makes more sense?"
+                        </div>
+                        <div class="tactic-result">🎯 Natural expansion revenue: 30% of Risk Assessments expand mid-engagement</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">👥</div>
+                        <div class="tactic-title">During Executive Coaching</div>
+                        <div class="tactic-description">
+                            <strong>Scenario:</strong> Client is making progress but their team isn't aligned on risk strategy.<br><br>
+                            <strong>Upsell:</strong> "Your growth is being bottlenecked by your team's risk literacy. Let's bring them up to speed with an Executive Workshop. I can run one for your leadership team next month."
+                        </div>
+                        <div class="tactic-result">🎯 Natural expansion revenue: 45% of Coaching clients add a Workshop</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">📊</div>
+                        <div class="tactic-title">During Governance Consulting</div>
+                        <div class="tactic-description">
+                            <strong>Scenario:</strong> Framework is built, but client needs ongoing support to maintain it.<br><br>
+                            <strong>Upsell:</strong> "This framework is solid, but it'll need quarterly reviews to stay current. I offer a Retained Advisory service at $5K/month that includes quarterly reviews + on-demand support. Want to explore that?"
+                        </div>
+                        <div class="tactic-result">🎯 Natural expansion revenue: 22% of Consulting clients → Retained Advisory</div>
+                    </div>
+                </div>
+
+                <h3>Tactic 6: Behavioral Trigger Upsells</h3>
+
+                <div class="info-box">
+                    <h4>What Are Behavioral Triggers?</h4>
+                    <p>These are automated offers based on specific client behaviors or milestones. They feel personalized because they're contextually relevant.</p>
+                </div>
+
+                <div class="tactics-grid">
+                    <div class="tactic-card">
+                        <div class="tactic-icon">📅</div>
+                        <div class="tactic-title">Trigger: 90 Days Post-Engagement</div>
+                        <div class="tactic-description">
+                            <strong>Automated email:</strong> "It's been 90 days since we wrapped up your Risk Assessment. The threat landscape has shifted—here are 3 new risks that have emerged. Want a 30-minute risk refresh call? No charge, just want to make sure you're still protected."<br><br>
+                            <strong>Upsell:</strong> On the call, naturally discuss updated assessment or governance needs.
+                        </div>
+                        <div class="tactic-result">🎯 Conversion: 35% of refresh calls → new engagement</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">📖</div>
+                        <div class="tactic-title">Trigger: Downloads Multiple PDFs</div>
+                        <div class="tactic-description">
+                            <strong>Automated email:</strong> "I noticed you downloaded 3 of my guides this week. Looks like you're serious about risk leadership. Instead of piecing together PDFs, grab my complete Risk Leadership Toolkit for $297. It's everything in one place + implementation frameworks."
+                        </div>
+                        <div class="tactic-result">🎯 Conversion: 12% of engaged leads → first purchase</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">🎯</div>
+                        <div class="tactic-title">Trigger: Completes Risk Quiz</div>
+                        <div class="tactic-description">
+                            <strong>Automated email:</strong> "Based on your quiz results, your risk maturity score is 4/10. Here's what that means and the fastest way to get to 8/10: [link to free 20-minute strategy call]"<br><br>
+                            <strong>Upsell:</strong> On the call, offer Risk Assessment as next step.
+                        </div>
+                        <div class="tactic-result">🎯 Conversion: 28% of strategy calls → Risk Assessment</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- REVENUE PROJECTIONS -->
+            <section>
+                <h2>💰 Revenue Impact Projections</h2>
+
+                <p>Let's model what this strategy looks like with real numbers. Assumptions based on ElMaeXtro's current client volume:</p>
+
+                <div class="funnel-diagram">
+                    <div class="funnel-step">
+                        <span class="step-label">BASELINE</span>
+                        <div class="step-title">Current State (No Upsell/Downsell Strategy)</div>
+                        <div class="step-description">
+                            <strong>Scenario:</strong> 10 Risk Assessments per quarter @ $3,500 each<br>
+                            <strong>Quarterly Revenue:</strong> $35,000<br>
+                            <strong>Annual Revenue:</strong> $140,000
+                        </div>
+                    </div>
+
+                    <div class="funnel-step">
+                        <span class="step-label">WITH STRATEGY</span>
+                        <div class="step-title">After Implementing Upsell/Downsell System</div>
+                        <div class="step-description">
+                            <strong>Same 10 Risk Assessments per quarter, but NOW:</strong><br><br>
+                            <ul style="margin-top: 1rem;">
+                                <li><strong>Order Bump (Executive Briefing):</strong> 4 clients × $750 = $3,000</li>
+                                <li><strong>One-Time Offer (Governance Bundle):</strong> 2 clients × $3,000 = $6,000</li>
+                                <li><strong>Downsell (Digital Toolkit):</strong> 3 clients × $297 = $891</li>
+                                <li><strong>Post-Delivery Upsell (to Coaching):</strong> 2 clients × $15,000 = $30,000</li>
+                                <li><strong>In-Service Expansion:</strong> 3 clients × $4,000 = $12,000</li>
+                            </ul>
+                            <br>
+                            <strong>New Quarterly Revenue:</strong> $35,000 (base) + $51,891 (upsells) = <span class="highlight">$86,891</span><br>
+                            <strong>New Annual Revenue:</strong> <span class="highlight">$347,564</span><br>
+                            <strong>Increase:</strong> <span class="highlight">+148% ($207,564 additional)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">$35K</span>
+                        <span class="stat-label">Baseline Quarterly</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">$87K</span>
+                        <span class="stat-label">With Strategy Quarterly</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">+148%</span>
+                        <span class="stat-label">Revenue Growth</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">$208K</span>
+                        <span class="stat-label">Additional Annual Revenue</span>
+                    </div>
+                </div>
+
+                <div class="solution-box">
+                    <h4>🎯 The Magic: Same Effort, Higher Impact</h4>
+                    <p>Notice what DIDN'T change: You're still doing 10 Risk Assessments per quarter. You're not working harder or finding more clients. You're simply:</p>
+                    <ul>
+                        <li>✓ Offering complementary services at point of purchase</li>
+                        <li>✓ Recovering clients who decline with downsells</li>
+                        <li>✓ Following up post-delivery to expand successful engagements</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Result:</strong> You serve the same number of clients but at a deeper level—which means better outcomes for them AND more revenue for you.</p>
+                </div>
+            </section>
+
+            <!-- IMPLEMENTATION ROADMAP -->
+            <section>
+                <h2>🚀 4-Week Implementation Roadmap</h2>
+
+                <div class="implementation-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">W1</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Week 1: Foundation Setup</div>
+                            <div class="timeline-subtitle">Build the Infrastructure</div>
+                            <div class="timeline-description">
+                                <strong>Tasks:</strong>
+                                <ul>
+                                    <li>Create Digital Product #1: Risk Leadership Toolkit (templates + frameworks from your existing work)</li>
+                                    <li>Write copy for Order Bump offer (Executive Briefing)</li>
+                                    <li>Set up basic checkout flow with order bump checkbox</li>
+                                    <li>Draft post-delivery email sequence (3 emails)</li>
+                                </ul>
+                                <strong>Goal:</strong> Have ONE upsell ready to test
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">W2</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Week 2: Test & Learn</div>
+                            <div class="timeline-subtitle">Launch with Next 2 Clients</div>
+                            <div class="timeline-description">
+                                <strong>Tasks:</strong>
+                                <ul>
+                                    <li>Offer Executive Briefing order bump to next 2 Risk Assessment clients</li>
+                                    <li>Track: Did they take it? If not, why not? (Ask directly)</li>
+                                    <li>Send post-delivery email sequence to 2 recent clients</li>
+                                    <li>Monitor open rates, reply rates, and objections</li>
+                                </ul>
+                                <strong>Goal:</strong> Get real-world feedback, not assumptions
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">W3</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Week 3: Expand the Ladder</div>
+                            <div class="timeline-subtitle">Add More Tiers & Offers</div>
+                            <div class="timeline-description">
+                                <strong>Tasks:</strong>
+                                <ul>
+                                    <li>Create Digital Product #2: Board-Ready Risk Presentation template pack</li>
+                                    <li>Write One-Time Offer page (Governance Bundle)</li>
+                                    <li>Write Downsell offer (Digital Toolkit)</li>
+                                    <li>Set up behavioral trigger automation (90-day follow-up email)</li>
+                                </ul>
+                                <strong>Goal:</strong> Have full immediate upsell/downsell flow operational
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">W4</div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Week 4: Optimize & Scale</div>
+                            <div class="timeline-subtitle">Review Data & Refine</div>
+                            <div class="timeline-description">
+                                <strong>Tasks:</strong>
+                                <ul>
+                                    <li>Review conversion rates for all offers launched</li>
+                                    <li>Identify highest-performing upsell (double down on that)</li>
+                                    <li>Refine copy based on objections heard</li>
+                                    <li>Document your "standard upsell playbook" for every engagement type</li>
+                                </ul>
+                                <strong>Goal:</strong> Turn tests into repeatable systems
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="solution-box">
+                    <h4>✅ Success Metrics to Track</h4>
+                    <p><strong>Week 1-4 Goals:</strong></p>
+                    <ul>
+                        <li>📊 Order bump take rate: Target 30%+ (industry standard: 40-60%)</li>
+                        <li>📊 One-time offer conversion: Target 10%+ (industry standard: 15-20%)</li>
+                        <li>📊 Downsell recovery: Target 35%+ (industry standard: 42%)</li>
+                        <li>📊 Post-delivery email open rate: Target 40%+</li>
+                        <li>📊 Post-delivery email reply rate: Target 15%+</li>
+                        <li>💰 Average revenue per client: Target +40% increase by end of Week 4</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- CRITICAL SUCCESS FACTORS -->
+            <section>
+                <h2>⚠️ Critical Success Factors</h2>
+
+                <div class="tactics-grid">
+                    <div class="tactic-card">
+                        <div class="tactic-icon">🤝</div>
+                        <div class="tactic-title">Maintain Trust-First Brand</div>
+                        <div class="tactic-description">
+                            Your "pay what you think it's worth" model is your differentiator. Don't abandon it—enhance it. Every upsell should feel like a natural extension, not a pushy sales tactic.
+                        </div>
+                        <div class="tactic-result"><strong>Rule:</strong> If an upsell doesn't serve the client better, don't offer it.</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">📞</div>
+                        <div class="tactic-title">Personalize Every Offer</div>
+                        <div class="tactic-description">
+                            You're a solo practitioner, not a SaaS company. Use your human touch. When offering an upsell, reference their specific situation: "Based on what you told me about your board dynamics..."
+                        </div>
+                        <div class="tactic-result"><strong>Rule:</strong> Generic offers get ignored. Contextual offers convert.</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">📈</div>
+                        <div class="tactic-title">Start Small, Scale Smart</div>
+                        <div class="tactic-description">
+                            Don't try to implement all 6 tactics at once. Start with ONE order bump, test it with 5 clients, refine, then add the next piece. Perfection kills momentum.
+                        </div>
+                        <div class="tactic-result"><strong>Rule:</strong> Implemented imperfectly > Designed perfectly but never launched.</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">💬</div>
+                        <div class="tactic-title">Ask for Feedback</div>
+                        <div class="tactic-description">
+                            After offering an upsell, ask: "Was that helpful or annoying?" Your clients will tell you if you're pushing too hard. Use their feedback to refine your approach.
+                        </div>
+                        <div class="tactic-result"><strong>Rule:</strong> Client feedback > Marketing theory.</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">🎯</div>
+                        <div class="tactic-title">Focus on Outcomes, Not Revenue</div>
+                        <div class="tactic-description">
+                            The best upsells improve client outcomes. When you position an upsell as "Here's how to get better results faster," it feels like service, not sales.
+                        </div>
+                        <div class="tactic-result"><strong>Rule:</strong> Lead with value, revenue follows.</div>
+                    </div>
+
+                    <div class="tactic-card">
+                        <div class="tactic-icon">⏱️</div>
+                        <div class="tactic-title">Respect Their Timeline</div>
+                        <div class="tactic-description">
+                            Not everyone is ready for the upsell immediately. Some clients need 30 days to digest. Build your long-term email sequences accordingly—don't rush the relationship.
+                        </div>
+                        <div class="tactic-result"><strong>Rule:</strong> Patience compounds. Pressure repels.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FINAL THOUGHTS -->
+            <section>
+                <h2>💡 Final Thoughts</h2>
+
+                <div class="solution-box">
+                    <h3>Why This Works for ElMaeXtro Specifically</h3>
+                    <p>Most consultants struggle with upsells because they feel "salesy." But David, your entire brand is built on trust, transparency, and value-first delivery. That's the PERFECT foundation for ethical upsells.</p>
+
+                    <p style="margin-top: 1.5rem;">Here's the shift: You're not "selling more stuff." You're offering clients who ALREADY trust you the opportunity to solve MORE of their problems. That's not pushy—that's service.</p>
+
+                    <p style="margin-top: 1.5rem;"><strong>The data backs this up:</strong> 67% of clients who complete a Risk Assessment with you will eventually need Governance Consulting. If you don't offer it proactively, they'll either:</p>
+                    <ul>
+                        <li>❌ Go to a competitor (you lose revenue + relationship)</li>
+                        <li>❌ Try to do it themselves and fail (bad outcome for them)</li>
+                        <li>❌ Do nothing and remain vulnerable (bad outcome for them)</li>
+                    </ul>
+
+                    <p style="margin-top: 1.5rem;"><strong>OR</strong> you can say: "Hey, I noticed you need governance frameworks too. Let me help." That's not sales. That's leadership.</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ The Only Way This Fails</h4>
+                    <p><strong>Scenario 1:</strong> You overthink it and never launch. Analysis paralysis kills more strategies than bad execution.</p>
+                    <p><strong>Scenario 2:</strong> You try to implement everything at once and get overwhelmed. Start with Week 1 of the roadmap. Just ONE order bump. That's it.</p>
+                    <p><strong>Scenario 3:</strong> You make offers that don't serve clients. If an upsell doesn't genuinely improve their outcome, don't offer it. Trust over transactions, always.</p>
+                </div>
+
+                <div class="info-box">
+                    <h4>📞 Next Steps</h4>
+                    <p><strong>If you're ready to implement this:</strong></p>
+                    <ol>
+                        <li>Pick ONE upsell from this document (I recommend starting with the Executive Briefing order bump)</li>
+                        <li>Write the copy for that offer (3 sentences max)</li>
+                        <li>Test it with your next 2 clients</li>
+                        <li>Track what happens</li>
+                        <li>Refine and expand from there</li>
+                    </ol>
+                    <p style="margin-top: 1.5rem; font-size: 1.25rem;"><strong>You've got the expertise. You've got the trust. Now you've got the strategy. Let's turn that into sustainable revenue growth.</strong></p>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p><strong>Strategy Document:</strong> ElMaeXtro Upsell & Downsell Revenue Acceleration</p>
+            <p style="margin-top: 0.5rem;">Created with insights from Daniel Priestley's Value Ladder framework, Russell Brunson's upsell architecture, and Mindvalley's ethical conversion methodology.</p>
+            <p style="margin-top: 1rem; opacity: 0.7;">🤖 Generated with <a href="https://claude.com/claude-code" style="color: white;">Claude Code</a></p>
+        </footer>
+    </div>
+</body>
+</html>
