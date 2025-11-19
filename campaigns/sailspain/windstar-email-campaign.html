@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windstar Cruise - Email Campaign | Mindvalley</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛵</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --color-primary: #0066CC;
+            --color-gold: #D4AF37;
+            --color-text: #1A1A1A;
+            --color-text-secondary: #404040;
+            --color-bg: #F8F9FA;
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 2rem 1rem;
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        .page-header {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .page-header .subtitle {
+            color: var(--color-text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0 0.25rem;
+        }
+
+        .badge.gold {
+            background: var(--color-gold);
+            color: #1A1A1A;
+        }
+
+        /* NAV */
+        .nav {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+        }
+
+        .nav-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            background: var(--color-bg);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--color-text);
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* EMAIL CARD */
+        .email-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .email-header {
+            background: linear-gradient(135deg, var(--color-primary), #0052A3);
+            color: white;
+            padding: 2rem;
+        }
+
+        .email-number {
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .email-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .email-meta {
+            display: grid;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        .meta-label {
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        /* EMAIL BODY */
+        .email-body {
+            padding: 2.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .email-body p {
+            margin-bottom: 1.25rem;
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            color: var(--color-text-secondary);
+        }
+
+        .email-body strong {
+            color: var(--color-text);
+            font-weight: 600;
+        }
+
+        .email-body em {
+            font-style: italic;
+            color: var(--color-text);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #FFF8E1, #FFF3CD);
+            border-left: 4px solid var(--color-gold);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.0625rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0,102,204,0.3);
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #0052A3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,102,204,0.4);
+        }
+
+        .phone-cta {
+            background: white;
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: center;
+            font-size: 1.125rem;
+        }
+
+        .phone-number {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .ps-section {
+            border-top: 2px solid var(--color-bg);
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+            font-style: italic;
+            color: var(--color-text-secondary);
+        }
+
+        .checklist {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .checklist li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-size: 1.25rem;
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .email-body {
+                padding: 1.5rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- PAGE HEADER -->
+        <div class="page-header">
+            <h1>⛵ Windstar Cruise Email Campaign</h1>
+            <p class="subtitle">Two Direct Emails to Vishen's Audience</p>
+            <div style="margin-top: 1.5rem;">
+                <span class="badge">From Vishen</span>
+                <span class="badge gold">Dec 13-20, 2025</span>
+                <span class="badge">312 Guests Only</span>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <div class="nav">
+            <div class="nav-title">📧 Quick Navigation</div>
+            <div class="nav-links">
+                <a href="#email1" class="nav-link">Email 1: The Invitation</a>
+                <a href="#email2" class="nav-link">Email 2: Why I'm Doing This</a>
+            </div>
+        </div>
+
+        <!-- EMAIL 1 -->
+        <div class="email-card" id="email1">
+            <div class="email-header">
+                <div class="email-number">Email 1 - The Invitation</div>
+                <h2 class="email-title">I'm hosting something I've never done before</h2>
+                <div class="email-meta">
+                    <div><span class="meta-label">Subject:</span> I'm hosting something I've never done before (join me in Spain?)</div>
+                    <div><span class="meta-label">Preview:</span> December 13-20. Private yacht. 312 guests. Mediterranean magic.</div>
+                    <div><span class="meta-label">From:</span> Vishen Lakhiani</div>
+                </div>
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name],</p>
+
+                <p>I need to tell you about something I've been planning for months.</p>
+
+                <p>This December, I'm doing something I've never done before.</p>
+
+                <p><strong>I'm hosting an intimate 7-day voyage through Southern Spain aboard a private yacht—and I want you there with me.</strong></p>
+
+                <p><strong>December 13-20, 2025.</strong></p>
+
+                <p>Not a massive cruise ship with thousands of people. A private yacht. Just 312 guests. Casual luxury. The Mediterranean in winter.</p>
+
+                <p>Here's what I'm envisioning:</p>
+
+                <ul class="checklist">
+                    <li><strong>Two exclusive 90-minute sessions</strong> I've never taught publicly before—mastering 6 Phase Meditation and architecting your most powerful 2026</li>
+                    <li><strong>Seven days sailing through</strong> Barcelona, Valencia, Gibraltar, Málaga, Cartagena, and Palma de Mallorca</li>
+                    <li><strong>Daily yoga, meditation, and breathwork</strong> as the Spanish coastline glides by</li>
+                    <li><strong>An intimate community</strong> of 311 other growth-minded souls who truly get it</li>
+                    <li><strong>All-inclusive casual luxury</strong>—unlimited WiFi, premium drinks, gourmet dining, excursions, gratuities (no hidden fees)</li>
+                </ul>
+
+                <p>But here's why I'm really doing this:</p>
+
+                <p><strong>2025 is almost over.</strong></p>
+
+                <p>Most people will stumble into 2026 exhausted, with vague resolutions and recycled goals.</p>
+
+                <p>But what if you ended this year differently?</p>
+
+                <div class="highlight-box">
+                    <p><strong>What if you took seven days to powerfully reflect on 2025, extract its lessons, release what no longer serves you—and then intentionally architect 2026 with clarity, purpose, and vision?</strong></p>
+                </div>
+
+                <p>That's what this voyage is about.</p>
+
+                <p><strong>Not another event. A complete reset.</strong></p>
+
+                <p>I'll personally guide you through:</p>
+
+                <ul class="checklist">
+                    <li><strong>Session 1:</strong> Mastering the 6 Phase Meditation practice (never taught this deeply before)</li>
+                    <li><strong>Session 2:</strong> Designing your 2026 vision using frameworks from <em>The Code of the Extraordinary Mind</em></li>
+                </ul>
+
+                <p>Between sessions? We'll explore Gaudí's Barcelona, Gibraltar's Rock, Palma's crystal waters. We'll practice yoga on the deck at sunrise. We'll sip wellness elixirs and have conversations that change everything.</p>
+
+                <p><strong>This isn't for everyone.</strong></p>
+
+                <p>It's for you if:</p>
+                <ul class="checklist">
+                    <li>You're 40+ and take your growth seriously</li>
+                    <li>You can pick up and go (passport required, international travelers welcome)</li>
+                    <li>You invest in experiences that truly transform you</li>
+                    <li>You value intimate connections over massive crowds</li>
+                    <li>You're ready to close 2025 powerfully and start 2026 intentionally</li>
+                </ul>
+
+                <p>With only 312 spots on this private yacht, it'll fill fast.</p>
+
+                <p><strong>Here's the investment:</strong></p>
+
+                <div class="highlight-box">
+                    <ul class="checklist">
+                        <li><strong>Base Voyage:</strong> Starting at $4,399+ per person (double occupancy)<br>All-inclusive casual luxury—everything covered.</li>
+                        <li><strong>Premium Experience:</strong> +$250 (only 25 spots)<br>Includes exclusive meet & greet, group dinner with me, signed book.</li>
+                        <li><strong>VIP Experience:</strong> +$500 (only 8 spots)<br>Intimate 10-seat communal table with me, extended private time, VIP gift package.</li>
+                    </ul>
+                </div>
+
+                <p>I know December feels soon. But that's exactly the point.</p>
+
+                <p><strong>The best transformations happen when you say yes before you're "ready."</strong></p>
+
+                <p>So here's my invitation:</p>
+
+                <p>Join me in Spain.</p>
+
+                <p>Let's close out 2025 together. Let's design the most extraordinary 2026 of your life.</p>
+
+                <p>Let's set sail.</p>
+
+                <a href="https://vishenl.github.io/workspace/campaigns/sailspain/windstar-landing-page.html" class="cta-button">⛵ Reserve Your Spot Now</a>
+
+                <div class="phone-cta">
+                    <div>📞 Or call our dedicated booking team:</div>
+                    <div class="phone-number">866-258-7245</div>
+                </div>
+
+                <p>See you on the yacht,<br>
+                <strong>Vishen</strong></p>
+
+                <div class="ps-section">
+                    <p><strong>P.S.</strong> Early reservations get the best cabin locations. If this is calling to you, don't wait. The Mediterranean—and your transformation—await.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- EMAIL 2 -->
+        <div class="email-card" id="email2">
+            <div class="email-header">
+                <div class="email-number">Email 2 - The Why</div>
+                <h2 class="email-title">Why I'm hosting this cruise (it's not what you think)</h2>
+                <div class="email-meta">
+                    <div><span class="meta-label">Subject:</span> Why I'm hosting this cruise (it's not what you think)</div>
+                    <div><span class="meta-label">Preview:</span> The personal story behind this voyage—and why December timing matters</div>
+                    <div><span class="meta-label">From:</span> Vishen Lakhiani</div>
+                </div>
+            </div>
+            <div class="email-body">
+                <p>Hey [First Name],</p>
+
+                <p>In 2022, I made a decision that surprised everyone.</p>
+
+                <p>After building Mindvalley into a $100 million company, authoring two New York Times bestsellers, and teaching 20 million+ students worldwide...</p>
+
+                <p>I pressed pause.</p>
+
+                <p>Not because I was burned out. Not because I'd lost my passion.</p>
+
+                <p>But because I realized something profound:</p>
+
+                <div class="highlight-box">
+                    <p style="font-family: var(--font-serif); font-size: 1.25rem; font-style: italic; margin: 0;">"The most powerful transformations don't happen in conference rooms or on Zoom calls. They happen when you step completely out of your routine."</p>
+                </div>
+
+                <p>That's when everything shifts.</p>
+
+                <p>And that's exactly why I'm hosting this December voyage aboard a private yacht through Southern Spain—with only 312 guests in a casual luxury atmosphere.</p>
+
+                <p><strong>Let me tell you about why this matters so much to me:</strong></p>
+
+                <p>I didn't start as a Silicon Valley success story. I was a broke immigrant kid working in tech, feeling utterly lost.</p>
+
+                <p>Then I discovered meditation. Personal development. The power of consciousness.</p>
+
+                <p>And everything changed.</p>
+
+                <p>But here's what the credentials don't tell you:</p>
+
+                <p>I understand what it's like to feel stuck. To crave transformation but not know where to start. To have achieved "success" but feel something's still missing.</p>
+
+                <p><strong>That's exactly who this private yacht voyage is for.</strong></p>
+
+                <div class="highlight-box">
+                    <h4 style="margin-bottom: 1rem; font-family: var(--font-sans); font-size: 1.125rem;">🗓️ Why Southern Spain? Why December?</h4>
+                    <p>I chose this timing intentionally.</p>
+                    <p>December is when most people are exhausted, rushing through holidays, collapsing into the new year with vague resolutions.</p>
+                    <p><strong>But what if you approached it differently?</strong></p>
+                    <p style="margin-bottom: 0;">What if you ended 2025 by reflecting deeply on what worked, what didn't, and what you truly want? What if you began 2026 not with hope and hustle, but with <strong>clarity and intention</strong>?</p>
+                </div>
+
+                <p><strong>That's the gift of this voyage.</strong></p>
+
+                <p>Seven days to:</p>
+
+                <ul class="checklist">
+                    <li><strong>Powerfully wrap up 2025</strong> with guided introspection and meditation</li>
+                    <li><strong>Architect your 2026</strong> using my proven vision-setting frameworks</li>
+                    <li><strong>Master 6 Phase Meditation</strong> directly from me</li>
+                    <li><strong>Immerse in Mediterranean culture</strong> with like-minded seekers</li>
+                    <li><strong>Connect with 311 high-achievers</strong> who become your lifelong tribe</li>
+                </ul>
+
+                <p><strong>Two Exclusive Sessions You Won't Find Anywhere Else:</strong></p>
+
+                <p><strong>SESSION 1: Mastering 6 Phase Meditation</strong><br>
+                This isn't just theory. I'll personally guide you through the complete practice in an intimate setting aboard the private yacht. This 90-minute deep-dive has never been offered before.</p>
+
+                <p><strong>SESSION 2: Architecting Your 2026 Vision</strong><br>
+                Using frameworks from <em>The Code of the Extraordinary Mind</em>, you'll design your most extraordinary year in casual luxury. Not vague goals—a clear, compelling vision that actually pulls you forward.</p>
+
+                <p>And between sessions? Daily yoga. Guided breathwork. The wellness elixir bar. Barcelona's Sagrada Família. Palma de Mallorca's crystal waters. Gibraltar's legendary Rock.</p>
+
+                <p><strong>Casual luxury and transformation in perfect balance.</strong></p>
+
+                <div class="highlight-box">
+                    <p><strong>Here's what I want you to know:</strong></p>
+                    <p>This private yacht voyage isn't for everyone. It's not about Instagram posts or bragging rights.</p>
+                    <p><strong>It's for people who:</strong></p>
+                    <ul class="checklist" style="margin-top: 1rem; margin-bottom: 0;">
+                        <li>Take their personal growth seriously</li>
+                        <li>Can pick up and go without asking permission</li>
+                        <li>Invest in experiences that truly transform them</li>
+                        <li>Value intimate connections over massive crowds</li>
+                        <li>Want to end 2025 powerfully and begin 2026 intentionally</li>
+                    </ul>
+                </div>
+
+                <p>If that's you, I've saved a spot on the yacht.</p>
+
+                <p><strong>But with only 312 total guests on this private vessel, time is the one thing we can't extend.</strong></p>
+
+                <a href="https://vishenl.github.io/workspace/campaigns/sailspain/windstar-landing-page.html" class="cta-button">⛵ Join Me in Spain</a>
+
+                <div class="phone-cta">
+                    <div>📞 Prefer to talk it through?</div>
+                    <div class="phone-number">866-258-7245</div>
+                    <div style="margin-top: 0.5rem; font-size: 0.95rem;">Our team will answer all your questions about cabins, itinerary, Premium/VIP experiences, and more.</div>
+                </div>
+
+                <p><strong>The Investment:</strong></p>
+
+                <ul class="checklist">
+                    <li><strong>Base Voyage:</strong> Starting at $4,399+ (all-inclusive casual luxury)</li>
+                    <li><strong>Premium Experience:</strong> +$250 (only 25 spots—meet & greet, group dinner, signed book)</li>
+                    <li><strong>VIP Experience:</strong> +$500 (only 8 spots—intimate table with me, extended private time)</li>
+                </ul>
+
+                <p>This isn't an expense. It's an investment in <strong>who you're becoming in 2026.</strong></p>
+
+                <p>See you on the private yacht,<br>
+                <strong>Vishen</strong></p>
+
+                <div class="ps-section">
+                    <p><strong>P.S.</strong> The Mediterranean is calling. Will you answer? December 13-20, 2025. Barcelona → Valencia → Gibraltar → Málaga → Cartagena → Palma de Mallorca. Your transformation awaits.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Smooth scroll for navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+
+</body>
+</html>

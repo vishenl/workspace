@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Carousel Strategy - Windstar Cruise | Mindvalley</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📸</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --color-primary: #0066CC;
+            --color-gold: #D4AF37;
+            --color-text: #1A1A1A;
+            --color-text-secondary: #404040;
+            --color-bg: #F8F9FA;
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem 1rem;
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        .page-header {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header .subtitle {
+            color: var(--color-text-secondary);
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0 0.25rem;
+        }
+
+        /* CAPTION BOX */
+        .caption-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+
+        .caption-box h2 {
+            font-family: var(--font-serif);
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .caption-text {
+            background: var(--color-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            color: var(--color-text);
+        }
+
+        /* SLIDE GRID */
+        .slides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .slide-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .slide-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .slide-header {
+            background: linear-gradient(135deg, var(--color-primary), #0052A3);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .slide-number {
+            background: white;
+            color: var(--color-primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            font-family: var(--font-serif);
+        }
+
+        .slide-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .slide-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slide-content {
+            padding: 2rem;
+        }
+
+        .slide-copy {
+            background: var(--color-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-serif);
+            font-size: 1.125rem;
+            line-height: 1.6;
+            text-align: center;
+            color: var(--color-text);
+        }
+
+        .design-notes h4 {
+            color: var(--color-primary);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .design-notes ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .design-notes li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--color-text-secondary);
+        }
+
+        .design-notes li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        .image-credit {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            font-style: italic;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-bg);
+        }
+
+        /* STRATEGY SECTION */
+        .strategy-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .strategy-section h2 {
+            font-family: var(--font-serif);
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .strategy-item {
+            padding: 1rem;
+            background: var(--color-bg);
+            border-radius: 8px;
+        }
+
+        .strategy-item h4 {
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .slides-grid {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                padding: 1rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- PAGE HEADER -->
+        <div class="page-header">
+            <h1>📸 Instagram Carousel Strategy</h1>
+            <p class="subtitle">10-Slide Carousel for Windstar Cruise Campaign</p>
+            <div style="margin-top: 1.5rem;">
+                <span class="badge">10 Slides</span>
+                <span class="badge">Vishen's Audience</span>
+                <span class="badge">Dec 13-20, 2025</span>
+            </div>
+        </div>
+
+        <!-- CAPTION -->
+        <div class="caption-box">
+            <h2>📝 Instagram Caption</h2>
+            <div class="caption-text">What if your 2026 transformation didn't start on January 1st...
+
+But on December 13th.
+
+On a private yacht.
+In the Mediterranean.
+With only 312 souls.
+
+This isn't a typical cruise 🚢
+
+It's an intimate year-end reset. A chance to powerfully close 2025, extract its lessons, and architect your most extraordinary 2026.
+
+7 days. 6 Spanish destinations. 2 exclusive sessions I've never taught before.
+
+Swipe to see what this voyage is really about →
+
+🔗 Link in bio to reserve your spot
+📅 December 13-20, 2025
+⛵ Star Legend (max 312 guests)
+🇪🇸 Barcelona • Valencia • Gibraltar • Málaga & more
+
+Only 312 spots. Premium (25 spots) and VIP (8 spots) tiers available.
+
+Will you join me?
+
+#MindvalleyTransformation #MediterraneanMagic #YearEndReset #ConsciousTravel #PrivateYachtLife #VisionFor2026</div>
+        </div>
+
+        <!-- POSTING STRATEGY -->
+        <div class="strategy-section">
+            <h2>🎯 Posting Strategy</h2>
+            <div class="strategy-grid">
+                <div class="strategy-item">
+                    <h4>Best Time</h4>
+                    <p>Tuesday or Thursday<br>10 AM - 12 PM PT</p>
+                </div>
+                <div class="strategy-item">
+                    <h4>Tags</h4>
+                    <p>@windstarcruises<br>@mindvalley<br>Location: Barcelona, Spain</p>
+                </div>
+                <div class="strategy-item">
+                    <h4>Story Promo</h4>
+                    <p>Repost Slide 1<br>Countdown to Dec 13<br>Behind-the-scenes</p>
+                </div>
+                <div class="strategy-item">
+                    <h4>Engagement</h4>
+                    <p>"Tag someone who needs this"<br>Pin FAQ comment<br>Respond quickly</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDES -->
+        <div class="slides-grid">
+
+            <!-- SLIDE 1 -->
+            <div class="slide-card">
+                <div class="slide-header">
+                    <div class="slide-number">1</div>
+                    <h3 class="slide-title">Hook / Cover Slide</h3>
+                </div>
+                <img src="https://vault.windstarcruises.com/image/upload/v1761603904/2025%20Campaigns/2025_Q4_Mindvalley_cruise/Web/2025_Q4_Mindvalley_cruise_hero.jpg" alt="Yacht sailing Mediterranean" class="slide-image">
+                <div class="slide-content">
+                    <div class="slide-copy">
+                        WHAT IF YOUR 2026<br>
+                        TRANSFORMATION<br>
+                        BEGAN...<br><br>
+                        on a private yacht?
+                    </div>
+                    <div class="design-notes">
+                        <h4>Design Notes:</h4>
+                        <ul>
+                            <li>Dark overlay (60% opacity) on image</li>
+                            <li>Bold white sans-serif typography</li>
+                            <li>Gold accent line under "private yacht"</li>
+                            <li>Minimalist with negative space</li>
+                        </ul>
+                    </div>
+                    <div class="image-credit">
+                        Image: Windstar Cruises Star Legend yacht sailing Mediterranean waters
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 2 -->
+            <div class="slide-card">
+                <div class="slide-header">
+                    <div class="slide-number">2</div>
+                    <h3 class="slide-title">The Invitation</h3>
+                </div>
+                <img src="https://vault.windstarcruises.com/image/upload/t_regional-port-highlight-web592x445/v1760730217/Head%20Shots/Enrichment%20Speakers/Vishen%20Lakhiani/A-Fest_Portugal_2019_-_0_049687_-_Photo_by_All_Is_Amazing.jpg" alt="Vishen Lakhiani" class="slide-image">
+                <div class="slide-content">
+                    <div class="slide-copy">
+                        I'M DOING SOMETHING<br>
+                        I'VE NEVER DONE BEFORE<br><br>
+                        December 13-20, 2025<br>
+                        Southern Spain<br>
+                        312 guests (only)
+                    </div>
+                    <div class="design-notes">
+                        <h4>Design Notes:</h4>
+                        <ul>
+                            <li>Clean white background on text area</li>
+                            <li>Portrait of Vishen (warm, approachable)</li>
+                            <li>Dates in elegant serif font</li>
+                            <li>Gold accent for "312 guests"</li>
+                        </ul>
+                    </div>
+                    <div class="image-credit">
+                        Image: Vishen Lakhiani at A-Fest Portugal (authentic, engaged)
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3 -->
+            <div class="slide-card">
+                <div class="slide-header">
+                    <div class="slide-number">3</div>
+                    <h3 class="slide-title">Not A Typical Cruise</h3>
+                </div>
+                <img src="https://vault.windstarcruises.com/image/upload/t_regional-port-highlight-web592x445/v1675457101/Life%20Onboard/Models%20on%20board/Star%20Pride/On%20deck%20yoga/tiff/YOGA_1709.jpg" alt="Yoga on yacht deck" class="slide-image">
+                <div class="slide-content">
+                    <div class="slide-copy">
+                        THIS ISN'T...<br>
+                        ❌ A mega cruise with 3,000 strangers<br>
+                        ❌ Formal & stuffy luxury<br>
+                        ❌ Just sightseeing<br><br>
+                        IT'S...<br>
+                        ✅ A private yacht (312 max)<br>
+                        ✅ Casual luxury & fun<br>
+                        ✅ Deep transformation
+                    </div>
+                    <div class="design-notes">
+                        <h4>Design Notes:</h4>
+                        <ul>
+                            <li>Split design: left (what it's NOT) vs right (what it IS)</li>
+                            <li>Clean icons/emojis for visual interest</li>
+                            <li>Sans-serif font for readability</li>
+                        </ul>
+                    </div>
+                    <div class="image-credit">
+                        Image: Intimate yoga practice on deck showing scale and casual atmosphere
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4 -->
+            <div class="slide-card">
+                <div class="slide-header">
+                    <div class="slide-number">4</div>
+                    <h3 class="slide-title">The Experience</h3>
+                </div>
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=1200&fit=crop" alt="Mediterranean sunset" class="slide-image">
+                <div class="slide-content">
+                    <div class="slide-copy">
+                        WHAT AWAITS YOU<br><br>
+                        🧘 2 exclusive 90-min sessions<br>
+                        (never taught before)<br><br>
+                        🌅 Daily yoga & meditation<br>
+                        ⛵ 6 stunning Spanish ports<br>
+                        🍹 Wellness elixir bar<br>
+                        ✨ All-inclusive luxury
+                    </div>
+                    <div class="design-notes">
+                        <h4>Design Notes:</h4>
+                        <ul>
+                            <li>Vertical list format with icons</li>
+                            <li>Mediterranean color palette</li>
+                            <li>Each item has breathing room</li>
+                        </ul>
+                    </div>
+                    <div class="image-credit">
+                        Image: Mediterranean sunset with warm tones (aspirational setting)
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 5 -->
+            <div class="slide-card">
+                <div class="slide-header">
+                    <div class="slide-number">5</div>
+                    <h3 class="slide-title">The Destinations</h3>
+                </div>
+                <img src="https://vault.windstarcruises.com/image/upload/t_regional-port-highlight-web592x445/v1660583052/Destinations/Europe/Med/Stock/Spain/Barcelona/D_EU_Barcelona_026_ca.jpg" alt="Barcelona Spain" class="slide-image">
+                <div class="slide-content">
+                    <div class="slide-copy">
+                        6 SPANISH<br>
+                        DESTINATIONS<br><br>
+                        Barcelona 🎨<br>
+                        Valencia 🥘<br>
+                        Cartagena 🏛️<br>
+                        Gibraltar 🪨<br>
+                        Málaga ☀️<br>
+                        Palma de Mallorca 🌊
+                    </div>
+                    <div class="design-notes">
+                        <h4>Design Notes:</h4>
+                        <ul>
+                            <li>Map-style layout showing route</li>
+                            <li>Each destination with icon/emoji</li>
+                            <li>Gold pins marking locations</li>
+                        </ul>
+                    </div>
+                    <div class="image-credit">
+                        Image: Barcelona cityscape with Sagrada Familia (cultural richness)
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 6 -->
+            <div class="slide-card">
+                <div class="slide-header">
+                    <div class="slide-number">6</div>
+                    <h3 class="slide-title">The Transformation</h3>
+                </div>
+                <img src="https://vault.windstarcruises.com/image/upload/t_regional-port-highlight-web592x445/v1760730299/Head%20Shots/Enrichment%20Speakers/Vishen%20Lakhiani/Vishen_Lakhiani_10._detsember_2020_STUUDIO7_4446_1.jpg" alt="Vishen contemplative" class="slide-image">
+                <div class="slide-content">
+                    <div class="slide-copy">
+                        POWERFULLY<br>
+                        WRAP UP 2025<br><br>
+                        ↓<br><br>
+                        INTENTIONALLY<br>
+                        ARCHITECT 2026<br><br>
+                        With Vishen personally<br>
+                        guiding you
+                    </div>
+                    <div class="design-notes">
+                        <h4>Design Notes:</h4>
+                        <ul>
+                            <li>Minimalist with arrow pointing down</li>
+                            <li>Serif font for main text</li>
+                            <li>Portrait of Vishen in meditation/teaching</li>
+                        </ul>
+                    </div>
+                    <div class="image-credit">
+                        Image: Vishen in contemplative pose (transformation energy)
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 7 -->
+            <div class="slide-card">
+                <div class="slide-header">
+                    <div class="slide-number">7</div>
+                    <h3 class="slide-title">Who This Is For</h3>
+                </div>
+                <img src="https://images.unsplash.com/photo-1528605105345-5344ea20e269?w=1200&h=1200&fit=crop" alt="Diverse community" class="slide-image">
+                <div class="slide-content">
+                    <div class="slide-copy">
+                        THIS VOYAGE IS<br>
+                        FOR YOU IF:<br><br>
+                        ✓ You're 40+ and take growth seriously<br>
+                        ✓ You can pick up and go<br>
+                        ✓ You invest in transformation<br>
+                        ✓ You value intimate connection<br>
+                        ✓ You're ready to end 2025 powerfully
+                    </div>
+                    <div class="design-notes">
+                        <h4>Design Notes:</h4>
+                        <ul>
+                            <li>Checklist format</li>
+                            <li>Clean readable font</li>
+                            <li>Gold checkmarks</li>
+                        </ul>
+                    </div>
+                    <div class="image-credit">
+                        Image: Diverse group (40+) in genuine connection (community vibe)
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 8 -->
+            <div class="slide-card">
+                <div class="slide-header">
+                    <div class="slide-number">8</div>
+                    <h3 class="slide-title">The Sessions</h3>
+                </div>
+                <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1200&h=1200&fit=crop" alt="Teaching moment" class="slide-image">
+                <div class="slide-content">
+                    <div class="slide-copy">
+                        2 EXCLUSIVE SESSIONS<br>
+                        Never taught before<br><br>
+                        SESSION 1<br>
+                        Mastering 6 Phase<br>
+                        Meditation<br><br>
+                        SESSION 2<br>
+                        Architecting Your<br>
+                        2026 Vision
+                    </div>
+                    <div class="design-notes">
+                        <h4>Design Notes:</h4>
+                        <ul>
+                            <li>Two-column layout</li>
+                            <li>Each session in own card</li>
+                            <li>Gold divider between</li>
+                        </ul>
+                    </div>
+                    <div class="image-credit">
+                        Image: Intimate teaching setting (wisdom being shared)
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 9 -->
+            <div class="slide-card">
+                <div class="slide-header">
+                    <div class="slide-number">9</div>
+                    <h3 class="slide-title">The Investment</h3>
+                </div>
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&h=1200&fit=crop" alt="Yacht luxury" class="slide-image">
+                <div class="slide-content">
+                    <div class="slide-copy">
+                        THE INVESTMENT<br><br>
+                        BASE VOYAGE<br>
+                        $4,399+ per person<br>
+                        All-inclusive luxury<br><br>
+                        PREMIUM (+25 SPOTS)<br>
+                        +$250<br>
+                        Meet & greet with Vishen<br><br>
+                        VIP (+8 SPOTS)<br>
+                        +$500<br>
+                        Intimate table with Vishen<br><br>
+                        📞 866-258-7245
+                    </div>
+                    <div class="design-notes">
+                        <h4>Design Notes:</h4>
+                        <ul>
+                            <li>Three-tier layout (cards)</li>
+                            <li>Premium tier highlighted with gold</li>
+                            <li>Phone number prominent at bottom</li>
+                        </ul>
+                    </div>
+                    <div class="image-credit">
+                        Image: Elegant yacht interior (sophisticated not ostentatious)
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 10 -->
+            <div class="slide-card">
+                <div class="slide-header">
+                    <div class="slide-number">10</div>
+                    <h3 class="slide-title">Call To Action</h3>
+                </div>
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=1200&fit=crop" alt="Mediterranean horizon" class="slide-image">
+                <div class="slide-content">
+                    <div class="slide-copy">
+                        THE MEDITERRANEAN<br>
+                        IS CALLING<br><br>
+                        Will you answer?<br><br>
+                        🔗 Link in bio to reserve<br>
+                        📅 December 13-20, 2025<br>
+                        ⛵ Only 312 spots<br><br>
+                        Tag someone who needs<br>
+                        this transformation →
+                    </div>
+                    <div class="design-notes">
+                        <h4>Design Notes:</h4>
+                        <ul>
+                            <li>Centered text</li>
+                            <li>Large clear CTA</li>
+                            <li>Gold or blue accent</li>
+                            <li>Minimal clutter for impact</li>
+                        </ul>
+                    </div>
+                    <div class="image-credit">
+                        Image: Breathtaking Mediterranean sunset from yacht (aspirational moment)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- DESIGN SPECS -->
+        <div class="strategy-section" style="margin-top: 3rem;">
+            <h2>🎨 Design Specifications</h2>
+            <div class="strategy-grid">
+                <div class="strategy-item">
+                    <h4>Size</h4>
+                    <p>1080 x 1080px<br>(Square format)<br>Under 8MB per slide</p>
+                </div>
+                <div class="strategy-item">
+                    <h4>Colors</h4>
+                    <p>Navy: #0066CC<br>Gold: #D4AF37<br>White: #FFFFFF<br>Charcoal: #1A1A1A</p>
+                </div>
+                <div class="strategy-item">
+                    <h4>Typography</h4>
+                    <p>Headlines: Playfair Display<br>Body: Inter<br>All caps for emphasis</p>
+                </div>
+                <div class="strategy-item">
+                    <h4>Image Treatment</h4>
+                    <p>Warm Mediterranean tones<br>Dark overlay on text slides<br>Cohesive lighting/saturation</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUCCESS METRICS -->
+        <div class="strategy-section">
+            <h2>📊 Success Metrics</h2>
+            <div class="strategy-grid">
+                <div class="strategy-item">
+                    <h4>Reach Goal</h4>
+                    <p>100K+ impressions</p>
+                </div>
+                <div class="strategy-item">
+                    <h4>Click-Through</h4>
+                    <p>4%+ to link in bio</p>
+                </div>
+                <div class="strategy-item">
+                    <h4>Saves</h4>
+                    <p>8-10% save rate<br>(High intent signal)</p>
+                </div>
+                <div class="strategy-item">
+                    <h4>Shares</h4>
+                    <p>5%+ share rate<br>(Tag-a-friend)</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
