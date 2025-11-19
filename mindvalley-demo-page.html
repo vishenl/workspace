@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Transform your life with Mindvalley's personal growth programs">
+    <title>Mindvalley - Transform Your Life</title>
+
+    <!-- Web fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+/* ========== DESIGN TOKENS ========== */
+:root {
+    /* Colors */
+    --mv-purple: #8A2BE2;
+    --mv-purple-light: #DA70D6;
+    --mv-gold: #DAA520;
+    --mv-dark: #1A1A1A;
+    --mv-gray: #404040;
+    --mv-gray-light: #FAFAFA;
+    --mv-white: #FFFFFF;
+
+    /* Typography */
+    --font-heading: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* Font Sizes */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: clamp(1rem, 2vw, 1.125rem);
+    --text-xl: clamp(1.125rem, 2.5vw, 1.375rem);
+    --text-2xl: clamp(1.25rem, 2.5vw, 1.75rem);
+    --text-3xl: clamp(1.5rem, 3.5vw, 2rem);
+    --text-4xl: clamp(2rem, 5vw, 3rem);
+    --text-5xl: clamp(2.5rem, 6vw, 4.5rem);
+
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+    --space-xl: 2.5rem;
+    --space-2xl: 3rem;
+    --space-3xl: 4rem;
+    --space-4xl: 5rem;
+    --space-5xl: 6rem;
+
+    /* Shadows */
+    --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 8px 30px rgba(138, 43, 226, 0.15);
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 100px;
+}
+
+/* ========== TYPOGRAPHY SYSTEM ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--mv-gray);
+    line-height: 1.65;
+}
+
+h1 {
+    font-family: var(--font-heading);
+    font-size: var(--text-5xl);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--mv-dark);
+}
+
+h2 {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--mv-dark);
+}
+
+h3 {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--mv-dark);
+}
+
+h4 {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--mv-dark);
+}
+
+h5 {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--mv-dark);
+}
+
+h6 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--mv-dark);
+}
+
+p {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    line-height: 1.65;
+    color: var(--mv-gray);
+}
+
+.lead {
+    font-size: var(--text-xl);
+    line-height: 1.6;
+    color: var(--mv-gray);
+}
+
+/* ========== HERO - DARK BACKGROUND WITH IMAGE OVERLAY ========== */
+.hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1A1A1A 0%, #2D1B3D 100%);
+    padding: 6rem 2rem;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.35;
+    z-index: 0;
+    filter: saturate(1.3) brightness(1.1);
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center top,
+        rgba(255, 215, 0, 0.15) 0%,
+        transparent 50%),
+        radial-gradient(ellipse at 30% 40%,
+        rgba(138, 43, 226, 0.1) 0%,
+        transparent 40%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+        rgba(138, 43, 226, 0.3) 0%,
+        rgba(218, 165, 32, 0.2) 50%,
+        rgba(255, 107, 107, 0.3) 100%);
+    opacity: 0.6;
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 100px;
+    color: #FFFFFF;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
+.hero h1 {
+    color: #FFFFFF;
+    margin-bottom: 1.5rem;
+}
+
+.hero .lead {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ========== TRUST SIGNALS - 4 COLUMN STATS GRID ========== */
+.trust-signals {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.trust-signal {
+    text-align: center;
+}
+
+.trust-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 0.25rem;
+}
+
+.trust-label {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ========== SECTION HEADER ========== */
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-eyebrow {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mv-purple);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.section-description {
+    font-size: var(--text-xl);
+    line-height: 1.6;
+    color: var(--mv-gray);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ========== LAYOUT ========== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+section {
+    padding: var(--space-5xl) 0;
+}
+
+/* ========== PROGRAM CARD - 16:9 IMAGE BOX ========== */
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+.program-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.program-card-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #f8f5ff 0%, #fff5e6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+.program-card-content {
+    padding: 2.5rem;
+}
+
+.program-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--mv-gold);
+}
+
+.program-card-content h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--mv-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+}
+
+.program-card-content .author {
+    color: var(--mv-purple);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.program-card-content p {
+    color: var(--mv-gray);
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+/* ========== TECHNIQUE CARD - WHITE GLASS ========== */
+.techniques-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+}
+
+.technique-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 2.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.technique-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-md);
+}
+
+.technique-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--mv-purple);
+    margin-bottom: 1.5rem;
+}
+
+.technique-card p {
+    color: var(--mv-gray);
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+/* ========== FAQ ITEM - LEFT BORDER ACCENT ========== */
+.faq-item {
+    background: var(--mv-gray-light);
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--mv-purple);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.faq-item:hover {
+    background: #F8F5FF;
+}
+
+.faq-question-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.faq-question {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--mv-dark);
+    margin: 0;
+    flex: 1;
+}
+
+.faq-toggle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--mv-purple);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-left: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.faq-toggle:hover {
+    background: var(--mv-purple-light);
+    transform: scale(1.1);
+}
+
+.faq-answer-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faq-answer-wrapper.active {
+    max-height: 500px;
+    padding: 0 2.5rem 2.5rem 2.5rem;
+}
+
+.faq-answer {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--mv-gray);
+}
+
+.faq-item.active .faq-toggle {
+    transform: rotate(45deg);
+}
+
+/* ========== PRICE CLARIFICATION BOX - WHITE GLASS ========== */
+.price-clarification-box {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(138, 43, 226, 0.2);
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    text-align: left;
+    box-shadow: var(--shadow-sm);
+    max-width: 800px;
+    margin: 3rem auto;
+}
+
+.price-clarification-box strong {
+    color: var(--mv-purple);
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.price-clarification-box p {
+    color: var(--mv-gray);
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .hero {
+        padding: 4rem 1.5rem;
+        min-height: 70vh;
+    }
+
+    .trust-signals {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    section {
+        padding: var(--space-3xl) 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .trust-signals {
+        grid-template-columns: 1fr;
+    }
+}
+    </style>
+</head>
+<body>
+
+<!-- COMPONENT: Hero - Dark Background with Image Overlay -->
+<section class="hero">
+    <img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=1600&h=900&fit=crop" alt="Background" class="hero-background">
+    <div class="hero-gradient"></div>
+
+    <div class="hero-content">
+        <span class="hero-badge">Transform Your Life</span>
+        <h1>Unlock Your Full Potential</h1>
+        <p class="lead">Join thousands of students mastering meditation, manifestation, and personal growth with world-class teachers.</p>
+
+        <!-- COMPONENT: Trust Signals - 4 Column Stats Grid -->
+        <div class="trust-signals">
+            <div class="trust-signal">
+                <div class="trust-number">25,000+</div>
+                <div class="trust-label">Students Enrolled</div>
+            </div>
+            <div class="trust-signal">
+                <div class="trust-number">500+</div>
+                <div class="trust-label">Guided Practices</div>
+            </div>
+            <div class="trust-signal">
+                <div class="trust-number">30+</div>
+                <div class="trust-label">Expert Teachers</div>
+            </div>
+            <div class="trust-signal">
+                <div class="trust-number">195</div>
+                <div class="trust-label">Countries</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COMPONENT: Section Header - Eyebrow + Title + Description -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <span class="section-eyebrow">Featured Programs</span>
+            <h2>Choose Your Path to Mastery</h2>
+            <p class="section-description">Explore our world-class programs designed to help you achieve extraordinary results in every area of your life.</p>
+        </div>
+
+        <!-- COMPONENT: Program Card - 16:9 Image Box -->
+        <div class="programs-grid">
+            <div class="program-card">
+                <div class="program-card-image">16:9 Image</div>
+                <div class="program-card-content">
+                    <h3>Mindfulness Mastery</h3>
+                    <p class="author">with Emily Fletcher</p>
+                    <p>Master the art of meditation and cultivate inner peace through proven techniques used by high performers worldwide.</p>
+                </div>
+            </div>
+
+            <div class="program-card">
+                <div class="program-card-image">16:9 Image</div>
+                <div class="program-card-content">
+                    <h3>Energy Medicine</h3>
+                    <p class="author">with Donna Eden</p>
+                    <p>Learn to harness your body's natural healing energy and restore vitality using ancient wisdom and modern science.</p>
+                </div>
+            </div>
+
+            <div class="program-card">
+                <div class="program-card-image">16:9 Image</div>
+                <div class="program-card-content">
+                    <h3>Manifesting Abundance</h3>
+                    <p class="author">with Christie Marie Sheldon</p>
+                    <p>Clear your energy blocks and align with abundance to create the life you've always dreamed of living.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COMPONENT: Technique Card - White Glass -->
+<section style="background: linear-gradient(180deg, #FFFFFF 0%, #F8F5FF 100%);">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-eyebrow">Core Techniques</span>
+            <h2>Powerful Practices You'll Learn</h2>
+        </div>
+
+        <div class="techniques-grid">
+            <div class="technique-card">
+                <h3>6-Phase Meditation</h3>
+                <p>A powerful 20-minute practice that combines compassion, gratitude, forgiveness, visualization, daily intentions, and blessing.</p>
+            </div>
+
+            <div class="technique-card">
+                <h3>Energy Clearing</h3>
+                <p>Release negative energy blocks and restore your natural vitality using simple yet effective energy medicine techniques.</p>
+            </div>
+
+            <div class="technique-card">
+                <h3>Abundance Activation</h3>
+                <p>Shift your frequency to align with wealth consciousness and attract opportunities effortlessly into your life.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COMPONENT: FAQ Item - Left Border Accent -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <span class="section-eyebrow">Questions</span>
+            <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div class="faq-item">
+                <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                    <h4 class="faq-question">How long do I have access to the program?</h4>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer-wrapper">
+                    <p class="faq-answer">You have lifetime access to all program materials. Once enrolled, you can revisit the content anytime, anywhere, and learn at your own pace. All future updates are included free of charge.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                    <h4 class="faq-question">Is this suitable for beginners?</h4>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer-wrapper">
+                    <p class="faq-answer">Absolutely! Our programs are designed for all levels, from complete beginners to advanced practitioners. Each lesson builds progressively, ensuring you master the fundamentals before moving to advanced techniques.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                    <h4 class="faq-question">What if I'm not satisfied with the program?</h4>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer-wrapper">
+                    <p class="faq-answer">We offer a 15-day money-back guarantee. If you're not completely satisfied with your experience, simply contact our support team within 15 days of purchase for a full refund, no questions asked.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COMPONENT: Price Clarification Box - White Glass -->
+<section style="background: linear-gradient(180deg, #F8F5FF 0%, #FFFFFF 100%);">
+    <div class="container">
+        <div class="price-clarification-box">
+            <strong>Important Pricing Note:</strong>
+            <p>This is a limited-time offer. The price shown reflects our early-bird discount and will increase after the enrollment deadline. Lock in your lifetime access now at this special rate.</p>
+        </div>
+    </div>
+</section>
+
+<script>
+function toggleFAQ(element) {
+    const faqItem = element.parentElement;
+    const answerWrapper = element.nextElementSibling;
+    faqItem.classList.toggle('active');
+    answerWrapper.classList.toggle('active');
+}
+</script>
+
+</body>
+</html>
