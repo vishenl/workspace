@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copywriting Masterclass - Mindvalley</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: #ffffff;
+        }
+
+        /* Password Protection Styles */
+        #password-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        #password-screen.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+        }
+
+        .password-logo {
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .password-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        #password-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        #password-input:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+        }
+
+        #password-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #password-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.3);
+        }
+
+        .password-error {
+            color: #e74c3c;
+            margin-top: 15px;
+            font-size: 0.95em;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        /* Main Content - Hidden by default */
+        #main-content {
+            display: none;
+        }
+
+        #main-content.visible {
+            display: block;
+        }
+
+        /* Mindvalley Styling */
+        .mindvalley-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mindvalley-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(108, 92, 231, 0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+        }
+
+        .mindvalley-header h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .mindvalley-header p {
+            font-size: 1.4em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .mindvalley-logo {
+            font-size: 1em;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        nav {
+            background: white;
+            padding: 30px;
+            margin: -50px auto 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 10;
+            max-width: 1100px;
+        }
+
+        nav h3 {
+            margin-bottom: 20px;
+            color: #1a1a2e;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+
+        nav ul li a {
+            color: #2c3e50;
+            text-decoration: none;
+            padding: 12px 18px;
+            display: block;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover {
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            color: white;
+            transform: translateX(8px);
+        }
+
+        section {
+            background: white;
+            padding: 50px 40px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: #1a1a2e;
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #6c5ce7;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: #16213e;
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        h4 {
+            color: #2c3e50;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .rule-box {
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+            border-left: 6px solid #6c5ce7;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(108, 92, 231, 0.08);
+        }
+
+        .rule-box h4 {
+            color: #6c5ce7;
+            margin-top: 0;
+            font-size: 1.4em;
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, #fff9f0 0%, #fff5e6 100%);
+            border-left: 6px solid #f39c12;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(243, 156, 18, 0.08);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
+            border-left: 6px solid #e74c3c;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(231, 76, 60, 0.08);
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6f9ed 100%);
+            border-left: 6px solid #27ae60;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(39, 174, 96, 0.08);
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 30px;
+            padding-left: 70px;
+            position: relative;
+        }
+
+        .step-list li:before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.3em;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        code {
+            background: #f5f7fa;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            color: #6c5ce7;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #1a1a2e;
+            color: #f8f8f2;
+            padding: 25px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 25px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            line-height: 1.6;
+        }
+
+        .tool-card {
+            background: white;
+            border: 2px solid #e8ecf1;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            transition: all 0.3s;
+        }
+
+        .tool-card:hover {
+            border-color: #6c5ce7;
+            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .tool-card h4 {
+            margin-top: 0;
+            color: #6c5ce7;
+            font-size: 1.4em;
+        }
+
+        .funnel-diagram {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .funnel-step {
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            color: white;
+            padding: 25px;
+            margin: 15px auto;
+            border-radius: 15px;
+            max-width: 85%;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(108, 92, 231, 0.2);
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .funnel-step:after {
+            content: '↓';
+            display: block;
+            font-size: 2.5em;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        .funnel-step:last-child:after {
+            content: '';
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            color: white;
+            padding: 18px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 10px 5px;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        table th,
+        table td {
+            padding: 18px;
+            text-align: left;
+            border-bottom: 1px solid #e8ecf1;
+        }
+
+        table th {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        table tr:hover {
+            background: #f8f9ff;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffedcc 100%);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+            color: #e67e22;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            margin-top: 50px;
+            border-radius: 20px;
+        }
+
+        footer p {
+            margin: 10px 0;
+            opacity: 0.9;
+        }
+
+        .mindvalley-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9em;
+            margin-top: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .mindvalley-header h1 {
+                font-size: 2.2em;
+            }
+
+            .mindvalley-header p {
+                font-size: 1.1em;
+            }
+
+            section {
+                padding: 30px 20px;
+            }
+
+            nav ul {
+                grid-template-columns: 1fr;
+            }
+
+            .funnel-step {
+                max-width: 95%;
+            }
+
+            .password-container {
+                padding: 40px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Protection Screen -->
+    <div id="password-screen">
+        <div class="password-container">
+            <div class="password-logo">MINDVALLEY</div>
+            <div class="password-subtitle">Copywriting Masterclass</div>
+            <p style="color: #666; margin-bottom: 30px;">Enter your access code to continue</p>
+            <input type="password" id="password-input" placeholder="Enter password" autocomplete="off">
+            <button id="password-submit">Access Masterclass</button>
+            <p class="password-error" id="password-error">Incorrect password. Please try again.</p>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden until password is entered) -->
+    <div id="main-content">
+        <header class="mindvalley-header">
+            <div class="mindvalley-logo">MINDVALLEY</div>
+            <h1>Copywriting Masterclass</h1>
+            <p>Transform Your Website with AI-Powered Copywriting in 30 Minutes</p>
+        </header>
+
+        <div class="container">
+            <nav>
+                <h3>📋 Masterclass Navigation</h3>
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#golden-rules">The 5 Golden Rules</a></li>
+                    <li><a href="#building-gpt">Build Your AI Copywriter</a></li>
+                    <li><a href="#sales-funnel">Your Sales Funnel</a></li>
+                    <li><a href="#optimization">Optimization Checklist</a></li>
+                    <li><a href="#case-studies">Real Case Studies</a></li>
+                    <li><a href="#tools">Essential Tools</a></li>
+                    <li><a href="#common-mistakes">Common Mistakes</a></li>
+                    <li><a href="#action-plan">30-Minute Action Plan</a></li>
+                </ul>
+            </nav>
+
+            <section id="introduction">
+                <h2>📖 Welcome to Your Transformation</h2>
+                <p style="font-size: 1.2em; margin-bottom: 30px;">This comprehensive guide is based on Vishen's live Copywriting Masterclass. You'll learn how to transform your website copy using AI, without spending years mastering traditional copywriting.</p>
+
+                <div class="success-box">
+                    <h4>🎯 What You'll Master Today</h4>
+                    <ul style="font-size: 1.05em; line-height: 2;">
+                        <li>✨ Write copy at a 15-year-old reading level for maximum clarity</li>
+                        <li>✨ Create clear calls-to-action that convert visitors into customers</li>
+                        <li>✨ Build a custom ChatGPT copywriting assistant trained on YOUR market</li>
+                        <li>✨ Design sales funnels that naturally guide users to purchase</li>
+                        <li>✨ Avoid the "Paradox of Choice" that kills conversions</li>
+                        <li>✨ Get users to actually USE your product (not just buy it)</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <h4>🚀 The Mindvalley Approach</h4>
+                    <p style="font-size: 1.05em;">At Mindvalley, we've spent millions testing and optimizing copy across hundreds of campaigns. This guide distills those learnings into actionable steps you can implement today. No theory - just proven strategies that work.</p>
+                </div>
+            </section>
+
+            <section id="golden-rules">
+                <h2>⚡ The 5 Golden Rules of Copywriting</h2>
+
+                <div class="rule-box">
+                    <h4>Rule #1: Write for No More Than 15-Year-Old Comprehension Level</h4>
+                    <p style="font-size: 1.05em;"><strong>Why it matters:</strong> Multiple studies prove that content matching a 15-year-old's reading level converts better across ALL audiences, regardless of education level.</p>
+
+                    <h4 style="margin-top: 25px;">How to Test:</h4>
+                    <ol style="font-size: 1.05em; line-height: 2; margin-left: 20px;">
+                        <li>Go to <a href="https://hemingwayapp.com" target="_blank" style="color: #6c5ce7; font-weight: 600;">HemingwayApp.com</a></li>
+                        <li>Copy your website text</li>
+                        <li>Paste it into Hemingway</li>
+                        <li>Check your grade level (aim for grade 5-8)</li>
+                    </ol>
+
+                    <div class="example-box" style="margin-top: 25px;">
+                        <strong>✅ Example from Class:</strong><br><br>
+                        <p>When Henri tested her website, it came back as Grade 5 (approximately 10-11 years old) - Perfect! This proves that even complex transformation work can be explained simply.</p>
+                    </div>
+                </div>
+
+                <div class="rule-box">
+                    <h4>Rule #2: Have a Clear Call to Action (CTA)</h4>
+                    <p style="font-size: 1.05em;"><strong>The Problem:</strong> Most websites confuse visitors with multiple competing CTAs.</p>
+
+                    <div class="warning-box" style="margin-top: 20px;">
+                        <strong style="font-size: 1.1em;">❌ Common Mistake:</strong><br><br>
+                        <p style="font-size: 1.05em;">"Let's Book Clarity" + "Empower" + "Impact" + "Free Guide" + "Reignite Your Flame" + "My Story" + "Let's Connect"</p>
+                        <p style="margin-top: 15px; font-weight: 600;">Result: Visitor confusion = No action taken</p>
+                    </div>
+
+                    <div class="success-box" style="margin-top: 20px;">
+                        <strong style="font-size: 1.1em;">✅ Solution:</strong><br><br>
+                        <p style="font-size: 1.05em;">ONE primary call to action throughout the page:</p>
+                        <p style="font-size: 1.2em; font-weight: 700; margin-top: 15px; color: #27ae60;">"Download Your Free Guide"</p>
+                        <p style="margin-top: 10px;">(appears 2-3 times)<br><br>Everything else is secondary or removed.</p>
+                    </div>
+                </div>
+
+                <div class="rule-box">
+                    <h4>Rule #3: It's Not About Making a Sale - It's About Getting Users to USE the Product</h4>
+                    <p style="font-size: 1.05em; margin-bottom: 25px;"><strong>The Mindvalley Case Study:</strong></p>
+
+                    <div class="example-box">
+                        <h4 style="color: #e67e22;">Initial Approach:</h4>
+                        <p style="font-size: 1.05em;">"Download your free audio and ebook" → Pop-up → Instant download</p>
+                        <p style="font-size: 1.2em; font-weight: 700; margin-top: 15px; color: #e74c3c;">Result: 20% MORE emails, but 30% FEWER sales 📉</p>
+
+                        <h4 style="margin-top: 30px; color: #e67e22;">Why?</h4>
+                        <p style="font-size: 1.05em;">People weren't reading the ebook because they didn't understand why they needed it.</p>
+
+                        <h4 style="margin-top: 30px; color: #27ae60;">Solution:</h4>
+                        <p style="font-size: 1.05em;">Create a dedicated landing page explaining:</p>
+                        <ul style="font-size: 1.05em; line-height: 2; margin-top: 15px;">
+                            <li>What's in the guide</li>
+                            <li>Why you need it</li>
+                            <li>Benefits you'll receive</li>
+                            <li>Social proof</li>
+                            <li>How to use it</li>
+                        </ul>
+                    </div>
+
+                    <h4 style="margin-top: 30px;">Apply This To:</h4>
+                    <ul style="font-size: 1.05em; line-height: 2;">
+                        <li><strong>Free guides:</strong> Create a landing page that sells the guide</li>
+                        <li><strong>Strategy calls:</strong> Explain what happens on the call</li>
+                        <li><strong>Products:</strong> Create a "Welcome" page showing how to use the product</li>
+                    </ul>
+                </div>
+
+                <div class="rule-box">
+                    <h4>Rule #4: All Buttons Must Have the Same Messaging</h4>
+                    <p style="font-size: 1.05em; margin-bottom: 25px;">Small changes in button text can significantly impact conversions.</p>
+
+                    <table>
+                        <tr>
+                            <th>Context</th>
+                            <th>❌ Avoid</th>
+                            <th>✅ Use This</th>
+                        </tr>
+                        <tr>
+                            <td>First purchase</td>
+                            <td>"Add to Cart"</td>
+                            <td>"Add to Cart"</td>
+                        </tr>
+                        <tr>
+                            <td>Upsell (after purchase)</td>
+                            <td>"Add to Cart"</td>
+                            <td><strong>"Add to My Order"</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Free guide</td>
+                            <td>"Click Here" → "Get Guide" → "Download"</td>
+                            <td><strong>"Get My Free Guide Now"</strong> (consistent)</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="rule-box">
+                    <h4>Rule #5: Get Your Audience to Raise Their Hand (Call Out)</h4>
+                    <p style="font-size: 1.05em;"><strong>Purpose:</strong> Immediately tell visitors if this page is for them.</p>
+
+                    <div class="example-box" style="margin-top: 25px;">
+                        <strong style="font-size: 1.1em;">❌ Generic:</strong><br><br>
+                        <p style="font-size: 1.05em;">"Transform Your Business with Our Coaching"</p><br>
+
+                        <strong style="font-size: 1.1em;">✅ Specific Call Out:</strong><br><br>
+                        <p style="font-size: 1.1em; font-weight: 600; color: #27ae60;">"A Free 10-Minute Guide for Female Founders, Coaches, and Change Makers Whose Fire Feels Dim But Whose Mission Is Far From Done"</p>
+                    </div>
+
+                    <h4 style="margin-top: 30px;">Benefits of Clear Call Outs:</h4>
+                    <ul style="font-size: 1.05em; line-height: 2;">
+                        <li><strong>Attracts ideal customers:</strong> "That's me!" reaction</li>
+                        <li><strong>Repels wrong customers:</strong> They leave quickly (good for your metrics)</li>
+                        <li><strong>Improves list quality:</strong> Higher engagement, better deliverability</li>
+                        <li><strong>Increases conversions:</strong> People who stay are pre-qualified</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="building-gpt">
+                <h2>🤖 Building Your Custom Copywriting GPT</h2>
+
+                <p style="font-size: 1.2em; margin-bottom: 30px;">You don't need to spend 5 years learning copywriting. Instead, build an AI assistant trained specifically for YOUR market in 30 minutes.</p>
+
+                <h3>Method 1: Quick Start (Use Mindvalley Template)</h3>
+
+                <ol class="step-list">
+                    <li>
+                        <strong style="font-size: 1.1em;">Download the Mindvalley Copywriting Guide</strong>
+                        <p style="margin-top: 10px;">Go to Entrepreneurship Mastery → Lesson 2 → Download "Master Guide to Copywriting.txt"</p>
+                        <p style="margin-top: 10px; font-style: italic; color: #666;">Note: This is optimized for Mindvalley's audience but works well as a starting point.</p>
+                    </li>
+                    <li>
+                        <strong style="font-size: 1.1em;">Create Your GPT</strong>
+                        <p style="margin-top: 10px;">Go to ChatGPT → Click your profile → "My GPTs" → "Create a GPT"</p>
+                    </li>
+                    <li>
+                        <strong style="font-size: 1.1em;">Upload the Guide</strong>
+                        <p style="margin-top: 10px;">In the Configure tab, upload the text file under "Knowledge"</p>
+                    </li>
+                    <li>
+                        <strong style="font-size: 1.1em;">Set Instructions</strong>
+                        <pre style="margin-top: 15px;">You are a copywriting assistant specializing in conversion optimization.
+Use the uploaded copywriting guide to help improve website copy.
+Always ask clarifying questions before making suggestions.
+Focus on clarity, calls-to-action, and audience engagement.</pre>
+                    </li>
+                    <li>
+                        <strong style="font-size: 1.1em;">Test It</strong>
+                        <p style="margin-top: 10px;">Paste your website copy and ask: "Help me analyze this copy and improve. Ask me multiple choice questions to help me identify and give you the best input to improve this copy."</p>
+                    </li>
+                </ol>
+
+                <h3>Method 2: Custom Market Research (Recommended)</h3>
+
+                <div class="success-box">
+                    <h4>✨ This creates a GPT trained specifically on YOUR market</h4>
+                    <p style="margin-top: 10px;">Takes 30 minutes but provides dramatically better results tailored to your unique audience.</p>
+                </div>
+
+                <ol class="step-list">
+                    <li>
+                        <strong style="font-size: 1.1em;">Start with Regular ChatGPT</strong>
+                        <p style="margin-top: 10px;">Open ChatGPT (not the GPT builder yet)</p>
+                    </li>
+                    <li>
+                        <strong style="font-size: 1.1em;">Request a Deep Research Prompt</strong>
+                        <pre style="margin-top: 15px;">I want you to give me a deep research prompt to create a copywriting guide for a specific market.
+
+My market is: [DESCRIBE YOUR MARKET]
+
+Example: "Female entrepreneurs, founders, and creators who have started a business and are doing fairly well, but have gotten lost in decision overwhelm, expectations, and external pressure about what success is and how fast they need to be moving."</pre>
+                    </li>
+                    <li>
+                        <strong style="font-size: 1.1em;">Answer Clarifying Questions</strong>
+                        <p style="margin-top: 10px;">ChatGPT will ask you questions like:</p>
+                        <ul style="margin-top: 15px; line-height: 2;">
+                            <li>What is your primary country/market?</li>
+                            <li>What kind of businesses do they run?</li>
+                            <li>What platforms do you use?</li>
+                            <li>Who do you want to emulate?</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong style="font-size: 1.1em;">Activate Deep Research</strong>
+                        <p style="margin-top: 10px;">Copy the research prompt ChatGPT generates → Switch to ChatGPT Deep Research mode → Paste the prompt</p>
+                        <p style="margin-top: 10px; font-style: italic; color: #666;">This will take 15-20 minutes to generate a comprehensive 50-70 page guide</p>
+                    </li>
+                    <li>
+                        <strong style="font-size: 1.1em;">Download Your Custom Guide</strong>
+                        <p style="margin-top: 10px;">Once complete, download as a text file</p>
+                    </li>
+                    <li>
+                        <strong style="font-size: 1.1em;">Create Your Custom GPT</strong>
+                        <p style="margin-top: 10px;">Go to "My GPTs" → Create → Upload your custom guide → Add instructions</p>
+                    </li>
+                </ol>
+
+                <h3>Method 3: Ultra-Fast Website Analysis</h3>
+
+                <div class="tool-card">
+                    <h4>🎯 Shortcut Method (10 Minutes)</h4>
+                    <ol style="line-height: 2;">
+                        <li>Open ChatGPT with Deep Research</li>
+                        <li>Paste this prompt:</li>
+                    </ol>
+                    <pre style="margin-top: 15px;">I want you to build a deep research prompt for this website to help it improve copy. Ask me clarifying questions.
+
+[PASTE YOUR ENTIRE WEBSITE COPY HERE - Press Ctrl+A on your site, then Ctrl+C]</pre>
+                    <p style="margin-top: 20px;"><strong>ChatGPT will automatically:</strong></p>
+                    <ul style="line-height: 2; margin-top: 10px;">
+                        <li>Analyze your current copy</li>
+                        <li>Identify your market</li>
+                        <li>Ask targeted questions</li>
+                        <li>Generate a custom research prompt</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="sales-funnel">
+                <h2>🎯 Understanding Your Sales Funnel</h2>
+
+                <p style="font-size: 1.2em; margin-bottom: 30px;">Before optimizing copy, map out your complete customer journey. Here's the framework used in class:</p>
+
+                <h3>Henri's Example Funnel (Coaching Business)</h3>
+
+                <div class="funnel-diagram">
+                    <div class="funnel-step">
+                        <strong>Traffic Sources</strong><br>
+                        LinkedIn + Social Media + Newsletter
+                    </div>
+                    <div class="funnel-step">
+                        <strong>Main Website</strong><br>
+                        Call to Action: Download Free Guide (5-Day Ritual)
+                    </div>
+                    <div class="funnel-step">
+                        <strong>Email List</strong><br>
+                        5-Day Email Campaign + Webinar Invitation
+                    </div>
+                    <div class="funnel-step">
+                        <strong>Live Webinar</strong><br>
+                        Educational Content + Pitch
+                    </div>
+                    <div class="funnel-step">
+                        <strong>4-Hour Workshop</strong><br>
+                        $44 (angelic pricing for her niche)
+                    </div>
+                    <div class="funnel-step">
+                        <strong>Group Coaching Container</strong><br>
+                        $4,444 for 3 months (12 sessions × 1.5 hours)
+                    </div>
+                    <div class="funnel-step" style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);">
+                        <strong>1-on-1 Coaching</strong><br>
+                        $5,555 for 3 months (9 sessions)
+                    </div>
+                </div>
+
+                <h4>Henri's Conversion Rates (Benchmark These):</h4>
+                <table>
+                    <tr>
+                        <th>Funnel Stage</th>
+                        <th>Conversion Rate</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>Email List → Webinar Attendance</td>
+                        <td>&lt;10%</td>
+                        <td style="color: #e67e22; font-weight: 600;">⚠️ Needs Improvement</td>
+                    </tr>
+                    <tr>
+                        <td>4-Hour Workshop → Group Coaching</td>
+                        <td>24%</td>
+                        <td style="color: #27ae60; font-weight: 600;">✅ Excellent</td>
+                    </tr>
+                    <tr>
+                        <td>Group Coaching → 1-on-1</td>
+                        <td>25% (2 out of 8)</td>
+                        <td style="color: #27ae60; font-weight: 600;">✅ Outstanding</td>
+                    </tr>
+                </table>
+
+                <div class="success-box" style="margin-top: 30px;">
+                    <h4>🎓 Key Lesson from Henri's Funnel</h4>
+                    <p style="font-size: 1.05em;"><strong>Diagnosis:</strong> Henri is excellent at converting in live settings (24-25% conversion rates). The weakness is at the top of the funnel - getting people from website → email list → webinar.</p>
+                    <p style="font-size: 1.05em; margin-top: 15px;"><strong>Solution:</strong> Focus optimization efforts on website copy and webinar landing pages, not on the workshop or coaching itself.</p>
+                </div>
+            </section>
+
+            <section id="optimization">
+                <h2>✅ Website Optimization Checklist</h2>
+
+                <div class="rule-box">
+                    <h4>1. Readability Check</h4>
+                    <ul style="font-size: 1.05em; line-height: 2;">
+                        <li>☐ Paste website copy into <a href="https://hemingwayapp.com" target="_blank" style="color: #6c5ce7; font-weight: 600;">HemingwayApp.com</a></li>
+                        <li>☐ Confirm grade level 5-8 (10-15 year old reading level)</li>
+                        <li>☐ Fix any sentences marked "very hard to read"</li>
+                        <li>☐ Reduce passive voice</li>
+                        <li>☐ Simplify complex words</li>
+                    </ul>
+                </div>
+
+                <div class="rule-box">
+                    <h4>2. Call to Action Audit</h4>
+                    <ul style="font-size: 1.05em; line-height: 2;">
+                        <li>☐ Identify your ONE primary call to action</li>
+                        <li>☐ Remove competing CTAs</li>
+                        <li>☐ Ensure primary CTA appears 2-3 times on the page</li>
+                        <li>☐ Use consistent button text</li>
+                        <li>☐ Make buttons visually prominent</li>
+                        <li>☐ Place final CTA at bottom of page</li>
+                    </ul>
+                </div>
+
+                <div class="rule-box">
+                    <h4>3. Free Offer Optimization</h4>
+                    <ul style="font-size: 1.05em; line-height: 2;">
+                        <li>☐ Create a dedicated landing page for free offer (don't use pop-up)</li>
+                        <li>☐ Create a cover image for digital guides (use Midjourney)</li>
+                        <li>☐ Explain what's inside the free offer</li>
+                        <li>☐ List specific benefits they'll receive</li>
+                        <li>☐ Add social proof/testimonials</li>
+                        <li>☐ Explain how to use it</li>
+                    </ul>
+                </div>
+
+                <div class="rule-box">
+                    <h4>4. Strategy Call Page (If Applicable)</h4>
+
+                    <div class="success-box" style="margin-top: 20px;">
+                        <h4>Essential Elements of a Call Booking Page:</h4>
+                        <p style="margin-top: 10px;">Don't send people directly to your calendar! Create a page that sells the call:</p>
+
+                        <ul style="font-size: 1.05em; line-height: 2; margin-top: 15px;">
+                            <li>☐ <strong>Headline:</strong> "Book Your Free [X] Strategy Call"</li>
+                            <li>☐ <strong>What to Expect:</strong> Clear outline of the call structure</li>
+                            <li>☐ <strong>Duration:</strong> Specific time commitment (e.g., "30 minutes")</li>
+                            <li>☐ <strong>Who They'll Talk To:</strong> Credentials and photo</li>
+                            <li>☐ <strong>What You'll Cover:</strong> Specific outcomes and value</li>
+                            <li>☐ <strong>Social Proof:</strong> "We've done 10,000+ of these calls"</li>
+                            <li>☐ <strong>What Makes It Special:</strong> Unique value proposition</li>
+                            <li>☐ <strong>THEN:</strong> Calendar booking widget</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="case-studies">
+                <h2>📊 Real Case Studies from Class</h2>
+
+                <h3>Case Study #1: Henri (Coaching for Female Founders)</h3>
+
+                <div class="tool-card">
+                    <h4>Background</h4>
+                    <ul style="line-height: 2;">
+                        <li><strong>Market:</strong> Female entrepreneurs, founders, creators</li>
+                        <li><strong>Problem:</strong> Lost momentum, decision overwhelm, disconnected from purpose</li>
+                        <li><strong>Solution:</strong> 5-day ritual guide + coaching funnel</li>
+                    </ul>
+
+                    <h4 style="margin-top: 30px;">What Was Working ✅</h4>
+                    <ul style="line-height: 2;">
+                        <li>Reading level: Grade 5 (perfect!)</li>
+                        <li>Workshop → Group Coaching: 24% conversion</li>
+                        <li>Group → 1-on-1 Coaching: 25% conversion</li>
+                        <li>Strong in-person selling ability</li>
+                    </ul>
+
+                    <h4 style="margin-top: 30px;">What Needed Fixing ⚠️</h4>
+                    <ul style="line-height: 2;">
+                        <li><strong>Too many CTAs:</strong> 7+ different actions competing for attention</li>
+                        <li><strong>Email → Webinar:</strong> Less than 10% show rate</li>
+                        <li><strong>No dedicated free guide page:</strong> Just a download button</li>
+                        <li><strong>Button confusion:</strong> Inconsistent messaging throughout</li>
+                    </ul>
+
+                    <div class="success-box" style="margin-top: 25px;">
+                        <h4>Key Takeaway</h4>
+                        <p class="highlight" style="font-size: 1.1em;">When someone is strong at live conversions, the problem is NOT their product - it's getting people TO those live events. Focus on top-of-funnel copy.</p>
+                    </div>
+                </div>
+
+                <h3>Case Study #2: The Silva Method</h3>
+
+                <div class="tool-card">
+                    <h4>The 20% More Emails, 30% Fewer Sales Problem</h4>
+
+                    <div class="warning-box" style="margin-top: 20px;">
+                        <h4>Test Results</h4>
+                        <ul style="line-height: 2; font-size: 1.05em;">
+                            <li>✅ Email signups: +20% increase</li>
+                            <li>❌ Sales over next 30 days: -30% decrease</li>
+                        </ul>
+                    </div>
+
+                    <h4 style="margin-top: 30px;">Root Cause</h4>
+                    <p style="font-size: 1.05em;">People weren't reading the ebook because they didn't understand WHY they needed it. No context = No consumption = No trust = No sales.</p>
+
+                    <div class="success-box" style="margin-top: 25px;">
+                        <h4>Key Takeaway</h4>
+                        <p class="highlight" style="font-size: 1.1em;">Even with FREE products, you must sell people on WHY they need it and HOW to use it. The "easy signup" that gets more emails may hurt your business long-term.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tools">
+                <h2>🛠️ Essential Tools & Resources</h2>
+
+                <div class="tool-card">
+                    <h4>1. HemingwayApp.com</h4>
+                    <p><strong>Purpose:</strong> Check reading level and readability</p>
+                    <p><strong>Target:</strong> Grade 5-8 (ages 10-15)</p>
+                    <p><strong>Cost:</strong> Free online (or $19.99 for desktop app)</p>
+                </div>
+
+                <div class="tool-card">
+                    <h4>2. ChatGPT with Deep Research</h4>
+                    <p><strong>Purpose:</strong> Build custom copywriting guides and GPTs</p>
+                    <p><strong>Cost:</strong> $20/month (ChatGPT Plus)</p>
+                    <p><strong>Key Features:</strong></p>
+                    <ul style="line-height: 2; margin-top: 10px;">
+                        <li>Deep Research mode (20-minute comprehensive analysis)</li>
+                        <li>Custom GPT builder</li>
+                        <li>File upload for training data</li>
+                    </ul>
+                </div>
+
+                <div class="tool-card">
+                    <h4>3. Midjourney</h4>
+                    <p><strong>Purpose:</strong> Create professional ebook/guide covers and images</p>
+                    <p><strong>Cost:</strong> Starting at $10/month</p>
+                    <p style="margin-top: 15px;"><strong>Before:</strong> Hire designer for $200-500<br>
+                    <strong>Now:</strong> Create in 2 minutes for $10/month</p>
+                </div>
+
+                <div class="success-box" style="margin-top: 30px;">
+                    <h4>💡 You Don't Need to Learn Traditional Copywriting</h4>
+                    <p style="font-size: 1.05em;">Traditional copywriting mastery takes 5-10 years and costs thousands in courses. Your custom GPT has all of this built in and applies it automatically when you paste your copy.</p>
+                </div>
+            </section>
+
+            <section id="common-mistakes">
+                <h2>⚠️ Common Mistakes to Avoid</h2>
+
+                <div class="warning-box">
+                    <h4>❌ Mistake #1: Too Many CTAs (Paradox of Choice)</h4>
+                    <p style="font-size: 1.05em; margin-top: 10px;"><strong>The data:</strong> Stores with 5 jam varieties sold MORE than stores with 25 varieties.</p>
+                    <p style="margin-top: 15px;"><strong>Fix:</strong> ONE primary CTA per page, repeated 2-3 times</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>❌ Mistake #2: No Dedicated Free Offer Page</h4>
+                    <p style="font-size: 1.05em; margin-top: 10px;"><strong>The data:</strong> +20% email signups, -30% sales (Silva Method)</p>
+                    <p style="margin-top: 15px;"><strong>Fix:</strong> Create landing page selling the free offer</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>❌ Mistake #3: Missing Founder Story</h4>
+                    <p style="font-size: 1.05em; margin-top: 10px;"><strong>Why it hurts:</strong> No personal connection, no trust building</p>
+                    <p style="margin-top: 15px;"><strong>Fix:</strong> Add 1-minute founder story to About section</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>❌ Mistake #4: No Post-Purchase Onboarding</h4>
+                    <p style="font-size: 1.05em; margin-top: 10px;"><strong>Why it hurts:</strong> They don't use product → They don't buy again</p>
+                    <p style="margin-top: 15px;"><strong>Fix:</strong> Create Welcome page explaining how to use product</p>
+                </div>
+            </section>
+
+            <section id="action-plan">
+                <h2>🚀 Your 30-Minute Action Plan</h2>
+
+                <p style="font-size: 1.2em; margin-bottom: 30px;">Follow this step-by-step plan to transform your website copy TODAY:</p>
+
+                <h3>Phase 1: Audit (10 Minutes)</h3>
+
+                <ol class="step-list">
+                    <li>
+                        <strong style="font-size: 1.1em;">Test Readability</strong>
+                        <ul style="margin-top: 10px; line-height: 2;">
+                            <li>Go to HemingwayApp.com</li>
+                            <li>Copy/paste your homepage</li>
+                            <li>Note grade level (target: 5-8)</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong style="font-size: 1.1em;">Count Your CTAs</strong>
+                        <ul style="margin-top: 10px; line-height: 2;">
+                            <li>How many different actions can visitors take?</li>
+                            <li>Which ONE is most important?</li>
+                            <li>Mark others for removal/deprioritization</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong style="font-size: 1.1em;">Evaluate Call Out</strong>
+                        <ul style="margin-top: 10px; line-height: 2;">
+                            <li>Does first headline say WHO it's for?</li>
+                            <li>Would your ideal customer recognize themselves?</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3>Phase 2: Build Your AI Assistant (20 Minutes)</h3>
+
+                <ol class="step-list" start="4">
+                    <li>
+                        <strong style="font-size: 1.1em;">Open ChatGPT</strong>
+                        <p style="margin-top: 10px;">Start with regular ChatGPT</p>
+                    </li>
+                    <li>
+                        <strong style="font-size: 1.1em;">Paste Your Website</strong>
+                        <pre style="margin-top: 15px;">I want you to build a deep research prompt for this website to help improve copy. Ask me clarifying questions.
+
+[Paste your entire website copy here]</pre>
+                    </li>
+                    <li>
+                        <strong style="font-size: 1.1em;">Answer Questions & Generate Guide</strong>
+                        <p style="margin-top: 10px;">Use Deep Research mode (takes 15-20 minutes)</p>
+                    </li>
+                    <li>
+                        <strong style="font-size: 1.1em;">Create Your GPT</strong>
+                        <p style="margin-top: 10px;">Upload guide to custom GPT → Test → Start optimizing!</p>
+                    </li>
+                </ol>
+
+                <div class="success-box" style="margin-top: 40px;">
+                    <h4>🎉 Congratulations!</h4>
+                    <p style="font-size: 1.1em; margin-top: 15px;">You now have a custom AI copywriting assistant that understands YOUR market and can transform your website copy in minutes instead of months.</p>
+                </div>
+            </section>
+
+            <footer>
+                <div class="mindvalley-logo" style="font-size: 1.2em; margin-bottom: 15px;">MINDVALLEY</div>
+                <p style="font-size: 1.1em;">Copywriting Masterclass User Guide</p>
+                <p style="font-size: 0.95em; margin-top: 10px;">Created from Vishen's Live Masterclass</p>
+                <div class="mindvalley-badge">Entrepreneurship Mastery Program</div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Password Protection Script
+        const correctPassword = 'entrepreneur';
+        const passwordScreen = document.getElementById('password-screen');
+        const mainContent = document.getElementById('main-content');
+        const passwordInput = document.getElementById('password-input');
+        const passwordSubmit = document.getElementById('password-submit');
+        const passwordError = document.getElementById('password-error');
+
+        // Check if user has already authenticated
+        if (sessionStorage.getItem('authenticated') === 'true') {
+            passwordScreen.classList.add('hidden');
+            mainContent.classList.add('visible');
+        }
+
+        function checkPassword() {
+            const enteredPassword = passwordInput.value;
+
+            if (enteredPassword === correctPassword) {
+                // Correct password
+                sessionStorage.setItem('authenticated', 'true');
+                passwordScreen.classList.add('hidden');
+                mainContent.classList.add('visible');
+                passwordError.classList.remove('show');
+            } else {
+                // Incorrect password
+                passwordError.classList.add('show');
+                passwordInput.value = '';
+                passwordInput.focus();
+
+                // Shake animation
+                passwordInput.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    passwordInput.style.animation = '';
+                }, 500);
+            }
+        }
+
+        // Submit button click
+        passwordSubmit.addEventListener('click', checkPassword);
+
+        // Enter key press
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Shake animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+                20%, 40%, 60%, 80% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
