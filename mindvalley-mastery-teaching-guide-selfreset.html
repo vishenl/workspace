@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Guide to Teaching the Best Possible Mindvalley Class</title>
+
+    <!-- Self Reset Design System -->
+    <link rel="stylesheet" href="styles/mv-selfreset-base.css">
+
+    <style>
+        /* Custom styles specific to this page */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(122, 18, 212, 0.06) 0%, rgba(186, 98, 253, 0.06) 100%);
+            padding: 6rem 0 5rem 0;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="%237a12d4" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            background: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid #7a12d4;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #0f131a;
+            text-decoration: none;
+            font-family: 'Grotesk-Medium', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover, nav a.active {
+            color: #7a12d4;
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1.7rem;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #7a12d4;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .two-col-philosophy {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 3rem;
+            margin: 2rem 0;
+            align-items: center;
+        }
+
+        .philosophy-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .philosophy-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .lesson-structure {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border: 2px solid rgba(122, 18, 212, 0.1);
+        }
+
+        .lesson-item {
+            display: flex;
+            align-items: center;
+            padding: 1.25rem;
+            border-bottom: 1px solid #e5e7eb;
+            transition: background 0.2s;
+        }
+
+        .lesson-item:hover {
+            background: rgba(122, 18, 212, 0.02);
+        }
+
+        .lesson-item:last-child {
+            border-bottom: none;
+        }
+
+        .lesson-time {
+            background: linear-gradient(135deg, #7a12d4 0%, #ba62fd 100%);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 10px;
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-weight: 700;
+            min-width: 90px;
+            text-align: center;
+            margin-right: 1.5rem;
+            box-shadow: 0 2px 8px rgba(122, 18, 212, 0.3);
+        }
+
+        .lesson-content {
+            flex: 1;
+        }
+
+        .lesson-content strong {
+            font-family: 'Grotesk-Medium', sans-serif;
+            display: block;
+            margin-bottom: 0.25rem;
+            font-size: 1.1rem;
+        }
+
+        .top-10-list {
+            counter-reset: top-10;
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .top-10-list li {
+            counter-increment: top-10;
+            position: relative;
+            padding-left: 4rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .top-10-list li::before {
+            content: counter(top-10);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #7a12d4, #ba62fd);
+            color: white;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(122, 18, 212, 0.3);
+        }
+
+        .struggles-list {
+            counter-reset: struggles;
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .struggles-list li {
+            counter-increment: struggles;
+            position: relative;
+            padding: 1.5rem 2rem 1.5rem 4rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-left: 4px solid #ef4444;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .struggles-list li:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .struggles-list li::before {
+            content: counter(struggles);
+            position: absolute;
+            left: 1.25rem;
+            top: 1.5rem;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-weight: 800;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        }
+
+        .struggles-list h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.25rem;
+        }
+
+        .struggles-list p {
+            margin: 0;
+            color: #6b7280;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #7a12d4 0%, #fb00ff 100%);
+            color: white;
+            padding: 3.5rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 3rem 0;
+            box-shadow: 0 8px 32px rgba(122, 18, 212, 0.3);
+        }
+
+        .cta-box h3 {
+            color: white;
+            margin-top: 0;
+            font-size: 2.5rem;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            border: 2px solid rgba(122, 18, 212, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(122, 18, 212, 0.2);
+        }
+
+        .stat-number {
+            font-family: 'Grotesk-Bold-16', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #7a12d4;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-family: 'Grotesk-Medium', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .image-card {
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 2rem 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .checklist-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            margin: 2rem 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 1.25rem;
+            border-bottom: 1px solid #e5e7eb;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .checklist-item:hover {
+            background: rgba(122, 18, 212, 0.02);
+        }
+
+        .checklist-item.checked {
+            opacity: 0.6;
+        }
+
+        .checklist-item.checked label {
+            text-decoration: line-through;
+        }
+
+        .checklist-checkbox {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            border: 2px solid #7a12d4;
+            border-radius: 6px;
+            margin-right: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checklist-checkbox:hover {
+            background: rgba(122, 18, 212, 0.1);
+        }
+
+        .checklist-checkbox.checked {
+            background: #7a12d4;
+            border-color: #7a12d4;
+        }
+
+        .checklist-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .checklist-item label {
+            flex: 1;
+            cursor: pointer;
+            font-family: 'Grotesk-Regular', sans-serif;
+            line-height: 1.6;
+        }
+
+        .progress-bar-container {
+            background: #e5e7eb;
+            height: 12px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #7a12d4, #ba62fd);
+            border-radius: 20px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-family: 'Grotesk-Medium', sans-serif;
+            color: #6b7280;
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            background: #0f131a;
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        footer p {
+            font-family: 'Grotesk-Regular', sans-serif;
+            margin: 0.5rem 0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(122, 18, 212, 0.08) 0%, rgba(251, 0, 255, 0.08) 100%);
+            border-left: 4px solid #7a12d4;
+            padding: 2rem;
+            border-radius: 12px;
+        }
+
+        .icon {
+            display: inline-block;
+            margin-right: 0.5rem;
+            font-size: 1.2em;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            border-radius: 24px;
+            font-family: 'Grotesk-Medium', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        @media (max-width: 768px) {
+            .two-col, .two-col-philosophy {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+
+            .lesson-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .lesson-time {
+                margin-bottom: 1rem;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="hero-content">
+            <div class="mv-container mv-text-center">
+                <h1 class="mv-type--headline1 mv-mb-3">A Guide to Teaching<br>the Best Possible Mindvalley Class</h1>
+                <p class="mv-lead">Essential principles and proven frameworks based on 15,000+ student feedback points</p>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <div class="mv-container">
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#what-works">10 Things You Should Know</a></li>
+                <li><a href="#common-struggles">Student Struggles</a></li>
+                <li><a href="#weekly-delivery">Essential Principles</a></li>
+                <li><a href="#lesson-structure">Lesson Structure</a></li>
+                <li><a href="#best-practices">Best Practices</a></li>
+                <li><a href="#checklist" style="color: #7a12d4;">✓ Checklist</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="introduction" class="mv-section--content">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2 mv-mb-3">Welcome, Mindvalley Authors</h2>
+            <p class="mv-lead mv-mb-5">This guide synthesizes feedback from over 15,000 students across all Mindvalley Masteries to help you create exceptional learning experiences.</p>
+
+            <div class="stat-grid">
+                <div class="stat">
+                    <span class="stat-number">15K+</span>
+                    <span class="stat-label">Student Feedback Points</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Mastery Programs</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">92%</span>
+                    <span class="stat-label">Want Clear Structure</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">91%</span>
+                    <span class="stat-label">Value Inspiration</span>
+                </div>
+            </div>
+
+            <div class="two-col-philosophy">
+                <div class="highlight-box">
+                    <h4 class="mv-type--headline5 mv-mb-2">🎯 The Core Philosophy</h4>
+                    <p class="mv-lead"><strong>Students thrive when teaching is clear, structured, and actionable, while remaining inspiring and emotionally resonant.</strong> This guide shows you exactly how to deliver both.</p>
+                </div>
+                <div class="philosophy-image">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=400&fit=crop" alt="Inspired students" style="height: 250px;">
+                </div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&h=400&fit=crop" alt="Students learning together" style="object-fit: cover; height: 400px;">
+            </div>
+        </div>
+    </section>
+
+    <section id="what-works" class="mv-section--content" style="background: #f9fafb;">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2 mv-mb-3">✨ 10 Things You Should Know as a Teacher</h2>
+            <p class="mv-lead mv-mb-5">Here's what actually works, straight from your students. Read this with your coffee and a highlighter. ☕</p>
+
+            <ol class="top-10-list">
+                <li>
+                    <h4 class="mv-type--headline5 mv-mb-2">Use Clear, Structured, Actionable Teaching</h4>
+                    <p>Listen, nobody likes wandering through a maze when they signed up for a guided tour. <strong>Give your students frameworks, sequences, templates, checklists, and "do-this-next" instructions.</strong> 92-99% of students across every single program said this was the #1 thing that helped them succeed. Structure isn't boring—it's kindness. It's how you show respect for people's time and trust.</p>
+                    <span class="badge badge-success">Non-Negotiable</span>
+                </li>
+
+                <li>
+                    <h4 class="mv-type--headline5 mv-mb-2">Bring Inspiring Energy & Emotional Resonance</h4>
+                    <p>You're not a robot reading PowerPoint slides (please tell me you're not). <strong>Students want to FEEL something.</strong> They want to leave your class feeling more confident, more hopeful, more capable than when they arrived. 68-91% said this was essential. Be real. Be passionate. Show them why this stuff matters. Your enthusiasm is contagious—or your lack of it is, too. Choose wisely. 😉</p>
+                    <span class="badge badge-success">Essential Magic</span>
+                </li>
+
+                <li>
+                    <h4 class="mv-type--headline5 mv-mb-2">Provide Practical Tools & Templates They Can Actually Use</h4>
+                    <p>Theory is great. You know what's better? <strong>Giving students something they can download, open, and use tomorrow morning.</strong> Prompts. Scripts. Slide decks. Exercises. Worksheets. The stuff that makes them think, "Holy crap, I can actually DO this now." When you hand over the goods, ratings skyrocket. It's that simple.</p>
+                    <span class="badge badge-info">Give Them The Goods</span>
+                </li>
+
+                <li>
+                    <h4 class="mv-type--headline5 mv-mb-2">Show Real Examples & Live Demos</h4>
+                    <p>Nothing—and I mean nothing—beats watching someone do the thing. <strong>Show before/afters. Do live demos. Walk through real examples.</strong> Abstract advice is forgettable. Watching you build an AI workflow, break down a viral post, or coach someone live? That sticks. Students learn by watching, not just listening. Be the YouTube tutorial they actually want to watch.</p>
+                    <span class="badge badge-info">Show, Don't Just Tell</span>
+                </li>
+
+                <li>
+                    <h4 class="mv-type--headline5 mv-mb-2">Make Space for Q&A, Hot Seats & Personalized Coaching</h4>
+                    <p>Here's a secret: <strong>when one person gets coached, everyone learns.</strong> Hot seats are like group therapy for learning—people see themselves in other students' questions. They spot patterns. They think, "Oh wait, I do that too!" Q&A isn't filler time at the end. It's where lightbulbs go off.</p>
+                    <span class="badge badge-success">Where Magic Happens</span>
+                </li>
+
+                <li>
+                    <h4 class="mv-type--headline5 mv-mb-2">Create Emotional Safety Through Authenticity</h4>
+                    <p>Students can smell fake from a mile away. <strong>Share your struggles. Show vulnerability. Admit when something was hard for you.</strong> When you create a safe space, students go deeper. They take bigger risks. They share more honestly. Your authenticity gives them permission to be real, too. And that's where transformation happens.</p>
+                    <span class="badge badge-info">Be Human</span>
+                </li>
+
+                <li>
+                    <h4 class="mv-type--headline5 mv-mb-2">Facilitate Community & Collective Energy</h4>
+                    <p>Lonely learning sucks. Period. <strong>Students want to see other humans on the journey with them.</strong> Use breakouts. Create shares. Celebrate wins together. When students feel part of a tribe, they stay engaged, they show up, and they actually finish what they started. Community is the accountability partner they didn't know they needed.</p>
+                    <span class="badge badge-info">Nobody Grows Alone</span>
+                </li>
+
+                <li>
+                    <h4 class="mv-type--headline5 mv-mb-2">Focus on Identity Shifts, Not Just Skills</h4>
+                    <p>Anyone can teach tactics. <strong>The really good stuff? That's when you help someone see themselves differently.</strong> "I'm not just learning to create content—I'm becoming a creator." "I'm not just learning manifestation—I'm becoming someone who trusts their power." That's the transformation students will remember five years from now.</p>
+                    <span class="badge badge-success">Go Deeper</span>
+                </li>
+
+                <li>
+                    <h4 class="mv-type--headline5 mv-mb-2">Integrate Spiritual & Philosophical Depth</h4>
+                    <p>This is Mindvalley, baby. <strong>Students are here for meaning, not just money.</strong> Don't be afraid to go beyond tactics into "why it matters" territory. Connect to purpose. Talk about consciousness. Make it philosophical. The students who show up here want depth, not just surface-level hacks. Give them both.</p>
+                    <span class="badge badge-info">The Mindvalley Difference</span>
+                </li>
+
+                <li>
+                    <h4 class="mv-type--headline5 mv-mb-2">Be a Credible Expert with Real-World Experience</h4>
+                    <p>Students can tell the difference between someone who's done the thing and someone who read about it. <strong>Share your real experience—the wins AND the faceplants.</strong> They trust practitioners, not theorists. Your street cred matters. If you've built it, launched it, healed from it, or scaled it—say so. Your scars are your credentials.</p>
+                    <span class="badge badge-success">Walk Your Talk</span>
+                </li>
+            </ol>
+
+            <div class="image-card">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=400&fit=crop" alt="Engaged workshop participants" style="object-fit: cover; height: 400px;">
+            </div>
+        </div>
+    </section>
+
+    <section id="common-struggles" class="mv-section--content">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2 mv-mb-3">⚠️ The 10 Biggest Student Struggles</h2>
+            <p class="mv-lead mv-mb-5">These issues show up in every program. Avoid them like the plague. 🚫</p>
+
+            <ol class="struggles-list">
+                <li>
+                    <h4>Tech & Access Issues</h4>
+                    <p><strong>#1 pain point across the board.</strong> Broken links, missing logins, scattered resources, can't-find-the-replay chaos. This is the fastest way to lose trust. Fix your tech, centralize your resources, test your links. It's not sexy, but it matters.</p>
+                </li>
+
+                <li>
+                    <h4>Overwhelm & Content Density</h4>
+                    <p>Too much content, too fast, too soon. Students love depth, but they need breathing room. <strong>More isn't always better.</strong> Sometimes the best gift you can give is space to integrate.</p>
+                </li>
+
+                <li>
+                    <h4>Pacing & Long Calls</h4>
+                    <p>Sessions that feel like marathons kill engagement. <strong>Tight segments, clear transitions, and respect for time</strong> make all the difference. If your call goes over, people feel guilty for leaving. Don't do that to them.</p>
+                </li>
+
+                <li>
+                    <h4>Clarity Gaps & Navigation Issues</h4>
+                    <p>Students shouldn't have to play detective to figure out what to do next, where to find things, or how topics connect. <strong>Make it obvious.</strong> Confusion isn't a sign of depth—it's a sign of poor design.</p>
+                </li>
+
+                <li>
+                    <h4>Too Advanced for Beginners</h4>
+                    <p>This one shows up in literally every Mastery. <strong>Not everyone starts where you think they start.</strong> Build clearer on-ramps. Assume less. Explain more. Beginners are brave for showing up—don't punish them for it.</p>
+                </li>
+
+                <li>
+                    <h4>Repetition Without Progression</h4>
+                    <p>When you revisit a concept, students need to know why. <strong>"Advanced layer on X"</strong> works. Repeating the same idea without adding depth? That's frustrating. Make every revisit earn its keep.</p>
+                </li>
+
+                <li>
+                    <h4>Missing or Delayed Resources</h4>
+                    <p>You promised slides. Where are they? <strong>Even small delays break momentum and erode trust.</strong> Upload fast. Deliver what you promised. Keep your word.</p>
+                </li>
+
+                <li>
+                    <h4>Not Enough Practical Examples</h4>
+                    <p>Especially in advanced or conceptual lessons, students need to see it in action. <strong>Don't just explain—demonstrate.</strong> Theory without examples is like a recipe without measurements. Technically useful, practically useless.</p>
+                </li>
+
+                <li>
+                    <h4>Unequal Q&A Participation</h4>
+                    <p>The same three people getting all the hot seat time? That's a problem. <strong>Rotate fairly. Track who's been coached.</strong> Everyone paid to be here. Everyone deserves a shot.</p>
+                </li>
+
+                <li>
+                    <h4>Time Zones & Scheduling Pain</h4>
+                    <p>Global audiences mean someone's always joining at 3am or missing the live call. <strong>Honor that reality.</strong> Make replays easy to find, keep calls reasonable in length, and acknowledge that not everyone can show up live.</p>
+                </li>
+            </ol>
+
+            <div class="image-card">
+                <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=1200&h=400&fit=crop" alt="Frustrated student" style="object-fit: cover; height: 400px;">
+            </div>
+        </div>
+    </section>
+
+    <section id="weekly-delivery" class="mv-section--content" style="background: #f9fafb;">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2 mv-mb-3">🗓️ Essential Delivery Principles</h2>
+            <p class="mv-lead mv-mb-5">The foundational practices that work across every Mastery program</p>
+
+            <div class="mv-card">
+                <h3 class="mv-type--headline3 mv-mb-4">Pre-Session Excellence</h3>
+
+                <h4 class="mv-type--headline5 mv-mb-2"><span class="icon">📦</span> Send Materials in Advance</h4>
+                <p class="mv-mb-3"><strong>Always send materials and links BEFORE the class.</strong> This isn't optional—it's a contractual must-have.</p>
+                <ul class="mv-mb-4">
+                    <li>All slides, tools, templates, links, books, apps</li>
+                    <li>Required reading or downloads</li>
+                    <li>Special preparation instructions</li>
+                    <li>Pre-work if needed</li>
+                </ul>
+                <div class="highlight-box mv-mb-4">
+                    <p><strong>⚠️ Critical for Technical Programs:</strong> For Masteries like AI, students need time to download tools, set up accounts, and prep their environment. Email these requirements well in advance.</p>
+                </div>
+
+                <h4 class="mv-type--headline5 mv-mb-2"><span class="icon">🎯</span> Define 3 Clear Learning Points</h4>
+                <p class="mv-mb-3"><strong>Every class should have maximum 3 main learning points.</strong> This gives students clear outcomes and helps them know what to focus on.</p>
+                <ul class="mv-mb-4">
+                    <li>Map these at the beginning of the session</li>
+                    <li>This mentally prepares students and directs the experience</li>
+                    <li>When the lesson is mapped, students can relax and absorb</li>
+                    <li>Creates a nurturing, organized environment</li>
+                </ul>
+
+                <h4 class="mv-type--headline5 mv-mb-2"><span class="icon">🔧</span> Prepare 1-2 Actionable Tools</h4>
+                <p class="mv-mb-3">Every class must include practical, immediately usable tools:</p>
+                <ul class="mv-mb-4">
+                    <li>Frameworks that simplify complex concepts</li>
+                    <li>Checklists students can follow step-by-step</li>
+                    <li>Templates they can customize</li>
+                    <li>Scripts they can adapt</li>
+                    <li>Exercises they can practice</li>
+                </ul>
+
+                <h4 class="mv-type--headline5 mv-mb-2"><span class="icon">💡</span> Plan Real-Life Examples</h4>
+                <p class="mv-mb-3">Always prepare concrete demonstrations of how to apply what you're teaching:</p>
+                <ul>
+                    <li>Case studies from your experience or clients</li>
+                    <li>Hot-seat coaching to show application in real-time</li>
+                    <li>Live demos of techniques or tools</li>
+                    <li>Before/after transformations</li>
+                </ul>
+            </div>
+
+            <div class="image-card">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&h=400&fit=crop" alt="Teacher with students" style="object-fit: cover; height: 400px;">
+            </div>
+
+            <div class="mv-card">
+                <h3 class="mv-type--headline3 mv-mb-4">Q&A Best Practices</h3>
+                <p class="mv-mb-4">End every session with structured Q&A following these guidelines:</p>
+
+                <div class="two-col">
+                    <div>
+                        <h4 class="mv-type--headline5 mv-mb-3">✅ Do This</h4>
+                        <ul>
+                            <li>Direct all questions to Zoom Q&A box (not chat)</li>
+                            <li>Ask students to upvote questions</li>
+                            <li>Address questions most relevant to everyone</li>
+                            <li>Track who asks questions across sessions</li>
+                            <li>Ensure fair rotation and diverse voices</li>
+                            <li>Reserve adequate time (15-20 minutes minimum)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="mv-type--headline5 mv-mb-3">❌ Avoid This</h4>
+                        <ul>
+                            <li>Answering questions from chat (creates distraction)</li>
+                            <li>Letting same students dominate every Q&A</li>
+                            <li>Skipping Q&A because you ran over time</li>
+                            <li>Answering overly specific questions that don't serve the group</li>
+                            <li>Rushing through questions at the end</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mv-card">
+                <h3 class="mv-type--headline3 mv-mb-4">Homework & Implementation</h3>
+                <p class="mv-mb-3"><strong>Action steps should be implementable within 1 week</strong> so people actually take action.</p>
+                <ul>
+                    <li>Make tasks achievable in 7 days</li>
+                    <li>Ideally, tasks build upon each other week-to-week</li>
+                    <li>Provide clear, step-by-step instructions</li>
+                    <li>Limit to 1-2 actions maximum per week</li>
+                    <li>Make success measurable and specific</li>
+                </ul>
+            </div>
+
+            <div class="mv-card">
+                <h3 class="mv-type--headline3 mv-mb-4">⏰ Time Management (Non-Negotiable)</h3>
+                <div class="highlight-box">
+                    <h4 class="mv-type--headline5 mv-mb-2">⚠️ Critical: Respect Time Boundaries</h4>
+                    <p class="mv-mb-3"><strong>People complain when calls go over time</strong> because they experience FOMO if they "miss anything."</p>
+                    <ul>
+                        <li>Even though replays exist, it's not the same experience</li>
+                        <li>Most students have other commitments scheduled</li>
+                        <li>Going overtime breaks trust and creates stress</li>
+                        <li>Build buffer time into your segments</li>
+                        <li><strong>End on time, every time. No exceptions.</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="lesson-structure" class="mv-section--content">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2 mv-mb-3">📋 Recommended Lesson Structure</h2>
+            <p class="mv-lead mv-mb-5">Proven formats for Learning and Coaching sessions</p>
+
+            <div class="two-col">
+                <div class="lesson-structure">
+                    <h3 class="mv-type--headline3 mv-text-center mv-mb-4" style="color: #7a12d4;">Lesson 1: Learning Session</h3>
+
+                    <div class="lesson-item">
+                        <div class="lesson-time">2 min</div>
+                        <div class="lesson-content">
+                            <strong>Recap Previous Lesson</strong>
+                            <p>Host recaps past lesson to give context</p>
+                        </div>
+                    </div>
+
+                    <div class="lesson-item">
+                        <div class="lesson-time">3 min</div>
+                        <div class="lesson-content">
+                            <strong>Map Out Today's Class</strong>
+                            <p>Author presents 3 main teaching points and resources</p>
+                        </div>
+                    </div>
+
+                    <div class="lesson-item">
+                        <div class="lesson-time">30 min</div>
+                        <div class="lesson-content">
+                            <strong>Teaching Portion</strong>
+                            <p>Core content delivery with frameworks</p>
+                        </div>
+                    </div>
+
+                    <div class="lesson-item">
+                        <div class="lesson-time">20 min</div>
+                        <div class="lesson-content">
+                            <strong>Practical Tool</strong>
+                            <p>Demonstrate actionable tool or framework</p>
+                        </div>
+                    </div>
+
+                    <div class="lesson-item">
+                        <div class="lesson-time">20 min</div>
+                        <div class="lesson-content">
+                            <strong>Real Example / Demo</strong>
+                            <p>Live demonstration or case study</p>
+                        </div>
+                    </div>
+
+                    <div class="lesson-item">
+                        <div class="lesson-time">20 min</div>
+                        <div class="lesson-content">
+                            <strong>Q&A</strong>
+                            <p>Open questions from students</p>
+                        </div>
+                    </div>
+
+                    <div class="mv-text-center mv-mt-4" style="padding: 1.5rem; background: #f9fafb; border-radius: 12px;">
+                        <strong style="font-size: 1.1rem;">Total: ~95 minutes</strong>
+                    </div>
+                </div>
+
+                <div class="lesson-structure">
+                    <h3 class="mv-type--headline3 mv-text-center mv-mb-4" style="color: #fb00ff;">Lesson 2: Coaching & Implementation</h3>
+
+                    <div class="lesson-item">
+                        <div class="lesson-time" style="background: linear-gradient(135deg, #fb00ff 0%, #ba62fd 100%);">5 min</div>
+                        <div class="lesson-content">
+                            <strong>Recap Learning Points</strong>
+                            <p>Coach recaps 3 main points from previous lesson</p>
+                        </div>
+                    </div>
+
+                    <div class="lesson-item">
+                        <div class="lesson-time" style="background: linear-gradient(135deg, #fb00ff 0%, #ba62fd 100%);">10 min</div>
+                        <div class="lesson-content">
+                            <strong>Deepen Understanding</strong>
+                            <p>Coach goes deeper into the tool</p>
+                        </div>
+                    </div>
+
+                    <div class="lesson-item">
+                        <div class="lesson-time" style="background: linear-gradient(135deg, #fb00ff 0%, #ba62fd 100%);">25 min</div>
+                        <div class="lesson-content">
+                            <strong>Live Coaching Demo</strong>
+                            <p>Show tool applied in real-life with a student</p>
+                        </div>
+                    </div>
+
+                    <div class="lesson-item">
+                        <div class="lesson-time" style="background: linear-gradient(135deg, #fb00ff 0%, #ba62fd 100%);">30-35 min</div>
+                        <div class="lesson-content">
+                            <strong>Coaching Pods</strong>
+                            <p>Breakout rooms to discuss the tool, connect, get results</p>
+                        </div>
+                    </div>
+
+                    <div class="lesson-item">
+                        <div class="lesson-time" style="background: linear-gradient(135deg, #fb00ff 0%, #ba62fd 100%);">10 min</div>
+                        <div class="lesson-content">
+                            <strong>Community Wins</strong>
+                            <p>Highlight wins and transformations of the week</p>
+                        </div>
+                    </div>
+
+                    <div class="mv-text-center mv-mt-4" style="padding: 1.5rem; background: #f9fafb; border-radius: 12px;">
+                        <strong style="font-size: 1.1rem;">Total: ~85 minutes</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&h=400&fit=crop" alt="Workshop in session" style="object-fit: cover; height: 400px;">
+            </div>
+        </div>
+    </section>
+
+    <section id="best-practices" class="mv-section--content" style="background: #f9fafb;">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2 mv-mb-5">🌟 Quick Reference: Best Practices</h2>
+
+            <div class="two-col">
+                <div class="mv-card">
+                    <h4 class="mv-type--headline5 mv-mb-3">✅ Always Do</h4>
+                    <ul style="margin-left: 1.5rem;">
+                        <li>Structure sessions clearly (Teaching → Tool → Demo → Q&A)</li>
+                        <li>Provide one-pagers and summary sheets</li>
+                        <li>Show live demos and real examples</li>
+                        <li>End with "Here's what to do this week"</li>
+                        <li>Centralize all resources in one place</li>
+                        <li>Share your real journey and struggles</li>
+                        <li>Build breathing room between major modules</li>
+                        <li>Create emotional safety through authenticity</li>
+                        <li>Facilitate community connection</li>
+                        <li>Respect time boundaries</li>
+                    </ul>
+                </div>
+
+                <div class="mv-card">
+                    <h4 class="mv-type--headline5 mv-mb-3">❌ Never Do</h4>
+                    <ul style="margin-left: 1.5rem;">
+                        <li>Run over time</li>
+                        <li>Delay uploading resources</li>
+                        <li>Skip Q&A because you're behind</li>
+                        <li>Let the same students dominate every session</li>
+                        <li>Assume everyone's at the same level</li>
+                        <li>Repeat content without adding new layers</li>
+                        <li>Scatter resources across multiple platforms</li>
+                        <li>Teach theory without practical examples</li>
+                        <li>Forget to test tech before going live</li>
+                        <li>Lose sight of the emotional journey</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cta-box">
+                <h3 class="mv-type--headline3 mv-mb-3">The Mindvalley Promise</h3>
+                <p class="mv-lead" style="margin: 1.5rem 0; line-height: 1.7;">Students succeed when they receive <strong>clear, structured, actionable teaching</strong> delivered with <strong>inspiring energy</strong>, supported by <strong>practical tools</strong> and <strong>real examples</strong>, within a <strong>safe, connected community</strong>.</p>
+                <p style="margin-top: 2rem; opacity: 0.95; font-size: 1.1rem;">This is how we create transformation, not just information.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="checklist" class="mv-section--content">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2 mv-mb-3">✅ Interactive Author Checklist</h2>
+            <p class="mv-lead mv-mb-5">Use this checklist before, during, and after each class. Your progress is automatically saved.</p>
+
+            <div class="mv-card">
+                <h3 class="mv-type--headline3 mv-mb-3">📊 Your Progress</h3>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+                </div>
+                <p class="progress-text"><span id="progress-count">0</span> of <span id="total-count">0</span> items completed (<span id="progress-percent">0</span>%)</p>
+            </div>
+
+            <div class="checklist-container">
+                <h3 class="mv-type--headline3 mv-mb-4">Before Every Class</h3>
+
+                <div class="checklist-item" data-id="1">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Materials Sent:</strong> All slides, tools, templates, links sent to team in advance</label>
+                </div>
+
+                <div class="checklist-item" data-id="2">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Special Requirements Communicated:</strong> Any preparation, downloads, or reading shared with students beforehand</label>
+                </div>
+
+                <div class="checklist-item" data-id="3">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>3 Learning Points Defined:</strong> Clear outcomes mapped for the session</label>
+                </div>
+
+                <div class="checklist-item" data-id="4">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Actionable Tools Ready:</strong> 1-2 frameworks, checklists, templates, or exercises prepared</label>
+                </div>
+
+                <div class="checklist-item" data-id="5">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Real Examples Prepared:</strong> Case studies, demos, or coaching examples ready to share</label>
+                </div>
+
+                <div class="checklist-item" data-id="6">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Time Structure Confirmed:</strong> Clear segments planned within time limit (max 95 minutes for learning, 85 for coaching)</label>
+                </div>
+
+                <div class="checklist-item" data-id="7">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Q&A Process Set:</strong> Plan for Zoom Q&A box, upvoting, and fair rotation established</label>
+                </div>
+
+                <div class="checklist-item" data-id="8">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Homework Defined:</strong> Clear, achievable weekly actions prepared (implementable in 7 days)</label>
+                </div>
+
+                <div class="checklist-item" data-id="9">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Resources Ready for Upload:</strong> One-pagers, summaries, and key materials prepared for immediate sharing</label>
+                </div>
+
+                <div class="checklist-item" data-id="10">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Tech Tested:</strong> All links, tools, and demos tested and working properly</label>
+                </div>
+            </div>
+
+            <div class="checklist-container">
+                <h3 class="mv-type--headline3 mv-mb-4">During the Class</h3>
+
+                <div class="checklist-item" data-id="11">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Session Mapped:</strong> Introduced the 3 main learning points at the beginning</label>
+                </div>
+
+                <div class="checklist-item" data-id="12">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Structure Followed:</strong> Teaching → Tool → Demo → Q&A format maintained</label>
+                </div>
+
+                <div class="checklist-item" data-id="13">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Tools Demonstrated:</strong> Practical tools shown with clear examples</label>
+                </div>
+
+                <div class="checklist-item" data-id="14">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Q&A Managed Well:</strong> Used Q&A box, upvoting, ensured fair participation</label>
+                </div>
+
+                <div class="checklist-item" data-id="15">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Time Respected:</strong> Session ended on time without running over</label>
+                </div>
+
+                <div class="checklist-item" data-id="16">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Next Steps Shared:</strong> Clear homework and action items communicated</label>
+                </div>
+            </div>
+
+            <div class="checklist-container">
+                <h3 class="mv-type--headline3 mv-mb-4">After Every Class</h3>
+
+                <div class="checklist-item" data-id="17">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Resources Uploaded:</strong> Slides, replays, and materials shared within 48 hours</label>
+                </div>
+
+                <div class="checklist-item" data-id="18">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Q&A Questions Reviewed:</strong> Unanswered questions noted for next session or follow-up</label>
+                </div>
+
+                <div class="checklist-item" data-id="19">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Student Feedback Collected:</strong> Review session ratings and comments</label>
+                </div>
+
+                <div class="checklist-item" data-id="20">
+                    <div class="checklist-checkbox"></div>
+                    <label><strong>Next Session Prepped:</strong> Begin preparing materials for upcoming class</label>
+                </div>
+            </div>
+
+            <div class="mv-text-center mv-mt-6">
+                <button class="mv-btn-primary" onclick="resetChecklist()">Reset Checklist</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="mv-container">
+            <p style="font-family: 'Grotesk-Bold', sans-serif; font-size: 1.25rem;"><strong>A Guide to Teaching the Best Possible Mindvalley Class</strong></p>
+            <p style="margin-top: 0.75rem; opacity: 0.9;">Based on 15,000+ student feedback points across all Mindvalley Masteries</p>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.7;">© 2025 Mindvalley. Created to help authors deliver transformational learning experiences.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                // Update active state
+                document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Add active state to nav on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Checklist functionality with localStorage
+        const STORAGE_KEY = 'mindvalley-author-checklist';
+
+        function loadChecklist() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            return saved ? JSON.parse(saved) : {};
+        }
+
+        function saveChecklist(checklist) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(checklist));
+        }
+
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.checklist-item');
+            const total = checkboxes.length;
+            const checked = document.querySelectorAll('.checklist-item.checked').length;
+            const percent = Math.round((checked / total) * 100);
+
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+            document.getElementById('progress-count').textContent = checked;
+            document.getElementById('total-count').textContent = total;
+            document.getElementById('progress-percent').textContent = percent;
+        }
+
+        function initChecklist() {
+            const checklist = loadChecklist();
+            const items = document.querySelectorAll('.checklist-item');
+
+            items.forEach(item => {
+                const id = item.getAttribute('data-id');
+                const checkbox = item.querySelector('.checklist-checkbox');
+
+                // Restore saved state
+                if (checklist[id]) {
+                    item.classList.add('checked');
+                    checkbox.classList.add('checked');
+                }
+
+                // Add click handlers
+                item.addEventListener('click', function(e) {
+                    const isChecked = this.classList.contains('checked');
+
+                    if (isChecked) {
+                        this.classList.remove('checked');
+                        checkbox.classList.remove('checked');
+                        delete checklist[id];
+                    } else {
+                        this.classList.add('checked');
+                        checkbox.classList.add('checked');
+                        checklist[id] = true;
+                    }
+
+                    saveChecklist(checklist);
+                    updateProgress();
+                });
+            });
+
+            updateProgress();
+        }
+
+        function resetChecklist() {
+            if (confirm('Are you sure you want to reset the entire checklist? This will clear all checked items.')) {
+                localStorage.removeItem(STORAGE_KEY);
+
+                document.querySelectorAll('.checklist-item').forEach(item => {
+                    item.classList.remove('checked');
+                    item.querySelector('.checklist-checkbox').classList.remove('checked');
+                });
+
+                updateProgress();
+            }
+        }
+
+        // Initialize checklist on page load
+        document.addEventListener('DOMContentLoaded', initChecklist);
+    </script>
+</body>
+</html>
