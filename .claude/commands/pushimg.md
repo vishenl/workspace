@@ -1,15 +1,22 @@
 ---
-description: Quick command to add images to git and push to GitHub
+description: Push only NEW/MODIFIED images to GitHub (smart, not wasteful)
 ---
 
 # Push Images Command
 
-Add all images in the images/ directory to git, commit, and push to GitHub.
+Intelligently add only new or modified images to git and push to GitHub.
 
-Please run these commands:
+**Strategy:**
+1. Check `git status` to find untracked/modified files in `images/` directory
+2. Only add NEW images (untracked) or MODIFIED images (changed)
+3. If no new images found, inform user and exit
+4. If images found, commit with descriptive message and push
 
-1. Add all images to git staging
-2. Commit with message "feat: add images"
-3. Push to GitHub
+**Implementation:**
+- Use `git status --porcelain images/` to detect changes
+- Filter for untracked (`??`) or modified (`M`) files
+- Add only those specific files
+- Commit with message listing added images
+- Push to GitHub
 
-Use a simple, concise commit message that follows our standards.
+This ensures we never re-push unchanged images and only handle what's actually new.
