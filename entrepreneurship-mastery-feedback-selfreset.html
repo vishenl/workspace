@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrepreneurship Mastery Feedback Analysis | Mindvalley</title>
+    <link rel="stylesheet" href="styles/mv-selfreset-base.css">
+
+    <style>
+        /* Page-specific styles */
+        .hero-section {
+            background: linear-gradient(135deg, #f8f5ff 0%, #ffffff 100%);
+            padding: 6rem 0 5rem 0;
+        }
+
+        .trust-signals {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        .trust-signal {
+            text-align: center;
+        }
+
+        .trust-number {
+            font-family: 'Grotesk-Bold-16', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #7a12d4;
+            margin-bottom: 0.5rem;
+        }
+
+        .trust-label {
+            font-family: 'Grotesk-Regular', sans-serif;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        /* Alternating section backgrounds */
+        .section-alt {
+            background: #f9fafb;
+        }
+
+        /* Priority badges */
+        .priority-badge {
+            display: inline-block;
+            padding: 0.375rem 1rem;
+            border-radius: 999px;
+            font-family: 'Grotesk-Medium', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.25rem;
+        }
+
+        .priority-badge.critical {
+            background: #ef4444;
+            color: white;
+        }
+
+        .priority-badge.high {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .priority-badge.medium {
+            background: #10b981;
+            color: white;
+        }
+
+        /* Trend cards */
+        .trend-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(122, 18, 212, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .trend-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(122, 18, 212, 0.15);
+        }
+
+        .trend-card h3 {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 1.5rem;
+            color: #7a12d4;
+            margin-bottom: 1.25rem;
+        }
+
+        .trend-card p {
+            margin-bottom: 1rem;
+        }
+
+        .trend-card strong {
+            font-family: 'Grotesk-Medium', sans-serif;
+            color: #0f131a;
+        }
+
+        /* Accordion for teacher insights */
+        .teacher-accordion {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(122, 18, 212, 0.1);
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .teacher-accordion:hover {
+            box-shadow: 0 4px 16px rgba(122, 18, 212, 0.12);
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 2.5rem;
+            cursor: pointer;
+            user-select: none;
+            background: white;
+            transition: background 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: rgba(122, 18, 212, 0.02);
+        }
+
+        .accordion-title {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 1.375rem;
+            color: #0f131a;
+            margin: 0;
+            flex: 1;
+        }
+
+        .accordion-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #7a12d4;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 1.5rem;
+        }
+
+        .accordion-icon:hover {
+            background: #6610b5;
+            transform: scale(1.1);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .accordion-content.active {
+            max-height: 1500px;
+            padding: 0 2.5rem 2.5rem 2.5rem;
+        }
+
+        .accordion-content p {
+            margin-bottom: 1rem;
+        }
+
+        .accordion-content ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .accordion-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .teacher-accordion.active .accordion-icon {
+            transform: rotate(45deg);
+        }
+
+        /* Timeline cards */
+        .timeline-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid #7a12d4;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(122, 18, 212, 0.15);
+        }
+
+        .timeline-header {
+            font-family: 'Grotesk-Bold-16', sans-serif;
+            font-size: 1.75rem;
+            color: #7a12d4;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .timeline-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .timeline-card li {
+            padding-left: 1.75rem;
+            margin-bottom: 1rem;
+            position: relative;
+            color: #0f131a;
+            font-family: 'Grotesk-Regular', sans-serif;
+            line-height: 1.6;
+        }
+
+        .timeline-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #7a12d4;
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        /* Bottom line section */
+        .bottom-line {
+            background: linear-gradient(135deg, rgba(122, 18, 212, 0.05) 0%, rgba(186, 98, 253, 0.05) 100%);
+            padding: 5rem 0;
+        }
+
+        .highlight {
+            font-family: 'Grotesk-Medium', sans-serif;
+            font-weight: 600;
+            color: #7a12d4;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .trust-signals {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .accordion-header {
+                padding: 1.5rem;
+            }
+
+            .accordion-content.active {
+                padding: 0 1.5rem 1.5rem 1.5rem;
+            }
+
+            .trend-card {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .trust-signals {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="mv-container mv-text-center">
+            <span class="mv-kicker">Program Analysis Report</span>
+            <h1 class="mv-type--headline1 mv-mb-4">Entrepreneurship Mastery<br>Feedback Analysis</h1>
+            <p class="mv-lead mv-mb-5">Comprehensive insights from 100+ student feedback submissions to optimize the learning experience across all teachers and sessions.</p>
+
+            <div class="trust-signals">
+                <div class="trust-signal">
+                    <div class="trust-number">100+</div>
+                    <div class="trust-label">Feedback Submissions</div>
+                </div>
+                <div class="trust-signal">
+                    <div class="trust-number">80%</div>
+                    <div class="trust-label">Positive Sentiment</div>
+                </div>
+                <div class="trust-signal">
+                    <div class="trust-number">15%</div>
+                    <div class="trust-label">Frustrated Students</div>
+                </div>
+                <div class="trust-signal">
+                    <div class="trust-number">5%</div>
+                    <div class="trust-label">At Risk of Leaving</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KEY TRENDS SECTION -->
+    <section class="mv-section--content">
+        <div class="mv-container">
+            <div class="mv-text-center mv-mb-6">
+                <span class="mv-kicker">Critical Insights</span>
+                <h2 class="mv-type--headline2 mv-mb-3">7 Key Trends Requiring Attention</h2>
+                <p class="mv-lead">Based on comprehensive analysis across all lessons and teachers, these patterns emerged as requiring immediate action.</p>
+            </div>
+
+            <div class="mv-grid-3col">
+                <div class="trend-card">
+                    <span class="priority-badge critical">CRITICAL</span>
+                    <h3>Pace Too Fast</h3>
+                    <p><strong>Issue:</strong> Students consistently report content delivery is too rapid to absorb. Particularly affects Vishen and Daniel's sessions. Students feeling overwhelmed and missing key concepts.</p>
+                    <p><strong>Fix:</strong> Reduce content volume by 30-40%, build in "pause points" every 15 minutes, allow time for note-taking.</p>
+                </div>
+
+                <div class="trend-card">
+                    <span class="priority-badge critical">CRITICAL</span>
+                    <h3>Resource Accessibility Issues</h3>
+                    <p><strong>Issue:</strong> Materials not shared in time, chat/Q&A not accessible in replays, downloadable resources have errors, AI prompts missing from resources.</p>
+                    <p><strong>Fix:</strong> Share ALL materials BEFORE sessions, make chat available in replays, create downloadable resource packs, quality check all PDFs.</p>
+                </div>
+
+                <div class="trend-card">
+                    <span class="priority-badge high">HIGH</span>
+                    <h3>Beginner vs. Advanced Gap</h3>
+                    <p><strong>Issue:</strong> Content assumes higher level of knowledge than many possess. Students expected support for "starting from scratch" but curriculum assumes existing business, AI literacy, and team.</p>
+                    <p><strong>Fix:</strong> Create "foundations" module for beginners, provide "no business yet" pathway, offer pre-work assignments to level-set.</p>
+                </div>
+
+                <div class="trend-card">
+                    <span class="priority-badge high">HIGH</span>
+                    <h3>Platform Frustrations</h3>
+                    <p><strong>Issue:</strong> Webinar-style format prevents peer interaction. Students want to see who's attending, connect with other entrepreneurs, and participate interactively like Ajit's Zoom sessions.</p>
+                    <p><strong>Fix:</strong> Switch to interactive Zoom format across ALL sessions, enable participant visibility, create breakout exercises.</p>
+                </div>
+
+                <div class="trend-card">
+                    <span class="priority-badge high">HIGH</span>
+                    <h3>Need More "How-To" Steps</h3>
+                    <p><strong>Issue:</strong> Students appreciate frameworks but want more tactical implementation guidance. They need templates, step-by-step guides, clear "next steps" after each lesson.</p>
+                    <p><strong>Fix:</strong> Include "Implementation Bridge" - every concept needs What + Why + HOW with downloadable templates.</p>
+                </div>
+
+                <div class="trend-card">
+                    <span class="priority-badge medium">MEDIUM</span>
+                    <h3>Pod Structure Requested</h3>
+                    <p><strong>Issue:</strong> Students want structured peer collaboration, not just access to content. Request for official pods to work together and build GPTs collaboratively.</p>
+                    <p><strong>Fix:</strong> Assign students to small accountability pods (5-7 people), provide pod exercises, enable long-term relationships.</p>
+                </div>
+
+                <div class="trend-card">
+                    <span class="priority-badge high">HIGH</span>
+                    <h3>Undisclosed Costs</h3>
+                    <p><strong>Issue:</strong> Students didn't realize additional investments required (ChatGPT Plus/Pro). Feeling surprised by costs not disclosed upfront creates frustration and distrust.</p>
+                    <p><strong>Fix:</strong> Create "Tech Stack You'll Need" document before enrollment listing ALL tools and costs. No surprise expenses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEACHER INSIGHTS SECTION -->
+    <section class="section-alt mv-section--content">
+        <div class="mv-container">
+            <div class="mv-text-center mv-mb-6">
+                <span class="mv-kicker">Teacher Performance</span>
+                <h2 class="mv-type--headline2 mv-mb-3">Teacher-Specific Insights</h2>
+                <p class="mv-lead">Individual feedback analysis for each teacher to optimize delivery and teaching approach.</p>
+            </div>
+
+            <div class="teacher-accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3 class="accordion-title">Ajit Nawalkha - Highest Rated ⭐</h3>
+                    <div class="accordion-icon">+</div>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Rating: 9-10/10 consistently</strong></p>
+                    <p><strong>Strengths:</strong></p>
+                    <ul>
+                        <li>Clear frameworks and actionable steps</li>
+                        <li>Approachable teaching style - makes complex things feel simple</li>
+                        <li>Warm, kind delivery - "clarity communicated with kindness"</li>
+                        <li>Interactive Zoom format praised by students</li>
+                        <li>Never overwhelming, perfect pacing</li>
+                    </ul>
+                    <p><strong>Student Quotes:</strong> "Continue to be blown away by Ajit", "FANTASTIC teacher", "Ajit is amazing" (multiple), "wonderful way of conducting sessions in a manner that is not overwhelming"</p>
+                    <p><strong>Recommendation:</strong> Increase Ajit's involvement, have him co-teach with other instructors, use his style as model for program-wide teaching approach.</p>
+                </div>
+            </div>
+
+            <div class="teacher-accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3 class="accordion-title">Shadé Zahrai - Second Highest Rated ⭐</h3>
+                    <div class="accordion-icon">+</div>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Rating: 9-10/10 consistently, students want MORE</strong></p>
+                    <p><strong>Strengths:</strong></p>
+                    <ul>
+                        <li>Inspirational and positive energy</li>
+                        <li>"Clear, never hasty speaker"</li>
+                        <li>Practical 4-Pillars model with accessible action points</li>
+                        <li>Personal sharing is powerful and relatable</li>
+                        <li>Always on point, concise, precise, engaging</li>
+                    </ul>
+                    <p><strong>Student Quotes:</strong> "Never disappointed by Shade's sessions", "Most eye-opening session", "Shade rocks", "She is amazing in the way she presents"</p>
+                    <p><strong>Request from Students:</strong> "I only hope we could have more time to ask questions from her, most of the other speakers don't have clear answers as hers"</p>
+                    <p><strong>Recommendation:</strong> Give Shadé more sessions and Q&A time. Her teaching style is gold standard.</p>
+                </div>
+            </div>
+
+            <div class="teacher-accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3 class="accordion-title">Vishen Lakhiani - Needs Pace Adjustment ⚠️</h3>
+                    <div class="accordion-icon">+</div>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Rating: 8-9/10 (love him but struggling to keep up)</strong></p>
+                    <p><strong>Strengths:</strong></p>
+                    <ul>
+                        <li>Incredible energy and enthusiasm</li>
+                        <li>Inspiring vision and cutting-edge AI knowledge</li>
+                        <li>Real-time demos highly valued</li>
+                        <li>Content is excellent quality</li>
+                    </ul>
+                    <p><strong>Areas for Improvement (CRITICAL):</strong></p>
+                    <ul>
+                        <li><strong>Pace too fast</strong> - most common complaint across all teachers</li>
+                        <li>Assumes high level of AI proficiency students don't have</li>
+                        <li>Material sharing/documentation issues during sessions</li>
+                        <li>Need to slow down 30-40% and allow absorption time</li>
+                    </ul>
+                    <p><strong>Student Quotes:</strong> "Amazing! if it just would not be sooooo fast", "I would love to have his fast brain!", "Difficult to follow - everything sooo fast"</p>
+                    <p><strong>Action Required:</strong> Reduce content volume OR extend session time. Build in "pause points" every 15 mins. Create "AI Tools Cheat Sheet". Pre-share ALL materials before sessions.</p>
+                </div>
+            </div>
+
+            <div class="teacher-accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3 class="accordion-title">Daniel Priestley - Strong Content, Needs Interactivity</h3>
+                    <div class="accordion-icon">+</div>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Rating: 9/10 overall</strong></p>
+                    <p><strong>Strengths:</strong></p>
+                    <ul>
+                        <li>Students SO HAPPY he's included</li>
+                        <li>Fantastic content, clear and understandable</li>
+                        <li>Very useful prompts and marketing insights</li>
+                        <li>One student: "THE BEST SESSION at Mindvalley!"</li>
+                    </ul>
+                    <p><strong>Areas for Improvement:</strong></p>
+                    <ul>
+                        <li>Pace a bit too quick (similar to Vishen)</li>
+                        <li>Would prefer interactive format vs webinar style</li>
+                        <li>Students familiar with Daniel from other settings note: "That's how he usually does his workshops and it works really well"</li>
+                    </ul>
+                    <p><strong>Action Required:</strong> Switch to interactive workshop format Daniel is known for. Allow slightly more processing time.</p>
+                </div>
+            </div>
+
+            <div class="teacher-accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3 class="accordion-title">Cameron Herold - Strong Practical Approach</h3>
+                    <div class="accordion-icon">+</div>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Rating: Strong positive feedback</strong></p>
+                    <p><strong>Strengths:</strong></p>
+                    <ul>
+                        <li>Well-reasoned and grounded approach</li>
+                        <li>Logical and practical frameworks</li>
+                        <li>Vivid Vision framework highly valued</li>
+                        <li>Eloquent presentation style</li>
+                        <li>"Rare to find content that's both soulful and operational"</li>
+                    </ul>
+                    <p><strong>Performance:</strong> Practical mindset approach appreciated. No major complaints or adjustments needed.</p>
+                </div>
+            </div>
+
+            <div class="teacher-accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h3 class="accordion-title">Naveen Jain - Inspirational but Needs Entrepreneurship Focus</h3>
+                    <div class="accordion-icon">+</div>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Rating: Mixed (highly inspirational but some content drift)</strong></p>
+                    <p><strong>Strengths:</strong></p>
+                    <ul>
+                        <li>Extremely inspirational and smart</li>
+                        <li>Refreshes "why" and think bigger mindset</li>
+                        <li>Resonates with "crazy" ambitious thinkers</li>
+                    </ul>
+                    <p><strong>Areas for Improvement:</strong></p>
+                    <ul>
+                        <li>Would love more recognizable case studies</li>
+                        <li>More concrete examples of approach leading to world-changing companies</li>
+                        <li>Q&A sometimes drifted from course intention (e.g., AI perspective vs. entrepreneurship focus)</li>
+                    </ul>
+                    <p><strong>Action Required:</strong> Keep the inspiration but anchor more firmly to entrepreneurship application. Provide concrete case studies and examples.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACTION ITEMS TIMELINE -->
+    <section class="mv-section--content">
+        <div class="mv-container">
+            <div class="mv-text-center mv-mb-6">
+                <span class="mv-kicker">Implementation Roadmap</span>
+                <h2 class="mv-type--headline2 mv-mb-3">Priority Action Items by Timeline</h2>
+                <p class="mv-lead">Organized by urgency and implementation timeline for maximum impact.</p>
+            </div>
+
+            <div class="mv-grid-3col">
+                <div class="timeline-card">
+                    <div class="timeline-header">This Week</div>
+                    <ul>
+                        <li>Create "AI Tools Cheat Sheet" with what/when/why/cost for each tool</li>
+                        <li>Make ALL session materials downloadable BEFORE each class</li>
+                        <li>Fix replay chat accessibility so Q&A is visible in recordings</li>
+                        <li>Send "catch-up guide" to overwhelmed students with foundations primer</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-card">
+                    <div class="timeline-header">This Month</div>
+                    <ul>
+                        <li>Reduce Vishen's pace by 30-40% or extend session times</li>
+                        <li>Pilot interactive Zoom format across all sessions (like Ajit's)</li>
+                        <li>Create beginner "foundations" module for first-time entrepreneurs</li>
+                        <li>Launch student pods program (5-7 people per pod)</li>
+                        <li>Audit all downloadable resources for errors and completeness</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-card">
+                    <div class="timeline-header">Ongoing</div>
+                    <ul>
+                        <li>Increase Ajit and Shadé's teaching hours (highest rated teachers)</li>
+                        <li>Train all teachers on "beginner-friendly" delivery approach</li>
+                        <li>Build comprehensive resource library with templates and guides</li>
+                        <li>Implement "Rule of Three" - max 3 concepts per hour</li>
+                        <li>Create "Implementation Bridge" for every concept taught</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOTTOM LINE -->
+    <section class="bottom-line">
+        <div class="mv-container mv-text-center">
+            <span class="mv-kicker">Executive Summary</span>
+            <h2 class="mv-type--headline2 mv-mb-4">The Bottom Line</h2>
+            <p class="mv-lead mv-mb-4">You have <span class="highlight">exceptional content and exceptional teachers</span>. The gap is not in quality but in <span class="highlight">delivery pace, resource accessibility, and beginner support</span>.</p>
+            <p class="mv-lead mv-mb-4">Your highest-rated teachers (Ajit, Shadé) share common traits: <span class="highlight">Clear, not rushed. Warm and approachable. Actionable, not just inspirational. Patient with beginners.</span></p>
+            <p class="mv-lead mv-mb-4">By slowing down, providing better resources, and creating more interactive experiences, you can transform good ratings (7-8) into exceptional ones (9-10) across the board.</p>
+            <p class="mv-lead" style="font-family: 'Grotesk-Medium', sans-serif; font-weight: 600; color: #7a12d4;">Students are not asking for less content—they're asking for more time to absorb it and better tools to implement it.</p>
+        </div>
+    </section>
+
+    <script>
+        function toggleAccordion(element) {
+            const accordion = element.parentElement;
+            const content = element.nextElementSibling;
+
+            // Close all other accordions
+            document.querySelectorAll('.teacher-accordion').forEach(item => {
+                if (item !== accordion) {
+                    item.classList.remove('active');
+                    item.querySelector('.accordion-content').classList.remove('active');
+                }
+            });
+
+            // Toggle current accordion
+            accordion.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

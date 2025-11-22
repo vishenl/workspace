@@ -5,81 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Guide to Teaching the Best Possible Mindvalley Class</title>
 
-    <!-- Mindvalley Official Stylesheet -->
-    <link rel="stylesheet" href="mindvalley-style.css">
+    <!-- Self Reset Design System -->
+    <link rel="stylesheet" href="styles/mv-selfreset-base.css">
 
-    <!-- Mindvalley Fonts -->
-    <link rel="preconnect" href="https://storyblok-assets.mindvalley.com">
     <style>
-        @font-face {
-            font-display: swap;
-            font-family: 'Grotesk-Regular';
-            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBook-19.ed0b68c.woff2) format("woff2");
-        }
-        @font-face {
-            font-display: swap;
-            font-family: 'Grotesk-Medium';
-            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrMedium-20.36349e7.woff2) format("woff2");
-        }
-        @font-face {
-            font-display: swap;
-            font-family: 'Grotesk-Bold';
-            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrSmBold-21.2e6314a.woff2) format("woff2");
-        }
-        @font-face {
-            font-display: swap;
-            font-family: 'Grotesk-Bold-16';
-            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBold-16.d5a4b9e.woff2) format("woff2");
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --mv-brand-purple: #7a12d4;
-            --mv-brand-purple-light: #ba62fd;
-            --mv-brand-dark: #003fff;
-            --mv-brand-light: #fb00ff;
-            --mv-success: #10b981;
-            --mv-warning: #f59e0b;
-            --mv-danger: #ef4444;
-            --mv-dark: #0f131a;
-            --mv-gray: #6b7280;
-            --mv-light-bg: #f9fafb;
-            --mv-border: #e5e7eb;
-        }
-
-        body {
-            font-family: 'Grotesk-Regular', -apple-system, sans-serif;
-            line-height: 1.7;
-            color: var(--mv-dark);
-            background: #ffffff;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .hero {
-            background:
-                linear-gradient(180deg, rgba(0, 63, 255, 0.85) 0%, rgba(251, 0, 255, 0.85) 100%),
-                url('https://images.unsplash.com/photo-1589903308904-1010c2294adc?w=1920&fit=crop') center/cover;
-            color: white;
-            padding: 5rem 2rem;
-            text-align: center;
+        /* Custom styles specific to this page */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(122, 18, 212, 0.06) 0%, rgba(186, 98, 253, 0.06) 100%);
+            padding: 6rem 0 5rem 0;
             position: relative;
-            overflow: hidden;
         }
 
-        .hero::before {
+        .hero-section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.2);
-            z-index: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="%237a12d4" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
         }
 
         .hero-content {
@@ -87,61 +32,26 @@
             z-index: 1;
         }
 
-        .hero h1 {
-            font-family: 'Grotesk-Bold-16', sans-serif;
-            font-size: 3.75rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            line-height: 1.1;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            opacity: 0.95;
-            max-width: 700px;
-            margin: 0 auto;
-            font-family: 'Grotesk-Regular', sans-serif;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-            width: 100%;
-        }
-
-        @media(min-width: 1200px) {
-            .container {
-                padding-left: 0;
-                padding-right: 0;
-            }
-        }
-
         nav {
             background: white;
-            padding: 0.75rem 0;
+            padding: 1.5rem 0;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 2px solid var(--mv-brand-purple);
+            border-bottom: 2px solid #7a12d4;
         }
 
         nav ul {
             list-style: none;
-            list-style-type: none;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 2rem;
-            margin: 0;
-            padding: 0;
         }
 
         nav a {
-            color: var(--mv-dark);
+            color: #0f131a;
             text-decoration: none;
             font-family: 'Grotesk-Medium', sans-serif;
             font-weight: 600;
@@ -151,72 +61,17 @@
         }
 
         nav a:hover, nav a.active {
-            color: var(--mv-brand-purple);
+            color: #7a12d4;
         }
 
         nav a.active::after {
             content: '';
             position: absolute;
-            bottom: -0.9rem;
+            bottom: -1.7rem;
             left: 0;
             right: 0;
             height: 2px;
-            background: var(--mv-brand-purple);
-        }
-
-        section {
-            padding: 5rem 0;
-        }
-
-        section:nth-child(even) {
-            background: var(--mv-light-bg);
-        }
-
-        h2 {
-            font-family: Grotesk-Bold, Verdana-fallback-2, sans-serif;
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #0f131a;
-            letter-spacing: 0.005208333em;
-            line-height: 3.5rem;
-        }
-
-        h3 {
-            font-family: Grotesk-Bold, Verdana-fallback-2, sans-serif;
-            font-size: 2.25rem;
-            font-weight: 700;
-            margin: 2.5rem 0 1rem;
-            color: #0f131a;
-            letter-spacing: 0.006944444em;
-            line-height: 2.75rem;
-        }
-
-        h4 {
-            font-family: Grotesk-Medium, Arial-fallback-2, sans-serif;
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin: 1.5rem 0 0.75rem;
-            color: #0f131a;
-            letter-spacing: 0.010416667em;
-            line-height: 1.875rem;
-        }
-
-        .subtitle {
-            font-family: 'Grotesk-Regular', sans-serif;
-            font-size: 1.25rem;
-            color: var(--mv-gray);
-            margin-bottom: 3rem;
-            line-height: 1.6;
-        }
-
-        .card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin-bottom: 2rem;
-            border: 1px solid rgba(122, 18, 212, 0.1);
+            background: #7a12d4;
         }
 
         .two-col {
@@ -232,49 +87,6 @@
             gap: 3rem;
             margin: 2rem 0;
             align-items: center;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.4rem 0.9rem;
-            border-radius: 24px;
-            font-family: 'Grotesk-Medium', sans-serif;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-right: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .badge-success {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .badge-warning {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .badge-info {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-
-        ul, ol {
-            margin: 1.5rem 0 1.5rem 1.5rem;
-        }
-
-        li {
-            margin: 1rem 0;
-            line-height: 1.7;
-            font-family: 'Grotesk-Regular', sans-serif;
-        }
-
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(122, 18, 212, 0.08) 0%, rgba(251, 0, 255, 0.08) 100%);
-            border-left: 4px solid var(--mv-brand-purple);
-            padding: 2rem;
-            border-radius: 12px;
         }
 
         .philosophy-image {
@@ -303,7 +115,7 @@
             display: flex;
             align-items: center;
             padding: 1.25rem;
-            border-bottom: 1px solid var(--mv-border);
+            border-bottom: 1px solid #e5e7eb;
             transition: background 0.2s;
         }
 
@@ -316,7 +128,7 @@
         }
 
         .lesson-time {
-            background: linear-gradient(135deg, var(--mv-brand-purple) 0%, var(--mv-brand-purple-light) 100%);
+            background: linear-gradient(135deg, #7a12d4 0%, #ba62fd 100%);
             color: white;
             padding: 0.75rem 1.25rem;
             border-radius: 10px;
@@ -339,12 +151,6 @@
             font-size: 1.1rem;
         }
 
-        strong {
-            color: var(--mv-dark);
-            font-family: 'Grotesk-Medium', sans-serif;
-            font-weight: 600;
-        }
-
         .top-10-list {
             counter-reset: top-10;
             list-style: none;
@@ -363,7 +169,7 @@
             position: absolute;
             left: 0;
             top: 0;
-            background: linear-gradient(135deg, var(--mv-brand-purple), var(--mv-brand-purple-light));
+            background: linear-gradient(135deg, #7a12d4, #ba62fd);
             color: white;
             width: 2.5rem;
             height: 2.5rem;
@@ -391,7 +197,7 @@
             background: white;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            border-left: 4px solid var(--mv-danger);
+            border-left: 4px solid #ef4444;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
@@ -405,7 +211,7 @@
             position: absolute;
             left: 1.25rem;
             top: 1.5rem;
-            background: linear-gradient(135deg, var(--mv-danger), #dc2626);
+            background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
             width: 2rem;
             height: 2rem;
@@ -426,11 +232,11 @@
 
         .struggles-list p {
             margin: 0;
-            color: var(--mv-gray);
+            color: #6b7280;
         }
 
         .cta-box {
-            background: linear-gradient(135deg, var(--mv-brand-purple) 0%, var(--mv-brand-light) 100%);
+            background: linear-gradient(135deg, #7a12d4 0%, #fb00ff 100%);
             color: white;
             padding: 3.5rem;
             border-radius: 16px;
@@ -471,13 +277,13 @@
             font-family: 'Grotesk-Bold-16', sans-serif;
             font-size: 3rem;
             font-weight: 800;
-            color: var(--mv-brand-purple);
+            color: #7a12d4;
             display: block;
             margin-bottom: 0.5rem;
         }
 
         .stat-label {
-            color: var(--mv-gray);
+            color: #6b7280;
             font-family: 'Grotesk-Medium', sans-serif;
             font-size: 0.95rem;
             font-weight: 600;
@@ -510,7 +316,7 @@
             display: flex;
             align-items: flex-start;
             padding: 1.25rem;
-            border-bottom: 1px solid var(--mv-border);
+            border-bottom: 1px solid #e5e7eb;
             transition: background 0.2s;
             cursor: pointer;
         }
@@ -531,7 +337,7 @@
             width: 24px;
             height: 24px;
             min-width: 24px;
-            border: 2px solid var(--mv-brand-purple);
+            border: 2px solid #7a12d4;
             border-radius: 6px;
             margin-right: 1rem;
             cursor: pointer;
@@ -546,8 +352,8 @@
         }
 
         .checklist-checkbox.checked {
-            background: var(--mv-brand-purple);
-            border-color: var(--mv-brand-purple);
+            background: #7a12d4;
+            border-color: #7a12d4;
         }
 
         .checklist-checkbox.checked::after {
@@ -574,7 +380,7 @@
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, var(--mv-brand-purple), var(--mv-brand-purple-light));
+            background: linear-gradient(90deg, #7a12d4, #ba62fd);
             border-radius: 20px;
             transition: width 0.3s ease;
         }
@@ -582,13 +388,13 @@
         .progress-text {
             text-align: center;
             font-family: 'Grotesk-Medium', sans-serif;
-            color: var(--mv-gray);
+            color: #6b7280;
             margin-top: 0.5rem;
             font-size: 0.95rem;
         }
 
         footer {
-            background: var(--mv-dark);
+            background: #0f131a;
             color: white;
             text-align: center;
             padding: 3rem 2rem;
@@ -599,31 +405,46 @@
             margin: 0.5rem 0;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, var(--mv-brand-purple), var(--mv-brand-purple-light));
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-family: 'Grotesk-Medium', sans-serif;
-            font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 16px rgba(122, 18, 212, 0.3);
-            border: none;
-            cursor: pointer;
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(122, 18, 212, 0.08) 0%, rgba(251, 0, 255, 0.08) 100%);
+            border-left: 4px solid #7a12d4;
+            padding: 2rem;
+            border-radius: 12px;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(122, 18, 212, 0.4);
+        .icon {
+            display: inline-block;
+            margin-right: 0.5rem;
+            font-size: 1.2em;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            border-radius: 24px;
+            font-family: 'Grotesk-Medium', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-info {
+            background: #dbeafe;
+            color: #1e40af;
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
             .two-col, .two-col-philosophy {
                 grid-template-columns: 1fr;
             }
@@ -632,14 +453,6 @@
                 flex-direction: column;
                 gap: 1rem;
                 align-items: center;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-
-            h3 {
-                font-size: 1.75rem;
             }
 
             .lesson-item {
@@ -652,26 +465,20 @@
                 margin-right: 0;
             }
         }
-
-        .icon {
-            display: inline-block;
-            margin-right: 0.5rem;
-            font-size: 1.2em;
-        }
     </style>
 </head>
 <body>
-    <div class="hero">
+    <div class="hero-section">
         <div class="hero-content">
-            <div class="container">
-                <h1>A Guide to Teaching<br>the Best Possible Mindvalley Class</h1>
-                <p>Essential principles and proven frameworks based on 15,000+ student feedback points</p>
+            <div class="mv-container mv-text-center">
+                <h1 class="mv-type--headline1 mv-mb-3">A Guide to Teaching<br>the Best Possible Mindvalley Class</h1>
+                <p class="mv-lead">Essential principles and proven frameworks based on 15,000+ student feedback points</p>
             </div>
         </div>
     </div>
 
     <nav>
-        <div class="container">
+        <div class="mv-container">
             <ul>
                 <li><a href="#introduction">Introduction</a></li>
                 <li><a href="#what-works">10 Things You Should Know</a></li>
@@ -679,15 +486,15 @@
                 <li><a href="#weekly-delivery">Essential Principles</a></li>
                 <li><a href="#lesson-structure">Lesson Structure</a></li>
                 <li><a href="#best-practices">Best Practices</a></li>
-                <li><a href="#checklist" style="color: var(--mv-brand-purple);">✓ Checklist</a></li>
+                <li><a href="#checklist" style="color: #7a12d4;">✓ Checklist</a></li>
             </ul>
         </div>
     </nav>
 
-    <section id="introduction">
-        <div class="container">
-            <h2>Welcome, Mindvalley Authors</h2>
-            <p class="subtitle">This guide synthesizes feedback from over 15,000 students across all Mindvalley Masteries to help you create exceptional learning experiences.</p>
+    <section id="introduction" class="mv-section--content">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2 mv-mb-3">Welcome, Mindvalley Authors</h2>
+            <p class="mv-lead mv-mb-5">This guide synthesizes feedback from over 15,000 students across all Mindvalley Masteries to help you create exceptional learning experiences.</p>
 
             <div class="stat-grid">
                 <div class="stat">
@@ -710,8 +517,8 @@
 
             <div class="two-col-philosophy">
                 <div class="highlight-box">
-                    <h4>🎯 The Core Philosophy</h4>
-                    <p style="font-size: 1.1rem; line-height: 1.8;"><strong>Students thrive when teaching is clear, structured, and actionable, while remaining inspiring and emotionally resonant.</strong> This guide shows you exactly how to deliver both.</p>
+                    <h4 class="mv-type--headline5 mv-mb-2">🎯 The Core Philosophy</h4>
+                    <p class="mv-lead"><strong>Students thrive when teaching is clear, structured, and actionable, while remaining inspiring and emotionally resonant.</strong> This guide shows you exactly how to deliver both.</p>
                 </div>
                 <div class="philosophy-image">
                     <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=400&fit=crop" alt="Inspired students" style="height: 250px;">
@@ -724,68 +531,68 @@
         </div>
     </section>
 
-    <section id="what-works" style="background: var(--mv-light-bg);">
-        <div class="container">
-            <h2>✨ 10 Things You Should Know as a Teacher</h2>
-            <p class="subtitle">Here's what actually works, straight from your students. Read this with your coffee and a highlighter. ☕</p>
+    <section id="what-works" class="mv-section--content" style="background: #f9fafb;">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2 mv-mb-3">✨ 10 Things You Should Know as a Teacher</h2>
+            <p class="mv-lead mv-mb-5">Here's what actually works, straight from your students. Read this with your coffee and a highlighter. ☕</p>
 
             <ol class="top-10-list">
                 <li>
-                    <h4>Use Clear, Structured, Actionable Teaching</h4>
+                    <h4 class="mv-type--headline5 mv-mb-2">Use Clear, Structured, Actionable Teaching</h4>
                     <p>Listen, nobody likes wandering through a maze when they signed up for a guided tour. <strong>Give your students frameworks, sequences, templates, checklists, and "do-this-next" instructions.</strong> 92-99% of students across every single program said this was the #1 thing that helped them succeed. Structure isn't boring—it's kindness. It's how you show respect for people's time and trust.</p>
                     <span class="badge badge-success">Non-Negotiable</span>
                 </li>
 
                 <li>
-                    <h4>Bring Inspiring Energy & Emotional Resonance</h4>
+                    <h4 class="mv-type--headline5 mv-mb-2">Bring Inspiring Energy & Emotional Resonance</h4>
                     <p>You're not a robot reading PowerPoint slides (please tell me you're not). <strong>Students want to FEEL something.</strong> They want to leave your class feeling more confident, more hopeful, more capable than when they arrived. 68-91% said this was essential. Be real. Be passionate. Show them why this stuff matters. Your enthusiasm is contagious—or your lack of it is, too. Choose wisely. 😉</p>
                     <span class="badge badge-success">Essential Magic</span>
                 </li>
 
                 <li>
-                    <h4>Provide Practical Tools & Templates They Can Actually Use</h4>
+                    <h4 class="mv-type--headline5 mv-mb-2">Provide Practical Tools & Templates They Can Actually Use</h4>
                     <p>Theory is great. You know what's better? <strong>Giving students something they can download, open, and use tomorrow morning.</strong> Prompts. Scripts. Slide decks. Exercises. Worksheets. The stuff that makes them think, "Holy crap, I can actually DO this now." When you hand over the goods, ratings skyrocket. It's that simple.</p>
                     <span class="badge badge-info">Give Them The Goods</span>
                 </li>
 
                 <li>
-                    <h4>Show Real Examples & Live Demos</h4>
+                    <h4 class="mv-type--headline5 mv-mb-2">Show Real Examples & Live Demos</h4>
                     <p>Nothing—and I mean nothing—beats watching someone do the thing. <strong>Show before/afters. Do live demos. Walk through real examples.</strong> Abstract advice is forgettable. Watching you build an AI workflow, break down a viral post, or coach someone live? That sticks. Students learn by watching, not just listening. Be the YouTube tutorial they actually want to watch.</p>
                     <span class="badge badge-info">Show, Don't Just Tell</span>
                 </li>
 
                 <li>
-                    <h4>Make Space for Q&A, Hot Seats & Personalized Coaching</h4>
+                    <h4 class="mv-type--headline5 mv-mb-2">Make Space for Q&A, Hot Seats & Personalized Coaching</h4>
                     <p>Here's a secret: <strong>when one person gets coached, everyone learns.</strong> Hot seats are like group therapy for learning—people see themselves in other students' questions. They spot patterns. They think, "Oh wait, I do that too!" Q&A isn't filler time at the end. It's where lightbulbs go off.</p>
                     <span class="badge badge-success">Where Magic Happens</span>
                 </li>
 
                 <li>
-                    <h4>Create Emotional Safety Through Authenticity</h4>
+                    <h4 class="mv-type--headline5 mv-mb-2">Create Emotional Safety Through Authenticity</h4>
                     <p>Students can smell fake from a mile away. <strong>Share your struggles. Show vulnerability. Admit when something was hard for you.</strong> When you create a safe space, students go deeper. They take bigger risks. They share more honestly. Your authenticity gives them permission to be real, too. And that's where transformation happens.</p>
                     <span class="badge badge-info">Be Human</span>
                 </li>
 
                 <li>
-                    <h4>Facilitate Community & Collective Energy</h4>
+                    <h4 class="mv-type--headline5 mv-mb-2">Facilitate Community & Collective Energy</h4>
                     <p>Lonely learning sucks. Period. <strong>Students want to see other humans on the journey with them.</strong> Use breakouts. Create shares. Celebrate wins together. When students feel part of a tribe, they stay engaged, they show up, and they actually finish what they started. Community is the accountability partner they didn't know they needed.</p>
                     <span class="badge badge-info">Nobody Grows Alone</span>
                 </li>
 
                 <li>
-                    <h4>Focus on Identity Shifts, Not Just Skills</h4>
+                    <h4 class="mv-type--headline5 mv-mb-2">Focus on Identity Shifts, Not Just Skills</h4>
                     <p>Anyone can teach tactics. <strong>The really good stuff? That's when you help someone see themselves differently.</strong> "I'm not just learning to create content—I'm becoming a creator." "I'm not just learning manifestation—I'm becoming someone who trusts their power." That's the transformation students will remember five years from now.</p>
                     <span class="badge badge-success">Go Deeper</span>
                 </li>
 
                 <li>
-                    <h4>Integrate Spiritual & Philosophical Depth</h4>
+                    <h4 class="mv-type--headline5 mv-mb-2">Integrate Spiritual & Philosophical Depth</h4>
                     <p>This is Mindvalley, baby. <strong>Students are here for meaning, not just money.</strong> Don't be afraid to go beyond tactics into "why it matters" territory. Connect to purpose. Talk about consciousness. Make it philosophical. The students who show up here want depth, not just surface-level hacks. Give them both.</p>
                     <span class="badge badge-info">The Mindvalley Difference</span>
                 </li>
 
                 <li>
-                    <h4>Be a Credible Expert with Real-World Experience</h4>
+                    <h4 class="mv-type--headline5 mv-mb-2">Be a Credible Expert with Real-World Experience</h4>
                     <p>Students can tell the difference between someone who's done the thing and someone who read about it. <strong>Share your real experience—the wins AND the faceplants.</strong> They trust practitioners, not theorists. Your street cred matters. If you've built it, launched it, healed from it, or scaled it—say so. Your scars are your credentials.</p>
                     <span class="badge badge-success">Walk Your Talk</span>
                 </li>
@@ -797,10 +604,10 @@
         </div>
     </section>
 
-    <section id="common-struggles">
-        <div class="container">
-            <h2>⚠️ The 10 Biggest Student Struggles</h2>
-            <p class="subtitle">These issues show up in every program. Avoid them like the plague. 🚫</p>
+    <section id="common-struggles" class="mv-section--content">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2 mv-mb-3">⚠️ The 10 Biggest Student Struggles</h2>
+            <p class="mv-lead mv-mb-5">These issues show up in every program. Avoid them like the plague. 🚫</p>
 
             <ol class="struggles-list">
                 <li>
@@ -860,38 +667,38 @@
         </div>
     </section>
 
-    <section id="weekly-delivery" style="background: var(--mv-light-bg);">
-        <div class="container">
-            <h2>🗓️ Essential Delivery Principles</h2>
-            <p class="subtitle">The foundational practices that work across every Mastery program</p>
+    <section id="weekly-delivery" class="mv-section--content" style="background: #f9fafb;">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2 mv-mb-3">🗓️ Essential Delivery Principles</h2>
+            <p class="mv-lead mv-mb-5">The foundational practices that work across every Mastery program</p>
 
-            <div class="card">
-                <h3>Pre-Session Excellence</h3>
+            <div class="mv-card">
+                <h3 class="mv-type--headline3 mv-mb-4">Pre-Session Excellence</h3>
 
-                <h4><span class="icon">📦</span> Send Materials in Advance</h4>
-                <p><strong>Always send materials and links BEFORE the class.</strong> This isn't optional—it's a contractual must-have.</p>
-                <ul>
+                <h4 class="mv-type--headline5 mv-mb-2"><span class="icon">📦</span> Send Materials in Advance</h4>
+                <p class="mv-mb-3"><strong>Always send materials and links BEFORE the class.</strong> This isn't optional—it's a contractual must-have.</p>
+                <ul class="mv-mb-4">
                     <li>All slides, tools, templates, links, books, apps</li>
                     <li>Required reading or downloads</li>
                     <li>Special preparation instructions</li>
                     <li>Pre-work if needed</li>
                 </ul>
-                <div class="highlight-box">
+                <div class="highlight-box mv-mb-4">
                     <p><strong>⚠️ Critical for Technical Programs:</strong> For Masteries like AI, students need time to download tools, set up accounts, and prep their environment. Email these requirements well in advance.</p>
                 </div>
 
-                <h4><span class="icon">🎯</span> Define 3 Clear Learning Points</h4>
-                <p><strong>Every class should have maximum 3 main learning points.</strong> This gives students clear outcomes and helps them know what to focus on.</p>
-                <ul>
+                <h4 class="mv-type--headline5 mv-mb-2"><span class="icon">🎯</span> Define 3 Clear Learning Points</h4>
+                <p class="mv-mb-3"><strong>Every class should have maximum 3 main learning points.</strong> This gives students clear outcomes and helps them know what to focus on.</p>
+                <ul class="mv-mb-4">
                     <li>Map these at the beginning of the session</li>
                     <li>This mentally prepares students and directs the experience</li>
                     <li>When the lesson is mapped, students can relax and absorb</li>
                     <li>Creates a nurturing, organized environment</li>
                 </ul>
 
-                <h4><span class="icon">🔧</span> Prepare 1-2 Actionable Tools</h4>
-                <p>Every class must include practical, immediately usable tools:</p>
-                <ul>
+                <h4 class="mv-type--headline5 mv-mb-2"><span class="icon">🔧</span> Prepare 1-2 Actionable Tools</h4>
+                <p class="mv-mb-3">Every class must include practical, immediately usable tools:</p>
+                <ul class="mv-mb-4">
                     <li>Frameworks that simplify complex concepts</li>
                     <li>Checklists students can follow step-by-step</li>
                     <li>Templates they can customize</li>
@@ -899,8 +706,8 @@
                     <li>Exercises they can practice</li>
                 </ul>
 
-                <h4><span class="icon">💡</span> Plan Real-Life Examples</h4>
-                <p>Always prepare concrete demonstrations of how to apply what you're teaching:</p>
+                <h4 class="mv-type--headline5 mv-mb-2"><span class="icon">💡</span> Plan Real-Life Examples</h4>
+                <p class="mv-mb-3">Always prepare concrete demonstrations of how to apply what you're teaching:</p>
                 <ul>
                     <li>Case studies from your experience or clients</li>
                     <li>Hot-seat coaching to show application in real-time</li>
@@ -913,13 +720,13 @@
                 <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&h=400&fit=crop" alt="Teacher with students" style="object-fit: cover; height: 400px;">
             </div>
 
-            <div class="card">
-                <h3>Q&A Best Practices</h3>
-                <p>End every session with structured Q&A following these guidelines:</p>
+            <div class="mv-card">
+                <h3 class="mv-type--headline3 mv-mb-4">Q&A Best Practices</h3>
+                <p class="mv-mb-4">End every session with structured Q&A following these guidelines:</p>
 
                 <div class="two-col">
                     <div>
-                        <h4>✅ Do This</h4>
+                        <h4 class="mv-type--headline5 mv-mb-3">✅ Do This</h4>
                         <ul>
                             <li>Direct all questions to Zoom Q&A box (not chat)</li>
                             <li>Ask students to upvote questions</li>
@@ -930,7 +737,7 @@
                         </ul>
                     </div>
                     <div>
-                        <h4>❌ Avoid This</h4>
+                        <h4 class="mv-type--headline5 mv-mb-3">❌ Avoid This</h4>
                         <ul>
                             <li>Answering questions from chat (creates distraction)</li>
                             <li>Letting same students dominate every Q&A</li>
@@ -942,9 +749,9 @@
                 </div>
             </div>
 
-            <div class="card">
-                <h3>Homework & Implementation</h3>
-                <p><strong>Action steps should be implementable within 1 week</strong> so people actually take action.</p>
+            <div class="mv-card">
+                <h3 class="mv-type--headline3 mv-mb-4">Homework & Implementation</h3>
+                <p class="mv-mb-3"><strong>Action steps should be implementable within 1 week</strong> so people actually take action.</p>
                 <ul>
                     <li>Make tasks achievable in 7 days</li>
                     <li>Ideally, tasks build upon each other week-to-week</li>
@@ -954,11 +761,11 @@
                 </ul>
             </div>
 
-            <div class="card">
-                <h3>⏰ Time Management (Non-Negotiable)</h3>
+            <div class="mv-card">
+                <h3 class="mv-type--headline3 mv-mb-4">⏰ Time Management (Non-Negotiable)</h3>
                 <div class="highlight-box">
-                    <h4>⚠️ Critical: Respect Time Boundaries</h4>
-                    <p><strong>People complain when calls go over time</strong> because they experience FOMO if they "miss anything."</p>
+                    <h4 class="mv-type--headline5 mv-mb-2">⚠️ Critical: Respect Time Boundaries</h4>
+                    <p class="mv-mb-3"><strong>People complain when calls go over time</strong> because they experience FOMO if they "miss anything."</p>
                     <ul>
                         <li>Even though replays exist, it's not the same experience</li>
                         <li>Most students have other commitments scheduled</li>
@@ -971,14 +778,14 @@
         </div>
     </section>
 
-    <section id="lesson-structure">
-        <div class="container">
-            <h2>📋 Recommended Lesson Structure</h2>
-            <p class="subtitle">Proven formats for Learning and Coaching sessions</p>
+    <section id="lesson-structure" class="mv-section--content">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2 mv-mb-3">📋 Recommended Lesson Structure</h2>
+            <p class="mv-lead mv-mb-5">Proven formats for Learning and Coaching sessions</p>
 
             <div class="two-col">
                 <div class="lesson-structure">
-                    <h3 style="text-align: center; color: var(--mv-brand-purple); margin-bottom: 2rem;">Lesson 1: Learning Session</h3>
+                    <h3 class="mv-type--headline3 mv-text-center mv-mb-4" style="color: #7a12d4;">Lesson 1: Learning Session</h3>
 
                     <div class="lesson-item">
                         <div class="lesson-time">2 min</div>
@@ -1028,13 +835,13 @@
                         </div>
                     </div>
 
-                    <div style="text-align: center; margin-top: 1.5rem; padding: 1.5rem; background: var(--mv-light-bg); border-radius: 12px;">
+                    <div class="mv-text-center mv-mt-4" style="padding: 1.5rem; background: #f9fafb; border-radius: 12px;">
                         <strong style="font-size: 1.1rem;">Total: ~95 minutes</strong>
                     </div>
                 </div>
 
                 <div class="lesson-structure">
-                    <h3 style="text-align: center; color: #fb00ff; margin-bottom: 2rem;">Lesson 2: Coaching & Implementation</h3>
+                    <h3 class="mv-type--headline3 mv-text-center mv-mb-4" style="color: #fb00ff;">Lesson 2: Coaching & Implementation</h3>
 
                     <div class="lesson-item">
                         <div class="lesson-time" style="background: linear-gradient(135deg, #fb00ff 0%, #ba62fd 100%);">5 min</div>
@@ -1076,7 +883,7 @@
                         </div>
                     </div>
 
-                    <div style="text-align: center; margin-top: 1.5rem; padding: 1.5rem; background: var(--mv-light-bg); border-radius: 12px;">
+                    <div class="mv-text-center mv-mt-4" style="padding: 1.5rem; background: #f9fafb; border-radius: 12px;">
                         <strong style="font-size: 1.1rem;">Total: ~85 minutes</strong>
                     </div>
                 </div>
@@ -1088,13 +895,13 @@
         </div>
     </section>
 
-    <section id="best-practices" style="background: var(--mv-light-bg);">
-        <div class="container">
-            <h2>🌟 Quick Reference: Best Practices</h2>
+    <section id="best-practices" class="mv-section--content" style="background: #f9fafb;">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2 mv-mb-5">🌟 Quick Reference: Best Practices</h2>
 
             <div class="two-col">
-                <div class="card">
-                    <h4>✅ Always Do</h4>
+                <div class="mv-card">
+                    <h4 class="mv-type--headline5 mv-mb-3">✅ Always Do</h4>
                     <ul style="margin-left: 1.5rem;">
                         <li>Structure sessions clearly (Teaching → Tool → Demo → Q&A)</li>
                         <li>Provide one-pagers and summary sheets</li>
@@ -1109,8 +916,8 @@
                     </ul>
                 </div>
 
-                <div class="card">
-                    <h4>❌ Never Do</h4>
+                <div class="mv-card">
+                    <h4 class="mv-type--headline5 mv-mb-3">❌ Never Do</h4>
                     <ul style="margin-left: 1.5rem;">
                         <li>Run over time</li>
                         <li>Delay uploading resources</li>
@@ -1127,20 +934,20 @@
             </div>
 
             <div class="cta-box">
-                <h3>The Mindvalley Promise</h3>
-                <p style="font-size: 1.25rem; margin: 1.5rem 0; line-height: 1.7;">Students succeed when they receive <strong>clear, structured, actionable teaching</strong> delivered with <strong>inspiring energy</strong>, supported by <strong>practical tools</strong> and <strong>real examples</strong>, within a <strong>safe, connected community</strong>.</p>
+                <h3 class="mv-type--headline3 mv-mb-3">The Mindvalley Promise</h3>
+                <p class="mv-lead" style="margin: 1.5rem 0; line-height: 1.7;">Students succeed when they receive <strong>clear, structured, actionable teaching</strong> delivered with <strong>inspiring energy</strong>, supported by <strong>practical tools</strong> and <strong>real examples</strong>, within a <strong>safe, connected community</strong>.</p>
                 <p style="margin-top: 2rem; opacity: 0.95; font-size: 1.1rem;">This is how we create transformation, not just information.</p>
             </div>
         </div>
     </section>
 
-    <section id="checklist">
-        <div class="container">
-            <h2>✅ Interactive Author Checklist</h2>
-            <p class="subtitle">Use this checklist before, during, and after each class. Your progress is automatically saved.</p>
+    <section id="checklist" class="mv-section--content">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2 mv-mb-3">✅ Interactive Author Checklist</h2>
+            <p class="mv-lead mv-mb-5">Use this checklist before, during, and after each class. Your progress is automatically saved.</p>
 
-            <div class="card">
-                <h3>📊 Your Progress</h3>
+            <div class="mv-card">
+                <h3 class="mv-type--headline3 mv-mb-3">📊 Your Progress</h3>
                 <div class="progress-bar-container">
                     <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
                 </div>
@@ -1148,7 +955,7 @@
             </div>
 
             <div class="checklist-container">
-                <h3 style="margin-bottom: 2rem;">Before Every Class</h3>
+                <h3 class="mv-type--headline3 mv-mb-4">Before Every Class</h3>
 
                 <div class="checklist-item" data-id="1">
                     <div class="checklist-checkbox"></div>
@@ -1202,7 +1009,7 @@
             </div>
 
             <div class="checklist-container">
-                <h3 style="margin-bottom: 2rem;">During the Class</h3>
+                <h3 class="mv-type--headline3 mv-mb-4">During the Class</h3>
 
                 <div class="checklist-item" data-id="11">
                     <div class="checklist-checkbox"></div>
@@ -1236,7 +1043,7 @@
             </div>
 
             <div class="checklist-container">
-                <h3 style="margin-bottom: 2rem;">After Every Class</h3>
+                <h3 class="mv-type--headline3 mv-mb-4">After Every Class</h3>
 
                 <div class="checklist-item" data-id="17">
                     <div class="checklist-checkbox"></div>
@@ -1259,14 +1066,14 @@
                 </div>
             </div>
 
-            <div style="text-align: center; margin-top: 3rem;">
-                <button class="btn" onclick="resetChecklist()">Reset Checklist</button>
+            <div class="mv-text-center mv-mt-6">
+                <button class="mv-btn-primary" onclick="resetChecklist()">Reset Checklist</button>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="container">
+        <div class="mv-container">
             <p style="font-family: 'Grotesk-Bold', sans-serif; font-size: 1.25rem;"><strong>A Guide to Teaching the Best Possible Mindvalley Class</strong></p>
             <p style="margin-top: 0.75rem; opacity: 0.9;">Based on 15,000+ student feedback points across all Mindvalley Masteries</p>
             <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.7;">© 2025 Mindvalley. Created to help authors deliver transformational learning experiences.</p>

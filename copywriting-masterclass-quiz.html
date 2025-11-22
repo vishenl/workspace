@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Copywriting Quiz - Test Your Knowledge</title>
+
+    <!-- Mindvalley Official Stylesheet -->
+    <link rel="stylesheet" href="mindvalley-style.css">
+
+    <!-- Mindvalley Fonts -->
+    <link rel="preconnect" href="https://storyblok-assets.mindvalley.com">
+    <style>
+        @font-face {
+            font-display: swap;
+            font-family: 'Grotesk-Regular';
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBook-19.ed0b68c.woff2) format("woff2");
+        }
+        @font-face {
+            font-display: swap;
+            font-family: 'Grotesk-Medium';
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrMedium-20.36349e7.woff2) format("woff2");
+        }
+        @font-face {
+            font-display: swap;
+            font-family: 'Grotesk-Bold';
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrSmBold-21.2e6314a.woff2) format("woff2");
+        }
+        @font-face {
+            font-display: swap;
+            font-family: 'Grotesk-Bold-16';
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBold-16.d5a4b9e.woff2) format("woff2");
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --mv-brand-purple: #7a12d4;
+            --mv-brand-purple-light: #ba62fd;
+            --mv-brand-dark: #003fff;
+            --mv-brand-light: #fb00ff;
+            --mv-success: #10b981;
+            --mv-warning: #f59e0b;
+            --mv-danger: #ef4444;
+            --mv-dark: #0f131a;
+            --mv-gray: #6b7280;
+            --mv-light-bg: #f9fafb;
+        }
+
+        body {
+            font-family: 'Grotesk-Regular', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--mv-dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(180deg, var(--mv-brand-dark) 0%, var(--mv-brand-light) 100%);
+            color: white;
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '🧠';
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.1;
+            top: -5rem;
+            right: -5rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Grotesk-Bold-16', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-family: 'Grotesk-Medium', sans-serif;
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .progress-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-family: 'Grotesk-Medium', sans-serif;
+            font-size: 0.9rem;
+            color: var(--mv-gray);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: var(--mv-light-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--mv-brand-purple), var(--mv-brand-purple-light));
+            border-radius: 20px;
+            transition: width 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Score Display */
+        .score-display {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-value {
+            font-family: 'Grotesk-Bold-16', sans-serif;
+            font-size: 2rem;
+            color: var(--mv-brand-purple);
+        }
+
+        .score-label {
+            font-family: 'Grotesk-Medium', sans-serif;
+            font-size: 0.85rem;
+            color: var(--mv-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Quiz Container */
+        .quiz-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 0 2rem 3rem;
+        }
+
+        /* Question Card */
+        .question-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(122, 18, 212, 0.15);
+            margin-bottom: 2rem;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-number {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 0.9rem;
+            color: var(--mv-brand-purple);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .question-text {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 1.5rem;
+            color: var(--mv-dark);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        /* Answer Options */
+        .answers {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .answer-option {
+            background: var(--mv-light-bg);
+            border: 3px solid transparent;
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .answer-option::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            background: linear-gradient(90deg, var(--mv-brand-purple), var(--mv-brand-purple-light));
+            transition: width 0.3s ease;
+            opacity: 0.1;
+        }
+
+        .answer-option:hover {
+            transform: translateX(5px);
+            border-color: var(--mv-brand-purple);
+        }
+
+        .answer-option:hover::before {
+            width: 100%;
+        }
+
+        .answer-letter {
+            font-family: 'Grotesk-Bold-16', sans-serif;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--mv-brand-purple);
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .answer-text {
+            font-family: 'Grotesk-Medium', sans-serif;
+            font-size: 1.1rem;
+            color: var(--mv-dark);
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .answer-option.selected {
+            border-color: var(--mv-brand-purple);
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+        }
+
+        .answer-option.selected .answer-letter {
+            background: var(--mv-brand-purple);
+            color: white;
+        }
+
+        .answer-option.correct {
+            border-color: var(--mv-success);
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            pointer-events: none;
+        }
+
+        .answer-option.correct .answer-letter {
+            background: var(--mv-success);
+            color: white;
+        }
+
+        .answer-option.incorrect {
+            border-color: var(--mv-danger);
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            pointer-events: none;
+        }
+
+        .answer-option.incorrect .answer-letter {
+            background: var(--mv-danger);
+            color: white;
+        }
+
+        /* Feedback */
+        .feedback {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-left: 6px solid var(--mv-success);
+        }
+
+        .feedback.incorrect {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-left: 6px solid var(--mv-danger);
+        }
+
+        .feedback-title {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback.correct .feedback-title {
+            color: var(--mv-success);
+        }
+
+        .feedback.incorrect .feedback-title {
+            color: var(--mv-danger);
+        }
+
+        .feedback-text {
+            font-family: 'Grotesk-Regular', sans-serif;
+            font-size: 1rem;
+            color: var(--mv-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            font-family: 'Grotesk-Bold', sans-serif;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--mv-brand-purple), var(--mv-brand-purple-light));
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(122, 18, 212, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--mv-light-bg);
+            color: var(--mv-brand-purple);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--mv-brand-purple);
+            color: white;
+        }
+
+        /* Results Screen */
+        .results-screen {
+            display: none;
+            text-align: center;
+            animation: slideIn 0.5s ease;
+        }
+
+        .results-screen.show {
+            display: block;
+        }
+
+        .results-card {
+            background: white;
+            border-radius: 20px;
+            padding: 4rem 3rem;
+            box-shadow: 0 10px 40px rgba(122, 18, 212, 0.15);
+            margin-bottom: 2rem;
+        }
+
+        .results-emoji {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            animation: bounce 1s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .results-title {
+            font-family: 'Grotesk-Bold-16', sans-serif;
+            font-size: 2.5rem;
+            color: var(--mv-brand-purple);
+            margin-bottom: 1rem;
+        }
+
+        .results-score {
+            font-family: 'Grotesk-Bold-16', sans-serif;
+            font-size: 4rem;
+            background: linear-gradient(135deg, var(--mv-brand-purple), var(--mv-brand-purple-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+        }
+
+        .results-message {
+            font-family: 'Grotesk-Medium', sans-serif;
+            font-size: 1.3rem;
+            color: var(--mv-gray);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .results-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .breakdown-item {
+            background: var(--mv-light-bg);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 2px solid transparent;
+        }
+
+        .breakdown-item.correct {
+            border-color: var(--mv-success);
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        }
+
+        .breakdown-item.incorrect {
+            border-color: var(--mv-danger);
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+        }
+
+        .breakdown-value {
+            font-family: 'Grotesk-Bold-16', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .breakdown-item.correct .breakdown-value {
+            color: var(--mv-success);
+        }
+
+        .breakdown-item.incorrect .breakdown-value {
+            color: var(--mv-danger);
+        }
+
+        .breakdown-label {
+            font-family: 'Grotesk-Medium', sans-serif;
+            font-size: 1rem;
+            color: var(--mv-gray);
+        }
+
+        .mastery-badge {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 1.1rem;
+            margin: 2rem 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .mastery-badge.expert {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+        }
+
+        .mastery-badge.proficient {
+            background: linear-gradient(135deg, var(--mv-brand-purple), var(--mv-brand-purple-light));
+            color: white;
+        }
+
+        .mastery-badge.learning {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: white;
+        }
+
+        .mastery-badge.beginner {
+            background: linear-gradient(135deg, #6b7280, #9ca3af);
+            color: white;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .question-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .question-text {
+                font-size: 1.2rem;
+            }
+
+            .results-card {
+                padding: 3rem 2rem;
+            }
+
+            .results-score {
+                font-size: 3rem;
+            }
+
+            .score-display {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>🧠 AI-Powered Copywriting Mastery Quiz</h1>
+            <div class="hero-subtitle">15 questions to test your mastery of AI copywriting!</div>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-wrapper">
+            <div class="progress-info">
+                <span>Question <span id="current-question">1</span> of 15</span>
+                <div class="score-display">
+                    <div class="score-item">
+                        <div class="score-value" id="correct-count">0</div>
+                        <div class="score-label">Correct</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" id="incorrect-count">0</div>
+                        <div class="score-label">Incorrect</div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 6.67%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Container -->
+    <div class="quiz-container" id="quiz-container">
+        <!-- Questions will be dynamically inserted here -->
+    </div>
+
+    <!-- Results Screen -->
+    <div class="quiz-container results-screen" id="results-screen">
+        <div class="results-card">
+            <div class="results-emoji" id="results-emoji">🎉</div>
+            <h2 class="results-title">Quiz Complete!</h2>
+            <div class="results-score" id="results-percentage">0%</div>
+            <div class="results-message" id="results-message"></div>
+
+            <div class="mastery-badge" id="mastery-badge"></div>
+
+            <div class="results-breakdown">
+                <div class="breakdown-item correct">
+                    <div class="breakdown-value" id="final-correct">0</div>
+                    <div class="breakdown-label">Correct Answers</div>
+                </div>
+                <div class="breakdown-item incorrect">
+                    <div class="breakdown-value" id="final-incorrect">0</div>
+                    <div class="breakdown-label">Incorrect Answers</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="breakdown-value" id="final-time">0:00</div>
+                    <div class="breakdown-label">Time Taken</div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="retakeQuiz()">🔄 Retake Quiz</button>
+                <button class="btn btn-secondary" onclick="window.location.href='copywriting-masterclass-user-guide.html'">📚 Review Notes</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What reading level should your website copy target according to the masterclass?",
+                answers: [
+                    "Grade 12 (18 years old)",
+                    "Grade 5-8 (10-15 years old)",
+                    "College level (21+ years old)",
+                    "Grade 3 (8 years old)"
+                ],
+                correct: 1,
+                explanation: "Research shows that content written at a 15-year-old reading level (Grade 5-8) converts better across ALL audiences, regardless of education level. This ensures maximum clarity and comprehension."
+            },
+            {
+                question: "Which tool should you use to check your copy's readability level?",
+                answers: [
+                    "Grammarly",
+                    "HemingwayApp.com",
+                    "ChatGPT",
+                    "Google Docs"
+                ],
+                correct: 1,
+                explanation: "HemingwayApp.com is the free tool recommended in the masterclass. It instantly analyzes your text and shows the grade level, helping you achieve that target 5-8 reading level."
+            },
+            {
+                question: "How many primary CTAs (Calls to Action) should your homepage have?",
+                answers: [
+                    "5-7 to give visitors choices",
+                    "ONE clear primary CTA",
+                    "As many as possible to maximize conversions",
+                    "3-4 different options"
+                ],
+                correct: 1,
+                explanation: "The Paradox of Choice teaches us that more options lead to fewer conversions. Have ONE clear primary CTA that appears 2-3 times throughout your page. Everything else should be secondary or removed."
+            },
+            {
+                question: "In the Mindvalley $1M case study, what happened when they added a popup to immediately download the free ebook?",
+                answers: [
+                    "Sales increased by 30%",
+                    "Email signups increased 20%, but sales dropped 30%",
+                    "Both emails and sales increased",
+                    "Nothing changed"
+                ],
+                correct: 1,
+                explanation: "They got 20% MORE emails but 30% FEWER sales because people weren't reading the ebook. They hadn't been sold on WHY they needed it. The lesson: you must sell people on consuming your free product, not just downloading it."
+            },
+            {
+                question: "What should you create instead of sending people directly to a calendar booking link?",
+                answers: [
+                    "A quiz to qualify leads",
+                    "A video testimonial page",
+                    "A strategy call landing page explaining what to expect",
+                    "An email sequence"
+                ],
+                correct: 2,
+                explanation: "Create a dedicated landing page that sells them on the strategy call. Explain what happens, what they'll get, who they'll meet, and include social proof. This increases both booking rate AND show-up rate dramatically."
+            },
+            {
+                question: "According to Robert Cialdini's jam study, what happens when you offer too many product choices?",
+                answers: [
+                    "Sales increase significantly",
+                    "Sales stay the same",
+                    "Sales decrease due to decision paralysis",
+                    "Customer satisfaction improves"
+                ],
+                correct: 2,
+                explanation: "In Cialdini's famous study, a supermarket displayed 5 types of jam and had good sales. When they increased to 20 varieties, sales DROPPED. More choices = decision paralysis = fewer conversions."
+            },
+            {
+                question: "What should you do FIRST when building your custom AI copywriting assistant?",
+                answers: [
+                    "Start writing prompts yourself",
+                    "Upload your website to ChatGPT",
+                    "Ask ChatGPT to interview you about your market",
+                    "Run Deep Research immediately"
+                ],
+                correct: 2,
+                explanation: "The first step is to ask ChatGPT to interview you with clarifying questions about your market, audience, services, and brand voice. This creates a better research prompt than you could write yourself."
+            },
+            {
+                question: "How long does ChatGPT Deep Research typically take to create your copywriting guide?",
+                answers: [
+                    "5 minutes",
+                    "20 minutes",
+                    "2 hours",
+                    "24 hours"
+                ],
+                correct: 1,
+                explanation: "ChatGPT Deep Research mode spends about 20 minutes analyzing your market and creating a comprehensive 60-70 page copywriting guide tailored specifically to your audience."
+            },
+            {
+                question: "What should all your CTA buttons say consistently?",
+                answers: [
+                    "Different creative phrases to keep it interesting",
+                    "The same core message throughout (e.g., 'Send Me the Free Guide')",
+                    "Generic phrases like 'Click Here'",
+                    "Whatever ChatGPT suggests"
+                ],
+                correct: 1,
+                explanation: "Button messaging should be consistent. If your CTA is 'Send Me the Free Guide,' use that exact phrase throughout your page. Don't confuse visitors with variations like 'Get My Guide,' 'Download Now,' etc."
+            },
+            {
+                question: "What is the purpose of a strong 'call out' on your homepage?",
+                answers: [
+                    "To attract as many visitors as possible",
+                    "To clearly identify WHO your product is for so the right people raise their hand",
+                    "To show off your creativity",
+                    "To rank better in Google"
+                ],
+                correct: 1,
+                explanation: "A strong call out (e.g., 'For Female Founders, Coaches, and Changemakers') helps the right people feel seen and stay, while the wrong people leave (which is good!). This keeps your email list concentrated and improves conversion rates."
+            },
+            {
+                question: "In Henri's sales funnel, what was her conversion rate from the $44 workshop to the $4,444 group coaching?",
+                answers: [
+                    "10%",
+                    "24%",
+                    "50%",
+                    "5%"
+                ],
+                correct: 1,
+                explanation: "Henri achieved a remarkable 24% conversion rate from her $44 workshop to $4,444 group coaching, proving she excels at live selling. This is significantly higher than average industry rates."
+            },
+            {
+                question: "When should you upload customer survey data to your custom GPT?",
+                answers: [
+                    "Never - it's not useful",
+                    "Only if the data is perfect",
+                    "Always - and name files clearly like 'MyMarketResearch.csv'",
+                    "Only for paid customers"
+                ],
+                correct: 2,
+                explanation: "Always upload your market research, customer interviews, and survey data to your custom GPT. Name files clearly (like 'MyMarketResearch.csv') so the AI understands what it's analyzing and can provide better insights."
+            },
+            {
+                question: "What tool should you use to create professional covers for your digital products?",
+                answers: [
+                    "Microsoft Paint",
+                    "Canva only",
+                    "Midjourney or similar AI image generators",
+                    "Stock photo websites"
+                ],
+                correct: 2,
+                explanation: "Midjourney and similar AI image generators can create professional-looking covers for digital products, ebooks, and guides. Adding a visual cover increases perceived value and conversions significantly."
+            },
+            {
+                question: "According to Vishen, how long does it traditionally take to master world-class copywriting?",
+                answers: [
+                    "6 months",
+                    "1-2 years",
+                    "5-10 years",
+                    "3 years"
+                ],
+                correct: 2,
+                explanation: "Vishen spent 8 years studying copywriting, attended 10+ conferences, and invested over $20,000 in courses. Traditional copywriting mastery takes 5-10 years - but with AI, you only need to understand the fundamentals and let AI do the heavy lifting."
+            },
+            {
+                question: "What is the main benefit of selling people on your FREE product instead of just giving them a download link?",
+                answers: [
+                    "It makes you look more professional",
+                    "It increases the likelihood they'll actually USE the product, leading to more sales",
+                    "It's required by law",
+                    "It reduces server bandwidth"
+                ],
+                correct: 1,
+                explanation: "When you sell people on why they need your free guide/product and what value it provides, they're more likely to actually consume it. Usage leads to transformation, which leads to purchases of your paid offerings. The sale isn't done when they download - it's done when they USE it."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+        let selectedAnswer = null;
+        let startTime = Date.now();
+
+        function initQuiz() {
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const container = document.getElementById('quiz-container');
+            const q = questions[currentQuestion];
+
+            container.innerHTML = `
+                <div class="question-card active">
+                    <div class="question-number">Question ${currentQuestion + 1} of 15</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="answers">
+                        ${q.answers.map((answer, index) => `
+                            <div class="answer-option" onclick="selectAnswer(${index})">
+                                <div class="answer-letter">${String.fromCharCode(65 + index)}</div>
+                                <div class="answer-text">${answer}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback"></div>
+                    <div class="nav-buttons">
+                        ${currentQuestion > 0 ? '<button class="btn btn-secondary" onclick="previousQuestion()">← Previous</button>' : '<div></div>'}
+                        <button class="btn btn-primary" id="submit-btn" onclick="checkAnswer()" disabled>Submit Answer</button>
+                    </div>
+                </div>
+            `;
+
+            updateProgress();
+        }
+
+        function selectAnswer(index) {
+            if (document.querySelector('.answer-option.correct') || document.querySelector('.answer-option.incorrect')) {
+                return;
+            }
+
+            selectedAnswer = index;
+
+            document.querySelectorAll('.answer-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            document.querySelectorAll('.answer-option')[index].classList.add('selected');
+            document.getElementById('submit-btn').disabled = false;
+        }
+
+        function checkAnswer() {
+            if (selectedAnswer === null) return;
+
+            const q = questions[currentQuestion];
+            const options = document.querySelectorAll('.answer-option');
+            const feedback = document.getElementById('feedback');
+            const submitBtn = document.getElementById('submit-btn');
+
+            if (selectedAnswer === q.correct) {
+                options[selectedAnswer].classList.add('correct');
+                feedback.className = 'feedback correct show';
+                feedback.innerHTML = `
+                    <div class="feedback-title">✅ Correct!</div>
+                    <div class="feedback-text">${q.explanation}</div>
+                `;
+                correctAnswers++;
+            } else {
+                options[selectedAnswer].classList.add('incorrect');
+                options[q.correct].classList.add('correct');
+                feedback.className = 'feedback incorrect show';
+                feedback.innerHTML = `
+                    <div class="feedback-title">❌ Not quite right</div>
+                    <div class="feedback-text">${q.explanation}</div>
+                `;
+                incorrectAnswers++;
+            }
+
+            submitBtn.textContent = currentQuestion < questions.length - 1 ? 'Next Question →' : 'See Results 🎉';
+            submitBtn.onclick = nextQuestion;
+
+            updateScoreDisplay();
+        }
+
+        function nextQuestion() {
+            selectedAnswer = null;
+
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                selectedAnswer = null;
+                renderQuestion();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('current-question').textContent = currentQuestion + 1;
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('correct-count').textContent = correctAnswers;
+            document.getElementById('incorrect-count').textContent = incorrectAnswers;
+        }
+
+        function showResults() {
+            const percentage = Math.round((correctAnswers / questions.length) * 100);
+            const timeTaken = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(timeTaken / 60);
+            const seconds = timeTaken % 60;
+
+            let emoji, badge, message;
+
+            if (percentage >= 90) {
+                emoji = '🏆';
+                badge = 'expert';
+                message = 'Outstanding! You\'ve mastered AI-powered copywriting. You\'re ready to implement these strategies and transform your business.';
+            } else if (percentage >= 75) {
+                emoji = '🎉';
+                badge = 'proficient';
+                message = 'Great job! You have a solid understanding of AI copywriting principles. Review the few areas you missed and you\'ll be an expert.';
+            } else if (percentage >= 60) {
+                emoji = '📚';
+                badge = 'learning';
+                message = 'Good start! You\'re on the right track but should review the notes to strengthen your understanding of key concepts.';
+            } else {
+                emoji = '💪';
+                badge = 'beginner';
+                message = 'Keep learning! Go back through the masterclass notes carefully. These fundamentals will transform your copywriting.';
+            }
+
+            document.getElementById('results-emoji').textContent = emoji;
+            document.getElementById('results-percentage').textContent = percentage + '%';
+            document.getElementById('results-message').textContent = message;
+            document.getElementById('mastery-badge').textContent = badge;
+            document.getElementById('mastery-badge').className = 'mastery-badge ' + badge;
+            document.getElementById('final-correct').textContent = correctAnswers;
+            document.getElementById('final-incorrect').textContent = incorrectAnswers;
+            document.getElementById('final-time').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('results-screen').classList.add('show');
+        }
+
+        function retakeQuiz() {
+            currentQuestion = 0;
+            correctAnswers = 0;
+            incorrectAnswers = 0;
+            selectedAnswer = null;
+            startTime = Date.now();
+
+            document.getElementById('results-screen').classList.remove('show');
+            document.getElementById('quiz-container').style.display = 'block';
+
+            updateScoreDisplay();
+            renderQuestion();
+        }
+
+        // Initialize quiz on page load
+        initQuiz();
+    </script>
+</body>
+</html>

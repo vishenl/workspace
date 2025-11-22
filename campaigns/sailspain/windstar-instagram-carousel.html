@@ -8,31 +8,73 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/gilroy-bold" rel="stylesheet">
 
     <style>
+        /* MINDVALLEY DESIGN TOKENS */
+        :root {
+            /* Colors */
+            --mv-purple: #8A2BE2;
+            --mv-purple-light: #DA70D6;
+            --mv-gold: #DAA520;
+            --mv-dark: #1A1A1A;
+            --mv-gray: #404040;
+            --mv-gray-light: #FAFAFA;
+            --mv-white: #FFFFFF;
+
+            /* Typography */
+            --font-heading: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            /* Font Sizes */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: clamp(1rem, 2vw, 1.125rem);
+            --text-xl: clamp(1.125rem, 2.5vw, 1.375rem);
+            --text-2xl: clamp(1.25rem, 2.5vw, 1.75rem);
+            --text-3xl: clamp(1.5rem, 3.5vw, 2rem);
+            --text-4xl: clamp(2rem, 5vw, 3rem);
+            --text-5xl: clamp(2.5rem, 6vw, 4.5rem);
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 2.5rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            --space-4xl: 5rem;
+            --space-5xl: 6rem;
+
+            /* Shadows */
+            --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 8px 30px rgba(138, 43, 226, 0.15);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 100px;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        :root {
-            --color-primary: #0066CC;
-            --color-gold: #D4AF37;
-            --color-text: #1A1A1A;
-            --color-text-secondary: #404040;
-            --color-bg: #F8F9FA;
-            --font-sans: 'Inter', -apple-system, sans-serif;
-            --font-serif: 'Playfair Display', Georgia, serif;
-        }
-
         body {
-            font-family: var(--font-sans);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 2rem 1rem;
-            color: var(--color-text);
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+            padding: var(--space-2xl) var(--space-sm);
+            color: var(--mv-dark);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
@@ -42,82 +84,119 @@
 
         /* HEADER */
         .page-header {
-            background: white;
-            padding: 3rem 2rem;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            margin-bottom: 3rem;
+            background: var(--mv-white);
+            padding: var(--space-3xl) var(--space-2xl);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: var(--space-3xl);
             text-align: center;
         }
 
         .page-header h1 {
-            font-family: var(--font-serif);
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-family: var(--font-heading);
+            font-size: var(--text-5xl);
+            margin-bottom: var(--space-xs);
+            background: linear-gradient(135deg, var(--mv-purple), var(--mv-purple-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .page-header .subtitle {
-            color: var(--color-text-secondary);
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
+            color: var(--mv-gray);
+            font-size: var(--text-xl);
+            margin-bottom: var(--space-md);
         }
 
         .badge {
             display: inline-block;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-size: 0.875rem;
+            background: linear-gradient(135deg, var(--mv-purple), var(--mv-purple-light));
+            color: var(--mv-white);
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin: 0 0.25rem;
+            margin: 0 var(--space-xs);
         }
 
         /* CAPTION BOX */
         .caption-box {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-bottom: 3rem;
+            background: var(--mv-white);
+            padding: var(--space-2xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-3xl);
         }
 
         .caption-box h2 {
-            font-family: var(--font-serif);
-            color: var(--color-primary);
-            margin-bottom: 1rem;
+            font-family: var(--font-heading);
+            color: var(--mv-purple);
+            margin-bottom: var(--space-sm);
+            font-size: var(--text-3xl);
         }
 
         .caption-text {
-            background: var(--color-bg);
-            padding: 1.5rem;
-            border-radius: 8px;
+            background: var(--mv-gray-light);
+            padding: var(--space-md);
+            border-radius: var(--radius-sm);
             font-family: monospace;
-            font-size: 0.95rem;
+            font-size: var(--text-sm);
             line-height: 1.8;
             white-space: pre-wrap;
-            color: var(--color-text);
+            color: var(--mv-dark);
+        }
+
+        /* STRATEGY SECTION */
+        .strategy-section {
+            background: var(--mv-white);
+            padding: var(--space-2xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .strategy-section h2 {
+            font-family: var(--font-heading);
+            color: var(--mv-purple);
+            margin-bottom: var(--space-md);
+            font-size: var(--text-3xl);
+        }
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        .strategy-item {
+            padding: var(--space-sm);
+            background: var(--mv-gray-light);
+            border-radius: var(--radius-sm);
+        }
+
+        .strategy-item h4 {
+            color: var(--mv-purple);
+            margin-bottom: var(--space-xs);
+            font-size: var(--text-base);
+            font-weight: 600;
         }
 
         /* SLIDE GRID */
         .slides-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            gap: var(--space-2xl);
+            margin-top: var(--space-3xl);
         }
 
         .slide-card {
-            background: white;
-            border-radius: 20px;
+            background: var(--mv-white);
+            border-radius: var(--radius-xl);
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-lg);
             transition: transform 0.3s ease;
         }
 
@@ -126,17 +205,17 @@
         }
 
         .slide-header {
-            background: linear-gradient(135deg, var(--color-primary), #0052A3);
-            color: white;
-            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--mv-purple), var(--mv-purple-light));
+            color: var(--mv-white);
+            padding: var(--space-md);
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: var(--space-sm);
         }
 
         .slide-number {
-            background: white;
-            color: var(--color-primary);
+            background: var(--mv-white);
+            color: var(--mv-purple);
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -144,13 +223,13 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 1.5rem;
-            font-family: var(--font-serif);
+            font-size: var(--text-2xl);
+            font-family: var(--font-heading);
         }
 
         .slide-title {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
+            font-family: var(--font-heading);
+            font-size: var(--text-2xl);
             margin: 0;
         }
 
@@ -162,25 +241,25 @@
         }
 
         .slide-content {
-            padding: 2rem;
+            padding: var(--space-2xl);
         }
 
         .slide-copy {
-            background: var(--color-bg);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            font-family: var(--font-serif);
-            font-size: 1.125rem;
+            background: var(--mv-gray-light);
+            padding: var(--space-md);
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--space-md);
+            font-family: var(--font-heading);
+            font-size: var(--text-lg);
             line-height: 1.6;
             text-align: center;
-            color: var(--color-text);
+            color: var(--mv-dark);
         }
 
         .design-notes h4 {
-            color: var(--color-primary);
-            margin-bottom: 0.75rem;
-            font-size: 1rem;
+            color: var(--mv-purple);
+            margin-bottom: var(--space-xs);
+            font-size: var(--text-base);
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
@@ -191,61 +270,27 @@
         }
 
         .design-notes li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
+            padding: var(--space-xs) 0;
+            padding-left: var(--space-md);
             position: relative;
-            color: var(--color-text-secondary);
+            color: var(--mv-gray);
         }
 
         .design-notes li::before {
             content: "→";
             position: absolute;
             left: 0;
-            color: var(--color-primary);
+            color: var(--mv-purple);
             font-weight: 700;
         }
 
         .image-credit {
-            font-size: 0.875rem;
-            color: var(--color-text-secondary);
+            font-size: var(--text-sm);
+            color: var(--mv-gray);
             font-style: italic;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--color-bg);
-        }
-
-        /* STRATEGY SECTION */
-        .strategy-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-        }
-
-        .strategy-section h2 {
-            font-family: var(--font-serif);
-            color: var(--color-primary);
-            margin-bottom: 1.5rem;
-        }
-
-        .strategy-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .strategy-item {
-            padding: 1rem;
-            background: var(--color-bg);
-            border-radius: 8px;
-        }
-
-        .strategy-item h4 {
-            color: var(--color-primary);
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
+            margin-top: var(--space-sm);
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--mv-gray-light);
         }
 
         @media (max-width: 768px) {
@@ -254,7 +299,7 @@
             }
 
             body {
-                padding: 1rem 0.5rem;
+                padding: var(--space-sm);
             }
         }
     </style>
@@ -266,7 +311,7 @@
         <div class="page-header">
             <h1>📸 Instagram Carousel Strategy</h1>
             <p class="subtitle">10-Slide Carousel for Windstar Cruise Campaign</p>
-            <div style="margin-top: 1.5rem;">
+            <div style="margin-top: var(--space-md);">
                 <span class="badge">10 Slides</span>
                 <span class="badge">Vishen's Audience</span>
                 <span class="badge">Dec 13-20, 2025</span>
@@ -649,7 +694,7 @@ Will you join me?
         </div>
 
         <!-- DESIGN SPECS -->
-        <div class="strategy-section" style="margin-top: 3rem;">
+        <div class="strategy-section" style="margin-top: var(--space-3xl);">
             <h2>🎨 Design Specifications</h2>
             <div class="strategy-grid">
                 <div class="strategy-item">
@@ -658,11 +703,11 @@ Will you join me?
                 </div>
                 <div class="strategy-item">
                     <h4>Colors</h4>
-                    <p>Navy: #0066CC<br>Gold: #D4AF37<br>White: #FFFFFF<br>Charcoal: #1A1A1A</p>
+                    <p>Purple: #8A2BE2<br>Gold: #DAA520<br>White: #FFFFFF<br>Dark: #1A1A1A</p>
                 </div>
                 <div class="strategy-item">
                     <h4>Typography</h4>
-                    <p>Headlines: Playfair Display<br>Body: Inter<br>All caps for emphasis</p>
+                    <p>Headlines: Gilroy Bold<br>Body: Inter<br>All caps for emphasis</p>
                 </div>
                 <div class="strategy-item">
                     <h4>Image Treatment</h4>
