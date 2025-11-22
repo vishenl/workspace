@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiritual Mastery: Student Needs Analysis</title>
+    <meta name="description" content="Comprehensive analysis of 3,484 student survey responses revealing what they seek in their spiritual journey.">
+    <link rel="stylesheet" href="../styles/mv-selfreset-base.css">
+    <style>
+        /* Additional styles specific to data visualization */
+
+        .mv-section--hero {
+            padding: 4rem 0 3rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .mv-section--content {
+            padding: 3rem 0;
+        }
+
+        /* Stat card - large number displays */
+        .stat-card {
+            background: linear-gradient(135deg, #7a12d4 0%, #5a0da1 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .stat-card__number {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 5rem;
+            line-height: 1;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card__label {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1.25rem;
+            opacity: 0.95;
+        }
+
+        @media (min-width: 992px) {
+            .stat-card__number {
+                font-size: 7rem;
+            }
+        }
+
+        /* Insight boxes */
+        .insight-box {
+            background: #f0f9ff;
+            border-left: 4px solid #7a12d4;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .insight-box--success {
+            background: #f0fdf4;
+            border-left-color: #22c55e;
+        }
+
+        .insight-box--warning {
+            background: #fffbeb;
+            border-left-color: #f59e0b;
+        }
+
+        .insight-box h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .insight-box ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .insight-box li {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+
+        /* Bar charts */
+        .bar-chart {
+            margin: 2rem 0;
+        }
+
+        .bar {
+            background: #f9fafb;
+            margin: 1rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .bar__label {
+            padding: 1rem 1.25rem;
+            font-family: Grotesk-Medium, sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .bar__percentage {
+            color: #7a12d4;
+            font-family: Grotesk-Bold, sans-serif;
+            white-space: nowrap;
+        }
+
+        .bar__fill {
+            height: 6px;
+            background: linear-gradient(90deg, #7a12d4 0%, #5a0da1 100%);
+            transition: width 0.3s ease;
+        }
+
+        /* Data grid for stat cards */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .data-card {
+            background: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 3px solid #7a12d4;
+        }
+
+        .data-card__label {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.875rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .data-card__value {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2.5rem;
+            line-height: 1;
+            color: #7a12d4;
+            margin-bottom: 0.5rem;
+        }
+
+        .data-card__subtext {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.9375rem;
+            color: #6b7280;
+        }
+
+        /* Curriculum coverage cards */
+        .coverage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .coverage-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .coverage-card h4 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: #7a12d4;
+        }
+
+        .coverage-card ul {
+            margin: 1rem 0 0 0;
+            padding-left: 1.25rem;
+        }
+
+        .coverage-card li {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+
+        /* Comparison table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .comparison-table th {
+            background: #7a12d4;
+            color: white;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .comparison-table tr:hover {
+            background: #f9fafb;
+        }
+
+        .comparison-table td {
+            font-family: Grotesk-Regular, sans-serif;
+        }
+
+        .grade {
+            font-family: Grotesk-Bold, sans-serif;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            display: inline-block;
+        }
+
+        .grade--a {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .grade--b {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        /* Recommendation cards */
+        .recommendation-card {
+            background: white;
+            border: 2px solid #7a12d4;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .recommendation-card h3 {
+            margin-top: 0;
+            color: #7a12d4;
+        }
+
+        .recommendation-card strong {
+            font-family: Grotesk-Bold, sans-serif;
+        }
+
+        /* Eyebrow text */
+        .eyebrow {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.875rem;
+            color: #7a12d4;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Supporting text */
+        .lead-text {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: #4b5563;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .bar__label {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .stat-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .stat-card__number {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<section class="mv-section--hero mv-container">
+    <div class="eyebrow">Student Insights Report</div>
+    <h1 class="mv-type--headline1">Spiritual Mastery: What 3,484 Students Are Seeking</h1>
+    <p class="lead-text">Comprehensive analysis of student survey responses revealing their challenges, desires, and expectations for their spiritual journey.</p>
+</section>
+
+<!-- Total Responses Stat Card -->
+<section class="mv-section--content mv-container">
+    <div class="stat-card">
+        <span class="stat-card__number">3,484</span>
+        <span class="stat-card__label">Total Student Responses Analyzed</span>
+    </div>
+</section>
+
+<!-- Executive Summary -->
+<section class="mv-section--content mv-container">
+    <h2 class="mv-type--headline2">Executive Summary</h2>
+
+    <div class="insight-box">
+        <h3 class="mv-type--headline5">💡 Key Insight: They're Intermediate to Advanced Seekers</h3>
+        <p><strong>67% of students are NOT beginners.</strong> They've already started their spiritual journey and are looking to go deeper:</p>
+        <ul>
+            <li><strong>32.5%</strong> practice regularly but want to go deeper</li>
+            <li><strong>27.1%</strong> are exploring different modalities</li>
+            <li><strong>15.3%</strong> are experienced and seeking embodiment</li>
+            <li><strong>7.3%</strong> teach or guide others</li>
+            <li>Only <strong>17.9%</strong> are just beginning</li>
+        </ul>
+        <p style="margin-top: 1.5rem;"><strong>Curriculum Implication:</strong> The program should serve both beginners AND provide depth for advanced practitioners. Having guest teachers (Dr. Levine, Dr. Swart, Shi Heng Yi, Dean Radin) adds the sophistication these students crave.</p>
+    </div>
+</section>
+
+<!-- Top 3 Challenges -->
+<section class="mv-section--content mv-container">
+    <h2 class="mv-type--headline2">The Top 6 Challenges Students Face</h2>
+
+    <div class="bar-chart">
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#1 Lack of discipline or structure in life</strong></span>
+                <span class="bar__percentage">21.7% (756 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 21.7%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#2 Feeling stuck or blocked</strong></span>
+                <span class="bar__percentage">20.9% (728 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 20.9%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#3 Overthinking / difficulty quieting the mind</strong></span>
+                <span class="bar__percentage">18.5% (644 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 18.5%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#4 Difficulty manifesting</strong></span>
+                <span class="bar__percentage">17.9% (624 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 17.9%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#5 Emotional heaviness</strong></span>
+                <span class="bar__percentage">11.3% (392 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 11.3%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#6 Disconnection from intuition</strong></span>
+                <span class="bar__percentage">9.8% (340 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 9.8%;"></div>
+        </div>
+    </div>
+</section>
+
+<!-- How Curriculum Addresses Top 3 Challenges -->
+<section class="mv-section--content mv-container">
+    <h3 class="mv-type--headline3">How the Current Curriculum Addresses These Challenges</h3>
+
+    <div class="coverage-grid">
+        <div class="coverage-card">
+            <h4 class="mv-type--headline6">#1 Lack of Discipline / Structure (21.7%)</h4>
+            <p><strong>Curriculum Solutions:</strong></p>
+            <ul>
+                <li>Gate 1: 7 Sacred States (spiritual structure)</li>
+                <li>Gate 1: Daily Qi Gong Flow (repeatable rituals)</li>
+                <li>Gate 4: Samurai & Shaolin discipline</li>
+                <li>Gate 7: Rituals of the Masters</li>
+            </ul>
+        </div>
+
+        <div class="coverage-card">
+            <h4 class="mv-type--headline6">#2 Feeling Stuck / Blocked (20.9%)</h4>
+            <p><strong>Curriculum Solutions:</strong></p>
+            <ul>
+                <li>Gate 2: Dr. Peter Levine's somatic healing</li>
+                <li>Gate 2: Forgiveness work (Marie Diamond)</li>
+                <li>Gate 2: Kundalini Activation</li>
+                <li>Gate 6: Life Visioning (clarity on next steps)</li>
+            </ul>
+        </div>
+
+        <div class="coverage-card">
+            <h4 class="mv-type--headline6">#3 Overthinking / Mind Chatter (18.5%)</h4>
+            <p><strong>Curriculum Solutions:</strong></p>
+            <ul>
+                <li>Gate 4: Lee Holden's Meditation & Awareness</li>
+                <li>Gate 4: Vishen's Advanced 6 Phase</li>
+                <li>Gate 4: Shi Heng Yi's Zen Stillness</li>
+                <li>Gate 4: Samurai Mushin (no-mind)</li>
+            </ul>
+        </div>
+
+        <div class="coverage-card">
+            <h4 class="mv-type--headline6">#4 Difficulty Manifesting (17.9%)</h4>
+            <p><strong>Curriculum Solutions:</strong></p>
+            <ul>
+                <li>Gate 6: Dr. Tara Swart (Biology of Belief)</li>
+                <li>Gate 6: Dean Radin (Future Sensing)</li>
+                <li>Gate 6: Michael Beckwith (Life Visioning)</li>
+                <li>Gate 6: Regan Hillyer (Manifest Through Frequency)</li>
+            </ul>
+        </div>
+
+        <div class="coverage-card">
+            <h4 class="mv-type--headline6">#5 Emotional Heaviness (11.3%)</h4>
+            <p><strong>Curriculum Solutions:</strong></p>
+            <ul>
+                <li>Gate 2: Dr. Levine's trauma release</li>
+                <li>Gate 2: Forgiveness rituals</li>
+                <li>Gate 5: Cord-cutting visualization</li>
+            </ul>
+        </div>
+
+        <div class="coverage-card">
+            <h4 class="mv-type--headline6">#6 Disconnection from Intuition (9.8%)</h4>
+            <p><strong>Curriculum Solutions:</strong></p>
+            <ul>
+                <li>Gate 3: Dr. Tara Swart (Rewiring for Intuition)</li>
+                <li>Gate 3: Dean Radin (Non-local consciousness)</li>
+                <li>Gate 3: Sonia Choquette (Sixth sense practices)</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- What Students Want to Explore -->
+<section class="mv-section--content mv-container">
+    <h2 class="mv-type--headline2">What Students Want to Explore Most</h2>
+    <p class="lead-text">Students could select multiple topics they're excited about. Here's what emerged as top priorities:</p>
+
+    <div class="bar-chart">
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#1 Neuroscience & Consciousness</strong></span>
+                <span class="bar__percentage">67.3% (2,346 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 67.3%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#2 Advanced Manifestation</strong></span>
+                <span class="bar__percentage">64.1% (2,234 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 64.1%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#3 Somatic Healing & Trauma Release</strong></span>
+                <span class="bar__percentage">57.4% (2,001 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 57.4%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#4 Qi Gong & Energy Flow</strong></span>
+                <span class="bar__percentage">53.7% (1,871 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 53.7%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#5 Kundalini Awakening</strong></span>
+                <span class="bar__percentage">48.7% (1,698 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 48.7%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#6 Samurai Presence & Stillness</strong></span>
+                <span class="bar__percentage">33.9% (1,182 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 33.9%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#7 Feng Shui Alignment</strong></span>
+                <span class="bar__percentage">32.4% (1,128 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 32.4%;"></div>
+        </div>
+    </div>
+
+    <div class="insight-box insight-box--success">
+        <h3 class="mv-type--headline5">✅ Perfect Match: Guest Teacher Strategy Validated</h3>
+        <p><strong>67.3% want neuroscience & consciousness.</strong> This validates adding Dr. Tara Swart and Dean Radin.</p>
+        <p style="margin-top: 1rem;"><strong>2 out of 3 students want scientific grounding for their spirituality.</strong> This audience demands both evidence-based practices AND mystical experience.</p>
+        <p style="margin-top: 1rem;"><strong>Marketing Implication:</strong> Emphasize "science-backed spiritual practices" and highlight credentials (neuroscientist, trauma expert, consciousness researcher).</p>
+    </div>
+
+    <div class="insight-box insight-box--warning">
+        <h3 class="mv-type--headline5">⚠️ Critical Validation: Gate 6 Must Be Deep</h3>
+        <p><strong>64.1% (2,234 students) explicitly want advanced manifestation training.</strong> This is NOT a beginner topic — they want ADVANCED techniques.</p>
+        <p style="margin-top: 1rem;">This data validates:</p>
+        <ul>
+            <li>Making Gate 6 one of the deepest gates (7-9 lessons)</li>
+            <li>Adding Vishen's Bending Reality (advanced manifestation framework)</li>
+            <li>Including both scientific (Tara Swart) AND energetic (Regan Hillyer) approaches</li>
+            <li>Teaching consciousness-based manifestation (Beckwith + Neale)</li>
+        </ul>
+        <p style="margin-top: 1rem;"><strong>Recommendation:</strong> Market Gate 6 as "Advanced Manifestation Mastery" — not basic Law of Attraction, but embodied co-creation.</p>
+    </div>
+</section>
+
+<!-- Desired Breakthrough Experiences -->
+<section class="mv-section--content mv-container">
+    <h2 class="mv-type--headline2">Desired Breakthrough Experiences</h2>
+    <p class="lead-text">What would make this a breakthrough experience? Students could select multiple outcomes:</p>
+
+    <div class="bar-chart">
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#1 Finding clarity about my next steps</strong></span>
+                <span class="bar__percentage">66.5% (2,317 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 66.5%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#2 Feeling connected to my higher self</strong></span>
+                <span class="bar__percentage">59.3% (2,066 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 59.3%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#3 Learning practices I can use daily</strong></span>
+                <span class="bar__percentage">52.7% (1,837 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 52.7%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#4 A shift in identity or self-perception</strong></span>
+                <span class="bar__percentage">43.3% (1,509 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 43.3%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#5 A deep emotional release</strong></span>
+                <span class="bar__percentage">39.3% (1,371 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 39.3%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#6 Experiencing peace in my body</strong></span>
+                <span class="bar__percentage">38.8% (1,352 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 38.8%;"></div>
+        </div>
+    </div>
+
+    <div class="insight-box">
+        <h3 class="mv-type--headline5">💡 Critical Insight: They Want CLARITY (66.5%)</h3>
+        <p>The #1 breakthrough experience students want is <strong>"Finding clarity about my next steps."</strong> This directly maps to:</p>
+        <ul>
+            <li>Gate 6: Life Purpose Discovery (Beckwith's Life Visioning)</li>
+            <li>Gate 6: Your Divine Purpose (Neale Donald Walsch)</li>
+            <li>Gate 6: Living Your Purpose With Integrity (Samurai wisdom)</li>
+            <li>Gate 5: Accessing Higher Guidance (Neale's dialogue with source)</li>
+        </ul>
+        <p style="margin-top: 1.5rem;"><strong>Recommendation:</strong> Market Gate 6 as "The Clarity Gate" — where students finally understand their soul's calling and next steps. This is what they're desperately seeking.</p>
+    </div>
+</section>
+
+<!-- 12-Month Intentions -->
+<section class="mv-section--content mv-container">
+    <h2 class="mv-type--headline2">12-Month Intentions</h2>
+
+    <div class="bar-chart">
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#1 Manifest a new chapter in life</strong></span>
+                <span class="bar__percentage">33.2% (1,158 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 33.2%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#2 Uplevel my purpose, work, or mission</strong></span>
+                <span class="bar__percentage">21.7% (755 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 21.7%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#3 Align my mind, body & energy</strong></span>
+                <span class="bar__percentage">17.8% (621 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 17.8%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#4 Heal and release old patterns</strong></span>
+                <span class="bar__percentage">15.8% (552 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 15.8%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#5 Strengthen spiritual discipline</strong></span>
+                <span class="bar__percentage">6.7% (235 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 6.7%;"></div>
+        </div>
+
+        <div class="bar">
+            <div class="bar__label">
+                <span><strong>#6 Embody more peace & self-awareness</strong></span>
+                <span class="bar__percentage">4.7% (163 students)</span>
+            </div>
+            <div class="bar__fill" style="width: 4.7%;"></div>
+        </div>
+    </div>
+
+    <div class="insight-box insight-box--warning">
+        <h3 class="mv-type--headline5">🎯 CRITICAL DATA: 55% Want Manifestation & Purpose (Combined #1 + #2)</h3>
+        <p>When you combine:</p>
+        <ul>
+            <li><strong>33.2%</strong> want to "Manifest a new chapter in life"</li>
+            <li><strong>21.7%</strong> want to "Uplevel my purpose, work, or mission"</li>
+        </ul>
+        <p style="margin-top: 1rem;"><strong>= 54.9% of students</strong> are focused on manifestation and purpose as their primary 12-month intention.</p>
+        <p style="margin-top: 1.5rem; font-size: 1.125rem;"><strong>This validates that Gate 6: Living Truth & Purpose is not just important — it's THE MOST IMPORTANT GATE for over half your students.</strong></p>
+        <p style="margin-top: 1rem;">If you under-deliver on Gate 6, you fail to serve the majority of your audience.</p>
+    </div>
+</section>
+
+<!-- Curriculum Alignment Report Card -->
+<section class="mv-section--content mv-container">
+    <h2 class="mv-type--headline2">Curriculum Alignment Report Card</h2>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>Student Need</th>
+                <th>% of Students</th>
+                <th>Current Curriculum Coverage</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Neuroscience & Consciousness</strong></td>
+                <td>67.3%</td>
+                <td>Dr. Tara Swart (2 lessons), Dean Radin (2 lessons)</td>
+                <td><span class="grade grade--a">A+</span></td>
+            </tr>
+            <tr>
+                <td><strong>Advanced Manifestation</strong></td>
+                <td>64.1%</td>
+                <td>Gate 6 has 5-6 lessons, could add Vishen's Bending Reality</td>
+                <td><span class="grade grade--b">B+</span></td>
+            </tr>
+            <tr>
+                <td><strong>Somatic Healing & Trauma</strong></td>
+                <td>57.4%</td>
+                <td>Dr. Peter Levine (2 lessons) plus somatic practices</td>
+                <td><span class="grade grade--a">A</span></td>
+            </tr>
+            <tr>
+                <td><strong>Qi Gong & Energy Flow</strong></td>
+                <td>53.7%</td>
+                <td>Lee Holden (7 lessons) across Gates 1, 3, 4</td>
+                <td><span class="grade grade--a">A+</span></td>
+            </tr>
+            <tr>
+                <td><strong>Kundalini Awakening</strong></td>
+                <td>48.7%</td>
+                <td>Dawn Hoang (3 lessons) in Gates 1 & 2</td>
+                <td><span class="grade grade--a">A</span></td>
+            </tr>
+            <tr>
+                <td><strong>Finding Clarity/Next Steps</strong></td>
+                <td>66.5%</td>
+                <td>Gate 6 purpose work, needs Vishen's frameworks</td>
+                <td><span class="grade grade--b">B+</span></td>
+            </tr>
+            <tr>
+                <td><strong>Higher Self Connection</strong></td>
+                <td>59.3%</td>
+                <td>Tara Swart, Dean Radin, Neale, Sonia (proposed)</td>
+                <td><span class="grade grade--a">A</span></td>
+            </tr>
+            <tr>
+                <td><strong>Daily Practices</strong></td>
+                <td>52.7%</td>
+                <td>Implementation workshops throughout; Gate 7 ritual stacking</td>
+                <td><span class="grade grade--a">A+</span></td>
+            </tr>
+            <tr>
+                <td><strong>Discipline & Structure</strong></td>
+                <td>21.7%</td>
+                <td>Samurai/Shaolin teachings, 7 Sacred States, Rituals of Masters</td>
+                <td><span class="grade grade--a">A</span></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Strategic Recommendations -->
+<section class="mv-section--content mv-container">
+    <h2 class="mv-type--headline2">Strategic Recommendations Based on Student Data</h2>
+
+    <div class="recommendation-card">
+        <h3 class="mv-type--headline5">✅ Recommendation 1: Strengthen Gate 6 with Vishen's Content</h3>
+        <p><strong>Evidence:</strong></p>
+        <ul>
+            <li>64.1% want advanced manifestation</li>
+            <li>66.5% want clarity about next steps</li>
+            <li>54.9% have manifestation/purpose as their #1 12-month goal</li>
+        </ul>
+        <p style="margin-top: 1rem;"><strong>Action:</strong> Add Vishen's "Bending Reality - Advanced Manifestation" and "Life Purpose Discovery" to Gate 6. These are his signature frameworks that students expect from a Mindvalley spiritual program.</p>
+    </div>
+
+    <div class="recommendation-card">
+        <h3 class="mv-type--headline5">✅ Recommendation 2: Add Sonia Choquette for Practical Intuition</h3>
+        <p><strong>Evidence:</strong></p>
+        <ul>
+            <li>59.3% want to feel connected to their higher self</li>
+            <li>9.8% struggle with disconnection from intuition</li>
+            <li>67.3% want neuroscience & consciousness (Sonia bridges science and practice)</li>
+        </ul>
+        <p style="margin-top: 1rem;"><strong>Action:</strong> Add Sonia's practical intuition development to Gate 3 to complement Tara Swart's neuroscience and Dean Radin's evidence.</p>
+    </div>
+
+    <div class="recommendation-card">
+        <h3 class="mv-type--headline5">✅ Recommendation 3: Move Dean Radin "Future Sensing" to Gate 6</h3>
+        <p><strong>Evidence:</strong></p>
+        <ul>
+            <li>His lesson on precognition and future sensing explicitly teaches manifestation timelines and future-self tuning</li>
+            <li>64.1% of students want advanced manifestation (not just intuition)</li>
+            <li>This content belongs in the manifestation gate, not the intuition gate</li>
+        </ul>
+        <p style="margin-top: 1rem;"><strong>Action:</strong> Move Dean Radin's "Understanding Thought, Intuition and Future Sensing Through Evidence" from Gate 3 to Gate 6 to complete the scientific foundation for manifestation.</p>
+    </div>
+
+    <div class="recommendation-card">
+        <h3 class="mv-type--headline5">💡 Recommendation 4: Emphasize "Evidence-Based Spirituality" in Marketing</h3>
+        <p><strong>Evidence:</strong></p>
+        <ul>
+            <li>67.3% want neuroscience & consciousness (highest interest)</li>
+            <li>67% of students are NOT beginners — they're sophisticated seekers</li>
+            <li>They want both scientific validation AND mystical experience</li>
+        </ul>
+        <p style="margin-top: 1rem;"><strong>Action:</strong> Marketing should emphasize "science-backed spiritual practices," "evidence-based consciousness training," and "neuroscience meets ancient wisdom." Highlight credentials: Dr. Tara Swart (neuroscientist), Dr. Peter Levine (trauma expert), Dean Radin PhD (consciousness researcher).</p>
+    </div>
+
+    <div class="recommendation-card">
+        <h3 class="mv-type--headline5">💡 Recommendation 5: Position Gate 2 as "The Liberation Gate"</h3>
+        <p><strong>Evidence:</strong></p>
+        <ul>
+            <li>57.4% want somatic healing & trauma release</li>
+            <li>20.9% feel stuck or blocked</li>
+            <li>11.3% carry emotional heaviness</li>
+            <li>39.3% want a deep emotional release as breakthrough</li>
+        </ul>
+        <p style="margin-top: 1rem;"><strong>Action:</strong> Market Gate 2 as where students "break free from what's been holding them back" — combining forgiveness, somatic trauma release, and energetic clearing.</p>
+    </div>
+</section>
+
+<!-- Final Summary -->
+<section class="mv-section--content mv-container" style="padding-bottom: 6rem;">
+    <h2 class="mv-type--headline2">Final Summary: Student Needs vs. Curriculum Fit</h2>
+
+    <div class="insight-box insight-box--success">
+        <h3 class="mv-type--headline4">✅ Overall Curriculum Grade: A- (8.5/10)</h3>
+        <p style="font-size: 1.125rem; margin-top: 1.5rem;">The current curriculum is exceptionally well-aligned with what students are seeking.</p>
+
+        <h4 class="mv-type--headline6" style="margin-top: 2rem;">Major Strengths:</h4>
+        <ul>
+            <li>✅ Scientific grounding (Dr. Tara Swart, Dean Radin) perfectly matches the 67% who want neuroscience</li>
+            <li>✅ Somatic healing (Dr. Peter Levine) addresses the 57% seeking trauma release</li>
+            <li>✅ Qi Gong & energy practices (Lee Holden) serves the 54% wanting energy flow</li>
+            <li>✅ Multiple pathways to higher self connection (59% want this)</li>
+            <li>✅ Emphasis on daily practices (53% want sustainable rituals)</li>
+            <li>✅ Structure and discipline through Samurai/Shaolin teachings (22% need this)</li>
+        </ul>
+
+        <h4 class="mv-type--headline6" style="margin-top: 2rem;">Areas to Strengthen (to reach A+):</h4>
+        <ul>
+            <li>⚠️ <strong>Gate 6 needs more depth</strong> — 64% want advanced manifestation, 66% want clarity. Add Vishen's Bending Reality and move Dean Radin's Future Sensing lesson here.</li>
+            <li>⚠️ <strong>Add Sonia Choquette for practical intuition</strong> — bridges the gap between Tara's neuroscience and students wanting actionable practices</li>
+            <li>⚠️ <strong>Consider optional enrichment</strong> — shadow work, inner child healing, sacred sexuality for students wanting deeper healing (39% want deep emotional release)</li>
+        </ul>
+    </div>
+
+    <div class="insight-box" style="border-left-color: #7a12d4; background: #faf5ff;">
+        <p style="font-size: 1.25rem; line-height: 1.6; color: #4b5563;">
+            <strong style="color: #7a12d4;">"The data is clear:</strong> Your students are sophisticated spiritual seekers who want evidence-based practices, advanced manifestation training, somatic healing, and practical tools they can use daily. The current curriculum delivers on almost all of this — with Gate 6 being the one area that needs strengthening to fully serve the 64% who came here for manifestation mastery."
+        </p>
+    </div>
+</section>
+
+</body>
+</html>
