@@ -410,27 +410,28 @@
             }
         }
 
-        /* Sticky Navigation */
-        .sticky-nav {
-            position: sticky;
-            top: 0;
-            background: white;
-            border-bottom: 1px solid rgba(122, 18, 212, 0.1);
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        /* Left Sidebar Navigation */
+        .page-wrapper {
+            display: flex;
+            min-height: 100vh;
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 70px;
+        .sidebar-nav {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100vh;
+            background: white;
+            border-right: 1px solid rgba(122, 18, 212, 0.1);
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
         }
 
         .nav-logo {
+            padding: 2rem 1.5rem 1.5rem;
+            border-bottom: 1px solid rgba(122, 18, 212, 0.1);
             font-family: 'Grotesk-Bold', sans-serif;
             font-size: 1.125rem;
             color: #7a12d4;
@@ -441,107 +442,134 @@
         }
 
         .nav-menu {
-            display: flex;
-            gap: 2rem;
             list-style: none;
             margin: 0;
-            padding: 0;
+            padding: 1.5rem 0;
+        }
+
+        .nav-menu li {
+            margin: 0;
         }
 
         .nav-menu a {
             font-family: 'Grotesk-Medium', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.9375rem;
             color: #0f131a;
             text-decoration: none;
-            transition: color 0.3s;
-            padding: 0.5rem 0;
-            border-bottom: 2px solid transparent;
+            padding: 0.875rem 1.5rem;
+            display: block;
+            border-left: 3px solid transparent;
             transition: all 0.3s;
         }
 
         .nav-menu a:hover {
             color: #7a12d4;
-            border-bottom-color: #7a12d4;
+            border-left-color: #7a12d4;
+            background: rgba(122, 18, 212, 0.05);
+        }
+
+        .nav-menu a.active {
+            color: #7a12d4;
+            border-left-color: #7a12d4;
+            background: rgba(122, 18, 212, 0.08);
+            font-family: 'Grotesk-Bold', sans-serif;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            flex: 1;
+            width: calc(100% - 260px);
         }
 
         .mobile-menu-toggle {
             display: none;
-            background: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #7a12d4;
+            color: white;
             border: none;
+            border-radius: 8px;
+            padding: 0.75rem;
             cursor: pointer;
-            padding: 0.5rem;
+            box-shadow: 0 2px 10px rgba(122, 18, 212, 0.3);
         }
 
         .mobile-menu-toggle span {
             display: block;
             width: 25px;
             height: 3px;
-            background: #7a12d4;
+            background: white;
             margin: 5px 0;
             border-radius: 3px;
+            transition: all 0.3s;
         }
 
         @media (max-width: 968px) {
-            .nav-menu {
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: white;
-                flex-direction: column;
-                gap: 0;
-                padding: 1rem 0;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-                display: none;
+            .sidebar-nav {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
             }
 
-            .nav-menu.active {
-                display: flex;
+            .sidebar-nav.active {
+                transform: translateX(0);
             }
 
-            .nav-menu a {
-                padding: 1rem 1.5rem;
-                border-bottom: none;
-                border-left: 3px solid transparent;
-            }
-
-            .nav-menu a:hover {
-                border-left-color: #7a12d4;
-                background: rgba(122, 18, 212, 0.05);
+            .main-content {
+                margin-left: 0;
+                width: 100%;
             }
 
             .mobile-menu-toggle {
                 display: block;
             }
+
+            .mobile-menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .mobile-menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Sticky Navigation -->
-    <nav class="sticky-nav">
-        <div class="nav-container">
+    <div class="page-wrapper">
+        <!-- Left Sidebar Navigation -->
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="sidebar-nav" id="sidebarNav">
             <a href="#" class="nav-logo">
                 <span>✨</span>
                 <span>Spiritual Mastery</span>
             </a>
-            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu" id="navMenu">
+            <ul class="nav-menu">
+                <li><a href="index.html">← Home</a></li>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#teachers">Teachers</a></li>
                 <li><a href="#gate1">Gate 1: Energy</a></li>
                 <li><a href="#gate2">Gate 2: Healing</a></li>
                 <li><a href="#gate3">Gate 3: Flow</a></li>
                 <li><a href="#gate4">Gate 4: Stillness</a></li>
-                <li><a href="#gate5-7">Gates 5-7: Legacy</a></li>
+                <li><a href="#gate5">Gate 5: Love</a></li>
+                <li><a href="#gate6">Gate 6: Purpose</a></li>
+                <li><a href="#gate7">Gate 7: Legacy</a></li>
                 <li><a href="#smoi-optimization">SMOI</a></li>
-                <li><a href="index.html">Home</a></li>
             </ul>
-        </div>
-    </nav>
+        </nav>
 
-    <header>
+        <div class="main-content">
+            <header>
         <h1>SPIRITUAL MASTERY</h1>
         <div class="subtitle">The 7 Gates to Awakening</div>
         <div class="tagline">"From Energy Awakening to Living Legacy: A 22-Week Journey with the World's Greatest Spiritual Masters"</div>
@@ -2211,12 +2239,16 @@
         </footer>
 
     </div>
+        </div><!-- end main-content -->
+    </div><!-- end page-wrapper -->
 
     <script>
         // Mobile menu toggle
         function toggleMobileMenu() {
-            const navMenu = document.getElementById('navMenu');
-            navMenu.classList.toggle('active');
+            const sidebar = document.getElementById('sidebarNav');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            sidebar.classList.toggle('active');
+            toggle.classList.toggle('active');
         }
 
         // Smooth scroll for navigation links
@@ -2226,28 +2258,55 @@
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     // Close mobile menu if open
-                    document.getElementById('navMenu').classList.remove('active');
+                    document.getElementById('sidebarNav').classList.remove('active');
+                    document.querySelector('.mobile-menu-toggle').classList.remove('active');
 
-                    // Scroll to target with offset for sticky nav
-                    const offset = 80;
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    // Scroll to target smoothly
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 20;
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
                     });
+
+                    // Update active state
+                    document.querySelectorAll('.nav-menu a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
                 }
             });
         });
 
         // Close mobile menu when clicking outside
         document.addEventListener('click', function(event) {
-            const nav = document.querySelector('.sticky-nav');
-            const navMenu = document.getElementById('navMenu');
+            const sidebar = document.getElementById('sidebarNav');
             const toggle = document.querySelector('.mobile-menu-toggle');
 
-            if (!nav.contains(event.target) && navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
+            if (!sidebar.contains(event.target) && !toggle.contains(event.target) && sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+                toggle.classList.remove('active');
             }
+        });
+
+        // Highlight active section on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-menu a').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
         });
     </script>
 </body>
