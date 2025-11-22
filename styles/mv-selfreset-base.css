@@ -1,305 +1,351 @@
-/* ==========================================================================
-   MINDVALLEY SELF RESET - BASE STYLES
-   ========================================================================== */
+/* =========================================
+   Mindvalley / Self Reset – Core theme
+   Extracted from app.css (fonts + type + layout)
+   ========================================= */
 
-/* --------------------------------------------------------------------------
-   1. FONT FACES - Mindvalley Grotesk
-   -------------------------------------------------------------------------- */
-
-@font-face {
-    font-display: swap;
-    font-family: 'Grotesk-Regular';
-    src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBook-19.ed0b68c.woff2) format("woff2");
-}
+/* -------- Fonts (Sharp Grotesk / Grotesk) -------- */
 
 @font-face {
     font-display: swap;
-    font-family: 'Grotesk-Medium';
-    src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrMedium-20.36349e7.woff2) format("woff2");
-}
+    font-family: Grotesk-Regular;
+    src:
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBook-19.ed0b68c.woff2) format("woff2"),
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBook-19.cfae424.woff) format("woff");
+  }
 
-@font-face {
+  @font-face {
     font-display: swap;
-    font-family: 'Grotesk-Bold';
-    src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrSmBold-21.2e6314a.woff2) format("woff2");
-}
+    font-family: Grotesk-Medium;
+    src:
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrMedium-20.36349e7.woff2) format("woff2"),
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrMedium-20.f7afa74.woff) format("woff");
+  }
 
-@font-face {
+  @font-face {
     font-display: swap;
-    font-family: 'Grotesk-Bold-16';
-    src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBold-16.d5a4b9e.woff2) format("woff2");
-}
+    font-family: Grotesk-Bold-16;
+    src:
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBold-16.d5a4b9e.woff2) format("woff2"),
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBold-16.0396c00.woff) format("woff");
+  }
 
-/* --------------------------------------------------------------------------
-   2. RESET & BASE
-   -------------------------------------------------------------------------- */
+  /* Optional "sleek" headline variants use this too */
+  @font-face {
+    font-display: swap;
+    font-family: Grotesk-Bold;
+    src:
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrSmBold-21.2e6314a.woff2) format("woff2"),
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrSmBold-21.4b5d971.woff) format("woff");
+  }
 
-* {
+  /* -------- Global base -------- */
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    color: #0f131a;
+    font-size: 16px;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
+    font-family: Grotesk-Regular, sans-serif;
+    font-weight: 400;
+  }
 
-body {
-    font-family: 'Grotesk-Regular', -apple-system, sans-serif;
-    line-height: 1.7;
-    color: #0f131a;
-    background: #ffffff;
-    -webkit-font-smoothing: antialiased;
-}
+  /* Links (purple, same as MV) */
 
-/* --------------------------------------------------------------------------
-   3. LAYOUT
-   -------------------------------------------------------------------------- */
+  h1 a,
+  h2 a,
+  h3 a,
+  h4 a,
+  h5 a,
+  h6 a,
+  p a {
+    color: #7a12d4;
+    cursor: pointer;
+    text-decoration: none;
+  }
 
-.mv-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-}
+  h1 a:hover,
+  h2 a:hover,
+  h3 a:hover,
+  h4 a:hover,
+  h5 a:hover,
+  h6 a:hover,
+  p a:hover {
+    text-decoration-color: #7a12d4;
+    text-decoration-line: underline;
+  }
 
-.mv-section--hero {
-    padding: 6rem 0 5rem 0;
-}
+  p {
+    font-family: Grotesk-Regular, sans-serif;
+    margin: 0 0 1.25rem;
+  }
 
-.mv-section--content {
-    padding: 5rem 0;
-}
+  p:last-child {
+    margin-bottom: 0;
+  }
 
-.mv-section--footer {
-    padding: 3rem 0;
-}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    font-family: inherit;
+    font-weight: inherit;
+  }
 
-/* --------------------------------------------------------------------------
-   4. TYPOGRAPHY UTILITIES
-   -------------------------------------------------------------------------- */
+  /* -------- Core layout container (mv-container) -------- */
 
-.mv-type--headline1 {
-    font-family: 'Grotesk-Bold-16', sans-serif;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
+  .mv-container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+  }
+
+  @media (min-width: 1200px) {
+    .mv-container {
+      max-width: 1200px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  @media (min-width: 1600px) {
+    .mv-container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  /* You can still use the "--full" modifiers if you want, but this
+     single base is enough for most Self Reset style pages. */
+
+  /* -------- Typography scale (headlines / titles) -------- */
+  /* Use these utility classes on wrappers or on headings directly.
+     They are exactly what app.css defines, just grouped here. */
+
+  /* Display 1 – biggest (hero on some pages) */
+  .mv-type--display1 {
+    font-family: Grotesk-Bold-16, Verdana, "sans-serif";
+    font-size: 3.75rem;
     font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-    color: #0f131a;
-}
+    letter-spacing: 0.25px;
+    line-height: 3.75rem;
+  }
 
-.mv-type--headline2 {
-    font-family: 'Grotesk-Bold', sans-serif;
-    font-size: clamp(2rem, 5vw, 3rem);
+  @media (min-width: 992px) {
+    .mv-type--display1 {
+      font-size: 7.5rem;
+      line-height: 7.5rem;
+    }
+  }
+
+  /* Display 2 */
+  .mv-type--display2 {
+    font-family: Grotesk-Bold-16, Verdana, "sans-serif";
+    font-size: 3.125rem;
     font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-    color: #0f131a;
-}
+    letter-spacing: 0.25px;
+    line-height: 3.125rem;
+  }
 
-.mv-type--headline3 {
-    font-family: 'Grotesk-Bold', sans-serif;
-    font-size: clamp(1.5rem, 3.5vw, 2rem);
+  @media (min-width: 992px) {
+    .mv-type--display2 {
+      font-size: 5.625rem;
+      line-height: 5.625rem;
+    }
+  }
+
+  /* Display 3 */
+  .mv-type--display3 {
+    font-family: Grotesk-Bold-16, Verdana, "sans-serif";
+    font-size: 2.5rem;
     font-weight: 700;
-    line-height: 1.3;
-    letter-spacing: -0.005em;
-    color: #0f131a;
-}
+    letter-spacing: 0.25px;
+    line-height: 2.5rem;
+  }
 
-.mv-type--headline4 {
-    font-family: 'Grotesk-Bold', sans-serif;
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  @media (min-width: 992px) {
+    .mv-type--display3 {
+      font-size: 3.75rem;
+      line-height: 3.75rem;
+    }
+  }
+
+  /* Headline 1 / titlebold1 – typical hero H1 on MV pages */
+  .mv-type--headline1,
+  .mv-type--titlebold1 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 3rem;
     font-weight: 700;
-    line-height: 1.4;
-    color: #0f131a;
-}
+    letter-spacing: 0.0052083333em;
+    line-height: 3.5rem;
+  }
 
-.mv-type--headline5 {
-    font-family: 'Grotesk-Medium', sans-serif;
+  @media (min-width: 992px) {
+    .mv-type--headline1,
+    .mv-type--titlebold1 {
+      font-size: 4.5rem;
+      letter-spacing: 0.0034722222em;
+      line-height: 5rem;
+    }
+  }
+
+  /* Headline 2 */
+  .mv-type--headline2,
+  .mv-type--titlebold2 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: 0.0069444444em;
+    line-height: 2.75rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--headline2,
+    .mv-type--titlebold2 {
+      font-size: 3.75rem;
+      letter-spacing: 0.0041666667em;
+      line-height: 4.25rem;
+    }
+  }
+
+  /* Headline 3 */
+  .mv-type--headline3,
+  .mv-type--titlebold3 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: 0.0083333333em;
+    line-height: 2.25rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--headline3,
+    .mv-type--titlebold3 {
+      font-size: 3rem;
+      letter-spacing: 0.0052083333em;
+      line-height: 3.5rem;
+    }
+  }
+
+  /* Headline 4 */
+  .mv-type--headline4,
+  .mv-type--titlebold4 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: 0.0089285714em;
+    line-height: 2.125rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--headline4,
+    .mv-type--titlebold4 {
+      font-size: 2.25rem;
+      letter-spacing: 0.0069444444em;
+      line-height: 2.75rem;
+    }
+  }
+
+  /* Headline 5 */
+  .mv-type--headline5,
+  .mv-type--titlebold5 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.0104166667em;
+    line-height: 1.875rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--headline5,
+    .mv-type--titlebold5 {
+      font-size: 1.75rem;
+      letter-spacing: 0.0089285714em;
+      line-height: 2.125rem;
+    }
+  }
+
+  /* Headline 6 */
+  .mv-type--headline6,
+  .mv-type--titlebold6 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: 0.0113636364em;
+    line-height: 1.625rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--headline6,
+    .mv-type--titlebold6 {
+      font-size: 1.5rem;
+      letter-spacing: 0.0104166667em;
+      line-height: 1.875rem;
+    }
+  }
+
+  /* Headline 7 */
+  .mv-type--headline7,
+  .mv-type--titlebold7 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
     font-size: 1.25rem;
-    font-weight: 600;
-    line-height: 1.4;
-    color: #0f131a;
-}
+    font-weight: 700;
+    letter-spacing: 0.0125em;
+    line-height: 1.5rem;
+  }
 
-.mv-type--headline6 {
-    font-family: 'Grotesk-Medium', sans-serif;
+  @media (min-width: 992px) {
+    .mv-type--headline7,
+    .mv-type--titlebold7 {
+      font-size: 1.375rem;
+      letter-spacing: 0.0113636364em;
+      line-height: 1.625rem;
+    }
+  }
+
+  /* Headline 8 */
+  .mv-type--headline8,
+  .mv-type--titlebold8 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
     font-size: 1.125rem;
-    font-weight: 600;
-    line-height: 1.4;
-    color: #0f131a;
-}
+    font-weight: 700;
+    letter-spacing: 0.0138888889em;
+    line-height: 1.375rem;
+  }
 
-.mv-type--headline7 {
-    font-family: 'Grotesk-Medium', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.5;
-    color: #0f131a;
-}
-
-.mv-type--headline8 {
-    font-family: 'Grotesk-Medium', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    line-height: 1.5;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: #7a12d4;
-}
-
-.mv-type--headline9 {
-    font-family: 'Grotesk-Medium', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    line-height: 1.5;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #7a12d4;
-}
-
-/* Body text */
-p {
-    font-family: 'Grotesk-Regular', sans-serif;
-    font-size: 1rem;
-    line-height: 1.7;
-    color: #6b7280;
-}
-
-.mv-lead {
-    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
-    line-height: 1.6;
-    color: #6b7280;
-}
-
-/* --------------------------------------------------------------------------
-   5. BUTTONS
-   -------------------------------------------------------------------------- */
-
-.mv-btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem;
-    background-color: #7a12d4;
-    color: white;
-    font-family: 'Grotesk-Bold', sans-serif;
-    font-size: 1rem;
-    border-radius: 999px;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.mv-btn-primary:hover {
-    background-color: #6610b5;
-    transform: translateY(-2px);
-}
-
-.mv-btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem;
-    background-color: transparent;
-    color: #7a12d4;
-    border: 2px solid #7a12d4;
-    font-family: 'Grotesk-Medium', sans-serif;
-    font-size: 1rem;
-    border-radius: 999px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.mv-btn-secondary:hover {
-    background-color: rgba(122, 18, 212, 0.05);
-    transform: translateY(-2px);
-}
-
-/* --------------------------------------------------------------------------
-   6. CARDS & COMPONENTS
-   -------------------------------------------------------------------------- */
-
-.mv-card {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(122, 18, 212, 0.1);
-    transition: all 0.3s ease;
-}
-
-.mv-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(122, 18, 212, 0.15);
-}
-
-/* Grid pattern for three columns */
-.mv-grid-3col {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-}
-
-/* Eyebrow text (kicker) */
-.mv-kicker {
-    font-family: 'Grotesk-Medium', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #7a12d4;
-    margin-bottom: 1rem;
-    display: block;
-}
-
-/* --------------------------------------------------------------------------
-   7. UTILITIES
-   -------------------------------------------------------------------------- */
-
-.mv-text-center {
-    text-align: center;
-}
-
-.mv-mb-1 { margin-bottom: 0.5rem; }
-.mv-mb-2 { margin-bottom: 1rem; }
-.mv-mb-3 { margin-bottom: 1.5rem; }
-.mv-mb-4 { margin-bottom: 2rem; }
-.mv-mb-5 { margin-bottom: 2.5rem; }
-.mv-mb-6 { margin-bottom: 3rem; }
-
-.mv-mt-1 { margin-top: 0.5rem; }
-.mv-mt-2 { margin-top: 1rem; }
-.mv-mt-3 { margin-top: 1.5rem; }
-.mv-mt-4 { margin-top: 2rem; }
-.mv-mt-5 { margin-top: 2.5rem; }
-.mv-mt-6 { margin-top: 3rem; }
-
-/* --------------------------------------------------------------------------
-   8. LINKS
-   -------------------------------------------------------------------------- */
-
-a {
-    color: #7a12d4;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: #6610b5;
-}
-
-/* --------------------------------------------------------------------------
-   9. RESPONSIVE
-   -------------------------------------------------------------------------- */
-
-@media (max-width: 768px) {
-    .mv-section--hero {
-        padding: 4rem 0 3rem 0;
+  @media (min-width: 992px) {
+    .mv-type--headline8,
+    .mv-type--titlebold8 {
+      font-size: 1.25rem;
+      letter-spacing: 0.0125em;
+      line-height: 1.5rem;
     }
+  }
 
-    .mv-section--content {
-        padding: 3rem 0;
-    }
+  /* Headline 9 */
+  .mv-type--headline9,
+  .mv-type--titlebold9 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.015625em;
+    line-height: 1.25rem;
+  }
 
-    .mv-grid-3col {
-        grid-template-columns: 1fr;
+  @media (min-width: 992px) {
+    .mv-type--headline9,
+    .mv-type--titlebold9 {
+      font-size: 1.125rem;
+      letter-spacing: 0.0138888889em;
+      line-height: 1.375rem;
     }
-}
+  }
