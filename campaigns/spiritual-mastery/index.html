@@ -94,27 +94,30 @@
         }
 
         .mv-teacher-photo {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
+            width: 100%;
+            max-width: 200px;
+            height: auto;
             object-fit: cover;
-            margin: 0 auto 1rem;
-            display: block;
+            border-radius: 8px;
         }
 
         .mv-grid-3col {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: 1fr;
             gap: 2rem;
             margin: 2rem 0;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .mv-card {
             background: white;
             border: 1px solid #e0e0e0;
             border-radius: 12px;
-            padding: 2rem;
+            padding: 0;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
         }
 
         .mv-card:hover {
@@ -122,13 +125,43 @@
             box-shadow: 0 8px 24px rgba(122, 18, 212, 0.15);
         }
 
+        .teacher-card {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            min-height: 280px;
+        }
+
+        .teacher-card-content {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .teacher-card-image {
+            width: 200px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .teacher-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         @media (max-width: 768px) {
             .mv-stat-number {
                 font-size: 2.5rem;
             }
-            .mv-teacher-photo {
-                width: 140px;
-                height: 140px;
+            .teacher-card {
+                flex-direction: column;
+            }
+            .teacher-card-image {
+                width: 100%;
+                height: 300px;
             }
         }
     </style>
@@ -316,72 +349,133 @@
 
             <div class="mv-grid-3col">
                 <div class="mv-card">
-                    <img src="https://storyblok-cdn.mindvalley.com/f/60579/360x540/c93edfb831/vishen.webp" alt="Vishen Lakhiani" class="mv-teacher-photo">
-                    <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Vishen Lakhiani</h3>
-                    <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Founder, Mindvalley</p>
-                    <p style="line-height: 1.7; font-size: 0.9375rem;">6 Phase Meditation, consciousness engineering, personal transformation systems. Program architect.</p>
+                    <div class="teacher-card">
+                        <div class="teacher-card-content">
+                            <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Vishen Lakhiani</h3>
+                            <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Founder, Mindvalley</p>
+                            <p style="line-height: 1.7; font-size: 0.9375rem;">6 Phase Meditation, consciousness engineering, personal transformation systems. Program architect.</p>
+                        </div>
+                        <div class="teacher-card-image">
+                            <img src="https://storyblok-cdn.mindvalley.com/f/60579/360x540/c93edfb831/vishen.webp" alt="Vishen Lakhiani">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mv-card">
-                    <img src="https://storyblok-cdn.mindvalley.com/f/60579/360x540/0051ff507a/speakercard_shihengyi.png" alt="Shi Heng Yi" class="mv-teacher-photo">
-                    <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Shi Heng Yi</h3>
-                    <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Shaolin Master</p>
-                    <p style="line-height: 1.7; font-size: 0.9375rem;">Warrior mindfulness, Qi mastery, Zen stillness. Viral sensation with 15M+ views.</p>
+                    <div class="teacher-card">
+                        <div class="teacher-card-content">
+                            <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Shi Heng Yi</h3>
+                            <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Shaolin Master</p>
+                            <p style="line-height: 1.7; font-size: 0.9375rem;">Warrior mindfulness, Qi mastery, Zen stillness. Viral sensation with 15M+ views.</p>
+                        </div>
+                        <div class="teacher-card-image">
+                            <img src="https://storyblok-cdn.mindvalley.com/f/60579/360x540/0051ff507a/speakercard_shihengyi.png" alt="Shi Heng Yi">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mv-card">
-                    <img src="https://storyblok-cdn.mindvalley.com/f/60579/360x540/2266ba8221/speakercard_tarasward.webp" alt="Dr. Tara Swart" class="mv-teacher-photo">
-                    <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Dr. Tara Swart</h3>
-                    <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Neuroscientist MD</p>
-                    <p style="line-height: 1.7; font-size: 0.9375rem;">Neuroscience of intuition, manifestation science, neuroplasticity. MIT Senior Lecturer.</p>
+                    <div class="teacher-card">
+                        <div class="teacher-card-content">
+                            <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Dr. Tara Swart</h3>
+                            <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Neuroscientist MD</p>
+                            <p style="line-height: 1.7; font-size: 0.9375rem;">Neuroscience of intuition, manifestation science, neuroplasticity. MIT Senior Lecturer.</p>
+                        </div>
+                        <div class="teacher-card-image">
+                            <img src="https://storyblok-cdn.mindvalley.com/f/60579/360x540/2266ba8221/speakercard_tarasward.webp" alt="Dr. Tara Swart">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mv-card">
-                    <img src="https://storyblok-cdn.mindvalley.com/f/60579/360x540/14ddc0bc46/speakercard_lee-holden.webp" alt="Lee Holden" class="mv-teacher-photo">
-                    <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Lee Holden</h3>
-                    <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Qi Gong Master</p>
-                    <p style="line-height: 1.7; font-size: 0.9375rem;">Energy cultivation, flow states, Taoist practices. Makes Qi accessible to modern practitioners.</p>
+                    <div class="teacher-card">
+                        <div class="teacher-card-content">
+                            <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Lee Holden</h3>
+                            <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Qi Gong Master</p>
+                            <p style="line-height: 1.7; font-size: 0.9375rem;">Energy cultivation, flow states, Taoist practices. Makes Qi accessible to modern practitioners.</p>
+                        </div>
+                        <div class="teacher-card-image">
+                            <img src="https://storyblok-cdn.mindvalley.com/f/60579/360x540/14ddc0bc46/speakercard_lee-holden.webp" alt="Lee Holden">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mv-card">
-                    <img src="https://storyblok-cdn.mindvalley.com/f/60579/672x1008/03d0a0dbe2/ms_speaker_neale-donald-m.jpg" alt="Neale Donald Walsch" class="mv-teacher-photo">
-                    <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Neale Donald Walsch</h3>
-                    <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Spiritual Author</p>
-                    <p style="line-height: 1.7; font-size: 0.9375rem;">Divine dialogue, unconditional love. Author of "Conversations with God" (15M+ copies sold).</p>
+                    <div class="teacher-card">
+                        <div class="teacher-card-content">
+                            <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Neale Donald Walsch</h3>
+                            <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Spiritual Author</p>
+                            <p style="line-height: 1.7; font-size: 0.9375rem;">Divine dialogue, unconditional love. Author of "Conversations with God" (15M+ copies sold).</p>
+                        </div>
+                        <div class="teacher-card-image">
+                            <img src="https://storyblok-cdn.mindvalley.com/f/60579/672x1008/03d0a0dbe2/ms_speaker_neale-donald-m.jpg" alt="Neale Donald Walsch">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mv-card">
-                    <img src="https://storyblok-cdn.mindvalley.com/f/60579/360x540/95537b7f94/speakercard_peterlevine.webp" alt="Dr. Peter Levine" class="mv-teacher-photo">
-                    <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Dr. Peter Levine</h3>
-                    <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Trauma Healing Pioneer</p>
-                    <p style="line-height: 1.7; font-size: 0.9375rem;">Somatic trauma release, nervous system regulation. Creator of Somatic Experiencing.</p>
+                    <div class="teacher-card">
+                        <div class="teacher-card-content">
+                            <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Dr. Peter Levine</h3>
+                            <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Trauma Healing Pioneer</p>
+                            <p style="line-height: 1.7; font-size: 0.9375rem;">Somatic trauma release, nervous system regulation. Creator of Somatic Experiencing.</p>
+                        </div>
+                        <div class="teacher-card-image">
+                            <img src="https://storyblok-cdn.mindvalley.com/f/60579/360x540/95537b7f94/speakercard_peterlevine.webp" alt="Dr. Peter Levine">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mv-card">
-                    <img src="https://storyblok-cdn.mindvalley.com/f/60579/360x540/3c4920cea0/speakercard_deanradin.png" alt="Dean Radin" class="mv-teacher-photo">
-                    <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Dean Radin, PhD</h3>
-                    <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Consciousness Scientist</p>
-                    <p style="line-height: 1.7; font-size: 0.9375rem;">Remote viewing, precognition research. Chief Scientist at Institute of Noetic Sciences.</p>
+                    <div class="teacher-card">
+                        <div class="teacher-card-content">
+                            <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Dean Radin, PhD</h3>
+                            <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Consciousness Scientist</p>
+                            <p style="line-height: 1.7; font-size: 0.9375rem;">Remote viewing, precognition research. Chief Scientist at Institute of Noetic Sciences.</p>
+                        </div>
+                        <div class="teacher-card-image">
+                            <img src="https://storyblok-cdn.mindvalley.com/f/60579/360x540/3c4920cea0/speakercard_deanradin.png" alt="Dean Radin">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mv-card">
-                    <img src="https://storyblok-cdn.mindvalley.com/f/60579/360x540/c026920c15/speakercard_zen-samurai.webp" alt="Sensei Zen Takai" class="mv-teacher-photo">
-                    <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Sensei Zen Takai</h3>
-                    <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Samurai Master</p>
-                    <p style="line-height: 1.7; font-size: 0.9375rem;">Bushidō principles, warrior courage. Teaches presence, integrity, and right action.</p>
+                    <div class="teacher-card">
+                        <div class="teacher-card-content">
+                            <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Sensei Zen Takai</h3>
+                            <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Samurai Master</p>
+                            <p style="line-height: 1.7; font-size: 0.9375rem;">Bushidō principles, warrior courage. Teaches presence, integrity, and right action.</p>
+                        </div>
+                        <div class="teacher-card-image">
+                            <img src="https://storyblok-cdn.mindvalley.com/f/60579/360x540/c026920c15/speakercard_zen-samurai.webp" alt="Sensei Zen Takai">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mv-card">
-                    <img src="https://storyblok-cdn.mindvalley.com/f/60579/1128x1696/7bbc8a1498/author_regan-hillyer.webp" alt="Regan Hillyer" class="mv-teacher-photo">
-                    <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Regan Hillyer</h3>
-                    <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Manifestation Expert</p>
-                    <p style="line-height: 1.7; font-size: 0.9375rem;">Frequency manifestation, devoted creation. Bridges spiritual knowing with grounded execution.</p>
+                    <div class="teacher-card">
+                        <div class="teacher-card-content">
+                            <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Regan Hillyer</h3>
+                            <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Manifestation Expert</p>
+                            <p style="line-height: 1.7; font-size: 0.9375rem;">Frequency manifestation, devoted creation. Bridges spiritual knowing with grounded execution.</p>
+                        </div>
+                        <div class="teacher-card-image">
+                            <img src="https://storyblok-cdn.mindvalley.com/f/60579/1128x1696/7bbc8a1498/author_regan-hillyer.webp" alt="Regan Hillyer">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mv-card">
-                    <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">Plus 7 More Teachers</h3>
-                    <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Experts & Core Faculty</p>
-                    <p style="line-height: 1.7; font-size: 0.9375rem;">Regan Hillyer, Ken Wilber, Johann Urb & Rachel Pringle, Vishen, Dawn, Lee, Marie. 50+ combined sessions.</p>
+                    <div class="teacher-card">
+                        <div class="teacher-card-content">
+                            <h3 class="mv-type--headline6" style="margin-bottom: 0.5rem;">🌟 Plus 7 More Teachers</h3>
+                            <p style="font-size: 0.875rem; color: #7a12d4; margin-bottom: 1rem;">Experts & Core Faculty</p>
+                            <p style="line-height: 1.7; font-size: 0.9375rem;">Ken Wilber, Johann Urb & Rachel Pringle, Dawn Hoang, Marie Diamond, Sadhguru, Mantak Chia, and more. 50+ combined sessions across all 7 Gates.</p>
+                        </div>
+                        <div class="teacher-card-image" style="background: linear-gradient(135deg, #7a12d4 0%, #a855f7 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                            ✨
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
