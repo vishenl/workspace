@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiritual Mastery Webinar - Fladlien Framework | Mindvalley</title>
+    <meta name="description" content="The Missing System That Keeps Spiritual Seekers Stuck (And How To Break Through In 90 Days)">
+
+    <style>
+        /* ========== DESIGN TOKENS ========== */
+        :root {
+            --mv-purple: #8A2BE2;
+            --mv-purple-light: #DA70D6;
+            --mv-purple-dark: #6A1BB2;
+            --mv-gold: #DAA520;
+            --mv-dark: #1A1A1A;
+            --mv-gray: #404040;
+            --mv-gray-light: #FAFAFA;
+            --mv-white: #FFFFFF;
+
+            --font-heading: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 8px 30px rgba(138, 43, 226, 0.15);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--mv-dark);
+            color: var(--mv-white);
+            overflow-x: hidden;
+        }
+
+        /* ========== SLIDE NAVIGATION ========== */
+        .slides-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .slide.active {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* ========== NAVIGATION CONTROLS ========== */
+        .nav-controls {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.9);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn {
+            background: var(--mv-purple);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: var(--font-body);
+        }
+
+        .nav-btn:hover {
+            background: var(--mv-purple-light);
+            transform: translateY(-2px);
+        }
+
+        .slide-counter {
+            display: flex;
+            align-items: center;
+            color: var(--mv-white);
+            font-weight: 600;
+            padding: 0 1rem;
+        }
+
+        /* ========== TYPOGRAPHY ========== */
+        h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        .eyebrow {
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--mv-purple-light);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .lead {
+            font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 1rem;
+        }
+
+        /* ========== BACKGROUNDS ========== */
+        .bg-gradient-purple {
+            background: linear-gradient(135deg, var(--mv-purple-dark) 0%, var(--mv-purple) 50%, var(--mv-purple-light) 100%);
+        }
+
+        .bg-dark {
+            background: var(--mv-dark);
+        }
+
+        .bg-light {
+            background: var(--mv-white);
+            color: var(--mv-dark);
+        }
+
+        .bg-light h1, .bg-light h2, .bg-light h3 {
+            color: var(--mv-dark);
+        }
+
+        .bg-light p {
+            color: var(--mv-gray);
+        }
+
+        /* ========== COMPONENTS ========== */
+        .stat-large {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 700;
+            color: var(--mv-purple-light);
+            display: block;
+            margin: 2rem 0;
+            font-family: var(--font-heading);
+        }
+
+        .bullet-list {
+            text-align: left;
+            max-width: 800px;
+            margin: 2rem auto;
+            list-style: none;
+            padding: 0;
+        }
+
+        .bullet-list li {
+            font-size: clamp(1rem, 2vw, 1.375rem);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .bullet-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--mv-purple-light);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            background: rgba(138, 43, 226, 0.1);
+            border-color: var(--mv-purple-light);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--mv-purple);
+            color: white;
+            padding: 1.25rem 3rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            margin-top: 2rem;
+        }
+
+        .cta-button:hover {
+            background: var(--mv-purple-light);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .price-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--mv-purple-light);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .price-original {
+            text-decoration: line-through;
+            opacity: 0.6;
+            font-size: 1.5rem;
+        }
+
+        .price-sale {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--mv-gold);
+            font-family: var(--font-heading);
+            margin: 1rem 0;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            text-align: left;
+        }
+
+        .quote-slide {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-style: italic;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 2rem 1rem;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .benefit-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-controls {
+                bottom: 1rem;
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slides-container">
+
+        <!-- ========== INTRODUCTION SECTION (4 slides) ========== -->
+
+        <!-- SLIDE 1: Pattern Interrupt Hook -->
+        <div class="slide active bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">The Uncomfortable Truth</span>
+                <h1>Most Spiritual Seekers<br>Will Never Break Through</h1>
+                <p class="lead">And it has nothing to do with effort, devotion, or desire.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Authority Stack (Vishen) -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <h2>I'm Vishen Lakhiani</h2>
+                <p class="lead">20 years ago, I was stuck in the same spiritual confusion you might be experiencing right now.</p>
+                <div style="margin-top: 3rem;">
+                    <p class="lead">Today, I've trained with 50+ spiritual masters, built the world's largest transformation platform with 24M+ students, and discovered what actually creates breakthrough.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Promise & Preview -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">In The Next 60 Minutes</span>
+                <h2>You'll Discover...</h2>
+                <p class="lead">The ONE missing system that keeps spiritual seekers stuck for years—<br>and the exact 7-step framework that creates breakthrough in 90 days.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: First Engagement Point -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <p class="quote-slide">"Have you ever felt like you're doing all the spiritual practices...yet something still feels misaligned?"</p>
+                <p class="lead" style="margin-top: 2rem; opacity: 0.7;">Type 'YES' in the chat if this resonates.</p>
+            </div>
+        </div>
+
+        <!-- ========== CONTENT SECTION: THE BIG DOMINO ========== -->
+
+        <!-- SLIDE 5: The Big Domino Statement -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">The Big Domino</span>
+                <h1>Without A SYSTEM,<br>You'll Keep Starting Over</h1>
+                <p class="lead">Random spiritual practices = random results.<br>A structured system = predictable transformation.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Feeling Over Knowing -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <h2>The 7 Frustrations of Spiritual Seekers</h2>
+                <ul class="bullet-list">
+                    <li>"I'm on a spiritual path… but I'm not consistent."</li>
+                    <li>"I feel something shifting, but don't know what to do with it."</li>
+                    <li>"I'm doing the inner work—yet I still feel blocked."</li>
+                    <li>"I want deeper connection… but keep falling back into old patterns."</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Framework Introduction - The 7-Gate System -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">Introducing</span>
+                <h1>The 7-Gate System™</h1>
+                <p class="lead">The only structured roadmap that takes you from spiritual confusion<br>to embodied mastery—in 5 months.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Secret #1 - Energy (Vehicle) -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <span class="eyebrow">Secret #1: The Vehicle That Works</span>
+                <h2>Energy Awakening<br>Is The Foundation</h2>
+                <p class="lead">Without activating your energy body, all other practices are building on unstable ground.</p>
+                <div class="benefit-grid">
+                    <div class="benefit-card">
+                        <h3>The 7 Sacred States</h3>
+                        <p>Move from stress/anxiety to high-frequency states at will</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Qi Gong Mastery</h3>
+                        <p>Daily energy activation with Lee Holden (20+ years teaching)</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Kundalini Awakening</h3>
+                        <p>Safe, guided activation of your dormant spiritual energy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Secret #2 - Emotional Healing (Internal) -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">Secret #2: You CAN Do This</span>
+                <h2>Trauma Release<br>Without Reliving Pain</h2>
+                <p class="lead">Dr. Peter Levine's somatic approach lets you clear emotional blocks<br>without years of talk therapy.</p>
+                <div style="margin-top: 2rem;">
+                    <p class="stat-large" style="font-size: clamp(2rem, 5vw, 4rem);">83%</p>
+                    <p class="lead">of students report releasing major emotional blocks in first 30 days</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Secret #3 - Stillness (External) -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <span class="eyebrow">Secret #3: Nothing Stops You</span>
+                <h2>Master Stillness<br>In a Chaotic World</h2>
+                <p class="lead">Learn from Shi Heng Yi (35th generation Shaolin master) how to access deep meditation states—even with a busy life.</p>
+                <div style="margin-top: 2rem;">
+                    <p class="lead" style="font-size: 1.75rem; color: var(--mv-purple-light);">The techniques that took monks decades...<br>distilled into daily 15-minute practices.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Instant Gratification - Quick Win -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">Try This Right Now</span>
+                <h2>The 60-Second Energy Reset</h2>
+                <p class="lead">Let me teach you ONE practice from Gate 1 that you can use immediately...</p>
+                <p style="margin-top: 2rem; opacity: 0.8;">[DEMO: Lead 60-second Qi Gong energy activation]</p>
+                <p class="lead" style="margin-top: 2rem;">Notice the shift? That's just ONE practice from the system.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: Transformation Story -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <p class="quote-slide">"After 15 years of spiritual seeking, I finally found what I was looking for. The 7-Gate System gave me the structure I desperately needed."</p>
+                <p class="lead" style="margin-top: 2rem;">— Sarah M., Cohort 2024 Graduate</p>
+            </div>
+        </div>
+
+        <!-- ========== TRANSITION SECTION (4 slides) ========== -->
+
+        <!-- SLIDE 13: Recap Journey -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">Let's Recap</span>
+                <h2>What We've Covered</h2>
+                <ul class="bullet-list">
+                    <li>Why random spiritual practices keep you stuck</li>
+                    <li>The 7-Gate System™ that creates predictable transformation</li>
+                    <li>Energy awakening, trauma release, and stillness mastery</li>
+                    <li>A quick-win practice you can use today</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: Address the Gap -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <h2>Here's The Problem...</h2>
+                <p class="lead" style="font-size: 1.75rem; margin-top: 2rem;">You can't implement this system on your own.</p>
+                <div style="margin-top: 3rem;">
+                    <p class="lead">You need: The full 7-Gate curriculum • World-class teachers • A committed community • 5 months of guided practice</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 15: Permission to Present -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <p class="quote-slide">"So what I'd like to do is show you how to access this complete system...<br>with everything you need to break through in the next 90 days."</p>
+                <p class="lead" style="margin-top: 2rem; opacity: 0.8;">Is that okay?</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 16: Bridge Statement -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <h2>Introducing<br>Spiritual Mastery</h2>
+                <p class="lead">The complete 7-Gate System™ with 9 world-class teachers,<br>500 committed seekers, and 22 weeks of transformation.</p>
+            </div>
+        </div>
+
+        <!-- ========== CLOSE SECTION (8 slides) ========== -->
+
+        <!-- SLIDE 17: Program Overview -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">What You Get</span>
+                <h2>Spiritual Mastery Program</h2>
+                <ul class="bullet-list">
+                    <li>44 live sessions with 9 world-class spiritual teachers</li>
+                    <li>Complete 7-Gate System™ (lifetime access)</li>
+                    <li>Sacred Circle community of 500 committed seekers</li>
+                    <li>Professional CPD certification upon completion</li>
+                    <li>All recordings for 1 year after program ends</li>
+                </ul>
+                <p class="lead" style="margin-top: 2rem;">December 8, 2025 • 22 Weeks • Monday & Wednesday</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 18: The Stack - Component #1 -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <span class="eyebrow">Stack Component #1</span>
+                <h2>7-Gate Curriculum<br>+ 44 Live Sessions</h2>
+                <p class="lead">22 weeks of live training with 9 masters</p>
+                <p class="stat-large" style="font-size: clamp(2.5rem, 6vw, 5rem);">$7,999 Value</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 19: The Stack - Component #2 -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">Stack Component #2</span>
+                <h2>Sacred Circle Community<br>+ Mobile App</h2>
+                <p class="lead">Lifetime access to exclusive community platform</p>
+                <p class="stat-large" style="font-size: clamp(2.5rem, 6vw, 5rem);">$2,000 Value</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 20: The Stack - Component #3 -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <span class="eyebrow">Stack Component #3</span>
+                <h2>Digital Vishen AI<br>Manifestation Mentor</h2>
+                <p class="lead">24/7 AI-powered guidance personalized to your journey</p>
+                <p class="stat-large" style="font-size: clamp(2.5rem, 6vw, 5rem);">$5,000 Value</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 21: The Stack - Component #4 -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">Stack Component #4</span>
+                <h2>Learning Mastery<br>Full Course</h2>
+                <p class="lead">Accelerate your ability to integrate and embody new practices</p>
+                <p class="stat-large" style="font-size: clamp(2.5rem, 6vw, 5rem);">$3,000 Value</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 22: The Stack - Total Value -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <span class="eyebrow">Total Value</span>
+                <h2>Everything Combined</h2>
+                <p class="stat-large">$18,000+</p>
+                <p class="lead">If you purchased each component separately</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 23: Price Reveal -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">Your Investment Today</span>
+                <h2>Black Friday Special</h2>
+                <div class="price-box">
+                    <p class="price-original">Regular: $7,999</p>
+                    <p class="price-sale">$3,999</p>
+                    <p style="color: var(--mv-gold); font-weight: 600; font-size: 1.25rem;">Save $4,000 Today</p>
+                </div>
+                <p class="lead">Payment plan: 4 monthly installments of $1,199</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 24: Risk Reversal -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <span class="eyebrow">15-Day Money-Back Guarantee</span>
+                <h2>You Don't Have to Say YES.<br>Just Say MAYBE.</h2>
+                <p class="lead">Join the program. Experience the first 15 days completely risk-free.<br>If it's not for you, get a full refund with one click.</p>
+                <p style="margin-top: 2rem; font-weight: 600; font-size: 1.5rem; color: var(--mv-purple-light);">No questions asked. No emails. No hassle.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 25: Urgency (Authentic) -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <h2>Limited to 500 Students</h2>
+                <p class="lead" style="font-size: 1.75rem; margin-top: 2rem;">We run this program once a year.<br>The next cohort won't start until December 2026.</p>
+                <p class="lead" style="margin-top: 2rem; opacity: 0.8;">This is your window.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 26: Final CTA -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <span class="eyebrow">Your Transformation Awaits</span>
+                <h1>Join Spiritual Mastery</h1>
+                <p class="lead">December 8, 2025 • 22 Weeks • 9 Masters • 500 Seekers</p>
+                <a href="https://www.mindvalley.com/mastery/spiritual" class="cta-button">Claim Your Spot Now</a>
+                <p style="margin-top: 2rem; opacity: 0.8;">Black Friday pricing ends soon</p>
+            </div>
+        </div>
+
+        <!-- ========== Q&A SECTION ========== -->
+
+        <!-- SLIDE 27: Q&A Introduction -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <h1>Questions?</h1>
+                <p class="lead">Let's address any questions or concerns you have<br>about Spiritual Mastery.</p>
+                <p style="margin-top: 2rem; opacity: 0.8;">The enrollment link is in the chat.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">27</span>
+        </div>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            document.getElementById('current-slide').textContent = index + 1;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+
+        // Touch swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) previousSlide();
+        }
+    </script>
+</body>
+</html>
