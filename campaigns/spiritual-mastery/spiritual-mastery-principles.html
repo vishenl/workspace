@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiritual Mastery Principles - Implementation Framework</title>
+    <link rel="stylesheet" href="../../styles/mv-selfreset-base.css">
+    <style>
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100vh;
+            background: #f8f9fa;
+            border-right: 1px solid #e0e0e0;
+            overflow-y: auto;
+            z-index: 100;
+            padding: 30px 20px;
+        }
+
+        .sidebar h2 {
+            font-family: Grotesk-Bold, Verdana, sans-serif;
+            font-size: 1.375rem;
+            margin-bottom: 20px;
+            color: #0f131a;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 10px 12px;
+            color: #0f131a;
+            text-decoration: none;
+            border-radius: 6px;
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.938rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .sidebar-nav a:hover {
+            background-color: #e8e9eb;
+        }
+
+        .sidebar-nav a.active {
+            background-color: #7a12d4;
+            color: white;
+        }
+
+        /* Mobile hamburger menu */
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .hamburger-line {
+            width: 25px;
+            height: 3px;
+            background: #0f131a;
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .sidebar {
+                left: -260px;
+                transition: left 0.3s ease;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0 !important;
+                padding-top: 60px;
+            }
+        }
+
+        /* Main content */
+        .main-content {
+            margin-left: 260px;
+            padding: 40px 0;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            font-family: Grotesk-Bold, Verdana, sans-serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #0f131a;
+        }
+
+        .section h3 {
+            font-family: Grotesk-Bold, Verdana, sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            color: #0f131a;
+        }
+
+        .section h4 {
+            font-family: Grotesk-Bold, Verdana, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            color: #0f131a;
+        }
+
+        .section p {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 1.125rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #0f131a;
+        }
+
+        .principle-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8e9eb 100%);
+            border-left: 4px solid #7a12d4;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .principle-box h4 {
+            margin-top: 0;
+            color: #7a12d4;
+        }
+
+        .highlight-box {
+            background: #fff5f5;
+            border: 2px solid #7a12d4;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box strong {
+            color: #7a12d4;
+            font-family: Grotesk-Bold, Verdana, sans-serif;
+        }
+
+        .archetype-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .archetype-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .archetype-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(122, 18, 212, 0.15);
+        }
+
+        .archetype-name {
+            font-family: Grotesk-Bold, Verdana, sans-serif;
+            font-size: 1.25rem;
+            color: #7a12d4;
+            margin-bottom: 8px;
+        }
+
+        .archetype-teacher {
+            font-family: Grotesk-Medium, Verdana, sans-serif;
+            font-size: 1rem;
+            color: #0f131a;
+            margin-bottom: 12px;
+        }
+
+        .archetype-desc {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.938rem;
+            line-height: 1.6;
+            color: #4a4a4a;
+        }
+
+        ul, ol {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 1.125rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        ul li, ol li {
+            margin-bottom: 12px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: #7a12d4;
+            text-decoration: none;
+            font-family: Grotesk-Medium, Verdana, sans-serif;
+            font-size: 1rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Hamburger -->
+    <div class="hamburger" onclick="toggleSidebar()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <h2>Navigation</h2>
+        <ul class="sidebar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="spiritual-mastery-complete-curriculum.html">Complete Curriculum</a></li>
+            <li><a href="spiritual-mastery-principles.html" class="active">Principles & Support</a></li>
+        </ul>
+
+        <h2 style="margin-top: 40px;">On This Page</h2>
+        <ul class="sidebar-nav">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#psychological-support">Psychological Support</a></li>
+            <li><a href="#integration">Integration Rhythm</a></li>
+            <li><a href="#community">Community Structure</a></li>
+            <li><a href="#archetypes">Teacher Archetypes</a></li>
+            <li><a href="#ritual-design">Ritual Design</a></li>
+            <li><a href="#post-program">Post-Program Pathway</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="mv-container">
+            <a href="index.html" class="back-link">← Back to Home</a>
+
+            <h1 class="mv-type--headline1">Spiritual Mastery Principles</h1>
+            <p style="font-size: 1.3em; margin-bottom: 40px; color: #4a4a4a;">Implementation Framework & Support Structure</p>
+
+            <!-- Overview -->
+            <section id="overview" class="section">
+                <h2>Program Philosophy</h2>
+                <p>Spiritual Mastery is not just about content delivery—it's about creating a transformational container that holds students through deep spiritual work. This document outlines the implementation principles that ensure students feel supported, integrated, and ready to sustain their practice beyond the program.</p>
+
+                <div class="highlight-box">
+                    <p><strong>Core Principle:</strong> We create transformation, not just information. Every element of this program is designed to support embodied integration, sustainable practice, and lasting change.</p>
+                </div>
+            </section>
+
+            <!-- Psychological Support -->
+            <section id="psychological-support" class="section">
+                <h2>Psychological Holding Container</h2>
+                <p>Deep spiritual work can surface intense emotions, trauma, and existential questions. Students need professional psychological support to process these experiences safely.</p>
+
+                <h3>Support Team Structure</h3>
+
+                <div class="principle-box">
+                    <h4>1. Licensed Therapist on Standby</h4>
+                    <p>A licensed clinical psychologist or therapist available via emergency chat/call for students experiencing psychological distress during the program.</p>
+                    <ul>
+                        <li><strong>When activated:</strong> Shadow work weeks, inner child healing, trauma release sessions</li>
+                        <li><strong>Access method:</strong> Emergency support button in platform, response within 2 hours</li>
+                        <li><strong>Scope:</strong> Crisis intervention, stabilization, referrals to ongoing care</li>
+                    </ul>
+                </div>
+
+                <div class="principle-box">
+                    <h4>2. Certified Integration Coaches</h4>
+                    <p>Team of 5-10 certified coaches trained in somatic experiencing, spiritual emergence, and integration practices.</p>
+                    <ul>
+                        <li><strong>Role:</strong> Weekly office hours, Q&A sessions, practice troubleshooting</li>
+                        <li><strong>Training:</strong> Certified in Somatic Experiencing, IFS (Internal Family Systems), or similar modalities</li>
+                        <li><strong>Availability:</strong> Rotating schedule ensures coverage 7 days/week</li>
+                    </ul>
+                </div>
+
+                <div class="principle-box">
+                    <h4>3. Peer Facilitators</h4>
+                    <p>Graduate students from previous cohorts trained to lead small group integration circles.</p>
+                    <ul>
+                        <li><strong>Training:</strong> 8-hour facilitator certification covering group dynamics, trauma-informed holding, crisis protocols</li>
+                        <li><strong>Role:</strong> Lead weekly peer circles (8-12 students each), share experiences, normalize the journey</li>
+                        <li><strong>Compensation:</strong> Free access to next cohort + certification</li>
+                    </ul>
+                </div>
+
+                <h3>Safety Protocols</h3>
+                <ul>
+                    <li><strong>Pre-program screening:</strong> Medical history questionnaire identifying high-risk students (severe trauma, active psychosis, suicidal ideation)</li>
+                    <li><strong>Resource library:</strong> Grounding techniques, emotional regulation tools, crisis hotlines</li>
+                    <li><strong>Clear escalation path:</strong> Peer facilitator → Integration coach → Licensed therapist → Emergency services</li>
+                    <li><strong>Informed consent:</strong> Students sign waiver acknowledging deep work can surface difficult emotions</li>
+                </ul>
+            </section>
+
+            <!-- Integration Rhythm -->
+            <section id="integration" class="section">
+                <h2>Integration & Breathing Room</h2>
+                <p>Transformation requires space to integrate. The program rhythm is designed to prevent overwhelm and allow embodiment between major gates.</p>
+
+                <h3>Weekly Rhythm</h3>
+                <div class="principle-box">
+                    <h4>Call Schedule: 2 Calls Per Week</h4>
+                    <ul>
+                        <li><strong>Monday:</strong> Lesson (90 minutes) - New teaching, theory, context</li>
+                        <li><strong>Thursday:</strong> Workshop (90 minutes) - Practice, implementation, integration</li>
+                        <li><strong>Off days:</strong> Tuesday, Wednesday, Friday, Saturday, Sunday for personal practice and integration</li>
+                    </ul>
+                </div>
+
+                <h3>Integration Weeks (Strategic Breathing Room)</h3>
+                <p>After heavy emotional/trauma work, students need space to process before moving into higher states.</p>
+
+                <div class="principle-box">
+                    <h4>Integration Week After Gate 2 (Clearing & Healing)</h4>
+                    <p><strong>When:</strong> Between Week 9 (Inner Child Healing) and Week 10 (Flow State)</p>
+                    <ul>
+                        <li><strong>Why:</strong> Gate 2 involves shadow work, forgiveness, inner child trauma—students need recovery before accessing flow</li>
+                        <li><strong>Content:</strong> No new lessons. Focus on journaling, somatic practices, coach Q&A, peer circles</li>
+                        <li><strong>Goal:</strong> Stabilize nervous system, process emotions, prepare for embodiment work</li>
+                    </ul>
+                </div>
+
+                <h3>Daily Practice Guidelines</h3>
+                <p>Students are encouraged to maintain a sustainable daily practice, not an overwhelming ritual overload.</p>
+                <ul>
+                    <li><strong>Core practice (20 min/day):</strong> Choose ONE foundational practice (6 Phase, Qi Gong, breathwork, etc.)</li>
+                    <li><strong>Integration journaling (10 min/day):</strong> Reflect on insights, emotions, questions</li>
+                    <li><strong>Optional practices:</strong> Students can add more, but baseline is 30 min/day total</li>
+                </ul>
+            </section>
+
+            <!-- Community Structure -->
+            <section id="community" class="section">
+                <h2>Community Engagement Structure</h2>
+                <p>Community is the container that holds the transformation. Students need structured peer support and authentic connection.</p>
+
+                <h3>Small Peer Circles (8-12 Students)</h3>
+                <div class="principle-box">
+                    <h4>Structure</h4>
+                    <ul>
+                        <li><strong>Formation:</strong> Assigned in Week 1 based on timezone and needs</li>
+                        <li><strong>Meetings:</strong> Weekly 60-minute calls led by trained peer facilitator</li>
+                        <li><strong>Format:</strong> Check-in round, practice sharing, Q&A, closing reflection</li>
+                        <li><strong>Continuity:</strong> Same group throughout 22 weeks to build trust and intimacy</li>
+                    </ul>
+                </div>
+
+                <h3>Private Community Platform</h3>
+                <ul>
+                    <li><strong>Platform:</strong> Circle, Mighty Networks, or custom Slack/Discord</li>
+                    <li><strong>Channels:</strong> General, each Gate, peer circle channels, daily practice logs, wins/celebrations</li>
+                    <li><strong>Moderation:</strong> Community manager + peer facilitators monitor for crisis, bullying, misinformation</li>
+                    <li><strong>Guidelines:</strong> Trauma-informed communication, respect diversity, no medical advice, no evangelizing</li>
+                </ul>
+
+                <h3>Concierge Team</h3>
+                <div class="principle-box">
+                    <h4>White-Glove Student Support</h4>
+                    <p>For a $5,000 program, students expect premium support.</p>
+                    <ul>
+                        <li><strong>Team size:</strong> 3-5 concierges for every 500 students</li>
+                        <li><strong>Role:</strong> Onboarding calls, tech support, schedule reminders, check-ins for inactive students</li>
+                        <li><strong>Availability:</strong> Email/chat response within 24 hours, Monday-Friday</li>
+                        <li><strong>Touch points:</strong> Welcome call (Week 0), Mid-program check-in (Week 11), Graduation planning (Week 20)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Teacher Archetypes -->
+            <section id="archetypes" class="section">
+                <h2>Teacher Archetypes (Gamification)</h2>
+                <p>Students collect wisdom from different spiritual archetypes, creating a "quest" feel where each teacher represents a unique transmission and role.</p>
+
+                <div class="archetype-grid">
+                    <div class="archetype-card">
+                        <div class="archetype-name">🏗️ The Architect</div>
+                        <div class="archetype-teacher">Vishen Lakhiani</div>
+                        <div class="archetype-desc">Designs systems for human transformation. Builds frameworks, models, and structures that make spirituality accessible and practical.</div>
+                    </div>
+
+                    <div class="archetype-card">
+                        <div class="archetype-name">🔮 The Alchemist</div>
+                        <div class="archetype-teacher">Marie Forleo</div>
+                        <div class="archetype-desc">Transmutes pain into power. Teaches the art of transformation, turning obstacles into opportunities and wounds into wisdom.</div>
+                    </div>
+
+                    <div class="archetype-card">
+                        <div class="archetype-name">🌙 The Oracle</div>
+                        <div class="archetype-teacher">Iyanla Vanzant</div>
+                        <div class="archetype-desc">Channels divine truth and ancestral wisdom. Speaks with prophetic clarity, cutting through illusion to reveal soul truth.</div>
+                    </div>
+
+                    <div class="archetype-card">
+                        <div class="archetype-name">🧙 The Sage</div>
+                        <div class="archetype-teacher">Sadhguru</div>
+                        <div class="archetype-desc">Embodies ancient wisdom and non-dual awareness. Speaks from direct realization, pointing to truth beyond concepts.</div>
+                    </div>
+
+                    <div class="archetype-card">
+                        <div class="archetype-name">🌊 The Healer</div>
+                        <div class="archetype-teacher">Dr. Peter Levine, Dawn, Marie (Gate 2)</div>
+                        <div class="archetype-desc">Holds space for wounds to surface and release. Expert in somatic healing, trauma integration, and nervous system regulation.</div>
+                    </div>
+
+                    <div class="archetype-card">
+                        <div class="archetype-name">🕊️ The Priestess</div>
+                        <div class="archetype-teacher">Dawn Burnett (Sacred Space)</div>
+                        <div class="archetype-desc">Guardian of sacred ritual and ceremonial practice. Creates energetic containers for transformation through space and intention.</div>
+                    </div>
+
+                    <div class="archetype-card">
+                        <div class="archetype-name">✨ The Mystic</div>
+                        <div class="archetype-teacher">Neale Donald Walsch</div>
+                        <div class="archetype-desc">Commune directly with the Divine. Channels higher guidance and teaches students to access their own divine dialogue.</div>
+                    </div>
+
+                    <div class="archetype-card">
+                        <div class="archetype-name">🥋 The Monk</div>
+                        <div class="archetype-teacher">Shi Heng Yi</div>
+                        <div class="archetype-desc">Master of discipline, presence, and energetic cultivation. Teaches through embodied practice and Zen stillness.</div>
+                    </div>
+
+                    <div class="archetype-card">
+                        <div class="archetype-name">⚔️ The Warrior</div>
+                        <div class="archetype-teacher">Sensei Zen Takai</div>
+                        <div class="archetype-desc">Embodies courage, integrity, and decisive action. Teaches students to walk their path with honor and spiritual discipline.</div>
+                    </div>
+
+                    <div class="archetype-card">
+                        <div class="archetype-name">🧠 The Neuroscientist</div>
+                        <div class="archetype-teacher">Dr. Tara Swart</div>
+                        <div class="archetype-desc">Bridges science and spirituality. Validates mystical experiences through research and teaches evidence-based transformation.</div>
+                    </div>
+
+                    <div class="archetype-card">
+                        <div class="archetype-name">🔬 The Scientist</div>
+                        <div class="archetype-teacher">Dean Radin, PhD</div>
+                        <div class="archetype-desc">Proves the impossible. Uses rigorous research to demonstrate that consciousness extends beyond the brain.</div>
+                    </div>
+
+                    <div class="archetype-card">
+                        <div class="archetype-name">🌟 The Manifestor</div>
+                        <div class="archetype-teacher">Regan Hillyer</div>
+                        <div class="archetype-desc">Masters reality creation through frequency alignment. Teaches devoted action from the future self, not desperate forcing.</div>
+                    </div>
+
+                    <div class="archetype-card">
+                        <div class="archetype-name">💫 The Integral Philosopher</div>
+                        <div class="archetype-teacher">Ken Wilber</div>
+                        <div class="archetype-desc">Maps consciousness evolution. Provides frameworks for understanding developmental stages from ego to cosmos.</div>
+                    </div>
+
+                    <div class="archetype-card">
+                        <div class="archetype-name">💕 The Sacred Union Guides</div>
+                        <div class="archetype-teacher">Johann Urb & Rachel Pringle</div>
+                        <div class="archetype-desc">Teach love as a spiritual practice. Guide couples into transcendent intimacy through communication, breath, and containment.</div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <p><strong>Gamification Element:</strong> Students "collect" archetypal transmissions throughout their journey. Profile badges unlock as they complete each teacher's modules. Final achievement: "Spiritual Master" when all 14 archetypes are integrated.</p>
+                </div>
+            </section>
+
+            <!-- Ritual Design -->
+            <section id="ritual-design" class="section">
+                <h2>Ritual Design & Practice Consolidation</h2>
+                <p>Students often feel overwhelmed by the number of practices taught. We consolidate practices into a sustainable "Spiritual Mastery Morning Ritual."</p>
+
+                <h3>The Problem: Ritual Overload</h3>
+                <p>By Week 10, students have learned: 6 Phase Meditation, Qi Gong, Breathwork, Chakra activation, Sexual energy circulation, Shadow work journaling, Gratitude practice, Forgiveness rituals, Sacred space clearing... and more.</p>
+
+                <p><strong>This is overwhelming and unsustainable.</strong></p>
+
+                <h3>The Solution: Consolidated Morning Practice</h3>
+                <div class="principle-box">
+                    <h4>Spiritual Mastery 30-Minute Morning Ritual</h4>
+                    <p>Integration week (after Gate 2) introduces this consolidated practice that weaves key techniques into ONE flow.</p>
+
+                    <ol>
+                        <li><strong>Grounding & Activation (5 min):</strong> Qi Gong standing meditation + Dan Tian breathing</li>
+                        <li><strong>6 Phase Meditation (15 min):</strong> Core Mindvalley practice covering compassion, gratitude, forgiveness, vision, perfect day, blessings</li>
+                        <li><strong>Chakra Breath Activation (5 min):</strong> Moving energy through all 7 chakras with breath</li>
+                        <li><strong>Integration Journaling (5 min):</strong> Free-write insights, emotions, guidance received</li>
+                    </ol>
+                </div>
+
+                <h3>Optional Add-Ons (Choose 1-2 Per Week)</h3>
+                <ul>
+                    <li>Shadow work journaling (after difficult emotions arise)</li>
+                    <li>Sexual energy practices (1-2x per week)</li>
+                    <li>Sacred space clearing (weekly)</li>
+                    <li>Extended meditation sits (weekends)</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>Key Message:</strong> Mastery is not about doing ALL the practices ALL the time. It's about finding YOUR sustainable rhythm that keeps you connected, clear, and growing.</p>
+                </div>
+            </section>
+
+            <!-- Post-Program Pathway -->
+            <section id="post-program" class="section">
+                <h2>Post-Program Pathway & Alumni Engagement</h2>
+                <p>The journey doesn't end at Week 22. Students need a clear pathway to sustain their practice and continue growing.</p>
+
+                <h3>90-Day Integration Plan (Weeks 23-35)</h3>
+                <div class="principle-box">
+                    <h4>Structured Post-Program Support</h4>
+                    <p>Students receive a personalized 90-day plan to continue their practice independently.</p>
+                    <ul>
+                        <li><strong>Weekly focus:</strong> Each week highlights one Gate to revisit and deepen</li>
+                        <li><strong>Monthly check-ins:</strong> Live Q&A calls with integration coaches</li>
+                        <li><strong>Peer circles continue:</strong> Students maintain their small groups (optional)</li>
+                        <li><strong>Practice tracker:</strong> Digital journal to log daily practice and insights</li>
+                    </ul>
+                </div>
+
+                <h3>Alumni Community</h3>
+                <ul>
+                    <li><strong>Lifetime access:</strong> Platform, community, recordings remain open forever</li>
+                    <li><strong>Alumni-only events:</strong> Quarterly masterclasses with program teachers, new guest teachers</li>
+                    <li><strong>Advanced cohorts:</strong> Graduates eligible for "Spiritual Mastery Advanced" (future program)</li>
+                    <li><strong>Facilitator certification:</strong> Top graduates trained to lead peer circles in future cohorts</li>
+                </ul>
+
+                <h3>Certification Pathway (Optional)</h3>
+                <div class="principle-box">
+                    <h4>Spiritual Mastery Certified Facilitator</h4>
+                    <p>For graduates who want to teach these practices:</p>
+                    <ul>
+                        <li><strong>Requirements:</strong> Complete all 22 weeks, pass integration exam, complete 8-hour facilitation training</li>
+                        <li><strong>Benefits:</strong> Licensed to teach Spiritual Mastery framework, lead workshops, create paid offerings</li>
+                        <li><strong>Revenue share:</strong> Certified facilitators earn 20% commission on students they refer to future cohorts</li>
+                    </ul>
+                </div>
+
+                <h3>Annual Spiritual Mastery Retreat</h3>
+                <p>Optional in-person gathering for graduates to deepen practice, connect with teachers, and experience advanced transmissions.</p>
+                <ul>
+                    <li><strong>Format:</strong> 5-day immersive retreat (location varies)</li>
+                    <li><strong>Teachers:</strong> Rotating faculty from the program + special guests</li>
+                    <li><strong>Cost:</strong> $3,000-$5,000 (separate from original program)</li>
+                    <li><strong>Focus:</strong> Embodiment practices, silent meditation, group ceremonies, advanced teachings</li>
+                </ul>
+            </section>
+
+            <!-- Footer -->
+            <div style="margin-top: 80px; padding-top: 40px; border-top: 2px solid #e0e0e0;">
+                <p style="text-align: center; color: #7a12d4; font-family: Grotesk-Bold, Verdana, sans-serif; font-size: 1.125rem;">
+                    <a href="index.html" style="color: #7a12d4;">← Back to Home</a> |
+                    <a href="spiritual-mastery-complete-curriculum.html" style="color: #7a12d4; margin-left: 20px;">View Complete Curriculum →</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Update active nav state on scroll
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.sidebar-nav a[href^="#"]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
