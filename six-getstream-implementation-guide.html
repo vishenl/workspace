@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Six × GetStream: Implementation Roadmap | Mindvalley Engineering</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+
+    <style>
+        :root {
+            /* Mindvalley Mastery Palette */
+            --color-background: #FFFFFF;
+            --color-text-primary: #1A1A1A;
+            --color-text-secondary: #404040;
+            --color-text-tertiary: #6B7280;
+
+            --color-mastery-green: #10B981;
+            --color-mastery-green-light: #D1FAE5;
+            --color-mastery-green-dark: #059669;
+
+            --color-accent-purple: #8B5CF6;
+            --color-accent-blue: #3B82F6;
+            --color-accent-orange: #F59E0B;
+            --color-accent-red: #EF4444;
+
+            /* Priority Badge Colors */
+            --color-critical-from: #EF4444;
+            --color-critical-to: #DC2626;
+            --color-high-from: #F59E0B;
+            --color-high-to: #D97706;
+            --color-medium-from: #10B981;
+            --color-medium-to: #059669;
+
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --font-size-base: 1rem;
+            --line-height-base: 1.6;
+
+            /* Spacing (8px grid) */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            --spacing-3xl: 6rem;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+
+            /* Border Radius */
+            --radius-sm: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text-primary);
+            background: var(--color-background);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        /* Header */
+        header {
+            background: var(--color-background);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .logo-highlight {
+            color: var(--color-mastery-green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-mastery-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #F9FAFB 0%, #FFFFFF 100%);
+            padding: var(--spacing-3xl) 0 var(--spacing-2xl);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 2vw, 1.5rem);
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .hero-meta {
+            color: var(--color-text-tertiary);
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--color-mastery-green-light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .toc h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-mastery-green-dark);
+        }
+
+        .toc-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-sm);
+        }
+
+        .toc-list a {
+            color: var(--color-text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .toc-list a:hover {
+            background: var(--color-background);
+            transform: translateX(4px);
+        }
+
+        /* Main Content */
+        main {
+            padding: var(--spacing-2xl) 0;
+        }
+
+        section {
+            margin-bottom: var(--spacing-3xl);
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section:nth-child(1) { animation-delay: 0.1s; }
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.3s; }
+        section:nth-child(4) { animation-delay: 0.4s; }
+        section:nth-child(5) { animation-delay: 0.5s; }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            margin-bottom: var(--spacing-lg);
+            margin-top: var(--spacing-2xl);
+            color: var(--color-text-primary);
+        }
+
+        h3 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+            color: var(--color-text-primary);
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+            color: var(--color-text-primary);
+        }
+
+        p {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-md);
+            max-width: 65ch;
+        }
+
+        /* Priority Badges */
+        .priority-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-left: var(--spacing-sm);
+            vertical-align: middle;
+        }
+
+        .priority-critical {
+            background: linear-gradient(135deg, var(--color-critical-from) 0%, var(--color-critical-to) 100%);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .priority-high {
+            background: linear-gradient(135deg, var(--color-high-from) 0%, var(--color-high-to) 100%);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+
+        .priority-medium {
+            background: linear-gradient(135deg, var(--color-medium-from) 0%, var(--color-medium-to) 100%);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: var(--color-background);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-mastery-green);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Impact Box */
+        .impact-box {
+            background: linear-gradient(135deg, var(--color-mastery-green-light) 0%, #FFFFFF 100%);
+            border-left: 4px solid var(--color-mastery-green);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .impact-box h4 {
+            color: var(--color-mastery-green-dark);
+            margin-top: 0;
+        }
+
+        .impact-list {
+            list-style: none;
+            display: grid;
+            gap: var(--spacing-sm);
+        }
+
+        .impact-list li {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--color-text-primary);
+            font-weight: 500;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: #F9FAFB;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            overflow-x: auto;
+            margin: var(--spacing-lg) 0;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+        }
+
+        p code, li code {
+            background: #F3F4F6;
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.875em;
+            color: var(--color-accent-purple);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--color-mastery-green);
+            margin-bottom: var(--spacing-xs);
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--color-text-tertiary);
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+
+        /* Checklist */
+        .checklist {
+            background: var(--color-background);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .checklist h3 {
+            margin-top: 0;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .checklist-section {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .checklist-section h4 {
+            font-size: 1.125rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-mastery-green-dark);
+        }
+
+        .checklist ul {
+            list-style: none;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm);
+            margin-bottom: var(--spacing-xs);
+            border-radius: var(--radius-sm);
+            transition: background 0.2s ease;
+        }
+
+        .checklist li:hover {
+            background: var(--color-mastery-green-light);
+        }
+
+        .checklist input[type="checkbox"] {
+            width: 1.25rem;
+            height: 1.25rem;
+            cursor: pointer;
+            accent-color: var(--color-mastery-green);
+        }
+
+        .checklist label {
+            cursor: pointer;
+            flex: 1;
+            user-select: none;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-bottom: var(--spacing-md);
+            padding-left: var(--spacing-lg);
+            color: var(--color-text-secondary);
+        }
+
+        li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* Links */
+        a {
+            color: var(--color-mastery-green);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--color-mastery-green-dark);
+            text-decoration: underline;
+        }
+
+        /* Resources Section */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .resource-card {
+            background: var(--color-background);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .resource-card h4 {
+            margin-top: 0;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-accent-purple);
+        }
+
+        .resource-card ul {
+            padding-left: var(--spacing-md);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1A1A1A 0%, #404040 100%);
+            color: #FFFFFF;
+            padding: var(--spacing-2xl) 0;
+            margin-top: var(--spacing-3xl);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-md);
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-mastery-green);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--spacing-lg);
+            right: var(--spacing-lg);
+            background: var(--color-mastery-green);
+            color: #FFFFFF;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            :root {
+                --spacing-lg: 1rem;
+                --spacing-xl: 2rem;
+                --spacing-2xl: 3rem;
+                --spacing-3xl: 4rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: var(--spacing-2xl) 0 var(--spacing-xl);
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+            }
+
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            pre {
+                font-size: 0.875rem;
+                padding: var(--spacing-md);
+            }
+        }
+
+        /* Smooth Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-mastery-green) 0%, var(--color-accent-purple) 100%);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+
+        /* Print Styles */
+        @media print {
+            header, footer, .back-to-top, .scroll-progress {
+                display: none;
+            }
+
+            body {
+                color: #000000;
+            }
+
+            pre {
+                border: 1px solid #000000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <span>Six</span>
+                    <span>×</span>
+                    <span class="logo-highlight">GetStream</span>
+                </a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#overview">Overview</a></li>
+                        <li><a href="#priorities">Priorities</a></li>
+                        <li><a href="#implementation">Implementation</a></li>
+                        <li><a href="#resources">Resources</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Six × GetStream: Implementation Roadmap</h1>
+            <p class="hero-subtitle">Your complete guide to building a best-in-class community platform</p>
+            <p class="hero-meta">Mindvalley Engineering Team • 2025</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <!-- Table of Contents -->
+        <div class="toc" id="overview">
+            <h2>📋 Quick Navigation</h2>
+            <ul class="toc-list">
+                <li><a href="#executive-summary">Executive Summary</a></li>
+                <li><a href="#priorities">Strategic Priorities</a></li>
+                <li><a href="#sprint-1-2">Sprint 1-2: Foundation</a></li>
+                <li><a href="#sprint-3-4">Sprint 3-4: Intelligence</a></li>
+                <li><a href="#sprint-5-6">Sprint 5-6: Polish</a></li>
+                <li><a href="#metrics">Success Metrics</a></li>
+                <li><a href="#checklist">Implementation Checklist</a></li>
+                <li><a href="#cost-analysis">Cost Analysis</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#next-steps">Next Steps</a></li>
+            </ul>
+        </div>
+
+        <!-- Executive Summary -->
+        <section id="executive-summary">
+            <h2>📋 Executive Summary</h2>
+
+            <p>This guide provides a strategic roadmap for enhancing <strong>Six</strong> using GetStream's platform. Six is a professional networking and community platform for Mindvalley members, featuring groups, events, discovery, and discussions.</p>
+
+            <h4>Current State:</h4>
+            <ul>
+                <li>✅ Groups/Communities with member management</li>
+                <li>✅ Events & Meetups with RSVP</li>
+                <li>✅ User Discovery with filters (skills, interests, location)</li>
+                <li>✅ Basic messaging functionality</li>
+                <li>✅ Admin panel with moderation queue</li>
+                <li>✅ FlowFeed (chronological timeline)</li>
+            </ul>
+
+            <div class="impact-box">
+                <h4>The Opportunity</h4>
+                <p>By integrating GetStream's proven APIs, we can transform Six from a functional MVP into a world-class platform that rivals LinkedIn, Discord, and Circle combined—in just <strong>4-6 weeks</strong> of focused development.</p>
+            </div>
+        </section>
+
+        <!-- Priorities -->
+        <section id="priorities">
+            <h2>🎯 Strategic Priorities</h2>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">🔴</div>
+                    <div class="stat-label">Critical - Week 1-2</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">🟡</div>
+                    <div class="stat-label">High - Week 3-4</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">🟢</div>
+                    <div class="stat-label">Medium - Week 5-6</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">⚪</div>
+                    <div class="stat-label">Low - Future</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sprint 1-2 -->
+        <section id="sprint-1-2">
+            <h2>🚀 Sprint 1-2: Community Engagement Foundation</h2>
+            <p>Week 1-2 focuses on the core features that will drive daily active usage and create habit-forming engagement.</p>
+
+            <!-- Feature 1: Personalized Feeds -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <h3>1. Personalized "For You" Activity Feeds</h3>
+                    <span class="priority-badge priority-critical">🔴 Critical</span>
+                </div>
+
+                <h4>Why This Is #1:</h4>
+                <ul>
+                    <li>Six's FlowFeed is the <strong>homepage</strong> - users spend 60%+ of their time here</li>
+                    <li>Currently chronological = users miss 90% of relevant content</li>
+                    <li>AI-powered personalization increases DAU by <strong>3-5x</strong></li>
+                    <li>This is the <strong>killer feature</strong> that drives daily habit formation</li>
+                </ul>
+
+                <h4>Current Gap:</h4>
+                <pre><code class="language-typescript">// Current: FlowFeed.tsx shows ALL posts chronologically
+// Problem: User in "AI Mastery" sees unrelated posts from "Wellness Warriors"
+// Result: Low signal-to-noise ratio, users disengage</code></pre>
+
+                <h4>With GetStream Feeds:</h4>
+                <pre><code class="language-typescript">// Personalized feed based on:
+// - User's groups ("AI Mastery", "Entrepreneurship")
+// - User's interests (from profile.interests)
+// - User's engagement history (liked posts, commented threads)
+// - Similar users' behavior (collaborative filtering)</code></pre>
+
+                <h4>Implementation:</h4>
+                <pre><code class="language-bash">npm install getstream</code></pre>
+
+                <pre><code class="language-typescript">// lib/activityFeeds.ts
+import { connect } from 'getstream';
+
+const client = connect(
+  process.env.GETSTREAM_API_KEY!,
+  process.env.GETSTREAM_API_SECRET!,
+  process.env.GETSTREAM_APP_ID!
+);
+
+export async function getPersonalizedFeed(userId: string, userToken: string) {
+  const feed = client.feed('timeline', userId, userToken);
+
+  // GetStream automatically personalizes based on follows and engagement
+  const activities = await feed.get({ limit: 25 });
+
+  return activities.results;
+}
+
+export async function postActivity(
+  userId: string,
+  userToken: string,
+  activity: {
+    actor: string;
+    verb: string;
+    object: string;
+    text?: string;
+    attachments?: any[];
+    communityId?: string;
+  }
+) {
+  const userFeed = client.feed('user', userId, userToken);
+
+  return await userFeed.addActivity(activity);
+}
+
+export async function followGroup(
+  userId: string,
+  userToken: string,
+  groupId: string
+) {
+  const timelineFeed = client.feed('timeline', userId, userToken);
+  const groupFeed = client.feed('group', groupId);
+
+  // User's timeline will now include posts from this group
+  await timelineFeed.follow('group', groupId);
+}</code></pre>
+
+                <div class="impact-box">
+                    <h4>Expected Impact:</h4>
+                    <ul class="impact-list">
+                        <li>📈 DAU increases by <strong>3-5x</strong></li>
+                        <li>⏱️ Session duration increases by <strong>2-3x</strong></li>
+                        <li>🎯 Users see 90%+ relevant content vs. 20% before</li>
+                        <li>🔄 Return rate within 7 days: <strong>40% → 75%</strong></li>
+                    </ul>
+                </div>
+
+                <p><strong>Implementation Time:</strong> 3-4 days</p>
+                <p><strong>Resources:</strong> <a href="https://getstream.io/activity-feeds/docs/" target="_blank">GetStream Activity Feeds Docs</a></p>
+            </div>
+
+            <!-- Feature 2: Threaded Conversations -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <h3>2. Threaded Conversations in Groups</h3>
+                    <span class="priority-badge priority-critical">🔴 Critical</span>
+                </div>
+
+                <h4>Why Critical for Six:</h4>
+                <ul>
+                    <li>Six's core value = <strong>organized community discussions</strong></li>
+                    <li>Currently: All replies are flat → discussions get messy</li>
+                    <li>With threads: Keep main discussion clean, side conversations organized</li>
+                </ul>
+
+                <h4>Implementation:</h4>
+                <pre><code class="language-typescript">// components/CommunityDiscussion.tsx
+import { Channel, Thread, MessageList, Window } from 'stream-chat-react';
+import 'stream-chat-react/dist/css/v2/index.css';
+
+export const CommunityDiscussion: React.FC<{ channelId: string }> = ({
+  channelId
+}) => {
+  const { chatClient } = useChatClient();
+  const channel = chatClient.channel('messaging', channelId);
+
+  useEffect(() => {
+    channel.watch();
+    return () => channel.stopWatching();
+  }, []);
+
+  return (
+    <Channel channel={channel}>
+      <Window>
+        <MessageList />
+        <MessageInput />
+      </Window>
+
+      {/* Thread sidebar - opens when user clicks "Reply in Thread" */}
+      <Thread />
+    </Channel>
+  );
+};</code></pre>
+
+                <div class="impact-box">
+                    <h4>Expected Impact:</h4>
+                    <ul class="impact-list">
+                        <li>🎯 Discussion quality improves dramatically</li>
+                        <li>📊 Thread engagement increases <strong>2x</strong></li>
+                        <li>🧹 Main feed stays clean and scannable</li>
+                        <li>🔍 Important discussions are searchable</li>
+                    </ul>
+                </div>
+
+                <p><strong>Implementation Time:</strong> 2 days</p>
+            </div>
+
+            <!-- Feature 3: Reactions -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <h3>3. Message Reactions & Lightweight Engagement</h3>
+                    <span class="priority-badge priority-critical">🔴 Critical</span>
+                </div>
+
+                <h4>Why Critical:</h4>
+                <ul>
+                    <li>Quick, low-friction engagement drives community feeling</li>
+                    <li>Users can acknowledge posts without typing</li>
+                    <li>Creates social proof and virality</li>
+                </ul>
+
+                <h4>Implementation:</h4>
+                <pre><code class="language-typescript">// Custom reaction set for Mindvalley brand
+const mindvalleyReactions = [
+  { type: 'love', emoji: '❤️', label: 'Love' },
+  { type: 'fire', emoji: '🔥', label: 'Fire' },
+  { type: 'celebrate', emoji: '🎉', label: 'Celebrate' },
+  { type: 'insight', emoji: '💡', label: 'Insight' },
+  { type: 'thinking', emoji: '🤔', label: 'Thinking' },
+  { type: 'star', emoji: '⭐', label: 'Star' },
+];
+
+<Channel reactionOptions={mindvalleyReactions}>
+  <MessageList />
+</Channel></code></pre>
+
+                <div class="impact-box">
+                    <h4>Expected Impact:</h4>
+                    <ul class="impact-list">
+                        <li>📈 Engagement increases <strong>2-3x</strong></li>
+                        <li>🚀 Viral coefficient increases (reactions trigger notifications)</li>
+                        <li>💬 Reduces comment spam ("Great post!" → ❤️)</li>
+                    </ul>
+                </div>
+
+                <p><strong>Implementation Time:</strong> 1 day</p>
+            </div>
+        </section>
+
+        <!-- Sprint 3-4 -->
+        <section id="sprint-3-4">
+            <h2>🔥 Sprint 3-4: Scale & Intelligence</h2>
+            <p>Week 3-4 adds intelligent automation and retention features that enable the platform to scale.</p>
+
+            <!-- Feature 4: AI Moderation -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <h3>4. AI-Powered Content Moderation</h3>
+                    <span class="priority-badge priority-high">🟡 High</span>
+                </div>
+
+                <h4>Why High (not Critical):</h4>
+                <ul>
+                    <li>Six already has manual moderation queue</li>
+                    <li>Better to build engagement first, then scale moderation</li>
+                    <li><strong>BUT: Enable before public launch to prevent toxic culture</strong></li>
+                </ul>
+
+                <h4>GetStream AI Moderation:</h4>
+                <ul>
+                    <li><strong>LLM-powered detection</strong> - Reduces false positives by 70%</li>
+                    <li><strong>OCR in images</strong> - Catches harmful text in screenshots</li>
+                    <li><strong>Custom rules in plain English</strong> - "Flag investment advice" or "Block crypto promotion"</li>
+                    <li><strong>Automatic + Manual workflow</strong> - Auto-remove spam, flag borderline content for review</li>
+                </ul>
+
+                <div class="impact-box">
+                    <h4>Expected Impact:</h4>
+                    <ul class="impact-list">
+                        <li>🛡️ Reduces admin moderation workload by <strong>80%+</strong></li>
+                        <li>⚡ Instant response vs. hours/days for manual review</li>
+                        <li>📊 Catches 95%+ of policy violations</li>
+                        <li>🎯 Allows scaling to 10,000+ members with same team</li>
+                    </ul>
+                </div>
+
+                <p><strong>Implementation Time:</strong> 2 days (mostly configuration)</p>
+            </div>
+
+            <!-- Feature 5: Push Notifications -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <h3>5. Push Notifications V4</h3>
+                    <span class="priority-badge priority-high">🟡 High</span>
+                </div>
+
+                <h4>Why High:</h4>
+                <ul>
+                    <li>Critical for retention - brings users back to app</li>
+                    <li>Notification feed already exists in Six UI</li>
+                </ul>
+
+                <div class="impact-box">
+                    <h4>Expected Impact:</h4>
+                    <ul class="impact-list">
+                        <li>📱 40%+ increase in return visits</li>
+                        <li>🔔 6x increase in engagement from notifications</li>
+                        <li>🎯 Personalized timing - send when user is likely to engage</li>
+                    </ul>
+                </div>
+
+                <p><strong>Implementation Time:</strong> 3 days</p>
+            </div>
+
+            <!-- Feature 6: User Presence -->
+            <div class="feature-card">
+                <div class="feature-header">
+                    <h3>6. User Presence in Communities</h3>
+                    <span class="priority-badge priority-high">🟡 High</span>
+                </div>
+
+                <h4>Why This Matters for Six:</h4>
+                <ul>
+                    <li>Shows who's actively engaged in each community</li>
+                    <li>Creates FOMO and real-time feeling</li>
+                    <li>Drives synchronous engagement</li>
+                </ul>
+
+                <div class="impact-box">
+                    <h4>Expected Impact:</h4>
+                    <ul class="impact-list">
+                        <li>👥 Shows community is "alive"</li>
+                        <li>🔥 Increases real-time participation by <strong>2x</strong></li>
+                        <li>💬 Drives more synchronous conversations</li>
+                    </ul>
+                </div>
+
+                <p><strong>Implementation Time:</strong> 1 day</p>
+            </div>
+        </section>
+
+        <!-- Sprint 5-6 -->
+        <section id="sprint-5-6">
+            <h2>📦 Sprint 5-6: Polish & Differentiation</h2>
+            <p>Week 5-6 adds polish and quality-of-life features that make the platform feel professional and complete.</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">🟢</div>
+                    <div class="stat-label">Pinned Messages</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">🟢</div>
+                    <div class="stat-label">Message Search</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">🟢</div>
+                    <div class="stat-label">Read Receipts</div>
+                </div>
+            </div>
+
+            <h4>Features:</h4>
+            <ul>
+                <li><strong>Pinned Messages & Announcements</strong> - Community admins highlight important info (1 day)</li>
+                <li><strong>Message Search</strong> - Find past discussions and resources (2 days)</li>
+                <li><strong>Read Receipts</strong> - See who has read messages (1 day)</li>
+            </ul>
+
+            <h4>Future Considerations:</h4>
+            <ul>
+                <li><strong>Video/Audio Calls</strong> - After 5,000+ active users (1:1 mentorship, office hours)</li>
+                <li><strong>Live Streaming</strong> - After establishing community norms (masterclasses, Q&A)</li>
+                <li><strong>Stories</strong> - If users request it (doesn't match "knowledge repository" brand)</li>
+            </ul>
+        </section>
+
+        <!-- Success Metrics -->
+        <section id="metrics">
+            <h2>📊 Success Metrics</h2>
+
+            <div class="feature-card">
+                <h3>Week 1-2: Personalization + Threads</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">2-3x</div>
+                        <div class="stat-label">DAU Increase</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">50%+</div>
+                        <div class="stat-label">Session Duration</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">5x</div>
+                        <div class="stat-label">Thread Creation</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <h3>Week 3-4: AI Moderation + Notifications</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">Hours → Minutes</div>
+                        <div class="stat-label">Moderation Time</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">40% → 70%</div>
+                        <div class="stat-label">7-Day Return Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">15-25%</div>
+                        <div class="stat-label">Notification CTR</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <h3>Week 5-6: Polish Features</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">20%</div>
+                        <div class="stat-label">Search Usage</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">3x</div>
+                        <div class="stat-label">Pinned Message Views</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Implementation Checklist -->
+        <section id="checklist">
+            <div class="checklist">
+                <h3>🛠️ Implementation Checklist</h3>
+
+                <div class="checklist-section">
+                    <h4>Environment Setup</h4>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="check-1">
+                            <label for="check-1">Sign up for GetStream account</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-2">
+                            <label for="check-2">Create new app in dashboard</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-3">
+                            <label for="check-3">Get API Key and Secret</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-4">
+                            <label for="check-4">Install packages: npm install stream-chat stream-chat-react getstream @stream-io/node-sdk</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-5">
+                            <label for="check-5">Add CSS: import 'stream-chat-react/dist/css/v2/index.css'</label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-section">
+                    <h4>Sprint 1-2: Core Features</h4>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="check-6">
+                            <label for="check-6">Set up Activity Feeds backend</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-7">
+                            <label for="check-7">Create user token generation endpoint</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-8">
+                            <label for="check-8">Migrate FlowFeed to personalized feeds</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-9">
+                            <label for="check-9">Auto-follow groups when user joins</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-10">
+                            <label for="check-10">Implement threaded conversations in communities</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-11">
+                            <label for="check-11">Add custom reactions</label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-section">
+                    <h4>Sprint 3-4: Scale Features</h4>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="check-12">
+                            <label for="check-12">Enable AI moderation in dashboard</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-13">
+                            <label for="check-13">Configure moderation webhooks</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-14">
+                            <label for="check-14">Set up push notification service</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-15">
+                            <label for="check-15">Create notification preference UI</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-16">
+                            <label for="check-16">Add user presence to communities</label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-section">
+                    <h4>Sprint 5-6: Polish</h4>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="check-17">
+                            <label for="check-17">Implement pinned messages</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-18">
+                            <label for="check-18">Add message search</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-19">
+                            <label for="check-19">Enable read receipts</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-20">
+                            <label for="check-20">Performance testing</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-21">
+                            <label for="check-21">Analytics integration</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cost Analysis -->
+        <section id="cost-analysis">
+            <h2>💰 Cost Analysis</h2>
+
+            <div class="feature-card">
+                <h3>GetStream Pricing (as of 2025)</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">$99</div>
+                        <div class="stat-label">Startup Plan (50K MAU)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">$499</div>
+                        <div class="stat-label">Growth Plan (500K MAU)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">Custom</div>
+                        <div class="stat-label">Enterprise Plan</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <h3>ROI Calculation: Build vs. Buy</h3>
+
+                <div class="impact-box">
+                    <h4>Time & Cost Savings</h4>
+                    <ul class="impact-list">
+                        <li>Building feeds, chat, video from scratch: <strong>6-12 months</strong> of dev time</li>
+                        <li>GetStream implementation: <strong>4-6 weeks</strong></li>
+                        <li>Cost savings: <strong>$200,000 - $400,000</strong> in engineering time</li>
+                        <li>Time to market: <strong>6 months faster</strong></li>
+                    </ul>
+                </div>
+
+                <div class="impact-box">
+                    <h4>Engagement Impact</h4>
+                    <ul class="impact-list">
+                        <li>DAU increase: <strong>3-5x</strong> = More paid conversions</li>
+                        <li>Session time increase: <strong>2x</strong> = Better understanding of user needs</li>
+                        <li>Retention improvement: <strong>40% → 75%</strong> = Lower CAC</li>
+                    </ul>
+                </div>
+
+                <p style="font-size: 1.25rem; font-weight: 600; color: var(--color-mastery-green-dark); margin-top: var(--spacing-lg);"><strong>Bottom Line:</strong> GetStream pays for itself in the first month through increased engagement and faster shipping.</p>
+            </div>
+        </section>
+
+        <!-- Resources -->
+        <section id="resources">
+            <h2>📚 Resources</h2>
+
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h4>Official Documentation</h4>
+                    <ul>
+                        <li><a href="https://getstream.io/chat/docs/sdk/react/" target="_blank">Chat SDK Docs</a></li>
+                        <li><a href="https://getstream.io/activity-feeds/docs/" target="_blank">Activity Feeds Docs</a></li>
+                        <li><a href="https://getstream.io/video/docs/react/" target="_blank">Video SDK Docs</a></li>
+                        <li><a href="https://getstream.io/moderation/docs/api/" target="_blank">Moderation API</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Code Examples</h4>
+                    <ul>
+                        <li><a href="https://getstream.io/chat/react-chat/tutorial/" target="_blank">React Chat Tutorial</a></li>
+                        <li><a href="https://getstream.io/activity-feeds/docs/react/getting_started/" target="_blank">Activity Feeds Tutorial</a></li>
+                        <li><a href="https://github.com/GetStream" target="_blank">GitHub Examples</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="https://getstream.io/slack" target="_blank">Slack Community</a></li>
+                        <li>Every docs page has "!?" icon to contact GetStream team</li>
+                        <li>Dedicated account manager on Growth+ plans</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section id="next-steps">
+            <h2>🚀 Next Steps</h2>
+
+            <div class="feature-card">
+                <h3>Week 0: Planning</h3>
+                <ul>
+                    <li>Review this guide with engineering team</li>
+                    <li>Sign up for GetStream account</li>
+                    <li>Set up staging environment</li>
+                    <li>Create implementation timeline</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>Week 1-2: Ship Core Features</h3>
+                <ul>
+                    <li>Personalized feeds</li>
+                    <li>Threaded conversations</li>
+                    <li>Reactions</li>
+                    <li>Daily standups to track progress</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>Week 3-4: Add Intelligence</h3>
+                <ul>
+                    <li>AI moderation</li>
+                    <li>Push notifications</li>
+                    <li>User presence</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>Week 5-6: Polish & Launch</h3>
+                <ul>
+                    <li>Search, pins, read receipts</li>
+                    <li>Performance testing</li>
+                    <li>Beta launch to select communities</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>Week 7+: Iterate</h3>
+                <ul>
+                    <li>Gather user feedback</li>
+                    <li>Analyze metrics</li>
+                    <li>Plan next features (video calls, live streaming)</li>
+                </ul>
+            </div>
+
+            <div class="impact-box" style="margin-top: var(--spacing-xl);">
+                <h4>🎯 The Bottom Line</h4>
+                <p>By implementing these features in this specific order, Six will transform from a functional MVP into a world-class community platform that rivals the best in the industry—in just <strong>6 weeks</strong>.</p>
+
+                <h4 style="margin-top: var(--spacing-lg);">Focus on:</h4>
+                <ol>
+                    <li><strong>Personalization</strong> - Keep users coming back</li>
+                    <li><strong>Organization</strong> - Make discussions valuable</li>
+                    <li><strong>Engagement</strong> - Build vibrant communities</li>
+                    <li><strong>Scale</strong> - AI handles moderation</li>
+                    <li><strong>Retention</strong> - Notifications bring users back</li>
+                </ol>
+
+                <p style="margin-top: var(--spacing-lg); font-size: 1.125rem;">This isn't just about adding features—it's about building the social infrastructure that will power Mindvalley's community for the next decade.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Six × GetStream</div>
+                <p class="footer-text">Building world-class community experiences for Mindvalley</p>
+                <p class="footer-text">Mindvalley Engineering Team • 2025</p>
+                <div class="footer-links">
+                    <a href="https://getstream.io" target="_blank">GetStream</a>
+                    <a href="https://getstream.io/slack" target="_blank">Support</a>
+                    <a href="https://github.com/GetStream" target="_blank">GitHub</a>
+                </div>
+                <p class="footer-text" style="margin-top: var(--spacing-lg); font-size: 0.875rem; opacity: 0.7;">Questions or feedback? Reach out to the engineering team or contact GetStream support directly through their Slack community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        ↑
+    </button>
+
+    <script>
+        // Syntax highlighting
+        document.addEventListener('DOMContentLoaded', () => {
+            hljs.highlightAll();
+        });
+
+        // Scroll progress bar
+        window.addEventListener('scroll', () => {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const scrolled = window.scrollY;
+            const progress = (scrolled / documentHeight) * 100;
+
+            document.getElementById('scrollProgress').style.width = progress + '%';
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Persist checkbox state in localStorage
+        const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+
+        checkboxes.forEach(checkbox => {
+            const savedState = localStorage.getItem(checkbox.id);
+            if (savedState === 'true') {
+                checkbox.checked = true;
+            }
+
+            checkbox.addEventListener('change', () => {
+                localStorage.setItem(checkbox.id, checkbox.checked);
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
