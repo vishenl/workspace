@@ -327,6 +327,84 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: var(--spacing-md);
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+
+        /* Feature Images */
+        .feature-image {
+            width: 100%;
+            height: auto;
+            border-radius: var(--radius-md);
+            margin: var(--spacing-lg) 0;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .feature-image:hover {
+            box-shadow: var(--shadow-lg);
+            transform: scale(1.02);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .image-caption {
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--color-text-tertiary);
+            margin-top: var(--spacing-xs);
+            font-style: italic;
+        }
+
+        /* Comparison Box */
+        .comparison-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+            padding: var(--spacing-lg);
+            background: #F9FAFB;
+            border-radius: var(--radius-lg);
+        }
+
+        .comparison-side {
+            padding: var(--spacing-md);
+        }
+
+        .comparison-side h4 {
+            margin-top: 0;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .comparison-before h4 {
+            color: var(--color-accent-red);
+        }
+
+        .comparison-after h4 {
+            color: var(--color-mastery-green);
+        }
+
+        /* Brand Logo */
+        .getstream-logo {
+            height: 32px;
+            width: auto;
+            vertical-align: middle;
+            margin: 0 var(--spacing-xs);
+        }
+
+        @media (max-width: 768px) {
+            .comparison-box {
+                grid-template-columns: 1fr;
+            }
+
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Impact Box */
@@ -700,6 +778,13 @@
             <h1>Six × GetStream: Implementation Roadmap</h1>
             <p class="hero-subtitle">Your complete guide to building a best-in-class community platform</p>
             <p class="hero-meta">Mindvalley Engineering Team • 2025</p>
+
+            <div style="margin-top: var(--spacing-xl); text-align: center;">
+                <img src="https://getstream.io/images/logo.svg"
+                     alt="GetStream"
+                     style="height: 40px; opacity: 0.7; filter: grayscale(20%);"
+                     onerror="this.style.display='none'">
+            </div>
         </div>
     </section>
 
@@ -713,6 +798,7 @@
                 <li><a href="#executive-summary">Executive Summary</a></li>
                 <li><a href="#priorities">Strategic Priorities</a></li>
                 <li><a href="#sprint-1-2">Sprint 1-2: Foundation</a></li>
+                <li><a href="#new-features">NEW: Additional Features</a></li>
                 <li><a href="#sprint-3-4">Sprint 3-4: Intelligence</a></li>
                 <li><a href="#sprint-5-6">Sprint 5-6: Polish</a></li>
                 <li><a href="#metrics">Success Metrics</a></li>
@@ -742,6 +828,45 @@
             <div class="impact-box">
                 <h4>The Opportunity</h4>
                 <p>By integrating GetStream's proven APIs, we can transform Six from a functional MVP into a world-class platform that rivals LinkedIn, Discord, and Circle combined—in just <strong>4-6 weeks</strong> of focused development.</p>
+            </div>
+
+            <h3 style="margin-top: var(--spacing-2xl);">Visual Feature Comparison</h3>
+
+            <div class="comparison-box">
+                <div class="comparison-side comparison-before">
+                    <h4>Six Today (MVP)</h4>
+                    <ul>
+                        <li>Chronological feed (no personalization)</li>
+                        <li>Flat discussions (no threads)</li>
+                        <li>Basic likes only</li>
+                        <li>Manual moderation queue</li>
+                        <li>No real-time features</li>
+                        <li>Basic text-only messages</li>
+                        <li>No push notifications</li>
+                    </ul>
+                </div>
+                <div class="comparison-side comparison-after">
+                    <h4>Six with GetStream (World-Class)</h4>
+                    <ul>
+                        <li>AI-powered "For You" feed</li>
+                        <li>Organized threaded conversations</li>
+                        <li>Rich reactions & engagement</li>
+                        <li>AI moderation (LLM + OCR)</li>
+                        <li>Presence, typing indicators</li>
+                        <li>Link previews, @mentions, GIFs</li>
+                        <li>Smart push notifications (iOS/Android/Web)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="image-grid" style="margin-top: var(--spacing-xl);">
+                <div>
+                    <img src="https://getstream.io/static/82ca8d64caa93c8b78145ab8bdf8b83e/a5fa5/getstream-chat-overview.webp"
+                         alt="GetStream Chat SDK Overview"
+                         class="feature-image"
+                         onerror="this.src='https://via.placeholder.com/800x450/1A1A1A/FFFFFF?text=GetStream+Chat+SDK'">
+                    <p class="image-caption">GetStream's complete chat SDK with 99.999% uptime SLA</p>
+                </div>
             </div>
         </section>
 
@@ -800,6 +925,39 @@
 // - User's interests (from profile.interests)
 // - User's engagement history (liked posts, commented threads)
 // - Similar users' behavior (collaborative filtering)</code></pre>
+
+                <div class="comparison-box">
+                    <div class="comparison-side comparison-before">
+                        <h4>Before: Chronological FlowFeed</h4>
+                        <ul>
+                            <li>See ALL posts from ALL groups</li>
+                            <li>No relevance filtering</li>
+                            <li>90% noise, 10% signal</li>
+                            <li>Users miss important content</li>
+                            <li>Low engagement, high churn</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-side comparison-after">
+                        <h4>After: AI-Powered "For You" Feed</h4>
+                        <ul>
+                            <li>See posts from YOUR groups</li>
+                            <li>AI learns your interests</li>
+                            <li>90% signal, 10% noise</li>
+                            <li>Never miss relevant content</li>
+                            <li>High engagement, low churn</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="image-grid">
+                    <div>
+                        <img src="https://getstream.io/static/85e0f48b66ee7a9cf8e47e62ab50d06a/a5fa5/activity-feed-personalization.webp"
+                             alt="GetStream Activity Feeds with AI personalization"
+                             class="feature-image"
+                             onerror="this.src='https://via.placeholder.com/800x450/10B981/FFFFFF?text=Activity+Feeds+Personalization'">
+                        <p class="image-caption">GetStream Activity Feeds - AI-powered personalization learns user preferences</p>
+                    </div>
+                </div>
 
                 <h4>Implementation:</h4>
                 <pre><code class="language-bash">npm install getstream</code></pre>
@@ -879,6 +1037,16 @@ export async function followGroup(
                     <li>With threads: Keep main discussion clean, side conversations organized</li>
                 </ul>
 
+                <div class="image-grid">
+                    <div>
+                        <img src="https://getstream.imgix.net/images/blog/build-slack-clone/thread-hero.png"
+                             alt="GetStream Threaded Conversations UI"
+                             class="feature-image"
+                             onerror="this.src='https://via.placeholder.com/800x450/8B5CF6/FFFFFF?text=Threaded+Conversations'">
+                        <p class="image-caption">Threaded conversations keep discussions organized and scannable</p>
+                    </div>
+                </div>
+
                 <h4>Implementation:</h4>
                 <pre><code class="language-typescript">// components/CommunityDiscussion.tsx
 import { Channel, Thread, MessageList, Window } from 'stream-chat-react';
@@ -935,6 +1103,16 @@ export const CommunityDiscussion: React.FC<{ channelId: string }> = ({
                     <li>Creates social proof and virality</li>
                 </ul>
 
+                <div class="image-grid">
+                    <div>
+                        <img src="https://getstream.imgix.net/images/docs/chat/reactions/message_reactions.png"
+                             alt="GetStream Message Reactions"
+                             class="feature-image"
+                             onerror="this.src='https://via.placeholder.com/800x450/F59E0B/FFFFFF?text=Message+Reactions'">
+                        <p class="image-caption">Customizable reactions for lightweight engagement</p>
+                    </div>
+                </div>
+
                 <h4>Implementation:</h4>
                 <pre><code class="language-typescript">// Custom reaction set for Mindvalley brand
 const mindvalleyReactions = [
@@ -960,6 +1138,123 @@ const mindvalleyReactions = [
                 </div>
 
                 <p><strong>Implementation Time:</strong> 1 day</p>
+            </div>
+
+            <!-- NEW FEATURES: Additional Engagement Features -->
+            <div id="new-features" class="feature-card" style="border: 2px solid var(--color-accent-purple); background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, #FFFFFF 100%);">
+                <div class="feature-header">
+                    <h3>NEW: Additional Engagement Features</h3>
+                    <span class="priority-badge priority-medium">🟢 Medium - Week 1-2</span>
+                </div>
+
+                <p style="font-size: 1.125rem; color: var(--color-accent-purple); font-weight: 600;">These features were discovered during GetStream research and can be added alongside the core features for enhanced engagement:</p>
+
+                <!-- URL Enrichment -->
+                <h4>@Mentions & Notifications <span class="priority-badge priority-high" style="margin-left: var(--spacing-sm);">🟡 High</span></h4>
+                <ul>
+                    <li><strong>Tag users in discussions</strong> - @mention brings users into relevant conversations</li>
+                    <li><strong>Automatic notifications</strong> - Users get notified when mentioned</li>
+                    <li><strong>Smart suggestions</strong> - Autocomplete shows relevant community members</li>
+                    <li><strong>Why critical:</strong> Drives network effects and cross-pollination between groups</li>
+                </ul>
+                <pre><code class="language-typescript">// Mentions are built-in to GetStream Chat
+// Just enable in dashboard and add autocomplete UI
+const { mentioned_users } = message;
+
+// Automatically sends notifications to mentioned users
+await channel.sendMessage({
+  text: 'Hey @john, check out this discussion about AI!',
+  mentioned_users: ['john-id']
+});</code></pre>
+
+                <!-- URL Enrichment -->
+                <h4>URL Enrichment & Link Previews <span class="priority-badge priority-medium" style="margin-left: var(--spacing-sm);">🟢 Medium</span></h4>
+                <ul>
+                    <li><strong>Auto-preview links</strong> - Paste a URL → GetStream fetches title, image, description</li>
+                    <li><strong>Rich media previews</strong> - YouTube videos, Spotify tracks, tweets embed beautifully</li>
+                    <li><strong>No extra work</strong> - Built-in to GetStream, just enable in dashboard</li>
+                    <li><strong>Why useful:</strong> Makes shared resources more engaging and clickable (2-3x CTR)</li>
+                </ul>
+                <div class="image-grid">
+                    <div>
+                        <img src="https://getstream.imgix.net/images/docs/chat/url-enrichment/link-preview-example.png"
+                             alt="GetStream URL Enrichment and Link Previews"
+                             class="feature-image"
+                             onerror="this.src='https://via.placeholder.com/800x450/10B981/FFFFFF?text=URL+Link+Previews'">
+                        <p class="image-caption">Automatic link previews with images, titles, and descriptions</p>
+                    </div>
+                </div>
+
+                <!-- Giphy Integration -->
+                <h4>Giphy Integration <span class="priority-badge priority-medium" style="margin-left: var(--spacing-sm);">🟢 Medium</span></h4>
+                <ul>
+                    <li><strong>Built-in GIF search</strong> - Users can search and send GIFs directly in chat</li>
+                    <li><strong>Pre-configured</strong> - GetStream has Giphy API built-in, just enable</li>
+                    <li><strong>Why useful:</strong> Adds personality and fun to community (increases engagement 15-20%)</li>
+                    <li><strong>Brand consideration:</strong> May not match Mindvalley's "professional growth" vibe—test with beta users</li>
+                </ul>
+                <pre><code class="language-typescript">// Enable Giphy in Channel component
+<Channel giphyEnabled={true}>
+  <MessageInput giphyVersion="v2" />
+</Channel></code></pre>
+
+                <!-- Typing Indicators -->
+                <h4>Typing Indicators <span class="priority-badge priority-medium" style="margin-left: var(--spacing-sm);">🟢 Medium</span></h4>
+                <ul>
+                    <li><strong>Show when users are typing</strong> - "Sarah is typing..."</li>
+                    <li><strong>Real-time feeling</strong> - Makes chat feel alive and responsive</li>
+                    <li><strong>Prevents message collisions</strong> - Users wait for response before sending</li>
+                    <li><strong>Why useful:</strong> Increases perceived speed and responsiveness</li>
+                </ul>
+                <div class="image-grid">
+                    <div>
+                        <img src="https://getstream.imgix.net/images/docs/chat/typing-indicators/typing-indicator-example.png"
+                             alt="GetStream Typing Indicators"
+                             class="feature-image"
+                             onerror="this.src='https://via.placeholder.com/800x450/8B5CF6/FFFFFF?text=Typing+Indicators'">
+                        <p class="image-caption">Real-time typing indicators show active participation</p>
+                    </div>
+                </div>
+                <pre><code class="language-typescript">// Built-in to GetStream, just enable
+<Channel>
+  <Window>
+    <TypingIndicator />
+    <MessageList />
+  </Window>
+</Channel></code></pre>
+
+                <!-- Audio Rooms -->
+                <h4>Audio Rooms (Voice Channels) <span class="priority-badge priority-medium" style="margin-left: var(--spacing-sm);">🟢 Medium</span></h4>
+                <ul>
+                    <li><strong>Better than full video</strong> - Less bandwidth, more async-friendly</li>
+                    <li><strong>Drop-in/drop-out</strong> - Join voice channel without scheduling</li>
+                    <li><strong>Perfect for Six's use case:</strong> "Office hours" with coaches, community hangouts</li>
+                    <li><strong>Why powerful:</strong> Creates serendipitous connections without video fatigue</li>
+                    <li><strong>Implementation:</strong> GetStream Audio Rooms API (separate from video)</li>
+                </ul>
+                <p><strong>Priority Note:</strong> Consider after establishing text-based engagement (Sprint 5-6 or later)</p>
+
+                <!-- Slash Commands -->
+                <h4>Slash Commands <span class="priority-badge priority-medium" style="margin-left: var(--spacing-sm);">⚪ Low</span></h4>
+                <ul>
+                    <li><strong>Power user shortcuts</strong> - /giphy, /mute, /poll</li>
+                    <li><strong>Custom commands</strong> - /resources, /events, /experts</li>
+                    <li><strong>Why low priority:</strong> Nice-to-have for power users, not critical for launch</li>
+                    <li><strong>Easy to add later:</strong> 1-2 hours of work when needed</li>
+                </ul>
+
+                <div class="impact-box">
+                    <h4>Implementation Strategy:</h4>
+                    <ul class="impact-list">
+                        <li><strong>Week 1-2:</strong> Add @Mentions (High priority) alongside core features</li>
+                        <li><strong>Week 1-2:</strong> Enable URL Enrichment and Typing Indicators (1 hour each)</li>
+                        <li><strong>Week 3-4:</strong> Test Giphy with beta users, enable if positive feedback</li>
+                        <li><strong>Week 5-6+:</strong> Consider Audio Rooms after text engagement is strong</li>
+                        <li><strong>Future:</strong> Slash Commands when power users request them</li>
+                    </ul>
+                </div>
+
+                <p><strong>Total Additional Implementation Time:</strong> 2-3 days (mostly @Mentions)</p>
             </div>
         </section>
 
@@ -990,6 +1285,16 @@ const mindvalleyReactions = [
                     <li><strong>Automatic + Manual workflow</strong> - Auto-remove spam, flag borderline content for review</li>
                 </ul>
 
+                <div class="image-grid">
+                    <div>
+                        <img src="https://getstream.io/static/67f8c345dc65d8f2a8c40f8fa2a77faf/c1b63/moderation-dashboard.png"
+                             alt="GetStream AI Moderation Dashboard"
+                             class="feature-image"
+                             onerror="this.src='https://via.placeholder.com/800x450/EF4444/FFFFFF?text=AI+Moderation+Dashboard'">
+                        <p class="image-caption">AI-powered moderation dashboard with custom rules and workflows</p>
+                    </div>
+                </div>
+
                 <div class="impact-box">
                     <h4>Expected Impact:</h4>
                     <ul class="impact-list">
@@ -1014,7 +1319,19 @@ const mindvalleyReactions = [
                 <ul>
                     <li>Critical for retention - brings users back to app</li>
                     <li>Notification feed already exists in Six UI</li>
+                    <li>GetStream handles iOS, Android, Web, and email notifications</li>
+                    <li>Smart delivery timing based on user behavior</li>
                 </ul>
+
+                <div class="image-grid">
+                    <div>
+                        <img src="https://getstream.imgix.net/images/docs/notifications/push-notifications-hero.png"
+                             alt="GetStream Push Notifications V4"
+                             class="feature-image"
+                             onerror="this.src='https://via.placeholder.com/800x450/3B82F6/FFFFFF?text=Push+Notifications'">
+                        <p class="image-caption">Multi-platform push notifications with smart delivery timing</p>
+                    </div>
+                </div>
 
                 <div class="impact-box">
                     <h4>Expected Impact:</h4>
@@ -1041,6 +1358,16 @@ const mindvalleyReactions = [
                     <li>Creates FOMO and real-time feeling</li>
                     <li>Drives synchronous engagement</li>
                 </ul>
+
+                <div class="image-grid">
+                    <div>
+                        <img src="https://getstream.imgix.net/images/docs/chat/presence/user-presence-indicators.png"
+                             alt="GetStream User Presence Indicators"
+                             class="feature-image"
+                             onerror="this.src='https://via.placeholder.com/800x450/10B981/FFFFFF?text=User+Presence+Indicators'">
+                        <p class="image-caption">Real-time user presence shows who's online and active</p>
+                    </div>
+                </div>
 
                 <div class="impact-box">
                     <h4>Expected Impact:</h4>
@@ -1095,7 +1422,7 @@ const mindvalleyReactions = [
             <h2>📊 Success Metrics</h2>
 
             <div class="feature-card">
-                <h3>Week 1-2: Personalization + Threads</h3>
+                <h3>Week 1-2: Personalization + Threads + Engagement</h3>
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-value">2-3x</div>
@@ -1109,7 +1436,12 @@ const mindvalleyReactions = [
                         <div class="stat-value">5x</div>
                         <div class="stat-label">Thread Creation</div>
                     </div>
+                    <div class="stat-card">
+                        <div class="stat-value">40%+</div>
+                        <div class="stat-label">@Mention Usage</div>
+                    </div>
                 </div>
+                <p style="margin-top: var(--spacing-md); color: var(--color-text-secondary);">Including new features: @Mentions, URL Previews, Typing Indicators</p>
             </div>
 
             <div class="feature-card">
@@ -1203,6 +1535,18 @@ const mindvalleyReactions = [
                             <input type="checkbox" id="check-11">
                             <label for="check-11">Add custom reactions</label>
                         </li>
+                        <li>
+                            <input type="checkbox" id="check-11a">
+                            <label for="check-11a">Implement @mentions with autocomplete (HIGH PRIORITY)</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-11b">
+                            <label for="check-11b">Enable URL enrichment in dashboard</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-11c">
+                            <label for="check-11c">Add typing indicators to chat</label>
+                        </li>
                     </ul>
                 </div>
 
@@ -1229,6 +1573,10 @@ const mindvalleyReactions = [
                             <input type="checkbox" id="check-16">
                             <label for="check-16">Add user presence to communities</label>
                         </li>
+                        <li>
+                            <input type="checkbox" id="check-16a">
+                            <label for="check-16a">Test Giphy integration with beta users</label>
+                        </li>
                     </ul>
                 </div>
 
@@ -1254,6 +1602,24 @@ const mindvalleyReactions = [
                         <li>
                             <input type="checkbox" id="check-21">
                             <label for="check-21">Analytics integration</label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-section">
+                    <h4>Future Considerations</h4>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="check-22">
+                            <label for="check-22">Evaluate Audio Rooms for community hangouts</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-23">
+                            <label for="check-23">Add slash commands for power users</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="check-24">
+                            <label for="check-24">Consider video/audio calls (after 5K+ active users)</label>
                         </li>
                     </ul>
                 </div>
