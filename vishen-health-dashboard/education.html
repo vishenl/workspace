@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educational Resources - Health Dashboard</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .resource-card {
+      padding: 2rem;
+      background: var(--color-surface-elevated);
+      border-radius: var(--radius-lg);
+      border-left: 4px solid var(--color-primary);
+      transition: all var(--transition-base);
+    }
+    .resource-card:hover {
+      transform: translateX(4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .faq-item {
+      padding: 1.5rem;
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: all var(--transition-base);
+    }
+    .faq-item:hover {
+      background: var(--color-surface-elevated);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-base);
+      padding-top: 0;
+    }
+    .faq-answer.open {
+      max-height: 500px;
+      padding-top: 1rem;
+    }
+    .glossary-term {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .glossary-term:last-child {
+      border-bottom: none;
+    }
+  </style>
+    <script src="assets/js/auth.js"></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="index.html" class="navbar-brand">⚕️ Health Dashboard</a>
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle">☰</button>
+        <ul id="navbar-nav" class="navbar-nav">
+          <li><a href="index.html" class="navbar-link">🏠 Dashboard</a></li>
+          <li><a href="blood-work.html" class="navbar-link">🔬 Blood Work</a></li>
+          <li><a href="before-after.html" class="navbar-link">📊 Projections</a></li>
+          <li><a href="supplement-stack.html" class="navbar-link">💊 Supplements</a></li>
+          <li><a href="daily-protocol.html" class="navbar-link">⏰ Daily Protocol</a></li>
+          <li><a href="body-systems.html" class="navbar-link">🫀 Body Systems</a></li>
+          <li><a href="synergy-network.html" class="navbar-link">🔗 Synergies</a></li>
+          <li><a href="priority-matrix.html" class="navbar-link">📋 Priority Matrix</a></li>
+          <li><a href="progress-tracker.html" class="navbar-link">✅ Action Items</a></li>
+          <li><a href="cost-analysis.html" class="navbar-link">💰 Cost Analysis</a></li>
+        </ul>
+        <div class="navbar-actions">
+          <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>📚 Educational Resources</h1>
+        <p>Learn the science behind your health optimization protocol</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main id="main-content" class="section">
+    <div class="container">
+
+      <!-- Key Concepts -->
+      <div class="section-header">
+        <h2 class="section-title">🔬 Key Concepts Explained</h2>
+      </div>
+
+      <div class="grid grid-cols-2">
+        <div class="resource-card">
+          <h3 style="color: var(--color-primary); margin-bottom: 1rem;">Why SHBG Matters</h3>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">
+            <strong>Sex Hormone Binding Globulin (SHBG)</strong> binds to testosterone, rendering it biologically inactive.
+            Your SHBG of 66.9 nmol/L is HIGH, meaning much of your testosterone is "locked up" and unavailable.
+          </p>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">
+            <strong>The Problem:</strong> Even with normal total testosterone, high SHBG = low bioavailable testosterone.
+            This affects energy, muscle mass, libido, and cognitive function.
+          </p>
+          <p style="color: var(--color-text-secondary);">
+            <strong>The Solution:</strong> Boron reduces SHBG by 25% by inhibiting SHBG gene expression.
+            Stinging Nettle Root blocks SHBG binding sites. Together: 30-40% increase in free testosterone.
+          </p>
+        </div>
+
+        <div class="resource-card">
+          <h3 style="color: var(--color-primary); margin-bottom: 1rem;">Cholesterol Management</h3>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">
+            <strong>Your LDL: 171 mg/dL</strong> (Target: <110). LDL particles oxidize and deposit in arteries,
+            causing atherosclerosis. This is the #1 cause of heart attacks and strokes.
+          </p>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">
+            <strong>Natural Approach:</strong> Red Yeast Rice contains monacolin K (natural lovastatin).
+            Clinical studies show 20-30% LDL reduction. Bergamot (citrus extract) inhibits HMG-CoA reductase,
+            raises HDL, and reduces oxidized LDL.
+          </p>
+          <p style="color: var(--color-text-secondary);">
+            <strong>Critical:</strong> Red Yeast Rice depletes CoQ10 (just like pharmaceutical statins).
+            Always take 200mg CoQ10 to prevent muscle pain and mitochondrial dysfunction.
+          </p>
+        </div>
+
+        <div class="resource-card">
+          <h3 style="color: var(--color-primary); margin-bottom: 1rem;">Vision Protection & Macular Degeneration</h3>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">
+            <strong>Age-Related Macular Degeneration (AMD)</strong> is the leading cause of blindness after age 50.
+            Currently, you have NO targeted vision supplementation (score: 45/100).
+          </p>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">
+            <strong>The Science:</strong> Lutein and Zeaxanthin are carotenoids that accumulate in the macula.
+            They filter blue light (like internal sunglasses) and protect retinal cells from oxidative damage.
+            Clinical trials (AREDS2) show 50% reduction in AMD progression.
+          </p>
+          <p style="color: var(--color-text-secondary);">
+            <strong>The Stack:</strong> Lutein (20mg) + Zeaxanthin (4mg) + Astaxanthin (12mg) + Bilberry (160mg)
+            = comprehensive macular protection, reduced eye fatigue, improved night vision.
+          </p>
+        </div>
+
+        <div class="resource-card">
+          <h3 style="color: var(--color-primary); margin-bottom: 1rem;">Testosterone Optimization (Non-TRT)</h3>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">
+            <strong>Your Free T: 23.9 pg/mL</strong> (Optimal: 35-50). Free testosterone is what matters for
+            muscle, energy, libido, and cognition.
+          </p>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1rem;">
+            <strong>Three-Pronged Approach:</strong><br>
+            1. Reduce SHBG (Boron + Stinging Nettle) → frees existing T<br>
+            2. Increase production (Tongkat Ali) → more total T<br>
+            3. Support pathways (Zinc, Vitamin D, Magnesium) → optimize synthesis
+          </p>
+          <p style="color: var(--color-text-secondary);">
+            <strong>Expected Results:</strong> 15-25% free T increase within 3 months. Natural, sustainable,
+            without shutting down endogenous production (unlike TRT).
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="section-header" style="margin-top: 4rem;">
+        <h2 class="section-title">❓ Frequently Asked Questions</h2>
+      </div>
+
+      <div class="card">
+        <div class="faq-item" onclick="toggleFAQ(this)">
+          <h4 style="margin: 0; color: var(--color-primary);">Why 40 supplements instead of just a multivitamin?</h4>
+          <div class="faq-answer">
+            <p style="color: var(--color-text-secondary);">
+              Multivitamins contain tiny doses of many nutrients - not therapeutic amounts. They're "insurance" for deficiencies,
+              not optimization tools. Targeted supplementation uses clinical doses proven effective in research.
+              Example: Multivitamins have 10-20mg lutein; clinical studies showing AMD protection use 20mg+ daily.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFAQ(this)">
+          <h4 style="margin: 0; color: var(--color-primary);">How long until I see results?</h4>
+          <div class="faq-answer">
+            <p style="color: var(--color-text-secondary);">
+              <strong>Week 1-2:</strong> Improved energy, better sleep (Magnesium, Ashwagandha)<br>
+              <strong>Month 1:</strong> Reduced eye fatigue (vision stack), initial testosterone changes<br>
+              <strong>Month 3:</strong> Measurable blood work improvements (SHBG, LDL, Free T)<br>
+              <strong>Month 6:</strong> All biomarkers optimized, sustained benefits
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFAQ(this)">
+          <h4 style="margin: 0; color: var(--color-primary);">Can I take all supplements together?</h4>
+          <div class="faq-answer">
+            <p style="color: var(--color-text-secondary);">
+              No. Timing matters for absorption and synergy. Fat-soluble vitamins (D, A, E, K) need dietary fat.
+              Some minerals compete for absorption (zinc/calcium). See the Daily Protocol page for optimized timing.
+              General rule: spread throughout day with meals.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFAQ(this)">
+          <h4 style="margin: 0; color: var(--color-primary);">Are these supplements safe long-term?</h4>
+          <div class="faq-answer">
+            <p style="color: var(--color-text-secondary);">
+              Yes, at recommended doses. All supplements in this protocol have extensive safety data. Red Yeast Rice
+              requires periodic liver enzyme monitoring (just like pharmaceutical statins). Retest blood work every
+              3-6 months to monitor efficacy and adjust dosages. Always inform your physician about all supplements.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFAQ(this)">
+          <h4 style="margin: 0; color: var(--color-primary);">What if I miss a day?</h4>
+          <div class="faq-answer">
+            <p style="color: var(--color-text-secondary);">
+              Not a problem. These are daily nutrients building up in tissues over time, not pharmaceuticals
+              requiring strict adherence. Just resume normal schedule next day. Don't double up doses.
+              Consistency over weeks/months matters more than perfection every day.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Glossary -->
+      <div class="section-header" style="margin-top: 4rem;">
+        <h2 class="section-title">📖 Glossary of Terms</h2>
+      </div>
+
+      <div class="card">
+        <div class="glossary-term">
+          <h4 style="color: var(--color-primary); margin-bottom: 0.5rem;">SHBG (Sex Hormone Binding Globulin)</h4>
+          <p style="color: var(--color-text-secondary); margin: 0; font-size: 0.875rem;">
+            Protein produced by liver that binds to sex hormones (testosterone, estrogen). High SHBG = less bioavailable testosterone.
+          </p>
+        </div>
+        <div class="glossary-term">
+          <h4 style="color: var(--color-primary); margin-bottom: 0.5rem;">Free Testosterone</h4>
+          <p style="color: var(--color-text-secondary); margin: 0; font-size: 0.875rem;">
+            Testosterone not bound to SHBG or albumin. Only 2-3% of total testosterone. This is the biologically active form.
+          </p>
+        </div>
+        <div class="glossary-term">
+          <h4 style="color: var(--color-primary); margin-bottom: 0.5rem;">LDL (Low-Density Lipoprotein)</h4>
+          <p style="color: var(--color-text-secondary); margin: 0; font-size: 0.875rem;">
+            "Bad cholesterol." Transports cholesterol to arteries where it can oxidize and cause plaque. Target: <100 mg/dL.
+          </p>
+        </div>
+        <div class="glossary-term">
+          <h4 style="color: var(--color-primary); margin-bottom: 0.5rem;">HDL (High-Density Lipoprotein)</h4>
+          <p style="color: var(--color-text-secondary); margin: 0; font-size: 0.875rem;">
+            "Good cholesterol." Removes excess cholesterol from arteries back to liver. Higher is better. Target: >60 mg/dL.
+          </p>
+        </div>
+        <div class="glossary-term">
+          <h4 style="color: var(--color-primary); margin-bottom: 0.5rem;">HbA1c (Glycated Hemoglobin)</h4>
+          <p style="color: var(--color-text-secondary); margin: 0; font-size: 0.875rem;">
+            3-month average of blood glucose levels. <5.7% = excellent glucose control. >6.5% = diabetes.
+          </p>
+        </div>
+        <div class="glossary-term">
+          <h4 style="color: var(--color-primary); margin-bottom: 0.5rem;">CRP (C-Reactive Protein)</h4>
+          <p style="color: var(--color-text-secondary); margin: 0; font-size: 0.875rem;">
+            Marker of systemic inflammation. <1 mg/L = low risk. >3 mg/L = high cardiovascular risk.
+          </p>
+        </div>
+        <div class="glossary-term">
+          <h4 style="color: var(--color-primary); margin-bottom: 0.5rem;">Adaptogen</h4>
+          <p style="color: var(--color-text-secondary); margin: 0; font-size: 0.875rem;">
+            Natural substance that helps body adapt to stress. Examples: Ashwagandha, Rhodiola. Non-specific, regulates homeostasis.
+          </p>
+        </div>
+      </div>
+
+      <!-- Research Links -->
+      <div class="section-header" style="margin-top: 4rem;">
+        <h2 class="section-title">🔗 Evidence-Based Research</h2>
+      </div>
+
+      <div class="grid grid-cols-3">
+        <div class="card">
+          <h4 style="margin-bottom: 1rem;">📊 Examine.com</h4>
+          <p style="color: var(--color-text-secondary); font-size: 0.875rem; margin-bottom: 1rem;">
+            Independent analysis of supplements based on clinical research. No sponsorships, no bias.
+          </p>
+          <a href="https://examine.com" target="_blank" class="btn btn-outline btn-sm">Visit Examine.com</a>
+        </div>
+        <div class="card">
+          <h4 style="margin-bottom: 1rem;">🔬 PubMed</h4>
+          <p style="color: var(--color-text-secondary); font-size: 0.875rem; margin-bottom: 1rem;">
+            National Library of Medicine database. Search clinical trials and peer-reviewed research.
+          </p>
+          <a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" class="btn btn-outline btn-sm">Visit PubMed</a>
+        </div>
+        <div class="card">
+          <h4 style="margin-bottom: 1rem;">📚 FoundMyFitness</h4>
+          <p style="color: var(--color-text-secondary); font-size: 0.875rem; margin-bottom: 1rem;">
+            Dr. Rhonda Patrick's science-based health optimization resources and research summaries.
+          </p>
+          <a href="https://www.foundmyfitness.com" target="_blank" class="btn btn-outline btn-sm">Visit FoundMyFitness</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>Last Updated: November 2025</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data/health-data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    function toggleFAQ(element) {
+      const answer = element.querySelector('.faq-answer');
+      const isOpen = answer.classList.contains('open');
+
+      // Close all others
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+
+      // Toggle this one
+      if (!isOpen) {
+        answer.classList.add('open');
+      }
+    }
+  </script>
+</body>
+</html>

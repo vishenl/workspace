@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Protocol - Health Dashboard</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .timeline {
+      position: relative;
+      padding: 2rem 0;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--color-gradient);
+      transform: translateX(-50%);
+    }
+    .timeline-block {
+      position: relative;
+      margin-bottom: 3rem;
+      display: flex;
+      gap: 2rem;
+    }
+    .timeline-block:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    .timeline-time {
+      flex: 1;
+      text-align: right;
+      padding-right: 2rem;
+    }
+    .timeline-block:nth-child(even) .timeline-time {
+      text-align: left;
+      padding-left: 2rem;
+      padding-right: 0;
+    }
+    .timeline-content {
+      flex: 1;
+      padding: 2rem;
+      background: var(--color-surface-elevated);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+    .timeline-marker {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: 4px solid var(--color-background);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      z-index: 1;
+    }
+    .supplement-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: white;
+      border-radius: var(--radius-full);
+      margin: 0.25rem;
+      font-size: 0.875rem;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      transition: all var(--transition-fast);
+    }
+    .supplement-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    .pill-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 768px) {
+      .timeline::before {
+        left: 20px;
+      }
+      .timeline-block,
+      .timeline-block:nth-child(even) {
+        flex-direction: column;
+        padding-left: 60px;
+      }
+      .timeline-time {
+        padding: 0;
+        text-align: left !important;
+      }
+      .timeline-marker {
+        left: 20px;
+      }
+    }
+  </style>
+    <script src="assets/js/auth.js"></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="index.html" class="navbar-brand">⚕️ Health Dashboard</a>
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle">☰</button>
+        <ul id="navbar-nav" class="navbar-nav">
+          <li><a href="index.html" class="navbar-link">🏠 Dashboard</a></li>
+          <li><a href="blood-work.html" class="navbar-link">🔬 Blood Work</a></li>
+          <li><a href="before-after.html" class="navbar-link">📊 Projections</a></li>
+          <li><a href="supplement-stack.html" class="navbar-link">💊 Supplements</a></li>
+          <li><a href="daily-protocol.html" class="navbar-link">⏰ Daily Protocol</a></li>
+          <li><a href="body-systems.html" class="navbar-link">🫀 Body Systems</a></li>
+          <li><a href="synergy-network.html" class="navbar-link">🔗 Synergies</a></li>
+          <li><a href="priority-matrix.html" class="navbar-link">📋 Priority Matrix</a></li>
+          <li><a href="progress-tracker.html" class="navbar-link">✅ Action Items</a></li>
+          <li><a href="cost-analysis.html" class="navbar-link">💰 Cost Analysis</a></li>
+        </ul>
+        <div class="navbar-actions">
+          <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>⏰ Daily Protocol Timeline</h1>
+        <p>Optimized supplement timing for maximum absorption and synergy</p>
+        <div style="margin-top: 2rem;">
+          <button class="btn btn-outline" style="border-color: white; color: white;" data-print>🖨️ Print Daily Checklist</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main id="main-content" class="section">
+    <div class="container">
+
+      <!-- Timeline -->
+      <div class="timeline">
+
+        <!-- Morning Fasted -->
+        <div class="timeline-block">
+          <div class="timeline-marker">☀️</div>
+          <div class="timeline-time">
+            <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">6:00 AM</h3>
+            <p style="color: var(--color-text-tertiary);">Upon waking (fasted)</p>
+          </div>
+          <div class="timeline-content">
+            <h3 style="color: var(--color-primary); margin-bottom: 1rem;">Morning Fasted</h3>
+            <div class="pill-container">
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">☕</span>
+                <span>Black Coffee</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">💪</span>
+                <span>Creatine (5g)</span>
+              </div>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-tertiary);">
+              <strong>Why fasted:</strong> Creatine absorbs better on empty stomach. Coffee enhances fat oxidation.
+            </p>
+          </div>
+        </div>
+
+        <!-- Morning with Breakfast -->
+        <div class="timeline-block">
+          <div class="timeline-marker">🍳</div>
+          <div class="timeline-time">
+            <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">7:30 AM</h3>
+            <p style="color: var(--color-text-tertiary);">With breakfast</p>
+          </div>
+          <div class="timeline-content">
+            <h3 style="color: var(--color-primary); margin-bottom: 1rem;">Morning Stack (Fat-Soluble)</h3>
+            <div class="pill-container">
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🐟</span>
+                <span>Omega-3 (2g EPA/DHA)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">☀️</span>
+                <span>Vitamin D3 + K2 (5000 IU)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🌿</span>
+                <span>Tongkat Ali (400mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">⚡</span>
+                <span>Boron (6mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🔬</span>
+                <span>Zinc + Copper (25mg/2mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">👁️</span>
+                <span>Lutein + Zeaxanthin (20mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🦐</span>
+                <span>Astaxanthin (12mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🅱️</span>
+                <span>B-Complex</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🍊</span>
+                <span>Vitamin C (1000mg)</span>
+              </div>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-tertiary);">
+              <strong>Why with breakfast:</strong> Fat-soluble vitamins (D, A, E, K) and omega-3 require dietary fat for absorption. Tongkat Ali and vision stack work best with food.
+            </p>
+          </div>
+        </div>
+
+        <!-- Afternoon with Lunch -->
+        <div class="timeline-block">
+          <div class="timeline-marker">🥗</div>
+          <div class="timeline-time">
+            <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">12:30 PM</h3>
+            <p style="color: var(--color-text-tertiary);">With lunch</p>
+          </div>
+          <div class="timeline-content">
+            <h3 style="color: var(--color-primary); margin-bottom: 1rem;">Afternoon Cardiovascular Stack</h3>
+            <div class="pill-container">
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">⚡</span>
+                <span>Magnesium Glycinate (200mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">❤️</span>
+                <span>Red Yeast Rice (1200mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🍋</span>
+                <span>Bergamot (500mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">⚡</span>
+                <span>CoQ10 (200mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🦠</span>
+                <span>Probiotics (50B CFU)</span>
+              </div>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-tertiary);">
+              <strong>Why with lunch:</strong> Red Yeast Rice and Bergamot work on cholesterol synthesis (occurs afternoon/evening). CoQ10 essential with Red Yeast Rice.
+            </p>
+          </div>
+        </div>
+
+        <!-- Pre-Workout -->
+        <div class="timeline-block">
+          <div class="timeline-marker">🏋️</div>
+          <div class="timeline-time">
+            <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">4:30 PM</h3>
+            <p style="color: var(--color-text-tertiary);">30 min before workout</p>
+          </div>
+          <div class="timeline-content">
+            <h3 style="color: var(--color-primary); margin-bottom: 1rem;">Pre-Workout Performance</h3>
+            <div class="pill-container">
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">💪</span>
+                <span>Citrulline (6g)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🌿</span>
+                <span>Rhodiola (300mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">⚡</span>
+                <span>Taurine (2g)</span>
+              </div>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-tertiary);">
+              <strong>Why pre-workout:</strong> Citrulline enhances nitric oxide for pumps. Rhodiola reduces perceived exertion. Taurine improves endurance.
+            </p>
+          </div>
+        </div>
+
+        <!-- Evening with Dinner -->
+        <div class="timeline-block">
+          <div class="timeline-marker">🍽️</div>
+          <div class="timeline-time">
+            <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">7:00 PM</h3>
+            <p style="color: var(--color-text-tertiary);">With dinner</p>
+          </div>
+          <div class="timeline-content">
+            <h3 style="color: var(--color-primary); margin-bottom: 1rem;">Evening Recovery Stack</h3>
+            <div class="pill-container">
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🐟</span>
+                <span>Omega-3 (2g EPA/DHA)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🛡️</span>
+                <span>NAC (600mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🌿</span>
+                <span>Stinging Nettle Root (500mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🧘</span>
+                <span>Ashwagandha (600mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">👁️</span>
+                <span>Bilberry Extract (160mg)</span>
+              </div>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-tertiary);">
+              <strong>Why with dinner:</strong> Second omega-3 dose for 4g total. Ashwagandha reduces cortisol before sleep. NAC supports overnight detox.
+            </p>
+          </div>
+        </div>
+
+        <!-- Post-Workout -->
+        <div class="timeline-block">
+          <div class="timeline-marker">💪</div>
+          <div class="timeline-time">
+            <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">7:30 PM</h3>
+            <p style="color: var(--color-text-tertiary);">Post-workout (if training)</p>
+          </div>
+          <div class="timeline-content">
+            <h3 style="color: var(--color-primary); margin-bottom: 1rem;">Post-Workout Recovery</h3>
+            <div class="pill-container">
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🥛</span>
+                <span>Whey Protein (30g)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🦴</span>
+                <span>Collagen Type II (40mg)</span>
+              </div>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-tertiary);">
+              <strong>Why post-workout:</strong> Protein synthesis window. Collagen supports joint recovery.
+            </p>
+          </div>
+        </div>
+
+        <!-- Before Bed -->
+        <div class="timeline-block">
+          <div class="timeline-marker">🌙</div>
+          <div class="timeline-time">
+            <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">10:30 PM</h3>
+            <p style="color: var(--color-text-tertiary);">Before bed</p>
+          </div>
+          <div class="timeline-content">
+            <h3 style="color: var(--color-primary); margin-bottom: 1rem;">Sleep Optimization</h3>
+            <div class="pill-container">
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">😴</span>
+                <span>Magnesium Glycinate (200mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">🌙</span>
+                <span>Apigenin (50mg)</span>
+              </div>
+              <div class="supplement-pill">
+                <span style="font-size: 1.25rem;">💤</span>
+                <span>Melatonin (0.3mg, cyclical)</span>
+              </div>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-tertiary);">
+              <strong>Why before bed:</strong> Second magnesium dose for 400mg total (calming). Apigenin enhances GABA. Low-dose melatonin for sleep onset.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Key Principles -->
+      <div class="card" style="margin-top: 4rem;">
+        <h2 style="margin-bottom: 2rem;">📋 Key Timing Principles</h2>
+        <div class="grid grid-cols-2">
+          <div style="padding: 1.5rem; background: var(--color-surface); border-radius: var(--radius-md);">
+            <h4 style="color: var(--color-primary); margin-bottom: 1rem;">✅ DO</h4>
+            <ul style="margin-left: 1.5rem; color: var(--color-text-secondary); line-height: 2;">
+              <li>Take fat-soluble vitamins with meals containing fat</li>
+              <li>Split magnesium doses (AM/PM) for better absorption</li>
+              <li>Take omega-3 twice daily for steady blood levels</li>
+              <li>Use low-dose melatonin (0.3mg) cyclically, not daily</li>
+              <li>Take Red Yeast Rice with CoQ10 (prevents depletion)</li>
+              <li>Stay hydrated throughout the day</li>
+            </ul>
+          </div>
+          <div style="padding: 1.5rem; background: var(--color-surface); border-radius: var(--radius-md);">
+            <h4 style="color: var(--color-danger); margin-bottom: 1rem;">❌ DON'T</h4>
+            <ul style="margin-left: 1.5rem; color: var(--color-text-secondary); line-height: 2;">
+              <li>Take zinc and calcium together (compete for absorption)</li>
+              <li>Mix iron with coffee or tea (reduces absorption)</li>
+              <li>Take all supplements at once (overwhelms system)</li>
+              <li>Use high-dose melatonin (>1mg) regularly</li>
+              <li>Take stimulants (coffee, rhodiola) after 4 PM</li>
+              <li>Skip meals when taking fat-soluble vitamins</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="card" style="margin-top: 3rem; background: var(--color-gradient); color: white; padding: 3rem; text-align: center;">
+        <h2 style="color: white; margin-bottom: 1rem;">Track Your Progress</h2>
+        <p style="color: rgba(255, 255, 255, 0.9); font-size: 1.125rem; margin-bottom: 2rem;">
+          Use the action tracker to mark off completed items and monitor your consistency.
+        </p>
+        <a href="progress-tracker.html" class="btn btn-lg" style="background: white; color: var(--color-primary);">
+          Open Progress Tracker
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p><strong>Medical Disclaimer:</strong> This protocol is for informational purposes. Consult healthcare provider.</p>
+        <p style="margin-top: 1rem;">Last Updated: November 2025</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data/health-data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

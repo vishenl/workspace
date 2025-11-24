@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progress Tracker - Health Dashboard</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: var(--color-surface-elevated);
+      border-radius: var(--radius-lg);
+      border-left: 4px solid var(--color-primary);
+      margin-bottom: 1rem;
+      transition: all var(--transition-base);
+      cursor: pointer;
+    }
+    .checklist-item:hover {
+      transform: translateX(4px);
+      box-shadow: var(--shadow-md);
+    }
+    .checklist-item.completed {
+      opacity: 0.6;
+      border-left-color: var(--color-success);
+      background: rgba(16, 185, 129, 0.05);
+    }
+    .checklist-item.completed .checklist-title {
+      text-decoration: line-through;
+    }
+    .checkbox {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      border: 2px solid var(--color-primary);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      margin-top: 4px;
+    }
+    .checkbox.checked {
+      background: var(--color-success);
+      border-color: var(--color-success);
+    }
+    .checkbox.checked::after {
+      content: '✓';
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .checklist-content {
+      flex: 1;
+    }
+    .checklist-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--color-text-primary);
+    }
+    .checklist-details {
+      color: var(--color-text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+    }
+    .checklist-meta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding: 2rem;
+      background: var(--color-gradient);
+      border-radius: var(--radius-lg);
+      color: white;
+    }
+    .progress-stats {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+    }
+    .stat-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 8px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .stat-circle.completed-circle {
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: white;
+      padding: 3rem;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+      text-align: center;
+      z-index: var(--z-modal);
+      transition: transform var(--transition-slow);
+    }
+    .celebration.show {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .confetti {
+      font-size: 4rem;
+      animation: confettiFall 2s ease-out;
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(0) rotate(360deg); opacity: 1; }
+    }
+  </style>
+    <script src="assets/js/auth.js"></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="index.html" class="navbar-brand">⚕️ Health Dashboard</a>
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle">☰</button>
+        <ul id="navbar-nav" class="navbar-nav">
+          <li><a href="index.html" class="navbar-link">🏠 Dashboard</a></li>
+          <li><a href="blood-work.html" class="navbar-link">🔬 Blood Work</a></li>
+          <li><a href="before-after.html" class="navbar-link">📊 Projections</a></li>
+          <li><a href="supplement-stack.html" class="navbar-link">💊 Supplements</a></li>
+          <li><a href="daily-protocol.html" class="navbar-link">⏰ Daily Protocol</a></li>
+          <li><a href="body-systems.html" class="navbar-link">🫀 Body Systems</a></li>
+          <li><a href="synergy-network.html" class="navbar-link">🔗 Synergies</a></li>
+          <li><a href="priority-matrix.html" class="navbar-link">📋 Priority Matrix</a></li>
+          <li><a href="progress-tracker.html" class="navbar-link">✅ Action Items</a></li>
+          <li><a href="cost-analysis.html" class="navbar-link">💰 Cost Analysis</a></li>
+        </ul>
+        <div class="navbar-actions">
+          <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>✅ Action Progress Tracker</h1>
+        <p>Track your health optimization journey - progress is saved automatically</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main id="main-content" class="section">
+    <div class="container">
+
+      <!-- Progress Header -->
+      <div class="progress-header">
+        <div>
+          <h2 style="color: white; margin-bottom: 0.5rem;">Your Progress</h2>
+          <p style="color: rgba(255, 255, 255, 0.9);">Click items to mark as complete</p>
+        </div>
+        <div class="progress-stats">
+          <div class="stat-circle completed-circle">
+            <div style="font-size: 2.5rem; font-weight: 700;" id="completed-count">0</div>
+            <div style="font-size: 0.875rem; opacity: 0.9;">Completed</div>
+          </div>
+          <div>
+            <div style="font-size: 3rem; font-weight: 700;" id="progress-percentage">0%</div>
+            <div style="font-size: 1rem; opacity: 0.9;">Overall Progress</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="card" style="margin-bottom: 2rem;">
+        <div class="progress" style="height: 24px;">
+          <div id="main-progress-bar" class="progress-bar" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs">
+        <button class="btn btn-primary" onclick="filterTasks('all')">All Tasks (10)</button>
+        <button class="btn btn-outline" onclick="filterTasks('pending')">Pending (<span id="pending-count">10</span>)</button>
+        <button class="btn btn-outline" onclick="filterTasks('completed')">Completed (<span id="completed-count-tab">0</span>)</button>
+        <button class="btn btn-outline" onclick="filterTasks('high')">High Priority</button>
+        <button class="btn btn-outline" onclick="clearProgress()">🔄 Reset All</button>
+      </div>
+
+      <!-- Checklist -->
+      <div id="checklist-container">
+        <!-- Items will be dynamically generated -->
+      </div>
+
+      <!-- Celebration Modal -->
+      <div id="celebration" class="celebration">
+        <div class="confetti">🎉</div>
+        <h2 style="margin: 1rem 0;">Congratulations!</h2>
+        <p style="color: var(--color-text-secondary);">All action items completed! You're on the path to optimal health.</p>
+        <button class="btn btn-primary" onclick="hideCelebration()">Continue</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p><strong>Note:</strong> Progress is saved in your browser's local storage.</p>
+        <p style="margin-top: 1rem;">Last Updated: November 2025</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data/health-data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Action items from health data
+    const actionItems = [
+      {
+        id: 1,
+        title: "Start Boron supplementation (6mg daily)",
+        details: "Boron reduces SHBG by up to 25%, increasing free testosterone bioavailability.",
+        priority: "high",
+        time: "2 min",
+        dueDate: "Week 1",
+        category: "supplement"
+      },
+      {
+        id: 2,
+        title: "Add Stinging Nettle Root (500mg daily)",
+        details: "Blocks SHBG binding sites, liberating more free testosterone. Synergizes with Boron.",
+        priority: "high",
+        time: "2 min",
+        dueDate: "Week 1",
+        category: "supplement"
+      },
+      {
+        id: 3,
+        title: "Implement Red Yeast Rice + Bergamot for cholesterol",
+        details: "Natural approach to reduce LDL by 20-30%. Monitor liver enzymes.",
+        priority: "high",
+        time: "5 min",
+        dueDate: "Week 1",
+        category: "supplement"
+      },
+      {
+        id: 4,
+        title: "Start comprehensive vision stack",
+        details: "Lutein (20mg), Astaxanthin (12mg), Bilberry (160mg) for macular protection. Currently score 45/100 in vision.",
+        priority: "high",
+        time: "5 min",
+        dueDate: "Week 1",
+        category: "supplement"
+      },
+      {
+        id: 5,
+        title: "Remove redundant multivitamin",
+        details: "Targeted supplementation is more effective. Save $25/month.",
+        priority: "medium",
+        time: "1 min",
+        dueDate: "Week 1",
+        category: "optimization"
+      },
+      {
+        id: 6,
+        title: "Retest blood work in 3 months",
+        details: "Monitor SHBG, LDL, Free T, HDL progress. Schedule with physician now.",
+        priority: "high",
+        time: "2 hours",
+        dueDate: "Month 3",
+        category: "testing"
+      },
+      {
+        id: 7,
+        title: "Add K2-MK7 to Vitamin D3",
+        details: "Essential cofactor for proper calcium metabolism. Prevents arterial calcification.",
+        priority: "high",
+        time: "2 min",
+        dueDate: "Week 1",
+        category: "supplement"
+      },
+      {
+        id: 8,
+        title: "Split magnesium dose (AM/PM)",
+        details: "200mg morning + 200mg evening for better absorption and sustained benefits.",
+        priority: "low",
+        time: "1 min",
+        dueDate: "Week 2",
+        category: "timing"
+      },
+      {
+        id: 9,
+        title: "Upgrade to high-EPA/DHA omega-3",
+        details: "Target 2g combined EPA/DHA daily (1g twice daily) for cardiovascular protection.",
+        priority: "medium",
+        time: "5 min",
+        dueDate: "Week 2",
+        category: "supplement"
+      },
+      {
+        id: 10,
+        title: "Consult physician about statin alternatives",
+        details: "Discuss natural cholesterol management (Red Yeast Rice, Bergamot) vs pharmaceutical intervention.",
+        priority: "high",
+        time: "1 hour",
+        dueDate: "Month 1",
+        category: "medical"
+      }
+    ];
+
+    // Initialize
+    let completedItems = JSON.parse(localStorage.getItem('completedItems')) || [];
+
+    function renderChecklist() {
+      const container = document.getElementById('checklist-container');
+      container.innerHTML = '';
+
+      actionItems.forEach(item => {
+        const isCompleted = completedItems.includes(item.id);
+        const priorityColor = {
+          high: 'danger',
+          medium: 'warning',
+          low: 'info'
+        }[item.priority];
+
+        const itemHTML = `
+          <div class="checklist-item ${isCompleted ? 'completed' : ''}"
+               data-id="${item.id}"
+               data-priority="${item.priority}"
+               data-status="${isCompleted ? 'completed' : 'pending'}"
+               onclick="toggleItem(${item.id})">
+            <div class="checkbox ${isCompleted ? 'checked' : ''}" id="checkbox-${item.id}"></div>
+            <div class="checklist-content">
+              <div class="checklist-title">${item.title}</div>
+              <div class="checklist-details">${item.details}</div>
+              <div class="checklist-meta">
+                <span class="badge badge-${priorityColor}">${item.priority.toUpperCase()} PRIORITY</span>
+                <span style="color: var(--color-text-tertiary); font-size: 0.875rem;">⏱️ ${item.time}</span>
+                <span style="color: var(--color-text-tertiary); font-size: 0.875rem;">📅 Due: ${item.dueDate}</span>
+                <span class="badge badge-info">${item.category}</span>
+              </div>
+            </div>
+          </div>
+        `;
+        container.innerHTML += itemHTML;
+      });
+
+      updateProgress();
+    }
+
+    function toggleItem(id) {
+      const index = completedItems.indexOf(id);
+      if (index > -1) {
+        completedItems.splice(index, 1);
+      } else {
+        completedItems.push(id);
+      }
+
+      localStorage.setItem('completedItems', JSON.stringify(completedItems));
+      renderChecklist();
+
+      // Check if all completed
+      if (completedItems.length === actionItems.length) {
+        showCelebration();
+      }
+    }
+
+    function updateProgress() {
+      const total = actionItems.length;
+      const completed = completedItems.length;
+      const percentage = Math.round((completed / total) * 100);
+
+      document.getElementById('completed-count').textContent = completed;
+      document.getElementById('progress-percentage').textContent = percentage + '%';
+      document.getElementById('main-progress-bar').style.width = percentage + '%';
+      document.getElementById('pending-count').textContent = total - completed;
+      document.getElementById('completed-count-tab').textContent = completed;
+    }
+
+    function filterTasks(filter) {
+      const items = document.querySelectorAll('.checklist-item');
+      items.forEach(item => {
+        const priority = item.getAttribute('data-priority');
+        const status = item.getAttribute('data-status');
+
+        if (filter === 'all') {
+          item.style.display = 'flex';
+        } else if (filter === 'pending') {
+          item.style.display = status === 'pending' ? 'flex' : 'none';
+        } else if (filter === 'completed') {
+          item.style.display = status === 'completed' ? 'flex' : 'none';
+        } else if (filter === 'high') {
+          item.style.display = priority === 'high' ? 'flex' : 'none';
+        }
+      });
+    }
+
+    function clearProgress() {
+      if (confirm('Are you sure you want to reset all progress?')) {
+        completedItems = [];
+        localStorage.removeItem('completedItems');
+        renderChecklist();
+      }
+    }
+
+    function showCelebration() {
+      document.getElementById('celebration').classList.add('show');
+    }
+
+    function hideCelebration() {
+      document.getElementById('celebration').classList.remove('show');
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderChecklist();
+    });
+  </script>
+</body>
+</html>

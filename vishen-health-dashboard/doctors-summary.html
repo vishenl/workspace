@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Summary - Health Dashboard</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white; }
+      .hero { padding: 2rem 0; }
+      .card { box-shadow: none; border: 1px solid #000; page-break-inside: avoid; }
+    }
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+    .summary-table th,
+    .summary-table td {
+      padding: 0.75rem;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+    .summary-table th {
+      background: var(--color-surface);
+      font-weight: 600;
+    }
+    .critical-row {
+      background: rgba(239, 68, 68, 0.1);
+    }
+    .excellent-row {
+      background: rgba(16, 185, 129, 0.1);
+    }
+    .qr-placeholder {
+      width: 150px;
+      height: 150px;
+      background: var(--color-surface);
+      border: 2px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--color-text-tertiary);
+      text-align: center;
+      padding: 1rem;
+    }
+  </style>
+    <script src="assets/js/auth.js"></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar no-print">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="index.html" class="navbar-brand">⚕️ Health Dashboard</a>
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle">☰</button>
+        <ul id="navbar-nav" class="navbar-nav">
+          <li><a href="index.html" class="navbar-link">🏠 Dashboard</a></li>
+          <li><a href="blood-work.html" class="navbar-link">🔬 Blood Work</a></li>
+          <li><a href="before-after.html" class="navbar-link">📊 Projections</a></li>
+          <li><a href="supplement-stack.html" class="navbar-link">💊 Supplements</a></li>
+          <li><a href="daily-protocol.html" class="navbar-link">⏰ Daily Protocol</a></li>
+          <li><a href="body-systems.html" class="navbar-link">🫀 Body Systems</a></li>
+          <li><a href="synergy-network.html" class="navbar-link">🔗 Synergies</a></li>
+          <li><a href="priority-matrix.html" class="navbar-link">📋 Priority Matrix</a></li>
+          <li><a href="progress-tracker.html" class="navbar-link">✅ Action Items</a></li>
+          <li><a href="cost-analysis.html" class="navbar-link">💰 Cost Analysis</a></li>
+        </ul>
+        <div class="navbar-actions">
+          <button id="theme-toggle" class="theme-toggle">🌙</button>
+          <button class="btn btn-primary btn-sm" onclick="window.print()">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Medical Summary for Healthcare Provider</h1>
+        <p>Vishen Lakhiani • 49M • November 2025</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main id="main-content" class="section">
+    <div class="container-narrow">
+
+      <!-- Patient Information -->
+      <div class="card">
+        <h2 style="margin-bottom: 1.5rem;">Patient Information</h2>
+        <table class="summary-table">
+          <tr>
+            <th style="width: 200px;">Name</th>
+            <td>Vishen Lakhiani</td>
+          </tr>
+          <tr>
+            <th>Age / Gender</th>
+            <td>49 years / Male</td>
+          </tr>
+          <tr>
+            <th>Date of Assessment</th>
+            <td>November 2025</td>
+          </tr>
+          <tr>
+            <th>Overall Health Score</th>
+            <td><strong>84/100</strong></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Critical Blood Work Findings -->
+      <div class="card" style="margin-top: 2rem;">
+        <h2 style="margin-bottom: 1.5rem;">Critical Blood Work Findings</h2>
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th>Biomarker</th>
+              <th>Current Value</th>
+              <th>Reference Range</th>
+              <th>Optimal Range</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="critical-row">
+              <td><strong>SHBG</strong></td>
+              <td>66.9 nmol/L</td>
+              <td>10-57</td>
+              <td>20-40</td>
+              <td><span class="badge badge-danger">HIGH</span></td>
+            </tr>
+            <tr class="critical-row">
+              <td><strong>LDL Cholesterol</strong></td>
+              <td>171 mg/dL</td>
+              <td>0-130</td>
+              <td>70-100</td>
+              <td><span class="badge badge-danger">HIGH</span></td>
+            </tr>
+            <tr class="critical-row">
+              <td><strong>Free Testosterone</strong></td>
+              <td>23.9 pg/mL</td>
+              <td>15-50</td>
+              <td>35-50</td>
+              <td><span class="badge badge-warning">BORDERLINE</span></td>
+            </tr>
+            <tr>
+              <td><strong>HDL Cholesterol</strong></td>
+              <td>51 mg/dL</td>
+              <td>40-100</td>
+              <td>60-100</td>
+              <td><span class="badge badge-warning">BORDERLINE</span></td>
+            </tr>
+            <tr class="excellent-row">
+              <td><strong>HbA1c</strong></td>
+              <td>4.9%</td>
+              <td>4.0-5.6</td>
+              <td>4.0-5.6</td>
+              <td><span class="badge badge-success">EXCELLENT</span></td>
+            </tr>
+            <tr class="excellent-row">
+              <td><strong>CRP</strong></td>
+              <td>0.5 mg/L</td>
+              <td>0-3</td>
+              <td>0-1</td>
+              <td><span class="badge badge-success">EXCELLENT</span></td>
+            </tr>
+            <tr class="excellent-row">
+              <td><strong>Vitamin D</strong></td>
+              <td>41.8 ng/mL</td>
+              <td>30-100</td>
+              <td>40-60</td>
+              <td><span class="badge badge-success">EXCELLENT</span></td>
+            </tr>
+            <tr class="excellent-row">
+              <td><strong>Ferritin</strong></td>
+              <td>220 ng/mL</td>
+              <td>30-400</td>
+              <td>100-300</td>
+              <td><span class="badge badge-success">EXCELLENT</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Clinical Interpretation -->
+      <div class="card" style="margin-top: 2rem;">
+        <h2 style="margin-bottom: 1.5rem;">Clinical Interpretation</h2>
+        <div style="padding: 1rem; background: var(--color-surface); border-radius: var(--radius-md); margin-bottom: 1rem;">
+          <h4 style="color: var(--color-danger); margin-bottom: 0.5rem;">⚠️ Primary Concerns</h4>
+          <ul style="margin-left: 1.5rem; color: var(--color-text-secondary); line-height: 2;">
+            <li><strong>Elevated SHBG (66.9 nmol/L):</strong> Binding excess testosterone, reducing bioavailability despite adequate total testosterone</li>
+            <li><strong>Elevated LDL (171 mg/dL):</strong> Increased cardiovascular risk, recommend intervention</li>
+            <li><strong>Suboptimal Free Testosterone (23.9 pg/mL):</strong> Lower end of reference range, impacts energy, muscle mass, libido</li>
+          </ul>
+        </div>
+        <div style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: var(--radius-md);">
+          <h4 style="color: var(--color-success); margin-bottom: 0.5rem;">✅ Positive Findings</h4>
+          <ul style="margin-left: 1.5rem; color: var(--color-text-secondary); line-height: 2;">
+            <li><strong>Excellent glucose control:</strong> HbA1c 4.9%, minimal diabetes risk</li>
+            <li><strong>Low inflammation:</strong> CRP 0.5 mg/L, excellent cardiovascular marker</li>
+            <li><strong>Optimal Vitamin D:</strong> 41.8 ng/mL, adequate supplementation</li>
+            <li><strong>Good iron stores:</strong> Ferritin 220 ng/mL, no anemia risk</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Proposed Intervention Plan -->
+      <div class="card" style="margin-top: 2rem;">
+        <h2 style="margin-bottom: 1.5rem;">Proposed Natural Intervention Plan</h2>
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th>Target</th>
+              <th>Intervention</th>
+              <th>Expected Outcome</th>
+              <th>Timeline</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Reduce SHBG</strong></td>
+              <td>Boron (6mg) + Stinging Nettle Root (500mg)</td>
+              <td>SHBG: 66.9 → 38 nmol/L (-43%)</td>
+              <td>3-6 months</td>
+            </tr>
+            <tr>
+              <td><strong>Reduce LDL</strong></td>
+              <td>Red Yeast Rice (1200mg) + Bergamot (500mg) + CoQ10 (200mg)</td>
+              <td>LDL: 171 → 110 mg/dL (-36%)</td>
+              <td>3-6 months</td>
+            </tr>
+            <tr>
+              <td><strong>Increase Free T</strong></td>
+              <td>Tongkat Ali (400mg) + SHBG optimization</td>
+              <td>Free T: 23.9 → 42 pg/mL (+76%)</td>
+              <td>3-6 months</td>
+            </tr>
+            <tr>
+              <td><strong>Increase HDL</strong></td>
+              <td>Omega-3 (4g EPA/DHA) + Bergamot</td>
+              <td>HDL: 51 → 65 mg/dL (+27%)</td>
+              <td>3-6 months</td>
+            </tr>
+            <tr>
+              <td><strong>Vision Protection</strong></td>
+              <td>Lutein (20mg) + Zeaxanthin (4mg) + Astaxanthin (12mg) + Bilberry (160mg)</td>
+              <td>Macular protection, 50% AMD risk reduction</td>
+              <td>Ongoing</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Top 10 Action Items -->
+      <div class="card" style="margin-top: 2rem;">
+        <h2 style="margin-bottom: 1.5rem;">Top 10 Priority Actions</h2>
+        <ol style="margin-left: 1.5rem; color: var(--color-text-secondary); line-height: 2;">
+          <li><strong>Start Boron (6mg daily)</strong> - SHBG reduction</li>
+          <li><strong>Add Stinging Nettle Root (500mg daily)</strong> - SHBG binding blockade</li>
+          <li><strong>Implement Red Yeast Rice + Bergamot protocol</strong> - LDL management (monitor liver enzymes)</li>
+          <li><strong>Start comprehensive vision stack</strong> - Lutein, Astaxanthin, Bilberry</li>
+          <li><strong>Add K2-MK7 to Vitamin D3</strong> - Essential cofactor for calcium metabolism</li>
+          <li><strong>Upgrade Omega-3 to 4g EPA/DHA daily</strong> - Cardiovascular protection</li>
+          <li><strong>Add Tongkat Ali (400mg)</strong> - Testosterone optimization</li>
+          <li><strong>Remove redundant multivitamin</strong> - Cost savings, targeted approach</li>
+          <li><strong>Retest blood work in 3 months</strong> - Monitor SHBG, LDL, Free T, HDL</li>
+          <li><strong>Consult re: statin alternatives</strong> - Discuss natural vs pharmaceutical cholesterol management</li>
+        </ol>
+      </div>
+
+      <!-- Monitoring Plan -->
+      <div class="card" style="margin-top: 2rem;">
+        <h2 style="margin-bottom: 1.5rem;">Recommended Monitoring Schedule</h2>
+        <table class="summary-table">
+          <tr>
+            <th style="width: 150px;">Month 1</th>
+            <td>
+              <ul style="margin: 0; padding-left: 1.5rem;">
+                <li>Physician consultation regarding statin alternatives</li>
+                <li>Baseline liver enzymes (for Red Yeast Rice monitoring)</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th>Month 3</th>
+            <td>
+              <ul style="margin: 0; padding-left: 1.5rem;">
+                <li>Comprehensive blood work: SHBG, Total T, Free T, LDL, HDL, Triglycerides</li>
+                <li>Liver enzymes (AST, ALT) - ensure Red Yeast Rice tolerance</li>
+                <li>HbA1c, CRP (maintain excellent status)</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th>Month 6</th>
+            <td>
+              <ul style="margin: 0; padding-left: 1.5rem;">
+                <li>Full lipid panel, hormone panel</li>
+                <li>Adjust dosages based on Month 3 results</li>
+                <li>Assess need for pharmaceutical intervention if natural approach insufficient</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th>Ongoing</th>
+            <td>
+              <ul style="margin: 0; padding-left: 1.5rem;">
+                <li>Annual comprehensive blood work</li>
+                <li>Eye exams (annual) - monitor macular health with vision supplementation</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Contraindications & Precautions -->
+      <div class="card" style="margin-top: 2rem; border: 2px solid var(--color-warning);">
+        <h2 style="margin-bottom: 1.5rem; color: var(--color-warning);">⚠️ Contraindications & Precautions</h2>
+        <div style="color: var(--color-text-secondary); line-height: 2;">
+          <p><strong>Red Yeast Rice:</strong> Contains natural statins. Monitor liver enzymes (AST, ALT) every 3 months initially.
+          Risk of myopathy similar to pharmaceutical statins - always combine with CoQ10 (200mg). Contraindicated with statin medications.</p>
+
+          <p><strong>Tongkat Ali:</strong> May affect blood sugar and blood pressure. Monitor if diabetic or hypertensive.
+          Can interact with immunosuppressants.</p>
+
+          <p><strong>High-dose Omega-3:</strong> Anticoagulant effects. Monitor if on blood thinners. Discontinue 1-2 weeks before surgery.</p>
+
+          <p><strong>Boron:</strong> High doses (>20mg) may affect hormone levels. 6mg is well within safe range.</p>
+        </div>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="grid grid-cols-2" style="margin-top: 2rem;">
+        <div class="card">
+          <h3 style="margin-bottom: 1rem;">Patient Contact</h3>
+          <p style="color: var(--color-text-secondary);">
+            <strong>Name:</strong> Vishen Lakhiani<br>
+            <strong>Age:</strong> 49 years<br>
+            <strong>Assessment Date:</strong> November 2025
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom: 1rem;">Full Dashboard Access</h3>
+          <div class="qr-placeholder">
+            QR Code Placeholder<br>
+            (Link to full interactive dashboard)
+          </div>
+          <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-tertiary);">
+            Scan to access complete interactive health dashboard with detailed protocols, blood work visualizations, and progress tracking.
+          </p>
+        </div>
+      </div>
+
+      <!-- Footer Note -->
+      <div style="margin-top: 3rem; padding: 2rem; background: var(--color-surface); border-radius: var(--radius-md); text-align: center;">
+        <p style="color: var(--color-text-secondary); font-size: 0.875rem;">
+          <strong>Medical Disclaimer:</strong> This summary is for informational purposes and to facilitate discussion with healthcare providers.
+          It does not constitute medical advice. All supplementation changes should be reviewed and approved by a qualified healthcare professional.
+        </p>
+        <p style="margin-top: 1rem; color: var(--color-text-tertiary); font-size: 0.75rem;">
+          Generated: November 2025 • Health Optimization Dashboard v1.0
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer no-print">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>Last Updated: November 2025</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data/health-data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

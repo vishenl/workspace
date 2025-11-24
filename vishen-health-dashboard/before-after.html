@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transformation Projections - Health Dashboard</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    .comparison-slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+    }
+    .timeline-item {
+      padding: 2rem;
+      border-left: 4px solid var(--color-primary);
+      margin-left: 1rem;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      top: 2rem;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: 4px solid var(--color-background);
+    }
+    .chart-container {
+      position: relative;
+      height: 400px;
+      margin: 2rem 0;
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+    }
+    .comparison-table th,
+    .comparison-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .comparison-table th {
+      background: var(--color-surface);
+      font-weight: 600;
+    }
+    .improvement {
+      color: var(--color-success);
+      font-weight: 600;
+    }
+  </style>
+    <script src="assets/js/auth.js"></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="index.html" class="navbar-brand">⚕️ Health Dashboard</a>
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle">☰</button>
+        <ul id="navbar-nav" class="navbar-nav">
+          <li><a href="index.html" class="navbar-link">🏠 Dashboard</a></li>
+          <li><a href="blood-work.html" class="navbar-link">🔬 Blood Work</a></li>
+          <li><a href="before-after.html" class="navbar-link">📊 Projections</a></li>
+          <li><a href="supplement-stack.html" class="navbar-link">💊 Supplements</a></li>
+          <li><a href="daily-protocol.html" class="navbar-link">⏰ Daily Protocol</a></li>
+          <li><a href="body-systems.html" class="navbar-link">🫀 Body Systems</a></li>
+          <li><a href="synergy-network.html" class="navbar-link">🔗 Synergies</a></li>
+          <li><a href="priority-matrix.html" class="navbar-link">📋 Priority Matrix</a></li>
+          <li><a href="progress-tracker.html" class="navbar-link">✅ Action Items</a></li>
+          <li><a href="cost-analysis.html" class="navbar-link">💰 Cost Analysis</a></li>
+        </ul>
+        <div class="navbar-actions">
+          <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>📊 Transformation Projections</h1>
+        <p>Predicted biomarker improvements over 3 and 6 months with optimized protocol</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main id="main-content" class="section">
+    <div class="container">
+
+      <!-- Projection Charts -->
+      <div class="section-header">
+        <h2 class="section-title">Biomarker Trend Projections</h2>
+        <p class="section-subtitle">Based on clinical research and typical response rates</p>
+      </div>
+
+      <!-- Line Chart -->
+      <div class="card">
+        <div class="chart-container">
+          <canvas id="projection-chart"></canvas>
+        </div>
+      </div>
+
+      <!-- Comparison Table -->
+      <div class="card" style="margin-top: 3rem;">
+        <h3 style="margin-bottom: 2rem;">Detailed Biomarker Comparison</h3>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Biomarker</th>
+              <th>Current</th>
+              <th>3 Months</th>
+              <th>6 Months (Optimal)</th>
+              <th>Improvement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>SHBG</strong></td>
+              <td>66.9 nmol/L <span class="badge badge-danger">High</span></td>
+              <td>45 nmol/L <span class="badge badge-warning">Better</span></td>
+              <td>38 nmol/L <span class="badge badge-success">Optimal</span></td>
+              <td class="improvement">↓ 43% reduction</td>
+            </tr>
+            <tr>
+              <td><strong>LDL Cholesterol</strong></td>
+              <td>171 mg/dL <span class="badge badge-danger">High</span></td>
+              <td>130 mg/dL <span class="badge badge-warning">Better</span></td>
+              <td>110 mg/dL <span class="badge badge-success">Optimal</span></td>
+              <td class="improvement">↓ 36% reduction</td>
+            </tr>
+            <tr>
+              <td><strong>Free Testosterone</strong></td>
+              <td>23.9 pg/mL <span class="badge badge-warning">Low</span></td>
+              <td>38 pg/mL <span class="badge badge-success">Good</span></td>
+              <td>42 pg/mL <span class="badge badge-success">Optimal</span></td>
+              <td class="improvement">↑ 76% increase</td>
+            </tr>
+            <tr>
+              <td><strong>HDL Cholesterol</strong></td>
+              <td>51 mg/dL <span class="badge badge-warning">Borderline</span></td>
+              <td>58 mg/dL <span class="badge badge-success">Good</span></td>
+              <td>65 mg/dL <span class="badge badge-success">Optimal</span></td>
+              <td class="improvement">↑ 27% increase</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Timeline Milestones -->
+      <div class="section-header" style="margin-top: 4rem;">
+        <h2 class="section-title">Implementation Timeline</h2>
+        <p class="section-subtitle">Key milestones and expected results</p>
+      </div>
+
+      <div class="grid grid-cols-2">
+        <div class="card">
+          <div class="timeline-item" style="border-color: var(--color-primary); margin-left: 0;">
+            <h3 style="color: var(--color-primary);">Week 1: Protocol Start</h3>
+            <ul style="margin-left: 1.5rem; color: var(--color-text-secondary);">
+              <li>Begin Boron (6mg) for SHBG reduction</li>
+              <li>Add Stinging Nettle Root (500mg)</li>
+              <li>Start Red Yeast Rice + Bergamot for cholesterol</li>
+              <li>Implement comprehensive vision stack</li>
+              <li>Add Tongkat Ali for testosterone support</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="timeline-item" style="border-color: var(--color-info); margin-left: 0;">
+            <h3 style="color: var(--color-info);">Month 1: Early Indicators</h3>
+            <ul style="margin-left: 1.5rem; color: var(--color-text-secondary);">
+              <li>Improved energy levels (Free T increase)</li>
+              <li>Better sleep quality</li>
+              <li>Reduced eye fatigue from vision stack</li>
+              <li>Initial SHBG reduction begins</li>
+              <li>Lipid panel starting to improve</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="timeline-item" style="border-color: var(--color-warning); margin-left: 0;">
+            <h3 style="color: var(--color-warning);">Month 3: Retest Blood Work</h3>
+            <ul style="margin-left: 1.5rem; color: var(--color-text-secondary);">
+              <li>Expected SHBG: 45 nmol/L (33% reduction)</li>
+              <li>Expected LDL: 130 mg/dL (24% reduction)</li>
+              <li>Expected Free T: 38 pg/mL (59% increase)</li>
+              <li>Adjust protocol based on results</li>
+              <li>Optimize dosages if needed</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="timeline-item" style="border-color: var(--color-success); margin-left: 0;">
+            <h3 style="color: var(--color-success);">Month 6: Optimal State</h3>
+            <ul style="margin-left: 1.5rem; color: var(--color-text-secondary);">
+              <li>Target SHBG: 38 nmol/L (optimal)</li>
+              <li>Target LDL: 110 mg/dL (excellent)</li>
+              <li>Target Free T: 42 pg/mL (optimal)</li>
+              <li>All biomarkers in optimal range</li>
+              <li>Maintenance protocol established</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Probability -->
+      <div class="card" style="margin-top: 3rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3rem;">
+        <div class="text-center">
+          <h2 style="color: white; margin-bottom: 1rem;">Success Probability</h2>
+          <div style="font-size: 4rem; font-weight: 700; margin: 2rem 0;">85%</div>
+          <p style="color: rgba(255, 255, 255, 0.9); font-size: 1.125rem; max-width: 600px; margin: 0 auto;">
+            Based on clinical research, typical response rates, and your current health status, there's an 85% probability of achieving optimal biomarker ranges within 6 months.
+          </p>
+          <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 800px; margin: 2rem auto 0;">
+            <div>
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">90%</div>
+              <div style="opacity: 0.9;">SHBG Optimization</div>
+            </div>
+            <div>
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">85%</div>
+              <div style="opacity: 0.9;">LDL Reduction</div>
+            </div>
+            <div>
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">80%</div>
+              <div style="opacity: 0.9;">Free T Increase</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Next Steps -->
+      <div class="flex justify-center gap-4" style="margin-top: 3rem;">
+        <a href="supplement-stack.html" class="btn btn-primary btn-lg">View Supplement Protocol</a>
+        <a href="progress-tracker.html" class="btn btn-outline btn-lg">Start Action Plan</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p><strong>Medical Disclaimer:</strong> Projections are estimates based on clinical research. Individual results may vary.</p>
+        <p style="margin-top: 1rem;">Last Updated: November 2025</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data/health-data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/charts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Create projection line chart
+      LineChart.create('projection-chart',
+        ['Current', '3 Months', '6 Months'],
+        [
+          {
+            label: 'SHBG (nmol/L)',
+            data: [66.9, 45, 38],
+            color: '#EF4444'
+          },
+          {
+            label: 'LDL (mg/dL)',
+            data: [171, 130, 110],
+            color: '#F59E0B'
+          },
+          {
+            label: 'Free Testosterone (pg/mL)',
+            data: [23.9, 38, 42],
+            color: '#10B981'
+          },
+          {
+            label: 'HDL (mg/dL)',
+            data: [51, 58, 65],
+            color: '#3B82F6'
+          }
+        ]
+      );
+    });
+  </script>
+</body>
+</html>

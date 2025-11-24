@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supplement Stack Comparison - Health Dashboard</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .supplement-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .supplement-card {
+      position: relative;
+      padding: 1.5rem;
+      border-radius: var(--radius-lg);
+      border: 2px solid;
+      transition: all var(--transition-base);
+    }
+    .supplement-card.keep { border-color: #3B82F6; background: rgba(59, 130, 246, 0.05); }
+    .supplement-card.add { border-color: #10B981; background: rgba(16, 185, 129, 0.05); }
+    .supplement-card.modify { border-color: #F59E0B; background: rgba(245, 158, 11, 0.05); }
+    .supplement-card.remove { border-color: #EF4444; background: rgba(239, 68, 68, 0.05); }
+    .supplement-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .supplement-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .cost-comparison {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 2rem;
+      background: var(--color-gradient);
+      border-radius: var(--radius-lg);
+      color: white;
+      margin: 2rem 0;
+    }
+    .filter-section {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+    .search-box {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid var(--color-surface);
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 1rem;
+    }
+  </style>
+    <script src="assets/js/auth.js"></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="index.html" class="navbar-brand">⚕️ Health Dashboard</a>
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle">☰</button>
+        <ul id="navbar-nav" class="navbar-nav">
+          <li><a href="index.html" class="navbar-link">🏠 Dashboard</a></li>
+          <li><a href="blood-work.html" class="navbar-link">🔬 Blood Work</a></li>
+          <li><a href="before-after.html" class="navbar-link">📊 Projections</a></li>
+          <li><a href="supplement-stack.html" class="navbar-link">💊 Supplements</a></li>
+          <li><a href="daily-protocol.html" class="navbar-link">⏰ Daily Protocol</a></li>
+          <li><a href="body-systems.html" class="navbar-link">🫀 Body Systems</a></li>
+          <li><a href="synergy-network.html" class="navbar-link">🔗 Synergies</a></li>
+          <li><a href="priority-matrix.html" class="navbar-link">📋 Priority Matrix</a></li>
+          <li><a href="progress-tracker.html" class="navbar-link">✅ Action Items</a></li>
+          <li><a href="cost-analysis.html" class="navbar-link">💰 Cost Analysis</a></li>
+        </ul>
+        <div class="navbar-actions">
+          <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>💊 Supplement Stack Optimization</h1>
+        <p>Current (35) → Optimized (40) supplements with better targeting and cost savings</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main id="main-content" class="section">
+    <div class="container">
+
+      <!-- Cost Comparison -->
+      <div class="cost-comparison">
+        <div style="text-align: center;">
+          <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">Current Monthly Cost</div>
+          <div style="font-size: 3rem; font-weight: 700;">$450</div>
+        </div>
+        <div style="font-size: 3rem;">→</div>
+        <div style="text-align: center;">
+          <div style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">Optimized Monthly Cost</div>
+          <div style="font-size: 3rem; font-weight: 700;">$430</div>
+          <div style="font-size: 0.875rem; margin-top: 0.5rem;">💰 $20/month savings</div>
+        </div>
+      </div>
+
+      <!-- Search and Filter -->
+      <div style="text-align: center; margin: 3rem 0;">
+        <input type="text" id="search-box" class="search-box" placeholder="🔍 Search supplements..." onkeyup="searchSupplements()">
+        <div class="filter-section">
+          <button class="btn btn-primary" onclick="filterSupplements('all')">All (40)</button>
+          <button class="btn" style="background: #10B981; color: white;" onclick="filterSupplements('add')">🟢 Add (12)</button>
+          <button class="btn" style="background: #3B82F6; color: white;" onclick="filterSupplements('keep')">🔵 Keep (13)</button>
+          <button class="btn" style="background: #F59E0B; color: white;" onclick="filterSupplements('modify')">🟡 Modify (6)</button>
+          <button class="btn" style="background: #EF4444; color: white;" onclick="filterSupplements('remove')">🔴 Remove (5)</button>
+        </div>
+      </div>
+
+      <!-- Add Supplements -->
+      <div id="add-section" class="supplement-section">
+        <div class="section-header">
+          <h2 class="section-title">🟢 New Additions (12 supplements)</h2>
+          <p class="section-subtitle">High-impact supplements filling critical gaps</p>
+        </div>
+        <div class="supplement-grid">
+          <div class="supplement-card add" data-action="add" data-name="boron">
+            <div class="supplement-icon">⚡</div>
+            <h3 style="color: #10B981;">Boron</h3>
+            <div class="badge badge-success">High Priority</div>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Dose:</strong> 6mg daily</p>
+            <p style="margin: 0 0 1rem; color: var(--color-text-secondary);"><strong>Cost:</strong> $12/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Benefit:</strong> Reduces SHBG by up to 25%, increases free testosterone. Critical for hormone optimization.
+            </p>
+          </div>
+
+          <div class="supplement-card add" data-action="add" data-name="stinging nettle">
+            <div class="supplement-icon">🌿</div>
+            <h3 style="color: #10B981;">Stinging Nettle Root</h3>
+            <div class="badge badge-success">High Priority</div>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Dose:</strong> 500mg daily</p>
+            <p style="margin: 0 0 1rem; color: var(--color-text-secondary);"><strong>Cost:</strong> $18/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Benefit:</strong> Blocks SHBG binding sites, liberating more free testosterone. Synergizes with Boron.
+            </p>
+          </div>
+
+          <div class="supplement-card add" data-action="add" data-name="tongkat ali">
+            <div class="supplement-icon">💪</div>
+            <h3 style="color: #10B981;">Tongkat Ali</h3>
+            <div class="badge badge-success">High Priority</div>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Dose:</strong> 400mg daily</p>
+            <p style="margin: 0 0 1rem; color: var(--color-text-secondary);"><strong>Cost:</strong> $35/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Benefit:</strong> Clinically proven testosterone optimization. Reduces cortisol, improves strength and libido.
+            </p>
+          </div>
+
+          <div class="supplement-card add" data-action="add" data-name="red yeast rice">
+            <div class="supplement-icon">❤️</div>
+            <h3 style="color: #10B981;">Red Yeast Rice</h3>
+            <div class="badge badge-success">High Priority</div>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Dose:</strong> 1200mg daily</p>
+            <p style="margin: 0 0 1rem; color: var(--color-text-secondary);"><strong>Cost:</strong> $25/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Benefit:</strong> Natural statin alternative. Reduces LDL by 20-30%. Requires CoQ10 supplementation.
+            </p>
+          </div>
+
+          <div class="supplement-card add" data-action="add" data-name="bergamot">
+            <div class="supplement-icon">🍋</div>
+            <h3 style="color: #10B981;">Bergamot</h3>
+            <div class="badge badge-success">High Priority</div>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Dose:</strong> 500mg daily</p>
+            <p style="margin: 0 0 1rem; color: var(--color-text-secondary);"><strong>Cost:</strong> $28/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Benefit:</strong> Improves lipid profile, increases HDL, reduces LDL and triglycerides. Cardiovascular protection.
+            </p>
+          </div>
+
+          <div class="supplement-card add" data-action="add" data-name="lutein">
+            <div class="supplement-icon">👁️</div>
+            <h3 style="color: #10B981;">Lutein + Zeaxanthin</h3>
+            <div class="badge badge-success">High Priority</div>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Dose:</strong> 20mg + 4mg</p>
+            <p style="margin: 0 0 1rem; color: var(--color-text-secondary);"><strong>Cost:</strong> $22/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Benefit:</strong> Critical macular protection. Reduces AMD risk by 50%. Essential for long-term vision health.
+            </p>
+          </div>
+
+          <div class="supplement-card add" data-action="add" data-name="astaxanthin">
+            <div class="supplement-icon">🦐</div>
+            <h3 style="color: #10B981;">Astaxanthin</h3>
+            <div class="badge badge-success">High Priority</div>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Dose:</strong> 12mg daily</p>
+            <p style="margin: 0 0 1rem; color: var(--color-text-secondary);"><strong>Cost:</strong> $30/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Benefit:</strong> Powerful eye antioxidant. Reduces eye fatigue, improves focus. Protects omega-3 from oxidation.
+            </p>
+          </div>
+
+          <div class="supplement-card add" data-action="add" data-name="bilberry">
+            <div class="supplement-icon">🫐</div>
+            <h3 style="color: #10B981;">Bilberry Extract</h3>
+            <div class="badge badge-warning">Medium Priority</div>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Dose:</strong> 160mg daily</p>
+            <p style="margin: 0 0 1rem; color: var(--color-text-secondary);"><strong>Cost:</strong> $20/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Benefit:</strong> Improves night vision and eye circulation. Rich in anthocyanins for vascular health.
+            </p>
+          </div>
+
+          <div class="supplement-card add" data-action="add" data-name="nac">
+            <div class="supplement-icon">🛡️</div>
+            <h3 style="color: #10B981;">NAC (N-Acetyl Cysteine)</h3>
+            <div class="badge badge-warning">Medium Priority</div>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Dose:</strong> 600mg daily</p>
+            <p style="margin: 0 0 1rem; color: var(--color-text-secondary);"><strong>Cost:</strong> $18/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Benefit:</strong> Glutathione precursor. Liver detox support, antioxidant protection, respiratory health.
+            </p>
+          </div>
+
+          <div class="supplement-card add" data-action="add" data-name="taurine">
+            <div class="supplement-icon">⚡</div>
+            <h3 style="color: #10B981;">Taurine</h3>
+            <div class="badge badge-warning">Medium Priority</div>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Dose:</strong> 2g daily</p>
+            <p style="margin: 0 0 1rem; color: var(--color-text-secondary);"><strong>Cost:</strong> $15/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Benefit:</strong> Heart health, blood pressure regulation, exercise performance. Anti-aging properties.
+            </p>
+          </div>
+
+          <div class="supplement-card add" data-action="add" data-name="citrulline">
+            <div class="supplement-icon">💪</div>
+            <h3 style="color: #10B981;">Citrulline</h3>
+            <div class="badge badge-warning">Medium Priority</div>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Dose:</strong> 6g pre-workout</p>
+            <p style="margin: 0 0 1rem; color: var(--color-text-secondary);"><strong>Cost:</strong> $20/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Benefit:</strong> Nitric oxide booster. Enhances blood flow, exercise performance, and cardiovascular health.
+            </p>
+          </div>
+
+          <div class="supplement-card add" data-action="add" data-name="apigenin">
+            <div class="supplement-icon">🌙</div>
+            <h3 style="color: #10B981;">Apigenin</h3>
+            <div class="badge badge-info">Low Priority</div>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Dose:</strong> 50mg before bed</p>
+            <p style="margin: 0 0 1rem; color: var(--color-text-secondary);"><strong>Cost:</strong> $16/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Benefit:</strong> Sleep quality enhancement. Anti-inflammatory. GABA receptor modulation for relaxation.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Remove Supplements -->
+      <div id="remove-section" class="supplement-section" style="margin-top: 4rem;">
+        <div class="section-header">
+          <h2 class="section-title">🔴 Remove (5 supplements - Save $70/month)</h2>
+          <p class="section-subtitle">Redundant or ineffective supplements to eliminate</p>
+        </div>
+        <div class="supplement-grid">
+          <div class="supplement-card remove" data-action="remove" data-name="multivitamin">
+            <div class="supplement-icon">❌</div>
+            <h3 style="color: #EF4444;">Generic Multivitamin</h3>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Savings:</strong> $25/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Reason:</strong> Redundant with targeted supplementation. Better to use specific vitamins at optimal doses.
+            </p>
+          </div>
+
+          <div class="supplement-card remove" data-action="remove" data-name="generic antioxidant">
+            <div class="supplement-icon">❌</div>
+            <h3 style="color: #EF4444;">Generic Antioxidant Blend</h3>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Savings:</strong> $15/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Reason:</strong> Replaced with targeted compounds (Astaxanthin, NAC, Vitamin C) at therapeutic doses.
+            </p>
+          </div>
+
+          <div class="supplement-card remove" data-action="remove" data-name="caffeine pills">
+            <div class="supplement-icon">❌</div>
+            <h3 style="color: #EF4444;">Caffeine Pills</h3>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Savings:</strong> $10/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Reason:</strong> Use quality coffee instead. Better antioxidants, more sustainable energy.
+            </p>
+          </div>
+
+          <div class="supplement-card remove" data-action="remove" data-name="herbal blend">
+            <div class="supplement-icon">❌</div>
+            <h3 style="color: #EF4444;">Random Herbal Blend</h3>
+            <p style="margin: 1rem 0; color: var(--color-text-secondary);"><strong>Savings:</strong> $20/month</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+              <strong>Reason:</strong> Unproven proprietary blend. Replace with evidence-based individual herbs.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="card" style="margin-top: 4rem; background: var(--color-gradient); color: white; padding: 3rem; text-align: center;">
+        <h2 style="color: white; margin-bottom: 1rem;">Ready to Optimize Your Stack?</h2>
+        <p style="color: rgba(255, 255, 255, 0.9); font-size: 1.125rem; margin-bottom: 2rem;">
+          View the complete daily protocol with exact timing and dosing instructions.
+        </p>
+        <div class="flex justify-center gap-4">
+          <a href="daily-protocol.html" class="btn btn-lg" style="background: white; color: var(--color-primary);">View Daily Protocol</a>
+          <a href="synergy-network.html" class="btn btn-lg btn-outline" style="border-color: white; color: white;">See Synergies</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p><strong>Medical Disclaimer:</strong> Consult healthcare provider before starting new supplements.</p>
+        <p style="margin-top: 1rem;">Last Updated: November 2025</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data/health-data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    function filterSupplements(action) {
+      const cards = document.querySelectorAll('.supplement-card');
+      const sections = document.querySelectorAll('.supplement-section');
+
+      if (action === 'all') {
+        sections.forEach(s => s.style.display = 'block');
+        cards.forEach(c => c.style.display = 'block');
+      } else {
+        sections.forEach(s => s.style.display = 'none');
+        cards.forEach(c => c.style.display = 'none');
+        document.getElementById(`${action}-section`).style.display = 'block';
+        document.querySelectorAll(`[data-action="${action}"]`).forEach(c => c.style.display = 'block');
+      }
+    }
+
+    function searchSupplements() {
+      const searchTerm = document.getElementById('search-box').value.toLowerCase();
+      const cards = document.querySelectorAll('.supplement-card');
+
+      cards.forEach(card => {
+        const name = card.getAttribute('data-name').toLowerCase();
+        const text = card.textContent.toLowerCase();
+        if (name.includes(searchTerm) || text.includes(searchTerm)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
