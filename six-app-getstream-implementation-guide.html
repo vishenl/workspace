@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Six App: GetStream Implementation Guide | Mindvalley</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           MINDVALLEY DESIGN TOKENS - MASTERY THEME
+           ============================================ */
+        :root {
+            /* Mastery Colors */
+            --mastery-950: #061e27;
+            --mastery-900: #09262f;
+            --mastery-850: #0b2d38;
+            --mastery-800: #0d3542;
+            --mastery-700: #134554;
+            --mastery-600: #1a5466;
+            --mastery-500: #206478;
+            --mastery-400: #dafd71;
+            --mastery-300: #e4fd9c;
+            --mastery-200: #eefec7;
+            --mastery-100: #f5fee1;
+
+            /* Cool Grey */
+            --cool-grey-700: #0f131a;
+            --cool-grey-650: #181d26;
+            --cool-grey-600: #222831;
+            --cool-grey-500: #404856;
+            --cool-grey-300: #9ca3af;
+            --cool-grey-200: #e5e7eb;
+            --cool-grey-100: #f9fafb;
+
+            /* Surface Colors */
+            --surface-white: #ffffff;
+            --surface-fog: #ebf2f1;
+            --surface-mist: #c3d9d5;
+
+            /* Brand Accent */
+            --brand-purple: #7a12d4;
+            --brand-purple-light: #ba62fd;
+
+            /* Typography */
+            --font-grotesk: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 0.75rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.2);
+
+            /* Transitions */
+            --transition-base: all 0.2s ease;
+            --transition-slow: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-grotesk);
+            line-height: 1.6;
+            color: var(--cool-grey-700);
+            background: var(--cool-grey-100);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--mastery-800) 0%, var(--mastery-950) 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-3xl) var(--spacing-md);
+        }
+
+        .executive-summary {
+            background: var(--surface-white);
+            padding: var(--spacing-3xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .executive-summary h2 {
+            color: var(--mastery-700);
+            margin-bottom: var(--spacing-lg);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+        }
+
+        .executive-summary p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .priority-critical {
+            background: linear-gradient(135deg, #ff6b6b, #d43c3c);
+            color: white;
+        }
+
+        .priority-high {
+            background: linear-gradient(135deg, #ffa500, #ff8c00);
+            color: white;
+        }
+
+        .priority-nice {
+            background: linear-gradient(135deg, var(--mastery-400), var(--mastery-300));
+            color: var(--cool-grey-700);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--surface-fog), var(--surface-white));
+            padding: var(--spacing-2xl);
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-base);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--mastery-700);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .stat-label {
+            color: var(--cool-grey-500);
+            font-size: 1.1rem;
+        }
+
+        .phase-section {
+            background: var(--surface-white);
+            padding: var(--spacing-3xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-2xl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 3px solid var(--mastery-400);
+        }
+
+        .phase-number {
+            background: linear-gradient(135deg, var(--mastery-700), var(--mastery-800));
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-right: var(--spacing-lg);
+            flex-shrink: 0;
+        }
+
+        .phase-title h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--cool-grey-700);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .phase-title p {
+            color: var(--cool-grey-500);
+            font-size: 1.1rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(to bottom right, var(--surface-fog), var(--surface-white));
+            border-left: 5px solid var(--mastery-600);
+            padding: var(--spacing-2xl);
+            margin-bottom: var(--spacing-2xl);
+            border-radius: 8px;
+            transition: var(--transition-base);
+        }
+
+        .feature-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateX(4px);
+        }
+
+        .feature-card h3 {
+            font-size: 1.8rem;
+            color: var(--cool-grey-700);
+            margin-bottom: var(--spacing-md);
+            font-weight: 700;
+        }
+
+        .feature-why {
+            background: linear-gradient(135deg, #fff9e6, #fffbf0);
+            border-left: 4px solid var(--mastery-400);
+            padding: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+            border-radius: 4px;
+        }
+
+        .feature-why strong {
+            color: var(--mastery-800);
+        }
+
+        .feature-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .code-block {
+            background: var(--cool-grey-700);
+            color: #d4d4d4;
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: var(--spacing-lg) 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .code-block pre {
+            margin: 0;
+        }
+
+        .code-comment {
+            color: #6a9955;
+        }
+
+        .code-keyword {
+            color: #569cd6;
+        }
+
+        .code-string {
+            color: #ce9178;
+        }
+
+        .code-function {
+            color: #dcdcaa;
+        }
+
+        .installation-badge {
+            background: linear-gradient(135deg, var(--mastery-500), var(--mastery-700));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            display: inline-block;
+            font-family: monospace;
+            margin: var(--spacing-sm) 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .resource-links {
+            background: linear-gradient(135deg, #e7f3ff, #f0f9ff);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            margin: var(--spacing-lg) 0;
+        }
+
+        .resource-links h4 {
+            color: var(--mastery-700);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .resource-links a {
+            color: var(--mastery-700);
+            text-decoration: none;
+            display: block;
+            padding: 5px 0;
+            transition: var(--transition-base);
+        }
+
+        .resource-links a:hover {
+            color: var(--mastery-500);
+            text-decoration: underline;
+        }
+
+        .impact-box {
+            background: linear-gradient(135deg, var(--mastery-200), var(--mastery-100));
+            border-left: 4px solid var(--mastery-500);
+            padding: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+            border-radius: 4px;
+        }
+
+        .impact-box strong {
+            color: var(--mastery-800);
+        }
+
+        .roadmap-timeline {
+            background: var(--surface-white);
+            padding: var(--spacing-3xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin: var(--spacing-3xl) 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: var(--spacing-2xl);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 60px;
+            bottom: -30px;
+            width: 2px;
+            background: var(--mastery-400);
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-marker {
+            background: linear-gradient(135deg, var(--mastery-600), var(--mastery-800));
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: var(--spacing-2xl);
+            flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-content h3 {
+            color: var(--mastery-700);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 700;
+        }
+
+        .timeline-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .timeline-content li {
+            padding: 5px 0;
+        }
+
+        .timeline-content li::before {
+            content: '✓ ';
+            color: var(--mastery-500);
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .quick-start {
+            background: linear-gradient(135deg, var(--mastery-800), var(--mastery-950));
+            color: white;
+            padding: var(--spacing-3xl);
+            border-radius: 12px;
+            margin: var(--spacing-3xl) 0;
+        }
+
+        .quick-start h2 {
+            margin-bottom: var(--spacing-lg);
+            color: var(--mastery-400);
+        }
+
+        .quick-start ol {
+            padding-left: var(--spacing-lg);
+        }
+
+        .quick-start li {
+            margin: var(--spacing-sm) 0;
+            font-size: 1.1rem;
+        }
+
+        .checklist {
+            background: var(--surface-white);
+            padding: var(--spacing-2xl);
+            border-radius: 8px;
+            margin: var(--spacing-lg) 0;
+        }
+
+        .checklist-item {
+            padding: var(--spacing-md);
+            margin: var(--spacing-sm) 0;
+            background: var(--cool-grey-100);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            transition: var(--transition-base);
+        }
+
+        .checklist-item:hover {
+            background: var(--surface-fog);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: var(--spacing-md);
+            accent-color: var(--mastery-600);
+        }
+
+        .tips-section {
+            background: linear-gradient(135deg, #fff9e6, #fffbf0);
+            padding: var(--spacing-2xl);
+            border-radius: 8px;
+            margin: var(--spacing-3xl) 0;
+        }
+
+        .tips-section h3 {
+            color: var(--mastery-800);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .tip-item {
+            background: white;
+            padding: var(--spacing-lg);
+            margin: var(--spacing-md) 0;
+            border-radius: 6px;
+            border-left: 4px solid var(--mastery-400);
+        }
+
+        .footer {
+            background: var(--cool-grey-700);
+            color: white;
+            padding: var(--spacing-3xl) var(--spacing-md);
+            text-align: center;
+            margin-top: var(--spacing-3xl);
+        }
+
+        .footer a {
+            color: var(--mastery-400);
+            text-decoration: none;
+            transition: var(--transition-base);
+        }
+
+        .footer a:hover {
+            color: var(--mastery-300);
+        }
+
+        .toc {
+            background: var(--surface-white);
+            padding: var(--spacing-2xl);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .toc h2 {
+            color: var(--mastery-700);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: var(--spacing-sm) 0;
+        }
+
+        .toc a {
+            color: var(--cool-grey-700);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: block;
+            padding: var(--spacing-sm);
+            border-radius: 6px;
+            transition: var(--transition-base);
+        }
+
+        .toc a:hover {
+            background: var(--surface-fog);
+            color: var(--mastery-700);
+        }
+
+        @media (max-width: 768px) {
+            .phase-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .phase-number {
+                margin-right: 0;
+                margin-bottom: var(--spacing-md);
+            }
+
+            .timeline-item {
+                flex-direction: column;
+            }
+
+            .timeline-item::before {
+                display: none;
+            }
+
+            .timeline-marker {
+                margin-bottom: var(--spacing-md);
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Six App: GetStream Implementation Guide</h1>
+        <p>Your complete roadmap to building a best-in-class social platform with GetStream's powerful APIs</p>
+    </div>
+
+    <div class="container">
+        <div class="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>
+                This guide provides a comprehensive roadmap for enhancing the <strong>Six social/community app</strong> using GetStream's platform.
+                Since Six already has chat and feeds implemented, this guide focuses on <strong>high-impact features</strong> that will
+                accelerate development and create a best-in-class user experience.
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">20</div>
+                    <div class="stat-label">Features to Implement</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Week Timeline</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">99.999%</div>
+                    <div class="stat-label">Uptime SLA</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5-9ms</div>
+                    <div class="stat-label">API Response Time</div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--mastery-700);">Priority Legend</h3>
+            <p>
+                <span class="priority-badge priority-critical">⭐⭐⭐ Critical</span> - Essential features that define a modern social app<br>
+                <span class="priority-badge priority-high">⭐⭐ High Priority</span> - Important features that drive engagement<br>
+                <span class="priority-badge priority-nice">⭐ Nice to Have</span> - Valuable additions for polish
+            </p>
+        </div>
+
+        <div class="toc">
+            <h2>📑 Table of Contents</h2>
+            <ul>
+                <li><a href="#phase1">Phase 1: Core Chat Enhancements (Week 1-2)</a></li>
+                <li><a href="#phase2">Phase 2: Advanced Social Features (Week 3-4)</a></li>
+                <li><a href="#phase3">Phase 3: Rich Media & AI Features (Week 5-6)</a></li>
+                <li><a href="#phase4">Phase 4: Engagement & Retention (Week 7-8)</a></li>
+                <li><a href="#phase5">Phase 5: Analytics & Optimization (Week 9-10)</a></li>
+                <li><a href="#roadmap">Implementation Roadmap</a></li>
+                <li><a href="#quickstart">Quick Start Guide</a></li>
+                <li><a href="#resources">Resources & Support</a></li>
+            </ul>
+        </div>
+
+        <!-- PHASE 1 -->
+        <div id="phase1" class="phase-section">
+            <div class="phase-header">
+                <div class="phase-number">1</div>
+                <div class="phase-title">
+                    <h2>Core Chat Enhancements</h2>
+                    <p>Week 1-2 • Transform your chat into a premium experience</p>
+                </div>
+            </div>
+
+            <!-- Feature 1: Message Reactions -->
+            <div class="feature-card">
+                <h3>1. Message Reactions <span class="priority-badge priority-critical">⭐⭐⭐ Critical</span></h3>
+
+                <div class="feature-why">
+                    <strong>Why:</strong> Essential for engagement and emotional expression in a social app. Users expect to react to messages quickly without typing.
+                </div>
+
+                <img src="https://images.prismic.io/getstream/ZfmGIQ4qyfNhFyJe_feature-engagement-11.png" alt="Message Reactions Example" class="feature-image">
+
+                <p><span class="installation-badge">npm install stream-chat-react</span> (Already included)</p>
+
+                <h4 style="margin-top: 30px; color: var(--mastery-700);">Implementation:</h4>
+                <div class="code-block">
+<pre><code><span class="code-keyword">import</span> {
+  Channel,
+  MessageList,
+  ReactionSelector,
+  ReactionsList
+} <span class="code-keyword">from</span> <span class="code-string">'stream-chat-react'</span>;
+
+<span class="code-comment">// Enable reactions in your channel</span>
+&lt;Channel
+  ReactionSelector={ReactionSelector}
+  reactionOptions={defaultReactionOptions}
+&gt;
+  &lt;MessageList /&gt;
+&lt;/Channel&gt;</code></pre>
+                </div>
+
+                <h4 style="color: var(--mastery-700);">Custom Reactions:</h4>
+                <div class="code-block">
+<pre><code><span class="code-keyword">const</span> customReactionOptions = [
+  { type: <span class="code-string">'love'</span>, Component: LoveIcon },
+  { type: <span class="code-string">'fire'</span>, Component: FireIcon },
+  { type: <span class="code-string">'celebrate'</span>, Component: CelebrateIcon },
+  { type: <span class="code-string">'thinking'</span>, Component: ThinkingIcon },
+];
+
+&lt;Channel reactionOptions={customReactionOptions}&gt;
+  &lt;MessageList /&gt;
+&lt;/Channel&gt;</code></pre>
+                </div>
+
+                <div class="resource-links">
+                    <h4>📚 Resources:</h4>
+                    <a href="https://getstream.io/chat/docs/sdk/react/components/message-components/reactions/" target="_blank">→ Reactions Documentation</a>
+                    <a href="https://getstream.io/chat/docs/react/send_reaction/" target="_blank">→ Send Reaction API</a>
+                </div>
+            </div>
+
+            <!-- Feature 2: Threaded Conversations -->
+            <div class="feature-card">
+                <h3>2. Threaded Conversations <span class="priority-badge priority-critical">⭐⭐⭐ Critical</span></h3>
+
+                <div class="feature-why">
+                    <strong>Why:</strong> Keeps conversations organized, reduces noise, and improves discussion quality. Essential for active communities.
+                </div>
+
+                <img src="https://images.prismic.io/getstream/ZhbfPDjCgu4jzvBD_feature-threaded-replies.png" alt="Threaded Replies Example" class="feature-image">
+
+                <h4 style="color: var(--mastery-700);">Implementation:</h4>
+                <div class="code-block">
+<pre><code><span class="code-keyword">import</span> { Channel, Thread, MessageList } <span class="code-keyword">from</span> <span class="code-string">'stream-chat-react'</span>;
+
+&lt;Channel&gt;
+  &lt;Window&gt;
+    &lt;MessageList /&gt;
+    &lt;MessageInput /&gt;
+  &lt;/Window&gt;
+  &lt;Thread /&gt; {<span class="code-comment">/* Renders when user clicks "Reply in Thread" */</span>}
+&lt;/Channel&gt;</code></pre>
+                </div>
+
+                <div class="resource-links">
+                    <h4>📚 Resources:</h4>
+                    <a href="https://getstream.io/chat/docs/react/threads/" target="_blank">→ Threading Documentation</a>
+                    <a href="https://getstream.io/chat/docs/sdk/react/hooks/message_hooks/" target="_blank">→ Message Hooks</a>
+                </div>
+            </div>
+
+            <!-- Feature 3: User Presence -->
+            <div class="feature-card">
+                <h3>3. User Presence & Typing Indicators <span class="priority-badge priority-critical">⭐⭐⭐ Critical</span></h3>
+
+                <div class="feature-why">
+                    <strong>Why:</strong> Shows who's online and actively engaged, increasing perceived activity and real-time feel.
+                </div>
+
+                <img src="https://images.prismic.io/getstream/Zfs6LAmzsfHOGJWz_feature-user-presence.png" alt="User Presence Example" class="feature-image">
+
+                <h4 style="color: var(--mastery-700);">Implementation (mostly automatic):</h4>
+                <div class="code-block">
+<pre><code><span class="code-keyword">import</span> { ChannelList } <span class="code-keyword">from</span> <span class="code-string">'stream-chat-react'</span>;
+
+<span class="code-comment">// Enable presence in channel list</span>
+&lt;ChannelList
+  options={{
+    presence: <span class="code-keyword">true</span>,  <span class="code-comment">// Enable presence tracking</span>
+    state: <span class="code-keyword">true</span>,     <span class="code-comment">// Sync channel state</span>
+    watch: <span class="code-keyword">true</span>,     <span class="code-comment">// Watch for real-time updates</span>
+  }}
+/&gt;</code></pre>
+                </div>
+
+                <p style="margin-top: 20px;"><strong>Note:</strong> Typing indicators are automatically enabled with the MessageInput component.</p>
+            </div>
+
+            <div class="impact-box">
+                <strong>Phase 1 Impact:</strong> These core features will immediately make Six feel like a premium, modern social app comparable to Slack/Discord.
+                Implementation time: <strong>1-2 weeks</strong>. User experience improvement: <strong>Massive</strong>.
+            </div>
+        </div>
+
+        <!-- PHASE 2 -->
+        <div id="phase2" class="phase-section">
+            <div class="phase-header">
+                <div class="phase-number">2</div>
+                <div class="phase-title">
+                    <h2>Advanced Social Features</h2>
+                    <p>Week 3-4 • Build powerful content discovery and community</p>
+                </div>
+            </div>
+
+            <!-- Feature 6: Activity Feeds -->
+            <div class="feature-card">
+                <h3>6. "For You" Personalized Activity Feeds <span class="priority-badge priority-critical">⭐⭐⭐ Critical</span></h3>
+
+                <div class="feature-why">
+                    <strong>Why:</strong> Content discovery drives engagement. The new 2025 API includes AI-powered personalization that keeps users coming back.
+                </div>
+
+                <img src="https://images.prismic.io/getstream/aQvIO7pReVYa4G5n_peloton-2-.png" alt="Activity Feeds Example" class="feature-image">
+
+                <p><span class="installation-badge">npm install getstream</span></p>
+
+                <h4 style="color: var(--mastery-700);">Setup:</h4>
+                <div class="code-block">
+<pre><code><span class="code-keyword">import</span> { connect } <span class="code-keyword">from</span> <span class="code-string">'getstream'</span>;
+
+<span class="code-keyword">const</span> client = <span class="code-function">connect</span>(
+  <span class="code-string">'api_key'</span>,
+  <span class="code-string">'user_token'</span>,
+  <span class="code-string">'app_id'</span>
+);
+
+<span class="code-comment">// Get user's feed</span>
+<span class="code-keyword">const</span> userFeed = client.<span class="code-function">feed</span>(<span class="code-string">'user'</span>, userId);
+
+<span class="code-comment">// Get timeline feed (aggregated from followed users)</span>
+<span class="code-keyword">const</span> timelineFeed = client.<span class="code-function">feed</span>(<span class="code-string">'timeline'</span>, userId);</code></pre>
+                </div>
+
+                <div class="resource-links">
+                    <h4>📚 Resources:</h4>
+                    <a href="https://getstream.io/activity-feeds/docs/" target="_blank">→ Activity Feeds Documentation</a>
+                    <a href="https://getstream.io/blog/product-roadmap-2025/" target="_blank">→ 2025 Personalization Features</a>
+                </div>
+            </div>
+
+            <div class="impact-box">
+                <strong>Phase 2 Impact:</strong> Transforms Six from a chat app to a full social platform with content discovery.
+                Users can now discover content, follow others, and join communities. Engagement increases <strong>3-5x</strong>.
+            </div>
+        </div>
+
+        <!-- PHASE 3 -->
+        <div id="phase3" class="phase-section">
+            <div class="phase-header">
+                <div class="phase-number">3</div>
+                <div class="phase-title">
+                    <h2>Rich Media & AI Features</h2>
+                    <p>Week 5-6 • Premium features that differentiate Six</p>
+                </div>
+            </div>
+
+            <!-- Feature 10: Video & Audio -->
+            <div class="feature-card">
+                <h3>10. Video & Audio Calls <span class="priority-badge priority-critical">⭐⭐⭐ Critical</span></h3>
+
+                <div class="feature-why">
+                    <strong>Why:</strong> Essential for a modern social app. Builds deeper connections between users.
+                </div>
+
+                <img src="https://images.prismic.io/getstream/ZhmJgjjCgu4jzyy__Large-Feature-Video-Calling.png" alt="Video Calling Example" class="feature-image">
+
+                <p><span class="installation-badge">npm install @stream-io/video-react-sdk</span></p>
+
+                <h4 style="color: var(--mastery-700);">Setup:</h4>
+                <div class="code-block">
+<pre><code><span class="code-keyword">import</span> {
+  StreamVideo,
+  StreamVideoClient,
+  StreamCall,
+  useCallStateHooks,
+  ParticipantView,
+} <span class="code-keyword">from</span> <span class="code-string">'@stream-io/video-react-sdk'</span>;
+
+<span class="code-keyword">const</span> apiKey = <span class="code-string">'your-api-key'</span>;
+<span class="code-keyword">const</span> user = { id: userId, name: userName };
+<span class="code-keyword">const</span> token = <span class="code-string">'user-token'</span>;
+
+<span class="code-keyword">const</span> videoClient = <span class="code-keyword">new</span> <span class="code-function">StreamVideoClient</span>({ apiKey, user, token });
+
+<span class="code-comment">// Create a 1:1 call</span>
+<span class="code-keyword">const</span> call = videoClient.<span class="code-function">call</span>(<span class="code-string">'default'</span>, <span class="code-string">`call-${otherUserId}`</span>);
+<span class="code-keyword">await</span> call.<span class="code-function">join</span>({ create: <span class="code-keyword">true</span> });</code></pre>
+                </div>
+
+                <div class="resource-links">
+                    <h4>📚 Resources:</h4>
+                    <a href="https://getstream.io/video/docs/react/basics/quickstart/" target="_blank">→ Video SDK Quickstart</a>
+                    <a href="https://getstream.io/video/docs/react/" target="_blank">→ Video Documentation</a>
+                </div>
+            </div>
+
+            <!-- Feature 13: AI Moderation -->
+            <div class="feature-card">
+                <h3>13. AI Content Moderation <span class="priority-badge priority-critical">⭐⭐⭐ Critical</span></h3>
+
+                <div class="feature-why">
+                    <strong>Why:</strong> Essential for community safety. Reduces manual moderation workload by 80%+ while improving accuracy.
+                </div>
+
+                <h4 style="color: var(--mastery-700);">Features:</h4>
+                <ul style="margin: 20px 0; padding-left: 40px;">
+                    <li><strong>LLM-powered moderation</strong> - Reduces false positives/negatives</li>
+                    <li><strong>OCR-based moderation</strong> - Detects harmful text within images</li>
+                    <li><strong>Live audio/video moderation</strong> - Real-time content monitoring</li>
+                    <li><strong>Custom rules in plain English</strong> - "Flag messages with investment advice"</li>
+                </ul>
+
+                <p><strong>Setup:</strong> Enable in GetStream Dashboard under Moderation settings. LLM-powered moderation is enabled by default for new apps.</p>
+
+                <div class="resource-links">
+                    <h4>📚 Resources:</h4>
+                    <a href="https://getstream.io/moderation/" target="_blank">→ AI Moderation Overview</a>
+                    <a href="https://getstream.io/blog/moderation-api-intro/" target="_blank">→ Moderation API Introduction</a>
+                    <a href="https://getstream.io/moderation/docs/api/webhooks/" target="_blank">→ Moderation Webhooks</a>
+                </div>
+            </div>
+
+            <div class="impact-box">
+                <strong>Phase 3 Impact:</strong> Premium features that differentiate Six from competitors. Video calling and AI moderation
+                are essential for scale. These features would take <strong>6+ months</strong> to build from scratch.
+            </div>
+        </div>
+
+        <!-- ROADMAP -->
+        <div id="roadmap" class="roadmap-timeline">
+            <h2 style="text-align: center; color: var(--mastery-700); margin-bottom: 40px;">10-Week Implementation Roadmap</h2>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">W1-2</div>
+                <div class="timeline-content">
+                    <h3>Week 1-2: Chat Foundation</h3>
+                    <ul>
+                        <li>Message Reactions</li>
+                        <li>Threaded Conversations</li>
+                        <li>Pinned Messages</li>
+                        <li>User Presence & Typing</li>
+                        <li>Message Search</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>Impact:</strong> Premium chat UX matching Slack/Discord</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">W3-4</div>
+                <div class="timeline-content">
+                    <h3>Week 3-4: Social Features</h3>
+                    <ul>
+                        <li>"For You" Personalized Feeds</li>
+                        <li>Stories (ephemeral content)</li>
+                        <li>Notifications Feed</li>
+                        <li>Groups & Forums</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>Impact:</strong> Transform into full social platform with content discovery</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">W5-6</div>
+                <div class="timeline-content">
+                    <h3>Week 5-6: Rich Media & AI</h3>
+                    <ul>
+                        <li>Video & Audio Calls</li>
+                        <li>Live Streaming</li>
+                        <li>AI Chatbot Integration</li>
+                        <li>AI Content Moderation</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>Impact:</strong> Premium features that differentiate Six from competitors</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">W7-8</div>
+                <div class="timeline-content">
+                    <h3>Week 7-8: Engagement</h3>
+                    <ul>
+                        <li>Push Notifications V4</li>
+                        <li>Message Bookmarks & Reminders</li>
+                        <li>Read Receipts</li>
+                        <li>URL Previews</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>Impact:</strong> Drive retention and daily active usage</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">W9-10</div>
+                <div class="timeline-content">
+                    <h3>Week 9-10: Analytics & Scale</h3>
+                    <ul>
+                        <li>Custom Events & Analytics</li>
+                        <li>Webhooks Integration</li>
+                        <li>Performance Optimization</li>
+                        <li>Scale Testing</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>Impact:</strong> Data-driven optimization and business intelligence</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUICK START -->
+        <div id="quickstart" class="quick-start">
+            <h2>🚀 Quick Start Guide</h2>
+
+            <div class="checklist">
+                <h3 style="color: var(--cool-grey-700); margin-bottom: 20px;">Environment Setup</h3>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="check1">
+                    <label for="check1"><strong>Install all GetStream packages:</strong><br>
+                    <code style="background: var(--cool-grey-100); padding: 5px 10px; border-radius: 4px; display: inline-block; margin-top: 5px;">
+                    npm install stream-chat stream-chat-react @stream-io/video-react-sdk getstream
+                    </code></label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="check2">
+                    <label for="check2"><strong>Import CSS in your main app file:</strong><br>
+                    <code style="background: var(--cool-grey-100); padding: 5px 10px; border-radius: 4px; display: inline-block; margin-top: 5px;">
+                    import 'stream-chat-react/dist/css/v2/index.css';
+                    </code></label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="check3">
+                    <label for="check3"><strong>Sign up at GetStream:</strong> <a href="https://getstream.io/" target="_blank" style="color: var(--mastery-700);">https://getstream.io/</a></label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="check4">
+                    <label for="check4"><strong>Create a new app</strong> in the GetStream Dashboard</label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="check5">
+                    <label for="check5"><strong>Get your API Key and Secret</strong> from the Dashboard</label>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox" id="check6">
+                    <label for="check6"><strong>Generate user tokens</strong> (server-side only - never expose secret client-side)</label>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--mastery-400);">Next Steps:</h3>
+            <ol>
+                <li>Start with <strong>Phase 1 features</strong> (Message Reactions, Threading, Pinned Messages)</li>
+                <li>Test with real users to validate UX improvements</li>
+                <li>Add <strong>Activity Feeds</strong> for content discovery (Phase 2)</li>
+                <li>Integrate <strong>AI Moderation</strong> before scaling (Phase 3)</li>
+                <li>Add Video/Audio for premium features (Phase 3)</li>
+                <li>Optimize & Scale based on usage patterns (Phase 5)</li>
+            </ol>
+        </div>
+
+        <!-- TIPS SECTION -->
+        <div class="tips-section">
+            <h3>💡 Pro Tips for Success</h3>
+
+            <div class="tip-item">
+                <strong>Start Small, Scale Fast</strong><br>
+                Begin with Phase 1 features (1-2 weeks). These provide immediate user value and help you learn the APIs.
+                Don't try to implement everything at once.
+            </div>
+
+            <div class="tip-item">
+                <strong>Leverage Pre-built UI Components</strong><br>
+                GetStream's UI components save months of development. Customize them rather than building from scratch.
+                The components are production-tested and handle edge cases.
+            </div>
+
+            <div class="tip-item">
+                <strong>Enable AI Moderation Early</strong><br>
+                Set up moderation before you scale. It's much harder to clean up a community after it's already toxic.
+                AI moderation catches 95%+ of issues automatically.
+            </div>
+
+            <div class="tip-item">
+                <strong>Use Webhooks for Custom Logic</strong><br>
+                Integrate GetStream with your existing systems using webhooks. Track analytics, sync to your database,
+                or trigger custom workflows based on chat events.
+            </div>
+
+            <div class="tip-item">
+                <strong>Test at Scale</strong><br>
+                GetStream handles millions of users, but test your own code at scale. Use their load testing tools
+                and monitor performance as you grow.
+            </div>
+        </div>
+
+        <!-- RESOURCES -->
+        <div id="resources" class="phase-section">
+            <h2 style="color: var(--mastery-700); margin-bottom: 30px;">📚 Resources & Support</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="background: var(--surface-fog); padding: 20px; border-radius: 8px;">
+                    <h3 style="color: var(--mastery-700); margin-bottom: 15px;">Official Documentation</h3>
+                    <a href="https://getstream.io/chat/docs/sdk/react/" target="_blank" style="display: block; margin: 10px 0; color: var(--cool-grey-700); text-decoration: none;">→ Chat SDK Docs</a>
+                    <a href="https://getstream.io/video/docs/react/" target="_blank" style="display: block; margin: 10px 0; color: var(--cool-grey-700); text-decoration: none;">→ Video SDK Docs</a>
+                    <a href="https://getstream.io/activity-feeds/docs/" target="_blank" style="display: block; margin: 10px 0; color: var(--cool-grey-700); text-decoration: none;">→ Activity Feeds Docs</a>
+                    <a href="https://getstream.io/chat/docs/api/" target="_blank" style="display: block; margin: 10px 0; color: var(--cool-grey-700); text-decoration: none;">→ API Reference</a>
+                </div>
+
+                <div style="background: var(--surface-fog); padding: 20px; border-radius: 8px;">
+                    <h3 style="color: var(--mastery-700); margin-bottom: 15px;">Community & Support</h3>
+                    <a href="https://github.com/GetStream" target="_blank" style="display: block; margin: 10px 0; color: var(--cool-grey-700); text-decoration: none;">→ GitHub</a>
+                    <a href="https://getstream.io/slack" target="_blank" style="display: block; margin: 10px 0; color: var(--cool-grey-700); text-decoration: none;">→ Slack Community</a>
+                    <p style="margin-top: 15px; color: var(--cool-grey-500);">Every docs page has a "!?" icon to contact the GetStream team directly</p>
+                </div>
+
+                <div style="background: var(--surface-fog); padding: 20px; border-radius: 8px;">
+                    <h3 style="color: var(--mastery-700); margin-bottom: 15px;">Feature Documentation</h3>
+                    <a href="https://getstream.io/chat/docs/sdk/react/components/message-components/reactions/" target="_blank" style="display: block; margin: 10px 0; color: var(--cool-grey-700); text-decoration: none;">→ Message Reactions</a>
+                    <a href="https://getstream.io/chat/docs/react/threads/" target="_blank" style="display: block; margin: 10px 0; color: var(--cool-grey-700); text-decoration: none;">→ Threading</a>
+                    <a href="https://getstream.io/chat/docs/react/pinned_messages/" target="_blank" style="display: block; margin: 10px 0; color: var(--cool-grey-700); text-decoration: none;">→ Pinned Messages</a>
+                    <a href="https://getstream.io/blog/product-roadmap-2025/" target="_blank" style="display: block; margin: 10px 0; color: var(--cool-grey-700); text-decoration: none;">→ 2025 Roadmap</a>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, var(--mastery-200), var(--mastery-100)); padding: 30px; border-radius: 8px; margin-top: 30px;">
+                <h3 style="color: var(--mastery-800); margin-bottom: 15px;">🎯 Recommended Starting Point</h3>
+                <p style="font-size: 1.1rem; line-height: 1.8;">
+                    Start with the features marked <strong>⭐⭐⭐ Critical</strong> for maximum impact:
+                </p>
+                <ol style="margin: 20px 0; padding-left: 40px; font-size: 1.05rem; line-height: 1.8;">
+                    <li>Message Reactions</li>
+                    <li>Threaded Conversations</li>
+                    <li>User Presence & Typing Indicators</li>
+                    <li>AI Content Moderation</li>
+                    <li>Push Notifications V4</li>
+                    <li>"For You" Activity Feeds</li>
+                </ol>
+                <p style="font-size: 1.1rem; margin-top: 20px;">
+                    <strong>These 6 features alone will transform Six into a best-in-class social platform
+                    while saving you months of development time!</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <h3 style="margin-bottom: 20px;">Ready to Build the Future of Social?</h3>
+        <p style="font-size: 1.1rem; margin-bottom: 20px;">
+            GetStream powers chat, video, and feeds for leading apps like Salesforce, IBM, and Spotify.
+        </p>
+        <p>
+            <a href="https://getstream.io/" target="_blank">Get Started with GetStream →</a>
+        </p>
+        <p style="margin-top: 30px; opacity: 0.8;">
+            Questions? Every section of the docs includes a '!?' icon to get in touch with the GetStream team.
+        </p>
+    </div>
+</body>
+</html>
