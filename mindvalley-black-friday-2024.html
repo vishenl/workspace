@@ -21,48 +21,41 @@
            ============================================ */
 
         :root {
-            /* Mindvalley Official Colors */
-            --mv-black: #0D0D0D;
-            --mv-dark: #121212;
-            --mv-dark-elevated: #1A1A1A;
-            --mv-dark-card: #1E1E1E;
-            --mv-dark-surface: #242424;
+            /* Light Theme - White Background */
+            --mv-bg: #ffffff;
+            --mv-bg-light: #f8f9fa;
+            --mv-bg-card: #ffffff;
+            --mv-bg-surface: #f3f4f6;
 
             /* Signature Gradients */
-            --mv-gradient-hero: linear-gradient(180deg, #1a0a2e 0%, #16082a 50%, #0d0d0d 100%);
             --mv-gradient-purple: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-            --mv-gradient-gold: linear-gradient(135deg, #E3A34C 0%, #fb9d40 100%);
-            --mv-gradient-vibrant: linear-gradient(120deg, #fb00ff, #003fff);
             --mv-gradient-red: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
 
-            /* Accent Colors */
-            --mv-gold: #E3A34C;
-            --mv-gold-hover: #fb9d40;
-            --mv-purple: #a855f7;
-            --mv-purple-light: #c084fc;
-            --mv-magenta: #f093fb;
+            /* Primary Brand Color */
+            --mv-purple: #7a12d4;
+            --mv-purple-light: #9333ea;
+            --mv-purple-dark: #6b21a8;
 
             /* Status Colors */
             --mv-success: #10b981;
             --mv-warning: #f59e0b;
             --mv-danger: #ef4444;
 
-            /* Text Colors */
-            --mv-text-primary: #ffffff;
-            --mv-text-secondary: rgba(255, 255, 255, 0.7);
-            --mv-text-tertiary: rgba(255, 255, 255, 0.5);
-            --mv-text-muted: rgba(255, 255, 255, 0.4);
+            /* Text Colors - Dark on Light */
+            --mv-text-primary: #0f131a;
+            --mv-text-secondary: rgba(15, 19, 26, 0.7);
+            --mv-text-tertiary: rgba(15, 19, 26, 0.5);
+            --mv-text-muted: rgba(15, 19, 26, 0.4);
 
             /* Borders & Surfaces */
-            --mv-border: rgba(255, 255, 255, 0.1);
-            --mv-border-light: rgba(255, 255, 255, 0.05);
+            --mv-border: rgba(0, 0, 0, 0.1);
+            --mv-border-light: rgba(0, 0, 0, 0.05);
 
             /* Shadows */
-            --mv-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-            --mv-shadow-md: 0 5px 15px rgba(0, 0, 0, 0.3);
-            --mv-shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.4);
-            --mv-shadow-gold: 0 8px 30px rgba(227, 163, 76, 0.3);
-            --mv-shadow-purple: 0 8px 30px rgba(168, 85, 247, 0.3);
+            --mv-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --mv-shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --mv-shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.15);
+            --mv-shadow-purple: 0 8px 30px rgba(122, 18, 212, 0.2);
         }
 
         * {
@@ -71,29 +64,18 @@
             box-sizing: border-box;
         }
 
-        /* Override base CSS for dark theme - body already styled by mv-selfreset-base.css */
+        /* Light theme body - inherits font from mv-selfreset-base.css */
         body {
-            background: var(--mv-black);
+            background: var(--mv-bg);
             color: var(--mv-text-primary);
         }
 
-        /* Gold Gradient Text (Black Friday Accent) */
-        .mv-text-gold {
-            background: var(--mv-gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* Purple Text Accent */
+        .mv-text-purple {
+            color: var(--mv-purple);
         }
 
-        /* Vibrant Gradient Text */
-        .mv-text-vibrant {
-            background: var(--mv-gradient-vibrant);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Sections - using mv-section--hero and mv-section--content from base */
+        /* Sections */
         .mv-section {
             padding: 100px 0;
         }
@@ -102,14 +84,9 @@
             padding: 60px 0;
         }
 
-        /* Override dark section for Black Friday dark theme */
-        .mv-section--dark {
-            background: var(--mv-dark);
-            color: var(--mv-text-primary);
-        }
-
-        .mv-section--dark p {
-            color: var(--mv-text-secondary);
+        /* Light gray alternate sections */
+        .mv-section--alt {
+            background: var(--mv-bg-light);
         }
 
         /* ============================================
@@ -143,37 +120,13 @@
         }
 
         /* ============================================
-           HERO SECTION
+           HERO SECTION - Light Theme
            ============================================ */
         .hero {
-            background: var(--mv-gradient-hero);
+            background: var(--mv-bg);
             padding: 80px 20px 100px;
             text-align: center;
             position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 1000px;
-            height: 1000px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 200px;
-            background: linear-gradient(to top, var(--mv-black), transparent);
-            pointer-events: none;
         }
 
         .hero-content {
@@ -188,13 +141,13 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.2) 100%);
-            border: 1px solid rgba(239, 68, 68, 0.4);
+            background: rgba(122, 18, 212, 0.1);
+            border: 1px solid rgba(122, 18, 212, 0.3);
             padding: 12px 28px;
             border-radius: 50px;
             font-size: 0.85rem;
             font-weight: 700;
-            color: #fca5a5;
+            color: var(--mv-purple);
             margin-bottom: 28px;
             text-transform: uppercase;
             letter-spacing: 0.15em;
@@ -204,7 +157,7 @@
             content: '';
             width: 10px;
             height: 10px;
-            background: #ef4444;
+            background: var(--mv-purple);
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
@@ -216,6 +169,7 @@
 
         .hero h1 {
             margin-bottom: 20px;
+            color: var(--mv-text-primary);
         }
 
         .hero .subtitle {
@@ -247,7 +201,7 @@
         }
 
         .social-proof-mini .stars {
-            color: var(--mv-gold);
+            color: #f59e0b;
         }
 
         /* ============================================
@@ -262,7 +216,7 @@
         }
 
         .price-card {
-            background: var(--mv-dark-card);
+            background: var(--mv-bg-card);
             border-radius: 24px;
             padding: 36px 44px;
             border: 2px solid var(--mv-border);
@@ -270,21 +224,22 @@
             min-width: 300px;
             position: relative;
             transition: all 0.3s ease;
+            box-shadow: var(--mv-shadow-sm);
         }
 
         .price-card:hover {
             border-color: var(--mv-purple);
             transform: translateY(-4px);
-            box-shadow: var(--mv-shadow-purple);
+            box-shadow: var(--mv-shadow-lg);
         }
 
         .price-card.featured {
-            border-color: var(--mv-gold);
-            background: linear-gradient(135deg, var(--mv-dark-card) 0%, rgba(227, 163, 76, 0.08) 100%);
+            border-color: var(--mv-purple);
+            background: linear-gradient(135deg, #ffffff 0%, rgba(122, 18, 212, 0.05) 100%);
         }
 
         .price-card.featured:hover {
-            box-shadow: var(--mv-shadow-gold);
+            box-shadow: var(--mv-shadow-purple);
         }
 
         .price-card.featured::before {
@@ -293,8 +248,8 @@
             top: -14px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--mv-gradient-gold);
-            color: var(--mv-black);
+            background: var(--mv-purple);
+            color: #ffffff;
             padding: 8px 24px;
             border-radius: 20px;
             font-size: 0.75rem;
@@ -324,10 +279,7 @@
         }
 
         .price-card.featured .price-current {
-            background: var(--mv-gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--mv-purple);
         }
 
         .price-period {
@@ -353,39 +305,17 @@
            Adding Black Friday specific variants
            ============================================ */
 
-        /* Gold variant for Black Friday - extends base button */
-        .mv-btn-gold {
+        /* Primary purple button - uses mv-btn-primary from base CSS */
+
+        /* Secondary outlined button */
+        .mv-btn-outline {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 1rem 2rem;
-            background: var(--mv-gradient-gold);
-            color: var(--mv-black);
-            font-family: Grotesk-Bold, sans-serif;
-            font-size: 1rem;
-            border-radius: 999px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-height: 60px;
-            width: 100%;
-        }
-
-        .mv-btn-gold:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--mv-shadow-gold);
-        }
-
-        /* Dark secondary button for Black Friday */
-        .mv-btn-dark {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem 2rem;
-            background: var(--mv-dark-surface);
-            color: var(--mv-text-primary);
-            border: 2px solid var(--mv-border);
+            background: transparent;
+            color: var(--mv-purple);
+            border: 2px solid var(--mv-purple);
             font-family: Grotesk-Medium, sans-serif;
             font-size: 1rem;
             border-radius: 999px;
@@ -396,9 +326,8 @@
             width: 100%;
         }
 
-        .mv-btn-dark:hover {
-            border-color: var(--mv-purple);
-            background: rgba(168, 85, 247, 0.1);
+        .mv-btn-outline:hover {
+            background: rgba(122, 18, 212, 0.1);
             transform: translateY(-2px);
         }
 
@@ -423,7 +352,9 @@
             gap: 48px;
             flex-wrap: wrap;
             padding: 50px 20px;
-            background: var(--mv-dark);
+            background: var(--mv-bg-light);
+            border-top: 1px solid var(--mv-border);
+            border-bottom: 1px solid var(--mv-border);
         }
 
         .media-logo {
@@ -432,12 +363,11 @@
             color: var(--mv-text-muted);
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            opacity: 0.6;
-            transition: opacity 0.3s;
+            transition: color 0.3s;
         }
 
         .media-logo:hover {
-            opacity: 1;
+            color: var(--mv-text-primary);
         }
 
         /* ============================================
@@ -450,8 +380,8 @@
 
         .section-label {
             display: inline-block;
-            background: rgba(168, 85, 247, 0.15);
-            color: var(--mv-purple-light);
+            background: rgba(122, 18, 212, 0.1);
+            color: var(--mv-purple);
             padding: 10px 24px;
             border-radius: 50px;
             font-size: 0.8rem;
@@ -482,15 +412,16 @@
         }
 
         .benefit-card {
-            background: var(--mv-dark-card);
+            background: var(--mv-bg-card);
             border-radius: 24px;
             padding: 36px;
             border: 1px solid var(--mv-border);
             transition: all 0.3s ease;
+            box-shadow: var(--mv-shadow-sm);
         }
 
         .benefit-card:hover {
-            border-color: rgba(168, 85, 247, 0.3);
+            border-color: rgba(122, 18, 212, 0.3);
             transform: translateY(-4px);
             box-shadow: var(--mv-shadow-lg);
         }
@@ -498,7 +429,7 @@
         .benefit-icon {
             width: 64px;
             height: 64px;
-            background: var(--mv-gradient-purple);
+            background: rgba(122, 18, 212, 0.1);
             border-radius: 18px;
             display: flex;
             align-items: center;
@@ -511,6 +442,7 @@
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 12px;
+            color: var(--mv-text-primary);
         }
 
         .benefit-card p {
@@ -536,39 +468,25 @@
         .benefit-value .amount {
             font-size: 1.1rem;
             font-weight: 700;
-            color: var(--mv-gold);
+            color: var(--mv-purple);
         }
 
         /* ============================================
-           VALUE CALCULATOR (Mindvalley Style)
+           VALUE CALCULATOR
            ============================================ */
         .value-calculator {
-            background: linear-gradient(135deg, #1a0a2e 0%, var(--mv-dark-card) 100%);
+            background: var(--mv-bg-light);
             border-radius: 32px;
             padding: 60px;
-            border: 1px solid rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--mv-border);
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .value-calculator::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -30%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
-            pointer-events: none;
         }
 
         .value-calculator h3 {
             font-size: 1.75rem;
             font-weight: 700;
             margin-bottom: 40px;
-            position: relative;
-            z-index: 1;
+            color: var(--mv-text-primary);
         }
 
         .calculator-display {
@@ -577,17 +495,15 @@
             align-items: center;
             gap: 32px;
             flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
         }
 
         .calc-box {
             text-align: center;
             padding: 28px 36px;
-            background: rgba(255,255,255,0.05);
+            background: var(--mv-bg-card);
             border-radius: 20px;
             border: 1px solid var(--mv-border);
-            backdrop-filter: blur(10px);
+            box-shadow: var(--mv-shadow-sm);
         }
 
         .calc-label {
@@ -601,6 +517,7 @@
         .calc-value {
             font-size: 2.5rem;
             font-weight: 800;
+            color: var(--mv-text-primary);
         }
 
         .calc-value.original {
@@ -609,10 +526,7 @@
         }
 
         .calc-value.savings {
-            background: var(--mv-gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--mv-purple);
         }
 
         .calc-value.pay {
@@ -628,8 +542,11 @@
             margin-top: 30px;
             font-size: 1.5rem;
             font-weight: 700;
-            position: relative;
-            z-index: 1;
+            color: var(--mv-text-primary);
+        }
+
+        .savings-percentage .highlight {
+            color: var(--mv-purple);
         }
 
         /* ============================================
@@ -644,10 +561,11 @@
         .teacher-card {
             text-align: center;
             padding: 28px 20px;
-            background: var(--mv-dark-card);
+            background: var(--mv-bg-card);
             border-radius: 20px;
             border: 1px solid var(--mv-border);
             transition: all 0.3s ease;
+            box-shadow: var(--mv-shadow-sm);
         }
 
         .teacher-card:hover {
@@ -659,20 +577,20 @@
         .teacher-avatar {
             width: 100px;
             height: 100px;
-            background: var(--mv-gradient-purple);
+            background: rgba(122, 18, 212, 0.1);
             border-radius: 50%;
             margin: 0 auto 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
-            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
         }
 
         .teacher-card h4 {
             font-size: 1rem;
             font-weight: 700;
             margin-bottom: 4px;
+            color: var(--mv-text-primary);
         }
 
         .teacher-card p {
@@ -690,11 +608,12 @@
         }
 
         .testimonial-card {
-            background: var(--mv-dark-card);
+            background: var(--mv-bg-card);
             border-radius: 24px;
             padding: 36px;
             border: 1px solid var(--mv-border);
             position: relative;
+            box-shadow: var(--mv-shadow-sm);
         }
 
         .testimonial-card::before {
@@ -704,13 +623,13 @@
             left: 24px;
             font-size: 4rem;
             color: var(--mv-purple);
-            opacity: 0.3;
+            opacity: 0.2;
             line-height: 1;
             font-family: Georgia, serif;
         }
 
         .testimonial-outcome {
-            background: rgba(16, 185, 129, 0.15);
+            background: rgba(16, 185, 129, 0.1);
             color: var(--mv-success);
             padding: 10px 20px;
             border-radius: 20px;
@@ -738,7 +657,8 @@
         .testimonial-avatar {
             width: 56px;
             height: 56px;
-            background: var(--mv-gradient-purple);
+            background: rgba(122, 18, 212, 0.1);
+            color: var(--mv-purple);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -750,6 +670,7 @@
         .testimonial-info h4 {
             font-size: 1rem;
             font-weight: 600;
+            color: var(--mv-text-primary);
         }
 
         .testimonial-info p {
@@ -767,16 +688,18 @@
         }
 
         .journey-step {
-            background: var(--mv-dark-card);
+            background: var(--mv-bg-card);
             border-radius: 24px;
             padding: 32px;
             border: 1px solid var(--mv-border);
             position: relative;
             transition: all 0.3s;
+            box-shadow: var(--mv-shadow-sm);
         }
 
         .journey-step:hover {
-            border-color: rgba(168, 85, 247, 0.3);
+            border-color: rgba(122, 18, 212, 0.3);
+            box-shadow: var(--mv-shadow-md);
         }
 
         .journey-day {
@@ -785,18 +708,19 @@
             justify-content: center;
             width: 52px;
             height: 52px;
-            background: var(--mv-gradient-purple);
+            background: var(--mv-purple);
+            color: #ffffff;
             border-radius: 14px;
             font-size: 0.9rem;
             font-weight: 700;
             margin-bottom: 20px;
-            box-shadow: var(--mv-shadow-purple);
         }
 
         .journey-step h4 {
             font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 10px;
+            color: var(--mv-text-primary);
         }
 
         .journey-step p {
@@ -811,10 +735,11 @@
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
-            background: var(--mv-dark-card);
+            background: var(--mv-bg-card);
             border-radius: 24px;
             overflow: hidden;
             border: 1px solid var(--mv-border);
+            box-shadow: var(--mv-shadow-sm);
         }
 
         .comparison-table th,
@@ -825,7 +750,7 @@
         }
 
         .comparison-table th {
-            background: var(--mv-dark-surface);
+            background: var(--mv-bg-light);
             font-weight: 600;
             color: var(--mv-text-secondary);
             font-size: 0.85rem;
@@ -839,7 +764,7 @@
         }
 
         .comparison-table tr.highlight {
-            background: rgba(168, 85, 247, 0.1);
+            background: rgba(122, 18, 212, 0.05);
         }
 
         .comparison-table tr.highlight td {
@@ -848,7 +773,7 @@
         }
 
         .comparison-table tr.highlight td:first-child {
-            color: var(--mv-purple-light);
+            color: var(--mv-purple);
         }
 
         .check-icon {
@@ -864,7 +789,7 @@
            TRUST SECTION
            ============================================ */
         .trust-section {
-            background: var(--mv-dark-card);
+            background: var(--mv-bg-light);
             border-radius: 32px;
             padding: 60px;
             border: 1px solid var(--mv-border);
@@ -883,7 +808,7 @@
         .trust-icon {
             width: 72px;
             height: 72px;
-            background: rgba(16, 185, 129, 0.15);
+            background: rgba(16, 185, 129, 0.1);
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -896,6 +821,7 @@
             font-size: 1.15rem;
             font-weight: 700;
             margin-bottom: 8px;
+            color: var(--mv-text-primary);
         }
 
         .trust-item p {
@@ -907,7 +833,7 @@
            GUARANTEE SECTION
            ============================================ */
         .guarantee-section {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, var(--mv-dark-card) 100%);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, var(--mv-bg-card) 100%);
             border-radius: 32px;
             padding: 60px;
             border: 1px solid rgba(16, 185, 129, 0.2);
@@ -915,12 +841,13 @@
             grid-template-columns: auto 1fr;
             gap: 48px;
             align-items: center;
+            box-shadow: var(--mv-shadow-sm);
         }
 
         .guarantee-badge {
             width: 150px;
             height: 150px;
-            background: rgba(16, 185, 129, 0.15);
+            background: rgba(16, 185, 129, 0.1);
             border: 3px solid var(--mv-success);
             border-radius: 50%;
             display: flex;
@@ -932,6 +859,7 @@
 
         .guarantee-badge .days {
             font-size: 2.75rem;
+            color: var(--mv-success);
             font-weight: 800;
             color: var(--mv-success);
             line-height: 1;
@@ -949,6 +877,7 @@
             font-size: 1.75rem;
             font-weight: 700;
             margin-bottom: 16px;
+            color: var(--mv-text-primary);
         }
 
         .guarantee-content > p {
@@ -994,16 +923,17 @@
         }
 
         .faq-item {
-            background: var(--mv-dark-card);
+            background: var(--mv-bg-card);
             border-radius: 16px;
             margin-bottom: 16px;
             border: 1px solid var(--mv-border);
             overflow: hidden;
             transition: border-color 0.3s;
+            box-shadow: var(--mv-shadow-sm);
         }
 
         .faq-item:hover {
-            border-color: rgba(168, 85, 247, 0.3);
+            border-color: rgba(122, 18, 212, 0.3);
         }
 
         .faq-question {
@@ -1015,10 +945,11 @@
             justify-content: space-between;
             align-items: center;
             transition: background 0.2s;
+            color: var(--mv-text-primary);
         }
 
         .faq-question:hover {
-            background: var(--mv-dark-surface);
+            background: var(--mv-bg-light);
         }
 
         .faq-question::after {
@@ -1053,23 +984,10 @@
            FINAL CTA SECTION
            ============================================ */
         .final-cta {
-            background: linear-gradient(180deg, var(--mv-dark) 0%, #1a0a2e 50%, var(--mv-dark) 100%);
+            background: var(--mv-bg-light);
             padding: 100px 20px;
             text-align: center;
             position: relative;
-            overflow: hidden;
-        }
-
-        .final-cta::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 60%);
-            pointer-events: none;
         }
 
         .final-cta-content {
@@ -1081,6 +999,7 @@
 
         .final-cta h2 {
             margin-bottom: 20px;
+            color: var(--mv-text-primary);
         }
 
         .final-cta > p,
@@ -1106,13 +1025,10 @@
         .final-price .current {
             font-size: 3rem;
             font-weight: 800;
-            background: var(--mv-gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--mv-purple);
         }
 
-        .final-cta .mv-btn-gold {
+        .final-cta .mv-btn-primary {
             display: inline-flex;
             width: auto;
             padding: 22px 64px;
@@ -1146,7 +1062,7 @@
             position: fixed;
             bottom: 24px;
             left: 24px;
-            background: var(--mv-dark-card);
+            background: var(--mv-bg-card);
             border: 1px solid var(--mv-border);
             border-radius: 16px;
             padding: 16px 20px;
@@ -1167,7 +1083,7 @@
         .popup-avatar {
             width: 48px;
             height: 48px;
-            background: var(--mv-gradient-purple);
+            background: rgba(122, 18, 212, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1184,6 +1100,7 @@
             display: block;
             font-size: 0.95rem;
             margin-bottom: 2px;
+            color: var(--mv-text-primary);
         }
 
         .popup-content span {
@@ -1195,7 +1112,7 @@
            FOOTER
            ============================================ */
         .footer {
-            background: var(--mv-black);
+            background: var(--mv-bg-light);
             padding: 60px 20px;
             text-align: center;
             border-top: 1px solid var(--mv-border);
@@ -1204,10 +1121,7 @@
         .footer-logo {
             font-size: 1.5rem;
             font-weight: 800;
-            background: var(--mv-gradient-purple);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--mv-purple);
             margin-bottom: 20px;
         }
 
@@ -1233,7 +1147,7 @@
         }
 
         .footer-links a:hover {
-            color: var(--mv-purple-light);
+            color: var(--mv-purple);
         }
 
         /* ============================================
@@ -1317,7 +1231,7 @@
     <header class="hero">
         <div class="hero-content">
             <span class="bf-badge">Black Friday 2024 - Limited Time</span>
-            <h1 class="mv-type--headline1">Transform Your Life for <span class="mv-text-gold">50% Off</span></h1>
+            <h1 class="mv-type--headline1">Transform Your Life for <span class="mv-text-purple">50% Off</span></h1>
             <p class="subtitle">Access 100+ world-class programs in mind, body, soul, relationships, and career. Just 20 minutes a day to become the best version of yourself.</p>
 
             <div class="social-proof-mini">
@@ -1343,7 +1257,7 @@
                     <div class="price-current">$199</div>
                     <div class="price-period">per year (just $0.54/day)</div>
                     <div class="price-savings">Save $200</div>
-                    <a href="#" class="mv-btn-gold">Start 15-Day Free Trial</a>
+                    <a href="#" class="mv-btn-primary">Start 15-Day Free Trial</a>
                     <p class="cta-note">Cancel anytime. No questions asked.</p>
                 </div>
 
@@ -1353,7 +1267,7 @@
                     <div class="price-current">$52.25</div>
                     <div class="price-period">per month for 4 months</div>
                     <div class="price-savings">0% Interest</div>
-                    <a href="#" class="mv-btn-dark">Choose Payment Plan</a>
+                    <a href="#" class="mv-btn-outline">Choose Payment Plan</a>
                     <p class="cta-note">Via Klarna / Afterpay</p>
                 </div>
             </div>
@@ -1463,7 +1377,7 @@
                         <div class="calc-value savings">99.5%</div>
                     </div>
                 </div>
-                <p class="savings-percentage">That's access to everything for less than <span class="mv-text-gold">$0.54/day</span></p>
+                <p class="savings-percentage">That's access to everything for less than <span class="highlight">$0.54/day</span></p>
             </div>
         </div>
     </section>
@@ -1777,7 +1691,7 @@
                 <span class="current">$199/year</span>
             </div>
 
-            <a href="#" class="mv-btn-gold mv-btn-large">Start Your 15-Day Free Trial</a>
+            <a href="#" class="mv-btn-primary mv-btn-large">Start Your 15-Day Free Trial</a>
 
             <div class="final-trust">
                 <div class="final-trust-item">
