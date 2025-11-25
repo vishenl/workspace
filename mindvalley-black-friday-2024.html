@@ -9,31 +9,87 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
     <style>
+        /* ============================================
+           MINDVALLEY BRAND GUIDELINES & DESIGN SYSTEM
+           ============================================
+
+           COLORS (Official Palette):
+           - Primary Gold: #E3A34C (CTAs, highlights, accents)
+           - Gold Hover: #fb9d40
+           - Dark Background: #0D0D0D, #121212, #1A1A1A, #1E1E1E
+           - Purple Accent: #a855f7, #7c3aed
+           - Magenta: #f093fb
+           - Text Primary: #ffffff
+           - Text Secondary: rgba(255, 255, 255, 0.7)
+           - Text Tertiary: rgba(255, 255, 255, 0.5)
+
+           TYPOGRAPHY:
+           - Font: DM Sans
+           - Weights: 400 (body), 500 (medium), 600 (semibold), 700 (bold), 800 (extrabold)
+           - Hero headlines: 800 weight, tight letter-spacing (-0.03em)
+           - Body: 400-500 weight, 1.7 line-height
+
+           BUTTONS:
+           - Primary: Gold gradient background, dark text, 2px inset border effect
+           - Min height: 60px for primary CTAs
+           - Border radius: 12-14px
+           - Hover: Lift effect with shadow
+
+           SPACING:
+           - Sections: 100px vertical padding (desktop), 60px (mobile)
+           - Cards: 36-40px internal padding
+           - Grid gaps: 24px standard
+
+           EFFECTS:
+           - Shadows: drop-shadow(0px 5px 11px rgba(0,0,0,0.3))
+           - Gradients: 135deg angle standard
+           - Border radius: 16-24px for cards, 50px for badges
+           - Hover transitions: 0.3s ease
+        */
+
         :root {
+            /* Mindvalley Official Colors */
             --mv-black: #0D0D0D;
             --mv-dark: #121212;
             --mv-dark-elevated: #1A1A1A;
             --mv-dark-card: #1E1E1E;
             --mv-dark-surface: #242424;
-            --mv-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+
+            /* Signature Gradients */
             --mv-gradient-hero: linear-gradient(180deg, #1a0a2e 0%, #16082a 50%, #0d0d0d 100%);
             --mv-gradient-purple: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-            --mv-gradient-gold: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            --mv-gradient-gold: linear-gradient(135deg, #E3A34C 0%, #fb9d40 100%);
+            --mv-gradient-vibrant: linear-gradient(120deg, #fb00ff, #003fff);
             --mv-gradient-red: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+
+            /* Accent Colors */
+            --mv-gold: #E3A34C;
+            --mv-gold-hover: #fb9d40;
             --mv-purple: #a855f7;
             --mv-purple-light: #c084fc;
             --mv-magenta: #f093fb;
-            --mv-gold: #E3A34C;
-            --mv-gold-hover: #fbbf24;
+
+            /* Status Colors */
             --mv-success: #10b981;
             --mv-warning: #f59e0b;
             --mv-danger: #ef4444;
+
+            /* Text Colors */
             --mv-text-primary: #ffffff;
             --mv-text-secondary: rgba(255, 255, 255, 0.7);
             --mv-text-tertiary: rgba(255, 255, 255, 0.5);
             --mv-text-muted: rgba(255, 255, 255, 0.4);
+
+            /* Borders & Surfaces */
             --mv-border: rgba(255, 255, 255, 0.1);
             --mv-border-light: rgba(255, 255, 255, 0.05);
+
+            /* Shadows */
+            --mv-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --mv-shadow-md: 0 5px 15px rgba(0, 0, 0, 0.3);
+            --mv-shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.4);
+            --mv-shadow-gold: 0 8px 30px rgba(227, 163, 76, 0.3);
+            --mv-shadow-purple: 0 8px 30px rgba(168, 85, 247, 0.3);
         }
 
         * {
@@ -48,18 +104,92 @@
             color: var(--mv-text-primary);
             background: var(--mv-black);
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Sticky Header / Announcement Bar */
+        /* Typography Classes (Mindvalley Style) */
+        .mv-type-hero {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .mv-type-title1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .mv-type-title2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+        }
+
+        .mv-type-body {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        .mv-type-body-lg {
+            font-size: 1.15rem;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        /* Gold Gradient Text (Mindvalley Signature) */
+        .mv-text-gold {
+            background: var(--mv-gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Vibrant Gradient Text */
+        .mv-text-vibrant {
+            background: var(--mv-gradient-vibrant);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Container */
+        .mv-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Sections */
+        .mv-section {
+            padding: 100px 0;
+        }
+
+        .mv-section--small {
+            padding: 60px 0;
+        }
+
+        .mv-section--dark {
+            background: var(--mv-dark);
+        }
+
+        /* ============================================
+           ANNOUNCEMENT BAR (Sticky Countdown)
+           ============================================ */
         .announcement-bar {
             background: var(--mv-gradient-red);
-            padding: 12px 20px;
+            padding: 14px 20px;
             text-align: center;
             font-size: 0.95rem;
             font-weight: 600;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: var(--mv-shadow-md);
         }
 
         .announcement-bar .countdown {
@@ -70,13 +200,16 @@
 
         .announcement-bar .time-unit {
             background: rgba(0,0,0,0.3);
-            padding: 4px 8px;
-            border-radius: 4px;
+            padding: 6px 10px;
+            border-radius: 6px;
             font-weight: 700;
-            min-width: 40px;
+            min-width: 44px;
+            font-variant-numeric: tabular-nums;
         }
 
-        /* Hero Section */
+        /* ============================================
+           HERO SECTION
+           ============================================ */
         .hero {
             background: var(--mv-gradient-hero);
             padding: 80px 20px 100px;
@@ -115,6 +248,7 @@
             margin: 0 auto;
         }
 
+        /* Black Friday Badge */
         .bf-badge {
             display: inline-flex;
             align-items: center;
@@ -123,7 +257,7 @@
             border: 1px solid rgba(239, 68, 68, 0.4);
             padding: 12px 28px;
             border-radius: 50px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: #fca5a5;
             margin-bottom: 28px;
@@ -146,18 +280,7 @@
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 800;
             margin-bottom: 20px;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-        }
-
-        .hero h1 .highlight {
-            background: var(--mv-gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .hero .subtitle {
@@ -170,7 +293,8 @@
             line-height: 1.6;
         }
 
-        .hero .social-proof-mini {
+        /* Social Proof Mini Bar */
+        .social-proof-mini {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -191,7 +315,9 @@
             color: var(--mv-gold);
         }
 
-        /* Pricing Section */
+        /* ============================================
+           PRICING CARDS (Mindvalley Style)
+           ============================================ */
         .pricing-hero {
             display: flex;
             justify-content: center;
@@ -203,10 +329,10 @@
         .price-card {
             background: var(--mv-dark-card);
             border-radius: 24px;
-            padding: 32px 40px;
+            padding: 36px 44px;
             border: 2px solid var(--mv-border);
             text-align: center;
-            min-width: 280px;
+            min-width: 300px;
             position: relative;
             transition: all 0.3s ease;
         }
@@ -214,23 +340,27 @@
         .price-card:hover {
             border-color: var(--mv-purple);
             transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.2);
+            box-shadow: var(--mv-shadow-purple);
         }
 
         .price-card.featured {
             border-color: var(--mv-gold);
-            background: linear-gradient(135deg, var(--mv-dark-card) 0%, rgba(227, 163, 76, 0.1) 100%);
+            background: linear-gradient(135deg, var(--mv-dark-card) 0%, rgba(227, 163, 76, 0.08) 100%);
+        }
+
+        .price-card.featured:hover {
+            box-shadow: var(--mv-shadow-gold);
         }
 
         .price-card.featured::before {
             content: 'BEST VALUE';
             position: absolute;
-            top: -12px;
+            top: -14px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--mv-gradient-gold);
             color: var(--mv-black);
-            padding: 6px 20px;
+            padding: 8px 24px;
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 700;
@@ -275,66 +405,95 @@
             display: inline-block;
             background: rgba(16, 185, 129, 0.15);
             color: var(--mv-success);
-            padding: 6px 16px;
+            padding: 8px 20px;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
-        .cta-button {
+        /* ============================================
+           BUTTONS (Mindvalley Primary Style)
+           ============================================ */
+        .mv-btn {
             display: block;
             width: 100%;
             padding: 18px 32px;
             border-radius: 14px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 700;
             text-decoration: none;
             transition: all 0.3s ease;
             cursor: pointer;
             border: none;
             font-family: inherit;
+            min-height: 60px;
+            text-align: center;
         }
 
-        .cta-button.primary {
+        .mv-btn--primary {
             background: var(--mv-gradient-gold);
             color: var(--mv-black);
+            box-shadow: inset 0 0 0 2px rgba(255,255,255,0.1);
         }
 
-        .cta-button.primary:hover {
+        .mv-btn--primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(227, 163, 76, 0.4);
+            box-shadow: var(--mv-shadow-gold), inset 0 0 0 2px rgba(255,255,255,0.2);
         }
 
-        .cta-button.secondary {
+        .mv-btn--secondary {
             background: var(--mv-dark-surface);
             color: var(--mv-text-primary);
-            border: 1px solid var(--mv-border);
+            border: 2px solid var(--mv-border);
         }
 
-        .cta-button.secondary:hover {
+        .mv-btn--secondary:hover {
             border-color: var(--mv-purple);
             background: rgba(168, 85, 247, 0.1);
         }
 
+        .mv-btn--large {
+            padding: 22px 48px;
+            font-size: 1.15rem;
+            min-height: 68px;
+        }
+
         .cta-note {
-            margin-top: 12px;
+            margin-top: 14px;
             font-size: 0.85rem;
             color: var(--mv-text-tertiary);
         }
 
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* ============================================
+           MEDIA LOGOS (As Seen In)
+           ============================================ */
+        .media-logos {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            padding: 50px 20px;
+            background: var(--mv-dark);
         }
 
-        /* Section Styles */
-        section {
-            padding: 100px 0;
+        .media-logo {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--mv-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.6;
+            transition: opacity 0.3s;
         }
 
+        .media-logo:hover {
+            opacity: 1;
+        }
+
+        /* ============================================
+           SECTION HEADERS
+           ============================================ */
         .section-header {
             text-align: center;
             margin-bottom: 60px;
@@ -344,20 +503,17 @@
             display: inline-block;
             background: rgba(168, 85, 247, 0.15);
             color: var(--mv-purple-light);
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 10px 24px;
+            border-radius: 50px;
             font-size: 0.8rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             margin-bottom: 20px;
         }
 
         .section-header h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
             margin-bottom: 16px;
-            letter-spacing: -0.02em;
         }
 
         .section-header p {
@@ -367,7 +523,9 @@
             margin: 0 auto;
         }
 
-        /* What You Get Section */
+        /* ============================================
+           BENEFIT CARDS
+           ============================================ */
         .benefits-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -385,6 +543,7 @@
         .benefit-card:hover {
             border-color: rgba(168, 85, 247, 0.3);
             transform: translateY(-4px);
+            box-shadow: var(--mv-shadow-lg);
         }
 
         .benefit-icon {
@@ -412,8 +571,8 @@
         }
 
         .benefit-value {
-            margin-top: 16px;
-            padding-top: 16px;
+            margin-top: 20px;
+            padding-top: 20px;
             border-top: 1px solid var(--mv-border);
             display: flex;
             justify-content: space-between;
@@ -431,7 +590,9 @@
             color: var(--mv-gold);
         }
 
-        /* Value Calculator */
+        /* ============================================
+           VALUE CALCULATOR (Mindvalley Style)
+           ============================================ */
         .value-calculator {
             background: linear-gradient(135deg, #1a0a2e 0%, var(--mv-dark-card) 100%);
             border-radius: 32px;
@@ -473,10 +634,11 @@
 
         .calc-box {
             text-align: center;
-            padding: 24px 32px;
+            padding: 28px 36px;
             background: rgba(255,255,255,0.05);
             border-radius: 20px;
             border: 1px solid var(--mv-border);
+            backdrop-filter: blur(10px);
         }
 
         .calc-label {
@@ -521,18 +683,9 @@
             z-index: 1;
         }
 
-        .savings-percentage span {
-            background: var(--mv-gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Teachers Section */
-        .teachers-section {
-            background: var(--mv-dark);
-        }
-
+        /* ============================================
+           TEACHERS SECTION
+           ============================================ */
         .teachers-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -541,7 +694,7 @@
 
         .teacher-card {
             text-align: center;
-            padding: 24px;
+            padding: 28px 20px;
             background: var(--mv-dark-card);
             border-radius: 20px;
             border: 1px solid var(--mv-border);
@@ -551,6 +704,7 @@
         .teacher-card:hover {
             border-color: var(--mv-purple);
             transform: translateY(-4px);
+            box-shadow: var(--mv-shadow-lg);
         }
 
         .teacher-avatar {
@@ -563,6 +717,7 @@
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
         }
 
         .teacher-card h4 {
@@ -576,7 +731,9 @@
             color: var(--mv-text-tertiary);
         }
 
-        /* Testimonials */
+        /* ============================================
+           TESTIMONIALS (Outcome-Focused)
+           ============================================ */
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -606,7 +763,7 @@
         .testimonial-outcome {
             background: rgba(16, 185, 129, 0.15);
             color: var(--mv-success);
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
@@ -651,7 +808,9 @@
             color: var(--mv-text-tertiary);
         }
 
-        /* What Happens Next */
+        /* ============================================
+           JOURNEY TIMELINE (What Happens Next)
+           ============================================ */
         .journey-timeline {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -664,37 +823,42 @@
             padding: 32px;
             border: 1px solid var(--mv-border);
             position: relative;
+            transition: all 0.3s;
+        }
+
+        .journey-step:hover {
+            border-color: rgba(168, 85, 247, 0.3);
         }
 
         .journey-day {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             background: var(--mv-gradient-purple);
             border-radius: 14px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            box-shadow: var(--mv-shadow-purple);
         }
 
         .journey-step h4 {
             font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .journey-step p {
             color: var(--mv-text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
 
-        /* Comparison Table */
-        .comparison-section {
-            background: var(--mv-dark);
-        }
-
+        /* ============================================
+           COMPARISON TABLE
+           ============================================ */
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
@@ -747,7 +911,9 @@
             color: var(--mv-text-muted);
         }
 
-        /* Trust Section */
+        /* ============================================
+           TRUST SECTION
+           ============================================ */
         .trust-section {
             background: var(--mv-dark-card);
             border-radius: 32px;
@@ -757,7 +923,7 @@
 
         .trust-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
         }
 
@@ -788,21 +954,23 @@
             font-size: 0.95rem;
         }
 
-        /* Guarantee Section */
+        /* ============================================
+           GUARANTEE SECTION
+           ============================================ */
         .guarantee-section {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, var(--mv-dark-card) 100%);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, var(--mv-dark-card) 100%);
             border-radius: 32px;
             padding: 60px;
             border: 1px solid rgba(16, 185, 129, 0.2);
             display: grid;
             grid-template-columns: auto 1fr;
-            gap: 40px;
+            gap: 48px;
             align-items: center;
         }
 
         .guarantee-badge {
-            width: 140px;
-            height: 140px;
+            width: 150px;
+            height: 150px;
             background: rgba(16, 185, 129, 0.15);
             border: 3px solid var(--mv-success);
             border-radius: 50%;
@@ -814,7 +982,7 @@
         }
 
         .guarantee-badge .days {
-            font-size: 2.5rem;
+            font-size: 2.75rem;
             font-weight: 800;
             color: var(--mv-success);
             line-height: 1;
@@ -825,6 +993,7 @@
             color: var(--mv-success);
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            margin-top: 4px;
         }
 
         .guarantee-content h3 {
@@ -833,15 +1002,16 @@
             margin-bottom: 16px;
         }
 
-        .guarantee-content p {
+        .guarantee-content > p {
             color: var(--mv-text-secondary);
             margin-bottom: 24px;
             font-size: 1.05rem;
+            line-height: 1.7;
         }
 
         .guarantee-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 16px;
         }
 
@@ -855,8 +1025,8 @@
 
         .guarantee-list-item::before {
             content: '✓';
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             background: rgba(16, 185, 129, 0.2);
             border-radius: 50%;
             display: flex;
@@ -866,7 +1036,9 @@
             flex-shrink: 0;
         }
 
-        /* FAQ Section */
+        /* ============================================
+           FAQ SECTION
+           ============================================ */
         .faq-grid {
             max-width: 800px;
             margin: 0 auto;
@@ -878,6 +1050,11 @@
             margin-bottom: 16px;
             border: 1px solid var(--mv-border);
             overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(168, 85, 247, 0.3);
         }
 
         .faq-question {
@@ -923,7 +1100,9 @@
             line-height: 1.7;
         }
 
-        /* Final CTA */
+        /* ============================================
+           FINAL CTA SECTION
+           ============================================ */
         .final-cta {
             background: linear-gradient(180deg, var(--mv-dark) 0%, #1a0a2e 50%, var(--mv-dark) 100%);
             padding: 100px 20px;
@@ -952,12 +1131,11 @@
         }
 
         .final-cta h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
             margin-bottom: 20px;
         }
 
-        .final-cta p {
+        .final-cta > p,
+        .final-cta-content > p {
             font-size: 1.15rem;
             color: var(--mv-text-secondary);
             margin-bottom: 40px;
@@ -967,7 +1145,7 @@
             display: inline-flex;
             align-items: center;
             gap: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .final-price .original {
@@ -985,10 +1163,11 @@
             background-clip: text;
         }
 
-        .final-cta .cta-button {
+        .final-cta .mv-btn {
             display: inline-block;
-            padding: 20px 60px;
-            font-size: 1.2rem;
+            width: auto;
+            padding: 22px 64px;
+            font-size: 1.15rem;
         }
 
         .final-trust {
@@ -1007,26 +1186,13 @@
             font-size: 0.9rem;
         }
 
-        /* Media Logos */
-        .media-logos {
-            display: flex;
-            justify-content: center;
-            gap: 48px;
-            flex-wrap: wrap;
-            padding: 60px 20px;
-            background: var(--mv-dark);
-            opacity: 0.6;
+        .final-trust-item span:first-child {
+            color: var(--mv-success);
         }
 
-        .media-logo {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--mv-text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        /* Social Proof Popup */
+        /* ============================================
+           SOCIAL PROOF POPUP
+           ============================================ */
         .social-proof-popup {
             position: fixed;
             bottom: 24px;
@@ -1037,8 +1203,8 @@
             padding: 16px 20px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            gap: 14px;
+            box-shadow: var(--mv-shadow-lg);
             z-index: 999;
             transform: translateX(-120%);
             transition: transform 0.4s ease;
@@ -1050,14 +1216,14 @@
         }
 
         .popup-avatar {
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             background: var(--mv-gradient-purple);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             flex-shrink: 0;
         }
 
@@ -1067,7 +1233,7 @@
 
         .popup-content strong {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             margin-bottom: 2px;
         }
 
@@ -1076,7 +1242,9 @@
             color: var(--mv-text-tertiary);
         }
 
-        /* Footer */
+        /* ============================================
+           FOOTER
+           ============================================ */
         .footer {
             background: var(--mv-black);
             padding: 60px 20px;
@@ -1119,8 +1287,14 @@
             color: var(--mv-purple-light);
         }
 
-        /* Responsive */
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
         @media (max-width: 768px) {
+            .mv-section {
+                padding: 60px 0;
+            }
+
             .hero {
                 padding: 60px 20px 80px;
             }
@@ -1137,7 +1311,8 @@
 
             .benefits-grid,
             .testimonials-grid,
-            .journey-timeline {
+            .journey-timeline,
+            .teachers-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -1163,6 +1338,18 @@
             .comparison-table td {
                 padding: 14px 16px;
             }
+
+            .value-calculator,
+            .trust-section,
+            .guarantee-section {
+                padding: 40px 24px;
+            }
+
+            .social-proof-popup {
+                left: 12px;
+                right: 12px;
+                max-width: none;
+            }
         }
     </style>
 </head>
@@ -1181,7 +1368,7 @@
     <header class="hero">
         <div class="hero-content">
             <span class="bf-badge">Black Friday 2024 - Limited Time</span>
-            <h1>Transform Your Life for<br><span class="highlight">50% Off</span></h1>
+            <h1 class="mv-type-hero">Transform Your Life for <span class="mv-text-gold">50% Off</span></h1>
             <p class="subtitle">Access 100+ world-class programs in mind, body, soul, relationships, and career. Just 20 minutes a day to become the best version of yourself.</p>
 
             <div class="social-proof-mini">
@@ -1207,7 +1394,7 @@
                     <div class="price-current">$199</div>
                     <div class="price-period">per year (just $0.54/day)</div>
                     <div class="price-savings">Save $200</div>
-                    <a href="#" class="cta-button primary">Start 15-Day Free Trial</a>
+                    <a href="#" class="mv-btn mv-btn--primary">Start 15-Day Free Trial</a>
                     <p class="cta-note">Cancel anytime. No questions asked.</p>
                 </div>
 
@@ -1217,7 +1404,7 @@
                     <div class="price-current">$52.25</div>
                     <div class="price-period">per month for 4 months</div>
                     <div class="price-savings">0% Interest</div>
-                    <a href="#" class="cta-button secondary">Choose Payment Plan</a>
+                    <a href="#" class="mv-btn mv-btn--secondary">Choose Payment Plan</a>
                     <p class="cta-note">Via Klarna / Afterpay</p>
                 </div>
             </div>
@@ -1234,11 +1421,11 @@
     </div>
 
     <!-- What You Get Section -->
-    <section>
-        <div class="container">
+    <section class="mv-section">
+        <div class="mv-container">
             <div class="section-header">
                 <span class="section-label">What's Included</span>
-                <h2>Everything You Need to Transform</h2>
+                <h2 class="mv-type-title1">Everything You Need to Transform</h2>
                 <p>One membership gives you unlimited access to the world's most comprehensive personal growth library</p>
             </div>
 
@@ -1307,8 +1494,8 @@
     </section>
 
     <!-- Value Calculator -->
-    <section style="background: var(--mv-dark);">
-        <div class="container">
+    <section class="mv-section mv-section--dark">
+        <div class="mv-container">
             <div class="value-calculator">
                 <h3>See What You're Really Getting</h3>
                 <div class="calculator-display">
@@ -1327,17 +1514,17 @@
                         <div class="calc-value savings">99.5%</div>
                     </div>
                 </div>
-                <p class="savings-percentage">That's access to everything for less than <span>$0.54/day</span></p>
+                <p class="savings-percentage">That's access to everything for less than <span class="mv-text-gold">$0.54/day</span></p>
             </div>
         </div>
     </section>
 
     <!-- World-Class Teachers -->
-    <section class="teachers-section">
-        <div class="container">
+    <section class="mv-section">
+        <div class="mv-container">
             <div class="section-header">
                 <span class="section-label">Your Teachers</span>
-                <h2>Learn From the World's Best</h2>
+                <h2 class="mv-type-title1">Learn From the World's Best</h2>
                 <p>Our instructors have transformed millions of lives with their unique expertise</p>
             </div>
 
@@ -1377,11 +1564,11 @@
     </section>
 
     <!-- What Happens Next -->
-    <section>
-        <div class="container">
+    <section class="mv-section mv-section--dark">
+        <div class="mv-container">
             <div class="section-header">
                 <span class="section-label">Your Journey</span>
-                <h2>What Happens After You Join</h2>
+                <h2 class="mv-type-title1">What Happens After You Join</h2>
                 <p>No confusion, no overwhelm. We guide you every step of the way.</p>
             </div>
 
@@ -1411,11 +1598,11 @@
     </section>
 
     <!-- Testimonials with Outcomes -->
-    <section style="background: var(--mv-dark);">
-        <div class="container">
+    <section class="mv-section">
+        <div class="mv-container">
             <div class="section-header">
                 <span class="section-label">Real Results</span>
-                <h2>Transformations That Speak for Themselves</h2>
+                <h2 class="mv-type-title1">Transformations That Speak for Themselves</h2>
                 <p>These are real members who started exactly where you are now</p>
             </div>
 
@@ -1460,11 +1647,11 @@
     </section>
 
     <!-- Comparison Section -->
-    <section class="comparison-section">
-        <div class="container">
+    <section class="mv-section mv-section--dark">
+        <div class="mv-container">
             <div class="section-header">
                 <span class="section-label">The Smart Choice</span>
-                <h2>How Mindvalley Compares</h2>
+                <h2 class="mv-type-title1">How Mindvalley Compares</h2>
                 <p>See why members choose us over other platforms</p>
             </div>
 
@@ -1520,11 +1707,11 @@
     </section>
 
     <!-- Trust Section -->
-    <section>
-        <div class="container">
+    <section class="mv-section">
+        <div class="mv-container">
             <div class="section-header">
                 <span class="section-label">Your Peace of Mind</span>
-                <h2>We've Got You Covered</h2>
+                <h2 class="mv-type-title1">We've Got You Covered</h2>
             </div>
 
             <div class="trust-section">
@@ -1555,8 +1742,8 @@
     </section>
 
     <!-- Guarantee Section -->
-    <section style="background: var(--mv-dark);">
-        <div class="container">
+    <section class="mv-section mv-section--dark">
+        <div class="mv-container">
             <div class="guarantee-section">
                 <div class="guarantee-badge">
                     <span class="days">15</span>
@@ -1577,11 +1764,11 @@
     </section>
 
     <!-- FAQ Section -->
-    <section>
-        <div class="container">
+    <section class="mv-section">
+        <div class="mv-container">
             <div class="section-header">
                 <span class="section-label">Questions?</span>
-                <h2>Frequently Asked Questions</h2>
+                <h2 class="mv-type-title1">Frequently Asked Questions</h2>
             </div>
 
             <div class="faq-grid">
@@ -1633,7 +1820,7 @@
     <!-- Final CTA -->
     <section class="final-cta">
         <div class="final-cta-content">
-            <h2>Your Transformation Starts Today</h2>
+            <h2 class="mv-type-title1">Your Transformation Starts Today</h2>
             <p>Join 20 million members who chose to invest in themselves. This Black Friday price won't last - and you'll keep this rate locked for life.</p>
 
             <div class="final-price">
@@ -1641,7 +1828,7 @@
                 <span class="current">$199/year</span>
             </div>
 
-            <a href="#" class="cta-button primary">Start Your 15-Day Free Trial</a>
+            <a href="#" class="mv-btn mv-btn--primary mv-btn--large">Start Your 15-Day Free Trial</a>
 
             <div class="final-trust">
                 <div class="final-trust-item">
