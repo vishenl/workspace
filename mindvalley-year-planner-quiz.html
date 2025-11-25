@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Your Year of Transformation | Mindvalley Program Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mv-black: #0D0D0D;
+            --mv-dark: #121212;
+            --mv-dark-elevated: #1A1A1A;
+            --mv-dark-card: #1E1E1E;
+            --mv-dark-surface: #242424;
+            --mv-gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --mv-gradient-hero: linear-gradient(180deg, #1a0a2e 0%, #16082a 50%, #0d0d0d 100%);
+            --mv-gradient-purple: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            --mv-gradient-gold: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            --mv-purple: #a855f7;
+            --mv-purple-light: #c084fc;
+            --mv-magenta: #f093fb;
+            --mv-gold: #E3A34C;
+            --mv-success: #10b981;
+            --mv-warning: #f59e0b;
+            --mv-danger: #ef4444;
+            --mv-text-primary: #ffffff;
+            --mv-text-secondary: rgba(255, 255, 255, 0.7);
+            --mv-text-tertiary: rgba(255, 255, 255, 0.5);
+            --mv-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--mv-text-primary);
+            background: var(--mv-black);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--mv-gradient-hero);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--mv-purple-light);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--mv-text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: var(--mv-dark-card);
+            padding: 20px 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border: 1px solid var(--mv-border);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .progress-text {
+            color: var(--mv-text-secondary);
+        }
+
+        .progress-step {
+            color: var(--mv-purple-light);
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--mv-dark-surface);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--mv-gradient-purple);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* Quiz Card */
+        .quiz-card {
+            background: var(--mv-dark-card);
+            border-radius: 24px;
+            padding: 50px;
+            border: 1px solid var(--mv-border);
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            font-size: 0.85rem;
+            color: var(--mv-purple-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .question-subtext {
+            color: var(--mv-text-secondary);
+            margin-bottom: 32px;
+        }
+
+        /* Options */
+        .options-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .options-grid.multi-select {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .option {
+            background: var(--mv-dark-surface);
+            border: 2px solid var(--mv-border);
+            border-radius: 16px;
+            padding: 20px 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .option:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+            background: rgba(168, 85, 247, 0.05);
+        }
+
+        .option.selected {
+            border-color: var(--mv-purple);
+            background: rgba(168, 85, 247, 0.1);
+        }
+
+        .option-icon {
+            font-size: 1.5rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--mv-dark-card);
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .option-content h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .option-content p {
+            font-size: 0.9rem;
+            color: var(--mv-text-secondary);
+        }
+
+        .option-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--mv-border);
+            border-radius: 6px;
+            margin-left: auto;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .option.selected .option-checkbox {
+            background: var(--mv-gradient-purple);
+            border-color: var(--mv-purple);
+        }
+
+        .option.selected .option-checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* Slider */
+        .slider-container {
+            margin-top: 20px;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: var(--mv-text-secondary);
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: var(--mv-dark-surface);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--mv-gradient-purple);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+        }
+
+        .slider-value {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: var(--mv-gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-secondary {
+            background: var(--mv-dark-surface);
+            color: var(--mv-text-primary);
+            border: 1px solid var(--mv-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--mv-dark-elevated);
+            border-color: var(--mv-purple);
+        }
+
+        .btn-primary {
+            background: var(--mv-gradient-purple);
+            color: white;
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Results */
+        .results-section {
+            display: none;
+        }
+
+        .results-section.active {
+            display: block;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .results-header h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .results-header p {
+            color: var(--mv-text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .program-timeline {
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .program-timeline::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--mv-purple), var(--mv-magenta), var(--mv-gold));
+            border-radius: 2px;
+        }
+
+        .program-item {
+            position: relative;
+            padding: 24px 30px;
+            background: var(--mv-dark-card);
+            border-radius: 20px;
+            margin-bottom: 24px;
+            border: 1px solid var(--mv-border);
+            transition: all 0.3s ease;
+        }
+
+        .program-item:hover {
+            border-color: rgba(168, 85, 247, 0.3);
+            transform: translateX(8px);
+        }
+
+        .program-item::before {
+            content: attr(data-month);
+            position: absolute;
+            left: -60px;
+            top: 28px;
+            width: 48px;
+            height: 48px;
+            background: var(--mv-gradient-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .program-category {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(168, 85, 247, 0.15);
+            color: var(--mv-purple-light);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .program-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .program-author {
+            color: var(--mv-gold);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .program-description {
+            color: var(--mv-text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .program-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: var(--mv-text-tertiary);
+        }
+
+        .program-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .program-reason {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--mv-border);
+            font-size: 0.9rem;
+            color: var(--mv-success);
+        }
+
+        /* Summary Card */
+        .summary-card {
+            background: linear-gradient(135deg, #1a0a2e 0%, var(--mv-dark-card) 100%);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .summary-stat {
+            text-align: center;
+        }
+
+        .summary-value {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--mv-gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .summary-label {
+            font-size: 0.9rem;
+            color: var(--mv-text-secondary);
+            margin-top: 4px;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 50px;
+            background: var(--mv-dark-card);
+            border-radius: 24px;
+            border: 1px solid var(--mv-border);
+        }
+
+        .cta-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            color: var(--mv-text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .btn-cta {
+            background: var(--mv-gradient-gold);
+            color: var(--mv-black);
+            padding: 18px 48px;
+            font-size: 1.1rem;
+        }
+
+        /* Hide sections */
+        .quiz-section {
+            display: none;
+        }
+
+        .quiz-section.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .quiz-card {
+                padding: 30px 24px;
+            }
+
+            .program-timeline {
+                padding-left: 40px;
+            }
+
+            .program-timeline::before {
+                left: 14px;
+            }
+
+            .program-item::before {
+                left: -40px;
+                width: 36px;
+                height: 36px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="badge">Personalized Learning Journey</span>
+            <h1>Design Your Year of Transformation</h1>
+            <p>Answer a few questions and we'll create a personalized 12-month program sequence optimized for your goals, lifestyle, and learning style.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Progress -->
+        <div class="progress-container">
+            <div class="progress-header">
+                <span class="progress-text">Your Transformation Journey</span>
+                <span class="progress-step" id="progressStep">Question 1 of 8</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 12.5%"></div>
+            </div>
+        </div>
+
+        <!-- Quiz Sections -->
+        <div id="quizContainer">
+            <!-- Question 1: Primary Life Area -->
+            <div class="quiz-section active" data-question="1">
+                <div class="quiz-card">
+                    <div class="question-number">Question 1 of 8</div>
+                    <h2 class="question-text">What's the ONE area of your life you most want to transform this year?</h2>
+                    <p class="question-subtext">This will be your primary focus. We'll build your journey around this core transformation.</p>
+
+                    <div class="options-grid">
+                        <div class="option" data-value="soul" onclick="selectOption(this, 1)">
+                            <div class="option-icon">🧘</div>
+                            <div class="option-content">
+                                <h4>Soul & Spirituality</h4>
+                                <p>Inner peace, purpose, spiritual growth, meditation mastery</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="mind" onclick="selectOption(this, 1)">
+                            <div class="option-icon">🧠</div>
+                            <div class="option-content">
+                                <h4>Mind & Mindset</h4>
+                                <p>Mental clarity, confidence, overcoming limiting beliefs</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="body" onclick="selectOption(this, 1)">
+                            <div class="option-icon">💪</div>
+                            <div class="option-content">
+                                <h4>Body & Health</h4>
+                                <p>Fitness, nutrition, energy, longevity, sleep optimization</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="relationships" onclick="selectOption(this, 1)">
+                            <div class="option-icon">❤️</div>
+                            <div class="option-content">
+                                <h4>Love & Relationships</h4>
+                                <p>Finding love, deeper connections, family harmony</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="career" onclick="selectOption(this, 1)">
+                            <div class="option-icon">🚀</div>
+                            <div class="option-content">
+                                <h4>Career & Business</h4>
+                                <p>Success, wealth, entrepreneurship, leadership</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="performance" onclick="selectOption(this, 1)">
+                            <div class="option-icon">⚡</div>
+                            <div class="option-content">
+                                <h4>Performance & Productivity</h4>
+                                <p>Focus, habits, time mastery, peak performance</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <div></div>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn1" disabled>Continue</button>
+                </div>
+            </div>
+
+            <!-- Question 2: Secondary Areas -->
+            <div class="quiz-section" data-question="2">
+                <div class="quiz-card">
+                    <div class="question-number">Question 2 of 8</div>
+                    <h2 class="question-text">What other areas would you like to improve? (Select up to 3)</h2>
+                    <p class="question-subtext">We'll weave these throughout your journey for holistic transformation.</p>
+
+                    <div class="options-grid multi-select" id="secondaryAreas">
+                        <!-- Will be populated dynamically based on Q1 -->
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="prevQuestion()">Back</button>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn2">Continue</button>
+                </div>
+            </div>
+
+            <!-- Question 3: Time Commitment -->
+            <div class="quiz-section" data-question="3">
+                <div class="quiz-card">
+                    <div class="question-number">Question 3 of 8</div>
+                    <h2 class="question-text">How much time can you dedicate daily to your growth?</h2>
+                    <p class="question-subtext">Be realistic - consistency beats intensity. We'll match program lengths to your schedule.</p>
+
+                    <div class="options-grid">
+                        <div class="option" data-value="15" onclick="selectOption(this, 3)">
+                            <div class="option-icon">⏱️</div>
+                            <div class="option-content">
+                                <h4>15-20 minutes</h4>
+                                <p>Quick daily practice - perfect for busy schedules</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="30" onclick="selectOption(this, 3)">
+                            <div class="option-icon">⏳</div>
+                            <div class="option-content">
+                                <h4>30-45 minutes</h4>
+                                <p>Balanced commitment - recommended for most</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="60" onclick="selectOption(this, 3)">
+                            <div class="option-icon">🕐</div>
+                            <div class="option-content">
+                                <h4>60+ minutes</h4>
+                                <p>Deep immersion - for dedicated transformers</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="prevQuestion()">Back</button>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn3" disabled>Continue</button>
+                </div>
+            </div>
+
+            <!-- Question 4: Learning Style -->
+            <div class="quiz-section" data-question="4">
+                <div class="quiz-card">
+                    <div class="question-number">Question 4 of 8</div>
+                    <h2 class="question-text">What's your preferred learning approach?</h2>
+                    <p class="question-subtext">This helps us sequence programs that match how you learn best.</p>
+
+                    <div class="options-grid">
+                        <div class="option" data-value="practical" onclick="selectOption(this, 4)">
+                            <div class="option-icon">🔧</div>
+                            <div class="option-content">
+                                <h4>Practical & Action-Oriented</h4>
+                                <p>Give me tools and techniques I can apply immediately</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="spiritual" onclick="selectOption(this, 4)">
+                            <div class="option-icon">✨</div>
+                            <div class="option-content">
+                                <h4>Deep & Transformational</h4>
+                                <p>I want profound inner shifts and spiritual insights</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="scientific" onclick="selectOption(this, 4)">
+                            <div class="option-icon">🔬</div>
+                            <div class="option-content">
+                                <h4>Science-Backed & Evidence-Based</h4>
+                                <p>Show me the research and proven methodologies</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="balanced" onclick="selectOption(this, 4)">
+                            <div class="option-icon">☯️</div>
+                            <div class="option-content">
+                                <h4>Balanced Mix</h4>
+                                <p>I appreciate both science and spirituality</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="prevQuestion()">Back</button>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn4" disabled>Continue</button>
+                </div>
+            </div>
+
+            <!-- Question 5: Experience Level -->
+            <div class="quiz-section" data-question="5">
+                <div class="quiz-card">
+                    <div class="question-number">Question 5 of 8</div>
+                    <h2 class="question-text">How would you describe your personal growth journey so far?</h2>
+                    <p class="question-subtext">This helps us recommend the right starting point and progression.</p>
+
+                    <div class="options-grid">
+                        <div class="option" data-value="beginner" onclick="selectOption(this, 5)">
+                            <div class="option-icon">🌱</div>
+                            <div class="option-content">
+                                <h4>Just Getting Started</h4>
+                                <p>New to personal development, excited to begin</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="intermediate" onclick="selectOption(this, 5)">
+                            <div class="option-icon">🌿</div>
+                            <div class="option-content">
+                                <h4>Growing & Exploring</h4>
+                                <p>Done some courses/books, ready for deeper work</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="advanced" onclick="selectOption(this, 5)">
+                            <div class="option-icon">🌳</div>
+                            <div class="option-content">
+                                <h4>Experienced Practitioner</h4>
+                                <p>Years of practice, seeking advanced teachings</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="prevQuestion()">Back</button>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn5" disabled>Continue</button>
+                </div>
+            </div>
+
+            <!-- Question 6: Specific Challenges -->
+            <div class="quiz-section" data-question="6">
+                <div class="quiz-card">
+                    <div class="question-number">Question 6 of 8</div>
+                    <h2 class="question-text">What specific challenges are you facing right now? (Select all that apply)</h2>
+                    <p class="question-subtext">We'll prioritize programs that address your most pressing needs.</p>
+
+                    <div class="options-grid multi-select">
+                        <div class="option" data-value="stress" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">😰</div>
+                            <div class="option-content">
+                                <h4>Stress & Anxiety</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="focus" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">🎯</div>
+                            <div class="option-content">
+                                <h4>Lack of Focus</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="confidence" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">💎</div>
+                            <div class="option-content">
+                                <h4>Low Confidence</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="energy" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">🔋</div>
+                            <div class="option-content">
+                                <h4>Low Energy</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="purpose" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">🧭</div>
+                            <div class="option-content">
+                                <h4>Feeling Lost/No Purpose</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="money" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">💰</div>
+                            <div class="option-content">
+                                <h4>Financial Struggles</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="love" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">💔</div>
+                            <div class="option-content">
+                                <h4>Relationship Issues</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="health" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">🏥</div>
+                            <div class="option-content">
+                                <h4>Health Concerns</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="prevQuestion()">Back</button>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn6">Continue</button>
+                </div>
+            </div>
+
+            <!-- Question 7: Starting Energy -->
+            <div class="quiz-section" data-question="7">
+                <div class="quiz-card">
+                    <div class="question-number">Question 7 of 8</div>
+                    <h2 class="question-text">How would you like to START your transformation journey?</h2>
+                    <p class="question-subtext">Your first program sets the tone for the entire year.</p>
+
+                    <div class="options-grid">
+                        <div class="option" data-value="foundation" onclick="selectOption(this, 7)">
+                            <div class="option-icon">🏗️</div>
+                            <div class="option-content">
+                                <h4>Build a Strong Foundation</h4>
+                                <p>Start with fundamentals that support everything else</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="quickwin" onclick="selectOption(this, 7)">
+                            <div class="option-icon">🎯</div>
+                            <div class="option-content">
+                                <h4>Quick Win First</h4>
+                                <p>Start with a short program for immediate results</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="deepdive" onclick="selectOption(this, 7)">
+                            <div class="option-icon">🌊</div>
+                            <div class="option-content">
+                                <h4>Deep Dive Immediately</h4>
+                                <p>Jump into your biggest challenge right away</p>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="prevQuestion()">Back</button>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn7" disabled>Continue</button>
+                </div>
+            </div>
+
+            <!-- Question 8: Teachers -->
+            <div class="quiz-section" data-question="8">
+                <div class="quiz-card">
+                    <div class="question-number">Question 8 of 8</div>
+                    <h2 class="question-text">Are there any Mindvalley teachers you already love or want to learn from?</h2>
+                    <p class="question-subtext">Select any that resonate with you (optional)</p>
+
+                    <div class="options-grid multi-select">
+                        <div class="option" data-value="vishen" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">🌟</div>
+                            <div class="option-content">
+                                <h4>Vishen Lakhiani</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="jim" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">🧠</div>
+                            <div class="option-content">
+                                <h4>Jim Kwik</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="marisa" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">💫</div>
+                            <div class="option-content">
+                                <h4>Marisa Peer</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="sadhguru" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">🕉️</div>
+                            <div class="option-content">
+                                <h4>Sadhguru</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="shefali" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">👨‍👩‍👧</div>
+                            <div class="option-content">
+                                <h4>Dr. Shefali</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="michael" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">🦋</div>
+                            <div class="option-content">
+                                <h4>Michael Beckwith</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="ben" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">💪</div>
+                            <div class="option-content">
+                                <h4>Ben Greenfield</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                        <div class="option" data-value="open" onclick="toggleMultiOption(this)">
+                            <div class="option-icon">🌈</div>
+                            <div class="option-content">
+                                <h4>Open to Anyone</h4>
+                            </div>
+                            <div class="option-checkbox"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="prevQuestion()">Back</button>
+                    <button class="btn btn-primary" onclick="generateResults()">Generate My Year Plan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <div class="results-header">
+                <h2>Your Personalized Year of Transformation</h2>
+                <p>Based on your answers, here's your optimized 12-month learning journey</p>
+            </div>
+
+            <div class="summary-card">
+                <h3>Your Transformation Summary</h3>
+                <div class="summary-grid" id="summaryGrid">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <h3 style="margin-bottom: 30px; text-align: center;">Your 10 Programs (In Recommended Order)</h3>
+
+            <div class="program-timeline" id="programTimeline">
+                <!-- Populated dynamically -->
+            </div>
+
+            <div class="cta-section">
+                <h3>Ready to Begin Your Transformation?</h3>
+                <p>Get unlimited access to all these programs and 100+ more with Mindvalley Membership</p>
+                <button class="btn btn-cta" onclick="window.open('https://www.mindvalley.com/membership', '_blank')">Start Your Journey</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let currentQuestion = 1;
+        const totalQuestions = 8;
+        let answers = {
+            primaryArea: null,
+            secondaryAreas: [],
+            timeCommitment: null,
+            learningStyle: null,
+            experienceLevel: null,
+            challenges: [],
+            startingEnergy: null,
+            preferredTeachers: []
+        };
+
+        // Program Database (curated selection based on Airtable)
+        const programs = {
+            soul: [
+                { title: "A Yogi's Guide to Joy", author: "Sadhguru", category: "Soul", duration: "2 weeks", lessons: 15, description: "Master your thoughts and emotions with ancient yogic wisdom for perpetual bliss.", level: "beginner", style: ["spiritual", "balanced"], challenges: ["stress", "purpose"] },
+                { title: "The Silva Ultramind System", author: "Vishen Lakhiani", category: "Soul", duration: "4 weeks", lessons: 28, description: "Access alpha and theta brainwave states to channel your mind's full creative potential.", level: "intermediate", style: ["balanced", "scientific"], challenges: ["focus", "purpose"] },
+                { title: "Duality", author: "Jeffrey Allen", category: "Soul", duration: "8 weeks", lessons: 48, description: "Master your energy body and transcend physical limitations for holistic success.", level: "advanced", style: ["spiritual"], challenges: ["purpose", "energy"] },
+                { title: "The Art of Astral Projection", author: "Jade Shaw", category: "Soul", duration: "4 weeks", lessons: 28, description: "Learn to consciously leave your body and explore non-physical dimensions.", level: "advanced", style: ["spiritual"], challenges: ["purpose"] },
+                { title: "Quantum Jumping", author: "Burt Goldman", category: "Soul", duration: "4 weeks", lessons: 30, description: "Harness your mind to meet alternate versions of yourself in the multiverse.", level: "intermediate", style: ["spiritual", "balanced"], challenges: ["purpose", "confidence"] },
+                { title: "Life Visioning Mastery", author: "Michael Beckwith", category: "Soul", duration: "7 weeks", lessons: 35, description: "Access your soul's vision for your life and align with your highest purpose.", level: "intermediate", style: ["spiritual"], challenges: ["purpose"] }
+            ],
+            mind: [
+                { title: "Superbrain", author: "Jim Kwik", category: "Mind", duration: "5 weeks", lessons: 34, description: "Unlock your brain's limitless potential with memory and speed reading mastery.", level: "beginner", style: ["practical", "scientific"], challenges: ["focus"] },
+                { title: "The 6 Phase Meditation", author: "Vishen Lakhiani", category: "Mind", duration: "1 week", lessons: 6, description: "A daily meditation practice designed for high performers and busy lives.", level: "beginner", style: ["practical", "balanced"], challenges: ["stress", "focus"] },
+                { title: "Mastering the Growth Mindset", author: "Vishen Lakhiani", category: "Mind", duration: "1 week", lessons: 6, description: "Permanently rewire your inner programming to achieve extraordinary success.", level: "beginner", style: ["practical", "scientific"], challenges: ["confidence"] },
+                { title: "Uncompromised Life", author: "Marisa Peer", category: "Mind", duration: "8 weeks", lessons: 54, description: "Overcome limiting beliefs and reprogram your mind for success.", level: "intermediate", style: ["practical", "scientific"], challenges: ["confidence", "stress"] },
+                { title: "Rapid Transformational Hypnotherapy for Abundance", author: "Marisa Peer", category: "Mind", duration: "5 weeks", lessons: 35, description: "Use hypnotherapy to embody the beliefs and habits of highly successful people.", level: "intermediate", style: ["scientific"], challenges: ["money", "confidence"] },
+                { title: "Everyday Bliss", author: "Paul McKenna", category: "Mind", duration: "4 weeks", lessons: 28, description: "Reprogram your mind and body for stress-free living.", level: "beginner", style: ["practical", "scientific"], challenges: ["stress"] }
+            ],
+            body: [
+                { title: "The Longevity Blueprint", author: "Ben Greenfield", category: "Body", duration: "10 weeks", lessons: 60, description: "Science-backed protocols for optimal health and extended lifespan.", level: "intermediate", style: ["scientific"], challenges: ["energy", "health"] },
+                { title: "WILDFIT", author: "Eric Edmeades", category: "Body", duration: "12 weeks", lessons: 90, description: "Transform your relationship with food and achieve lasting weight optimization.", level: "beginner", style: ["practical", "scientific"], challenges: ["energy", "health"] },
+                { title: "10x Fitness", author: "Lorenzo Delano", category: "Body", duration: "8 weeks", lessons: 56, description: "Get fit in just 15 minutes twice a week with science-backed methods.", level: "beginner", style: ["practical", "scientific"], challenges: ["energy", "health"] },
+                { title: "Super Reading", author: "Jim Kwik", category: "Body", duration: "3 weeks", lessons: 21, description: "Triple your reading speed while improving comprehension.", level: "beginner", style: ["practical"], challenges: ["focus"] },
+                { title: "Sleep Optimization", author: "Dr. Michael Breus", category: "Body", duration: "4 weeks", lessons: 28, description: "Discover your chronotype and optimize your sleep for peak performance.", level: "beginner", style: ["scientific"], challenges: ["energy"] },
+                { title: "Energy Medicine", author: "Donna Eden", category: "Body", duration: "8 weeks", lessons: 56, description: "Balance your body's energy systems for vibrant health.", level: "intermediate", style: ["spiritual", "practical"], challenges: ["energy", "health"] }
+            ],
+            relationships: [
+                { title: "Calling in 'The One'", author: "Katherine Woodward Thomas", category: "Relationships", duration: "7 weeks", lessons: 49, description: "A proven process to attract and recognize your ideal romantic partner.", level: "beginner", style: ["spiritual", "practical"], challenges: ["love"] },
+                { title: "Conscious Uncoupling", author: "Katherine Woodward Thomas", category: "Relationships", duration: "5 weeks", lessons: 35, description: "Navigate breakups with grace and transform heartbreak into healing.", level: "intermediate", style: ["spiritual", "practical"], challenges: ["love"] },
+                { title: "The Science of Great Sex", author: "Dr. Amy Killen", category: "Relationships", duration: "2 weeks", lessons: 11, description: "Science-based tools for amazing intimacy and improved lifespan.", level: "intermediate", style: ["scientific"], challenges: ["love"] },
+                { title: "Conscious Parenting Mastery", author: "Dr. Shefali", category: "Relationships", duration: "7 weeks", lessons: 35, description: "Transform your parenting approach for deeper family connection.", level: "intermediate", style: ["spiritual", "balanced"], challenges: ["love"] },
+                { title: "Ultra Presence", author: "Sonia Choquette", category: "Relationships", duration: "4 weeks", lessons: 21, description: "Develop intuition to enhance all your relationships.", level: "intermediate", style: ["spiritual"], challenges: ["love", "purpose"] },
+                { title: "Love or Above", author: "Christie Marie Sheldon", category: "Relationships", duration: "6 weeks", lessons: 42, description: "Raise your vibration to attract love and positive relationships.", level: "beginner", style: ["spiritual"], challenges: ["love"] }
+            ],
+            career: [
+                { title: "Lifebook Online", author: "Jon & Missy Butcher", category: "Career", duration: "6 weeks", lessons: 36, description: "Design your ideal life across all 12 dimensions of existence.", level: "beginner", style: ["practical", "balanced"], challenges: ["purpose", "money"] },
+                { title: "Be Extraordinary", author: "Vishen Lakhiani", category: "Career", duration: "8 weeks", lessons: 30, description: "Master the foundational frameworks for extraordinary living.", level: "beginner", style: ["balanced"], challenges: ["purpose", "confidence"] },
+                { title: "Business Freedom Blueprint", author: "Eric Edmeades", category: "Career", duration: "8 weeks", lessons: 56, description: "Build a profitable business while maintaining work-life balance.", level: "intermediate", style: ["practical"], challenges: ["money"] },
+                { title: "Money EQ", author: "Ken Honda", category: "Career", duration: "8 weeks", lessons: 35, description: "Heal your relationship with money using the Japanese art of happy money.", level: "beginner", style: ["spiritual", "practical"], challenges: ["money"] },
+                { title: "The Quest for Personal Mastery", author: "Srikumar Rao", category: "Career", duration: "8 weeks", lessons: 40, description: "Discover your path to lasting fulfillment and success.", level: "advanced", style: ["balanced"], challenges: ["purpose"] },
+                { title: "Course Pro", author: "Jimmy Naraine & Vishen", category: "Career", duration: "6 weeks", lessons: 42, description: "Master the art of creating bestselling online courses.", level: "intermediate", style: ["practical"], challenges: ["money"] }
+            ],
+            performance: [
+                { title: "Super Productivity", author: "Vishen Lakhiani", category: "Performance", duration: "1 week", lessons: 6, description: "Maximize focus, overcome distractions, and achieve goals at lightning speed.", level: "beginner", style: ["practical"], challenges: ["focus"] },
+                { title: "The Habit of Ferocity", author: "Steven Kotler", category: "Performance", duration: "7 weeks", lessons: 49, description: "Engineer flow states to achieve peak performance in every area.", level: "advanced", style: ["scientific"], challenges: ["focus", "energy"] },
+                { title: "Total Self-Confidence", author: "Paul McKenna", category: "Performance", duration: "4 weeks", lessons: 28, description: "Build unshakeable confidence through proven psychological techniques.", level: "beginner", style: ["scientific", "practical"], challenges: ["confidence"] },
+                { title: "Becoming Limitless", author: "Dr. Mark Hyman", category: "Performance", duration: "6 weeks", lessons: 42, description: "Optimize your brain and body for sustained high performance.", level: "intermediate", style: ["scientific"], challenges: ["energy", "focus"] },
+                { title: "Ultra Productivity", author: "Robin Sharma", category: "Performance", duration: "8 weeks", lessons: 66, description: "Apply legendary productivity principles used by elite performers.", level: "intermediate", style: ["practical"], challenges: ["focus"] },
+                { title: "The M Word", author: "Emily Fletcher", category: "Performance", duration: "4 weeks", lessons: 28, description: "Modern meditation for high performers seeking stress relief and clarity.", level: "beginner", style: ["practical", "balanced"], challenges: ["stress", "focus"] }
+            ]
+        };
+
+        // Functions
+        function selectOption(element, questionNum) {
+            // Remove selection from siblings
+            element.parentElement.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            // Add selection to clicked
+            element.classList.add('selected');
+
+            // Store answer
+            const value = element.dataset.value;
+            switch(questionNum) {
+                case 1:
+                    answers.primaryArea = value;
+                    populateSecondaryAreas(value);
+                    break;
+                case 3:
+                    answers.timeCommitment = value;
+                    break;
+                case 4:
+                    answers.learningStyle = value;
+                    break;
+                case 5:
+                    answers.experienceLevel = value;
+                    break;
+                case 7:
+                    answers.startingEnergy = value;
+                    break;
+            }
+
+            // Enable next button
+            document.getElementById(`nextBtn${questionNum}`).disabled = false;
+        }
+
+        function toggleMultiOption(element) {
+            element.classList.toggle('selected');
+
+            // Update answer arrays based on current question
+            const questionSection = element.closest('.quiz-section');
+            const questionNum = parseInt(questionSection.dataset.question);
+
+            const selectedValues = Array.from(questionSection.querySelectorAll('.option.selected'))
+                .map(opt => opt.dataset.value);
+
+            if (questionNum === 2) {
+                if (selectedValues.length <= 3) {
+                    answers.secondaryAreas = selectedValues;
+                } else {
+                    element.classList.remove('selected');
+                }
+            } else if (questionNum === 6) {
+                answers.challenges = selectedValues;
+            } else if (questionNum === 8) {
+                answers.preferredTeachers = selectedValues;
+            }
+        }
+
+        function populateSecondaryAreas(primaryArea) {
+            const allAreas = [
+                { value: 'soul', label: 'Soul & Spirituality', icon: '🧘' },
+                { value: 'mind', label: 'Mind & Mindset', icon: '🧠' },
+                { value: 'body', label: 'Body & Health', icon: '💪' },
+                { value: 'relationships', label: 'Love & Relationships', icon: '❤️' },
+                { value: 'career', label: 'Career & Business', icon: '🚀' },
+                { value: 'performance', label: 'Performance', icon: '⚡' }
+            ];
+
+            const container = document.getElementById('secondaryAreas');
+            container.innerHTML = allAreas
+                .filter(area => area.value !== primaryArea)
+                .map(area => `
+                    <div class="option" data-value="${area.value}" onclick="toggleMultiOption(this)">
+                        <div class="option-icon">${area.icon}</div>
+                        <div class="option-content">
+                            <h4>${area.label}</h4>
+                        </div>
+                        <div class="option-checkbox"></div>
+                    </div>
+                `).join('');
+        }
+
+        function nextQuestion() {
+            document.querySelector(`.quiz-section[data-question="${currentQuestion}"]`).classList.remove('active');
+            currentQuestion++;
+            document.querySelector(`.quiz-section[data-question="${currentQuestion}"]`).classList.add('active');
+            updateProgress();
+        }
+
+        function prevQuestion() {
+            document.querySelector(`.quiz-section[data-question="${currentQuestion}"]`).classList.remove('active');
+            currentQuestion--;
+            document.querySelector(`.quiz-section[data-question="${currentQuestion}"]`).classList.add('active');
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            document.getElementById('progressStep').textContent = `Question ${currentQuestion} of ${totalQuestions}`;
+        }
+
+        function generateResults() {
+            // Hide quiz, show results
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultsSection').classList.add('active');
+            document.querySelector('.progress-container').style.display = 'none';
+
+            // Generate program recommendations
+            const recommendedPrograms = selectPrograms();
+
+            // Populate summary
+            const summaryGrid = document.getElementById('summaryGrid');
+            const totalWeeks = recommendedPrograms.reduce((sum, p) => {
+                const weeks = parseInt(p.duration.match(/\d+/)[0]) || 4;
+                return sum + weeks;
+            }, 0);
+            const totalLessons = recommendedPrograms.reduce((sum, p) => sum + p.lessons, 0);
+
+            summaryGrid.innerHTML = `
+                <div class="summary-stat">
+                    <div class="summary-value">10</div>
+                    <div class="summary-label">Programs</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="summary-value">${totalWeeks}</div>
+                    <div class="summary-label">Total Weeks</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="summary-value">${totalLessons}</div>
+                    <div class="summary-label">Lessons</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="summary-value">6</div>
+                    <div class="summary-label">Life Areas Covered</div>
+                </div>
+            `;
+
+            // Populate timeline
+            const timeline = document.getElementById('programTimeline');
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            let currentMonth = new Date().getMonth();
+
+            timeline.innerHTML = recommendedPrograms.map((program, index) => {
+                const monthLabel = months[(currentMonth + index) % 12];
+                return `
+                    <div class="program-item" data-month="${monthLabel}">
+                        <span class="program-category">${program.category}</span>
+                        <h4 class="program-title">${program.title}</h4>
+                        <div class="program-author">with ${program.author}</div>
+                        <p class="program-description">${program.description}</p>
+                        <div class="program-meta">
+                            <span>📅 ${program.duration}</span>
+                            <span>📚 ${program.lessons} lessons</span>
+                        </div>
+                        <div class="program-reason">✓ ${program.reason}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectPrograms() {
+            const selected = [];
+            const usedTitles = new Set();
+
+            // Helper to add a program with reason
+            function addProgram(program, reason) {
+                if (!usedTitles.has(program.title)) {
+                    selected.push({ ...program, reason });
+                    usedTitles.add(program.title);
+                    return true;
+                }
+                return false;
+            }
+
+            // Helper to find best match
+            function findBestMatch(area, filters = {}) {
+                const areaPrograms = programs[area] || [];
+                return areaPrograms.find(p => {
+                    if (usedTitles.has(p.title)) return false;
+                    if (filters.level && p.level !== filters.level) return false;
+                    if (filters.style && !p.style.includes(filters.style)) return false;
+                    if (filters.challenge && !p.challenges.includes(filters.challenge)) return false;
+                    return true;
+                }) || areaPrograms.find(p => !usedTitles.has(p.title));
+            }
+
+            // 1. First program based on starting energy
+            if (answers.startingEnergy === 'quickwin') {
+                // Start with a short program
+                const shortPrograms = Object.values(programs).flat()
+                    .filter(p => p.duration.includes('1 week') || p.duration.includes('2 weeks'));
+                const quickWin = shortPrograms.find(p =>
+                    p.style.includes(answers.learningStyle) || answers.learningStyle === 'balanced'
+                ) || shortPrograms[0];
+                if (quickWin) addProgram(quickWin, "Quick win to build momentum");
+            } else if (answers.startingEnergy === 'foundation') {
+                // Start with foundational program
+                const foundation = findBestMatch('mind', { level: 'beginner' }) ||
+                                  findBestMatch('soul', { level: 'beginner' });
+                if (foundation) addProgram(foundation, "Strong foundation for your journey");
+            } else {
+                // Deep dive - start with primary area
+                const primary = findBestMatch(answers.primaryArea, {
+                    level: answers.experienceLevel,
+                    style: answers.learningStyle
+                });
+                if (primary) addProgram(primary, "Direct focus on your primary goal");
+            }
+
+            // 2-4. More programs from primary area
+            for (let i = 0; i < 3 && selected.length < 4; i++) {
+                const match = findBestMatch(answers.primaryArea, {
+                    challenge: answers.challenges[0]
+                });
+                if (match) addProgram(match, `Core ${answers.primaryArea} transformation`);
+            }
+
+            // 5-7. Secondary areas
+            answers.secondaryAreas.forEach(area => {
+                if (selected.length < 7) {
+                    const match = findBestMatch(area, {
+                        level: answers.experienceLevel === 'beginner' ? 'beginner' : undefined
+                    });
+                    if (match) addProgram(match, `Supporting growth in ${area}`);
+                }
+            });
+
+            // 8-9. Challenge-based selections
+            answers.challenges.forEach(challenge => {
+                if (selected.length < 9) {
+                    const allPrograms = Object.values(programs).flat();
+                    const match = allPrograms.find(p =>
+                        !usedTitles.has(p.title) && p.challenges.includes(challenge)
+                    );
+                    if (match) addProgram(match, `Addresses your ${challenge} challenge`);
+                }
+            });
+
+            // 10. Fill remaining with variety
+            const allAreas = ['soul', 'mind', 'body', 'relationships', 'career', 'performance'];
+            for (const area of allAreas) {
+                if (selected.length >= 10) break;
+                const match = findBestMatch(area);
+                if (match) addProgram(match, "Holistic growth expansion");
+            }
+
+            return selected.slice(0, 10);
+        }
+    </script>
+</body>
+</html>
