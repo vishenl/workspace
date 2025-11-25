@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Friday A/B Testing Guide | Mindvalley 2024</title>
+    <link rel="stylesheet" href="styles/mv-selfreset-base.css">
+    <style>
+        /* ============================================
+           MINDVALLEY TESTING GUIDE - LIGHT THEME
+           Official Mindvalley Design System
+           ============================================ */
+
+        :root {
+            /* Light Theme Colors */
+            --mv-bg: #ffffff;
+            --mv-bg-light: #f8f9fa;
+            --mv-bg-alt: #f3f4f6;
+            --mv-bg-card: #ffffff;
+
+            /* Brand Colors */
+            --mv-purple: #7a12d4;
+            --mv-purple-light: #9333ea;
+            --mv-purple-dark: #6b21a8;
+
+            /* Status Colors */
+            --mv-success: #10b981;
+            --mv-warning: #f59e0b;
+            --mv-danger: #ef4444;
+
+            /* Text Colors */
+            --mv-text-primary: #0f131a;
+            --mv-text-secondary: rgba(15, 19, 26, 0.7);
+            --mv-text-tertiary: rgba(15, 19, 26, 0.5);
+            --mv-text-muted: rgba(15, 19, 26, 0.4);
+
+            /* Borders */
+            --mv-border: rgba(0, 0, 0, 0.1);
+            --mv-border-light: rgba(0, 0, 0, 0.05);
+
+            /* Shadows */
+            --mv-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --mv-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --mv-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--mv-bg);
+            color: var(--mv-text-primary);
+            line-height: 1.7;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--mv-bg);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--mv-border);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(122, 18, 212, 0.1);
+            border: 1px solid rgba(122, 18, 212, 0.2);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--mv-purple);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero h1 {
+            margin-bottom: 20px;
+            color: var(--mv-text-primary);
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            color: var(--mv-text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--mv-purple);
+        }
+
+        .hero-stat-label {
+            font-size: 0.9rem;
+            color: var(--mv-text-tertiary);
+            margin-top: 5px;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--mv-bg);
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--mv-border);
+            box-shadow: var(--mv-shadow-sm);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav a {
+            color: var(--mv-text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            background: rgba(122, 18, 212, 0.1);
+            color: var(--mv-purple);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: 80px;
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            margin-bottom: 12px;
+            color: var(--mv-text-primary);
+        }
+
+        .section-header p {
+            color: var(--mv-text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: rgba(122, 18, 212, 0.1);
+            color: var(--mv-purple);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        /* Test Card */
+        .test-card {
+            background: var(--mv-bg-card);
+            border-radius: 24px;
+            border: 1px solid var(--mv-border);
+            margin-bottom: 40px;
+            overflow: hidden;
+            box-shadow: var(--mv-shadow-sm);
+        }
+
+        .test-card:hover {
+            box-shadow: var(--mv-shadow-md);
+        }
+
+        .test-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 32px;
+            background: var(--mv-bg-light);
+            border-bottom: 1px solid var(--mv-border);
+        }
+
+        .test-number {
+            width: 56px;
+            height: 56px;
+            background: var(--mv-purple);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .test-meta {
+            flex: 1;
+        }
+
+        .test-meta h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--mv-text-primary);
+        }
+
+        .test-meta p {
+            color: var(--mv-text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .test-badges {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .priority-badge {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .priority-high {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--mv-danger);
+        }
+
+        .priority-medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--mv-warning);
+        }
+
+        .priority-low {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--mv-success);
+        }
+
+        .uplift-badge {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            background: var(--mv-purple);
+            color: white;
+        }
+
+        .test-body {
+            padding: 32px;
+        }
+
+        /* Position Indicator */
+        .position-indicator {
+            background: var(--mv-bg-alt);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .position-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(122, 18, 212, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .position-text strong {
+            display: block;
+            color: var(--mv-text-primary);
+            margin-bottom: 2px;
+        }
+
+        .position-text span {
+            font-size: 0.9rem;
+            color: var(--mv-text-secondary);
+        }
+
+        /* Component Preview */
+        .component-preview {
+            background: var(--mv-bg-light);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 28px;
+            border: 2px dashed var(--mv-border);
+        }
+
+        .preview-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--mv-purple);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preview-label::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--mv-purple);
+            border-radius: 50%;
+        }
+
+        /* Why It Works Section */
+        .why-it-works {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 28px;
+        }
+
+        .why-it-works h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--mv-success);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .why-it-works ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .why-it-works li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            color: var(--mv-text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .why-it-works li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--mv-success);
+            font-weight: 700;
+        }
+
+        /* ============================================
+           COMPONENT DESIGNS - These are the actual
+           test components to implement
+           ============================================ */
+
+        /* Component 1: Payment Plan Pricing */
+        .pricing-options-preview {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .price-option {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            border: 2px solid var(--mv-border);
+            text-align: center;
+            min-width: 260px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .price-option:hover {
+            border-color: var(--mv-purple);
+            box-shadow: var(--mv-shadow-md);
+        }
+
+        .price-option.featured {
+            border-color: var(--mv-purple);
+            background: linear-gradient(135deg, #ffffff 0%, rgba(122, 18, 212, 0.03) 100%);
+        }
+
+        .price-option.featured::before {
+            content: 'BEST VALUE';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--mv-purple);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .price-option-label {
+            font-size: 0.85rem;
+            color: var(--mv-text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .price-option-original {
+            font-size: 1.1rem;
+            color: var(--mv-text-tertiary);
+            text-decoration: line-through;
+            margin-bottom: 4px;
+        }
+
+        .price-option-current {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .price-option.featured .price-option-current {
+            color: var(--mv-purple);
+        }
+
+        .price-option-period {
+            font-size: 0.9rem;
+            color: var(--mv-text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .price-option-savings {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--mv-success);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .price-option-cta {
+            display: block;
+            width: 100%;
+            padding: 14px 24px;
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .price-option.featured .price-option-cta {
+            background: var(--mv-purple);
+            color: white;
+        }
+
+        .price-option:not(.featured) .price-option-cta {
+            background: transparent;
+            color: var(--mv-purple);
+            border: 2px solid var(--mv-purple);
+        }
+
+        .price-option-note {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: var(--mv-text-tertiary);
+        }
+
+        /* Component 2: Enhanced Guarantee */
+        .guarantee-preview {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, white 100%);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .guarantee-badge-preview {
+            width: 140px;
+            height: 140px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 3px solid var(--mv-success);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .guarantee-badge-preview .days {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--mv-success);
+            line-height: 1;
+        }
+
+        .guarantee-badge-preview .text {
+            font-size: 0.7rem;
+            color: var(--mv-success);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 4px;
+        }
+
+        .guarantee-content-preview h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--mv-text-primary);
+        }
+
+        .guarantee-content-preview > p {
+            color: var(--mv-text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .guarantee-list-preview {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .guarantee-item-preview {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--mv-success);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .guarantee-item-preview::before {
+            content: '✓';
+            width: 24px;
+            height: 24px;
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        /* Component 3: What Happens Next Journey */
+        .journey-preview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .journey-step-preview {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid var(--mv-border);
+            text-align: center;
+            position: relative;
+        }
+
+        .journey-step-preview::after {
+            content: '→';
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--mv-text-muted);
+            font-size: 1.25rem;
+        }
+
+        .journey-step-preview:last-child::after {
+            display: none;
+        }
+
+        .journey-day-preview {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            background: var(--mv-purple);
+            color: white;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .journey-step-preview h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--mv-text-primary);
+        }
+
+        .journey-step-preview p {
+            font-size: 0.85rem;
+            color: var(--mv-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Component 4: Outcome Testimonials */
+        .testimonial-preview {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid var(--mv-border);
+            position: relative;
+        }
+
+        .testimonial-preview::before {
+            content: '"';
+            position: absolute;
+            top: 16px;
+            left: 24px;
+            font-size: 4rem;
+            color: var(--mv-purple);
+            opacity: 0.15;
+            line-height: 1;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-outcome-preview {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--mv-success);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-text-preview {
+            font-size: 1.05rem;
+            color: var(--mv-text-secondary);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author-preview {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .testimonial-avatar-preview {
+            width: 52px;
+            height: 52px;
+            background: rgba(122, 18, 212, 0.1);
+            color: var(--mv-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .testimonial-info-preview h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--mv-text-primary);
+        }
+
+        .testimonial-info-preview p {
+            font-size: 0.85rem;
+            color: var(--mv-text-tertiary);
+        }
+
+        /* Component 5: Value Calculator */
+        .calculator-preview {
+            background: var(--mv-bg-alt);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .calculator-preview h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: var(--mv-text-primary);
+        }
+
+        .calculator-display-preview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .calc-box-preview {
+            background: white;
+            padding: 24px 32px;
+            border-radius: 16px;
+            border: 1px solid var(--mv-border);
+            text-align: center;
+        }
+
+        .calc-label-preview {
+            font-size: 0.75rem;
+            color: var(--mv-text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .calc-value-preview {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .calc-value-preview.original {
+            color: var(--mv-text-tertiary);
+            text-decoration: line-through;
+        }
+
+        .calc-value-preview.savings {
+            color: var(--mv-purple);
+        }
+
+        .calc-value-preview.pay {
+            color: var(--mv-success);
+        }
+
+        .calc-operator-preview {
+            font-size: 1.75rem;
+            color: var(--mv-text-muted);
+        }
+
+        .calculator-result-preview {
+            font-size: 1.25rem;
+            color: var(--mv-text-primary);
+        }
+
+        .calculator-result-preview .highlight {
+            color: var(--mv-purple);
+            font-weight: 700;
+        }
+
+        /* Component 6: Comparison Table */
+        .comparison-preview {
+            overflow-x: auto;
+        }
+
+        .comparison-table-preview {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--mv-border);
+        }
+
+        .comparison-table-preview th,
+        .comparison-table-preview td {
+            padding: 18px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--mv-border);
+        }
+
+        .comparison-table-preview th {
+            background: var(--mv-bg-light);
+            font-weight: 600;
+            color: var(--mv-text-secondary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .comparison-table-preview td {
+            color: var(--mv-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .comparison-table-preview tr.highlight-row {
+            background: rgba(122, 18, 212, 0.05);
+        }
+
+        .comparison-table-preview tr.highlight-row td {
+            font-weight: 600;
+            color: var(--mv-text-primary);
+        }
+
+        .comparison-table-preview tr.highlight-row td:first-child {
+            color: var(--mv-purple);
+        }
+
+        .check-icon-preview {
+            color: var(--mv-success);
+            font-weight: bold;
+        }
+
+        .x-icon-preview {
+            color: var(--mv-text-muted);
+        }
+
+        /* Component 7: Social Proof Popup */
+        .popup-preview-container {
+            position: relative;
+            height: 100px;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .social-popup-preview {
+            background: white;
+            border: 1px solid var(--mv-border);
+            border-radius: 16px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--mv-shadow-lg);
+            max-width: 300px;
+        }
+
+        .popup-avatar-preview {
+            width: 44px;
+            height: 44px;
+            background: rgba(122, 18, 212, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .popup-content-preview strong {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+            color: var(--mv-text-primary);
+        }
+
+        .popup-content-preview span {
+            font-size: 0.75rem;
+            color: var(--mv-text-tertiary);
+        }
+
+        /* Component 8: Trust Section */
+        .trust-preview {
+            background: var(--mv-bg-light);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid var(--mv-border);
+        }
+
+        .trust-grid-preview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        .trust-item-preview {
+            text-align: center;
+        }
+
+        .trust-icon-preview {
+            width: 64px;
+            height: 64px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 1.5rem;
+        }
+
+        .trust-item-preview h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--mv-text-primary);
+        }
+
+        .trust-item-preview p {
+            font-size: 0.85rem;
+            color: var(--mv-text-secondary);
+        }
+
+        /* Summary Section */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid var(--mv-border);
+            text-align: center;
+        }
+
+        .summary-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--mv-purple);
+            margin-bottom: 8px;
+        }
+
+        .summary-label {
+            font-size: 0.9rem;
+            color: var(--mv-text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--mv-bg-light);
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid var(--mv-border);
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--mv-purple);
+            margin-bottom: 16px;
+        }
+
+        .footer p {
+            color: var(--mv-text-tertiary);
+            font-size: 0.9rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .journey-preview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .journey-step-preview::after {
+                display: none;
+            }
+
+            .guarantee-preview {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .guarantee-badge-preview {
+                margin: 0 auto;
+            }
+
+            .guarantee-list-preview {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-grid-preview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-options-preview {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .journey-preview,
+            .trust-grid-preview {
+                grid-template-columns: 1fr;
+            }
+
+            .test-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .test-badges {
+                justify-content: center;
+            }
+
+            .calculator-display-preview {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="badge">A/B Testing Playbook</span>
+            <h1 class="mv-type--headline1">Black Friday Testing Guide</h1>
+            <p class="subtitle">Ready-to-implement test components with visual designs, positioning instructions, and predicted conversion uplift for each optimization.</p>
+
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">8</div>
+                    <div class="hero-stat-label">Test Components</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">+40%</div>
+                    <div class="hero-stat-label">Total Potential Lift</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">$199</div>
+                    <div class="hero-stat-label">Base Offer Price</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="#test-1">Payment Plans</a>
+            <a href="#test-2">Guarantee</a>
+            <a href="#test-3">Journey</a>
+            <a href="#test-4">Testimonials</a>
+            <a href="#test-5">Calculator</a>
+            <a href="#test-6">Comparison</a>
+            <a href="#test-7">Social Proof</a>
+            <a href="#test-8">Trust Section</a>
+            <a href="#summary">Summary</a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <!-- TEST 1: Payment Plan Options -->
+        <section id="test-1">
+            <div class="test-card">
+                <div class="test-header">
+                    <div class="test-number">1</div>
+                    <div class="test-meta">
+                        <h3>Payment Plan Options</h3>
+                        <p>Add flexible payment plans to remove price barrier objections</p>
+                    </div>
+                    <div class="test-badges">
+                        <span class="priority-badge priority-high">High Priority</span>
+                        <span class="uplift-badge">+20% Uplift</span>
+                    </div>
+                </div>
+
+                <div class="test-body">
+                    <div class="position-indicator">
+                        <div class="position-icon">📍</div>
+                        <div class="position-text">
+                            <strong>Position: Hero Section Pricing Cards</strong>
+                            <span>Replace existing single pricing card with dual-option layout. Place immediately after hero headline and social proof mini bar.</span>
+                        </div>
+                    </div>
+
+                    <div class="component-preview">
+                        <div class="preview-label">Component Design</div>
+
+                        <div class="pricing-options-preview">
+                            <div class="price-option featured">
+                                <div class="price-option-label">Pay in Full</div>
+                                <div class="price-option-original">$399/year</div>
+                                <div class="price-option-current">$199</div>
+                                <div class="price-option-period">per year (just $0.54/day)</div>
+                                <div class="price-option-savings">Save $200</div>
+                                <a href="#" class="price-option-cta">Start 15-Day Free Trial</a>
+                                <p class="price-option-note">Cancel anytime. No questions asked.</p>
+                            </div>
+
+                            <div class="price-option">
+                                <div class="price-option-label">4 Easy Payments</div>
+                                <div class="price-option-original">$99.75/mo</div>
+                                <div class="price-option-current">$52.25</div>
+                                <div class="price-option-period">per month for 4 months</div>
+                                <div class="price-option-savings">0% Interest</div>
+                                <a href="#" class="price-option-cta">Choose Payment Plan</a>
+                                <p class="price-option-note">Via Klarna / Afterpay</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="why-it-works">
+                        <h4>Why This Works</h4>
+                        <ul>
+                            <li>Buy Now Pay Later (BNPL) spending hit $686M on Black Friday 2023</li>
+                            <li>Removes the "I can't afford $199 right now" objection completely</li>
+                            <li>$52.25/month feels like a "coffee budget" commitment</li>
+                            <li>Creates comparison anchor making $199 feel like the smart choice</li>
+                            <li>Klarna/Afterpay handle credit risk, you get paid upfront</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEST 2: Enhanced Guarantee -->
+        <section id="test-2">
+            <div class="test-card">
+                <div class="test-header">
+                    <div class="test-number">2</div>
+                    <div class="test-meta">
+                        <h3>Enhanced "Love It or Leave It" Guarantee</h3>
+                        <p>Make risk reversal tangible with specific commitments and proof points</p>
+                    </div>
+                    <div class="test-badges">
+                        <span class="priority-badge priority-high">High Priority</span>
+                        <span class="uplift-badge">+12% Uplift</span>
+                    </div>
+                </div>
+
+                <div class="test-body">
+                    <div class="position-indicator">
+                        <div class="position-icon">📍</div>
+                        <div class="position-text">
+                            <strong>Position: After Trust Section, Before FAQ</strong>
+                            <span>Place as a dedicated section with visual badge. Should be the last thing they see before final CTA to eliminate remaining hesitation.</span>
+                        </div>
+                    </div>
+
+                    <div class="component-preview">
+                        <div class="preview-label">Component Design</div>
+
+                        <div class="guarantee-preview">
+                            <div class="guarantee-badge-preview">
+                                <span class="days">15</span>
+                                <span class="text">Day Trial</span>
+                            </div>
+                            <div class="guarantee-content-preview">
+                                <h3>Our "Love It or Leave It" Promise</h3>
+                                <p>We're so confident you'll love Mindvalley that we're giving you 15 full days to explore everything - completely risk-free. If it's not for you, just click one button. No emails. No phone calls. No awkward conversations.</p>
+                                <div class="guarantee-list-preview">
+                                    <div class="guarantee-item-preview">15 days full access</div>
+                                    <div class="guarantee-item-preview">One-click refund</div>
+                                    <div class="guarantee-item-preview">3-5 day processing</div>
+                                    <div class="guarantee-item-preview">98% approval rate</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="why-it-works">
+                        <h4>Why This Works</h4>
+                        <ul>
+                            <li>Specific numbers (98% approval, 3-5 days) build trust vs vague promises</li>
+                            <li>"One-click refund" directly addresses known customer service complaints</li>
+                            <li>Visual badge creates memorability and screenshot-ability</li>
+                            <li>Shifts psychology from "risk" to "trial" - they're just trying, not buying</li>
+                            <li>Addresses the #1 conversion blocker for subscription products</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEST 3: What Happens Next Journey -->
+        <section id="test-3">
+            <div class="test-card">
+                <div class="test-header">
+                    <div class="test-number">3</div>
+                    <div class="test-meta">
+                        <h3>"What Happens Next" Onboarding Journey</h3>
+                        <p>Show the first 15 days to reduce uncertainty and perceived effort</p>
+                    </div>
+                    <div class="test-badges">
+                        <span class="priority-badge priority-medium">Medium Priority</span>
+                        <span class="uplift-badge">+8% Uplift</span>
+                    </div>
+                </div>
+
+                <div class="test-body">
+                    <div class="position-indicator">
+                        <div class="position-icon">📍</div>
+                        <div class="position-text">
+                            <strong>Position: After "What's Included" Benefits Section</strong>
+                            <span>Place between benefits and testimonials. Answers "This sounds great, but what do I actually DO?" question.</span>
+                        </div>
+                    </div>
+
+                    <div class="component-preview">
+                        <div class="preview-label">Component Design</div>
+
+                        <div class="journey-preview">
+                            <div class="journey-step-preview">
+                                <div class="journey-day-preview">Day 1</div>
+                                <h4>Take Your AI Assessment</h4>
+                                <p>Answer a few questions about your goals. Our AI builds your personalized curriculum in seconds.</p>
+                            </div>
+                            <div class="journey-step-preview">
+                                <div class="journey-day-preview">Day 2</div>
+                                <h4>Start Your First Quest</h4>
+                                <p>Begin with a program matched to your #1 priority. Just 20 minutes before you check email.</p>
+                            </div>
+                            <div class="journey-step-preview">
+                                <div class="journey-day-preview">Day 3-7</div>
+                                <h4>Build Your Habit</h4>
+                                <p>Daily reminders and streak tracking keep you consistent. By day 7, transformation becomes automatic.</p>
+                            </div>
+                            <div class="journey-step-preview">
+                                <div class="journey-day-preview">Day 15</div>
+                                <h4>Decide If It's For You</h4>
+                                <p>Your trial ends. By now, you'll know if Mindvalley is right for you. If not, one click cancels.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="why-it-works">
+                        <h4>Why This Works</h4>
+                        <ul>
+                            <li>Addresses Hormozi's "Effort & Sacrifice" factor in the Value Equation</li>
+                            <li>"100+ programs" can feel overwhelming - this shows the path</li>
+                            <li>AI assessment promises personalization without homework</li>
+                            <li>"20 minutes before email" makes time commitment feel tiny</li>
+                            <li>Day 15 reminder reinforces the risk-free trial message</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEST 4: Outcome-Specific Testimonials -->
+        <section id="test-4">
+            <div class="test-card">
+                <div class="test-header">
+                    <div class="test-number">4</div>
+                    <div class="test-meta">
+                        <h3>Outcome-Specific Testimonials</h3>
+                        <p>Replace generic praise with specific transformation results</p>
+                    </div>
+                    <div class="test-badges">
+                        <span class="priority-badge priority-medium">Medium Priority</span>
+                        <span class="uplift-badge">+7% Uplift</span>
+                    </div>
+                </div>
+
+                <div class="test-body">
+                    <div class="position-indicator">
+                        <div class="position-icon">📍</div>
+                        <div class="position-text">
+                            <strong>Position: Dedicated Testimonials Section (After Journey)</strong>
+                            <span>Create a 3-column grid with testimonials categorized by outcome type: Health, Wealth, Mindset.</span>
+                        </div>
+                    </div>
+
+                    <div class="component-preview">
+                        <div class="preview-label">Component Design</div>
+
+                        <div class="testimonial-preview">
+                            <span class="testimonial-outcome-preview">Lost 45 lbs with WILDFIT</span>
+                            <p class="testimonial-text-preview">"I tried every diet for 20 years. WILDFIT wasn't about restriction - it changed my entire relationship with food. 45 pounds gone and I've kept it off for 2 years."</p>
+                            <div class="testimonial-author-preview">
+                                <div class="testimonial-avatar-preview">MK</div>
+                                <div class="testimonial-info-preview">
+                                    <h4>Michelle K.</h4>
+                                    <p>Member since 2022</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="why-it-works">
+                        <h4>Why This Works</h4>
+                        <ul>
+                            <li>Specific outcomes ("45 lbs", "doubled income") are 4x more persuasive than vague praise</li>
+                            <li>Badge format makes outcome scannable without reading full testimonial</li>
+                            <li>Matches testimonials to visitor's likely goal (health, wealth, relationships)</li>
+                            <li>"Member since 2022" shows retention - they stayed beyond the trial</li>
+                            <li>Quote format with initials feels authentic vs stock photos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEST 5: Interactive Value Calculator -->
+        <section id="test-5">
+            <div class="test-card">
+                <div class="test-header">
+                    <div class="test-number">5</div>
+                    <div class="test-meta">
+                        <h3>Interactive Value Calculator</h3>
+                        <p>Make the $38,000 value claim visceral and personal</p>
+                    </div>
+                    <div class="test-badges">
+                        <span class="priority-badge priority-medium">Medium Priority</span>
+                        <span class="uplift-badge">+10% Uplift</span>
+                    </div>
+                </div>
+
+                <div class="test-body">
+                    <div class="position-indicator">
+                        <div class="position-icon">📍</div>
+                        <div class="position-text">
+                            <strong>Position: After Benefits Section, Before Teachers</strong>
+                            <span>Create a dedicated "See What You're Getting" section that visualizes the value equation.</span>
+                        </div>
+                    </div>
+
+                    <div class="component-preview">
+                        <div class="preview-label">Component Design</div>
+
+                        <div class="calculator-preview">
+                            <h3>See What You're Really Getting</h3>
+                            <div class="calculator-display-preview">
+                                <div class="calc-box-preview">
+                                    <div class="calc-label-preview">Total Content Value</div>
+                                    <div class="calc-value-preview original">$38,000+</div>
+                                </div>
+                                <span class="calc-operator-preview">→</span>
+                                <div class="calc-box-preview">
+                                    <div class="calc-label-preview">Black Friday Price</div>
+                                    <div class="calc-value-preview pay">$199</div>
+                                </div>
+                                <span class="calc-operator-preview">=</span>
+                                <div class="calc-box-preview">
+                                    <div class="calc-label-preview">Your Savings</div>
+                                    <div class="calc-value-preview savings">99.5%</div>
+                                </div>
+                            </div>
+                            <p class="calculator-result-preview">That's access to everything for less than <span class="highlight">$0.54/day</span></p>
+                        </div>
+                    </div>
+
+                    <div class="why-it-works">
+                        <h4>Why This Works</h4>
+                        <ul>
+                            <li>Visual math is more persuasive than text claims</li>
+                            <li>"$0.54/day" reframes annual cost as trivial daily expense</li>
+                            <li>99.5% savings creates "can't pass this up" psychology</li>
+                            <li>Green color for final price triggers "good deal" association</li>
+                            <li>Strikethrough on original price anchors perceived value</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEST 6: Competitor Comparison Table -->
+        <section id="test-6">
+            <div class="test-card">
+                <div class="test-header">
+                    <div class="test-number">6</div>
+                    <div class="test-meta">
+                        <h3>Competitor Comparison Table</h3>
+                        <p>Show why Mindvalley is the smart choice vs alternatives</p>
+                    </div>
+                    <div class="test-badges">
+                        <span class="priority-badge priority-medium">Medium Priority</span>
+                        <span class="uplift-badge">+8% Uplift</span>
+                    </div>
+                </div>
+
+                <div class="test-body">
+                    <div class="position-indicator">
+                        <div class="position-icon">📍</div>
+                        <div class="position-text">
+                            <strong>Position: After Testimonials, Before Trust Section</strong>
+                            <span>For visitors comparing options. Honest comparison builds credibility while highlighting unique value.</span>
+                        </div>
+                    </div>
+
+                    <div class="component-preview">
+                        <div class="preview-label">Component Design</div>
+
+                        <div class="comparison-preview">
+                            <table class="comparison-table-preview">
+                                <thead>
+                                    <tr>
+                                        <th>Platform</th>
+                                        <th>Price/Year</th>
+                                        <th>Focus Area</th>
+                                        <th>Community</th>
+                                        <th>AI Curriculum</th>
+                                        <th>Live Events</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="highlight-row">
+                                        <td>Mindvalley</td>
+                                        <td><strong>$199</strong></td>
+                                        <td>Complete life transformation</td>
+                                        <td><span class="check-icon-preview">✓</span> 20M+ members</td>
+                                        <td><span class="check-icon-preview">✓</span></td>
+                                        <td><span class="check-icon-preview">✓</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>MasterClass</td>
+                                        <td>$120</td>
+                                        <td>Creative skills only</td>
+                                        <td><span class="x-icon-preview">✗</span></td>
+                                        <td><span class="x-icon-preview">✗</span></td>
+                                        <td><span class="x-icon-preview">✗</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Coursera Plus</td>
+                                        <td>$399</td>
+                                        <td>Academic/professional</td>
+                                        <td><span class="x-icon-preview">✗</span> Forums only</td>
+                                        <td><span class="x-icon-preview">✗</span></td>
+                                        <td><span class="x-icon-preview">✗</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Headspace</td>
+                                        <td>$70</td>
+                                        <td>Meditation only</td>
+                                        <td><span class="x-icon-preview">✗</span></td>
+                                        <td><span class="x-icon-preview">✗</span></td>
+                                        <td><span class="x-icon-preview">✗</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="why-it-works">
+                        <h4>Why This Works</h4>
+                        <ul>
+                            <li>Most visitors are comparing options - this intercepts that research</li>
+                            <li>Honest pricing (MasterClass is cheaper) builds trust</li>
+                            <li>Highlights unique differentiators: community, AI, live events</li>
+                            <li>Visual checkmarks make scanning easy</li>
+                            <li>Positions Mindvalley as "complete" vs competitors' narrow focus</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEST 7: Real-Time Social Proof Popup -->
+        <section id="test-7">
+            <div class="test-card">
+                <div class="test-header">
+                    <div class="test-number">7</div>
+                    <div class="test-meta">
+                        <h3>Real-Time Social Proof Notifications</h3>
+                        <p>Show live purchase activity to create urgency and FOMO</p>
+                    </div>
+                    <div class="test-badges">
+                        <span class="priority-badge priority-low">Lower Priority</span>
+                        <span class="uplift-badge">+6% Uplift</span>
+                    </div>
+                </div>
+
+                <div class="test-body">
+                    <div class="position-indicator">
+                        <div class="position-icon">📍</div>
+                        <div class="position-text">
+                            <strong>Position: Fixed Bottom-Left Corner</strong>
+                            <span>Appears after 10 seconds on page, then rotates every 30 seconds. Auto-hides after 4 seconds each appearance.</span>
+                        </div>
+                    </div>
+
+                    <div class="component-preview">
+                        <div class="preview-label">Component Design</div>
+
+                        <div class="popup-preview-container">
+                            <div class="social-popup-preview">
+                                <div class="popup-avatar-preview">👤</div>
+                                <div class="popup-content-preview">
+                                    <strong>Sarah from London</strong>
+                                    <span>just joined 2 minutes ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="why-it-works">
+                        <h4>Why This Works</h4>
+                        <ul>
+                            <li>Social proof notifications can increase conversions by up to 30%</li>
+                            <li>First name + city creates authenticity without privacy concerns</li>
+                            <li>"2 minutes ago" creates urgency - others are buying NOW</li>
+                            <li>Non-intrusive bottom-left placement doesn't block content</li>
+                            <li>Creates subconscious FOMO without aggressive popups</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEST 8: Trust/Peace of Mind Section -->
+        <section id="test-8">
+            <div class="test-card">
+                <div class="test-header">
+                    <div class="test-number">8</div>
+                    <div class="test-meta">
+                        <h3>"Your Peace of Mind" Trust Section</h3>
+                        <p>Proactively address common concerns and objections</p>
+                    </div>
+                    <div class="test-badges">
+                        <span class="priority-badge priority-high">High Priority</span>
+                        <span class="uplift-badge">+10% Uplift</span>
+                    </div>
+                </div>
+
+                <div class="test-body">
+                    <div class="position-indicator">
+                        <div class="position-icon">📍</div>
+                        <div class="position-text">
+                            <strong>Position: After Comparison Table, Before Guarantee</strong>
+                            <span>Addresses operational concerns before the final push. Builds confidence in the company, not just the product.</span>
+                        </div>
+                    </div>
+
+                    <div class="component-preview">
+                        <div class="preview-label">Component Design</div>
+
+                        <div class="trust-preview">
+                            <div class="trust-grid-preview">
+                                <div class="trust-item-preview">
+                                    <div class="trust-icon-preview">🔐</div>
+                                    <h4>Secure Checkout</h4>
+                                    <p>256-bit SSL encryption. Your payment info is never stored on our servers.</p>
+                                </div>
+                                <div class="trust-item-preview">
+                                    <div class="trust-icon-preview">⏱️</div>
+                                    <h4>24/7 Support</h4>
+                                    <p>Live chat available around the clock. Average response time: under 2 hours.</p>
+                                </div>
+                                <div class="trust-item-preview">
+                                    <div class="trust-icon-preview">🔄</div>
+                                    <h4>Easy Cancellation</h4>
+                                    <p>One-click cancel anytime from your account. No phone calls, no hassle.</p>
+                                </div>
+                                <div class="trust-item-preview">
+                                    <div class="trust-icon-preview">💳</div>
+                                    <h4>Fast Refunds</h4>
+                                    <p>98% of refund requests approved. Processing within 3-5 business days.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="why-it-works">
+                        <h4>Why This Works</h4>
+                        <ul>
+                            <li>Directly addresses known BBB complaints about cancellation/refunds</li>
+                            <li>Specific metrics ("under 2 hours", "98%") build credibility</li>
+                            <li>"One-click cancel" removes the biggest subscription fear</li>
+                            <li>Security badges are expected - absence creates doubt</li>
+                            <li>Proactive transparency converts skeptics into buyers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section id="summary">
+            <div class="section-header">
+                <span class="section-label">Projected Impact</span>
+                <h2 class="mv-type--headline2">Total Potential Lift</h2>
+                <p>If all 8 test components are implemented and win</p>
+            </div>
+
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <div class="summary-value">+40%</div>
+                    <div class="summary-label">Conversion Rate Lift</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-value">+15%</div>
+                    <div class="summary-label">Average Order Value</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-value">-20%</div>
+                    <div class="summary-label">Cart Abandonment</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-value">+30%</div>
+                    <div class="summary-label">Email Revenue</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 60px; text-align: center;">
+                <h3 class="mv-type--headline4" style="margin-bottom: 24px;">Implementation Priority Order</h3>
+                <div style="max-width: 600px; margin: 0 auto; text-align: left;">
+                    <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--mv-border);">
+                        <span style="width: 32px; height: 32px; background: var(--mv-purple); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">1</span>
+                        <span style="flex: 1;"><strong>Payment Plan Options</strong> - Highest impact, removes #1 objection</span>
+                        <span style="color: var(--mv-success); font-weight: 600;">+20%</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--mv-border);">
+                        <span style="width: 32px; height: 32px; background: var(--mv-purple); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">2</span>
+                        <span style="flex: 1;"><strong>Enhanced Guarantee</strong> - Addresses trust concerns</span>
+                        <span style="color: var(--mv-success); font-weight: 600;">+12%</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--mv-border);">
+                        <span style="width: 32px; height: 32px; background: var(--mv-purple); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">3</span>
+                        <span style="flex: 1;"><strong>Trust Section</strong> - Proactive objection handling</span>
+                        <span style="color: var(--mv-success); font-weight: 600;">+10%</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--mv-border);">
+                        <span style="width: 32px; height: 32px; background: var(--mv-purple); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">4</span>
+                        <span style="flex: 1;"><strong>Value Calculator</strong> - Makes savings visceral</span>
+                        <span style="color: var(--mv-success); font-weight: 600;">+10%</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--mv-border);">
+                        <span style="width: 32px; height: 32px; background: var(--mv-purple); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">5</span>
+                        <span style="flex: 1;"><strong>Comparison Table</strong> - Intercepts research behavior</span>
+                        <span style="color: var(--mv-success); font-weight: 600;">+8%</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--mv-border);">
+                        <span style="width: 32px; height: 32px; background: var(--mv-purple); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">6</span>
+                        <span style="flex: 1;"><strong>Onboarding Journey</strong> - Reduces perceived effort</span>
+                        <span style="color: var(--mv-success); font-weight: 600;">+8%</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--mv-border);">
+                        <span style="width: 32px; height: 32px; background: var(--mv-purple); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">7</span>
+                        <span style="flex: 1;"><strong>Outcome Testimonials</strong> - Specific transformation proof</span>
+                        <span style="color: var(--mv-success); font-weight: 600;">+7%</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0;">
+                        <span style="width: 32px; height: 32px; background: var(--mv-purple); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">8</span>
+                        <span style="flex: 1;"><strong>Social Proof Popup</strong> - Creates FOMO urgency</span>
+                        <span style="color: var(--mv-success); font-weight: 600;">+6%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">MINDVALLEY</div>
+        <p>Black Friday A/B Testing Guide 2024<br>All component designs ready for implementation</p>
+    </footer>
+</body>
+</html>
