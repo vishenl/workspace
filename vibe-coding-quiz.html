@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding Mastery Quiz</title>
+    <link rel="stylesheet" href="mv-selfreset-base.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0a1a 0%, #1a1025 50%, #0f0a1a 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(122, 18, 212, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 70%, rgba(138, 43, 226, 0.1) 0%, transparent 50%);
+            animation: bgFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-5%, -5%) rotate(5deg); }
+        }
+
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: #7a12d4;
+            top: 10%;
+            right: -10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: #4f46e5;
+            bottom: 20%;
+            left: -5%;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: #06b6d4;
+            top: 50%;
+            right: 20%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Header */
+        .quiz-header {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .quiz-header h1 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            background: linear-gradient(135deg, #fff 0%, #c4b5fd 50%, #7a12d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.125rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            height: 12px;
+            margin: 2rem 0;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #7a12d4 0%, #a855f7 50%, #06b6d4 100%);
+            border-radius: 100px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-text {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Question Card */
+        .question-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #7a12d4 0%, #a855f7 100%);
+            color: white;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-text {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.5rem;
+            line-height: 1.4;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        /* Answer Options */
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .option:hover {
+            background: rgba(122, 18, 212, 0.2);
+            border-color: rgba(122, 18, 212, 0.5);
+            transform: translateX(8px);
+        }
+
+        .option.selected {
+            background: rgba(122, 18, 212, 0.3);
+            border-color: #7a12d4;
+        }
+
+        .option.correct {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: #22c55e;
+        }
+
+        .option.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+        }
+
+        .option-letter {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .option:hover .option-letter {
+            background: rgba(122, 18, 212, 0.5);
+        }
+
+        .option.selected .option-letter {
+            background: #7a12d4;
+        }
+
+        .option.correct .option-letter {
+            background: #22c55e;
+        }
+
+        .option.incorrect .option-letter {
+            background: #ef4444;
+        }
+
+        .option-text {
+            font-size: 1.0625rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Feedback */
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            border-radius: 16px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: fadeInUp 0.3s forwards;
+        }
+
+        .feedback.correct {
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .feedback.incorrect {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .feedback-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-text {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 100px;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7a12d4 0%, #a855f7 100%);
+            color: white;
+            box-shadow: 0 10px 40px rgba(122, 18, 212, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(122, 18, 212, 0.5);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Results Screen */
+        .results-screen {
+            display: none;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .results-screen.show {
+            display: block;
+            animation: fadeInUp 0.5s forwards;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(122, 18, 212, 0.3) 0%, rgba(168, 85, 247, 0.1) 100%);
+            border: 4px solid;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .score-circle.excellent {
+            border-color: #22c55e;
+        }
+
+        .score-circle.good {
+            border-color: #eab308;
+        }
+
+        .score-circle.needs-work {
+            border-color: #f97316;
+        }
+
+        .score-number {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 4rem;
+            background: linear-gradient(135deg, #fff 0%, #c4b5fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .score-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+        }
+
+        .results-message {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.75rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .results-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.125rem;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Start Screen */
+        .start-screen {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .start-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+        }
+
+        .start-screen h2 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .start-screen p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .quiz-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2rem;
+            color: #a855f7;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+        }
+
+        /* Hidden state */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            top: -10px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .question-card {
+                padding: 1.5rem;
+            }
+
+            .question-text {
+                font-size: 1.25rem;
+            }
+
+            .quiz-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+    </div>
+
+    <div class="container">
+        <header class="quiz-header">
+            <h1>Vibe Coding Mastery Quiz</h1>
+            <p>Test your understanding of the concepts from the Vibe Coding Masterclass</p>
+        </header>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="start-screen">
+            <div class="start-icon">🚀</div>
+            <h2>Ready to Test Your Knowledge?</h2>
+            <p>This quiz covers the key concepts from both Class 1 and Class 2 of the Vibe Coding Masterclass.</p>
+
+            <div class="quiz-stats">
+                <div class="stat-item">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Questions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">~5</div>
+                    <div class="stat-label">Minutes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">80%</div>
+                    <div class="stat-label">To Pass</div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="startQuiz()">
+                Start Quiz
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="hidden">
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+            </div>
+            <div class="progress-text" id="progress-text">Question 1 of 12</div>
+
+            <div class="question-card" id="question-card">
+                <div class="question-number" id="question-number">Question 1</div>
+                <div class="question-text" id="question-text"></div>
+                <div class="options-container" id="options-container"></div>
+                <div class="feedback" id="feedback">
+                    <div class="feedback-icon" id="feedback-icon"></div>
+                    <div class="feedback-text" id="feedback-text"></div>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" disabled>
+                    Next Question
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="results-screen">
+            <div class="start-icon">🎉</div>
+            <div class="score-circle" id="score-circle">
+                <div class="score-number" id="score-number">0</div>
+                <div class="score-label">out of 12</div>
+            </div>
+            <div class="results-message" id="results-message"></div>
+            <div class="results-subtitle" id="results-subtitle"></div>
+            <div class="button-container">
+                <button class="btn btn-secondary" onclick="restartQuiz()">
+                    Try Again
+                </button>
+                <a href="vibe-coding-instructor-notes.html" class="btn btn-primary">
+                    Back to Notes
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is vibe coding?",
+                options: [
+                    "Writing code in a relaxed atmosphere",
+                    "Describing what you want in natural language and letting AI write the code",
+                    "Copying code from online tutorials",
+                    "Using templates to build websites"
+                ],
+                correct: 1,
+                explanation: "Vibe coding is the practice of building software by describing what you want in plain language and letting AI handle the technical implementation."
+            },
+            {
+                question: "What does MVP stand for in the context of vibe coding?",
+                options: [
+                    "Most Valuable Product",
+                    "Maximum Viable Performance",
+                    "Minimal Viable Product",
+                    "Modern Visual Platform"
+                ],
+                correct: 2,
+                explanation: "MVP means Minimal Viable Product - start with something small to test the water before building your full dream app."
+            },
+            {
+                question: "According to the class, which approach is better when communicating with AI?",
+                options: [
+                    "Tell it exactly what features to build",
+                    "Share user stories and describe the problem",
+                    "Write detailed technical specifications",
+                    "Copy prompts from online sources"
+                ],
+                correct: 1,
+                explanation: "User stories are better than features because they let the AI come up with even better solutions than you imagined. Describe the problem, not the solution."
+            },
+            {
+                question: "In the ChatGPT/Lovable workflow, what role does ChatGPT play?",
+                options: [
+                    "The CTO who writes code",
+                    "The CEO/CMO who helps with creative visioning and brainstorming",
+                    "The database administrator",
+                    "The project manager who tracks deadlines"
+                ],
+                correct: 1,
+                explanation: "ChatGPT is like your CEO/CMO - it helps with creative co-visioning, brainstorming, and understanding customer needs. Lovable is the CTO who executes the technical implementation."
+            },
+            {
+                question: "What is the recommended trick to get ChatGPT to understand your idea better?",
+                options: [
+                    "Write very long detailed prompts",
+                    "Use complex technical jargon",
+                    "Ask it to ask you 5 clarifying questions",
+                    "Provide code examples"
+                ],
+                correct: 2,
+                explanation: "The 5 clarifying questions trick works great! When you ask ChatGPT to ask you clarifying questions, you don't have to worry about prompts - ChatGPT will ask what it needs to know."
+            },
+            {
+                question: "What is Supabase used for in vibe coding?",
+                options: [
+                    "Creating slide presentations",
+                    "Hosting static websites",
+                    "Database and user authentication",
+                    "Generating AI images"
+                ],
+                correct: 2,
+                explanation: "Supabase handles your database (storing data) and authentication (user signups, logins). It's like a spreadsheet that your app can read and write to."
+            },
+            {
+                question: "Why does the instructor recommend Unsplash?",
+                options: [
+                    "For finding code snippets",
+                    "For free professional images instead of AI-generated ones",
+                    "For hosting websites",
+                    "For voice-to-text conversion"
+                ],
+                correct: 1,
+                explanation: "Unsplash provides free professional images. The advice is: 'Never use AI-generated images when you can use real ones.'"
+            },
+            {
+                question: "What happens if you build an app but don't connect a database?",
+                options: [
+                    "The app won't load at all",
+                    "Data won't save - it disappears when you refresh",
+                    "The design breaks",
+                    "Users can't sign up"
+                ],
+                correct: 1,
+                explanation: "Without a database, data doesn't persist. In the class demo, the memorial was created but didn't save because no database was connected - that's what Class 2 covers!"
+            },
+            {
+                question: "What is Whisper Flow used for?",
+                options: [
+                    "Creating whispered audio recordings",
+                    "Voice-to-text for typing into any app by speaking",
+                    "Making quiet background music",
+                    "Encrypting messages"
+                ],
+                correct: 1,
+                explanation: "Whisper Flow is a voice-to-text tool that lets you speak instead of type. It works in WhatsApp, emails, and any application - you're speaking, not typing."
+            },
+            {
+                question: "According to the class, when should you still hire a developer?",
+                options: [
+                    "Never - vibe coding replaces all developers",
+                    "For basic landing pages",
+                    "For production apps requiring security, compliance, and App Store deployment",
+                    "Only for mobile apps"
+                ],
+                correct: 2,
+                explanation: "For public-facing production apps, you need testing, compliance, security, and proper deployment. A developer helps with this, but your cost drops 50%+ because you've already built the prototype."
+            },
+            {
+                question: "What's the difference between Lovable and Replet according to the class?",
+                options: [
+                    "Lovable is free, Replet is paid",
+                    "Lovable is for beginners, Replet is more advanced with AI integration",
+                    "Lovable is for mobile, Replet is for web",
+                    "There is no difference"
+                ],
+                correct: 1,
+                explanation: "Lovable is easier for beginners. Replet is more advanced and good for apps that need OpenAI integration, offering 'Add OpenAI to your app' as a managed service."
+            },
+            {
+                question: "According to the class, how should you approach prompts?",
+                options: [
+                    "Memorize complex prompt templates",
+                    "Use technical programming language",
+                    "Just talk to it like you're talking to your sister or brother",
+                    "Always write at least 500 words"
+                ],
+                correct: 2,
+                explanation: "'There is no fancy prompt. You just talk to it like you're talking to your sister or your brother.' Natural conversation beats complex prompts."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        function startQuiz() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            answered = false;
+            const q = questions[currentQuestion];
+
+            document.getElementById('question-number').textContent = `Question ${currentQuestion + 1}`;
+            document.getElementById('question-text').textContent = q.question;
+            document.getElementById('progress-bar').style.width = `${((currentQuestion) / questions.length) * 100}%`;
+            document.getElementById('progress-text').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            const letters = ['A', 'B', 'C', 'D'];
+            q.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.innerHTML = `
+                    <div class="option-letter">${letters[index]}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                optionDiv.onclick = () => selectOption(index);
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            document.getElementById('feedback').classList.remove('show', 'correct', 'incorrect');
+            document.getElementById('next-btn').disabled = true;
+
+            // Re-trigger animation
+            const card = document.getElementById('question-card');
+            card.style.animation = 'none';
+            card.offsetHeight; // Trigger reflow
+            card.style.animation = 'fadeInUp 0.5s forwards';
+        }
+
+        function selectOption(index) {
+            if (answered) return;
+            answered = true;
+
+            const q = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+
+            options.forEach((opt, i) => {
+                opt.onclick = null;
+                if (i === q.correct) {
+                    opt.classList.add('correct');
+                } else if (i === index && index !== q.correct) {
+                    opt.classList.add('incorrect');
+                }
+                if (i === index) {
+                    opt.classList.add('selected');
+                }
+            });
+
+            const feedback = document.getElementById('feedback');
+            const feedbackIcon = document.getElementById('feedback-icon');
+            const feedbackText = document.getElementById('feedback-text');
+
+            if (index === q.correct) {
+                score++;
+                feedback.classList.add('correct');
+                feedbackIcon.textContent = '✅';
+                feedbackText.textContent = 'Correct! ' + q.explanation;
+            } else {
+                feedback.classList.add('incorrect');
+                feedbackIcon.textContent = '❌';
+                feedbackText.textContent = 'Not quite. ' + q.explanation;
+            }
+
+            feedback.classList.add('show');
+
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.disabled = false;
+
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.innerHTML = `
+                    See Results
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                `;
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+
+            if (currentQuestion >= questions.length) {
+                showResults();
+            } else {
+                showQuestion();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('results-screen').classList.add('show');
+
+            const percentage = (score / questions.length) * 100;
+            document.getElementById('score-number').textContent = score;
+
+            const scoreCircle = document.getElementById('score-circle');
+            const resultsMessage = document.getElementById('results-message');
+            const resultsSubtitle = document.getElementById('results-subtitle');
+
+            if (percentage >= 80) {
+                scoreCircle.className = 'score-circle excellent';
+                resultsMessage.textContent = 'Vibe Coding Master! 🎉';
+                resultsSubtitle.textContent = "You've mastered the fundamentals of vibe coding. You're ready to start building your own apps!";
+                createConfetti();
+            } else if (percentage >= 60) {
+                scoreCircle.className = 'score-circle good';
+                resultsMessage.textContent = 'Good Progress! 👍';
+                resultsSubtitle.textContent = "You understand most concepts. Review the sections you missed and try again!";
+            } else {
+                scoreCircle.className = 'score-circle needs-work';
+                resultsMessage.textContent = 'Keep Learning! 💪';
+                resultsSubtitle.textContent = "Review the instructor notes and class materials, then try the quiz again.";
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('results-screen').classList.remove('show');
+            document.getElementById('start-screen').classList.remove('hidden');
+
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.innerHTML = `
+                Next Question
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            `;
+        }
+
+        function createConfetti() {
+            const colors = ['#7a12d4', '#a855f7', '#06b6d4', '#22c55e', '#eab308', '#f97316'];
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = confetti.style.width;
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        // Add confetti animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
