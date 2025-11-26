@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz: The 5-Step Million Dollar Framework | Daniel Priestley</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========================================
+     * MINDVALLEY DESIGN SYSTEM - QUIZ PAGE
+     * ======================================== */
+
+    :root {
+      --mastery-50: #f5f9f8;
+      --mastery-100: #ebf2f1;
+      --mastery-200: #e1ecea;
+      --mastery-300: #c3d9d5;
+      --mastery-400: #dafd71;
+      --mastery-600: #4a6300;
+      --mastery-700: #5f7e02;
+      --mastery-800: #3e6769;
+      --mastery-850: #181d26;
+      --mastery-900: #013244;
+      --mastery-950: #061e27;
+      --cool-grey-100: #f9f9f9;
+      --cool-grey-200: #ebedef;
+      --cool-grey-300: #ced1d7;
+      --cool-grey-400: #979ca5;
+      --cool-grey-500: #595e67;
+      --cool-grey-600: #292d38;
+      --cool-grey-700: #0f131a;
+      --font-grotesk: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --success: #28a745;
+      --success-light: #d4edda;
+      --error: #dc3545;
+      --error-light: #f8d7da;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-grotesk);
+      background: linear-gradient(180deg, var(--mastery-100) 0%, #fff 100%);
+      color: var(--cool-grey-700);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Typography */
+    .mv-type--display1 { font-size: 2.5rem; font-weight: 700; line-height: 1.1; }
+    .mv-type--display2 { font-size: 2rem; font-weight: 700; line-height: 1.15; }
+    .mv-type--display3 { font-size: 1.75rem; font-weight: 700; line-height: 1.2; }
+    .mv-type--title1 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
+    .mv-type--title2 { font-size: 1.25rem; font-weight: 600; line-height: 1.35; }
+    .mv-type--title3 { font-size: 1.125rem; font-weight: 600; line-height: 1.4; }
+    .mv-type--body { font-size: 1rem; font-weight: 400; line-height: 1.6; }
+    .mv-type--overline { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
+    .mv-type--caption { font-size: 0.875rem; font-weight: 400; line-height: 1.5; }
+
+    @media (min-width: 768px) {
+      .mv-type--display1 { font-size: 3.75rem; }
+      .mv-type--display2 { font-size: 3rem; }
+      .mv-type--display3 { font-size: 2.25rem; }
+      .mv-type--title1 { font-size: 2rem; }
+    }
+
+    /* Container */
+    .mv-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Navbar */
+    .mv-navbar {
+      background: var(--mastery-950);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .mv-navbar__content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .mv-navbar__logo {
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.125rem;
+      text-decoration: none;
+    }
+
+    .mv-navbar__back {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .mv-navbar__back:hover {
+      color: var(--mastery-400);
+    }
+
+    /* Quiz Header */
+    .quiz-header {
+      background: linear-gradient(180deg, var(--mastery-950) 0%, var(--mastery-900) 100%);
+      padding: 3rem 0;
+      color: #fff;
+      text-align: center;
+    }
+
+    .quiz-header__eyebrow {
+      color: var(--mastery-400);
+      margin-bottom: 0.75rem;
+    }
+
+    .quiz-header__title {
+      margin-bottom: 1rem;
+    }
+
+    .quiz-header__subtitle {
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Progress Bar */
+    .quiz-progress {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      margin: -1.5rem auto 2rem;
+      max-width: 700px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .quiz-progress__bar {
+      height: 8px;
+      background: var(--cool-grey-200);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .quiz-progress__fill {
+      height: 100%;
+      background: var(--mastery-400);
+      border-radius: 100px;
+      transition: width 0.4s ease;
+    }
+
+    .quiz-progress__text {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--cool-grey-500);
+    }
+
+    /* Quiz Container */
+    .quiz-container {
+      padding: 2rem 0 4rem;
+    }
+
+    /* Question Card */
+    .quiz-question {
+      background: #fff;
+      border-radius: 0.75rem;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.3s ease;
+    }
+
+    .quiz-question.hidden {
+      display: none;
+    }
+
+    .quiz-question__header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .quiz-question__number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: var(--mastery-950);
+      color: var(--mastery-400);
+      font-weight: 700;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .quiz-question__category {
+      background: var(--mastery-100);
+      color: var(--mastery-800);
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .quiz-question__text {
+      margin-bottom: 1.5rem;
+    }
+
+    /* Quiz Options */
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .quiz-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--cool-grey-100);
+      border: 2px solid transparent;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quiz-option:hover {
+      background: var(--mastery-50);
+      border-color: var(--mastery-200);
+    }
+
+    .quiz-option.selected {
+      background: var(--mastery-100);
+      border-color: var(--mastery-400);
+    }
+
+    .quiz-option.correct {
+      background: var(--success-light);
+      border-color: var(--success);
+    }
+
+    .quiz-option.incorrect {
+      background: var(--error-light);
+      border-color: var(--error);
+    }
+
+    .quiz-option.disabled {
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .quiz-option__radio {
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 2px solid var(--cool-grey-300);
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      margin-top: 0.125rem;
+    }
+
+    .quiz-option.selected .quiz-option__radio {
+      border-color: var(--mastery-700);
+      background: var(--mastery-400);
+    }
+
+    .quiz-option.correct .quiz-option__radio {
+      border-color: var(--success);
+      background: var(--success);
+    }
+
+    .quiz-option.correct .quiz-option__radio::after {
+      content: '';
+      width: 0.5rem;
+      height: 0.25rem;
+      border-left: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      transform: rotate(-45deg);
+      margin-top: -2px;
+    }
+
+    .quiz-option.incorrect .quiz-option__radio {
+      border-color: var(--error);
+      background: var(--error);
+    }
+
+    .quiz-option.incorrect .quiz-option__radio::after {
+      content: 'x';
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+
+    .quiz-option__text {
+      flex: 1;
+    }
+
+    /* Feedback */
+    .quiz-feedback {
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      border-radius: 0.5rem;
+      display: none;
+    }
+
+    .quiz-feedback.show {
+      display: block;
+    }
+
+    .quiz-feedback.correct {
+      background: var(--success-light);
+      border-left: 4px solid var(--success);
+    }
+
+    .quiz-feedback.incorrect {
+      background: var(--error-light);
+      border-left: 4px solid var(--error);
+    }
+
+    .quiz-feedback__title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .quiz-feedback.correct .quiz-feedback__title {
+      color: #155724;
+    }
+
+    .quiz-feedback.incorrect .quiz-feedback__title {
+      color: #721c24;
+    }
+
+    .quiz-feedback__text {
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+
+    .quiz-feedback.correct .quiz-feedback__text {
+      color: #155724;
+    }
+
+    .quiz-feedback.incorrect .quiz-feedback__text {
+      color: #721c24;
+    }
+
+    /* Navigation */
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--cool-grey-200);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.5rem;
+      font-family: var(--font-grotesk);
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn--primary {
+      background: var(--mastery-400);
+      color: var(--mastery-850);
+    }
+
+    .btn--primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(218, 253, 113, 0.3);
+    }
+
+    .btn--secondary {
+      background: transparent;
+      color: var(--cool-grey-600);
+      border: 2px solid var(--cool-grey-300);
+    }
+
+    .btn--secondary:hover {
+      border-color: var(--cool-grey-400);
+    }
+
+    .btn--dark {
+      background: var(--mastery-950);
+      color: #fff;
+    }
+
+    .btn--large {
+      padding: 1rem 2rem;
+      font-size: 1.125rem;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Results Screen */
+    .quiz-results {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+      background: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .quiz-results.show {
+      display: block;
+    }
+
+    .results-score {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--mastery-400) 0%, #c4e85a 100%);
+      margin-bottom: 2rem;
+    }
+
+    .results-score__number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--mastery-850);
+      line-height: 1;
+    }
+
+    .results-score__label {
+      font-size: 0.875rem;
+      color: var(--mastery-850);
+      opacity: 0.8;
+    }
+
+    .results-title {
+      margin-bottom: 1rem;
+    }
+
+    .results-message {
+      color: var(--cool-grey-500);
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .results-breakdown {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: var(--cool-grey-100);
+      border-radius: 0.5rem;
+    }
+
+    .breakdown-item {
+      text-align: center;
+    }
+
+    .breakdown-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .breakdown-number.correct { color: var(--success); }
+    .breakdown-number.incorrect { color: var(--error); }
+
+    .breakdown-label {
+      font-size: 0.875rem;
+      color: var(--cool-grey-500);
+    }
+
+    .results-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    @media (min-width: 640px) {
+      .results-actions {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+
+    /* Question Navigator */
+    .question-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .question-dot {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: var(--cool-grey-200);
+      border: none;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--cool-grey-500);
+      transition: all 0.2s;
+    }
+
+    .question-dot.current {
+      background: var(--mastery-400);
+      color: var(--mastery-850);
+    }
+
+    .question-dot.answered {
+      background: var(--mastery-300);
+      color: var(--mastery-800);
+    }
+
+    .question-dot.correct {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .question-dot.incorrect {
+      background: var(--error);
+      color: #fff;
+    }
+
+    /* Utilities */
+    .text-center { text-align: center; }
+    .text-mastery { color: var(--mastery-800); }
+    .text-muted { color: var(--cool-grey-500); }
+    .mb-1 { margin-bottom: 0.5rem; }
+    .mb-2 { margin-bottom: 1rem; }
+    .mb-3 { margin-bottom: 1.5rem; }
+    .mt-2 { margin-top: 1rem; }
+    .mt-3 { margin-top: 1.5rem; }
+
+    /* Footer */
+    .quiz-footer {
+      background: var(--mastery-950);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .quiz-footer a {
+      color: var(--mastery-400);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="mv-navbar">
+    <div class="mv-navbar__content">
+      <a href="#" class="mv-navbar__logo">Mindvalley</a>
+      <a href="index.html" class="mv-navbar__back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Guide
+      </a>
+    </div>
+  </nav>
+
+  <!-- Quiz Header -->
+  <header class="quiz-header">
+    <div class="mv-container">
+      <div class="quiz-header__eyebrow mv-type--overline">Knowledge Assessment</div>
+      <h1 class="quiz-header__title mv-type--display3">Million Dollar Framework Quiz</h1>
+      <p class="quiz-header__subtitle mv-type--body">Test your understanding of Daniel Priestley's 5-step framework for building a 7-figure business.</p>
+    </div>
+  </header>
+
+  <!-- Progress Bar -->
+  <div class="mv-container">
+    <div class="quiz-progress">
+      <div class="quiz-progress__bar">
+        <div class="quiz-progress__fill" id="progressFill" style="width: 6.67%"></div>
+      </div>
+      <div class="quiz-progress__text">
+        <span id="progressText">Question 1 of 15</span>
+        <span id="scoreText">Score: 0/15</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Question Navigator -->
+  <div class="mv-container">
+    <div class="question-nav" id="questionNav">
+      <!-- Populated by JavaScript -->
+    </div>
+  </div>
+
+  <!-- Quiz Container -->
+  <main class="quiz-container">
+    <div class="mv-container">
+
+      <!-- Question 1 -->
+      <div class="quiz-question" data-question="1" data-correct="b" data-category="Apprenticeship">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">1</div>
+          <span class="quiz-question__category">Apprenticeship Phase</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">What are the three essential foundations you need to gain during the Entrepreneurship Apprenticeship?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Capital, Skills, and Network</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Commercial Awareness, Self-Awareness, and Access to Resources</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Product, Market, and Fit</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Sales, Marketing, and Operations</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">The three foundations are: <strong>Commercial Awareness</strong> (understanding how business works), <strong>Self-Awareness</strong> (knowing your strengths and weaknesses), and <strong>Access to Resources</strong> (money, skills to hire, run ads, etc.).</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">The correct answer is Commercial Awareness, Self-Awareness, and Access to Resources. These three foundations prepare you to successfully launch and run your own business.</div>
+        </div>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="quiz-question hidden" data-question="2" data-correct="c" data-category="Apprenticeship">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">2</div>
+          <span class="quiz-question__category">Apprenticeship Phase</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">How long should the Entrepreneur Apprenticeship typically last?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">1-3 months</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">3-6 months</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">6 months to 2 years</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">3-5 years</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">Daniel recommends 6 months to 2 years working for an experienced entrepreneur. This gives you enough time to truly understand how businesses operate and develop all three foundations.</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">Daniel recommends 6 months to 2 years. Shorter periods may not give you enough exposure, while longer isn't necessary if you're actively learning.</div>
+        </div>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="quiz-question hidden" data-question="3" data-correct="d" data-category="Side Hustle">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">3</div>
+          <span class="quiz-question__category">Side Hustle Phase</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">What is the key characteristic of a 90-day side hustle according to Daniel?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">It must generate at least $10,000 in revenue</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">It should scale into a full-time business</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">It must be in your area of passion</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">It must be "open and shut" - designed to END at 90 days</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">The side hustle should be designed to END at 90 days. It's not about making money - it's about testing your entrepreneurial skills and building confidence without getting permanently stuck.</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">The key is that it's "open and shut" - built to END at 90 days. Daniel emphasizes it's not about revenue, but about testing and building confidence.</div>
+        </div>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="quiz-question hidden" data-question="4" data-correct="b" data-category="CAOS Method">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">4</div>
+          <span class="quiz-question__category">CAOS Method</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">What does CAOS stand for in the CAOS Method?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Create, Analyze, Optimize, Scale</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Concept, Audience, Offer, Sales</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Customer, Acquisition, Operations, Systems</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Content, Advertising, Outreach, Selling</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">CAOS = <strong>Concept</strong> (is this a good idea?), <strong>Audience</strong> (right people who will pay?), <strong>Offer</strong> (right price point?), and <strong>Sales</strong> (can you close deals?). These are the four things every entrepreneur must test.</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">CAOS stands for Concept, Audience, Offer, and Sales - the four critical elements you need to test as an entrepreneur through fast, cheap experiments.</div>
+        </div>
+      </div>
+
+      <!-- Question 5 -->
+      <div class="quiz-question hidden" data-question="5" data-correct="a" data-category="CAOS Method">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">5</div>
+          <span class="quiz-question__category">CAOS Method</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">What is the minimum number of sales meetings needed to get statistically significant data?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">30 meetings</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">10 meetings</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">50 meetings</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">100 meetings</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">30 is the minimum for statistically significant data. Daniel says anything less "is not statistically significant" and you won't get enough insights. The upper band is around 150 meetings.</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">Daniel says 30 is the minimum for statistically significant data. The range is 30-150 sales meetings to properly test your product-market fit.</div>
+        </div>
+      </div>
+
+      <!-- Question 6 -->
+      <div class="quiz-question hidden" data-question="6" data-correct="c" data-category="CAOS Method">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">6</div>
+          <span class="quiz-question__category">CAOS Method</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">What is an MVP (Minimum Viable Product) in Daniel's framework?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">A fully functional version 1.0 of your product</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">The cheapest version of your product you can sell</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Something that tests the market as though it's real, even though it's not (like a landing page)</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">A prototype you can demo to investors</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">An MVP tests things in the market "as though they're real, even though they're not." Examples include landing pages, waiting lists, slide decks, and brochures. The goal is validation, not a finished product.</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">In Daniel's framework, an MVP is something that tests the market as though it's real, even though it's not - like a landing page, waiting list, or brochure. It's about validation.</div>
+        </div>
+      </div>
+
+      <!-- Question 7 -->
+      <div class="quiz-question hidden" data-question="7" data-correct="b" data-category="CAOS Method">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">7</div>
+          <span class="quiz-question__category">CAOS Method</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">What should you do when a potential customer says "No" in a sales meeting?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Move on to the next prospect immediately</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Get excited and ask for free consulting - understand what's stopping them</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Offer a discount to close the deal</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Record it as lost and analyze later</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">"Don't get deflated, get excited!" Daniel says to ask for free consulting - understand what's stopping them. At this stage, you're not looking to make sales, you're looking to improve product-market fit.</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">Daniel says "don't get deflated, get excited" and treat it as free consulting. Ask what's stopping them - this feedback helps improve your product-market fit.</div>
+        </div>
+      </div>
+
+      <!-- Question 8 -->
+      <div class="quiz-question hidden" data-question="8" data-correct="d" data-category="CAOS Method">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">8</div>
+          <span class="quiz-question__category">CAOS Method</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">What three things should overlap for "Founder-Opportunity Fit"?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Skills, Market, Timing</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Money, Time, Energy</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Product, Market, Customers</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Pain (you've solved), Paid (been paid for), Passion (you love it)</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">Founder-Opportunity Fit comes from the overlap of: (1) A time you solved someone's <strong>pain</strong>, (2) Something you've been <strong>paid</strong> for, and (3) Something you're massively <strong>passionate</strong> about.</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">Founder-Opportunity Fit requires the overlap of Pain (solving problems), Paid (experience being paid), and Passion (genuine interest). This is based on your backstory.</div>
+        </div>
+      </div>
+
+      <!-- Question 9 -->
+      <div class="quiz-question hidden" data-question="9" data-correct="a" data-category="6-Figure Business">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">9</div>
+          <span class="quiz-question__category">6-Figure Business</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">What is a "Product for Prospects" and why is it important?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">A low-commitment first step (workshop, assessment) that you PROMOTE instead of your core offer</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Your entry-level pricing tier for budget-conscious customers</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">A free sample of your main product</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">A product specifically for B2B prospects</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">You promote the Product for Prospects (not your core offer!). It's a low-commitment, easy first step like a workshop or assessment. "Promoting what you do is very dangerous" because it's expensive and scary for customers.</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">A Product for Prospects is a low-commitment first step (workshop, assessment) that you promote INSTEAD of your core offer. Promoting your core offer directly is "very dangerous" according to Daniel.</div>
+        </div>
+      </div>
+
+      <!-- Question 10 -->
+      <div class="quiz-question hidden" data-question="10" data-correct="c" data-category="6-Figure Business">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">10</div>
+          <span class="quiz-question__category">6-Figure Business</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">What are the four roles in the 6-figure business team?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">CEO, CFO, CTO, CMO</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Founder, Developer, Designer, Marketer</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Associate KPI (credibility), Sales/Marketing (you), Customer Success/Delivery, Operations</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Sales, Marketing, Product, Support</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">The 4-person team: (1) <strong>Associate KPI</strong> - someone with a bigger brand who lends credibility, (2) <strong>Sales/Marketing</strong> - hopefully you, (3) <strong>Customer Success/Delivery</strong>, and (4) <strong>Operations/Social Media</strong>.</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">The 4 roles are: Associate KPI (someone with a bigger brand for credibility), Sales/Marketing (ideally you), Customer Success/Delivery, and Operations. Note the Associate KPI isn't full-time - they lend their name.</div>
+        </div>
+      </div>
+
+      <!-- Question 11 -->
+      <div class="quiz-question hidden" data-question="11" data-correct="b" data-category="6-Figure Business">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">11</div>
+          <span class="quiz-question__category">6-Figure Business</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">What is the "Perfect Repeatable Week"?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">A vacation week you take every month</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">A designed weekly schedule that, when repeated, generates $50K-$100K/month</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">The ideal work-life balance schedule</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">A template for employee time tracking</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">The Perfect Repeatable Week is a designed schedule of high-value activities that, when repeated consistently, generates $50K-$100K per month. It includes ads, social posting, DMs, 1-to-1 selling, and weekly meetings.</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">The Perfect Repeatable Week is a designed schedule of activities (ads, social, DMs, selling, meetings) that, when repeated week after week, generates $50K-$100K per month.</div>
+        </div>
+      </div>
+
+      <!-- Question 12 -->
+      <div class="quiz-question hidden" data-question="12" data-correct="d" data-category="6-Figure Business">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">12</div>
+          <span class="quiz-question__category">6-Figure Business</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">How many DMs or direct emails does Daniel recommend sending per day?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">10-20</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">25-50</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">50-75</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">100</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">Daniel recommends sending about 100 DMs or emails per day. "Cut paste send, cut paste send, cut paste send" - reaching out to people in social media groups and through direct outreach.</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">Daniel recommends approximately 100 DMs or direct emails per day. This aggressive outreach is part of the Perfect Repeatable Week for lead generation.</div>
+        </div>
+      </div>
+
+      <!-- Question 13 -->
+      <div class="quiz-question hidden" data-question="13" data-correct="a" data-category="7-Figure Business">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">13</div>
+          <span class="quiz-question__category">7-Figure Business</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">What are the four product types in a 7-figure business?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Gift, Product for Prospects, Core Offer, Product for Clients</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Free, Bronze, Silver, Gold</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Trial, Basic, Pro, Enterprise</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Awareness, Interest, Decision, Action</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">The four product types are: (1) <strong>Gift</strong> - free stuff to attract, (2) <strong>Product for Prospects</strong> - low-risk engagement, (3) <strong>Core Offer</strong> - main thing (Gold/Silver/Bronze), and (4) <strong>Product for Clients</strong> - extends the core (subscriptions, maintenance).</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">The four types are Gift (free), Product for Prospects (low-commitment), Core Offer (main revenue in tiers), and Product for Clients (extensions like subscriptions).</div>
+        </div>
+      </div>
+
+      <!-- Question 14 -->
+      <div class="quiz-question hidden" data-question="14" data-correct="c" data-category="7-Figure Business">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">14</div>
+          <span class="quiz-question__category">7-Figure Business</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">What are the three parts of the "Three-Part Year"?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Q1 Planning, Q2-Q3 Execution, Q4 Review</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Launch, Growth, Optimization</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Perfect Repeatable Week, Spotlight Campaigns (3-4/year), Annual Big Message</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">Content, Sales, Delivery</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">The Three-Part Year includes: (1) <strong>Perfect Repeatable Week</strong> - your ongoing engine, (2) <strong>Spotlight Campaigns</strong> - 3-4 special events/sales every 3-4 months, and (3) <strong>Annual Big Message</strong> - one theme you hit 100 different ways on social media.</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">The Three-Part Year consists of: Perfect Repeatable Week (ongoing), Spotlight Campaigns (3-4 special events per year), and Annual Big Message (one theme you reinforce constantly on social media).</div>
+        </div>
+      </div>
+
+      <!-- Question 15 -->
+      <div class="quiz-question hidden" data-question="15" data-correct="b" data-category="7-Figure Business">
+        <div class="quiz-question__header">
+          <div class="quiz-question__number">15</div>
+          <span class="quiz-question__category">7-Figure Business</span>
+        </div>
+        <h3 class="quiz-question__text mv-type--title1">What is the recommended weekly revenue target for a 7-figure business?</h3>
+        <div class="quiz-options">
+          <div class="quiz-option" data-option="a" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">$15,000+ per week</span>
+          </div>
+          <div class="quiz-option" data-option="b" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">$25,000+ per week (to hit $100K+/month)</span>
+          </div>
+          <div class="quiz-option" data-option="c" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">$50,000+ per week</span>
+          </div>
+          <div class="quiz-option" data-option="d" onclick="selectOption(this)">
+            <div class="quiz-option__radio"></div>
+            <span class="quiz-option__text">$10,000+ per week</span>
+          </div>
+        </div>
+        <div class="quiz-feedback correct">
+          <div class="quiz-feedback__title">Correct!</div>
+          <div class="quiz-feedback__text">Daniel says "you need to be averaging above $20,000 per week as a bare minimum. Probably more like $25,000+" to hit $100K+ per month and reach $1M annually.</div>
+        </div>
+        <div class="quiz-feedback incorrect">
+          <div class="quiz-feedback__title">Not Quite</div>
+          <div class="quiz-feedback__text">Daniel recommends $25,000+ per week as the target. This gets you to $100K+ per month and $1M+ annually - the hallmark of a 7-figure lifestyle business.</div>
+        </div>
+      </div>
+
+      <!-- Results Screen -->
+      <div class="quiz-results" id="quizResults">
+        <div class="results-score">
+          <span class="results-score__number" id="finalScore">0</span>
+          <span class="results-score__label">out of 15</span>
+        </div>
+        <h2 class="results-title mv-type--display3" id="resultsTitle">Great Work!</h2>
+        <p class="results-message mv-type--body" id="resultsMessage">You've completed the quiz.</p>
+
+        <div class="results-breakdown">
+          <div class="breakdown-item">
+            <div class="breakdown-number correct" id="correctCount">0</div>
+            <div class="breakdown-label">Correct</div>
+          </div>
+          <div class="breakdown-item">
+            <div class="breakdown-number incorrect" id="incorrectCount">0</div>
+            <div class="breakdown-label">Incorrect</div>
+          </div>
+        </div>
+
+        <div class="results-actions">
+          <button class="btn btn--primary btn--large" onclick="restartQuiz()">Retake Quiz</button>
+          <a href="index.html" class="btn btn--secondary btn--large">Back to Guide</a>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="quiz-nav" id="quizNav">
+        <button class="btn btn--secondary" id="prevBtn" onclick="prevQuestion()" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Previous
+        </button>
+        <button class="btn btn--primary" id="nextBtn" onclick="nextQuestion()">
+          Next
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn btn--dark btn--large" id="finishBtn" onclick="showResults()" style="display: none;">
+          View Results
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="quiz-footer">
+    <div class="mv-container">
+      <p class="mv-type--caption">Quiz based on Daniel Priestley's <a href="https://www.youtube.com/watch?v=72a1PjnZFIM" target="_blank">"Give Me 29 Minutes and I'll Teach You to Make $1 Million"</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Quiz State
+    let currentQuestion = 1;
+    const totalQuestions = 15;
+    let answers = {};
+    let score = 0;
+
+    // Initialize question navigator
+    function initQuestionNav() {
+      const nav = document.getElementById('questionNav');
+      nav.innerHTML = '';
+      for (let i = 1; i <= totalQuestions; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'question-dot' + (i === 1 ? ' current' : '');
+        dot.textContent = i;
+        dot.onclick = () => goToQuestion(i);
+        nav.appendChild(dot);
+      }
+    }
+
+    // Update question navigator
+    function updateQuestionNav() {
+      document.querySelectorAll('.question-dot').forEach((dot, index) => {
+        const qNum = index + 1;
+        dot.classList.remove('current', 'answered', 'correct', 'incorrect');
+
+        if (qNum === currentQuestion) {
+          dot.classList.add('current');
+        } else if (answers[qNum]) {
+          const question = document.querySelector(`[data-question="${qNum}"]`);
+          const correct = question.dataset.correct;
+          if (answers[qNum] === correct) {
+            dot.classList.add('correct');
+          } else {
+            dot.classList.add('incorrect');
+          }
+        }
+      });
+    }
+
+    // Go to specific question
+    function goToQuestion(num) {
+      if (num < 1 || num > totalQuestions) return;
+
+      // Hide current question
+      document.querySelector(`[data-question="${currentQuestion}"]`).classList.add('hidden');
+
+      // Show target question
+      currentQuestion = num;
+      document.querySelector(`[data-question="${currentQuestion}"]`).classList.remove('hidden');
+
+      updateUI();
+    }
+
+    // Select option
+    function selectOption(option) {
+      const question = option.closest('.quiz-question');
+      const questionNum = parseInt(question.dataset.question);
+      const correct = question.dataset.correct;
+      const selectedOption = option.dataset.option;
+
+      // Check if already answered
+      if (answers[questionNum]) return;
+
+      // Store answer
+      answers[questionNum] = selectedOption;
+
+      // Remove previous selection styling
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('selected');
+        opt.classList.add('disabled');
+      });
+
+      // Add selected styling
+      option.classList.add('selected');
+
+      // Check answer and show feedback
+      if (selectedOption === correct) {
+        option.classList.add('correct');
+        question.querySelector('.quiz-feedback.correct').classList.add('show');
+        score++;
+      } else {
+        option.classList.add('incorrect');
+        // Show correct answer
+        question.querySelector(`[data-option="${correct}"]`).classList.add('correct');
+        question.querySelector('.quiz-feedback.incorrect').classList.add('show');
+      }
+
+      updateUI();
+    }
+
+    // Navigation functions
+    function nextQuestion() {
+      if (currentQuestion < totalQuestions) {
+        goToQuestion(currentQuestion + 1);
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQuestion > 1) {
+        goToQuestion(currentQuestion - 1);
+      }
+    }
+
+    // Update UI
+    function updateUI() {
+      // Update progress bar
+      const answeredCount = Object.keys(answers).length;
+      const progress = (answeredCount / totalQuestions) * 100;
+      document.getElementById('progressFill').style.width = progress + '%';
+      document.getElementById('progressText').textContent = `Question ${currentQuestion} of ${totalQuestions}`;
+      document.getElementById('scoreText').textContent = `Score: ${score}/${totalQuestions}`;
+
+      // Update navigation buttons
+      document.getElementById('prevBtn').disabled = currentQuestion === 1;
+
+      const nextBtn = document.getElementById('nextBtn');
+      const finishBtn = document.getElementById('finishBtn');
+
+      if (currentQuestion === totalQuestions) {
+        nextBtn.style.display = 'none';
+        if (answeredCount === totalQuestions) {
+          finishBtn.style.display = 'inline-flex';
+        }
+      } else {
+        nextBtn.style.display = 'inline-flex';
+        finishBtn.style.display = 'none';
+      }
+
+      // Update question navigator
+      updateQuestionNav();
+    }
+
+    // Show results
+    function showResults() {
+      // Hide all questions and nav
+      document.querySelectorAll('.quiz-question').forEach(q => q.classList.add('hidden'));
+      document.getElementById('quizNav').style.display = 'none';
+      document.getElementById('questionNav').style.display = 'none';
+
+      // Show results
+      const results = document.getElementById('quizResults');
+      results.classList.add('show');
+
+      // Update results content
+      document.getElementById('finalScore').textContent = score;
+      document.getElementById('correctCount').textContent = score;
+      document.getElementById('incorrectCount').textContent = totalQuestions - score;
+
+      // Update progress to 100%
+      document.getElementById('progressFill').style.width = '100%';
+      document.getElementById('progressText').textContent = 'Quiz Complete!';
+
+      // Set message based on score
+      const percentage = (score / totalQuestions) * 100;
+      let title, message;
+
+      if (percentage >= 90) {
+        title = 'Outstanding!';
+        message = "You've mastered Daniel Priestley's framework! You're ready to build your million dollar business.";
+      } else if (percentage >= 70) {
+        title = 'Great Work!';
+        message = "You have a solid understanding of the framework. Review the areas you missed and you'll be ready to go.";
+      } else if (percentage >= 50) {
+        title = 'Good Progress!';
+        message = "You're getting there! Consider reviewing the guide again to strengthen your understanding of the key concepts.";
+      } else {
+        title = 'Keep Learning!';
+        message = "There's more to discover. We recommend going through the student guide again before retaking the quiz.";
+      }
+
+      document.getElementById('resultsTitle').textContent = title;
+      document.getElementById('resultsMessage').textContent = message;
+    }
+
+    // Restart quiz
+    function restartQuiz() {
+      // Reset state
+      currentQuestion = 1;
+      answers = {};
+      score = 0;
+
+      // Reset all questions
+      document.querySelectorAll('.quiz-question').forEach((q, index) => {
+        if (index === 0) {
+          q.classList.remove('hidden');
+        } else {
+          q.classList.add('hidden');
+        }
+
+        // Reset options
+        q.querySelectorAll('.quiz-option').forEach(opt => {
+          opt.classList.remove('selected', 'correct', 'incorrect', 'disabled');
+        });
+
+        // Hide feedback
+        q.querySelectorAll('.quiz-feedback').forEach(fb => {
+          fb.classList.remove('show');
+        });
+      });
+
+      // Hide results, show nav
+      document.getElementById('quizResults').classList.remove('show');
+      document.getElementById('quizNav').style.display = 'flex';
+      document.getElementById('questionNav').style.display = 'flex';
+
+      // Reset UI
+      initQuestionNav();
+      updateUI();
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      initQuestionNav();
+      updateUI();
+    });
+  </script>
+
+</body>
+</html>
