@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiritual Summit Survey Analysis - Sales Pitch Recommendations</title>
+    <style>
+        :root {
+            --mv-purple: #6f27e5;
+            --mv-purple-dark: #5b1fc2;
+            --mv-purple-light: #9d6ef1;
+            --mv-green: #2b8a3e;
+            --mv-red: #c92a2a;
+            --mv-orange: #fd7e14;
+            --mv-gold: #ffc107;
+            --mv-blue: #1971c2;
+            --mv-gray-50: #f8f9fa;
+            --mv-gray-100: #e9ecef;
+            --mv-gray-200: #dee2e6;
+            --mv-gray-800: #343a40;
+            --mv-gray-900: #212529;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--mv-gray-900);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-purple-dark) 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .meta {
+            background: var(--mv-gray-50);
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--mv-gray-200);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--mv-gray-800);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .meta-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--mv-purple);
+        }
+
+        .executive-summary {
+            padding: 40px;
+            background: rgba(201, 42, 42, 0.05);
+            border-left: 6px solid var(--mv-red);
+        }
+
+        .content-section {
+            padding: 40px;
+            border-bottom: 1px solid var(--mv-gray-200);
+        }
+
+        .content-section h2 {
+            color: var(--mv-purple);
+            font-size: 2rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .content-section h3 {
+            color: var(--mv-gray-900);
+            font-size: 1.5rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .icon {
+            font-size: 2rem;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: var(--mv-gray-50);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid var(--mv-gray-200);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--mv-purple);
+            margin: 10px 0;
+        }
+
+        .stat-value.red { color: var(--mv-red); }
+        .stat-value.green { color: var(--mv-green); }
+        .stat-value.orange { color: var(--mv-orange); }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--mv-gray-800);
+            font-weight: 600;
+        }
+
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .ranking-table th,
+        .ranking-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--mv-gray-200);
+        }
+
+        .ranking-table th {
+            background: var(--mv-purple);
+            color: white;
+            font-weight: 600;
+        }
+
+        .ranking-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .ranking-table .rank {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--mv-purple);
+            width: 60px;
+        }
+
+        .ranking-table .rating {
+            font-weight: 700;
+            color: var(--mv-gold);
+        }
+
+        .ranking-table .highlight {
+            background: rgba(201, 42, 42, 0.08);
+            font-weight: 600;
+        }
+
+        .flag-box {
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 12px;
+            border-left: 5px solid;
+        }
+
+        .flag-box.critical {
+            background: rgba(201, 42, 42, 0.05);
+            border-left-color: var(--mv-red);
+        }
+
+        .flag-box.positive {
+            background: rgba(43, 138, 62, 0.05);
+            border-left-color: var(--mv-green);
+        }
+
+        .flag-box h3 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--mv-gray-800);
+            padding: 20px 25px;
+            background: white;
+            border-left: 4px solid var(--mv-blue);
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .theme-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .theme-list li {
+            padding: 15px 20px;
+            margin: 10px 0;
+            background: var(--mv-gray-50);
+            border-radius: 8px;
+            border-left: 4px solid var(--mv-purple);
+        }
+
+        .theme-list li strong {
+            color: var(--mv-purple);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .recommendation-box {
+            background: linear-gradient(135deg, rgba(43, 138, 62, 0.1) 0%, rgba(43, 138, 62, 0.05) 100%);
+            border: 2px solid var(--mv-green);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+
+        .recommendation-box h3 {
+            color: var(--mv-green);
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+
+        .recommendation-box h4 {
+            color: var(--mv-gray-900);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .example-script {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid var(--mv-gray-200);
+        }
+
+        .example-script h5 {
+            color: var(--mv-purple);
+            margin-bottom: 10px;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-item {
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .comparison-item.before {
+            background: rgba(201, 42, 42, 0.08);
+            border: 2px solid var(--mv-red);
+        }
+
+        .comparison-item.after {
+            background: rgba(43, 138, 62, 0.08);
+            border: 2px solid var(--mv-green);
+        }
+
+        .comparison-item h4 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .comparison-item.before h4 { color: var(--mv-red); }
+        .comparison-item.after h4 { color: var(--mv-green); }
+
+        .conclusion {
+            background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-purple-dark) 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .conclusion h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+        }
+
+        .conclusion p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            opacity: 0.95;
+            margin: 15px 0;
+        }
+
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+    (function() {
+        const correctPassword = 'ancient-mystic';
+        const maxAttempts = 3;
+        let attempts = 0;
+
+        if (sessionStorage.getItem('authenticated_survey_analysis') === 'true') {
+            return;
+        }
+
+        document.body.style.display = 'none';
+
+        function checkPassword() {
+            const password = prompt('Enter password to view this page:');
+
+            if (password === null) {
+                document.body.innerHTML = '<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h1>Access Denied</h1><p>Password required to view this content.</p></div>';
+                document.body.style.display = 'block';
+                return;
+            }
+
+            if (password === correctPassword) {
+                sessionStorage.setItem('authenticated_survey_analysis', 'true');
+                document.body.style.display = 'block';
+            } else {
+                attempts++;
+                if (attempts >= maxAttempts) {
+                    alert('Maximum attempts exceeded. Please refresh the page to try again.');
+                    document.body.innerHTML = '<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h1>Access Denied</h1><p>Maximum password attempts exceeded.</p></div>';
+                    document.body.style.display = 'block';
+                } else {
+                    alert(`Incorrect password. ${maxAttempts - attempts} attempt(s) remaining.`);
+                    checkPassword();
+                }
+            }
+        }
+
+        checkPassword();
+    })();
+    </script>
+
+    <div class="container">
+        <header>
+            <h1>📊 Spiritual Summit Survey Analysis</h1>
+            <p>Sales Pitch Recommendations Based on 1,466 Responses</p>
+        </header>
+
+        <div class="meta">
+            <div class="meta-item">
+                <div class="meta-label">Analysis Date</div>
+                <div class="meta-value">Nov 23, 2025</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Survey Responses</div>
+                <div class="meta-value">1,466</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Event</div>
+                <div class="meta-value">Day 1</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Sessions Analyzed</div>
+                <div class="meta-value">7</div>
+            </div>
+        </div>
+
+        <div class="executive-summary">
+            <h2>🚨 Executive Summary</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">The Intro to Spiritual Mastery session received a <strong>4.38/5.00 rating</strong> (59.3% gave 5 stars), but it significantly underperformed compared to Vishen's Quantum Jumping session (4.63) and other speakers. <strong>Critical finding:</strong> The pitch registered <strong>only 2 mentions</strong> in 1,466 highlights, suggesting it failed to create memorable impact.</p>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Session Ranking</div>
+                    <div class="stat-value red">7th of 7</div>
+                    <div class="stat-label">Dead Last</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Rating</div>
+                    <div class="stat-value orange">4.38/5.00</div>
+                    <div class="stat-label">Below Average</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Highlight Mentions</div>
+                    <div class="stat-value red">2 of 1,466</div>
+                    <div class="stat-label">Forgettable</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">vs. Quantum Jump</div>
+                    <div class="stat-value red">-0.25 pts</div>
+                    <div class="stat-label">Significant Gap</div>
+                </div>
+            </div>
+
+            <div class="quote">
+                <strong>The Smoking Gun:</strong> One attendee explicitly called it <em>"just a sales pitch by Vishen for the $4k program,"</em> while another praised the event for NOT being a typical sales pitch—indicating the Spiritual Mastery intro may have felt transactional rather than transformational.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><span class="icon">📈</span> Session Rating Analysis</h2>
+
+            <h3>Comparative Rankings (All Sessions)</h3>
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Session</th>
+                        <th>Speaker</th>
+                        <th>Rating</th>
+                        <th>Responses</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="rank">1</td>
+                        <td>Truth Frequency Activation</td>
+                        <td>Regan Hillyer</td>
+                        <td class="rating">4.68 ⭐</td>
+                        <td>1,320</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">2</td>
+                        <td>Qi Gong: Power & Purpose</td>
+                        <td>Lee Holden</td>
+                        <td class="rating">4.68 ⭐</td>
+                        <td>1,309</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">3</td>
+                        <td>Quantum Jumping</td>
+                        <td>Vishen</td>
+                        <td class="rating">4.63 ⭐</td>
+                        <td>1,368</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">4</td>
+                        <td>Feng Shui for Flow</td>
+                        <td>Marie Diamond</td>
+                        <td class="rating">4.53 ⭐</td>
+                        <td>1,353</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">5</td>
+                        <td>Shaolin Inner Power</td>
+                        <td>Shi Heng Yi</td>
+                        <td class="rating">4.51 ⭐</td>
+                        <td>1,335</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">6</td>
+                        <td>Q&A Session</td>
+                        <td>Vishen</td>
+                        <td class="rating">4.50 ⭐</td>
+                        <td>1,286</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td class="rank">7</td>
+                        <td><strong>Intro to Spiritual Mastery</strong></td>
+                        <td>Vishen</td>
+                        <td class="rating">4.38 ⭐</td>
+                        <td>1,307</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p style="margin-top: 25px;"><strong>Analysis:</strong> The Spiritual Mastery pitch ranked LAST among all sessions, trailing Vishen's own Quantum Jumping experience by 0.25 points—a statistically significant gap indicating the pitch failed to match the experiential value of his other content.</p>
+
+            <h3>Direct Comparison: Quantum Jumping vs. Spiritual Mastery</h3>
+            <p>Among 1,266 attendees who rated both sessions:</p>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Quantum Jump Higher</div>
+                    <div class="stat-value red">23.8%</div>
+                    <div class="stat-label">301 people</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Tied Ratings</div>
+                    <div class="stat-value">71.6%</div>
+                    <div class="stat-label">906 people</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Spiritual Mastery Higher</div>
+                    <div class="stat-value orange">4.7%</div>
+                    <div class="stat-label">59 people</div>
+                </div>
+            </div>
+            <p><strong>Interpretation:</strong> Nearly 1 in 4 attendees explicitly preferred Quantum Jumping over the Spiritual Mastery pitch, suggesting the experiential session created stronger value perception.</p>
+        </div>
+
+        <div class="content-section">
+            <h2><span class="icon">✨</span> What Resonated Most: Top 5 Themes</h2>
+
+            <ul class="theme-list">
+                <li>
+                    <strong>1. Experiential Energy Work (Top Theme)</strong>
+                    Truth Frequency Activation (205 mentions), Quantum Jumping (124 mentions), Energy in Hands (4 mentions)<br>
+                    <em>"I cried at Vishen's exercise. I felt the energy in my hands with Lee. Love it!"</em>
+                </li>
+                <li>
+                    <strong>2. Practical Movement Practices</strong>
+                    Qi Gong (254 mentions), Shaolin practices (220 mentions)<br>
+                    <em>"Lee Holden. But it was extremely frustrating that the camera kept zooming away... I completely missed two exercises!"</em>
+                </li>
+                <li>
+                    <strong>3. Authenticity & Truth Seeking</strong>
+                    157 mentions of authentic self, truth, real identity<br>
+                    <em>"Clarity in finally understanding what it means to 'come home to yourself'"</em>
+                </li>
+                <li>
+                    <strong>4. Wisdom Through Storytelling</strong>
+                    Regan's Costa Rica story got specific praise for vulnerability<br>
+                    <em>"Regan's story about her problems getting out of Costa Rica... she went before the whole audience"</em>
+                </li>
+                <li>
+                    <strong>5. Quantum Jumping Specifically (Vishen's Win)</strong>
+                    147 highlight mentions vs. 0 for Spiritual Mastery<br>
+                    <em>"The quantum Jumping. When I merged with the other me it was very strong like an energy orgasm."</em>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2><span class="icon">🚩</span> Red Flags for the Pitch</h2>
+
+            <div class="flag-box critical">
+                <h3>🚩 Flag #1: Invisible in Memory</h3>
+                <p>Out of 1,466 attendees, only <strong>2 people mentioned Spiritual Mastery</strong> in their event highlights—and neither was particularly positive:</p>
+                <div class="quote">
+                    <p>1. <em>"Deepening my knowledge on spiritual mastery and learn Qi gong."</em> (Mentioned alongside Qi Gong, not standalone)</p>
+                    <p>2. <em>"I was able to listen to Marie Diamond, Shi Heng Yi and Spiritual Mastery. I enjoyed them all"</em> (Generic, no specific value)</p>
+                </div>
+                <p><strong>Contrast:</strong> Quantum Jumping received 147 highlight mentions. The pitch was completely forgettable.</p>
+            </div>
+
+            <div class="flag-box critical">
+                <h3>🚩 Flag #2: Sales-y Perception</h3>
+                <p>Only 2 mentions of "sales" or "pitch" in 1,466 responses:</p>
+                <div class="comparison">
+                    <div class="comparison-item before">
+                        <h4>❌ Negative Mention</h4>
+                        <p><em>"I only got to pop in for an hour and it was just a sales pitch by Vishen for the $4k program."</em></p>
+                    </div>
+                    <div class="comparison-item after">
+                        <h4>⚠️ Revealing Positive</h4>
+                        <p><em>"Its the first summit I've attended where every session was fully informative... rather than it mostly seeming like a sales pitch."</em> (5-star rating)</p>
+                    </div>
+                </div>
+                <p><strong>Analysis:</strong> The second quote is devastating—attendees NOTICED the event wasn't sales-heavy and LOVED it. The Spiritual Mastery intro may have triggered transactional expectations.</p>
+            </div>
+
+            <div class="flag-box critical">
+                <h3>🚩 Flag #3: "Boring" and "Repetition" Feedback</h3>
+                <div class="quote">
+                    <em>"Shi Heng Yi, I was very excited to see him speaking live, and Regan's story. The rest was underwhelming, boring, a lot of repetition from Vishen..."</em> (1-star for Spiritual Mastery)
+                </div>
+                <p><strong>Analysis:</strong> "Repetition from Vishen" suggests the pitch rehashed content already covered in Quantum Jumping, failing to add new value.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><span class="icon">💡</span> Positive Patterns to Amplify</h2>
+
+            <div class="flag-box positive">
+                <h3>✅ Vishen's Quantum Jumping = Gold Standard</h3>
+                <p><strong>Stats:</strong> 4.63 rating, 147 highlight mentions, 11 emotional/transformative responses</p>
+                <p><strong>What to replicate:</strong></p>
+                <ul style="margin: 15px 0 15px 25px;">
+                    <li><strong>Guided experience > explanation:</strong> People remember what they FELT, not what they learned</li>
+                    <li><strong>Emotional arc:</strong> Future self visualization created tears and breakthroughs</li>
+                    <li><strong>Silva heritage:</strong> Older attendees appreciated connection to Jose Silva's work</li>
+                </ul>
+                <div class="quote">
+                    <em>"the initial visualization with vishen. I'm 51 and was a silva mind control graduate at 12 for the first time. silva with vishen brings me back to my youth graduate meetings with my parents, so touched"</em>
+                </div>
+            </div>
+
+            <div class="flag-box positive">
+                <h3>✅ Regan's "Truth Activation" Playbook</h3>
+                <p><strong>Stats:</strong> 4.68 rating (tied #1), 332 highlight mentions (2x more than any other speaker)</p>
+                <p><strong>What she did right:</strong></p>
+                <ol style="margin: 15px 0 15px 25px;">
+                    <li><strong>Vulnerability first:</strong> Shared Costa Rica travel crisis before activation</li>
+                    <li><strong>Clear framework:</strong> "Truth frequency" is concrete and memorable</li>
+                    <li><strong>Immediate experience:</strong> Attendees "felt" the activation in real-time</li>
+                    <li><strong>Authenticity message:</strong> "Coming home to yourself" hit emotional chord</li>
+                </ol>
+                <p><strong>Application for Vishen:</strong> Lead with story/struggle before pitching solution.</p>
+            </div>
+
+            <div class="flag-box positive">
+                <h3>✅ "Already Within You" Messaging</h3>
+                <div class="quote">
+                    <em>"No need to search, realise that I exist in this universe and I have everything that I need. I have all the power to be and realise that I am who I think I am."</em>
+                </div>
+                <p><strong>Theme:</strong> Shi Heng Yi's "stop searching" message resonated deeply. People don't want to feel broken or lacking—they want to REMEMBER their power, not acquire it.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2><span class="icon">🎯</span> 5 Specific Pitch Adjustments</h2>
+
+            <div class="recommendation-box">
+                <h3>1. Transform Pitch into a Mini-Experience</h3>
+                <p><strong>Current Problem:</strong> The pitch likely explains WHAT Spiritual Mastery is. Explanation = forgettable.</p>
+
+                <h4>✅ Fix: Create 5-Minute "Spiritual Mastery Micro-Practice"</h4>
+                <div class="example-script">
+                    <h5>Example Script:</h5>
+                    <p><em>"Before I tell you about Spiritual Mastery, let me SHOW you what spiritual mastery feels like. Close your eyes. I'm going to guide you through a 3-minute practice we teach in Month 1 called 'The Sovereignty Activation.' When you open your eyes, you'll know exactly whether this journey is for you..."</em></p>
+                </div>
+
+                <p><strong>Why it works:</strong></p>
+                <ul style="margin-left: 25px;">
+                    <li>Matches the event's #1 pattern: experiential > informational</li>
+                    <li>Creates a "I felt something" moment they'll remember</li>
+                    <li>Allows attendees to self-select based on resonance, not FOMO</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-box">
+                <h3>2. Lead with Personal "Why Now" Story</h3>
+                <p><strong>Current Problem:</strong> Attendees who gave low ratings cited "repetition" and "boring." The pitch likely lacks fresh vulnerability.</p>
+
+                <h4>✅ Fix: Open with Recent Personal Crisis</h4>
+                <div class="example-script">
+                    <h5>Example Framework:</h5>
+                    <p><em>"Three months ago, I had a moment that shook me. [Personal crisis/question]. I realized that even after 25 years in this space, I still needed to go deeper. That's when I created Spiritual Mastery—not for you, but for ME. And then I realized: if I need this, so many of you might too..."</em></p>
+                </div>
+
+                <p><strong>Why it works:</strong></p>
+                <ul style="margin-left: 25px;">
+                    <li>Regan's Costa Rica story got specific praise for being "real life"</li>
+                    <li>Removes guru pedestal (attendees praised speakers who were "humble")</li>
+                    <li>Creates permission: "If Vishen needs this, I definitely do"</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-box">
+                <h3>3. Reframe from "Program Pitch" to "Path Recognition"</h3>
+                <p><strong>Current Problem:</strong> The explicit "sales pitch" mention was negative. Needs to feel like service, not selling.</p>
+
+                <h4>✅ Fix: Help People Recognize Their Path</h4>
+                <div class="example-script">
+                    <h5>Example Reframe:</h5>
+                    <p><em>"I'm not here to sell you anything. I'm here to help you recognize something about yourself. There are two paths in spirituality: <strong>Spiritual Awareness</strong> (you learn, you grow, you attend summits) and <strong>Spiritual Mastery</strong> (you embody, you transmit, you BECOME the teaching). Most people spend decades on Path 1. Some of you are being called to Path 2. Here's how to know..."</em></p>
+                </div>
+
+                <p><strong>Why it works:</strong></p>
+                <ul style="margin-left: 25px;">
+                    <li>Mirrors Shi Heng Yi's "stop searching, it's already in you" message</li>
+                    <li>People self-select rather than feeling "sold to"</li>
+                    <li>Creates curiosity ("Am I on Path 2?") vs. resistance ("Is this worth $4k?")</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-box">
+                <h3>4. Give One Immediate, Practical Tool</h3>
+                <p><strong>Current Problem:</strong> Zero mentions of taking away a specific tool from Spiritual Mastery intro.</p>
+
+                <h4>✅ Fix: Gift "3-Minute Coherence Reset"</h4>
+                <div class="example-script">
+                    <h5>Example:</h5>
+                    <p><em>"Whether you join Spiritual Mastery or not, I want to give you something you can use tonight. It's a practice I call 'The 3-Minute Coherence Reset.' Here's exactly how to do it... [specific instructions]. Try it for 7 days. If it changes nothing, this program isn't for you. If it shifts everything, let's talk."</em></p>
+                </div>
+
+                <p><strong>Why it works:</strong></p>
+                <ul style="margin-left: 25px;">
+                    <li>Matches attendee desire for "practical/actionable" content</li>
+                    <li>Creates a 7-day "trial" that builds desire organically</li>
+                    <li>Removes scarcity pressure ("try first, decide later")</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-box">
+                <h3>5. Bridge from Quantum Jumping's Emotional High</h3>
+                <p><strong>Current Problem:</strong> Quantum Jumping rated 0.25 points higher and got 147 mentions vs. 2 for Spiritual Mastery. Not leveraging emotional momentum.</p>
+
+                <h4>✅ Fix: Connect to Earlier Peak Experience</h4>
+                <div class="example-script">
+                    <h5>Example Bridge:</h5>
+                    <p><em>"Remember the moment earlier when you merged with your future self? That electrical feeling? That wasn't imagination—that was you touching your own mastery. Most people have that experience once at a summit and spend the next year trying to find it again. Spiritual Mastery is about making that your DAILY REALITY. Here's how..."</em></p>
+                </div>
+
+                <p><strong>Why it works:</strong></p>
+                <ul style="margin-left: 25px;">
+                    <li>Anchors to the session's #3 highest-rated experience</li>
+                    <li>Creates continuity (not "new pitch" energy)</li>
+                    <li>Positions program as expansion of something they already loved</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="conclusion">
+            <h2>The Core Shift Required</h2>
+            <p>The data reveals a clear gap: Vishen's experiential Quantum Jumping session created emotional resonance and memorable value (4.63 rating, 147 mentions), while the Spiritual Mastery pitch failed to register in attendees' memories (4.38 rating, 2 mentions).</p>
+
+            <p style="margin-top: 25px;"><strong>The solution isn't to "pitch harder"—it's to transform the pitch into an experience that demonstrates the program's value rather than explaining it.</strong></p>
+
+            <p style="margin-top: 25px; font-size: 1.4rem; font-weight: 600;">Transformation Before Transaction.</p>
+            <p style="font-size: 1.4rem; font-weight: 600;">Transmission Before Teaching.</p>
+            <p style="font-size: 1.4rem; font-weight: 600;">Experience Before Enrollment.</p>
+        </div>
+    </div>
+</body>
+</html>

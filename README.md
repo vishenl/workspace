@@ -172,6 +172,49 @@ workspace/
 **[Complete Curriculum](https://vishenl.github.io/workspace/campaigns/spiritual-mastery/spiritual-mastery-complete-curriculum.html)**
 - Full program structure and curriculum design
 
+**🎯 [Pitch Performance Diagnostic](https://vishenl.github.io/workspace/campaigns/spiritual-mastery/pitch-performance-diagnostic.html)** (Password: `ocean-thunder`)
+- Comprehensive analysis of Vishen's first live sales pitch delivery
+- 23-minute webinar analyzed against proven conversion frameworks
+- Overall Score: 7.2/10 with 15-25% conversion improvement potential
+- Identifies 3 critical issues: weak opening hook (5.5/10), premature price reveal (4.0/10), weak closing CTA (5.0/10)
+- Provides before/after scripts, timestamped feedback, and action items
+- Projected impact: +15-35% conversion with structural changes
+
+**📊 [Student Needs Analysis](https://vishenl.github.io/workspace/campaigns/spiritual-mastery/student-needs-analysis-mindvalley.html)** (Password: `crystal-horizon`)
+- Data-driven insights from 3,484 survey responses
+- Reveals top challenges: 38% struggle with consistency, losing momentum repeatedly
+- Key interests: Neuroscience-backed practices (67%), advanced manifestation (64%), somatic healing (57%)
+- Breakthrough desires: Quiet mind, emotional blocks cleared, clear intuition, life purpose clarity
+- Validates 7-Gate System curriculum design with survey data
+
+---
+
+### 📈 Survey Analysis & Pitch Optimization (Day 1 Summit)
+
+**🚨 [Survey Analysis Report](https://vishenl.github.io/workspace/campaigns/spiritual-mastery/survey-analysis-report.html)** (Password: `ancient-mystic`)
+- Analysis of 1,466 attendee responses from Spiritual Summit Day 1
+- **Critical Finding:** Intro to Spiritual Mastery ranked LAST (7th of 7 sessions) at 4.38/5.00
+- Only 2 highlight mentions vs. 147 for Quantum Jumping, 332 for Regan's activation
+- Attendee explicitly called it "just a sales pitch by Vishen for the $4k program"
+- Detailed breakdown: What resonated (experiential, vulnerable storytelling), Red flags (forgettable, sales-y perception)
+- 5 specific pitch adjustments based on data patterns
+
+**📝 [Pitch Script Examples](https://vishenl.github.io/workspace/campaigns/spiritual-mastery/pitch-script-examples.html)** (Password: `hidden-tranquil`)
+- Complete before/after script examples for all sections
+- Opening (vulnerability), transition (path recognition), experience (mini-practice)
+- Bridge to Quantum Jumping, social proof, free practice gift, identity close
+- Full 15-20 minute recommended sequence
+- Key language swaps table (what to avoid, what to use instead)
+- Red flags to never say, success metrics to track
+
+**⚡ [Key Findings Summary](https://vishenl.github.io/workspace/campaigns/spiritual-mastery/key-findings-summary.html)** (Password: `vibrant-eternal`)
+- Executive dashboard for quick team review
+- Session rankings comparison, highlight mentions analysis
+- Top 5 urgent recommendations in priority order
+- What worked (experiential > informational, vulnerability, "already within you")
+- Direct attendee quotes and red flag feedback
+- Scannable single-page format for meetings
+
 ## 📱 Social Media Strategy
 
 ### YouTube Strategy Guide
@@ -423,9 +466,25 @@ This project is maintained for internal Mindvalley use. Please contact the repos
 - GitHub for version control and GitHub Pages hosting
 - Conversion frameworks: Alex Hormozi, Eugene Schwartz, Joe Sugarman, Robert Cialdini
 
+## 🔑 Password-Protected Content
+
+Several HTML pages are password-protected to secure sensitive strategic analysis and data:
+
+| Page | Password | Description |
+|------|----------|-------------|
+| YouTube Strategy Guide | `blackpanther` | Comprehensive YouTube growth strategy |
+| Campaign Hub (index.html) | `sailspain` | Main campaign hub and overview |
+| Pitch Performance Diagnostic | `ocean-thunder` | Vishen's sales pitch analysis (transcript) |
+| Student Needs Analysis | `crystal-horizon` | 3,484 survey responses analysis |
+| Survey Analysis Report | `ancient-mystic` | 1,466 Day 1 responses, session rankings |
+| Pitch Script Examples | `hidden-tranquil` | Before/after scripts, language swaps |
+| Key Findings Summary | `vibrant-eternal` | Executive dashboard for quick review |
+
+**Note:** Passwords are stored in `.passwords.txt` (gitignored for security). Share with authorized team members only.
+
 ---
 
-**Last Updated:** November 4, 2025
+**Last Updated:** November 23, 2025
 **Maintained by:** [@vishenl](https://github.com/vishenl)
 **Powered by:** Claude Code + AI-assisted workflows
 **Campaign Hub:** [vishenl.github.io/workspace/](https://vishenl.github.io/workspace/) (Password: sailspain)

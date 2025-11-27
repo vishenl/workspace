@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Hear You: Insights from 3,484 Spiritual Seekers</title>
+    <link rel="stylesheet" href="styles/mv-selfreset-base.css">
+    <style>
+        body {
+            background: #ffffff;
+            overflow: hidden;
+        }
+
+        /* Slide container */
+        .slide-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Navigation arrows */
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(122, 18, 212, 0.9);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(122, 18, 212, 0.3);
+        }
+
+        .nav-arrow:hover {
+            background: #7a12d4;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(122, 18, 212, 0.5);
+        }
+
+        .nav-arrow:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-arrow:disabled:hover {
+            transform: translateY(-50%);
+        }
+
+        .nav-arrow.prev {
+            left: 2rem;
+        }
+
+        .nav-arrow.next {
+            right: 2rem;
+        }
+
+        /* Slide counter */
+        .slide-counter {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            font-family: Grotesk-Medium, sans-serif;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .slide-counter-dots {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d1d5db;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #7a12d4;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Slide 1: Title */
+        .slide-1 {
+            background: linear-gradient(135deg, #7a12d4 0%, #5a0da1 100%);
+        }
+
+        .slide-1 .slide-content {
+            color: white;
+        }
+
+        .slide-1 h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-1 .subtitle {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 1.5rem;
+            opacity: 0.95;
+            margin-bottom: 3rem;
+        }
+
+        .slide-1 .stat-big {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 7rem;
+            line-height: 1;
+            display: block;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .slide-1 h1 {
+                font-size: 2.5rem;
+            }
+            .slide-1 .stat-big {
+                font-size: 4rem;
+            }
+        }
+
+        /* Slide 2: Who They Are */
+        .slide-2 {
+            background: #faf5ff;
+        }
+
+        .circle-stat {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 1rem;
+        }
+
+        .circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7a12d4 0%, #5a0da1 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 8px 24px rgba(122, 18, 212, 0.3);
+        }
+
+        .circle-number {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 3.5rem;
+            line-height: 1;
+        }
+
+        .circle-label {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .circle-stat-caption {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1.125rem;
+            color: #4b5563;
+            max-width: 200px;
+        }
+
+        /* Slide 3: What They're Struggling With */
+        .slide-3 {
+            background: #fff7ed;
+        }
+
+        .struggle-item {
+            background: white;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem 2rem;
+            margin: 1rem auto;
+            max-width: 800px;
+            border-radius: 8px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .struggle-text {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1.25rem;
+            color: #1f2937;
+        }
+
+        .struggle-percent {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.5rem;
+            color: #f59e0b;
+            white-space: nowrap;
+            margin-left: 1rem;
+        }
+
+        /* Slide 4: The Feeling */
+        .slide-4 {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            color: white;
+        }
+
+        .quote-large {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 3rem;
+            line-height: 1.3;
+            margin: 2rem 0;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .quote-attribution {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 1.25rem;
+            opacity: 0.8;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .quote-large {
+                font-size: 1.75rem;
+            }
+        }
+
+        /* Slide 5: What They're Seeking */
+        .slide-5 {
+            background: #f0f9ff;
+        }
+
+        .seeking-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .seeking-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border-top: 4px solid #7a12d4;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .seeking-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .seeking-percent {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2rem;
+            color: #7a12d4;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .seeking-label {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1rem;
+            color: #4b5563;
+        }
+
+        /* Slide 6: The Deep Desire */
+        .slide-6 {
+            background: linear-gradient(135deg, #7a12d4 0%, #5a0da1 100%);
+            color: white;
+        }
+
+        .big-number {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 10rem;
+            line-height: 1;
+            display: block;
+            margin: 1rem 0;
+            opacity: 0.95;
+        }
+
+        .big-insight {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 2rem;
+            line-height: 1.4;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        @media (max-width: 768px) {
+            .big-number {
+                font-size: 5rem;
+            }
+            .big-insight {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Slide 7: Manifestation & Purpose */
+        .slide-7 {
+            background: #fef3c7;
+        }
+
+        .two-col-stat {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: stretch;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            flex: 1;
+            min-width: 280px;
+            max-width: 400px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-box-number {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 4rem;
+            color: #7a12d4;
+            line-height: 1;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .stat-box-label {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1.25rem;
+            color: #1f2937;
+            line-height: 1.4;
+        }
+
+        /* Slide 8: We See You */
+        .slide-8 {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+        }
+
+        .empathy-message {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 1.75rem;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .empathy-message strong {
+            font-family: Grotesk-Bold, sans-serif;
+            color: #c4b5fd;
+        }
+
+        .heart-icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Slide 9: What We're Creating */
+        .slide-9 {
+            background: #f0fdf4;
+        }
+
+        .promise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .promise-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #22c55e;
+            text-align: left;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .promise-card h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            color: #22c55e;
+            font-size: 1.125rem;
+            margin: 0 0 0.75rem 0;
+        }
+
+        .promise-card p {
+            font-family: Grotesk-Regular, sans-serif;
+            color: #4b5563;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Slide 10: Thank You */
+        .slide-10 {
+            background: linear-gradient(135deg, #7a12d4 0%, #5a0da1 100%);
+            color: white;
+        }
+
+        .thank-you-message {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 2rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .thank-you-heading {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .thank-you-heading {
+                font-size: 3rem;
+            }
+            .thank-you-message {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .nav-arrow {
+                width: 48px;
+                height: 48px;
+                font-size: 1.25rem;
+            }
+
+            .nav-arrow.prev {
+                left: 1rem;
+            }
+
+            .nav-arrow.next {
+                right: 1rem;
+            }
+
+            .slide {
+                padding: 1rem;
+            }
+
+            h2.mv-type--headline2 {
+                font-size: 2rem !important;
+            }
+
+            .seeking-grid,
+            .promise-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .struggle-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .struggle-percent {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    <!-- Slide 1: Title -->
+    <div class="slide active" data-slide="1">
+        <div class="slide-content">
+            <h1 class="mv-type--headline1">We Hear You</h1>
+            <p class="subtitle">Insights from our community</p>
+            <span class="stat-big">3,484</span>
+            <p class="subtitle">voices sharing their spiritual journey</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: Who They Are -->
+    <div class="slide" data-slide="2">
+        <div class="slide-content">
+            <h2 class="mv-type--headline2" style="color: #7a12d4; margin-bottom: 3rem;">You're Not Beginners</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
+                <div class="circle-stat">
+                    <div class="circle">
+                        <span class="circle-number">67%</span>
+                        <span class="circle-label">OF YOU</span>
+                    </div>
+                    <p class="circle-stat-caption">Are intermediate to advanced spiritual seekers</p>
+                </div>
+                <div class="circle-stat">
+                    <div class="circle">
+                        <span class="circle-number">32%</span>
+                        <span class="circle-label">REGULAR</span>
+                    </div>
+                    <p class="circle-stat-caption">Practice regularly and want to go deeper</p>
+                </div>
+                <div class="circle-stat">
+                    <div class="circle">
+                        <span class="circle-number">15%</span>
+                        <span class="circle-label">ADVANCED</span>
+                    </div>
+                    <p class="circle-stat-caption">Are experienced seekers ready for embodiment</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: What They're Struggling With -->
+    <div class="slide" data-slide="3">
+        <div class="slide-content">
+            <h2 class="mv-type--headline2" style="color: #f59e0b; margin-bottom: 2rem;">What You're Struggling With</h2>
+            <div class="struggle-item">
+                <span class="struggle-text">Lack of discipline or structure</span>
+                <span class="struggle-percent">22%</span>
+            </div>
+            <div class="struggle-item">
+                <span class="struggle-text">Feeling stuck or blocked</span>
+                <span class="struggle-percent">21%</span>
+            </div>
+            <div class="struggle-item">
+                <span class="struggle-text">Overthinking, can't quiet the mind</span>
+                <span class="struggle-percent">19%</span>
+            </div>
+            <div class="struggle-item">
+                <span class="struggle-text">Difficulty manifesting desires</span>
+                <span class="struggle-percent">18%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: The Feeling -->
+    <div class="slide" data-slide="4">
+        <div class="slide-content">
+            <p class="quote-large">"I know there's more. I've started the journey, but I need to go deeper."</p>
+            <p class="quote-attribution">The voice of 2,334 seekers wanting to transcend the surface</p>
+        </div>
+    </div>
+
+    <!-- Slide 5: What They're Seeking -->
+    <div class="slide" data-slide="5">
+        <div class="slide-content">
+            <h2 class="mv-type--headline2" style="color: #7a12d4; margin-bottom: 1rem;">What You're Seeking</h2>
+            <div class="seeking-grid">
+                <div class="seeking-card">
+                    <div class="seeking-icon">🧠</div>
+                    <span class="seeking-percent">67%</span>
+                    <p class="seeking-label">Want neuroscience & consciousness</p>
+                </div>
+                <div class="seeking-card">
+                    <div class="seeking-icon">✨</div>
+                    <span class="seeking-percent">64%</span>
+                    <p class="seeking-label">Want advanced manifestation</p>
+                </div>
+                <div class="seeking-card">
+                    <div class="seeking-icon">💫</div>
+                    <span class="seeking-percent">57%</span>
+                    <p class="seeking-label">Want somatic healing & trauma release</p>
+                </div>
+                <div class="seeking-card">
+                    <div class="seeking-icon">🌊</div>
+                    <span class="seeking-percent">54%</span>
+                    <p class="seeking-label">Want Qi Gong & energy flow</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: The Deep Desire -->
+    <div class="slide" data-slide="6">
+        <div class="slide-content">
+            <h2 class="mv-type--headline2" style="margin-bottom: 2rem;">Your Deepest Desire</h2>
+            <span class="big-number">66%</span>
+            <p class="big-insight">Finding clarity about your next steps — understanding your purpose and path forward</p>
+        </div>
+    </div>
+
+    <!-- Slide 7: Manifestation & Purpose -->
+    <div class="slide" data-slide="7">
+        <div class="slide-content">
+            <h2 class="mv-type--headline2" style="color: #7a12d4; margin-bottom: 1rem;">Your 12-Month Vision</h2>
+            <div class="two-col-stat">
+                <div class="stat-box">
+                    <span class="stat-box-number">33%</span>
+                    <p class="stat-box-label">Want to manifest a new chapter in life</p>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-box-number">22%</span>
+                    <p class="stat-box-label">Want to uplevel their purpose, work, or mission</p>
+                </div>
+            </div>
+            <p class="mv-type--headline4" style="margin-top: 3rem; color: #7a12d4;">= 55% focused on manifestation & purpose</p>
+        </div>
+    </div>
+
+    <!-- Slide 8: We See You -->
+    <div class="slide" data-slide="8">
+        <div class="slide-content">
+            <div class="heart-icon">💜</div>
+            <h2 class="mv-type--headline2" style="margin-bottom: 2rem;">We See You</h2>
+            <p class="empathy-message">
+                You're not broken. You're not behind. <strong>You're right where you need to be.</strong>
+                <br><br>
+                You've done the work to get here. Now you're ready to go deeper, to breakthrough what's been holding you back, and to step fully into your spiritual power.
+            </p>
+        </div>
+    </div>
+
+    <!-- Slide 9: What We're Creating -->
+    <div class="slide" data-slide="9">
+        <div class="slide-content">
+            <h2 class="mv-type--headline2" style="color: #22c55e; margin-bottom: 1rem;">What We're Creating For You</h2>
+            <div class="promise-grid">
+                <div class="promise-card">
+                    <h4>Science-Backed Spirituality</h4>
+                    <p>Neuroscience, consciousness research, and evidence-based practices that honor your intelligence</p>
+                </div>
+                <div class="promise-card">
+                    <h4>Deep Healing & Release</h4>
+                    <p>Somatic trauma work, forgiveness practices, and energetic clearing to help you break free</p>
+                </div>
+                <div class="promise-card">
+                    <h4>Advanced Manifestation</h4>
+                    <p>Not basic Law of Attraction, but embodied co-creation rooted in consciousness and clarity</p>
+                </div>
+                <div class="promise-card">
+                    <h4>Purpose Discovery</h4>
+                    <p>Life visioning and clarity frameworks to help you understand your soul's calling</p>
+                </div>
+                <div class="promise-card">
+                    <h4>Daily Practices</h4>
+                    <p>Qi Gong, meditation, breathwork, and rituals you can sustain for life</p>
+                </div>
+                <div class="promise-card">
+                    <h4>Structure & Discipline</h4>
+                    <p>Samurai and Shaolin wisdom to build unshakeable presence and spiritual strength</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Thank You -->
+    <div class="slide" data-slide="10">
+        <div class="slide-content">
+            <h1 class="mv-type--headline1 thank-you-heading">Thank You</h1>
+            <p class="thank-you-message">
+                For trusting us with your journey.<br>
+                For sharing your truth.<br>
+                For showing up, even when it's hard.
+            </p>
+            <p class="thank-you-message" style="margin-top: 3rem; opacity: 0.9;">
+                We're honored to walk this path with you.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Navigation -->
+<button class="nav-arrow prev" id="prevBtn" disabled>←</button>
+<button class="nav-arrow next" id="nextBtn">→</button>
+
+<!-- Slide Counter -->
+<div class="slide-counter">
+    <div class="slide-counter-dots" id="dotsContainer"></div>
+</div>
+
+<script>
+let currentSlide = 1;
+const totalSlides = 10;
+
+// Initialize dots
+const dotsContainer = document.getElementById('dotsContainer');
+for (let i = 1; i <= totalSlides; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 1 ? ' active' : '');
+    dot.onclick = () => goToSlide(i);
+    dotsContainer.appendChild(dot);
+}
+
+function showSlide(n) {
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    // Remove active class from all slides and dots
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    // Add active class to current slide and dot
+    slides[n - 1].classList.add('active');
+    dots[n - 1].classList.add('active');
+
+    // Update button states
+    prevBtn.disabled = n === 1;
+    nextBtn.disabled = n === totalSlides;
+
+    currentSlide = n;
+}
+
+function nextSlide() {
+    if (currentSlide < totalSlides) {
+        showSlide(currentSlide + 1);
+    }
+}
+
+function prevSlide() {
+    if (currentSlide > 1) {
+        showSlide(currentSlide - 1);
+    }
+}
+
+function goToSlide(n) {
+    showSlide(n);
+}
+
+// Event listeners
+document.getElementById('nextBtn').addEventListener('click', nextSlide);
+document.getElementById('prevBtn').addEventListener('click', prevSlide);
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+});
+
+// Touch/swipe support for mobile
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    if (touchEndX < touchStartX - 50) nextSlide();
+    if (touchEndX > touchStartX + 50) prevSlide();
+}
+</script>
+
+</body>
+</html>

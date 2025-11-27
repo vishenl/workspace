@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Mix Studio - Mindvalley Meditations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dj-studio.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="ambient-background">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="studio-header">
+        <a href="index.html" class="back-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            <span>Back to Library</span>
+        </a>
+        <div class="studio-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 12h8"/>
+                <path d="M12 8v8"/>
+            </svg>
+            <h1>DJ Mix Studio</h1>
+            <span class="beta-badge">BETA</span>
+        </div>
+        <div class="header-actions">
+            <button class="action-btn" id="saveBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                    <polyline points="17 21 17 13 7 13 7 21"/>
+                    <polyline points="7 3 7 8 15 8"/>
+                </svg>
+                <span>Save Mix</span>
+            </button>
+            <button class="action-btn secondary" id="shareBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="18" cy="5" r="3"/>
+                    <circle cx="6" cy="12" r="3"/>
+                    <circle cx="18" cy="19" r="3"/>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                </svg>
+                <span>Share</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Studio Interface -->
+    <main class="studio-main">
+        <!-- Left Panel: Track Selection -->
+        <aside class="track-browser">
+            <div class="browser-tabs">
+                <button class="tab-btn active" data-tab="voice">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    </svg>
+                    Voice
+                </button>
+                <button class="tab-btn" data-tab="sounds">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18V5l12-2v13"/>
+                        <circle cx="6" cy="18" r="3"/>
+                        <circle cx="18" cy="16" r="3"/>
+                    </svg>
+                    Sounds
+                </button>
+            </div>
+
+            <!-- Voice Meditations Tab -->
+            <div class="tab-content active" id="voice-tab">
+                <div class="search-box">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" placeholder="Search meditations...">
+                </div>
+                <div class="filter-chips">
+                    <button class="chip active">All</button>
+                    <button class="chip">Hypnotherapy</button>
+                    <button class="chip">Visualization</button>
+                    <button class="chip">Affirmations</button>
+                </div>
+                <div class="track-list" id="voiceTrackList">
+                    <div class="track-item" data-track="voice-1" draggable="true">
+                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=80&h=80&fit=crop" alt="Track">
+                        <div class="track-info">
+                            <span class="track-name">Connecting with Your Intuition</span>
+                            <span class="track-author">Visavi Kumar</span>
+                            <div class="track-meta">
+                                <span class="tag">Visualization</span>
+                                <span class="duration">12:00</span>
+                            </div>
+                        </div>
+                        <button class="add-track-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="track-item" data-track="voice-2" draggable="true">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=80&h=80&fit=crop" alt="Track">
+                        <div class="track-info">
+                            <span class="track-name">Removing Inner Blocks to Success</span>
+                            <span class="track-author">Marisa Peer</span>
+                            <div class="track-meta">
+                                <span class="tag">Hypnotherapy</span>
+                                <span class="duration">18:00</span>
+                            </div>
+                        </div>
+                        <button class="add-track-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="track-item" data-track="voice-3" draggable="true">
+                        <img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=80&h=80&fit=crop" alt="Track">
+                        <div class="track-info">
+                            <span class="track-name">Hypnotic Trance Getting Motivated</span>
+                            <span class="track-author">Paul McKenna</span>
+                            <div class="track-meta">
+                                <span class="tag">Hypnotherapy</span>
+                                <span class="duration">8:00</span>
+                            </div>
+                        </div>
+                        <button class="add-track-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="track-item" data-track="voice-4" draggable="true">
+                        <img src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=80&h=80&fit=crop" alt="Track">
+                        <div class="track-info">
+                            <span class="track-name">Deep Healing & Repair</span>
+                            <span class="track-author">Summer McStravick</span>
+                            <div class="track-meta">
+                                <span class="tag">Sound Healing</span>
+                                <span class="duration">25:00</span>
+                            </div>
+                        </div>
+                        <button class="add-track-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="track-item" data-track="voice-5" draggable="true">
+                        <img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=80&h=80&fit=crop" alt="Track">
+                        <div class="track-info">
+                            <span class="track-name">Abundance Meditation</span>
+                            <span class="track-author">Marie Diamond</span>
+                            <div class="track-meta">
+                                <span class="tag">Visualization</span>
+                                <span class="duration">20:00</span>
+                            </div>
+                        </div>
+                        <button class="add-track-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sounds Tab -->
+            <div class="tab-content" id="sounds-tab">
+                <div class="search-box">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" placeholder="Search sounds...">
+                </div>
+                <div class="filter-chips">
+                    <button class="chip active">All</button>
+                    <button class="chip">Nature</button>
+                    <button class="chip">Binaural</button>
+                    <button class="chip">Ambient</button>
+                </div>
+                <div class="track-list" id="soundTrackList">
+                    <div class="sound-item" data-sound="nature-1" draggable="true">
+                        <div class="sound-icon" style="background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M21 15c0-4.625-3.507-8.441-8-8.941V4h-2v2.059c-4.493.5-8 4.316-8 8.941v2h18v-2zM5 15c0-3.309 2.691-6 6-6s6 2.691 6 6H5z"/>
+                            </svg>
+                        </div>
+                        <div class="sound-info">
+                            <span class="sound-name">Ocean Waves</span>
+                            <span class="sound-category">Nature</span>
+                        </div>
+                        <button class="add-track-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="sound-item" data-sound="nature-2" draggable="true">
+                        <div class="sound-icon" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                            </svg>
+                        </div>
+                        <div class="sound-info">
+                            <span class="sound-name">Forest Rain</span>
+                            <span class="sound-category">Nature</span>
+                        </div>
+                        <button class="add-track-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="sound-item" data-sound="binaural-1" draggable="true">
+                        <div class="sound-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                            </svg>
+                        </div>
+                        <div class="sound-info">
+                            <span class="sound-name">432Hz Harmony</span>
+                            <span class="sound-category">Binaural</span>
+                        </div>
+                        <button class="add-track-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="sound-item" data-sound="binaural-2" draggable="true">
+                        <div class="sound-icon" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                            </svg>
+                        </div>
+                        <div class="sound-info">
+                            <span class="sound-name">Theta Waves 6Hz</span>
+                            <span class="sound-category">Binaural</span>
+                        </div>
+                        <button class="add-track-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="sound-item" data-sound="ambient-1" draggable="true">
+                        <div class="sound-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <circle cx="12" cy="12" r="5"/>
+                                <line x1="12" y1="1" x2="12" y2="3"/>
+                                <line x1="12" y1="21" x2="12" y2="23"/>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                                <line x1="1" y1="12" x2="3" y2="12"/>
+                                <line x1="21" y1="12" x2="23" y2="12"/>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                            </svg>
+                        </div>
+                        <div class="sound-info">
+                            <span class="sound-name">Tibetan Singing Bowls</span>
+                            <span class="sound-category">Ambient</span>
+                        </div>
+                        <button class="add-track-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="sound-item" data-sound="binaural-3" draggable="true">
+                        <div class="sound-icon" style="background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                            </svg>
+                        </div>
+                        <div class="sound-info">
+                            <span class="sound-name">Delta Waves 1Hz</span>
+                            <span class="sound-category">Deep Sleep</span>
+                        </div>
+                        <button class="add-track-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="sound-item" data-sound="nature-3" draggable="true">
+                        <div class="sound-icon" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M17.66 8L12 2.35 6.34 8A8.02 8.02 0 0 0 4 13.64c0 2 .78 4.11 2.34 5.67a7.99 7.99 0 0 0 11.32 0c1.56-1.56 2.34-3.67 2.34-5.67S19.22 9.56 17.66 8zM6 14c.01-2 .62-3.27 1.76-4.4L12 5.27l4.24 4.38C17.38 10.77 17.99 12 18 14H6z"/>
+                            </svg>
+                        </div>
+                        <div class="sound-info">
+                            <span class="sound-name">Gentle Stream</span>
+                            <span class="sound-category">Nature</span>
+                        </div>
+                        <button class="add-track-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center: Mixing Console -->
+        <section class="mixing-console">
+            <!-- Voice Track Channel -->
+            <div class="channel voice-channel" id="voiceChannel">
+                <div class="channel-header">
+                    <div class="channel-type">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        </svg>
+                        <span>VOICE TRACK</span>
+                    </div>
+                    <button class="channel-menu-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <circle cx="12" cy="5" r="2"/>
+                            <circle cx="12" cy="12" r="2"/>
+                            <circle cx="12" cy="19" r="2"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="track-drop-zone active" id="voiceDropZone">
+                    <div class="loaded-track">
+                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=120&h=120&fit=crop" alt="Track" class="track-artwork">
+                        <div class="track-details">
+                            <h3>Connecting with Your Intuition</h3>
+                            <p>Visavi Kumar</p>
+                            <span class="track-duration">12:00</span>
+                        </div>
+                        <button class="remove-track-btn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"/>
+                                <line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Waveform Visualization -->
+                <div class="waveform-container">
+                    <canvas id="voiceWaveform" class="waveform-canvas"></canvas>
+                    <div class="playhead" id="voicePlayhead"></div>
+                    <div class="waveform-time">
+                        <span class="current">2:34</span>
+                        <span class="total">12:00</span>
+                    </div>
+                </div>
+
+                <!-- Channel Controls -->
+                <div class="channel-controls">
+                    <!-- Volume Fader -->
+                    <div class="fader-section">
+                        <div class="fader-label">
+                            <span>VOL</span>
+                            <span class="fader-value" id="voiceVolValue">80%</span>
+                        </div>
+                        <div class="fader-track">
+                            <input type="range" min="0" max="100" value="80" class="fader" id="voiceVolume" orient="vertical">
+                            <div class="fader-meter">
+                                <div class="meter-fill" style="height: 80%;"></div>
+                            </div>
+                        </div>
+                        <div class="fader-marks">
+                            <span>0</span>
+                            <span>-6</span>
+                            <span>-12</span>
+                            <span>-24</span>
+                            <span>-∞</span>
+                        </div>
+                    </div>
+
+                    <!-- EQ Section -->
+                    <div class="eq-section">
+                        <div class="eq-label">EQ</div>
+                        <div class="eq-knobs">
+                            <div class="knob-group">
+                                <div class="knob" data-param="voiceHigh">
+                                    <div class="knob-dial" style="transform: rotate(0deg);"></div>
+                                </div>
+                                <span>HIGH</span>
+                            </div>
+                            <div class="knob-group">
+                                <div class="knob" data-param="voiceMid">
+                                    <div class="knob-dial" style="transform: rotate(0deg);"></div>
+                                </div>
+                                <span>MID</span>
+                            </div>
+                            <div class="knob-group">
+                                <div class="knob" data-param="voiceLow">
+                                    <div class="knob-dial" style="transform: rotate(0deg);"></div>
+                                </div>
+                                <span>LOW</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Effects -->
+                    <div class="effects-section">
+                        <div class="effect-toggle">
+                            <input type="checkbox" id="voiceReverb">
+                            <label for="voiceReverb">Reverb</label>
+                        </div>
+                        <div class="effect-toggle">
+                            <input type="checkbox" id="voiceDelay">
+                            <label for="voiceDelay">Echo</label>
+                        </div>
+                    </div>
+
+                    <!-- Mute/Solo -->
+                    <div class="channel-actions">
+                        <button class="mute-btn" id="voiceMute">M</button>
+                        <button class="solo-btn" id="voiceSolo">S</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crossfader Section -->
+            <div class="crossfader-section">
+                <div class="master-controls">
+                    <div class="bpm-display">
+                        <span class="bpm-label">SYNC</span>
+                        <span class="bpm-value">AUTO</span>
+                    </div>
+                </div>
+
+                <div class="crossfader-container">
+                    <span class="cf-label">A</span>
+                    <div class="crossfader-track">
+                        <input type="range" min="0" max="100" value="50" class="crossfader" id="crossfader">
+                        <div class="crossfader-visual">
+                            <div class="cf-fill left" style="width: 50%;"></div>
+                            <div class="cf-fill right" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                    <span class="cf-label">B</span>
+                </div>
+
+                <div class="blend-modes">
+                    <span class="blend-label">BLEND MODE</span>
+                    <div class="blend-buttons">
+                        <button class="blend-btn active" data-mode="mix">MIX</button>
+                        <button class="blend-btn" data-mode="duck">DUCK</button>
+                        <button class="blend-btn" data-mode="layer">LAYER</button>
+                    </div>
+                </div>
+
+                <!-- Master Transport -->
+                <div class="master-transport">
+                    <button class="transport-btn" id="skipBackBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="19 20 9 12 19 4 19 20"/>
+                            <line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    <button class="transport-btn play-btn" id="masterPlayBtn">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3"/>
+                        </svg>
+                    </button>
+                    <button class="transport-btn" id="skipForwardBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 4 15 12 5 20 5 4"/>
+                            <line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Master Volume -->
+                <div class="master-volume">
+                    <span class="mv-label">MASTER</span>
+                    <div class="master-meter">
+                        <div class="meter-bar left">
+                            <div class="meter-segment green" style="height: 60%;"></div>
+                            <div class="meter-segment yellow" style="height: 20%;"></div>
+                            <div class="meter-segment red" style="height: 5%;"></div>
+                        </div>
+                        <div class="meter-bar right">
+                            <div class="meter-segment green" style="height: 55%;"></div>
+                            <div class="meter-segment yellow" style="height: 18%;"></div>
+                            <div class="meter-segment red" style="height: 3%;"></div>
+                        </div>
+                    </div>
+                    <input type="range" min="0" max="100" value="85" class="master-fader" id="masterVolume">
+                    <span class="mv-value">85%</span>
+                </div>
+            </div>
+
+            <!-- Sound Track Channel -->
+            <div class="channel sound-channel" id="soundChannel">
+                <div class="channel-header">
+                    <div class="channel-type">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18V5l12-2v13"/>
+                            <circle cx="6" cy="18" r="3"/>
+                            <circle cx="18" cy="16" r="3"/>
+                        </svg>
+                        <span>SOUND TRACK</span>
+                    </div>
+                    <button class="channel-menu-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <circle cx="12" cy="5" r="2"/>
+                            <circle cx="12" cy="12" r="2"/>
+                            <circle cx="12" cy="19" r="2"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="track-drop-zone active" id="soundDropZone">
+                    <div class="loaded-track sound">
+                        <div class="sound-icon-large" style="background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
+                                <path d="M21 15c0-4.625-3.507-8.441-8-8.941V4h-2v2.059c-4.493.5-8 4.316-8 8.941v2h18v-2zM5 15c0-3.309 2.691-6 6-6s6 2.691 6 6H5z"/>
+                            </svg>
+                        </div>
+                        <div class="track-details">
+                            <h3>Ocean Waves</h3>
+                            <p>Nature Sounds</p>
+                            <span class="track-duration">∞ Loop</span>
+                        </div>
+                        <button class="remove-track-btn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"/>
+                                <line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Waveform Visualization -->
+                <div class="waveform-container">
+                    <canvas id="soundWaveform" class="waveform-canvas"></canvas>
+                    <div class="playhead" id="soundPlayhead"></div>
+                    <div class="loop-indicator">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="17 1 21 5 17 9"/>
+                            <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+                            <polyline points="7 23 3 19 7 15"/>
+                            <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                        <span>LOOP</span>
+                    </div>
+                </div>
+
+                <!-- Channel Controls -->
+                <div class="channel-controls">
+                    <!-- Volume Fader -->
+                    <div class="fader-section">
+                        <div class="fader-label">
+                            <span>VOL</span>
+                            <span class="fader-value" id="soundVolValue">40%</span>
+                        </div>
+                        <div class="fader-track">
+                            <input type="range" min="0" max="100" value="40" class="fader" id="soundVolume" orient="vertical">
+                            <div class="fader-meter">
+                                <div class="meter-fill" style="height: 40%;"></div>
+                            </div>
+                        </div>
+                        <div class="fader-marks">
+                            <span>0</span>
+                            <span>-6</span>
+                            <span>-12</span>
+                            <span>-24</span>
+                            <span>-∞</span>
+                        </div>
+                    </div>
+
+                    <!-- EQ Section -->
+                    <div class="eq-section">
+                        <div class="eq-label">EQ</div>
+                        <div class="eq-knobs">
+                            <div class="knob-group">
+                                <div class="knob" data-param="soundHigh">
+                                    <div class="knob-dial" style="transform: rotate(-30deg);"></div>
+                                </div>
+                                <span>HIGH</span>
+                            </div>
+                            <div class="knob-group">
+                                <div class="knob" data-param="soundMid">
+                                    <div class="knob-dial" style="transform: rotate(0deg);"></div>
+                                </div>
+                                <span>MID</span>
+                            </div>
+                            <div class="knob-group">
+                                <div class="knob" data-param="soundLow">
+                                    <div class="knob-dial" style="transform: rotate(20deg);"></div>
+                                </div>
+                                <span>LOW</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Effects -->
+                    <div class="effects-section">
+                        <div class="effect-toggle">
+                            <input type="checkbox" id="soundReverb" checked>
+                            <label for="soundReverb">Reverb</label>
+                        </div>
+                        <div class="effect-toggle">
+                            <input type="checkbox" id="soundFilter">
+                            <label for="soundFilter">Filter</label>
+                        </div>
+                    </div>
+
+                    <!-- Mute/Solo -->
+                    <div class="channel-actions">
+                        <button class="mute-btn" id="soundMute">M</button>
+                        <button class="solo-btn" id="soundSolo">S</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Panel: Presets & Session -->
+        <aside class="presets-panel">
+            <div class="panel-section">
+                <h3 class="panel-title">Quick Presets</h3>
+                <div class="presets-grid">
+                    <button class="preset-card" data-preset="deep-focus">
+                        <div class="preset-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                            </svg>
+                        </div>
+                        <span class="preset-name">Deep Focus</span>
+                        <span class="preset-desc">Voice 70% • Binaural 30%</span>
+                    </button>
+                    <button class="preset-card" data-preset="sleep">
+                        <div class="preset-icon" style="background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                            </svg>
+                        </div>
+                        <span class="preset-name">Sleep Mode</span>
+                        <span class="preset-desc">Voice 50% • Nature 70%</span>
+                    </button>
+                    <button class="preset-card" data-preset="energize">
+                        <div class="preset-icon" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                            </svg>
+                        </div>
+                        <span class="preset-name">Energize</span>
+                        <span class="preset-desc">Voice 90% • Upbeat 50%</span>
+                    </button>
+                    <button class="preset-card active" data-preset="relaxation">
+                        <div class="preset-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <span class="preset-name">Relaxation</span>
+                        <span class="preset-desc">Voice 60% • Ambient 60%</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3 class="panel-title">Session Timer</h3>
+                <div class="timer-display">
+                    <div class="timer-ring">
+                        <svg viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="54" class="timer-bg"/>
+                            <circle cx="60" cy="60" r="54" class="timer-progress" style="stroke-dashoffset: 100;"/>
+                        </svg>
+                        <div class="timer-value">
+                            <span class="timer-minutes">15</span>
+                            <span class="timer-label">min</span>
+                        </div>
+                    </div>
+                    <div class="timer-presets">
+                        <button class="timer-btn" data-time="5">5</button>
+                        <button class="timer-btn" data-time="10">10</button>
+                        <button class="timer-btn active" data-time="15">15</button>
+                        <button class="timer-btn" data-time="20">20</button>
+                        <button class="timer-btn" data-time="30">30</button>
+                        <button class="timer-btn" data-time="60">60</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3 class="panel-title">Fade Settings</h3>
+                <div class="fade-controls">
+                    <div class="fade-control">
+                        <label>Fade In</label>
+                        <div class="fade-slider">
+                            <input type="range" min="0" max="30" value="5">
+                            <span>5s</span>
+                        </div>
+                    </div>
+                    <div class="fade-control">
+                        <label>Fade Out</label>
+                        <div class="fade-slider">
+                            <input type="range" min="0" max="30" value="10">
+                            <span>10s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3 class="panel-title">Saved Mixes</h3>
+                <div class="saved-mixes">
+                    <div class="saved-mix-item">
+                        <div class="mix-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 18V5l12-2v13"/>
+                                <circle cx="6" cy="18" r="3"/>
+                                <circle cx="18" cy="16" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="mix-info">
+                            <span class="mix-name">Morning Clarity</span>
+                            <span class="mix-date">Today, 8:30 AM</span>
+                        </div>
+                        <button class="load-mix-btn">Load</button>
+                    </div>
+                    <div class="saved-mix-item">
+                        <div class="mix-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 18V5l12-2v13"/>
+                                <circle cx="6" cy="18" r="3"/>
+                                <circle cx="18" cy="16" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="mix-info">
+                            <span class="mix-name">Deep Sleep Blend</span>
+                            <span class="mix-date">Yesterday</span>
+                        </div>
+                        <button class="load-mix-btn">Load</button>
+                    </div>
+                    <div class="saved-mix-item">
+                        <div class="mix-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 18V5l12-2v13"/>
+                                <circle cx="6" cy="18" r="3"/>
+                                <circle cx="18" cy="16" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="mix-info">
+                            <span class="mix-name">Focus Flow</span>
+                            <span class="mix-date">Nov 24</span>
+                        </div>
+                        <button class="load-mix-btn">Load</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Keyboard Shortcuts Modal -->
+    <div class="shortcuts-hint" id="shortcutsHint">
+        <span>Press <kbd>?</kbd> for keyboard shortcuts</span>
+    </div>
+
+    <script src="dj-studio.js"></script>
+</body>
+</html>

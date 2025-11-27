@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNFUCKWITHABLE: The 7 Sacred States | Book Proposal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9A962;
+            --gold-light: #E8D5A3;
+            --gold-dark: #9A7B3C;
+            --deep-purple: #1a0a2e;
+            --purple: #2d1b4e;
+            --purple-light: #4a2c7a;
+            --white: #FFFFFF;
+            --off-white: #F8F6F3;
+            --text-light: rgba(255,255,255,0.9);
+            --text-muted: rgba(255,255,255,0.6);
+            --gradient-gold: linear-gradient(135deg, #C9A962 0%, #E8D5A3 50%, #C9A962 100%);
+            --gradient-purple: linear-gradient(180deg, #1a0a2e 0%, #2d1b4e 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--deep-purple);
+            color: var(--white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            background: rgba(26, 10, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(201, 169, 98, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 40px 80px;
+            background: var(--gradient-purple);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(201, 169, 98, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 10px 24px;
+            background: rgba(201, 169, 98, 0.15);
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .hero-tagline {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .hero-author {
+            margin-bottom: 50px;
+        }
+
+        .author-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .author-credentials {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .meta-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 45px;
+            background: var(--gradient-gold);
+            color: var(--deep-purple);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(201, 169, 98, 0.3);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Overview Section */
+        .overview-section {
+            background: linear-gradient(180deg, var(--deep-purple) 0%, var(--purple) 100%);
+        }
+
+        .overview-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .overview-hook {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--gold-light);
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .overview-text {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.9;
+            margin-bottom: 25px;
+        }
+
+        .overview-text strong {
+            color: var(--gold);
+        }
+
+        /* States Grid */
+        .states-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .state-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .state-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .state-day {
+            font-size: 0.75rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .state-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .state-object {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .state-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Author Section */
+        .author-section {
+            background: var(--purple);
+        }
+
+        .author-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .author-image-container {
+            position: relative;
+        }
+
+        .author-image-placeholder {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, rgba(201, 169, 98, 0.2) 0%, rgba(201, 169, 98, 0.05) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--gold);
+            border: 1px solid rgba(201, 169, 98, 0.3);
+        }
+
+        .author-details h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .author-details p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .credentials-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .credentials-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(201, 169, 98, 0.15);
+            font-size: 0.95rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .credentials-list li::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Platform Stats */
+        .platform-section {
+            background: linear-gradient(180deg, var(--purple) 0%, var(--deep-purple) 100%);
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .platform-card {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .platform-card:hover {
+            border-color: var(--gold);
+            background: rgba(201, 169, 98, 0.05);
+        }
+
+        .platform-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .platform-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Market Section */
+        .market-section {
+            background: var(--deep-purple);
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .market-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 16px;
+            padding: 35px;
+        }
+
+        .market-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .market-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .market-stat {
+            font-size: 2rem;
+            color: var(--gold-light);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* Competitive Analysis */
+        .competitive-section {
+            background: linear-gradient(180deg, var(--deep-purple) 0%, var(--purple) 100%);
+        }
+
+        .comp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .comp-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .comp-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .comp-book {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--white);
+            margin-bottom: 5px;
+        }
+
+        .comp-author {
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .comp-sales {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .comp-diff {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Chapter Outline */
+        .chapters-section {
+            background: var(--purple);
+        }
+
+        .chapter-timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .chapter-timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--gold), rgba(201, 169, 98, 0.2));
+        }
+
+        .chapter-item {
+            position: relative;
+            padding-left: 80px;
+            padding-bottom: 40px;
+        }
+
+        .chapter-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .chapter-marker {
+            position: absolute;
+            left: 15px;
+            top: 5px;
+            width: 32px;
+            height: 32px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--deep-purple);
+        }
+
+        .chapter-day {
+            font-size: 0.75rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .chapter-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .chapter-object {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .chapter-desc {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .chapter-story {
+            margin-top: 10px;
+            padding: 15px;
+            background: rgba(201, 169, 98, 0.1);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: var(--gold-light);
+        }
+
+        .chapter-story strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--gold);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* USP Section */
+        .usp-section {
+            background: linear-gradient(180deg, var(--purple) 0%, var(--deep-purple) 100%);
+        }
+
+        .usp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .usp-card {
+            background: rgba(201, 169, 98, 0.05);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .usp-card:hover {
+            border-color: var(--gold);
+            background: rgba(201, 169, 98, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .usp-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .usp-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .usp-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Projections Section */
+        .projections-section {
+            background: var(--deep-purple);
+        }
+
+        .projection-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .projection-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .projection-card.featured {
+            background: rgba(201, 169, 98, 0.1);
+            border: 2px solid var(--gold);
+        }
+
+        .projection-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .projection-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .projection-note {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Specs Section */
+        .specs-section {
+            background: linear-gradient(180deg, var(--deep-purple) 0%, var(--purple) 100%);
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .spec-item {
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(201, 169, 98, 0.15);
+            border-radius: 12px;
+        }
+
+        .spec-label {
+            font-size: 0.75rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .spec-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--white);
+        }
+
+        /* Mnemonic Section */
+        .mnemonic-section {
+            background: var(--purple);
+            text-align: center;
+        }
+
+        .mnemonic-box {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px;
+            background: rgba(201, 169, 98, 0.1);
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+        }
+
+        .mnemonic-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .mnemonic-phrase {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .mnemonic-breakdown {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .mnemonic-item {
+            padding: 10px 20px;
+            background: rgba(201, 169, 98, 0.15);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .mnemonic-item strong {
+            color: var(--gold);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(180deg, var(--purple) 0%, var(--deep-purple) 100%);
+            text-align: center;
+            padding: 120px 40px;
+        }
+
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .cta-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--deep-purple);
+            padding: 60px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(201, 169, 98, 0.2);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .footer-copyright {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .hero-meta {
+                gap: 30px;
+            }
+
+            .author-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chapter-timeline::before {
+                left: 15px;
+            }
+
+            .chapter-item {
+                padding-left: 50px;
+            }
+
+            .chapter-marker {
+                left: 0;
+                width: 28px;
+                height: 28px;
+            }
+
+            .mnemonic-phrase {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-logo">MINDVALLEY</div>
+        <ul class="nav-links">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#author">Author</a></li>
+            <li><a href="#market">Market</a></li>
+            <li><a href="#chapters">Chapters</a></li>
+            <li><a href="#competitive">Competitive</a></li>
+            <li><a href="#projections">Projections</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">Book Proposal</span>
+            <h1 class="hero-title">UNFUCKWITHABLE</h1>
+            <p class="hero-subtitle">The 7 Sacred States</p>
+            <p class="hero-tagline">A Practical System for Unshakeable Inner Peace in a Chaotic World</p>
+
+            <div class="hero-author">
+                <div class="author-name">By Vishen Lakhiani</div>
+                <div class="author-credentials">
+                    Founder & CEO, Mindvalley<br>
+                    New York Times Bestselling Author<br>
+                    20+ Million Social Media Following
+                </div>
+            </div>
+
+            <div class="hero-meta">
+                <div class="meta-item">
+                    <div class="meta-value">7</div>
+                    <div class="meta-label">Sacred States</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">7</div>
+                    <div class="meta-label">Physical Anchors</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">75K+</div>
+                    <div class="meta-label">Words</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">$13.2B</div>
+                    <div class="meta-label">Market Size</div>
+                </div>
+            </div>
+
+            <a href="#overview" class="cta-button">Explore Proposal</a>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="section overview-section">
+        <div class="section-header">
+            <div class="section-number">01 / Overview</div>
+            <h2 class="section-title">The Hook</h2>
+            <p class="section-subtitle">What if you could become truly unfuckwithable?</p>
+        </div>
+
+        <div class="overview-content">
+            <p class="overview-hook">
+                "Not arrogant. Not detached. Not uncaring. But unshakeable in your sense of self. Immune to the chaos, drama, and negativity that derails most people's lives."
+            </p>
+
+            <p class="overview-text">
+                <strong>UNFUCKWITHABLE: The 7 Sacred States</strong> is a revolutionary personal transformation system that maps seven powerful consciousness states to seven days of the week, each anchored by a physical object that serves as both reminder and ritual tool.
+            </p>
+
+            <p class="overview-text">
+                In a world drowning in productivity hacks and surface-level self-help, this book offers something radically different: a <strong>spiritual operating system for the modern human</strong>. Drawing from ancient wisdom traditions, cutting-edge neuroscience, and two decades of personal experimentation with over 20 million students worldwide through Mindvalley.
+            </p>
+
+            <p class="overview-text">
+                The result? A life where you're no longer at the mercy of circumstances, other people's opinions, or your own fear-based thinking. A life where you operate from a foundation so solid that <strong>nothing&mdash;and no one&mdash;can fuck with it</strong>.
+            </p>
+        </div>
+
+        <div class="states-grid">
+            <div class="state-card">
+                <div class="state-day">Monday</div>
+                <div class="state-name">Knowingness</div>
+                <div class="state-object">Anchor: Compass</div>
+                <div class="state-desc">Unwavering certainty in your own worth</div>
+            </div>
+            <div class="state-card">
+                <div class="state-day">Tuesday</div>
+                <div class="state-name">Faith</div>
+                <div class="state-object">Anchor: White Feather</div>
+                <div class="state-desc">Trust in what's meant for you</div>
+            </div>
+            <div class="state-card">
+                <div class="state-day">Wednesday</div>
+                <div class="state-name">Love</div>
+                <div class="state-object">Anchor: Rose Quartz Heart</div>
+                <div class="state-desc">Love as transmittable energy that heals</div>
+            </div>
+            <div class="state-card">
+                <div class="state-day">Thursday</div>
+                <div class="state-name">Stillness</div>
+                <div class="state-object">Anchor: River Rock</div>
+                <div class="state-desc">Finding guidance in silence</div>
+            </div>
+            <div class="state-card">
+                <div class="state-day">Friday</div>
+                <div class="state-name">Non-Attachment</div>
+                <div class="state-object">Anchor: Fossil</div>
+                <div class="state-desc">Holding goals lightly</div>
+            </div>
+            <div class="state-card">
+                <div class="state-day">Saturday</div>
+                <div class="state-name">Devotion</div>
+                <div class="state-object">Anchor: Tiny Notebook</div>
+                <div class="state-desc">Doing hard things because they're right</div>
+            </div>
+            <div class="state-card">
+                <div class="state-day">Sunday</div>
+                <div class="state-name">Receiving</div>
+                <div class="state-object">Anchor: Cup</div>
+                <div class="state-desc">Opening yourself to blessings</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Author Section -->
+    <section id="author" class="section author-section">
+        <div class="section-header">
+            <div class="section-number">02 / About the Author</div>
+            <h2 class="section-title">Vishen Lakhiani</h2>
+            <p class="section-subtitle">One of the most influential thought leaders in personal transformation</p>
+        </div>
+
+        <div class="author-grid">
+            <div class="author-image-container">
+                <div class="author-image-placeholder">VL</div>
+            </div>
+            <div class="author-details">
+                <h3>Credentials & Authority</h3>
+                <p>
+                    Vishen Lakhiani has a unique combination of spiritual wisdom, business acumen, and proven platform reach that positions him perfectly to deliver this message to millions.
+                </p>
+                <p>
+                    What makes Vishen uniquely qualified to write this book is not just his business success, but his commitment to living these principles. The stories in this book aren't borrowed wisdom&mdash;they're hard-won insights from his own journey.
+                </p>
+
+                <ul class="credentials-list">
+                    <li>Founder & CEO of Mindvalley: Built a $100M+ global education company reaching 20+ million students</li>
+                    <li>New York Times Bestselling Author: <em>The Code of the Extraordinary Mind</em> translated into 20+ languages</li>
+                    <li>TEDx Speaker: Multiple talks with millions of views</li>
+                    <li>Featured in Forbes, Business Insider, Inc., The Huffington Post</li>
+                    <li>Social Media Influence: 20+ million followers across platforms</li>
+                    <li>Named "Top 50 People Changing the World" by Entrepreneurs' Organization</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Section -->
+    <section class="section platform-section">
+        <div class="section-header">
+            <div class="section-number">03 / Marketing Platform</div>
+            <h2 class="section-title">Built-In Distribution Power</h2>
+            <p class="section-subtitle">Unprecedented reach that most authors can only dream of</p>
+        </div>
+
+        <div class="platform-grid">
+            <div class="platform-card">
+                <div class="platform-value">20M+</div>
+                <div class="platform-label">Social Followers</div>
+            </div>
+            <div class="platform-card">
+                <div class="platform-value">15M+</div>
+                <div class="platform-label">Email Subscribers</div>
+            </div>
+            <div class="platform-card">
+                <div class="platform-value">5M+</div>
+                <div class="platform-label">App Downloads</div>
+            </div>
+            <div class="platform-card">
+                <div class="platform-value">3M+</div>
+                <div class="platform-label">Monthly Web Visitors</div>
+            </div>
+            <div class="platform-card">
+                <div class="platform-value">$1M+</div>
+                <div class="platform-label">Launch Ad Budget</div>
+            </div>
+            <div class="platform-card">
+                <div class="platform-value">50M+</div>
+                <div class="platform-label">Influencer Network Reach</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Section -->
+    <section id="market" class="section market-section">
+        <div class="section-header">
+            <div class="section-number">04 / Market Analysis</div>
+            <h2 class="section-title">Perfect Timing</h2>
+            <p class="section-subtitle">Multiple global forces have created unprecedented demand for emotional resilience</p>
+        </div>
+
+        <div class="market-grid">
+            <div class="market-card">
+                <div class="market-stat">$43.77B</div>
+                <h4>Global Self-Improvement Market</h4>
+                <p>Projected to reach $66.76B by 2030 with 6.16% CAGR growth. Personal development readers buy 12+ books per year on average.</p>
+            </div>
+            <div class="market-card">
+                <div class="market-stat">68%</div>
+                <h4>Post-Pandemic Anxiety</h4>
+                <p>Americans reporting increased anxiety since 2020. Meditation app downloads up 300%. Resilience is the #1 desired skill.</p>
+            </div>
+            <div class="market-card">
+                <div class="market-stat">33%</div>
+                <h4>Spiritual But Not Religious</h4>
+                <p>US adults now identify as "spiritual but not religious"&mdash;up from 19% in 2012. They want science-backed spirituality, not dogma.</p>
+            </div>
+            <div class="market-card">
+                <div class="market-stat">72%</div>
+                <h4>AI Disruption Anxiety</h4>
+                <p>Workers anxious about AI replacing their jobs. This book positions readers to develop the one unfuckwithable advantage: evolved consciousness.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitive Analysis -->
+    <section id="competitive" class="section competitive-section">
+        <div class="section-header">
+            <div class="section-number">05 / Competitive Analysis</div>
+            <h2 class="section-title">Market Positioning</h2>
+            <p class="section-subtitle">How UNFUCKWITHABLE compares to category leaders</p>
+        </div>
+
+        <div class="comp-grid">
+            <div class="comp-card">
+                <div class="comp-book">The Subtle Art of Not Giving a F*ck</div>
+                <div class="comp-author">Mark Manson</div>
+                <div class="comp-sales">10M+ copies sold</div>
+                <div class="comp-diff"><strong>Our advantage:</strong> Manson tells you what to think differently; we give you how to practice differently. Actionable weekly system vs. philosophical framework.</div>
+            </div>
+            <div class="comp-card">
+                <div class="comp-book">Atomic Habits</div>
+                <div class="comp-author">James Clear</div>
+                <div class="comp-sales">15M+ copies sold</div>
+                <div class="comp-diff"><strong>Our advantage:</strong> Clear optimizes your output; we transform your operating system. Habits for doing more vs. states for being more centered.</div>
+            </div>
+            <div class="comp-card">
+                <div class="comp-book">The Power of Now</div>
+                <div class="comp-author">Eckhart Tolle</div>
+                <div class="comp-sales">10M+ copies sold</div>
+                <div class="comp-diff"><strong>Our advantage:</strong> Tolle provides the philosophy; we provide the operating manual. Physical anchors and weekly system make abstract concepts actionable.</div>
+            </div>
+            <div class="comp-card">
+                <div class="comp-book">Think Like a Monk</div>
+                <div class="comp-author">Jay Shetty</div>
+                <div class="comp-sales">2M+ copies sold</div>
+                <div class="comp-diff"><strong>Our advantage:</strong> 7 states explored deeply vs. 25 chapters broad but shallow. Integration (spiritual + worldly success) vs. renunciation mindset.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter Outline -->
+    <section id="chapters" class="section chapters-section">
+        <div class="section-header">
+            <div class="section-number">06 / Chapter Outline</div>
+            <h2 class="section-title">The Journey</h2>
+            <p class="section-subtitle">Each chapter follows a proven Story-Insight-Action framework</p>
+        </div>
+
+        <div class="chapter-timeline">
+            <div class="chapter-item">
+                <div class="chapter-marker">0</div>
+                <div class="chapter-day">Introduction</div>
+                <div class="chapter-title">The Art of Becoming Unfuckwithable</div>
+                <div class="chapter-object">8,000 words / 25 pages</div>
+                <div class="chapter-desc">The definition of "unfuckwithable," the crisis of modern consciousness, introduction to the 7 states and the mnemonic system.</div>
+            </div>
+
+            <div class="chapter-item">
+                <div class="chapter-marker">1</div>
+                <div class="chapter-day">Monday / Compass</div>
+                <div class="chapter-title">Knowingness</div>
+                <div class="chapter-object">9,000 words / 28-30 pages</div>
+                <div class="chapter-desc">Unwavering certainty in your inherent worth, independent of external validation or achievement.</div>
+                <div class="chapter-story">
+                    <strong>Featured Stories</strong>
+                    Julius Caesar and the Pirates (demanding 40 talents ransom for himself) + Vishen's $1.5 Million Handshake (honoring a deal despite massive financial loss)
+                </div>
+            </div>
+
+            <div class="chapter-item">
+                <div class="chapter-marker">2</div>
+                <div class="chapter-day">Tuesday / White Feather</div>
+                <div class="chapter-title">Faith</div>
+                <div class="chapter-object">9,000 words / 28-30 pages</div>
+                <div class="chapter-desc">Deep trust that what is meant for you will come to you; surrendered certainty in benevolent unfolding.</div>
+                <div class="chapter-story">
+                    <strong>Featured Stories</strong>
+                    Marisa Peer's Radical Faith (healing from cancer through absolute belief) + Mindvalley surviving the 2008 financial crisis through trust over fear
+                </div>
+            </div>
+
+            <div class="chapter-item">
+                <div class="chapter-marker">3</div>
+                <div class="chapter-day">Wednesday / Rose Quartz Heart</div>
+                <div class="chapter-title">Love</div>
+                <div class="chapter-object">9,000 words / 28-30 pages</div>
+                <div class="chapter-desc">Love as transmittable energy that heals, connects, and transforms&mdash;not just emotion, but power.</div>
+                <div class="chapter-story">
+                    <strong>Featured Stories</strong>
+                    John Lennon quitting the Beatles for five years to be a stay-at-home father + The divorce that taught love through compassionate intention
+                </div>
+            </div>
+
+            <div class="chapter-item">
+                <div class="chapter-marker">4</div>
+                <div class="chapter-day">Thursday / River Rock</div>
+                <div class="chapter-title">Stillness</div>
+                <div class="chapter-object">9,000 words / 28-30 pages</div>
+                <div class="chapter-desc">Access to inner guidance through silence; the ability to disconnect from noise and connect to wisdom.</div>
+                <div class="chapter-story">
+                    <strong>Featured Stories</strong>
+                    Vishen at Burning Man (finding "Ripple" through stillness) + The $10 million idea that came during a 10-day silent retreat
+                </div>
+            </div>
+
+            <div class="chapter-item">
+                <div class="chapter-marker">5</div>
+                <div class="chapter-day">Friday / Fossil</div>
+                <div class="chapter-title">Non-Attachment</div>
+                <div class="chapter-object">9,000 words / 28-30 pages</div>
+                <div class="chapter-desc">Holding goals lightly; passionate pursuit without identity fusion; freedom from outcome obsession.</div>
+                <div class="chapter-story">
+                    <strong>Featured Stories</strong>
+                    Steve Jobs fired from Apple: "The lightness of being a beginner again" + The business deal that fell apart and led to something better
+                </div>
+            </div>
+
+            <div class="chapter-item">
+                <div class="chapter-marker">6</div>
+                <div class="chapter-day">Saturday / Tiny Notebook</div>
+                <div class="chapter-title">Devotion</div>
+                <div class="chapter-object">9,000 words / 28-30 pages</div>
+                <div class="chapter-desc">Commitment to doing hard things because they're right; integrity as highest value.</div>
+                <div class="chapter-story">
+                    <strong>Featured Stories</strong>
+                    Easy Eddie and Butch O'Hare (testifying against Al Capone for his son's sake) + The firing that hurt but was necessary for devotion to mission
+                </div>
+            </div>
+
+            <div class="chapter-item">
+                <div class="chapter-marker">7</div>
+                <div class="chapter-day">Sunday / Cup</div>
+                <div class="chapter-title">Receiving</div>
+                <div class="chapter-object">9,000 words / 28-30 pages</div>
+                <div class="chapter-desc">Opening yourself to blessings, help, abundance, and grace; becoming a worthy vessel.</div>
+                <div class="chapter-story">
+                    <strong>Featured Stories</strong>
+                    The Dubai Sheikh's $250,000 gift walk (and people who refused) + Barry Morman's magical affirmation: "Why do I solve all problems in a fun and easy way?"
+                </div>
+            </div>
+
+            <div class="chapter-item">
+                <div class="chapter-marker">+</div>
+                <div class="chapter-day">Conclusion</div>
+                <div class="chapter-title">Living Unfuckwithable&mdash;The Weekly Cycle</div>
+                <div class="chapter-object">6,000 words / 20 pages</div>
+                <div class="chapter-desc">How the 7 states work together, measuring transformation, testimonials, and invitation to join the movement.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USP Section -->
+    <section class="section usp-section">
+        <div class="section-header">
+            <div class="section-number">07 / Unique Selling Proposition</div>
+            <h2 class="section-title">7 Differentiators</h2>
+            <p class="section-subtitle">What makes this book uniquely positioned to succeed</p>
+        </div>
+
+        <div class="usp-grid">
+            <div class="usp-card">
+                <div class="usp-number">1</div>
+                <div class="usp-title">Weekly Rhythm</div>
+                <div class="usp-desc">Seven states mapped to seven days of the week. Natural rhythm vs. random or daily practice.</div>
+            </div>
+            <div class="usp-card">
+                <div class="usp-number">2</div>
+                <div class="usp-title">Physical Anchors</div>
+                <div class="usp-desc">Each state has a tangible object. Makes abstract spiritual concepts Instagram-worthy and actionable.</div>
+            </div>
+            <div class="usp-card">
+                <div class="usp-number">3</div>
+                <div class="usp-title">Success + Spirituality</div>
+                <div class="usp-desc">Integration vs. renunciation. Be wildly successful AND deeply spiritual.</div>
+            </div>
+            <div class="usp-card">
+                <div class="usp-number">4</div>
+                <div class="usp-title">Story + Science + Spirit</div>
+                <div class="usp-desc">Compelling stories, scientific validation, and ancient wisdom combined.</div>
+            </div>
+            <div class="usp-card">
+                <div class="usp-number">5</div>
+                <div class="usp-title">Mnemonic Shareability</div>
+                <div class="usp-desc">"Kind Folks Love Stillness, Not Dramatic Reactions" makes it memorable and teachable.</div>
+            </div>
+            <div class="usp-card">
+                <div class="usp-number">6</div>
+                <div class="usp-title">Community Infrastructure</div>
+                <div class="usp-desc">Built for book clubs, corporate programs, certification, and retreats.</div>
+            </div>
+            <div class="usp-card">
+                <div class="usp-number">7</div>
+                <div class="usp-title">Perfect Cultural Timing</div>
+                <div class="usp-desc">Post-pandemic resilience hunger + AI anxiety + meaning crisis = this moment.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mnemonic Section -->
+    <section class="section mnemonic-section">
+        <div class="mnemonic-box">
+            <div class="mnemonic-title">The Mnemonic System</div>
+            <div class="mnemonic-phrase">"Kind Folks Love Stillness,<br>Not Dramatic Reactions"</div>
+            <div class="mnemonic-breakdown">
+                <span class="mnemonic-item"><strong>K</strong> = Knowingness</span>
+                <span class="mnemonic-item"><strong>F</strong> = Faith</span>
+                <span class="mnemonic-item"><strong>L</strong> = Love</span>
+                <span class="mnemonic-item"><strong>S</strong> = Stillness</span>
+                <span class="mnemonic-item"><strong>N</strong> = Non-Attachment</span>
+                <span class="mnemonic-item"><strong>D</strong> = Devotion</span>
+                <span class="mnemonic-item"><strong>R</strong> = Receiving</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projections Section -->
+    <section id="projections" class="section projections-section">
+        <div class="section-header">
+            <div class="section-number">08 / Sales Projections</div>
+            <h2 class="section-title">Conservative Estimates</h2>
+            <p class="section-subtitle">Based on platform reach and comparable title performance</p>
+        </div>
+
+        <div class="projection-cards">
+            <div class="projection-card">
+                <div class="projection-label">Year 1 (Conservative)</div>
+                <div class="projection-value">350K-750K</div>
+                <div class="projection-note">Copies sold through owned channels (email, social, app, events) plus retail distribution</div>
+            </div>
+            <div class="projection-card featured">
+                <div class="projection-label">Year 1 (Optimistic)</div>
+                <div class="projection-value">1-2M</div>
+                <div class="projection-note">If viral/media breakthrough occurs. Platform provides unprecedented launch momentum.</div>
+            </div>
+            <div class="projection-card">
+                <div class="projection-label">Lifetime Potential</div>
+                <div class="projection-value">2-5M</div>
+                <div class="projection-note">Consciousness books have extraordinary longevity. See: The Power of Now, The Four Agreements.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specs Section -->
+    <section class="section specs-section">
+        <div class="section-header">
+            <div class="section-number">09 / Book Specifications</div>
+            <h2 class="section-title">Technical Details</h2>
+        </div>
+
+        <div class="specs-grid">
+            <div class="spec-item">
+                <div class="spec-label">Format</div>
+                <div class="spec-value">Hardcover (initial), Paperback, Audiobook, eBook</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Word Count</div>
+                <div class="spec-value">75,000-85,000 words</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Page Count</div>
+                <div class="spec-value">250-280 pages</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Price Point</div>
+                <div class="spec-value">$27.99 Hardcover</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Manuscript Delivery</div>
+                <div class="spec-value">6 months from contract</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Time to Publication</div>
+                <div class="spec-value">12-14 months from contract</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Audiobook</div>
+                <div class="spec-value">Author-narrated (8-9 hours)</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Translation Potential</div>
+                <div class="spec-value">20+ languages (infrastructure ready)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 class="cta-title">Ready to Publish the Defining Personal Transformation Book of This Decade?</h2>
+        <p class="cta-subtitle">
+            The market is ready. The timing is perfect. The opportunity is massive.
+            Mindvalley commits to driving minimum 100,000 book sales through owned channels in Year 1.
+        </p>
+        <a href="mailto:publishing@mindvalley.com" class="cta-button">Contact for Publishing Rights</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">MINDVALLEY</div>
+        <p class="footer-text">UNFUCKWITHABLE: The 7 Sacred States</p>
+        <p class="footer-text">Book Proposal by Vishen Lakhiani</p>
+        <p class="footer-copyright">&copy; 2025 Mindvalley. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

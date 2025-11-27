@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Priority Matrix - Health Dashboard</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .matrix-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 2rem;
+      margin: 3rem 0;
+      min-height: 600px;
+    }
+    .matrix-quadrant {
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      border: 3px solid;
+      position: relative;
+    }
+    .quadrant-do-first {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+      border-color: #10B981;
+    }
+    .quadrant-plan {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+      border-color: #3B82F6;
+    }
+    .quadrant-quick-wins {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+      border-color: #F59E0B;
+    }
+    .quadrant-reconsider {
+      background: linear-gradient(135deg, rgba(107, 114, 128, 0.1) 0%, rgba(107, 114, 128, 0.05) 100%);
+      border-color: #6B7280;
+    }
+    .matrix-item {
+      background: white;
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 1rem;
+      border-left: 4px solid currentColor;
+      transition: all var(--transition-fast);
+      cursor: move;
+    }
+    .matrix-item:hover {
+      transform: translateX(4px);
+      box-shadow: var(--shadow-md);
+    }
+    .quadrant-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: currentColor;
+    }
+    .quadrant-subtitle {
+      font-size: 0.875rem;
+      color: var(--color-text-tertiary);
+      margin-bottom: 1.5rem;
+    }
+    .axis-labels {
+      position: relative;
+      margin: 2rem 0;
+    }
+    .axis-vertical {
+      position: absolute;
+      left: -80px;
+      top: 50%;
+      transform: rotate(-90deg) translateX(-50%);
+      font-weight: 600;
+      color: var(--color-text-secondary);
+    }
+    .axis-horizontal {
+      text-align: center;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      margin-top: 1rem;
+    }
+  </style>
+    <script src="assets/js/auth.js"></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="index.html" class="navbar-brand">⚕️ Health Dashboard</a>
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle">☰</button>
+        <ul id="navbar-nav" class="navbar-nav">
+          <li><a href="index.html" class="navbar-link">🏠 Dashboard</a></li>
+          <li><a href="blood-work.html" class="navbar-link">🔬 Blood Work</a></li>
+          <li><a href="before-after.html" class="navbar-link">📊 Projections</a></li>
+          <li><a href="supplement-stack.html" class="navbar-link">💊 Supplements</a></li>
+          <li><a href="daily-protocol.html" class="navbar-link">⏰ Daily Protocol</a></li>
+          <li><a href="body-systems.html" class="navbar-link">🫀 Body Systems</a></li>
+          <li><a href="synergy-network.html" class="navbar-link">🔗 Synergies</a></li>
+          <li><a href="priority-matrix.html" class="navbar-link">📋 Priority Matrix</a></li>
+          <li><a href="progress-tracker.html" class="navbar-link">✅ Action Items</a></li>
+          <li><a href="cost-analysis.html" class="navbar-link">💰 Cost Analysis</a></li>
+        </ul>
+        <div class="navbar-actions">
+          <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>📋 Action Priority Matrix</h1>
+        <p>Impact vs Effort - Strategic prioritization for maximum results</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main id="main-content" class="section">
+    <div class="container">
+
+      <!-- Matrix Explanation -->
+      <div class="card" style="margin-bottom: 3rem; text-align: center;">
+        <h3 style="margin-bottom: 1rem;">How to Use the Priority Matrix</h3>
+        <p style="color: var(--color-text-secondary); max-width: 800px; margin: 0 auto;">
+          Actions are plotted based on their <strong>health impact</strong> (vertical axis) and <strong>implementation effort</strong> (horizontal axis).
+          Focus first on the green quadrant (high impact, low effort), then plan the blue quadrant (high impact, high effort).
+        </p>
+      </div>
+
+      <!-- Priority Matrix -->
+      <div style="position: relative; padding-left: 80px;">
+        <div class="axis-vertical">HIGH IMPACT →</div>
+
+        <div class="matrix-container">
+
+          <!-- Quadrant 1: DO FIRST (High Impact, Low Effort) -->
+          <div class="matrix-quadrant quadrant-do-first">
+            <div class="quadrant-title">🟢 DO FIRST</div>
+            <div class="quadrant-subtitle">High Impact • Low Effort</div>
+
+            <div class="matrix-item" style="color: #10B981;">
+              <div style="font-weight: 600; margin-bottom: 0.5rem;">Start Boron (6mg daily)</div>
+              <div style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                25% SHBG reduction → 15-20% free T increase. $12/month, 2 min setup.
+              </div>
+            </div>
+
+            <div class="matrix-item" style="color: #10B981;">
+              <div style="font-weight: 600; margin-bottom: 0.5rem;">Add Stinging Nettle Root</div>
+              <div style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                Blocks SHBG binding. Synergizes with Boron. $18/month, 2 min setup.
+              </div>
+            </div>
+
+            <div class="matrix-item" style="color: #10B981;">
+              <div style="font-weight: 600; margin-bottom: 0.5rem;">Add K2-MK7 to Vitamin D</div>
+              <div style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                Critical cofactor. Prevents calcification. $12/month, 2 min setup.
+              </div>
+            </div>
+
+            <div class="matrix-item" style="color: #10B981;">
+              <div style="font-weight: 600; margin-bottom: 0.5rem;">Remove Generic Multivitamin</div>
+              <div style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                Redundant. Save $25/month. 1 min action.
+              </div>
+            </div>
+          </div>
+
+          <!-- Quadrant 2: PLAN (High Impact, High Effort) -->
+          <div class="matrix-quadrant quadrant-plan">
+            <div class="quadrant-title">🔵 PLAN & SCHEDULE</div>
+            <div class="quadrant-subtitle">High Impact • High Effort</div>
+
+            <div class="matrix-item" style="color: #3B82F6;">
+              <div style="font-weight: 600; margin-bottom: 0.5rem;">Implement Red Yeast Rice Protocol</div>
+              <div style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                20-30% LDL reduction. Requires CoQ10 addition. Medical monitoring. $25/month, 5 min setup + physician consult.
+              </div>
+            </div>
+
+            <div class="matrix-item" style="color: #3B82F6;">
+              <div style="font-weight: 600; margin-bottom: 0.5rem;">Complete Vision Stack Implementation</div>
+              <div style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                Lutein, Astaxanthin, Bilberry. 50% AMD risk reduction. $72/month, 5 min setup.
+              </div>
+            </div>
+
+            <div class="matrix-item" style="color: #3B82F6;">
+              <div style="font-weight: 600; margin-bottom: 0.5rem;">Retest Blood Work (3 months)</div>
+              <div style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                Monitor SHBG, LDL, Free T progress. Schedule physician appointment. 2 hours + $200-400.
+              </div>
+            </div>
+
+            <div class="matrix-item" style="color: #3B82F6;">
+              <div style="font-weight: 600; margin-bottom: 0.5rem;">Physician Consult: Statin Alternatives</div>
+              <div style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                Discuss natural vs pharmaceutical cholesterol management. 1 hour appointment.
+              </div>
+            </div>
+          </div>
+
+          <!-- Quadrant 3: QUICK WINS (Low Impact, Low Effort) -->
+          <div class="matrix-quadrant quadrant-quick-wins">
+            <div class="quadrant-title">🟡 QUICK WINS</div>
+            <div class="quadrant-subtitle">Moderate Impact • Low Effort</div>
+
+            <div class="matrix-item" style="color: #F59E0B;">
+              <div style="font-weight: 600; margin-bottom: 0.5rem;">Split Magnesium Dose (AM/PM)</div>
+              <div style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                Better absorption. Improved sleep. 1 min daily adjustment.
+              </div>
+            </div>
+
+            <div class="matrix-item" style="color: #F59E0B;">
+              <div style="font-weight: 600; margin-bottom: 0.5rem;">Upgrade Omega-3 Quality</div>
+              <div style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                Higher EPA/DHA concentration. Better cardiovascular protection. $15 more/month, 5 min.
+              </div>
+            </div>
+
+            <div class="matrix-item" style="color: #F59E0B;">
+              <div style="font-weight: 600; margin-bottom: 0.5rem;">Add Apigenin for Sleep</div>
+              <div style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                Improve sleep quality. Anti-inflammatory. $16/month, 2 min setup.
+              </div>
+            </div>
+          </div>
+
+          <!-- Quadrant 4: RECONSIDER (Low Impact, High Effort) -->
+          <div class="matrix-quadrant quadrant-reconsider">
+            <div class="quadrant-title">⚪ RECONSIDER</div>
+            <div class="quadrant-subtitle">Low Impact • High Effort</div>
+
+            <div class="matrix-item" style="color: #6B7280;">
+              <div style="font-weight: 600; margin-bottom: 0.5rem;">Complex Custom Compounding</div>
+              <div style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                Time-intensive, expensive, marginal benefit over quality brands. Defer unless specific need.
+              </div>
+            </div>
+
+            <div class="matrix-item" style="color: #6B7280;">
+              <div style="font-weight: 600; margin-bottom: 0.5rem;">Experimental Peptide Protocols</div>
+              <div style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                High cost, medical oversight required, optimize basics first.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="axis-horizontal">LOW EFFORT ← → HIGH EFFORT</div>
+      </div>
+
+      <!-- Recommended Action Sequence -->
+      <div class="card" style="margin-top: 4rem; padding: 3rem; background: var(--color-gradient); color: white;">
+        <h2 style="color: white; text-align: center; margin-bottom: 2rem;">Recommended Implementation Sequence</h2>
+        <div style="max-width: 800px; margin: 0 auto;">
+          <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.1); border-radius: var(--radius-md);">
+            <div style="font-size: 2rem; font-weight: 700; min-width: 60px;">Week 1</div>
+            <div>
+              <strong>DO FIRST Items:</strong> Boron, Stinging Nettle, K2-MK7, Remove multivitamin. Total time: 10 minutes. Cost: +$30/month (net -$25 with removal).
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.1); border-radius: var(--radius-md);">
+            <div style="font-size: 2rem; font-weight: 700; min-width: 60px;">Week 2</div>
+            <div>
+              <strong>QUICK WINS:</strong> Split magnesium, upgrade omega-3, add Apigenin. Total time: 15 minutes. Cost: +$31/month.
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.1); border-radius: var(--radius-md);">
+            <div style="font-size: 2rem; font-weight: 700; min-width: 60px;">Week 3-4</div>
+            <div>
+              <strong>PLAN Items:</strong> Schedule physician consult, implement Red Yeast Rice protocol, add vision stack. Total time: 3 hours initial. Cost: +$97/month.
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.1); border-radius: var(--radius-md);">
+            <div style="font-size: 2rem; font-weight: 700; min-width: 60px;">Month 3</div>
+            <div>
+              <strong>Monitor & Adjust:</strong> Retest blood work, adjust dosages based on results, optimize timing.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>Last Updated: November 2025</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data/health-data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

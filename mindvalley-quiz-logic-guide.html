@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindvalley Quiz Logic & Algorithm Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mv-black: #0D0D0D;
+            --mv-dark: #121212;
+            --mv-dark-elevated: #1A1A1A;
+            --mv-dark-card: #1E1E1E;
+            --mv-dark-surface: #242424;
+            --mv-gradient-purple: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            --mv-gradient-gold: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            --mv-purple: #a855f7;
+            --mv-purple-light: #c084fc;
+            --mv-gold: #E3A34C;
+            --mv-success: #10b981;
+            --mv-warning: #f59e0b;
+            --mv-danger: #ef4444;
+            --mv-info: #3b82f6;
+            --mv-text-primary: #ffffff;
+            --mv-text-secondary: rgba(255, 255, 255, 0.7);
+            --mv-text-tertiary: rgba(255, 255, 255, 0.5);
+            --mv-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--mv-text-primary);
+            background: var(--mv-black);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #1a0a2e 0%, #0d0d0d 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--mv-purple-light);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--mv-text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--mv-border);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        h2 .section-number {
+            background: var(--mv-gradient-purple);
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 30px 0 16px;
+            color: var(--mv-purple-light);
+        }
+
+        h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 20px 0 12px;
+            color: var(--mv-gold);
+        }
+
+        p {
+            color: var(--mv-text-secondary);
+            margin-bottom: 16px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--mv-dark-card);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid var(--mv-border);
+            margin-bottom: 24px;
+        }
+
+        .card-highlight {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(124, 58, 237, 0.05) 100%);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        /* Question Cards */
+        .question-card {
+            background: var(--mv-dark-surface);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--mv-purple);
+        }
+
+        .question-number {
+            font-size: 0.8rem;
+            color: var(--mv-purple-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--mv-text-primary);
+            margin-bottom: 16px;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .options-list li {
+            padding: 10px 16px;
+            background: var(--mv-dark-card);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: var(--mv-text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .options-list li::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--mv-purple);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .option-value {
+            color: var(--mv-gold);
+            font-weight: 600;
+            margin-left: auto;
+            font-size: 0.85rem;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: var(--mv-dark-surface);
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--mv-purple-light);
+            border-bottom: 2px solid var(--mv-purple);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--mv-border);
+            color: var(--mv-text-secondary);
+        }
+
+        tr:hover td {
+            background: rgba(168, 85, 247, 0.05);
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: var(--mv-dark);
+            border-radius: 12px;
+            padding: 24px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            border: 1px solid var(--mv-border);
+            margin: 20px 0;
+        }
+
+        .code-block code {
+            color: var(--mv-text-secondary);
+        }
+
+        .code-comment {
+            color: var(--mv-text-tertiary);
+        }
+
+        .code-keyword {
+            color: var(--mv-purple-light);
+        }
+
+        .code-string {
+            color: var(--mv-success);
+        }
+
+        .code-number {
+            color: var(--mv-gold);
+        }
+
+        /* Flow diagram */
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 30px 0;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .flow-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--mv-gradient-purple);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .flow-content {
+            flex: 1;
+            background: var(--mv-dark-surface);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .flow-content h4 {
+            margin-top: 0;
+            color: var(--mv-text-primary);
+        }
+
+        .flow-arrow {
+            width: 60px;
+            display: flex;
+            justify-content: center;
+            color: var(--mv-purple);
+            font-size: 1.5rem;
+        }
+
+        /* Weight indicators */
+        .weight-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .weight-high {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--mv-success);
+        }
+
+        .weight-medium {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--mv-warning);
+        }
+
+        .weight-low {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--mv-info);
+        }
+
+        /* Grid layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        /* Category cards */
+        .category-card {
+            background: var(--mv-dark-surface);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--mv-border);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .category-icon {
+            font-size: 2rem;
+        }
+
+        .category-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .category-programs {
+            font-size: 0.85rem;
+            color: var(--mv-text-tertiary);
+        }
+
+        /* Scoring visual */
+        .score-bar {
+            height: 8px;
+            background: var(--mv-dark);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .score-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .score-fill.soul { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+        .score-fill.mind { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+        .score-fill.body { background: linear-gradient(90deg, #10b981, #34d399); }
+        .score-fill.relationships { background: linear-gradient(90deg, #ec4899, #f472b6); }
+        .score-fill.career { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        .score-fill.performance { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+        /* Alert boxes */
+        .alert {
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin: 20px 0;
+            display: flex;
+            gap: 16px;
+        }
+
+        .alert-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .alert-info {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        /* TOC */
+        .toc {
+            background: var(--mv-dark-card);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: var(--mv-text-primary);
+        }
+
+        .toc-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+        }
+
+        .toc-list a {
+            color: var(--mv-text-secondary);
+            text-decoration: none;
+            padding: 10px 16px;
+            background: var(--mv-dark-surface);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+
+        .toc-list a:hover {
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--mv-purple-light);
+        }
+
+        .toc-number {
+            background: var(--mv-gradient-purple);
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .flow-step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="badge">Internal Documentation</span>
+            <h1>Mindvalley Quiz Logic & Algorithm Guide</h1>
+            <p>A comprehensive breakdown of the 10-question quiz system, scoring methodology, and program recommendation algorithm used to match members with their ideal learning journey.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <h3>📚 Table of Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#questions"><span class="toc-number">1</span> The 10 Questions</a></li>
+                <li><a href="#scoring"><span class="toc-number">2</span> Scoring System</a></li>
+                <li><a href="#categories"><span class="toc-number">3</span> Program Categories</a></li>
+                <li><a href="#algorithm"><span class="toc-number">4</span> Matching Algorithm</a></li>
+                <li><a href="#weights"><span class="toc-number">5</span> Question Weights</a></li>
+                <li><a href="#flow"><span class="toc-number">6</span> Decision Flow</a></li>
+                <li><a href="#examples"><span class="toc-number">7</span> Example Scenarios</a></li>
+                <li><a href="#implementation"><span class="toc-number">8</span> Implementation</a></li>
+            </ul>
+        </nav>
+
+        <!-- Section 1: The 10 Questions -->
+        <section id="questions">
+            <h2><span class="section-number">1</span> The 10 Questions</h2>
+            <p>Each question is strategically designed to capture a specific dimension of the user's needs, preferences, and circumstances. Together, they create a comprehensive profile for accurate program matching.</p>
+
+            <div class="question-card">
+                <div class="question-number">Question 1 • Primary Focus</div>
+                <div class="question-text">What's the ONE area of your life you most want to transform this year?</div>
+                <ul class="options-list">
+                    <li>Soul & Spirituality <span class="option-value">category: soul</span></li>
+                    <li>Mind & Mindset <span class="option-value">category: mind</span></li>
+                    <li>Body & Health <span class="option-value">category: body</span></li>
+                    <li>Love & Relationships <span class="option-value">category: relationships</span></li>
+                    <li>Career & Business <span class="option-value">category: career</span></li>
+                    <li>Performance & Productivity <span class="option-value">category: performance</span></li>
+                </ul>
+                <p><strong>Purpose:</strong> Determines the PRIMARY program category. 40-50% of recommendations will come from this category.</p>
+            </div>
+
+            <div class="question-card">
+                <div class="question-number">Question 2 • Life Satisfaction Level</div>
+                <div class="question-text">If you rated your overall life satisfaction right now, where would you be?</div>
+                <ul class="options-list">
+                    <li>1-3: Struggling, need significant change <span class="option-value">level: crisis</span></li>
+                    <li>4-5: Okay but capable of more <span class="option-value">level: developing</span></li>
+                    <li>6-7: Good but want next level <span class="option-value">level: growing</span></li>
+                    <li>8-10: Thriving, want to optimize <span class="option-value">level: optimizing</span></li>
+                </ul>
+                <p><strong>Purpose:</strong> Determines program INTENSITY and APPROACH. Lower scores = foundational programs. Higher scores = advanced/optimization programs.</p>
+            </div>
+
+            <div class="question-card">
+                <div class="question-number">Question 3 • Biggest Challenge</div>
+                <div class="question-text">What's the #1 challenge holding you back?</div>
+                <ul class="options-list">
+                    <li>Stress, anxiety, or overwhelm <span class="option-value">challenge: stress</span></li>
+                    <li>Lack of clarity on purpose/direction <span class="option-value">challenge: purpose</span></li>
+                    <li>Low energy or health issues <span class="option-value">challenge: energy</span></li>
+                    <li>Struggling with confidence/self-worth <span class="option-value">challenge: confidence</span></li>
+                    <li>Relationship problems or loneliness <span class="option-value">challenge: love</span></li>
+                    <li>Financial stress or career stagnation <span class="option-value">challenge: money</span></li>
+                    <li>Inability to focus or stay consistent <span class="option-value">challenge: focus</span></li>
+                    <li>Feeling spiritually disconnected <span class="option-value">challenge: spiritual</span></li>
+                </ul>
+                <p><strong>Purpose:</strong> CRITICAL for program matching. Each challenge maps to specific programs designed to address it.</p>
+            </div>
+
+            <div class="question-card">
+                <div class="question-number">Question 4 • Time Available</div>
+                <div class="question-text">How much time can you realistically dedicate daily to personal growth?</div>
+                <ul class="options-list">
+                    <li>10-15 minutes <span class="option-value">time: minimal</span></li>
+                    <li>20-30 minutes <span class="option-value">time: moderate</span></li>
+                    <li>45-60 minutes <span class="option-value">time: dedicated</span></li>
+                    <li>60+ minutes <span class="option-value">time: immersive</span></li>
+                </ul>
+                <p><strong>Purpose:</strong> Filters programs by DURATION and LESSON LENGTH. Ensures recommendations fit user's schedule.</p>
+            </div>
+
+            <div class="question-card">
+                <div class="question-number">Question 5 • Learning Style</div>
+                <div class="question-text">What type of learning resonates most with you?</div>
+                <ul class="options-list">
+                    <li>Practical & action-oriented <span class="option-value">style: practical</span></li>
+                    <li>Scientific & evidence-based <span class="option-value">style: scientific</span></li>
+                    <li>Spiritual & transformational <span class="option-value">style: spiritual</span></li>
+                    <li>Balanced mix of both <span class="option-value">style: balanced</span></li>
+                </ul>
+                <p><strong>Purpose:</strong> Matches users with TEACHERS and METHODOLOGIES that align with their preferred approach.</p>
+            </div>
+
+            <div class="question-card">
+                <div class="question-number">Question 6 • Experience Level</div>
+                <div class="question-text">How would you describe your personal development journey?</div>
+                <ul class="options-list">
+                    <li>Just getting started <span class="option-value">experience: beginner</span></li>
+                    <li>Exploring (read some books, tried things) <span class="option-value">experience: exploring</span></li>
+                    <li>Committed (regularly invest in growth) <span class="option-value">experience: intermediate</span></li>
+                    <li>Advanced (years of practice) <span class="option-value">experience: advanced</span></li>
+                </ul>
+                <p><strong>Purpose:</strong> Determines program DIFFICULTY LEVEL. Prevents beginners from advanced programs (frustration) and advanced from beginner programs (boredom).</p>
+            </div>
+
+            <div class="question-card">
+                <div class="question-number">Question 7 • Desired Timeline</div>
+                <div class="question-text">When do you want to see meaningful results?</div>
+                <ul class="options-list">
+                    <li>Within 1-2 weeks <span class="option-value">timeline: quick</span></li>
+                    <li>Within 1-2 months <span class="option-value">timeline: short</span></li>
+                    <li>Within 3-6 months <span class="option-value">timeline: medium</span></li>
+                    <li>Committed to full year <span class="option-value">timeline: long</span></li>
+                </ul>
+                <p><strong>Purpose:</strong> Affects PROGRAM SEQUENCING. Quick timeline = shorter programs first. Long timeline = can include comprehensive programs.</p>
+            </div>
+
+            <div class="question-card">
+                <div class="question-number">Question 8 • Core Motivation</div>
+                <div class="question-text">Which statement resonates most with your "why"?</div>
+                <ul class="options-list">
+                    <li>Feel happier and more at peace <span class="option-value">motivation: peace</span></li>
+                    <li>Achieve bigger goals, make more money <span class="option-value">motivation: achievement</span></li>
+                    <li>Better relationships, deeper connections <span class="option-value">motivation: connection</span></li>
+                    <li>More energy, feel amazing in my body <span class="option-value">motivation: vitality</span></li>
+                    <li>Find purpose, make an impact <span class="option-value">motivation: purpose</span></li>
+                    <li>Unlock full potential, peak performance <span class="option-value">motivation: performance</span></li>
+                </ul>
+                <p><strong>Purpose:</strong> Reveals the EMOTIONAL DRIVER behind transformation. Used to personalize messaging and select outcome-aligned programs.</p>
+            </div>
+
+            <div class="question-card">
+                <div class="question-number">Question 9 • Program Intensity</div>
+                <div class="question-text">How do you prefer to learn?</div>
+                <ul class="options-list">
+                    <li>Light & easy (short lessons, minimal homework) <span class="option-value">intensity: light</span></li>
+                    <li>Moderate (daily lessons with exercises) <span class="option-value">intensity: moderate</span></li>
+                    <li>Intensive (comprehensive with deep work) <span class="option-value">intensity: intensive</span></li>
+                    <li>Immersive (all-in transformation) <span class="option-value">intensity: immersive</span></li>
+                </ul>
+                <p><strong>Purpose:</strong> Filters by PROGRAM WORKLOAD. Prevents overwhelm by matching commitment preference.</p>
+            </div>
+
+            <div class="question-card">
+                <div class="question-number">Question 10 • Starting Approach</div>
+                <div class="question-text">How would you like to begin your journey?</div>
+                <ul class="options-list">
+                    <li>Quick win first <span class="option-value">start: quickwin</span></li>
+                    <li>Build a foundation <span class="option-value">start: foundation</span></li>
+                    <li>Deep dive into biggest challenge <span class="option-value">start: deepdive</span></li>
+                    <li>Holistic approach (multiple areas) <span class="option-value">start: holistic</span></li>
+                </ul>
+                <p><strong>Purpose:</strong> Determines the FIRST PROGRAM recommendation and overall journey structure.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Scoring System -->
+        <section id="scoring">
+            <h2><span class="section-number">2</span> Scoring System</h2>
+            <p>The algorithm uses a weighted scoring system where each program receives points based on how well it matches user responses across all 10 dimensions.</p>
+
+            <div class="card card-highlight">
+                <h3>Base Score Formula</h3>
+                <div class="code-block">
+                    <code>
+<span class="code-keyword">Program Score</span> =
+    (<span class="code-string">Category Match</span> × <span class="code-number">30</span>) +
+    (<span class="code-string">Challenge Match</span> × <span class="code-number">25</span>) +
+    (<span class="code-string">Style Match</span> × <span class="code-number">15</span>) +
+    (<span class="code-string">Level Match</span> × <span class="code-number">10</span>) +
+    (<span class="code-string">Time Fit</span> × <span class="code-number">10</span>) +
+    (<span class="code-string">Motivation Alignment</span> × <span class="code-number">10</span>)
+
+<span class="code-comment">// Maximum possible score: 100 points</span>
+                    </code>
+                </div>
+            </div>
+
+            <h3>Score Breakdown by Factor</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Factor</th>
+                            <th>Max Points</th>
+                            <th>Matching Logic</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Category Match</strong></td>
+                            <td>30</td>
+                            <td>Full points if program category = Q1 answer. 15 points for secondary categories from motivation.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Challenge Match</strong></td>
+                            <td>25</td>
+                            <td>Full points if program directly addresses Q3 challenge. Partial for related challenges.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Style Match</strong></td>
+                            <td>15</td>
+                            <td>Full points for exact style match. "Balanced" matches all styles at 10 points.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Level Match</strong></td>
+                            <td>10</td>
+                            <td>Full points for exact match. -3 for one level difference. -7 for two+ levels.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Time Fit</strong></td>
+                            <td>10</td>
+                            <td>Full points if lesson duration fits daily time. Scaled based on program length.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Motivation Alignment</strong></td>
+                            <td>10</td>
+                            <td>Full points if program outcomes align with Q8 motivation statement.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert alert-info">
+                <span class="alert-icon">💡</span>
+                <div>
+                    <strong>Bonus Points</strong><br>
+                    Programs can earn bonus points (+5) for: matching preferred teachers, being marked as "trending" or "highly rated", or having high completion rates for similar user profiles.
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Program Categories -->
+        <section id="categories">
+            <h2><span class="section-number">3</span> Program Categories</h2>
+            <p>Mindvalley programs are organized into 6 primary life categories. Each category contains programs tagged with specific attributes for matching.</p>
+
+            <div class="grid-3">
+                <div class="category-card">
+                    <div class="category-header">
+                        <span class="category-icon">🧘</span>
+                        <div>
+                            <div class="category-name">Soul & Spirituality</div>
+                            <div class="category-programs">~15 programs</div>
+                        </div>
+                    </div>
+                    <div class="score-bar"><div class="score-fill soul" style="width: 100%"></div></div>
+                    <p style="font-size: 0.85rem; margin-top: 12px;"><strong>Maps to:</strong> purpose, spiritual disconnection, peace motivation</p>
+                    <p style="font-size: 0.85rem;"><strong>Key programs:</strong> Silva Ultramind, Duality, Life Visioning, Yogi's Guide to Joy</p>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <span class="category-icon">🧠</span>
+                        <div>
+                            <div class="category-name">Mind & Mindset</div>
+                            <div class="category-programs">~20 programs</div>
+                        </div>
+                    </div>
+                    <div class="score-bar"><div class="score-fill mind" style="width: 100%"></div></div>
+                    <p style="font-size: 0.85rem; margin-top: 12px;"><strong>Maps to:</strong> confidence, stress, focus challenges</p>
+                    <p style="font-size: 0.85rem;"><strong>Key programs:</strong> Superbrain, Uncompromised Life, 6 Phase Meditation</p>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <span class="category-icon">💪</span>
+                        <div>
+                            <div class="category-name">Body & Health</div>
+                            <div class="category-programs">~12 programs</div>
+                        </div>
+                    </div>
+                    <div class="score-bar"><div class="score-fill body" style="width: 100%"></div></div>
+                    <p style="font-size: 0.85rem; margin-top: 12px;"><strong>Maps to:</strong> energy, health challenges, vitality motivation</p>
+                    <p style="font-size: 0.85rem;"><strong>Key programs:</strong> WILDFIT, Longevity Blueprint, 10x Fitness</p>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <span class="category-icon">❤️</span>
+                        <div>
+                            <div class="category-name">Relationships</div>
+                            <div class="category-programs">~10 programs</div>
+                        </div>
+                    </div>
+                    <div class="score-bar"><div class="score-fill relationships" style="width: 100%"></div></div>
+                    <p style="font-size: 0.85rem; margin-top: 12px;"><strong>Maps to:</strong> love challenges, connection motivation</p>
+                    <p style="font-size: 0.85rem;"><strong>Key programs:</strong> Calling in The One, Conscious Parenting, Love or Above</p>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <span class="category-icon">🚀</span>
+                        <div>
+                            <div class="category-name">Career & Business</div>
+                            <div class="category-programs">~15 programs</div>
+                        </div>
+                    </div>
+                    <div class="score-bar"><div class="score-fill career" style="width: 100%"></div></div>
+                    <p style="font-size: 0.85rem; margin-top: 12px;"><strong>Maps to:</strong> money challenges, achievement motivation</p>
+                    <p style="font-size: 0.85rem;"><strong>Key programs:</strong> Lifebook, Money EQ, Business Freedom Blueprint</p>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-header">
+                        <span class="category-icon">⚡</span>
+                        <div>
+                            <div class="category-name">Performance</div>
+                            <div class="category-programs">~10 programs</div>
+                        </div>
+                    </div>
+                    <div class="score-bar"><div class="score-fill performance" style="width: 100%"></div></div>
+                    <p style="font-size: 0.85rem; margin-top: 12px;"><strong>Maps to:</strong> focus challenges, performance motivation</p>
+                    <p style="font-size: 0.85rem;"><strong>Key programs:</strong> Habit of Ferocity, Ultra Productivity, The M Word</p>
+                </div>
+            </div>
+
+            <h3>Challenge to Category Mapping</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Challenge (Q3)</th>
+                            <th>Primary Category</th>
+                            <th>Secondary Category</th>
+                            <th>Top Programs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Stress & Anxiety</td>
+                            <td>Mind</td>
+                            <td>Soul</td>
+                            <td>6 Phase, Everyday Bliss, The M Word</td>
+                        </tr>
+                        <tr>
+                            <td>Lack of Purpose</td>
+                            <td>Soul</td>
+                            <td>Career</td>
+                            <td>Lifebook, Life Visioning, Be Extraordinary</td>
+                        </tr>
+                        <tr>
+                            <td>Low Energy</td>
+                            <td>Body</td>
+                            <td>Performance</td>
+                            <td>Longevity Blueprint, 10x Fitness, WILDFIT</td>
+                        </tr>
+                        <tr>
+                            <td>Low Confidence</td>
+                            <td>Mind</td>
+                            <td>Performance</td>
+                            <td>Uncompromised Life, Total Self-Confidence</td>
+                        </tr>
+                        <tr>
+                            <td>Relationship Issues</td>
+                            <td>Relationships</td>
+                            <td>Mind</td>
+                            <td>Calling in The One, Love or Above</td>
+                        </tr>
+                        <tr>
+                            <td>Financial Stress</td>
+                            <td>Career</td>
+                            <td>Mind</td>
+                            <td>Money EQ, RTT for Abundance</td>
+                        </tr>
+                        <tr>
+                            <td>Can't Focus</td>
+                            <td>Performance</td>
+                            <td>Mind</td>
+                            <td>Superbrain, Super Productivity, Habit of Ferocity</td>
+                        </tr>
+                        <tr>
+                            <td>Spiritually Disconnected</td>
+                            <td>Soul</td>
+                            <td>Mind</td>
+                            <td>Duality, Silva Ultramind, Yogi's Guide</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 4: Matching Algorithm -->
+        <section id="algorithm">
+            <h2><span class="section-number">4</span> Matching Algorithm</h2>
+            <p>The algorithm runs in multiple phases to ensure optimal program selection and sequencing.</p>
+
+            <div class="card">
+                <h3>Phase 1: Initial Filtering</h3>
+                <p>Eliminate programs that are definite mismatches:</p>
+                <ul class="options-list">
+                    <li>Remove programs requiring more time than user has (Q4)</li>
+                    <li>Remove programs 2+ levels above user experience (Q6)</li>
+                    <li>Remove programs with incompatible learning style if user is not "balanced" (Q5)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Phase 2: Score Calculation</h3>
+                <p>For each remaining program, calculate the weighted score:</p>
+                <div class="code-block">
+                    <code>
+<span class="code-keyword">function</span> calculateScore(program, answers) {
+    <span class="code-keyword">let</span> score = <span class="code-number">0</span>;
+
+    <span class="code-comment">// Category match (30 pts max)</span>
+    <span class="code-keyword">if</span> (program.category === answers.primaryFocus) {
+        score += <span class="code-number">30</span>;
+    } <span class="code-keyword">else if</span> (program.category === getSecondaryCategory(answers.motivation)) {
+        score += <span class="code-number">15</span>;
+    }
+
+    <span class="code-comment">// Challenge match (25 pts max)</span>
+    <span class="code-keyword">if</span> (program.challenges.includes(answers.biggestChallenge)) {
+        score += <span class="code-number">25</span>;
+    } <span class="code-keyword">else if</span> (program.challenges.some(c => relatedChallenges[answers.biggestChallenge].includes(c))) {
+        score += <span class="code-number">12</span>;
+    }
+
+    <span class="code-comment">// Style match (15 pts max)</span>
+    <span class="code-keyword">if</span> (answers.learningStyle === <span class="code-string">'balanced'</span> || program.style.includes(answers.learningStyle)) {
+        score += <span class="code-number">15</span>;
+    }
+
+    <span class="code-comment">// Level match (10 pts max)</span>
+    <span class="code-keyword">const</span> levelDiff = Math.abs(levelMap[program.level] - levelMap[answers.experience]);
+    score += Math.max(<span class="code-number">0</span>, <span class="code-number">10</span> - (levelDiff * <span class="code-number">3</span>));
+
+    <span class="code-comment">// Time fit (10 pts max)</span>
+    <span class="code-keyword">if</span> (program.dailyMinutes <= timeMap[answers.timeAvailable]) {
+        score += <span class="code-number">10</span>;
+    }
+
+    <span class="code-comment">// Motivation alignment (10 pts max)</span>
+    <span class="code-keyword">if</span> (program.outcomes.includes(answers.motivation)) {
+        score += <span class="code-number">10</span>;
+    }
+
+    <span class="code-keyword">return</span> score;
+}
+                    </code>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Phase 3: Selection & Diversity</h3>
+                <p>Select top programs while ensuring diversity:</p>
+                <ul class="options-list">
+                    <li><strong>Programs 1-4:</strong> Highest scoring from PRIMARY category</li>
+                    <li><strong>Programs 5-6:</strong> Highest scoring from SECONDARY category (based on motivation)</li>
+                    <li><strong>Programs 7-8:</strong> Highest scoring that address specific CHALLENGE</li>
+                    <li><strong>Programs 9-10:</strong> Fill with highest remaining for HOLISTIC coverage</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Phase 4: Sequencing</h3>
+                <p>Order the 10 programs based on Q10 (Starting Approach):</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Starting Approach</th>
+                                <th>First Program Logic</th>
+                                <th>Progression Pattern</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Quick Win</strong></td>
+                                <td>Shortest program (1-2 weeks) from top matches</td>
+                                <td>Short → Medium → Long → Medium</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Foundation</strong></td>
+                                <td>Foundational program (Lifebook, 6 Phase, Be Extraordinary)</td>
+                                <td>Foundation → Build → Specialize → Advanced</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Deep Dive</strong></td>
+                                <td>Highest scoring program for their #1 challenge</td>
+                                <td>Primary Challenge → Related → Expand</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Holistic</strong></td>
+                                <td>Lifebook Online (covers all 12 life areas)</td>
+                                <td>Rotate through categories systematically</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Question Weights -->
+        <section id="weights">
+            <h2><span class="section-number">5</span> Question Weights & Impact</h2>
+            <p>Not all questions have equal influence on the final recommendations. Here's how each question impacts the algorithm:</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Weight</th>
+                            <th>Impact Type</th>
+                            <th>What It Determines</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Q1: Primary Focus</td>
+                            <td><span class="weight-badge weight-high">HIGH</span></td>
+                            <td>Category Selection</td>
+                            <td>40-50% of programs come from this category</td>
+                        </tr>
+                        <tr>
+                            <td>Q2: Life Satisfaction</td>
+                            <td><span class="weight-badge weight-medium">MEDIUM</span></td>
+                            <td>Program Intensity</td>
+                            <td>Beginner vs advanced program filtering</td>
+                        </tr>
+                        <tr>
+                            <td>Q3: Biggest Challenge</td>
+                            <td><span class="weight-badge weight-high">HIGH</span></td>
+                            <td>Program Matching</td>
+                            <td>Specific program selection, first program choice</td>
+                        </tr>
+                        <tr>
+                            <td>Q4: Time Available</td>
+                            <td><span class="weight-badge weight-high">HIGH</span></td>
+                            <td>Filtering</td>
+                            <td>Hard filter - eliminates programs that don't fit</td>
+                        </tr>
+                        <tr>
+                            <td>Q5: Learning Style</td>
+                            <td><span class="weight-badge weight-medium">MEDIUM</span></td>
+                            <td>Teacher/Method</td>
+                            <td>Matches to program methodology</td>
+                        </tr>
+                        <tr>
+                            <td>Q6: Experience Level</td>
+                            <td><span class="weight-badge weight-medium">MEDIUM</span></td>
+                            <td>Difficulty</td>
+                            <td>Prevents mismatch frustration/boredom</td>
+                        </tr>
+                        <tr>
+                            <td>Q7: Timeline</td>
+                            <td><span class="weight-badge weight-low">LOW</span></td>
+                            <td>Sequencing</td>
+                            <td>Program order and duration mix</td>
+                        </tr>
+                        <tr>
+                            <td>Q8: Motivation</td>
+                            <td><span class="weight-badge weight-medium">MEDIUM</span></td>
+                            <td>Secondary Category</td>
+                            <td>Adds programs from motivation-aligned category</td>
+                        </tr>
+                        <tr>
+                            <td>Q9: Intensity</td>
+                            <td><span class="weight-badge weight-low">LOW</span></td>
+                            <td>Workload</td>
+                            <td>Fine-tunes program selection within matches</td>
+                        </tr>
+                        <tr>
+                            <td>Q10: Starting Approach</td>
+                            <td><span class="weight-badge weight-high">HIGH</span></td>
+                            <td>First Program</td>
+                            <td>Determines which program is recommended FIRST</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert alert-warning">
+                <span class="alert-icon">⚠️</span>
+                <div>
+                    <strong>Critical Questions</strong><br>
+                    Q1, Q3, Q4, and Q10 are the most influential. If a user skips or gives unclear answers to these, the algorithm's accuracy drops significantly. Consider making these required.
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Decision Flow -->
+        <section id="flow">
+            <h2><span class="section-number">6</span> Decision Flow Visualization</h2>
+            <p>Here's how the algorithm processes a user's answers step by step:</p>
+
+            <div class="flow-container">
+                <div class="flow-step">
+                    <div class="flow-icon">📝</div>
+                    <div class="flow-content">
+                        <h4>Step 1: Collect Answers</h4>
+                        <p>User completes all 10 questions. Answers stored in structured format with values for each dimension.</p>
+                    </div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">
+                    <div class="flow-icon">🔍</div>
+                    <div class="flow-content">
+                        <h4>Step 2: Initial Filter</h4>
+                        <p>Remove programs that exceed time availability, are too advanced/basic, or have incompatible learning styles.</p>
+                    </div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">
+                    <div class="flow-icon">📊</div>
+                    <div class="flow-content">
+                        <h4>Step 3: Score All Programs</h4>
+                        <p>Calculate weighted score (0-100) for each remaining program based on all answer dimensions.</p>
+                    </div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">
+                    <div class="flow-icon">🏆</div>
+                    <div class="flow-content">
+                        <h4>Step 4: Select Top Programs</h4>
+                        <p>Pick top 4 from primary category, top 2 from secondary, top 2 challenge-specific, top 2 for diversity.</p>
+                    </div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">
+                    <div class="flow-icon">📋</div>
+                    <div class="flow-content">
+                        <h4>Step 5: Sequence Programs</h4>
+                        <p>Order the 10 programs based on starting approach preference and progressive difficulty.</p>
+                    </div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">
+                    <div class="flow-icon">✨</div>
+                    <div class="flow-content">
+                        <h4>Step 6: Generate Personalized Reasons</h4>
+                        <p>Create custom explanation for why each program was selected, referencing user's specific answers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Example Scenarios -->
+        <section id="examples">
+            <h2><span class="section-number">7</span> Example Scenarios</h2>
+            <p>Let's walk through three different user profiles to see how the algorithm produces different recommendations.</p>
+
+            <div class="card">
+                <h3>👤 Scenario A: Stressed Executive</h3>
+                <div class="grid-2">
+                    <div>
+                        <h4>Answers</h4>
+                        <ul class="options-list">
+                            <li>Q1: Performance & Productivity</li>
+                            <li>Q2: 6-7 (Good but want next level)</li>
+                            <li>Q3: Stress, anxiety, overwhelm</li>
+                            <li>Q4: 20-30 minutes</li>
+                            <li>Q5: Scientific & evidence-based</li>
+                            <li>Q6: Committed (intermediate)</li>
+                            <li>Q7: Within 1-2 months</li>
+                            <li>Q8: Achieve bigger goals</li>
+                            <li>Q9: Moderate intensity</li>
+                            <li>Q10: Quick win first</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Recommended Programs (in order)</h4>
+                        <ol style="color: var(--mv-text-secondary); padding-left: 20px;">
+                            <li><strong>The 6 Phase Meditation</strong> (1 week) - Quick win, addresses stress</li>
+                            <li><strong>Super Productivity</strong> (1 week) - Primary category, quick</li>
+                            <li><strong>Everyday Bliss</strong> (4 weeks) - Stress-specific</li>
+                            <li><strong>The Habit of Ferocity</strong> (7 weeks) - Peak performance</li>
+                            <li><strong>Superbrain</strong> (5 weeks) - Productivity enhancer</li>
+                            <li><strong>Becoming Limitless</strong> (6 weeks) - Scientific approach</li>
+                            <li><strong>The M Word</strong> (4 weeks) - Stress + performance</li>
+                            <li><strong>Lifebook Online</strong> (6 weeks) - Holistic planning</li>
+                            <li><strong>Ultra Productivity</strong> (8 weeks) - Advanced productivity</li>
+                            <li><strong>Money EQ</strong> (8 weeks) - Achievement motivation</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>👤 Scenario B: Spiritual Seeker</h3>
+                <div class="grid-2">
+                    <div>
+                        <h4>Answers</h4>
+                        <ul class="options-list">
+                            <li>Q1: Soul & Spirituality</li>
+                            <li>Q2: 4-5 (Okay but capable of more)</li>
+                            <li>Q3: Feeling spiritually disconnected</li>
+                            <li>Q4: 45-60 minutes</li>
+                            <li>Q5: Spiritual & transformational</li>
+                            <li>Q6: Exploring</li>
+                            <li>Q7: 3-6 months</li>
+                            <li>Q8: Find purpose, make impact</li>
+                            <li>Q9: Intensive</li>
+                            <li>Q10: Build a foundation</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Recommended Programs (in order)</h4>
+                        <ol style="color: var(--mv-text-secondary); padding-left: 20px;">
+                            <li><strong>Be Extraordinary</strong> (8 weeks) - Foundation builder</li>
+                            <li><strong>A Yogi's Guide to Joy</strong> (2 weeks) - Spiritual intro</li>
+                            <li><strong>The Silva Ultramind System</strong> (4 weeks) - Core spiritual</li>
+                            <li><strong>Life Visioning Mastery</strong> (7 weeks) - Purpose alignment</li>
+                            <li><strong>Duality</strong> (8 weeks) - Deep spiritual work</li>
+                            <li><strong>Lifebook Online</strong> (6 weeks) - Life design</li>
+                            <li><strong>Quantum Jumping</strong> (4 weeks) - Advanced spiritual</li>
+                            <li><strong>Love or Above</strong> (6 weeks) - Raise vibration</li>
+                            <li><strong>Ultra Presence</strong> (4 weeks) - Intuition</li>
+                            <li><strong>The Quest for Personal Mastery</strong> (8 weeks) - Mastery</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>👤 Scenario C: Health-Focused Beginner</h3>
+                <div class="grid-2">
+                    <div>
+                        <h4>Answers</h4>
+                        <ul class="options-list">
+                            <li>Q1: Body & Health</li>
+                            <li>Q2: 1-3 (Struggling)</li>
+                            <li>Q3: Low energy or health issues</li>
+                            <li>Q4: 10-15 minutes</li>
+                            <li>Q5: Practical & action-oriented</li>
+                            <li>Q6: Just getting started</li>
+                            <li>Q7: Within 1-2 weeks</li>
+                            <li>Q8: More energy, feel amazing</li>
+                            <li>Q9: Light & easy</li>
+                            <li>Q10: Quick win first</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Recommended Programs (in order)</h4>
+                        <ol style="color: var(--mv-text-secondary); padding-left: 20px;">
+                            <li><strong>The 6 Phase Meditation</strong> (1 week) - Quick, easy start</li>
+                            <li><strong>10x Fitness</strong> (8 weeks) - Minimal time, max results</li>
+                            <li><strong>Sleep Optimization</strong> (4 weeks) - Energy foundation</li>
+                            <li><strong>WILDFIT</strong> (12 weeks) - Transform nutrition</li>
+                            <li><strong>Everyday Bliss</strong> (4 weeks) - Stress reduction</li>
+                            <li><strong>Energy Medicine</strong> (8 weeks) - Energy specific</li>
+                            <li><strong>Super Reading</strong> (3 weeks) - Light, practical</li>
+                            <li><strong>Mastering Growth Mindset</strong> (1 week) - Quick mindset</li>
+                            <li><strong>Total Self-Confidence</strong> (4 weeks) - Build confidence</li>
+                            <li><strong>The Longevity Blueprint</strong> (10 weeks) - Advanced health</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Implementation -->
+        <section id="implementation">
+            <h2><span class="section-number">8</span> Implementation Code</h2>
+            <p>Here's the complete JavaScript implementation of the recommendation algorithm:</p>
+
+            <div class="code-block">
+                <code>
+<span class="code-comment">// Program Database Structure</span>
+<span class="code-keyword">const</span> programDatabase = {
+    programs: [
+        {
+            id: <span class="code-string">'silva-ultramind'</span>,
+            title: <span class="code-string">'The Silva Ultramind System'</span>,
+            author: <span class="code-string">'Vishen Lakhiani'</span>,
+            category: <span class="code-string">'soul'</span>,
+            duration: <span class="code-string">'4 weeks'</span>,
+            dailyMinutes: <span class="code-number">30</span>,
+            level: <span class="code-string">'intermediate'</span>,
+            style: [<span class="code-string">'spiritual'</span>, <span class="code-string">'balanced'</span>],
+            challenges: [<span class="code-string">'purpose'</span>, <span class="code-string">'focus'</span>],
+            outcomes: [<span class="code-string">'peace'</span>, <span class="code-string">'purpose'</span>],
+            intensity: <span class="code-string">'moderate'</span>
+        },
+        <span class="code-comment">// ... more programs</span>
+    ]
+};
+
+<span class="code-comment">// Main Recommendation Function</span>
+<span class="code-keyword">function</span> getRecommendations(answers) {
+    <span class="code-comment">// Step 1: Filter programs</span>
+    <span class="code-keyword">let</span> eligible = programDatabase.programs.filter(p => {
+        <span class="code-comment">// Time filter</span>
+        <span class="code-keyword">if</span> (p.dailyMinutes > timeMap[answers.timeAvailable]) <span class="code-keyword">return false</span>;
+
+        <span class="code-comment">// Level filter (allow 1 level difference)</span>
+        <span class="code-keyword">const</span> levelDiff = Math.abs(levelMap[p.level] - levelMap[answers.experience]);
+        <span class="code-keyword">if</span> (levelDiff > <span class="code-number">1</span>) <span class="code-keyword">return false</span>;
+
+        <span class="code-comment">// Style filter (unless balanced)</span>
+        <span class="code-keyword">if</span> (answers.learningStyle !== <span class="code-string">'balanced'</span> &&
+            !p.style.includes(answers.learningStyle)) <span class="code-keyword">return false</span>;
+
+        <span class="code-keyword">return true</span>;
+    });
+
+    <span class="code-comment">// Step 2: Score each program</span>
+    <span class="code-keyword">const</span> scored = eligible.map(p => ({
+        ...p,
+        score: calculateScore(p, answers)
+    })).sort((a, b) => b.score - a.score);
+
+    <span class="code-comment">// Step 3: Select with diversity</span>
+    <span class="code-keyword">const</span> selected = [];
+    <span class="code-keyword">const</span> usedIds = <span class="code-keyword">new</span> Set();
+
+    <span class="code-comment">// Get top 4 from primary category</span>
+    scored.filter(p => p.category === answers.primaryFocus)
+        .slice(<span class="code-number">0</span>, <span class="code-number">4</span>)
+        .forEach(p => { selected.push(p); usedIds.add(p.id); });
+
+    <span class="code-comment">// Get top 2 from secondary category</span>
+    <span class="code-keyword">const</span> secondary = getSecondaryCategory(answers.motivation);
+    scored.filter(p => p.category === secondary && !usedIds.has(p.id))
+        .slice(<span class="code-number">0</span>, <span class="code-number">2</span>)
+        .forEach(p => { selected.push(p); usedIds.add(p.id); });
+
+    <span class="code-comment">// Get top 2 challenge-specific</span>
+    scored.filter(p => p.challenges.includes(answers.biggestChallenge) && !usedIds.has(p.id))
+        .slice(<span class="code-number">0</span>, <span class="code-number">2</span>)
+        .forEach(p => { selected.push(p); usedIds.add(p.id); });
+
+    <span class="code-comment">// Fill remaining with highest scored</span>
+    scored.filter(p => !usedIds.has(p.id))
+        .slice(<span class="code-number">0</span>, <span class="code-number">10</span> - selected.length)
+        .forEach(p => selected.push(p));
+
+    <span class="code-comment">// Step 4: Sequence based on starting approach</span>
+    <span class="code-keyword">return</span> sequencePrograms(selected, answers.startingApproach);
+}
+
+<span class="code-comment">// Sequencing Logic</span>
+<span class="code-keyword">function</span> sequencePrograms(programs, startingApproach) {
+    <span class="code-keyword">switch</span>(startingApproach) {
+        <span class="code-keyword">case</span> <span class="code-string">'quickwin'</span>:
+            <span class="code-comment">// Sort by duration (shortest first)</span>
+            <span class="code-keyword">return</span> programs.sort((a, b) => getDurationWeeks(a) - getDurationWeeks(b));
+
+        <span class="code-keyword">case</span> <span class="code-string">'foundation'</span>:
+            <span class="code-comment">// Put foundational programs first</span>
+            <span class="code-keyword">const</span> foundational = [<span class="code-string">'lifebook'</span>, <span class="code-string">'6-phase'</span>, <span class="code-string">'be-extraordinary'</span>];
+            <span class="code-keyword">return</span> programs.sort((a, b) => {
+                <span class="code-keyword">const</span> aFound = foundational.includes(a.id) ? <span class="code-number">0</span> : <span class="code-number">1</span>;
+                <span class="code-keyword">const</span> bFound = foundational.includes(b.id) ? <span class="code-number">0</span> : <span class="code-number">1</span>;
+                <span class="code-keyword">return</span> aFound - bFound;
+            });
+
+        <span class="code-keyword">case</span> <span class="code-string">'deepdive'</span>:
+            <span class="code-comment">// Keep original score order (highest challenge match first)</span>
+            <span class="code-keyword">return</span> programs;
+
+        <span class="code-keyword">case</span> <span class="code-string">'holistic'</span>:
+            <span class="code-comment">// Rotate through categories</span>
+            <span class="code-keyword">return</span> rotateByCategory(programs);
+    }
+}
+                </code>
+            </div>
+
+            <div class="alert alert-success">
+                <span class="alert-icon">✅</span>
+                <div>
+                    <strong>Ready to Implement</strong><br>
+                    This logic is already implemented in the live quiz at:<br>
+                    <a href="https://vishenl.github.io/workspace/mindvalley-year-planner-quiz.html" style="color: var(--mv-success);">https://vishenl.github.io/workspace/mindvalley-year-planner-quiz.html</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="text-align: center; padding: 60px 20px; color: var(--mv-text-tertiary);">
+            <p>Mindvalley Quiz Logic Guide v1.0</p>
+            <p style="font-size: 0.85rem; margin-top: 8px;">Internal documentation for program recommendation system</p>
+        </footer>
+    </div>
+</body>
+</html>

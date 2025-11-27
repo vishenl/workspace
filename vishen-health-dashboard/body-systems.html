@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Body Systems Impact Map - Health Dashboard</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .body-system-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .system-card {
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      border: 3px solid;
+      transition: all var(--transition-base);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .system-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, transparent 0%, currentColor 100%);
+      opacity: 0.05;
+      pointer-events: none;
+    }
+    .system-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: var(--shadow-xl);
+    }
+    .system-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .supplement-tag {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: white;
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      margin: 0.25rem;
+      border: 1px solid currentColor;
+    }
+    .impact-meter {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .impact-bar {
+      flex: 1;
+      height: 8px;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+    .impact-fill {
+      height: 100%;
+      background: currentColor;
+      transition: width var(--transition-slow);
+    }
+  </style>
+    <script src="assets/js/auth.js"></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="index.html" class="navbar-brand">⚕️ Health Dashboard</a>
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle">☰</button>
+        <ul id="navbar-nav" class="navbar-nav">
+          <li><a href="index.html" class="navbar-link">🏠 Dashboard</a></li>
+          <li><a href="blood-work.html" class="navbar-link">🔬 Blood Work</a></li>
+          <li><a href="before-after.html" class="navbar-link">📊 Projections</a></li>
+          <li><a href="supplement-stack.html" class="navbar-link">💊 Supplements</a></li>
+          <li><a href="daily-protocol.html" class="navbar-link">⏰ Daily Protocol</a></li>
+          <li><a href="body-systems.html" class="navbar-link">🫀 Body Systems</a></li>
+          <li><a href="synergy-network.html" class="navbar-link">🔗 Synergies</a></li>
+          <li><a href="priority-matrix.html" class="navbar-link">📋 Priority Matrix</a></li>
+          <li><a href="progress-tracker.html" class="navbar-link">✅ Action Items</a></li>
+          <li><a href="cost-analysis.html" class="navbar-link">💰 Cost Analysis</a></li>
+        </ul>
+        <div class="navbar-actions">
+          <button id="theme-toggle" class="theme-toggle">🌙</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>🫀 Body Systems Impact Map</h1>
+        <p>How supplements target and optimize each body system</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main id="main-content" class="section">
+    <div class="container">
+
+      <div class="body-system-grid">
+
+        <!-- Brain/Cognitive -->
+        <div class="system-card" style="border-color: #8B5CF6; color: #8B5CF6;">
+          <span class="system-icon">🧠</span>
+          <h2 style="margin-bottom: 1rem;">Brain & Cognitive</h2>
+          <div class="impact-meter">
+            <span style="font-size: 0.875rem;">Impact</span>
+            <div class="impact-bar">
+              <div class="impact-fill" style="width: 88%;"></div>
+            </div>
+            <strong>88%</strong>
+          </div>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">
+            Cognitive function, focus, memory, stress resilience, neuroprotection
+          </p>
+          <div>
+            <div class="supplement-tag">Omega-3 EPA/DHA</div>
+            <div class="supplement-tag">B-Complex</div>
+            <div class="supplement-tag">Rhodiola</div>
+            <div class="supplement-tag">Ashwagandha</div>
+            <div class="supplement-tag">CoQ10</div>
+            <div class="supplement-tag">Magnesium</div>
+          </div>
+        </div>
+
+        <!-- Heart/Cardiovascular -->
+        <div class="system-card" style="border-color: #EF4444; color: #EF4444;">
+          <span class="system-icon">❤️</span>
+          <h2 style="margin-bottom: 1rem;">Heart & Cardiovascular</h2>
+          <div class="impact-meter">
+            <span style="font-size: 0.875rem;">Impact</span>
+            <div class="impact-bar">
+              <div class="impact-fill" style="width: 71%;"></div>
+            </div>
+            <strong>71%</strong>
+          </div>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">
+            Cholesterol management, blood pressure, arterial health, circulation
+          </p>
+          <div>
+            <div class="supplement-tag">Omega-3</div>
+            <div class="supplement-tag">Red Yeast Rice</div>
+            <div class="supplement-tag">Bergamot</div>
+            <div class="supplement-tag">CoQ10</div>
+            <div class="supplement-tag">Taurine</div>
+            <div class="supplement-tag">Magnesium</div>
+            <div class="supplement-tag">Citrulline</div>
+          </div>
+        </div>
+
+        <!-- Muscles/Performance -->
+        <div class="system-card" style="border-color: #10B981; color: #10B981;">
+          <span class="system-icon">💪</span>
+          <h2 style="margin-bottom: 1rem;">Muscles & Performance</h2>
+          <div class="impact-meter">
+            <span style="font-size: 0.875rem;">Impact</span>
+            <div class="impact-bar">
+              <div class="impact-fill" style="width: 92%;"></div>
+            </div>
+            <strong>92%</strong>
+          </div>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">
+            Strength, power, endurance, recovery, muscle protein synthesis
+          </p>
+          <div>
+            <div class="supplement-tag">Whey Protein</div>
+            <div class="supplement-tag">Creatine</div>
+            <div class="supplement-tag">Citrulline</div>
+            <div class="supplement-tag">Taurine</div>
+            <div class="supplement-tag">Magnesium</div>
+            <div class="supplement-tag">Tongkat Ali</div>
+          </div>
+        </div>
+
+        <!-- Eyes/Vision -->
+        <div class="system-card" style="border-color: #3B82F6; color: #3B82F6;">
+          <span class="system-icon">👁️</span>
+          <h2 style="margin-bottom: 1rem;">Eyes & Vision</h2>
+          <div class="impact-meter">
+            <span style="font-size: 0.875rem;">Impact</span>
+            <div class="impact-bar">
+              <div class="impact-fill" style="width: 45%;"></div>
+            </div>
+            <strong>45% → 85%</strong>
+          </div>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">
+            Macular protection, night vision, digital eye strain, circulation
+          </p>
+          <div>
+            <div class="supplement-tag">Lutein</div>
+            <div class="supplement-tag">Zeaxanthin</div>
+            <div class="supplement-tag">Astaxanthin</div>
+            <div class="supplement-tag">Bilberry</div>
+            <div class="supplement-tag">Omega-3</div>
+          </div>
+        </div>
+
+        <!-- Joints/Connective Tissue -->
+        <div class="system-card" style="border-color: #F59E0B; color: #F59E0B;">
+          <span class="system-icon">🦴</span>
+          <h2 style="margin-bottom: 1rem;">Joints & Connective Tissue</h2>
+          <div class="impact-meter">
+            <span style="font-size: 0.875rem;">Impact</span>
+            <div class="impact-bar">
+              <div class="impact-fill" style="width: 75%;"></div>
+            </div>
+            <strong>75%</strong>
+          </div>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">
+            Joint health, flexibility, cartilage support, inflammation reduction
+          </p>
+          <div>
+            <div class="supplement-tag">Collagen Type II</div>
+            <div class="supplement-tag">MSM</div>
+            <div class="supplement-tag">Omega-3</div>
+            <div class="supplement-tag">Astaxanthin</div>
+            <div class="supplement-tag">Vitamin D + K2</div>
+          </div>
+        </div>
+
+        <!-- Liver/Detox -->
+        <div class="system-card" style="border-color: #14B8A6; color: #14B8A6;">
+          <span class="system-icon">🛡️</span>
+          <h2 style="margin-bottom: 1rem;">Liver & Detoxification</h2>
+          <div class="impact-meter">
+            <span style="font-size: 0.875rem;">Impact</span>
+            <div class="impact-bar">
+              <div class="impact-fill" style="width: 80%;"></div>
+            </div>
+            <strong>80%</strong>
+          </div>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">
+            Detoxification, glutathione production, antioxidant defense
+          </p>
+          <div>
+            <div class="supplement-tag">NAC</div>
+            <div class="supplement-tag">Milk Thistle</div>
+            <div class="supplement-tag">Vitamin C</div>
+            <div class="supplement-tag">Omega-3</div>
+            <div class="supplement-tag">B-Complex</div>
+          </div>
+        </div>
+
+        <!-- Hormones/Endocrine -->
+        <div class="system-card" style="border-color: #EC4899; color: #EC4899;">
+          <span class="system-icon">⚡</span>
+          <h2 style="margin-bottom: 1rem;">Hormones & Endocrine</h2>
+          <div class="impact-meter">
+            <span style="font-size: 0.875rem;">Impact</span>
+            <div class="impact-bar">
+              <div class="impact-fill" style="width: 62%;"></div>
+            </div>
+            <strong>62% → 85%</strong>
+          </div>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">
+            Testosterone optimization, SHBG reduction, thyroid support, stress hormones
+          </p>
+          <div>
+            <div class="supplement-tag">Tongkat Ali</div>
+            <div class="supplement-tag">Boron</div>
+            <div class="supplement-tag">Stinging Nettle</div>
+            <div class="supplement-tag">Zinc + Copper</div>
+            <div class="supplement-tag">Vitamin D + K2</div>
+            <div class="supplement-tag">Magnesium</div>
+            <div class="supplement-tag">Ashwagandha</div>
+          </div>
+        </div>
+
+        <!-- Immune System -->
+        <div class="system-card" style="border-color: #06B6D4; color: #06B6D4;">
+          <span class="system-icon">🦠</span>
+          <h2 style="margin-bottom: 1rem;">Immune System</h2>
+          <div class="impact-meter">
+            <span style="font-size: 0.875rem;">Impact</span>
+            <div class="impact-bar">
+              <div class="impact-fill" style="width: 82%;"></div>
+            </div>
+            <strong>82%</strong>
+          </div>
+          <p style="color: var(--color-text-secondary); margin-bottom: 1.5rem;">
+            Immune function, inflammation control, antioxidant protection
+          </p>
+          <div>
+            <div class="supplement-tag">Vitamin D</div>
+            <div class="supplement-tag">Vitamin C</div>
+            <div class="supplement-tag">Zinc</div>
+            <div class="supplement-tag">Probiotics</div>
+            <div class="supplement-tag">Omega-3</div>
+            <div class="supplement-tag">NAC</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- System Interconnections -->
+      <div class="card" style="margin-top: 4rem; padding: 3rem; background: var(--color-surface);">
+        <h2 style="margin-bottom: 2rem; text-align: center;">System Interconnections</h2>
+        <p style="text-align: center; color: var(--color-text-secondary); margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+          Body systems don't work in isolation. Optimizing one system creates cascading benefits throughout the body.
+        </p>
+        <div class="grid grid-cols-2" style="gap: 2rem;">
+          <div style="padding: 1.5rem; background: white; border-radius: var(--radius-lg);">
+            <h4 style="color: var(--color-primary); margin-bottom: 1rem;">🧠 ↔️ ❤️ Brain-Heart Axis</h4>
+            <p style="color: var(--color-text-secondary); font-size: 0.875rem;">
+              Omega-3, CoQ10, and Magnesium support both cognitive function and cardiovascular health. Improved blood flow benefits brain performance.
+            </p>
+          </div>
+          <div style="padding: 1.5rem; background: white; border-radius: var(--radius-lg);">
+            <h4 style="color: var(--color-primary); margin-bottom: 1rem;">⚡ ↔️ 💪 Hormone-Muscle Axis</h4>
+            <p style="color: var(--color-text-secondary); font-size: 0.875rem;">
+              Optimized testosterone (Tongkat Ali, Boron) directly enhances muscle growth and recovery. Protein synthesis depends on hormonal environment.
+            </p>
+          </div>
+          <div style="padding: 1.5rem; background: white; border-radius: var(--radius-lg);">
+            <h4 style="color: var(--color-primary); margin-bottom: 1rem;">🛡️ ↔️ 🦠 Liver-Immune Connection</h4>
+            <p style="color: var(--color-text-secondary); font-size: 0.875rem;">
+              NAC and antioxidants support liver detox, which reduces immune system burden. Better detoxification = stronger immunity.
+            </p>
+          </div>
+          <div style="padding: 1.5rem; background: white; border-radius: var(--radius-lg);">
+            <h4 style="color: var(--color-primary); margin-bottom: 1rem;">👁️ ↔️ ❤️ Eye-Cardiovascular Link</h4>
+            <p style="color: var(--color-text-secondary); font-size: 0.875rem;">
+              Circulatory health directly impacts eye health. Omega-3, Bilberry, and Astaxanthin protect both retinal and arterial endothelium.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>Last Updated: November 2025</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data/health-data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

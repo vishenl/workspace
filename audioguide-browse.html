@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audioguides - Browse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f7;
+      --bg-card: #ffffff;
+      --text-primary: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --text-muted: #86868b;
+      --accent-purple: #9B6FF0;
+      --accent-blue: #0071e3;
+      --border: #e5e5e7;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+
+    /* Phone Frame */
+    .phone-frame {
+      width: 375px;
+      height: 812px;
+      background: var(--bg-primary);
+      border-radius: 44px;
+      overflow: hidden;
+      position: relative;
+      box-shadow:
+        0 0 0 12px #1a1a1a,
+        0 0 0 14px #333,
+        0 50px 100px rgba(0, 0, 0, 0.3);
+    }
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .screen::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Status Bar */
+    .status-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: var(--bg-primary);
+    }
+
+    .status-time {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .status-icons {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    /* Nav Bar */
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 20px 16px;
+      background: var(--bg-primary);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-icon-btn:hover {
+      background: var(--border);
+    }
+
+    .nav-icon-btn svg {
+      width: 20px;
+      height: 20px;
+      color: var(--text-primary);
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      padding: 0 20px 16px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .tab:hover {
+      background: var(--bg-secondary);
+    }
+
+    .tab.active {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+    }
+
+    /* Section */
+    .section {
+      padding: 0 20px 24px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .section-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent-purple);
+      text-decoration: none;
+    }
+
+    /* Featured Card */
+    .featured-card {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .featured-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .featured-gradient {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60%;
+      background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+    }
+
+    .featured-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px;
+      color: white;
+    }
+
+    .featured-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--accent-purple);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .featured-title {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .featured-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .featured-author {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .featured-author-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .featured-play {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.2s;
+    }
+
+    .featured-play:hover {
+      transform: scale(1.1);
+    }
+
+    .featured-play svg {
+      width: 24px;
+      height: 24px;
+      margin-left: 3px;
+    }
+
+    /* Carousel Dots */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--border);
+      transition: all 0.2s;
+    }
+
+    .dot.active {
+      width: 20px;
+      background: var(--text-primary);
+    }
+
+    /* Guide Card */
+    .guides-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin: 0 -20px;
+      padding-left: 20px;
+      padding-right: 20px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .guides-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .guide-card {
+      flex: 0 0 160px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .guide-card:hover {
+      transform: scale(1.02);
+    }
+
+    .guide-image-wrapper {
+      position: relative;
+      width: 160px;
+      height: 240px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .guide-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .guide-duration {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      padding: 4px 8px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      color: white;
+    }
+
+    .guide-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .guide-progress-fill {
+      height: 100%;
+      background: var(--accent-purple);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .guide-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .guide-author {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* Outcome Pills */
+    .outcomes-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin: 0 -20px;
+      padding-left: 20px;
+      padding-right: 20px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .outcomes-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .outcome-pill {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .outcome-pill:hover {
+      background: var(--border);
+    }
+
+    .outcome-icon {
+      font-size: 20px;
+    }
+
+    .outcome-text {
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* List Card */
+    .list-card {
+      display: flex;
+      gap: 14px;
+      padding: 12px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .list-card:hover {
+      background: var(--border);
+    }
+
+    .list-card-image {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--radius-md);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .list-card-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .list-card-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .list-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .list-card-play {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--text-primary);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    .list-card-play svg {
+      width: 16px;
+      height: 16px;
+      color: white;
+      margin-left: 2px;
+    }
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 20px 28px;
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border);
+    }
+
+    .bottom-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .bottom-nav-item.active {
+      color: var(--accent-purple);
+    }
+
+    .bottom-nav-item svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .bottom-nav-item span {
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    /* Streak Banner */
+    .streak-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 20px 16px;
+      padding: 14px 16px;
+      background: linear-gradient(135deg, #FF9500 0%, #FF5E3A 100%);
+      border-radius: var(--radius-lg);
+      color: white;
+    }
+
+    .streak-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .streak-icon {
+      font-size: 28px;
+    }
+
+    .streak-text {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .streak-subtext {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .streak-btn {
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 20px;
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Mini Player */
+    .mini-player {
+      position: sticky;
+      bottom: 68px;
+      margin: 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      background: var(--text-primary);
+      border-radius: var(--radius-lg);
+      color: white;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .mini-player-image {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+    }
+
+    .mini-player-info {
+      flex: 1;
+    }
+
+    .mini-player-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .mini-player-author {
+      font-size: 11px;
+      opacity: 0.7;
+    }
+
+    .mini-player-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .mini-player-btn svg {
+      width: 16px;
+      height: 16px;
+      color: var(--text-primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 420px) {
+      body {
+        padding: 0;
+      }
+
+      .phone-frame {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <div class="screen">
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+            <path d="M1 4C0.447715 4 0 4.44772 0 5V7C0 7.55228 0.447715 8 1 8H2C2.55228 8 3 7.55228 3 7V5C3 4.44772 2.55228 4 2 4H1Z"/>
+            <path d="M5 3C4.44772 3 4 3.44772 4 4V8C4 8.55228 4.44772 9 5 9H6C6.55228 9 7 8.55228 7 8V4C7 3.44772 6.55228 3 6 3H5Z"/>
+            <path d="M9 1C8.44772 1 8 1.44772 8 2V10C8 10.5523 8.44772 11 9 11H10C10.5523 11 11 10.5523 11 10V2C11 1.44772 10.5523 1 10 1H9Z"/>
+            <path d="M13 0C12.4477 0 12 0.447715 12 1V11C12 11.5523 12.4477 12 13 12H14C14.5523 12 15 11.5523 15 11V1C15 0.447715 14.5523 0 14 0H13Z"/>
+          </svg>
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
+            <path d="M8 2C10.5 2 12.7 3.1 14.3 4.7L16 3C14 1.1 11.2 0 8 0C4.8 0 2 1.1 0 3L1.7 4.7C3.3 3.1 5.5 2 8 2Z"/>
+            <path d="M8 6C9.5 6 10.8 6.5 11.8 7.4L13.5 5.7C12.1 4.6 10.2 4 8 4C5.8 4 3.9 4.6 2.5 5.7L4.2 7.4C5.2 6.5 6.5 6 8 6Z"/>
+            <path d="M8 10C8.8 10 9.5 9.7 10 9.2L12 11L8 11L4 11L6 9.2C6.5 9.7 7.2 10 8 10Z"/>
+          </svg>
+          <svg width="25" height="12" viewBox="0 0 25 12" fill="currentColor">
+            <rect x="0.5" y="0.5" width="21" height="11" rx="2.5" stroke="currentColor" fill="none"/>
+            <rect x="2" y="2" width="18" height="8" rx="1" fill="currentColor"/>
+            <path d="M23 4V8C24 7.5 24 4.5 23 4Z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Nav Bar -->
+      <div class="nav-bar">
+        <div class="nav-left">
+          <div class="user-avatar">V</div>
+        </div>
+        <div class="nav-right">
+          <button class="nav-icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+            </svg>
+          </button>
+          <button class="nav-icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab">All</button>
+        <button class="tab">Meditations</button>
+        <button class="tab">Sounds</button>
+        <button class="tab active">Guides</button>
+        <button class="tab">Hypno</button>
+      </div>
+
+      <!-- Streak Banner -->
+      <div class="streak-banner">
+        <div class="streak-left">
+          <span class="streak-icon">🔥</span>
+          <div>
+            <div class="streak-text">3 Day Streak!</div>
+            <div class="streak-subtext">Keep it going tomorrow</div>
+          </div>
+        </div>
+        <button class="streak-btn">View</button>
+      </div>
+
+      <!-- Featured Section -->
+      <div class="section">
+        <div class="featured-card">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&h=1000&fit=crop" alt="Featured Guide" class="featured-image">
+          <div class="featured-gradient"></div>
+          <div class="featured-content">
+            <span class="featured-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+              </svg>
+              Featured
+            </span>
+            <h2 class="featured-title">Manifesting Your Ideal Reality</h2>
+            <div class="featured-meta">
+              <div class="featured-author">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face" alt="Regan Hillyer" class="featured-author-avatar">
+                <span>Regan Hillyer</span>
+              </div>
+              <span>•</span>
+              <span>15 min</span>
+              <span>•</span>
+              <span>4.9 ★</span>
+            </div>
+          </div>
+          <button class="featured-play">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="carousel-dots">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+
+      <!-- Popular Picks -->
+      <div class="section">
+        <div class="section-header">
+          <h3 class="section-title">Popular picks</h3>
+          <a href="#" class="section-link">See all</a>
+        </div>
+        <div class="guides-scroll">
+          <div class="guide-card">
+            <div class="guide-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=600&fit=crop&crop=face" alt="Guide" class="guide-image">
+              <span class="guide-duration">12 min</span>
+            </div>
+            <div class="guide-title">Healing with Your Guides</div>
+            <div class="guide-author">Sonia Choquette</div>
+          </div>
+          <div class="guide-card">
+            <div class="guide-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop&crop=face" alt="Guide" class="guide-image">
+              <span class="guide-duration">8 min</span>
+              <div class="guide-progress">
+                <div class="guide-progress-fill" style="width: 45%"></div>
+              </div>
+            </div>
+            <div class="guide-title">Smile from Within</div>
+            <div class="guide-author">Lee Holden</div>
+          </div>
+          <div class="guide-card">
+            <div class="guide-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=600&fit=crop&crop=face" alt="Guide" class="guide-image">
+              <span class="guide-duration">18 min</span>
+            </div>
+            <div class="guide-title">Nurturing Self-Love</div>
+            <div class="guide-author">Marisa Peer</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Browse by Outcomes -->
+      <div class="section">
+        <div class="section-header">
+          <h3 class="section-title">Browse by outcomes</h3>
+        </div>
+        <div class="outcomes-scroll">
+          <div class="outcome-pill">
+            <span class="outcome-icon">😴</span>
+            <span class="outcome-text">Fall asleep faster</span>
+          </div>
+          <div class="outcome-pill">
+            <span class="outcome-icon">💪</span>
+            <span class="outcome-text">Build confidence</span>
+          </div>
+          <div class="outcome-pill">
+            <span class="outcome-icon">❤️</span>
+            <span class="outcome-text">Greater self-love</span>
+          </div>
+          <div class="outcome-pill">
+            <span class="outcome-icon">🎯</span>
+            <span class="outcome-text">Find purpose</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recently Played -->
+      <div class="section">
+        <div class="section-header">
+          <h3 class="section-title">Continue listening</h3>
+          <a href="#" class="section-link">See all</a>
+        </div>
+        <div class="list-card">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" alt="Guide" class="list-card-image">
+          <div class="list-card-content">
+            <div class="list-card-title">Smile from Within</div>
+            <div class="list-card-meta">
+              <span>Lee Holden</span>
+              <span>•</span>
+              <span>3:42 left</span>
+            </div>
+          </div>
+          <button class="list-card-play">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="list-card">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face" alt="Guide" class="list-card-image">
+          <div class="list-card-content">
+            <div class="list-card-title">Awakening Your Joy</div>
+            <div class="list-card-meta">
+              <span>Regan Hillyer</span>
+              <span>•</span>
+              <span>10 min</span>
+            </div>
+          </div>
+          <button class="list-card-play">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Spacer for mini player -->
+      <div style="height: 80px"></div>
+
+      <!-- Mini Player -->
+      <div class="mini-player">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Now Playing" class="mini-player-image">
+        <div class="mini-player-info">
+          <div class="mini-player-title">Smile from Within</div>
+          <div class="mini-player-author">Lee Holden</div>
+        </div>
+        <button class="mini-player-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Bottom Nav -->
+      <div class="bottom-nav">
+        <button class="bottom-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          </svg>
+          <span>Home</span>
+        </button>
+        <button class="bottom-nav-item active">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9 18V5l12-2v13"/>
+            <circle cx="6" cy="18" r="3"/>
+            <circle cx="18" cy="16" r="3"/>
+          </svg>
+          <span>Meditations</span>
+        </button>
+        <button class="bottom-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          <span>Programs</span>
+        </button>
+        <button class="bottom-nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span>Community</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

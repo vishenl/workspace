@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiritual Mastery - The 7-Gate System™ | Mindvalley</title>
+    <meta name="description" content="Master the 7-Gate System™ to awaken your energy, clear emotional blocks, and align with your highest purpose — guided by 9 world-class spiritual teachers">
+
+    <style>
+        /* ========== DESIGN TOKENS ========== */
+        :root {
+            --mv-purple: #8A2BE2;
+            --mv-purple-light: #DA70D6;
+            --mv-purple-dark: #6A1BB2;
+            --mv-gold: #DAA520;
+            --mv-dark: #1A1A1A;
+            --mv-gray: #404040;
+            --mv-gray-light: #FAFAFA;
+            --mv-white: #FFFFFF;
+
+            --font-heading: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 8px 30px rgba(138, 43, 226, 0.15);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--mv-dark);
+            color: var(--mv-white);
+            overflow-x: hidden;
+        }
+
+        /* ========== SLIDE NAVIGATION ========== */
+        .slides-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .slide.active {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* ========== NAVIGATION CONTROLS ========== */
+        .nav-controls {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.9);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn {
+            background: var(--mv-purple);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: var(--font-body);
+        }
+
+        .nav-btn:hover {
+            background: var(--mv-purple-light);
+            transform: translateY(-2px);
+        }
+
+        .slide-counter {
+            display: flex;
+            align-items: center;
+            color: var(--mv-white);
+            font-weight: 600;
+            padding: 0 1rem;
+        }
+
+        /* ========== TYPOGRAPHY ========== */
+        h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        .eyebrow {
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--mv-purple-light);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .lead {
+            font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 1rem;
+        }
+
+        /* ========== BACKGROUNDS ========== */
+        .bg-gradient-purple {
+            background: linear-gradient(135deg, var(--mv-purple-dark) 0%, var(--mv-purple) 50%, var(--mv-purple-light) 100%);
+        }
+
+        .bg-dark {
+            background: var(--mv-dark);
+        }
+
+        .bg-light {
+            background: var(--mv-white);
+            color: var(--mv-dark);
+        }
+
+        .bg-light h1, .bg-light h2, .bg-light h3 {
+            color: var(--mv-dark);
+        }
+
+        .bg-light p {
+            color: var(--mv-gray);
+        }
+
+        /* ========== COMPONENTS ========== */
+        .stat-large {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 700;
+            color: var(--mv-purple-light);
+            display: block;
+            margin: 2rem 0;
+            font-family: var(--font-heading);
+        }
+
+        .frustration-list {
+            text-align: left;
+            max-width: 800px;
+            margin: 2rem auto;
+            list-style: none;
+            padding: 0;
+        }
+
+        .frustration-list li {
+            font-size: clamp(1rem, 2vw, 1.375rem);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .frustration-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--mv-purple-light);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            background: rgba(138, 43, 226, 0.1);
+            border-color: var(--mv-purple-light);
+        }
+
+        .benefit-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--mv-purple-light);
+            font-family: var(--font-heading);
+            margin-bottom: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--mv-purple);
+            color: white;
+            padding: 1.25rem 3rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            margin-top: 2rem;
+        }
+
+        .cta-button:hover {
+            background: var(--mv-purple-light);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .price-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--mv-purple-light);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .price-original {
+            text-decoration: line-through;
+            opacity: 0.6;
+            font-size: 1.5rem;
+        }
+
+        .price-sale {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--mv-gold);
+            font-family: var(--font-heading);
+            margin: 1rem 0;
+        }
+
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .teacher-card {
+            text-align: center;
+        }
+
+        .teacher-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-purple-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            text-align: left;
+        }
+
+        .program-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--mv-purple);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .quote-slide {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-style: italic;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 2rem 1rem;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .benefit-grid,
+            .teachers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-controls {
+                bottom: 1rem;
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slides-container">
+
+        <!-- SLIDE 1: Hero Hook -->
+        <div class="slide active bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">Breaking Through Spiritual Stagnation</span>
+                <h1>Most Spiritual Seekers Never Break Through.<br>Here's Why.</h1>
+                <p class="lead">After analyzing 3,484 spiritual journeys, we discovered what actually creates transformation—and what keeps people stuck for years.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: The Problem - Pattern Interrupt -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <h2>38% of spiritual seekers struggle with the same pattern:</h2>
+                <p class="lead" style="margin-top: 2rem; font-size: 2rem; color: var(--mv-purple-light);">They start strong... then lose momentum.<br>Over and over again.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 3-4: Frustrations (Combined) -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <span class="eyebrow">The 7 Frustrations</span>
+                <h2>Do Any of These Sound Familiar?</h2>
+                <ul class="frustration-list">
+                    <li>"I'm on a spiritual path… but I'm not consistent."</li>
+                    <li>"I feel something shifting inside me, but I don't know what to do with it."</li>
+                    <li>"I'm doing the inner work—yet I still feel blocked, heavy, or unclear."</li>
+                    <li>"I want deeper connection… but I keep falling back into old patterns."</li>
+                    <li>"I know there's a higher version of me—I just don't know how to reach it."</li>
+                    <li>"I crave stillness, alignment, and inner peace… but my daily life pulls me away."</li>
+                    <li>"I've tried different modalities—but I still haven't found the breakthrough I need."</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Emotional Resonance Question -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <p class="quote-slide">"Have you ever felt like you're doing all the right things…<br>yet something inside still feels misaligned?"</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Deeper Version Question -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <p class="quote-slide">"Do you ever sense that there is a deeper version of you—<br>but you haven't fully unlocked it yet?"</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: What If Question -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <p class="quote-slide">"What would your life look like if you could clear emotional blocks the moment they arise—<br>instead of carrying them for months or years?"</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: The Gap -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <h2>Here's What's Really Happening:</h2>
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: rgba(255, 100, 100, 0.9);">Most Spiritual Journeys</h3>
+                        <ul class="frustration-list">
+                            <li>Random practices with no structure</li>
+                            <li>No scientific grounding</li>
+                            <li>Surface-level teachings</li>
+                            <li>No community accountability</li>
+                            <li>You're figuring it out alone</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--mv-purple-light);">Spiritual Mastery</h3>
+                        <ul class="frustration-list">
+                            <li>Proven 7-Gate System™</li>
+                            <li>Neuroscience-backed practices</li>
+                            <li>9 world-class teachers</li>
+                            <li>500+ committed seekers</li>
+                            <li>22-week guided transformation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: The Data -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">Survey Data From 3,484 Students</span>
+                <h2>What Spiritual Seekers Actually Need:</h2>
+                <div class="benefit-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-number">67%</div>
+                        <p>Want neuroscience-backed practices (not just "woo")</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-number">64%</div>
+                        <p>Seek advanced manifestation techniques</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-number">57%</div>
+                        <p>Need somatic healing & trauma release</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-number">53%</div>
+                        <p>Want daily practices that actually stick</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: The Solution Introduction -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <span class="eyebrow">Introducing</span>
+                <h1>The 7-Gate System™</h1>
+                <p class="lead">A proven framework for awakening your energy, clearing emotional blocks, and aligning with your highest purpose—<br>guided by 9 world-class spiritual teachers.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Who This Is For (FIXED) -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <h2>This Program Is For You If:</h2>
+                <ul class="frustration-list" style="max-width: 900px;">
+                    <li>You're an intermediate to advanced seeker (not a beginner)</li>
+                    <li>You've tried multiple modalities but haven't found your breakthrough</li>
+                    <li>You want BOTH scientific grounding AND mystical experience</li>
+                    <li>You're ready to commit to 22 weeks of deep transformation</li>
+                    <li>You crave community with other serious seekers</li>
+                    <li>You're done with surface-level teachings</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: 6 Months From Now -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <h2>Imagine 6 Months from Now...</h2>
+                <ul class="frustration-list">
+                    <li>You feel consistently aligned—mentally, emotionally, and energetically</li>
+                    <li>You have a daily spiritual practice that actually sticks and supports you</li>
+                    <li>You've released the heaviness, blocks, and patterns that used to hold you back</li>
+                    <li>You make decisions with clarity, intuition, and inner trust</li>
+                    <li>You feel deeply connected—to yourself, to others, and to something greater</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: 9 Benefits Overview -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">What You'll Gain</span>
+                <h2>9 Transformational Benefits</h2>
+                <p class="lead">This isn't just another spiritual course.<br>This is your complete operating system for consciousness.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 14-22: Benefits (Condensed to 3 Slides) -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <div class="benefit-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-number">1</div>
+                        <h3>Advanced Energy Practices</h3>
+                        <p>Master Kundalini awakening, energy body activation, and high-vibration states—practices typically reserved for spiritual adepts.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-number">2</div>
+                        <h3>Rapid Inner Alignment</h3>
+                        <p>Experience powerful spiritual technologies that realign your mind, body, energy, and intuition—fast.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-number">3</div>
+                        <h3>Emotional Clearing</h3>
+                        <p>Learn proven techniques to dissolve emotional heaviness, past patterns, and energetic blocks instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <div class="benefit-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-number">4</div>
+                        <h3>Complete 7-Gate Framework</h3>
+                        <p>Gain lifetime access to a proven transformation roadmap—eliminating years of trial-and-error.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-number">5</div>
+                        <h3>Purpose & Clarity</h3>
+                        <p>Tap into your intuitive intelligence and gain clarity on your next chapter. No more confusion or second-guessing.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-number">6</div>
+                        <h3>Advanced Manifestation</h3>
+                        <p>Work with energy, intention, and alignment to create results in love, health, career—without force or struggle.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <div class="benefit-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-number">7</div>
+                        <h3>Identity Upgrade</h3>
+                        <p>Step into a new level of self-trust, self-expression, and spiritual maturity. This is the shift that changes everything.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-number">8</div>
+                        <h3>Sacred Community</h3>
+                        <p>Join 500 serious seekers becoming masters—your new spiritual tribe on the same path.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-number">9</div>
+                        <h3>Spiritual Operating System</h3>
+                        <p>A complete framework for clarity, regulation, intuition, connection, and manifestation—for life.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 23: How It Works -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">Program Structure</span>
+                <h2>How Spiritual Mastery Works</h2>
+                <div class="benefit-grid">
+                    <div class="program-feature">
+                        <div class="feature-icon">📅</div>
+                        <div>
+                            <h3>22 Weeks</h3>
+                            <p>5-month transformational journey</p>
+                        </div>
+                    </div>
+                    <div class="program-feature">
+                        <div class="feature-icon">🎓</div>
+                        <div>
+                            <h3>44 Live Sessions</h3>
+                            <p>2 sessions per week with global spiritual leaders</p>
+                        </div>
+                    </div>
+                    <div class="program-feature">
+                        <div class="feature-icon">⏰</div>
+                        <div>
+                            <h3>3 Hours/Week</h3>
+                            <p>Flexible training with recordings available</p>
+                        </div>
+                    </div>
+                    <div class="program-feature">
+                        <div class="feature-icon">🌍</div>
+                        <div>
+                            <h3>Global Community</h3>
+                            <p>Access to exclusive app + 500 committed seekers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 24: Teachers -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <span class="eyebrow">Learn From The Masters</span>
+                <h2>9 World-Class Spiritual Teachers</h2>
+                <div class="teachers-grid">
+                    <div class="teacher-card">
+                        <div class="teacher-avatar">🧘</div>
+                        <h4>Vishen Lakhiani</h4>
+                        <p>Founder, Mindvalley</p>
+                    </div>
+                    <div class="teacher-card">
+                        <div class="teacher-avatar">🧬</div>
+                        <h4>Dr. Tara Swart</h4>
+                        <p>Neuroscientist</p>
+                    </div>
+                    <div class="teacher-card">
+                        <div class="teacher-avatar">🔬</div>
+                        <h4>Dr. Dean Radin</h4>
+                        <p>Chief Scientist, IONS</p>
+                    </div>
+                    <div class="teacher-card">
+                        <div class="teacher-avatar">💫</div>
+                        <h4>Dr. Peter Levine</h4>
+                        <p>Somatic Trauma Expert</p>
+                    </div>
+                    <div class="teacher-card">
+                        <div class="teacher-avatar">⚡</div>
+                        <h4>Lee Holden</h4>
+                        <p>Qi Gong Master</p>
+                    </div>
+                    <div class="teacher-card">
+                        <div class="teacher-avatar">🙏</div>
+                        <h4>Shi Heng Yi</h4>
+                        <p>Shaolin Master</p>
+                    </div>
+                    <div class="teacher-card">
+                        <div class="teacher-avatar">✨</div>
+                        <h4>Michael Beckwith</h4>
+                        <p>Spiritual Leader</p>
+                    </div>
+                    <div class="teacher-card">
+                        <div class="teacher-avatar">🌟</div>
+                        <h4>Neale Donald Walsch</h4>
+                        <p>Author, CwG</p>
+                    </div>
+                    <div class="teacher-card">
+                        <div class="teacher-avatar">💎</div>
+                        <h4>Dawn Hoang</h4>
+                        <p>Kundalini Expert</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 25: Curriculum Overview -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">The 7-Gate System™</span>
+                <h2>Your Transformation Roadmap</h2>
+                <div class="benefit-grid">
+                    <div class="benefit-card">
+                        <h3>Gate 1: Energy Awakening</h3>
+                        <p>Foundation, 7 Sacred States, Qi Gong, Kundalini basics</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Gate 2: Emotional Healing</h3>
+                        <p>Somatic trauma release, forgiveness, cord-cutting</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Gate 3: Intuition Access</h3>
+                        <p>Neuroscience, consciousness, future sensing</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Gate 4: Stillness & Presence</h3>
+                        <p>Samurai training, Shaolin practices, meditation mastery</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Gate 5: Environmental Alignment</h3>
+                        <p>Feng Shui, space clearing, energy optimization</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Gate 6: Manifestation</h3>
+                        <p>Advanced manifestation, life visioning, purpose discovery</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h3>Gate 7: Integration</h3>
+                        <p>Rituals of the masters, daily practice design</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 26: Mindvalley Advantage -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <span class="eyebrow">The Mindvalley Advantage</span>
+                <h2>Why This Works</h2>
+                <p class="stat-large">24,000+</p>
+                <p class="lead">Documented transformation case studies<br>from our global community</p>
+                <p style="margin-top: 2rem;">World's leading transformational platform with proven methodologies, cutting-edge science, and the best teachers on the planet.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 27: Starts Date -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <h2>Program Starts</h2>
+                <p class="stat-large" style="font-size: clamp(3rem, 8vw, 6rem);">December 8, 2025</p>
+                <p class="lead">Live sessions: Monday & Wednesday<br>7am LA | 10am NY | 3pm London</p>
+                <p style="margin-top: 2rem;">Recordings available for 1 year after completion</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 28: Investment Overview -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <span class="eyebrow">Your Investment</span>
+                <h2>Everything You Get</h2>
+                <ul class="frustration-list" style="max-width: 700px;">
+                    <li>44 live training sessions with 9 world-class teachers</li>
+                    <li>Complete 7-Gate System™ framework (lifetime access)</li>
+                    <li>Professional certification upon completion</li>
+                    <li>Exclusive community platform ($2,000 value)</li>
+                    <li>Summit & Mastery recordings for 1 year ($500 value)</li>
+                    <li>Learning Mastery course ($3,000 value)</li>
+                    <li>Digital Vishen - Manifesting ($5,000 value)</li>
+                </ul>
+                <p class="lead" style="margin-top: 2rem; color: var(--mv-purple-light);">Total Value: $19,500+</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 29: Pricing (FIXED - Single Clear Slide) -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">Black Friday Special</span>
+                <h2>Limited-Time Offer</h2>
+                <div class="price-box">
+                    <p class="price-original">Regular: $7,999</p>
+                    <p class="price-sale">$3,999</p>
+                    <p style="color: var(--mv-gold); font-weight: 600; font-size: 1.25rem;">Save $4,000 Today</p>
+                </div>
+                <p class="lead">Or choose the 4-month payment plan:<br><strong>$1,199/month</strong> ($4,784 total)</p>
+                <p style="margin-top: 1.5rem; opacity: 0.8;">US residents: Additional payment options available via Klarna</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 30: Member Benefits -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <span class="eyebrow">Mindvalley Members</span>
+                <h2>Get an Additional $500 Off</h2>
+                <p class="lead">Already a Mindvalley member? Check your email for your exclusive member discount code.</p>
+                <p style="margin-top: 2rem; opacity: 0.8;">Search "Member Discount" in the email you used to register for the summit</p>
+                <p style="margin-top: 2rem; font-size: 1rem;">Not a member yet? Join at <strong>mindvalley.com</strong> to unlock this discount</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 31: Limited Spots -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <h2>We Run This Program Once a Year</h2>
+                <p class="lead" style="font-size: 2rem; margin-top: 2rem;">This is your window.<br>The next cohort won't start until 2026.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 32: Risk Reversal -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <span class="eyebrow">15-Day Money-Back Guarantee</span>
+                <h2>You Don't Have to Say YES Right Now.<br>Just Say MAYBE.</h2>
+                <p class="lead" style="margin-top: 2rem;">Experience the first 15 days completely risk-free. If it's not for you, get a full refund with one click—no emails, no phone calls, no hassle.</p>
+                <p style="margin-top: 2rem; font-weight: 600;">No questions asked.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 33: Final CTA -->
+        <div class="slide bg-gradient-purple">
+            <div class="slide-content">
+                <span class="eyebrow">Your Transformation Awaits</span>
+                <h1>Join Spiritual Mastery</h1>
+                <p class="lead">December 8, 2025 • 22 Weeks • 9 Masters • 500 Seekers</p>
+                <a href="https://www.mindvalley.com/mastery/spiritual" class="cta-button">Claim Your Spot Now</a>
+                <p style="margin-top: 2rem; opacity: 0.8;">Limited to 500 participants</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 34: Q&A Slide -->
+        <div class="slide bg-dark">
+            <div class="slide-content">
+                <h1>Questions?</h1>
+                <p class="lead">Let's discuss how Spiritual Mastery<br>can transform your spiritual journey.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">34</span>
+        </div>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            document.getElementById('current-slide').textContent = index + 1;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+
+        // Touch swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) previousSlide();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!-- ============================================
+     MINDVALLEY A/B TEST COMPONENT #2
+     Enhanced "Love It or Leave It" Guarantee
+
+     INSTALLATION:
+     1. Add this CSS to your <head> or stylesheet
+     2. Paste the HTML where you want the component
+     3. Customize guarantee terms as needed
+
+     PREDICTED UPLIFT: +12%
+     POSITION: After trust section, before FAQ
+     ============================================ -->
+
+<!-- CSS - Add to your stylesheet -->
+<style>
+/* Component 2: Enhanced Guarantee */
+.mv-guarantee {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.04) 0%, #ffffff 100%);
+    border-radius: 28px;
+    padding: 48px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 48px;
+    align-items: center;
+    max-width: 900px;
+    margin: 60px auto;
+    box-shadow: 0 4px 24px rgba(16, 185, 129, 0.08);
+}
+
+.mv-guarantee-badge {
+    width: 160px;
+    height: 160px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+    border: 4px solid #10b981;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-shrink: 0;
+    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
+}
+
+.mv-guarantee-badge .days {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #10b981;
+    line-height: 1;
+}
+
+.mv-guarantee-badge .text {
+    font-size: 0.75rem;
+    color: #10b981;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-top: 6px;
+    font-weight: 700;
+}
+
+.mv-guarantee-content h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #0f131a;
+}
+
+.mv-guarantee-content > p {
+    color: rgba(15, 19, 26, 0.7);
+    margin-bottom: 24px;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.mv-guarantee-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.mv-guarantee-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #10b981;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.mv-guarantee-item::before {
+    content: '✓';
+    width: 28px;
+    height: 28px;
+    background: rgba(16, 185, 129, 0.12);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .mv-guarantee {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 36px 28px;
+        gap: 32px;
+    }
+
+    .mv-guarantee-badge {
+        margin: 0 auto;
+        width: 140px;
+        height: 140px;
+    }
+
+    .mv-guarantee-badge .days {
+        font-size: 2.5rem;
+    }
+
+    .mv-guarantee-list {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+
+    .mv-guarantee-item {
+        justify-content: flex-start;
+    }
+}
+</style>
+
+<!-- HTML - Paste where you want the component -->
+<div class="mv-guarantee" data-test="guarantee-v1">
+    <div class="mv-guarantee-badge">
+        <span class="days">15</span>
+        <span class="text">Day Trial</span>
+    </div>
+    <div class="mv-guarantee-content">
+        <h3>Our "Love It or Leave It" Promise</h3>
+        <p>We're so confident you'll love Mindvalley that we're giving you 15 full days to explore everything - completely risk-free. If it's not for you, just click one button. No emails. No phone calls. No awkward conversations.</p>
+        <div class="mv-guarantee-list">
+            <div class="mv-guarantee-item">15 days full access</div>
+            <div class="mv-guarantee-item">One-click refund</div>
+            <div class="mv-guarantee-item">3-5 day processing</div>
+            <div class="mv-guarantee-item">98% approval rate</div>
+        </div>
+    </div>
+</div>
+
+<!-- TRACKING SCRIPT -->
+<script>
+(function() {
+    const component = document.querySelector('[data-test="guarantee-v1"]');
+    if (!component) return;
+
+    // Track impression when visible
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (window.dataLayer) {
+                    dataLayer.push({
+                        'event': 'ab_test_impression',
+                        'test_name': 'guarantee',
+                        'variant': 'enhanced_visual',
+                        'component_id': 'guarantee-v1'
+                    });
+                }
+                observer.disconnect();
+            }
+        });
+    }, { threshold: 0.5 });
+
+    observer.observe(component);
+})();
+</script>

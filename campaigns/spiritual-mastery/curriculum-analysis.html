@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiritual Mastery Curriculum Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #1a1a2e;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            border-bottom: 4px solid #6c5ce7;
+            padding-bottom: 15px;
+        }
+
+        .rating {
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin: 20px 0;
+            display: inline-block;
+        }
+
+        .rating.good {
+            background: #51cf66;
+        }
+
+        h2 {
+            color: #6c5ce7;
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #6c5ce7;
+        }
+
+        h3 {
+            color: #2d3436;
+            font-size: 1.4em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #636e72;
+            font-size: 1.1em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .critical-issue {
+            background: #ffe0e0;
+            border-left: 5px solid #ff6b6b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .critical-issue h3 {
+            color: #c92a2a;
+            margin-top: 0;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left: 5px solid #51cf66;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .gate-card {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .gate-card h4 {
+            color: #6c5ce7;
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+
+        .gate-card.missing {
+            background: #ffe0e0;
+            border-color: #ff6b6b;
+        }
+
+        .gate-card.complete {
+            background: #d4edda;
+            border-color: #51cf66;
+        }
+
+        .gate-card.needs-work {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin: 8px 0;
+            line-height: 1.8;
+        }
+
+        .lesson-list {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .lesson-list li {
+            font-size: 0.95em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 3em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .comparison-table th {
+            background: #6c5ce7;
+            color: white;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .priority-1 {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .priority-2 {
+            background: #ffa500;
+            color: white;
+        }
+
+        .priority-3 {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .priority-4 {
+            background: #74b9ff;
+            color: white;
+        }
+
+        .priority-5 {
+            background: #a29bfe;
+            color: white;
+        }
+
+        .recommendation-box {
+            background: #e7f5ff;
+            border: 2px solid #339af0;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .recommendation-box h3 {
+            color: #1864ab;
+            margin-top: 0;
+        }
+
+        .option-card {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .option-card h4 {
+            color: #6c5ce7;
+            margin-top: 0;
+        }
+
+        code {
+            background: #f1f3f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .impact-score {
+            font-size: 2em;
+            font-weight: bold;
+            color: #6c5ce7;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spiritual Mastery Curriculum Analysis</h1>
+        <p style="font-size: 1.2em; color: #636e72; margin-bottom: 30px;">
+            Comprehensive analysis of the accepted curriculum vs. original 52-lesson design
+        </p>
+
+        <div class="rating">Current Curriculum Rating: 6/10</div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="number">35</span>
+                <span class="label">Total Lessons<br>(Accepted)</span>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <span class="number">52</span>
+                <span class="label">Original Lessons<br>(Designed)</span>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <span class="number">17+</span>
+                <span class="label">Missing Critical<br>Lessons</span>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                <span class="number">6</span>
+                <span class="label">Gates Present<br>(Should be 7)</span>
+            </div>
+        </div>
+
+        <h2>Critical Issues Found</h2>
+
+        <div class="critical-issue">
+            <h3>🚨 CRITICAL: Gate 6 is Completely Missing</h3>
+            <p><strong>Impact:</strong> This breaks the entire spiritual transformation architecture.</p>
+            <p style="margin-top: 15px;">The accepted curriculum jumps from <strong>Gate 5: Love & Compassion</strong> directly to <strong>Gate 7: Transmission & Legacy</strong>, skipping the entire purpose and manifestation gate.</p>
+            <p style="margin-top: 15px;"><strong>What students miss:</strong> They learn to awaken energy, heal wounds, embody flow, find stillness, and open their hearts — but never learn how to discover and manifest their life purpose before being asked to become teachers.</p>
+            <div class="warning" style="margin-top: 20px;">
+                <strong>Gate 6: Purpose & Manifestation should contain:</strong>
+                <ul>
+                    <li>Life purpose discovery & alignment</li>
+                    <li>Future self visualization & activation</li>
+                    <li>Manifestation protocols & science</li>
+                    <li>Devoted creation practices</li>
+                    <li>Bending Reality training</li>
+                    <li>Purpose activation implementations</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="critical-issue">
+            <h3>🔴 Major Content Gaps: 17+ Critical Lessons Missing</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Gate</th>
+                        <th>Missing Lessons</th>
+                        <th>Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Gate 1</strong></td>
+                        <td>
+                            <ul style="margin: 5px 0;">
+                                <li>Kundalini structured practices</li>
+                                <li>Energy hygiene & protection</li>
+                                <li>Chakra activation sequences</li>
+                            </ul>
+                        </td>
+                        <td>Students lack energy foundation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gate 2</strong></td>
+                        <td>
+                            <ul style="margin: 5px 0;">
+                                <li>Shadow Work & Integration (Days 5-7)</li>
+                                <li>Inner Child Healing + Meditation</li>
+                                <li>Emotional Alchemy & Energy Medicine</li>
+                                <li>Healing Celebration Ritual</li>
+                            </ul>
+                        </td>
+                        <td>Incomplete healing process</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gate 3</strong></td>
+                        <td>
+                            <ul style="margin: 5px 0;">
+                                <li>Taoist Sexual Energy practices</li>
+                                <li>Sacred Sexuality teachings</li>
+                                <li>Five Elements Harmony</li>
+                                <li>Embodied Flow practices</li>
+                            </ul>
+                        </td>
+                        <td>Missing embodiment depth</td>
+                    </tr>
+                    <tr style="background: #ffe0e0;">
+                        <td><strong>Gate 6</strong></td>
+                        <td>
+                            <ul style="margin: 5px 0;">
+                                <li>Life Purpose Discovery</li>
+                                <li>Future Self Activation</li>
+                                <li>Bending Reality protocols</li>
+                                <li>Devoted Creation practices</li>
+                                <li>Purpose Manifestation workshops</li>
+                            </ul>
+                        </td>
+                        <td><strong>ENTIRE GATE MISSING</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="critical-issue">
+            <h3>⚠️ Misplaced Lessons: Wrong Gate Assignments</h3>
+            <p>Several lessons are in gates that don't match their content or purpose:</p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Lesson</th>
+                        <th>Current Gate</th>
+                        <th>Should Be In</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dr. Tara Swart: "The Biology of Belief, Identity & Reality Creation"</td>
+                        <td>Gate 3</td>
+                        <td><strong>Gate 6</strong></td>
+                        <td>Scientific foundation for manifestation work</td>
+                    </tr>
+                    <tr>
+                        <td>Dean Radin: "Understanding Thought, Intuition and Future Sensing"</td>
+                        <td>Gate 3</td>
+                        <td><strong>Gate 6</strong></td>
+                        <td>Explicitly teaches future-self tuning, manifestation timelines, becoming a "receiver" of future guidance</td>
+                    </tr>
+                    <tr>
+                        <td>Neale Donald Walsch: "Your Divine Purpose"</td>
+                        <td>Gate 5</td>
+                        <td><strong>Gate 6</strong></td>
+                        <td>Teaches purpose discovery and alignment, not love/compassion</td>
+                    </tr>
+                    <tr>
+                        <td>Zen Samurai: "Living Your Purpose With Integrity, Courage & Right Action"</td>
+                        <td>Gate 7</td>
+                        <td><strong>Gate 6</strong></td>
+                        <td>Teaches clarity, decisiveness, and living soul purpose</td>
+                    </tr>
+                    <tr>
+                        <td>Regan Hillyer: "Manifest Through Frequency, Not Force"</td>
+                        <td>Gate 7</td>
+                        <td><strong>Gate 6</strong></td>
+                        <td>Core manifestation teaching</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="warning" style="margin-top: 20px;">
+                <strong>Note:</strong> Eni's original lesson notes explicitly state that Dean Radin's precognition class belongs in Gate 6 (Manifestation & Co-Creation), not Gate 3.
+            </div>
+        </div>
+
+        <div class="warning">
+            <h3>📊 Incomplete Importance Ratings</h3>
+            <p>Only <strong>8 out of 35 lessons</strong> have importance ratings assigned.</p>
+            <p style="margin-top: 10px;">This makes it impossible for students to prioritize properly. The original curriculum had:</p>
+            <ul>
+                <li><strong>7 five-star foundational lessons</strong> (must-complete core teachings)</li>
+                <li><strong>19 four-star transformational lessons</strong> (deep transformation work)</li>
+                <li><strong>26 three-star standard lessons</strong> (enrichment and implementation)</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>Recommendation:</strong> Every lesson needs a 3-5 star rating.</p>
+        </div>
+
+        <div class="warning">
+            <h3>👥 Teacher Balance Issues</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Teacher</th>
+                        <th>Accepted Curriculum</th>
+                        <th>Original Design</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Vishen Lakhiani</strong></td>
+                        <td>6 lessons</td>
+                        <td>13+ lessons</td>
+                        <td style="color: #ff6b6b;">Missing core Bending Reality, manifestation, and purpose teachings</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lee Holden</strong></td>
+                        <td>7 lessons</td>
+                        <td>~8 lessons</td>
+                        <td style="color: #51cf66;">Well-represented ✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Marie Diamond</strong></td>
+                        <td>5 lessons</td>
+                        <td>~7 lessons</td>
+                        <td style="color: #ffc107;">Missing Five Elements and advanced manifestation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dawn Hoang</strong></td>
+                        <td>3 lessons</td>
+                        <td>~6 lessons</td>
+                        <td style="color: #ff6b6b;">Missing most Kundalini activation practices</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Guest Teachers</strong></td>
+                        <td>13 lessons</td>
+                        <td>0 lessons (new additions)</td>
+                        <td style="color: #51cf66;">Excellent additions, but replacing core content</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 15px;"><strong>Issue:</strong> Guest teachers are <em>replacing</em> core Vishen content instead of <em>supplementing</em> it.</p>
+        </div>
+
+        <h2>What's Working Well</h2>
+
+        <div class="success">
+            <h3>✅ Strengths of Current Curriculum</h3>
+            <ul>
+                <li><strong>Gate 1 (Energy Awakening)</strong> is solid — good progression from consciousness to energy basics to space clearing</li>
+                <li><strong>Gate 2 (Clearing & Healing)</strong> has strong forgiveness work + Dr. Levine's trauma-informed somatic approach adds scientific credibility</li>
+                <li><strong>Gate 4 (Stillness)</strong> is well-structured with Lee's meditation + Vishen's 6 Phase + martial arts presence (Shi Heng Yi, Zen Takai)</li>
+                <li><strong>Guest teacher integration</strong> adds scientific credibility (Dr. Tara Swart, Dean Radin) and embodied wisdom (Shi Heng Yi, Zen Takai, Neale Donald Walsch)</li>
+                <li><strong>Gate 7 (Legacy)</strong> provides proper closure with Rituals of the Masters and graduation ceremony</li>
+            </ul>
+        </div>
+
+        <h2>Critical Recommendations</h2>
+
+        <div class="recommendation-box">
+            <h3><span class="priority-badge priority-1">PRIORITY 1</span> Restore Gate 6: Purpose & Manifestation</h3>
+            <p><strong>This is non-negotiable.</strong> Gate 6 should be the climax of the spiritual journey before integration (Gate 7).</p>
+
+            <h4>Move these lessons TO Gate 6:</h4>
+            <div class="lesson-list">
+                <strong>From Gate 3:</strong>
+                <ul>
+                    <li>Dr. Tara Swart: "The Biology of Belief, Identity & Reality Creation"</li>
+                    <li>Dean Radin: "Understanding Thought, Intuition and Future Sensing Through Evidence"</li>
+                </ul>
+                <strong>From Gate 5:</strong>
+                <ul>
+                    <li>Neale Donald Walsch: "Your Divine Purpose: Why You Are Here & How to Live Your Highest Truth"</li>
+                </ul>
+                <strong>From Gate 7:</strong>
+                <ul>
+                    <li>Zen Samurai: "Living Your Purpose With Integrity, Courage & Right Action"</li>
+                    <li>Regan Hillyer: "Manifest Through Frequency, Not Force"</li>
+                </ul>
+            </div>
+
+            <h4>Add back from original curriculum:</h4>
+            <div class="lesson-list">
+                <ul>
+                    <li>Vishen: "Life Purpose Discovery & Alignment"</li>
+                    <li>Vishen: "Future Self Activation Protocol"</li>
+                    <li>Vishen: "Bending Reality - Advanced Manifestation"</li>
+                    <li>Vishen/Regan: "Devoted Creation & Purpose Manifestation"</li>
+                    <li>Implementation: "Purpose Activation & Manifestation Practice"</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px; font-weight: bold; color: #1864ab;">This creates a proper 9-10 lesson Gate 6 focused entirely on manifestation and purpose.</p>
+        </div>
+
+        <div class="recommendation-box">
+            <h3><span class="priority-badge priority-2">PRIORITY 2</span> Fix Gate Misalignments</h3>
+
+            <div class="gate-card needs-work">
+                <h4>Gate 3: Flow, Intuition & Embodiment</h4>
+                <p><strong>Should focus on:</strong> Embodied practices, intuitive intelligence, flow states, sacred sexuality</p>
+                <p><strong>Keep:</strong></p>
+                <ul>
+                    <li>Lee's Daily Energy Flow + Morning Flow Ritual</li>
+                    <li>Dr. Tara Swart's "Rewiring Your Brain for Intuition & Inner Guidance"</li>
+                    <li>Dean Radin's "How Consciousness Accesses Information Beyond Space and Time" (fits intuition)</li>
+                    <li>Inner Alchemy I & II</li>
+                </ul>
+                <p><strong>Add back:</strong></p>
+                <ul>
+                    <li>Taoist Sexual Energy cultivation practices</li>
+                    <li>Sacred Sexuality & Union teachings</li>
+                    <li>Five Elements Harmony - Reconnecting to Earth Wisdom</li>
+                    <li>Embodied Flow & Moving Meditation</li>
+                </ul>
+            </div>
+
+            <div class="gate-card needs-work">
+                <h4>Gate 5: Unity, Love & Compassion</h4>
+                <p><strong>Should focus on:</strong> Heart opening, compassion development, sacred union, divine connection</p>
+                <p><strong>Keep:</strong></p>
+                <ul>
+                    <li>Cord-Cutting Visualization</li>
+                    <li>Integral Theory & Moving to Worldcentrism</li>
+                    <li>Sacred Union & Heart Activation Practice (Johann Urb/Rachel Pringle)</li>
+                    <li>Neale's "How to Access Higher Guidance & Dialogue With Source"</li>
+                </ul>
+                <p><strong>Remove:</strong></p>
+                <ul>
+                    <li>Neale's "Your Divine Purpose" → Move to Gate 6</li>
+                </ul>
+                <p><strong>Add back:</strong></p>
+                <ul>
+                    <li>Sacred Love - The 3 Levels of Relational Awakening</li>
+                    <li>From Ego-Centric to World-Centric Compassion</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="recommendation-box">
+            <h3><span class="priority-badge priority-3">PRIORITY 3</span> Complete Missing Core Content</h3>
+
+            <div class="gate-card needs-work">
+                <h4>Gate 2: Clearing & Healing (Add 6-7 lessons)</h4>
+                <ul>
+                    <li>Shadow Work & Integration (Days 5-7)</li>
+                    <li>Healing Your Inner Child (lesson)</li>
+                    <li>Inner Child Meditation (implementation)</li>
+                    <li>Emotional Alchemy & Energy Medicine</li>
+                    <li>Integration - Clearing Complete (checkpoint)</li>
+                    <li>Healing Celebration Ritual</li>
+                </ul>
+            </div>
+
+            <div class="gate-card needs-work">
+                <h4>Gate 3: Flow, Intuition & Embodiment (Add 4-5 lessons)</h4>
+                <ul>
+                    <li>Taoist Sexual Energy - Cultivation Practices</li>
+                    <li>Sacred Sexuality & Union</li>
+                    <li>The Science Behind Spirituality</li>
+                    <li>Implementation: Activating Your Intuitive Brain</li>
+                    <li>Embodied Flow & Moving Meditation</li>
+                    <li>Five Elements Harmony - Reconnecting to Earth Wisdom</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="recommendation-box">
+            <h3><span class="priority-badge priority-4">PRIORITY 4</span> Add Importance Ratings to ALL Lessons</h3>
+            <p>Every lesson needs a rating 3-5 to help students prioritize. Suggested framework:</p>
+
+            <h4>⭐⭐⭐⭐⭐ 5-Star Foundational (Must-Complete):</h4>
+            <div class="lesson-list">
+                <ul>
+                    <li>All 7 Sacred States lessons</li>
+                    <li>All Qi Gong core practices</li>
+                    <li>Dr. Levine's trauma work</li>
+                    <li>Forgiveness work</li>
+                    <li>All manifestation & purpose lessons in Gate 6</li>
+                    <li>Neale Donald Walsch's divine purpose teaching</li>
+                    <li>Rituals of the Masters</li>
+                    <li>Graduation ceremony</li>
+                </ul>
+            </div>
+
+            <h4>⭐⭐⭐⭐ 4-Star Transformational:</h4>
+            <div class="lesson-list">
+                <ul>
+                    <li>All guest teacher scientific lessons (Dr. Tara Swart, Dean Radin)</li>
+                    <li>All martial arts presence teachings (Shi Heng Yi, Zen Takai)</li>
+                    <li>Advanced meditation practices (6 Phase)</li>
+                    <li>Sacred sexuality practices</li>
+                    <li>Neale Donald Walsch's divine communication</li>
+                    <li>Regan Hillyer's manifestation teachings</li>
+                </ul>
+            </div>
+
+            <h4>⭐⭐⭐ 3-Star Enrichment:</h4>
+            <div class="lesson-list">
+                <ul>
+                    <li>Implementation workshops that support core lessons</li>
+                    <li>Supplementary practices</li>
+                    <li>Integration checkpoints</li>
+                    <li>Daily ritual practices</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="recommendation-box">
+            <h3><span class="priority-badge priority-5">PRIORITY 5</span> Curriculum Flow Logic</h3>
+            <p>The journey should follow this transformation arc:</p>
+
+            <div class="gate-card complete">
+                <h4>Gate 1: Energy is Life</h4>
+                <p><strong>Transformation:</strong> Awaken to energy (you ARE energy)</p>
+                <p><strong>Current Status:</strong> ✅ Solid (8 lessons)</p>
+            </div>
+
+            <div class="gate-card needs-work">
+                <h4>Gate 2: Clearing & Healing</h4>
+                <p><strong>Transformation:</strong> Clear what blocks you (release trauma, forgive, heal)</p>
+                <p><strong>Current Status:</strong> ⚠️ Incomplete (4 lessons, needs 10-12)</p>
+            </div>
+
+            <div class="gate-card needs-work">
+                <h4>Gate 3: Flow, Intuition & Embodiment</h4>
+                <p><strong>Transformation:</strong> Embody flow and intuition (energy moves through you fluidly)</p>
+                <p><strong>Current Status:</strong> ⚠️ Needs refocus (7 lessons, but misaligned content)</p>
+            </div>
+
+            <div class="gate-card complete">
+                <h4>Gate 4: Stillness & Inner Awareness</h4>
+                <p><strong>Transformation:</strong> Cultivate stillness and awareness (you access higher consciousness)</p>
+                <p><strong>Current Status:</strong> ✅ Strong (8 lessons)</p>
+            </div>
+
+            <div class="gate-card needs-work">
+                <h4>Gate 5: Unity, Love & Compassion</h4>
+                <p><strong>Transformation:</strong> Open your heart (you connect through love and compassion)</p>
+                <p><strong>Current Status:</strong> ⚠️ Needs refocus (5 lessons, contains misplaced purpose content)</p>
+            </div>
+
+            <div class="gate-card missing">
+                <h4>Gate 6: Purpose & Manifestation ❌ MISSING</h4>
+                <p><strong>Transformation:</strong> Manifest your purpose (you co-create with the universe)</p>
+                <p><strong>Current Status:</strong> 🚨 COMPLETELY ABSENT</p>
+                <p style="margin-top: 10px; font-weight: bold; color: #c92a2a;">Students go from love (Gate 5) directly to legacy (Gate 7) without ever learning how to manifest their purpose!</p>
+            </div>
+
+            <div class="gate-card complete">
+                <h4>Gate 7: Transmission & Legacy</h4>
+                <p><strong>Transformation:</strong> Transmit and lead (you become the teacher)</p>
+                <p><strong>Current Status:</strong> ✅ Solid (4 lessons)</p>
+            </div>
+        </div>
+
+        <h2>Recommended Restructured Curriculum</h2>
+
+        <div class="gate-card complete">
+            <h4>GATE 1: Energy is Life (8 lessons) ✓ Keep as is</h4>
+            <ol>
+                <li>7 Sacred States: Knowingness and Faith</li>
+                <li>What is Kundalini Life Force Energy?</li>
+                <li>Energy Scan & Self-Attunement</li>
+                <li>Qi Gong & Vital Energy</li>
+                <li>Daily Qi Gong Flow</li>
+                <li>Feng Shui & the Energy of Space</li>
+                <li>Space Clearing Ritual</li>
+                <li>7 Sacred States: Love & Stillness</li>
+            </ol>
+        </div>
+
+        <div class="gate-card needs-work">
+            <h4>GATE 2: Clearing & Healing (10-12 lessons) ⚠️ Expand</h4>
+            <ol>
+                <li>7 Sacred States: Non-Attachment & Devotion</li>
+                <li>The Power of Forgiveness</li>
+                <li>Forgiveness Ritual</li>
+                <li>Dr. Peter Levine: How Trauma Blocks Energy, Presence & Spiritual Awakening</li>
+                <li>Dr. Peter Levine: Releasing Emotional Charge & Restoring Inner Safety</li>
+                <li><strong style="color: #ff6b6b;">ADD: Shadow Work & Integration (Days 5-7)</strong></li>
+                <li><strong style="color: #ff6b6b;">ADD: Healing Your Inner Child</strong></li>
+                <li><strong style="color: #ff6b6b;">ADD: Inner Child Meditation</strong></li>
+                <li><strong style="color: #ff6b6b;">ADD: Emotional Alchemy & Energy Medicine</strong></li>
+                <li>Kundalini Activation (implementation)</li>
+                <li><strong style="color: #ff6b6b;">ADD: Integration - Clearing Complete</strong></li>
+                <li><strong style="color: #ff6b6b;">ADD: Healing Celebration Ritual</strong></li>
+            </ol>
+        </div>
+
+        <div class="gate-card needs-work">
+            <h4>GATE 3: Flow, Intuition & Embodiment (10-12 lessons) ⚠️ Refocus</h4>
+            <ol>
+                <li>Daily Energy Flow</li>
+                <li>Morning Flow Ritual</li>
+                <li>Inner Alchemy I</li>
+                <li>Inner Alchemy II</li>
+                <li>Dr. Tara Swart: Rewiring Your Brain for Purpose, Intuition & Inner Guidance</li>
+                <li>Dean Radin: How Consciousness Accesses Information Beyond Space and Time</li>
+                <li><strong style="color: #ff6b6b;">ADD: Taoist Sexual Energy - Cultivation Practices</strong></li>
+                <li><strong style="color: #ff6b6b;">ADD: Sacred Sexuality & Union</strong></li>
+                <li><strong style="color: #ff6b6b;">ADD: The Science Behind Spirituality</strong></li>
+                <li><strong style="color: #ff6b6b;">ADD: Implementation: Activating Your Intuitive Brain</strong></li>
+                <li><strong style="color: #ff6b6b;">ADD: Embodied Flow & Moving Meditation</strong></li>
+                <li><strong style="color: #ff6b6b;">ADD: Five Elements Harmony - Reconnecting to Earth Wisdom</strong></li>
+            </ol>
+        </div>
+
+        <div class="gate-card complete">
+            <h4>GATE 4: Stillness & Inner Awareness (8 lessons) ✓ Mostly good</h4>
+            <ol>
+                <li>7 Sacred States: Receptivity and Integration</li>
+                <li>Meditation & Awareness</li>
+                <li>Stillness Meditation</li>
+                <li>The Advanced 6 Phase Meditation Protocol</li>
+                <li>Advanced 6 Phase Implementation</li>
+                <li>Shi Heng Yi: Qi, Breath & Inner Power - The Shaolin Path to Energetic Strength</li>
+                <li>Shi Heng Yi: Stillness in Motion - Presence, Emotional Balance & Embodied Peace</li>
+                <li>Zen Samurai: Samurai Stillness - Mastering Presence, Awareness & Internal Strength</li>
+            </ol>
+        </div>
+
+        <div class="gate-card needs-work">
+            <h4>GATE 5: Unity, Love & Compassion (7-8 lessons) ⚠️ Refocus on love</h4>
+            <ol>
+                <li>Cord-Cutting Visualization</li>
+                <li>Integral Theory & Moving to Worldcentrism</li>
+                <li><strong style="color: #ff6b6b;">ADD: Sacred Love - The 3 Levels of Relational Awakening</strong></li>
+                <li>Sacred Union & Heart Activation Practice (Johann Urb/Rachel Pringle)</li>
+                <li><strong style="color: #ff6b6b;">ADD: From Ego-Centric to World-Centric Compassion</strong></li>
+                <li>Neale Donald Walsch: How to Access Higher Guidance & Dialogue With Source</li>
+                <li><em>(Remove "Your Divine Purpose" - move to Gate 6)</em></li>
+            </ol>
+        </div>
+
+        <div class="gate-card missing">
+            <h4>GATE 6: Purpose & Manifestation (9-10 lessons) 🚨 CREATE THIS GATE</h4>
+            <ol>
+                <li><strong style="color: #6c5ce7;">MOVE from Gate 3:</strong> Dr. Tara Swart: The Biology of Belief, Identity & Reality Creation</li>
+                <li><strong style="color: #6c5ce7;">MOVE from Gate 3:</strong> Dean Radin: Understanding Thought, Intuition and Future Sensing Through Evidence</li>
+                <li><strong style="color: #ff6b6b;">ADD:</strong> Vishen: Life Purpose Discovery & Alignment</li>
+                <li><strong style="color: #ff6b6b;">ADD:</strong> Vishen: Future Self Activation Protocol</li>
+                <li><strong style="color: #6c5ce7;">MOVE from Gate 5:</strong> Neale Donald Walsch: Your Divine Purpose - Why You Are Here & How to Live Your Highest Truth</li>
+                <li><strong style="color: #ff6b6b;">ADD:</strong> Vishen: Bending Reality - Advanced Manifestation</li>
+                <li><strong style="color: #6c5ce7;">MOVE from Gate 7:</strong> Regan Hillyer: Manifest Through Frequency, Not Force</li>
+                <li><strong style="color: #6c5ce7;">MOVE from Gate 7:</strong> Zen Samurai: Living Your Purpose With Integrity, Courage & Right Action</li>
+                <li><strong style="color: #ff6b6b;">ADD:</strong> Devoted Creation & Purpose Manifestation</li>
+                <li><strong style="color: #ff6b6b;">ADD:</strong> Purpose Activation & Manifestation Practice</li>
+            </ol>
+        </div>
+
+        <div class="gate-card complete">
+            <h4>GATE 7: Transmission & Legacy (4 lessons) ✓ Keep as is</h4>
+            <ol>
+                <li>Rituals of the Masters</li>
+                <li>Preparing for Legacy</li>
+                <li>Graduation & Celebration</li>
+                <li>Final integration and sending forth</li>
+            </ol>
+        </div>
+
+        <h2>Final Honest Assessment</h2>
+
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin: 30px 0;">
+            <h3 style="color: white; margin-top: 0;">Why Only 6/10?</h3>
+            <ul style="margin-top: 15px;">
+                <li><strong>Gate 6 completely missing</strong> (automatic -3 points) — Students cannot complete the transformation journey</li>
+                <li><strong>17+ critical lessons cut</strong> without replacement (-1 point) — Curriculum feels incomplete</li>
+                <li><strong>Major misalignments</strong> in lesson placement (-0.5 points) — Purpose content scattered across wrong gates</li>
+                <li><strong>Incomplete importance ratings</strong> (-0.5 points) — Students can't prioritize effectively</li>
+                <li><strong>Lost coherent spiritual arc</strong> from original design (-1 point) — Journey feels fragmented</li>
+            </ul>
+
+            <h3 style="color: white; margin-top: 25px;">What's Strong:</h3>
+            <ul style="margin-top: 15px;">
+                <li>Guest teacher additions add scientific credibility (+1 point)</li>
+                <li>Gate 1 and Gate 7 are solid (+1 point)</li>
+                <li>Gate 4 stillness practices are excellent (+0.5 points)</li>
+            </ul>
+        </div>
+
+        <div class="recommendation-box">
+            <h3>To Get to 9/10: Action Plan</h3>
+            <ol style="font-size: 1.1em; line-height: 2;">
+                <li><strong>Restore Gate 6</strong> with all manifestation and purpose content</li>
+                <li><strong>Realign misplaced lessons</strong> to their proper gates</li>
+                <li><strong>Add back missing core content</strong> (shadow work, sacred sexuality, embodiment practices)</li>
+                <li><strong>Rate every lesson</strong> 3-5 stars for proper prioritization</li>
+                <li><strong>Ensure teacher balance</strong> — don't lose Vishen's core teachings for guests</li>
+            </ol>
+        </div>
+
+        <h2>Bottom Line</h2>
+
+        <div class="critical-issue">
+            <p style="font-size: 1.2em; line-height: 1.8;">
+                The accepted curriculum feels like someone <strong>cherry-picked favorite lessons without understanding the complete spiritual architecture</strong>. The 7 Gates structure was intentionally designed as a transformation journey.
+            </p>
+            <p style="font-size: 1.2em; line-height: 1.8; margin-top: 20px;">
+                By eliminating Gate 6, you've created a curriculum that teaches people to:
+            </p>
+            <ul style="font-size: 1.1em; margin-top: 15px;">
+                <li>✅ Awaken their energy</li>
+                <li>✅ Heal their wounds</li>
+                <li>✅ Embody flow and intuition</li>
+                <li>✅ Find stillness</li>
+                <li>✅ Open their hearts</li>
+                <li style="color: #c92a2a; font-weight: bold;">❌ ??? [skip manifestation & purpose] ???</li>
+                <li style="color: #c92a2a;">❌ Become teachers</li>
+            </ul>
+            <p style="font-size: 1.3em; font-weight: bold; margin-top: 25px; color: #c92a2a;">
+                You cannot become a spiritual teacher without first discovering and manifesting your purpose. That's what Gate 6 provides.
+            </p>
+        </div>
+
+        <h2>Implementation Options</h2>
+
+        <div class="option-card">
+            <h4>Option A: Restore Full 7-Gate Structure (Recommended)</h4>
+            <p><strong>Total Lessons:</strong> ~50-55 lessons</p>
+            <p><strong>Pros:</strong></p>
+            <ul>
+                <li>Complete transformation journey</li>
+                <li>Proper Gate progression and spiritual architecture</li>
+                <li>All core content included</li>
+                <li>Students get full value and transformation</li>
+            </ul>
+            <p><strong>Cons:</strong></p>
+            <ul>
+                <li>Longer program duration</li>
+                <li>More content production required</li>
+            </ul>
+            <p style="margin-top: 15px; font-weight: bold; color: #6c5ce7;">Rating if implemented: 9-10/10</p>
+        </div>
+
+        <div class="option-card">
+            <h4>Option B: Condensed 7-Gate Structure (Minimum Viable)</h4>
+            <p><strong>Total Lessons:</strong> ~40-45 lessons</p>
+            <p><strong>At minimum, add Gate 6 with these 6 essential lessons:</strong></p>
+            <ol>
+                <li>Dr. Tara Swart: Biology of Belief (move from Gate 3)</li>
+                <li>Dean Radin: Precognition & Future Sensing (move from Gate 3)</li>
+                <li>Vishen: Life Purpose Discovery (add back)</li>
+                <li>Neale: Your Divine Purpose (move from Gate 5)</li>
+                <li>Regan: Manifest Through Frequency (move from Gate 7)</li>
+                <li>Samurai: Living Your Purpose (move from Gate 7)</li>
+            </ol>
+            <p><strong>Pros:</strong></p>
+            <ul>
+                <li>Restores complete 7-Gate structure</li>
+                <li>Minimal new content production needed</li>
+                <li>Fixes critical gap in transformation journey</li>
+            </ul>
+            <p><strong>Cons:</strong></p>
+            <ul>
+                <li>Still missing some enrichment content</li>
+                <li>Gate 6 would be leaner than ideal</li>
+            </ul>
+            <p style="margin-top: 15px; font-weight: bold; color: #6c5ce7;">Rating if implemented: 7.5-8/10</p>
+        </div>
+
+        <div style="background: #e7f5ff; border: 3px solid #339af0; border-radius: 10px; padding: 30px; margin: 40px 0;">
+            <h3 style="color: #1864ab; margin-top: 0; font-size: 1.5em;">Next Steps</h3>
+            <p style="font-size: 1.1em; margin-bottom: 20px;">Would you like me to create the restructured Airtable updates to implement these changes?</p>
+            <p style="font-size: 1.1em;">I can generate:</p>
+            <ul style="font-size: 1.05em; line-height: 1.8;">
+                <li>Complete Gate 6 lesson records with proper fields</li>
+                <li>Updated Gate assignments for misplaced lessons</li>
+                <li>Importance ratings for all 35+ lessons</li>
+                <li>Missing lesson records from original curriculum</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

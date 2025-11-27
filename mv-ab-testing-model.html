@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Site A/B Testing Model | Mindvalley</title>
+    <link rel="stylesheet" href="styles/mv-selfreset-base.css">
+    <style>
+        :root {
+            --mv-bg: #ffffff;
+            --mv-bg-light: #f8f9fa;
+            --mv-bg-alt: #f3f4f6;
+            --mv-purple: #7a12d4;
+            --mv-purple-light: #9333ea;
+            --mv-success: #10b981;
+            --mv-warning: #f59e0b;
+            --mv-danger: #ef4444;
+            --mv-text-primary: #0f131a;
+            --mv-text-secondary: rgba(15, 19, 26, 0.7);
+            --mv-text-tertiary: rgba(15, 19, 26, 0.5);
+            --mv-border: rgba(0, 0, 0, 0.1);
+            --mv-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --mv-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --mv-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--mv-bg); color: var(--mv-text-primary); line-height: 1.7; }
+
+        .hero {
+            background: linear-gradient(135deg, var(--mv-bg-light) 0%, var(--mv-bg) 100%);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--mv-border);
+        }
+
+        .hero h1 { margin-bottom: 16px; }
+        .hero .subtitle { font-size: 1.2rem; color: var(--mv-text-secondary); max-width: 700px; margin: 0 auto; }
+
+        .badge {
+            display: inline-block;
+            background: rgba(122, 18, 212, 0.1);
+            color: var(--mv-purple);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+
+        section { margin-bottom: 80px; }
+
+        .section-header { margin-bottom: 40px; }
+        .section-header h2 { margin-bottom: 12px; }
+        .section-header p { color: var(--mv-text-secondary); font-size: 1.1rem; }
+
+        .card {
+            background: var(--mv-bg);
+            border-radius: 20px;
+            border: 1px solid var(--mv-border);
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: var(--mv-shadow-sm);
+        }
+
+        .card h3 { font-size: 1.25rem; margin-bottom: 16px; color: var(--mv-text-primary); }
+        .card h4 { font-size: 1rem; margin-bottom: 12px; color: var(--mv-purple); }
+
+        /* Formula display */
+        .formula-box {
+            background: var(--mv-bg-alt);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin: 24px 0;
+            border: 2px dashed var(--mv-border);
+        }
+
+        .formula {
+            font-family: 'Georgia', serif;
+            font-size: 1.5rem;
+            color: var(--mv-text-primary);
+            margin-bottom: 16px;
+        }
+
+        .formula-label {
+            font-size: 0.85rem;
+            color: var(--mv-text-tertiary);
+        }
+
+        /* Data entry form */
+        .data-form { margin: 32px 0; }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group { margin-bottom: 16px; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--mv-text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--mv-border);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--mv-purple);
+            box-shadow: 0 0 0 3px rgba(122, 18, 212, 0.1);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            background: var(--mv-purple);
+            color: white;
+            border: none;
+            border-radius: 999px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #6a0fc0;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--mv-purple);
+            border: 2px solid var(--mv-purple);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(122, 18, 212, 0.1);
+        }
+
+        /* Results table */
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+        }
+
+        .results-table th, .results-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--mv-border);
+        }
+
+        .results-table th {
+            background: var(--mv-bg-light);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--mv-text-tertiary);
+        }
+
+        .results-table td { font-size: 0.95rem; }
+
+        .score-high { color: var(--mv-success); font-weight: 700; }
+        .score-medium { color: var(--mv-warning); font-weight: 700; }
+        .score-low { color: var(--mv-danger); font-weight: 700; }
+
+        /* Algorithm explanation */
+        .algorithm-step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding: 24px;
+            background: var(--mv-bg-light);
+            border-radius: 16px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--mv-purple);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 { margin-bottom: 8px; }
+        .step-content p { color: var(--mv-text-secondary); margin: 0; }
+
+        /* Chart placeholder */
+        .chart-container {
+            background: var(--mv-bg-alt);
+            border-radius: 16px;
+            padding: 40px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 24px 0;
+        }
+
+        /* Code block */
+        .code-block {
+            background: #1e1e1e;
+            border-radius: 12px;
+            padding: 24px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        .code-block pre {
+            color: #d4d4d4;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-number { color: #b5cea8; }
+        .code-function { color: #dcdcaa; }
+
+        /* Grid layouts */
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .algorithm-step { flex-direction: column; }
+        }
+
+        /* Metric cards */
+        .metric-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid var(--mv-border);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--mv-purple);
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--mv-text-tertiary);
+            margin-top: 4px;
+        }
+
+        /* Interactive calculator */
+        #model-results {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .winner-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--mv-success), #059669);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <span class="badge">Mathematical Model</span>
+        <h1 class="mv-type--headline1">Multi-Site A/B Testing Analysis</h1>
+        <p class="subtitle">A Bayesian hierarchical model to predict which components truly work across multiple websites, accounting for site-specific effects.</p>
+    </header>
+
+    <main class="container">
+
+        <!-- Section 1: The Problem -->
+        <section>
+            <div class="section-header">
+                <h2 class="mv-type--headline3">The Challenge</h2>
+                <p>Why standard A/B testing fails when testing the same components across multiple sites</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>The Problem with Single-Site Testing</h3>
+                    <p>When you test Component #1 (Payment Plans) on mindvalley.com and see +20% lift, you don't know if:</p>
+                    <ul style="margin-top: 16px; margin-left: 20px; color: var(--mv-text-secondary);">
+                        <li>The component genuinely works everywhere</li>
+                        <li>It only works for Mindvalley's specific audience</li>
+                        <li>The +20% was statistical noise (false positive)</li>
+                        <li>Your traffic source that week was unusually qualified</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>The Multi-Site Solution</h3>
+                    <p>By testing the same 8 components across <strong>multiple websites</strong>, we can:</p>
+                    <ul style="margin-top: 16px; margin-left: 20px; color: var(--mv-text-secondary);">
+                        <li>Separate "true component effect" from "site-specific effect"</li>
+                        <li>Identify which components universally work</li>
+                        <li>Understand which sites respond best to which tactics</li>
+                        <li>Make predictions for NEW sites we haven't tested yet</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: The Mathematical Model -->
+        <section>
+            <div class="section-header">
+                <h2 class="mv-type--headline3">The Hierarchical Bayesian Model</h2>
+                <p>A rigorous statistical framework for multi-site component testing</p>
+            </div>
+
+            <div class="card">
+                <h3>Core Model Structure</h3>
+                <p>We model the conversion rate lift for each component on each site as:</p>
+
+                <div class="formula-box">
+                    <div class="formula">
+                        y<sub>ij</sub> = μ<sub>j</sub> + α<sub>i</sub> + β<sub>ij</sub> + ε<sub>ij</sub>
+                    </div>
+                    <div class="formula-label">
+                        Where: y<sub>ij</sub> = observed lift for component j on site i
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top: 24px;">
+                    <div>
+                        <h4>μ<sub>j</sub> — True Component Effect</h4>
+                        <p style="color: var(--mv-text-secondary);">The "real" underlying effectiveness of component j, independent of which site it's tested on. This is what we want to learn.</p>
+                    </div>
+                    <div>
+                        <h4>α<sub>i</sub> — Site-Specific Intercept</h4>
+                        <p style="color: var(--mv-text-secondary);">Some sites convert better overall. This captures baseline differences (e.g., mindvalley.com converts 3% while testsite.com converts 1.5%).</p>
+                    </div>
+                    <div>
+                        <h4>β<sub>ij</sub> — Interaction Effect</h4>
+                        <p style="color: var(--mv-text-secondary);">Sometimes a component works great on one site but poorly on another. This captures component × site interactions.</p>
+                    </div>
+                    <div>
+                        <h4>ε<sub>ij</sub> — Random Error</h4>
+                        <p style="color: var(--mv-text-secondary);">Statistical noise from sampling, timing, and unmeasured factors. We assume ε ~ N(0, σ²).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 24px;">
+                <h3>Why "Hierarchical" and "Bayesian"?</h3>
+
+                <div class="grid-2">
+                    <div>
+                        <h4>Hierarchical (Multi-Level)</h4>
+                        <p style="color: var(--mv-text-secondary);">Data is structured in levels: observations within components within sites. The model "shares strength" — results from Site A inform estimates for Site B, especially when Site B has limited data.</p>
+
+                        <div class="formula-box" style="padding: 20px;">
+                            <div class="formula" style="font-size: 1.1rem;">
+                                μ<sub>j</sub> ~ N(μ<sub>overall</sub>, τ²)
+                            </div>
+                            <div class="formula-label">Component effects drawn from a population distribution</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Bayesian</h4>
+                        <p style="color: var(--mv-text-secondary);">We incorporate prior knowledge (e.g., "payment plans typically lift 10-30%") and update beliefs as data arrives. This prevents overfitting to small samples and gives probability distributions, not just point estimates.</p>
+
+                        <div class="formula-box" style="padding: 20px;">
+                            <div class="formula" style="font-size: 1.1rem;">
+                                P(μ|data) ∝ P(data|μ) × P(μ)
+                            </div>
+                            <div class="formula-label">Posterior = Likelihood × Prior</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Algorithm -->
+        <section>
+            <div class="section-header">
+                <h2 class="mv-type--headline3">The Algorithm: Step by Step</h2>
+                <p>How we process multi-site A/B test data to identify winning components</p>
+            </div>
+
+            <div class="algorithm-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Data Collection & Structuring</h4>
+                    <p>For each component j tested on each site i, collect: visitors (n), conversions (c), baseline conversion rate, and test duration. Structure as a matrix where rows = sites, columns = components.</p>
+                </div>
+            </div>
+
+            <div class="algorithm-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Calculate Observed Lift with Confidence Intervals</h4>
+                    <p>For each cell, compute: Lift = (Treatment CR - Control CR) / Control CR. Use Wilson score intervals to get 95% confidence bounds. Flag tests where CI includes 0 (inconclusive).</p>
+                </div>
+            </div>
+
+            <div class="algorithm-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>Fit Hierarchical Model via MCMC</h4>
+                    <p>Use Markov Chain Monte Carlo (MCMC) to sample from the posterior distribution of μ<sub>j</sub> values. We run 4 chains × 2000 iterations, discarding first 1000 as warmup. Check convergence via R-hat < 1.01.</p>
+                </div>
+            </div>
+
+            <div class="algorithm-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h4>Extract Component Rankings</h4>
+                    <p>For each component, compute: (a) Posterior mean of μ<sub>j</sub> = expected lift, (b) P(μ<sub>j</sub> > 0) = probability component is positive, (c) 90% credible interval bounds. Rank by P(μ<sub>j</sub> > 0) × E[μ<sub>j</sub>].</p>
+                </div>
+            </div>
+
+            <div class="algorithm-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h4>Identify Site-Component Interactions</h4>
+                    <p>Components with high variance in β<sub>ij</sub> are "site-dependent" — they work well on some sites but not others. Low variance means the component effect is consistent everywhere.</p>
+                </div>
+            </div>
+
+            <div class="algorithm-step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <h4>Generate Predictions for New Sites</h4>
+                    <p>For a new site k not in training data, we can predict expected lift: ŷ<sub>kj</sub> = μ<sub>j</sub> + α̂<sub>k</sub> where α̂<sub>k</sub> is estimated from site k's baseline metrics using regression on site features.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Interactive Calculator -->
+        <section>
+            <div class="section-header">
+                <h2 class="mv-type--headline3">Interactive Model Calculator</h2>
+                <p>Enter your multi-site test results to see which components are truly working</p>
+            </div>
+
+            <div class="card">
+                <h3>Enter Test Data</h3>
+                <p style="margin-bottom: 24px; color: var(--mv-text-secondary);">Input results from testing each component across your sites. The model needs at least 3 sites for reliable estimates.</p>
+
+                <div id="data-entry">
+                    <!-- Site 1 -->
+                    <div class="card" style="background: var(--mv-bg-light); margin-bottom: 16px;">
+                        <h4 style="margin-bottom: 16px;">Site 1: mindvalley.com</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Baseline CR (%)</label>
+                                <input type="number" id="site1_baseline" value="2.5" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Monthly Visitors</label>
+                                <input type="number" id="site1_visitors" value="500000">
+                            </div>
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--mv-text-tertiary); margin-bottom: 12px;">Component Lift (% improvement over baseline, leave blank if not tested):</p>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>C1: Payment Plans</label>
+                                <input type="number" id="site1_c1" value="18.5" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C2: Guarantee</label>
+                                <input type="number" id="site1_c2" value="11.2" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C3: Journey</label>
+                                <input type="number" id="site1_c3" value="7.8" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C4: Testimonials</label>
+                                <input type="number" id="site1_c4" value="6.3" step="0.1">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>C5: Calculator</label>
+                                <input type="number" id="site1_c5" value="9.1" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C6: Comparison</label>
+                                <input type="number" id="site1_c6" value="7.5" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C7: Social Proof</label>
+                                <input type="number" id="site1_c7" value="5.2" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C8: Trust</label>
+                                <input type="number" id="site1_c8" value="9.8" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Site 2 -->
+                    <div class="card" style="background: var(--mv-bg-light); margin-bottom: 16px;">
+                        <h4 style="margin-bottom: 16px;">Site 2: selfreset.com</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Baseline CR (%)</label>
+                                <input type="number" id="site2_baseline" value="1.8" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Monthly Visitors</label>
+                                <input type="number" id="site2_visitors" value="120000">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>C1: Payment Plans</label>
+                                <input type="number" id="site2_c1" value="22.1" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C2: Guarantee</label>
+                                <input type="number" id="site2_c2" value="14.5" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C3: Journey</label>
+                                <input type="number" id="site2_c3" value="9.2" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C4: Testimonials</label>
+                                <input type="number" id="site2_c4" value="8.7" step="0.1">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>C5: Calculator</label>
+                                <input type="number" id="site2_c5" value="12.3" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C6: Comparison</label>
+                                <input type="number" id="site2_c6" value="5.8" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C7: Social Proof</label>
+                                <input type="number" id="site2_c7" value="4.1" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C8: Trust</label>
+                                <input type="number" id="site2_c8" value="11.2" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Site 3 -->
+                    <div class="card" style="background: var(--mv-bg-light); margin-bottom: 16px;">
+                        <h4 style="margin-bottom: 16px;">Site 3: lifebook.com</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Baseline CR (%)</label>
+                                <input type="number" id="site3_baseline" value="3.2" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Monthly Visitors</label>
+                                <input type="number" id="site3_visitors" value="85000">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>C1: Payment Plans</label>
+                                <input type="number" id="site3_c1" value="16.8" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C2: Guarantee</label>
+                                <input type="number" id="site3_c2" value="9.3" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C3: Journey</label>
+                                <input type="number" id="site3_c3" value="5.5" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C4: Testimonials</label>
+                                <input type="number" id="site3_c4" value="4.2" step="0.1">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>C5: Calculator</label>
+                                <input type="number" id="site3_c5" value="8.7" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C6: Comparison</label>
+                                <input type="number" id="site3_c6" value="10.2" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C7: Social Proof</label>
+                                <input type="number" id="site3_c7" value="7.8" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>C8: Trust</label>
+                                <input type="number" id="site3_c8" value="8.5" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 24px; display: flex; gap: 16px;">
+                    <button class="btn" onclick="runModel()">Run Hierarchical Model</button>
+                    <button class="btn btn-secondary" onclick="addSite()">+ Add Another Site</button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="model-results">
+                <div class="card" style="margin-top: 32px;">
+                    <h3>Model Results: Component Rankings</h3>
+                    <p style="color: var(--mv-text-secondary); margin-bottom: 24px;">Components ranked by probability of positive effect × expected lift magnitude</p>
+
+                    <table class="results-table" id="rankings-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Component</th>
+                                <th>True Effect (μ<sub>j</sub>)</th>
+                                <th>90% Credible Interval</th>
+                                <th>P(Positive)</th>
+                                <th>Consistency</th>
+                                <th>Recommendation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rankings-body">
+                            <!-- Filled by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid-3" style="margin-top: 32px;">
+                    <div class="metric-card">
+                        <div class="metric-value" id="metric-winner">C1</div>
+                        <div class="metric-label">Top Performing Component</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="metric-combined">+23.5%</div>
+                        <div class="metric-label">Projected Combined Lift</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="metric-confidence">94%</div>
+                        <div class="metric-label">Model Confidence</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 32px;">
+                    <h3>Site-Component Interaction Analysis</h3>
+                    <p style="color: var(--mv-text-secondary); margin-bottom: 24px;">Which components show consistent vs. variable performance across sites</p>
+
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="color: var(--mv-success);">Universally Effective (Low Variance)</h4>
+                            <p style="color: var(--mv-text-secondary); font-size: 0.95rem;">These components work consistently across all sites — implement everywhere with confidence:</p>
+                            <ul id="universal-list" style="margin-top: 12px; margin-left: 20px; color: var(--mv-text-secondary);">
+                                <!-- Filled by JS -->
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--mv-warning);">Site-Dependent (High Variance)</h4>
+                            <p style="color: var(--mv-text-secondary); font-size: 0.95rem;">These components perform differently per site — test locally before full rollout:</p>
+                            <ul id="variable-list" style="margin-top: 12px; margin-left: 20px; color: var(--mv-text-secondary);">
+                                <!-- Filled by JS -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Implementation Code -->
+        <section>
+            <div class="section-header">
+                <h2 class="mv-type--headline3">Python Implementation</h2>
+                <p>Production-ready code using PyMC for Bayesian inference</p>
+            </div>
+
+            <div class="card">
+                <h3>Full Model Implementation</h3>
+                <div class="code-block">
+                    <pre><span class="code-comment"># Multi-Site A/B Testing Hierarchical Bayesian Model</span>
+<span class="code-comment"># Requires: pip install pymc arviz pandas numpy</span>
+
+<span class="code-keyword">import</span> pymc <span class="code-keyword">as</span> pm
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> arviz <span class="code-keyword">as</span> az
+
+<span class="code-keyword">def</span> <span class="code-function">build_hierarchical_model</span>(data):
+    <span class="code-string">"""
+    Build hierarchical Bayesian model for multi-site A/B testing.
+
+    Parameters:
+    -----------
+    data : pd.DataFrame
+        Columns: site_id, component_id, visitors, conversions,
+                 control_visitors, control_conversions
+
+    Returns:
+    --------
+    PyMC model and trace
+    """</span>
+
+    <span class="code-comment"># Extract dimensions</span>
+    n_sites = data[<span class="code-string">'site_id'</span>].nunique()
+    n_components = data[<span class="code-string">'component_id'</span>].nunique()
+
+    <span class="code-comment"># Calculate observed lift for each test</span>
+    data[<span class="code-string">'treatment_cr'</span>] = data[<span class="code-string">'conversions'</span>] / data[<span class="code-string">'visitors'</span>]
+    data[<span class="code-string">'control_cr'</span>] = data[<span class="code-string">'control_conversions'</span>] / data[<span class="code-string">'control_visitors'</span>]
+    data[<span class="code-string">'observed_lift'</span>] = (data[<span class="code-string">'treatment_cr'</span>] - data[<span class="code-string">'control_cr'</span>]) / data[<span class="code-string">'control_cr'</span>]
+
+    <span class="code-comment"># Standard error of lift (delta method approximation)</span>
+    data[<span class="code-string">'se_lift'</span>] = np.sqrt(
+        (data[<span class="code-string">'treatment_cr'</span>] * (<span class="code-number">1</span> - data[<span class="code-string">'treatment_cr'</span>])) / data[<span class="code-string">'visitors'</span>] +
+        (data[<span class="code-string">'control_cr'</span>] * (<span class="code-number">1</span> - data[<span class="code-string">'control_cr'</span>])) / data[<span class="code-string">'control_visitors'</span>]
+    ) / data[<span class="code-string">'control_cr'</span>]
+
+    <span class="code-comment"># Index variables</span>
+    site_idx = data[<span class="code-string">'site_id'</span>].factorize()[<span class="code-number">0</span>]
+    comp_idx = data[<span class="code-string">'component_id'</span>].factorize()[<span class="code-number">0</span>]
+
+    <span class="code-keyword">with</span> pm.Model() <span class="code-keyword">as</span> model:
+        <span class="code-comment"># === HYPERPRIORS ===</span>
+        <span class="code-comment"># Population mean of component effects</span>
+        mu_overall = pm.Normal(<span class="code-string">'mu_overall'</span>, mu=<span class="code-number">0.10</span>, sigma=<span class="code-number">0.05</span>)
+
+        <span class="code-comment"># Variance of component effects</span>
+        tau = pm.HalfNormal(<span class="code-string">'tau'</span>, sigma=<span class="code-number">0.10</span>)
+
+        <span class="code-comment"># Variance of site effects</span>
+        sigma_site = pm.HalfNormal(<span class="code-string">'sigma_site'</span>, sigma=<span class="code-number">0.05</span>)
+
+        <span class="code-comment"># Variance of interactions</span>
+        sigma_interaction = pm.HalfNormal(<span class="code-string">'sigma_interaction'</span>, sigma=<span class="code-number">0.03</span>)
+
+        <span class="code-comment"># === COMPONENT EFFECTS ===</span>
+        <span class="code-comment"># True underlying effect for each component</span>
+        mu_component = pm.Normal(
+            <span class="code-string">'mu_component'</span>,
+            mu=mu_overall,
+            sigma=tau,
+            shape=n_components
+        )
+
+        <span class="code-comment"># === SITE EFFECTS ===</span>
+        <span class="code-comment"># Site-specific baseline adjustment</span>
+        alpha_site = pm.Normal(
+            <span class="code-string">'alpha_site'</span>,
+            mu=<span class="code-number">0</span>,
+            sigma=sigma_site,
+            shape=n_sites
+        )
+
+        <span class="code-comment"># === INTERACTION EFFECTS ===</span>
+        <span class="code-comment"># Component x Site interaction</span>
+        beta_interaction = pm.Normal(
+            <span class="code-string">'beta_interaction'</span>,
+            mu=<span class="code-number">0</span>,
+            sigma=sigma_interaction,
+            shape=(n_sites, n_components)
+        )
+
+        <span class="code-comment"># === EXPECTED LIFT ===</span>
+        expected_lift = (
+            mu_component[comp_idx] +
+            alpha_site[site_idx] +
+            beta_interaction[site_idx, comp_idx]
+        )
+
+        <span class="code-comment"># === LIKELIHOOD ===</span>
+        <span class="code-comment"># Observed lift ~ Normal(expected, measurement_error)</span>
+        y_obs = pm.Normal(
+            <span class="code-string">'y_obs'</span>,
+            mu=expected_lift,
+            sigma=data[<span class="code-string">'se_lift'</span>].values,
+            observed=data[<span class="code-string">'observed_lift'</span>].values
+        )
+
+        <span class="code-comment"># === INFERENCE ===</span>
+        trace = pm.sample(
+            <span class="code-number">2000</span>,
+            tune=<span class="code-number">1000</span>,
+            chains=<span class="code-number">4</span>,
+            return_inferencedata=<span class="code-keyword">True</span>,
+            target_accept=<span class="code-number">0.95</span>
+        )
+
+    <span class="code-keyword">return</span> model, trace
+
+
+<span class="code-keyword">def</span> <span class="code-function">analyze_results</span>(trace, component_names):
+    <span class="code-string">"""
+    Extract rankings and recommendations from model results.
+    """</span>
+    <span class="code-comment"># Get posterior samples for component effects</span>
+    mu_samples = trace.posterior[<span class="code-string">'mu_component'</span>].values
+    mu_samples = mu_samples.reshape(-<span class="code-number">1</span>, mu_samples.shape[-<span class="code-number">1</span>])
+
+    results = []
+    <span class="code-keyword">for</span> i, name <span class="code-keyword">in</span> enumerate(component_names):
+        samples = mu_samples[:, i]
+        results.append({
+            <span class="code-string">'component'</span>: name,
+            <span class="code-string">'mean_effect'</span>: np.mean(samples),
+            <span class="code-string">'ci_low'</span>: np.percentile(samples, <span class="code-number">5</span>),
+            <span class="code-string">'ci_high'</span>: np.percentile(samples, <span class="code-number">95</span>),
+            <span class="code-string">'prob_positive'</span>: np.mean(samples > <span class="code-number">0</span>),
+            <span class="code-string">'std'</span>: np.std(samples)
+        })
+
+    df = pd.DataFrame(results)
+    df[<span class="code-string">'score'</span>] = df[<span class="code-string">'prob_positive'</span>] * df[<span class="code-string">'mean_effect'</span>]
+    df = df.sort_values(<span class="code-string">'score'</span>, ascending=<span class="code-keyword">False</span>)
+
+    <span class="code-keyword">return</span> df
+
+
+<span class="code-comment"># === USAGE EXAMPLE ===</span>
+<span class="code-keyword">if</span> __name__ == <span class="code-string">"__main__"</span>:
+    <span class="code-comment"># Sample data structure</span>
+    data = pd.DataFrame({
+        <span class="code-string">'site_id'</span>: [<span class="code-string">'mv'</span>, <span class="code-string">'mv'</span>, <span class="code-string">'sr'</span>, <span class="code-string">'sr'</span>, <span class="code-string">'lb'</span>, <span class="code-string">'lb'</span>],
+        <span class="code-string">'component_id'</span>: [<span class="code-string">'payment'</span>, <span class="code-string">'guarantee'</span>, <span class="code-string">'payment'</span>, <span class="code-string">'guarantee'</span>, <span class="code-string">'payment'</span>, <span class="code-string">'guarantee'</span>],
+        <span class="code-string">'visitors'</span>: [<span class="code-number">50000</span>, <span class="code-number">50000</span>, <span class="code-number">30000</span>, <span class="code-number">30000</span>, <span class="code-number">20000</span>, <span class="code-number">20000</span>],
+        <span class="code-string">'conversions'</span>: [<span class="code-number">1480</span>, <span class="code-number">1390</span>, <span class="code-number">660</span>, <span class="code-number">620</span>, <span class="code-number">740</span>, <span class="code-number">700</span>],
+        <span class="code-string">'control_visitors'</span>: [<span class="code-number">50000</span>, <span class="code-number">50000</span>, <span class="code-number">30000</span>, <span class="code-number">30000</span>, <span class="code-number">20000</span>, <span class="code-number">20000</span>],
+        <span class="code-string">'control_conversions'</span>: [<span class="code-number">1250</span>, <span class="code-number">1250</span>, <span class="code-number">540</span>, <span class="code-number">540</span>, <span class="code-number">640</span>, <span class="code-number">640</span>]
+    })
+
+    model, trace = build_hierarchical_model(data)
+    results = analyze_results(trace, [<span class="code-string">'payment'</span>, <span class="code-string">'guarantee'</span>])
+    <span class="code-keyword">print</span>(results)</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Key Insights -->
+        <section>
+            <div class="section-header">
+                <h2 class="mv-type--headline3">Key Model Insights</h2>
+                <p>What the hierarchical approach tells us that simple averages can't</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h4>Shrinkage Effect</h4>
+                    <p style="color: var(--mv-text-secondary);">Extreme results from small sites get "pulled toward" the overall mean. A +50% lift from a 1,000-visitor site gets appropriately discounted, while the same result from a 100,000-visitor site is trusted more.</p>
+                </div>
+                <div class="card">
+                    <h4>Borrowing Strength</h4>
+                    <p style="color: var(--mv-text-secondary);">Even if Site C only tested 3 components, it benefits from data on all 8 components from Sites A and B. The model "borrows" information across sites to make better estimates everywhere.</p>
+                </div>
+                <div class="card">
+                    <h4>Uncertainty Quantification</h4>
+                    <p style="color: var(--mv-text-secondary);">Instead of "Component 1 lifts 18%", we get "Component 1 has 94% probability of lifting between 12-24%". This enables better decision-making under uncertainty.</p>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 24px;">
+                <h3>When to Use This Model</h3>
+                <div class="grid-2">
+                    <div>
+                        <h4 style="color: var(--mv-success);">Good Fit</h4>
+                        <ul style="margin-top: 12px; margin-left: 20px; color: var(--mv-text-secondary);">
+                            <li>Testing same components across 3+ sites</li>
+                            <li>Sites have different baseline conversion rates</li>
+                            <li>Some tests have small sample sizes</li>
+                            <li>You want to predict performance on new sites</li>
+                            <li>Need probability estimates, not just point estimates</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--mv-danger);">Not Ideal</h4>
+                        <ul style="margin-top: 12px; margin-left: 20px; color: var(--mv-text-secondary);">
+                            <li>Testing only on a single site</li>
+                            <li>Components are site-specific (can't be replicated)</li>
+                            <li>All sites have identical audiences</li>
+                            <li>You need results in real-time (model needs batch data)</li>
+                            <li>Sample sizes are very large (simple t-tests suffice)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer style="background: var(--mv-bg-light); padding: 60px 20px; text-align: center; border-top: 1px solid var(--mv-border);">
+        <div style="font-size: 1.5rem; font-weight: 800; color: var(--mv-purple); margin-bottom: 16px;">MINDVALLEY</div>
+        <p style="color: var(--mv-text-tertiary);">Multi-Site A/B Testing Model v1.0<br>Built for data-driven optimization decisions</p>
+    </footer>
+
+    <script>
+        // Component names mapping
+        const componentNames = {
+            1: 'Payment Plans',
+            2: 'Enhanced Guarantee',
+            3: 'Onboarding Journey',
+            4: 'Outcome Testimonials',
+            5: 'Value Calculator',
+            6: 'Comparison Table',
+            7: 'Social Proof Popup',
+            8: 'Trust Section'
+        };
+
+        let siteCount = 3;
+
+        function addSite() {
+            siteCount++;
+            const container = document.getElementById('data-entry');
+            const newSite = document.createElement('div');
+            newSite.className = 'card';
+            newSite.style.background = 'var(--mv-bg-light)';
+            newSite.style.marginBottom = '16px';
+            newSite.innerHTML = `
+                <h4 style="margin-bottom: 16px;">Site ${siteCount}: newsite${siteCount}.com</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Baseline CR (%)</label>
+                        <input type="number" id="site${siteCount}_baseline" value="2.0" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label>Monthly Visitors</label>
+                        <input type="number" id="site${siteCount}_visitors" value="50000">
+                    </div>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--mv-text-tertiary); margin-bottom: 12px;">Component Lift (%):</p>
+                <div class="form-row">
+                    <div class="form-group"><label>C1</label><input type="number" id="site${siteCount}_c1" step="0.1"></div>
+                    <div class="form-group"><label>C2</label><input type="number" id="site${siteCount}_c2" step="0.1"></div>
+                    <div class="form-group"><label>C3</label><input type="number" id="site${siteCount}_c3" step="0.1"></div>
+                    <div class="form-group"><label>C4</label><input type="number" id="site${siteCount}_c4" step="0.1"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>C5</label><input type="number" id="site${siteCount}_c5" step="0.1"></div>
+                    <div class="form-group"><label>C6</label><input type="number" id="site${siteCount}_c6" step="0.1"></div>
+                    <div class="form-group"><label>C7</label><input type="number" id="site${siteCount}_c7" step="0.1"></div>
+                    <div class="form-group"><label>C8</label><input type="number" id="site${siteCount}_c8" step="0.1"></div>
+                </div>
+            `;
+            container.appendChild(newSite);
+        }
+
+        function runModel() {
+            // Collect data from all sites
+            const data = [];
+            for (let s = 1; s <= siteCount; s++) {
+                const baseline = parseFloat(document.getElementById(`site${s}_baseline`)?.value) || 0;
+                const visitors = parseInt(document.getElementById(`site${s}_visitors`)?.value) || 0;
+
+                for (let c = 1; c <= 8; c++) {
+                    const lift = parseFloat(document.getElementById(`site${s}_c${c}`)?.value);
+                    if (!isNaN(lift)) {
+                        data.push({
+                            site: s,
+                            component: c,
+                            lift: lift,
+                            baseline: baseline,
+                            visitors: visitors
+                        });
+                    }
+                }
+            }
+
+            // Simplified hierarchical model calculation (JavaScript approximation)
+            // In production, this would call a Python backend with PyMC
+            const componentResults = {};
+            for (let c = 1; c <= 8; c++) {
+                const componentData = data.filter(d => d.component === c);
+                if (componentData.length > 0) {
+                    // Weight by visitors (more data = more weight)
+                    const totalWeight = componentData.reduce((sum, d) => sum + d.visitors, 0);
+                    const weightedMean = componentData.reduce((sum, d) => sum + d.lift * d.visitors, 0) / totalWeight;
+
+                    // Calculate variance across sites
+                    const variance = componentData.reduce((sum, d) => sum + Math.pow(d.lift - weightedMean, 2), 0) / componentData.length;
+                    const std = Math.sqrt(variance);
+
+                    // Shrinkage toward overall mean (Bayesian regularization approximation)
+                    const overallMean = 9.5; // Prior expectation ~9.5% lift
+                    const shrinkageFactor = componentData.length / (componentData.length + 2); // More data = less shrinkage
+                    const shrunkMean = shrinkageFactor * weightedMean + (1 - shrinkageFactor) * overallMean;
+
+                    // Calculate probability of positive effect
+                    const se = std / Math.sqrt(componentData.length);
+                    const zScore = shrunkMean / (se + 0.01);
+                    const probPositive = 0.5 + 0.5 * erf(zScore / Math.sqrt(2));
+
+                    componentResults[c] = {
+                        name: componentNames[c],
+                        mean: shrunkMean,
+                        ciLow: shrunkMean - 1.645 * se,
+                        ciHigh: shrunkMean + 1.645 * se,
+                        probPositive: probPositive,
+                        variance: variance,
+                        consistency: variance < 10 ? 'High' : variance < 25 ? 'Medium' : 'Low',
+                        score: probPositive * shrunkMean
+                    };
+                }
+            }
+
+            // Sort by score
+            const sorted = Object.entries(componentResults)
+                .sort((a, b) => b[1].score - a[1].score)
+                .map(([id, data], rank) => ({ id, ...data, rank: rank + 1 }));
+
+            // Render results
+            renderResults(sorted);
+            document.getElementById('model-results').style.display = 'block';
+            document.getElementById('model-results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderResults(results) {
+            const tbody = document.getElementById('rankings-body');
+            tbody.innerHTML = '';
+
+            results.forEach((r, i) => {
+                const scoreClass = r.probPositive > 0.9 ? 'score-high' : r.probPositive > 0.7 ? 'score-medium' : 'score-low';
+                const recommendation = r.probPositive > 0.9 ? 'Implement Now' : r.probPositive > 0.7 ? 'Test Further' : 'Deprioritize';
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${r.rank}</strong></td>
+                        <td>${r.name} ${i === 0 ? '<span class="winner-badge">Winner</span>' : ''}</td>
+                        <td><span class="${scoreClass}">+${r.mean.toFixed(1)}%</span></td>
+                        <td>[${r.ciLow.toFixed(1)}%, ${r.ciHigh.toFixed(1)}%]</td>
+                        <td>${(r.probPositive * 100).toFixed(0)}%</td>
+                        <td>${r.consistency}</td>
+                        <td><strong>${recommendation}</strong></td>
+                    </tr>
+                `;
+            });
+
+            // Update metrics
+            document.getElementById('metric-winner').textContent = results[0].name.split(' ')[0];
+
+            // Calculate combined lift (top 3 components, accounting for diminishing returns)
+            const combinedLift = results.slice(0, 3).reduce((sum, r, i) => sum + r.mean * Math.pow(0.8, i), 0);
+            document.getElementById('metric-combined').textContent = `+${combinedLift.toFixed(1)}%`;
+
+            // Average confidence of top 3
+            const avgConfidence = results.slice(0, 3).reduce((sum, r) => sum + r.probPositive, 0) / 3;
+            document.getElementById('metric-confidence').textContent = `${(avgConfidence * 100).toFixed(0)}%`;
+
+            // Universal vs Variable lists
+            const universalList = document.getElementById('universal-list');
+            const variableList = document.getElementById('variable-list');
+            universalList.innerHTML = '';
+            variableList.innerHTML = '';
+
+            results.forEach(r => {
+                if (r.consistency === 'High') {
+                    universalList.innerHTML += `<li><strong>${r.name}</strong> — works consistently (+${r.mean.toFixed(1)}% avg)</li>`;
+                } else {
+                    variableList.innerHTML += `<li><strong>${r.name}</strong> — varies by site (${r.consistency} consistency)</li>`;
+                }
+            });
+        }
+
+        // Error function approximation for probability calculation
+        function erf(x) {
+            const a1 =  0.254829592;
+            const a2 = -0.284496736;
+            const a3 =  1.421413741;
+            const a4 = -1.453152027;
+            const a5 =  1.061405429;
+            const p  =  0.3275911;
+
+            const sign = x < 0 ? -1 : 1;
+            x = Math.abs(x);
+
+            const t = 1.0 / (1.0 + p * x);
+            const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+
+            return sign * y;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiritual Summit Day 1 - Key Findings Summary</title>
+    <link rel="stylesheet" href="../../mv-selfreset-base.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+        }
+
+        /* Password protection overlay */
+        .password-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 19, 26, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .password-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        /* Hero section */
+        .hero {
+            background: linear-gradient(135deg, #7a12d4 0%, #5b0ea6 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            margin: 0;
+        }
+
+        /* Critical alert banner */
+        .critical-alert {
+            background: rgba(201, 42, 42, 0.1);
+            border-left: 6px solid #c92a2a;
+        }
+
+        .critical-alert h2 {
+            color: #c92a2a;
+            margin-bottom: 1rem;
+        }
+
+        .critical-alert p {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Dashboard stats grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            background: #fafafa;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card.highlight {
+            border-color: #7a12d4;
+            background: linear-gradient(135deg, rgba(122, 18, 212, 0.05) 0%, rgba(122, 18, 212, 0.02) 100%);
+        }
+
+        .stat-card.critical {
+            border-color: #c92a2a;
+            background: rgba(201, 42, 42, 0.05);
+        }
+
+        .stat-card.success {
+            border-color: #2b8a3e;
+            background: rgba(43, 138, 62, 0.05);
+        }
+
+        .stat-label {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #343a40;
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-value {
+            font-family: Grotesk-Bold-16, sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+            line-height: 1;
+        }
+
+        .stat-value.purple { color: #7a12d4; }
+        .stat-value.red { color: #c92a2a; }
+        .stat-value.green { color: #2b8a3e; }
+        .stat-value.orange { color: #fd7e14; }
+        .stat-value.gold { color: #ffc107; }
+
+        .stat-description {
+            font-size: 0.875rem;
+            color: #495057;
+            margin-top: 0.5rem;
+        }
+
+        /* Section headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-header .icon {
+            font-size: 2.5rem;
+        }
+
+        /* Rankings table */
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .ranking-table th,
+        .ranking-table td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .ranking-table th {
+            background: #7a12d4;
+            color: white;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ranking-table .rank {
+            font-family: Grotesk-Bold-16, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #7a12d4;
+            width: 60px;
+        }
+
+        .ranking-table .rating {
+            font-family: Grotesk-Bold, sans-serif;
+            font-weight: 700;
+            color: #ffc107;
+        }
+
+        .ranking-table .last-place {
+            background: rgba(201, 42, 42, 0.08);
+        }
+
+        .ranking-table .last-place td {
+            font-family: Grotesk-Bold, sans-serif;
+        }
+
+        /* Highlight grid */
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.25rem;
+            margin: 2rem 0;
+        }
+
+        .highlight-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #7a12d4;
+        }
+
+        .highlight-item .name {
+            font-family: Grotesk-Bold, sans-serif;
+            color: #7a12d4;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .highlight-item .count {
+            font-family: Grotesk-Bold-16, sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0f131a;
+            line-height: 1;
+        }
+
+        .highlight-item.critical {
+            border-left-color: #c92a2a;
+            background: rgba(201, 42, 42, 0.05);
+        }
+
+        .highlight-item.critical .name {
+            color: #c92a2a;
+        }
+
+        .highlight-item.critical .count {
+            color: #c92a2a;
+        }
+
+        /* Recommendations list */
+        .recommendations-list {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+
+        .recommendations-list li {
+            background: white;
+            padding: 1.75rem;
+            margin: 1.25rem 0;
+            border-radius: 8px;
+            border-left: 4px solid #2b8a3e;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .rec-title {
+            font-family: Grotesk-Bold, sans-serif;
+            color: #2b8a3e;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .rec-description {
+            color: #495057;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Theme boxes */
+        .theme-box {
+            background: white;
+            padding: 1.75rem;
+            margin: 1.25rem 0;
+            border-radius: 8px;
+            border-left: 4px solid #7a12d4;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .theme-box h3 {
+            color: #7a12d4;
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+        }
+
+        .theme-box p {
+            margin-bottom: 0.75rem;
+        }
+
+        .theme-box .quote {
+            font-style: italic;
+            color: #6c757d;
+            margin-top: 1rem;
+            padding-left: 1rem;
+            border-left: 3px solid #dee2e6;
+        }
+
+        /* Red flags box */
+        .red-flags-box {
+            background: rgba(201, 42, 42, 0.05);
+            border: 2px solid #c92a2a;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .red-flags-box h3 {
+            color: #c92a2a;
+            margin-bottom: 1rem;
+        }
+
+        .flag-item {
+            background: white;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+            font-style: italic;
+        }
+
+        .flag-note {
+            font-family: Grotesk-Bold, sans-serif;
+            margin-top: 1rem;
+        }
+
+        /* Success metrics box */
+        .metrics-box {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #7a12d4;
+        }
+
+        .metrics-box p {
+            font-family: Grotesk-Bold, sans-serif;
+            margin-bottom: 1.25rem;
+        }
+
+        .metrics-box ul {
+            margin-left: 1.5rem;
+            line-height: 2;
+        }
+
+        .metrics-box li strong {
+            color: #7a12d4;
+        }
+
+        /* Action section */
+        .action-section {
+            background: linear-gradient(135deg, #7a12d4 0%, #5b0ea6 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .action-section h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .action-section p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin: 1.25rem 0;
+            color: white;
+        }
+
+        .action-section strong {
+            display: block;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.375rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(255, 255, 255, 0.3);
+            line-height: 1.6;
+        }
+
+        .action-section .footnote {
+            font-size: 1rem;
+            border-top: 2px solid rgba(255, 255, 255, 0.3);
+            padding-top: 1.75rem;
+            margin-top: 2rem;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-value {
+                font-size: 2.5rem;
+            }
+
+            .highlight-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+    (function() {
+        const correctPassword = 'vibrant-eternal';
+        const maxAttempts = 3;
+        let attempts = 0;
+
+        if (sessionStorage.getItem('authenticated_key_findings_mv') === 'true') {
+            return;
+        }
+
+        document.body.style.display = 'none';
+
+        function checkPassword() {
+            const password = prompt('Enter password to view this page:');
+
+            if (password === null) {
+                document.body.innerHTML = '<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h1>Access Denied</h1><p>Password required to view this content.</p></div>';
+                document.body.style.display = 'block';
+                return;
+            }
+
+            if (password === correctPassword) {
+                sessionStorage.setItem('authenticated_key_findings_mv', 'true');
+                document.body.style.display = 'block';
+            } else {
+                attempts++;
+                if (attempts >= maxAttempts) {
+                    alert('Maximum attempts exceeded. Please refresh the page to try again.');
+                    document.body.innerHTML = '<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h1>Access Denied</h1><p>Maximum password attempts exceeded.</p></div>';
+                    document.body.style.display = 'block';
+                } else {
+                    alert(`Incorrect password. ${maxAttempts - attempts} attempt(s) remaining.`);
+                    checkPassword();
+                }
+            }
+        }
+
+        checkPassword();
+    })();
+    </script>
+
+    <!-- Hero Section -->
+    <section class="hero" style="padding: 5rem 0 4rem 0;">
+        <div class="mv-container">
+            <h1 class="mv-type--headline1">Spiritual Summit Day 1<br>Key Findings Summary</h1>
+            <p>Executive Dashboard for Team Review</p>
+        </div>
+    </section>
+
+    <!-- Critical Alert -->
+    <section class="critical-alert" style="padding: 2.5rem 0;">
+        <div class="mv-container">
+            <h2 class="mv-type--headline3">CRITICAL FINDING</h2>
+            <p><strong>"Intro to Spiritual Mastery" ranked LAST of all 7 sessions</strong> with a 4.38/5.00 rating and only 2 highlight mentions out of 1,466 responses. The pitch was essentially invisible in attendees' memories and received one explicit negative comment about being "just a sales pitch for the $4k program."</p>
+        </div>
+    </section>
+
+    <!-- Dashboard Stats -->
+    <section style="padding: 4rem 0; background: #fafafa;">
+        <div class="mv-container">
+            <div class="dashboard-grid">
+                <div class="stat-card highlight">
+                    <div class="stat-label">Total Responses</div>
+                    <div class="stat-value purple">1,466</div>
+                    <div class="stat-description">Day 1 Survey</div>
+                </div>
+
+                <div class="stat-card success">
+                    <div class="stat-label">Event Satisfaction</div>
+                    <div class="stat-value green">4.70</div>
+                    <div class="stat-description">Out of 5.00</div>
+                </div>
+
+                <div class="stat-card success">
+                    <div class="stat-label">Overall NPS</div>
+                    <div class="stat-value green">9.11</div>
+                    <div class="stat-description">Out of 10.00</div>
+                </div>
+
+                <div class="stat-card critical">
+                    <div class="stat-label">Spiritual Mastery Rank</div>
+                    <div class="stat-value red">7th</div>
+                    <div class="stat-description">Out of 7 Sessions</div>
+                </div>
+
+                <div class="stat-card critical">
+                    <div class="stat-label">Session Rating</div>
+                    <div class="stat-value orange">4.38</div>
+                    <div class="stat-description">Below Average</div>
+                </div>
+
+                <div class="stat-card critical">
+                    <div class="stat-label">Highlight Mentions</div>
+                    <div class="stat-value red">2</div>
+                    <div class="stat-description">Forgettable Impact</div>
+                </div>
+
+                <div class="stat-card critical">
+                    <div class="stat-label">Gap vs Quantum Jump</div>
+                    <div class="stat-value red">-0.25</div>
+                    <div class="stat-description">Significant Drop</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Quantum Jumping Rating</div>
+                    <div class="stat-value gold">4.63</div>
+                    <div class="stat-description">Vishen's Win</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Session Rankings -->
+    <section style="padding: 5rem 0;">
+        <div class="mv-container">
+            <div class="section-header">
+                <span class="icon">📊</span>
+                <h2 class="mv-type--headline2" style="margin: 0;">Session Rankings</h2>
+            </div>
+
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Session</th>
+                        <th>Speaker</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="rank">1</td>
+                        <td>Truth Frequency Activation</td>
+                        <td>Regan Hillyer</td>
+                        <td class="rating">4.68</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">2</td>
+                        <td>Qi Gong: Power & Purpose</td>
+                        <td>Lee Holden</td>
+                        <td class="rating">4.68</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">3</td>
+                        <td>Quantum Jumping</td>
+                        <td>Vishen</td>
+                        <td class="rating">4.63</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">4</td>
+                        <td>Feng Shui for Flow</td>
+                        <td>Marie Diamond</td>
+                        <td class="rating">4.53</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">5</td>
+                        <td>Shaolin Inner Power</td>
+                        <td>Shi Heng Yi</td>
+                        <td class="rating">4.51</td>
+                    </tr>
+                    <tr>
+                        <td class="rank">6</td>
+                        <td>Q&A Session</td>
+                        <td>Vishen</td>
+                        <td class="rating">4.50</td>
+                    </tr>
+                    <tr class="last-place">
+                        <td class="rank">7</td>
+                        <td><strong>Intro to Spiritual Mastery</strong></td>
+                        <td>Vishen</td>
+                        <td class="rating">4.38</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Highlight Mentions -->
+    <section style="padding: 5rem 0; background: #fafafa;">
+        <div class="mv-container">
+            <div class="section-header">
+                <span class="icon">💫</span>
+                <h2 class="mv-type--headline2" style="margin: 0;">Highlight Mentions</h2>
+            </div>
+            <p style="margin-bottom: 2rem;">What attendees remembered when asked: "What was the highlight of the event for you?"</p>
+
+            <div class="highlight-grid">
+                <div class="highlight-item">
+                    <div class="name">Regan's Activation</div>
+                    <div class="count">332</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="name">Lee's Qi Gong</div>
+                    <div class="count">250</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="name">Shi Heng Yi's Shaolin</div>
+                    <div class="count">217</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="name">Vishen (general)</div>
+                    <div class="count">163</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="name">Quantum Jumping</div>
+                    <div class="count">147</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="name">Marie's Feng Shui</div>
+                    <div class="count">131</div>
+                </div>
+                <div class="highlight-item critical">
+                    <div class="name">Spiritual Mastery</div>
+                    <div class="count">2</div>
+                </div>
+            </div>
+
+            <p style="margin-top: 2rem; font-family: Grotesk-Bold, sans-serif; color: #c92a2a;">Translation: The Spiritual Mastery pitch was invisible in attendees' memories compared to experiential sessions.</p>
+        </div>
+    </section>
+
+    <!-- Top 5 Recommendations -->
+    <section style="padding: 5rem 0;">
+        <div class="mv-container">
+            <div class="section-header">
+                <span class="icon">🎯</span>
+                <h2 class="mv-type--headline2" style="margin: 0;">Top 5 Recommendations</h2>
+            </div>
+            <p style="margin-bottom: 2rem;">Priority order based on data patterns and expected impact</p>
+
+            <ul class="recommendations-list">
+                <li>
+                    <div class="rec-title">1. Transform Pitch into Mini-Experience</div>
+                    <p class="rec-description">Give a 5-minute "Sovereignty Activation" practice from Month 1. Let attendees FEEL what mastery is rather than explaining it. Matches the event's #1 pattern: experiential > informational.</p>
+                </li>
+                <li>
+                    <div class="rec-title">2. Lead with "Why Now" Story</div>
+                    <p class="rec-description">Open with recent personal vulnerability about why Vishen created this NOW. Remove guru pedestal with "I needed this too" messaging. Mirrors Regan's storytelling success.</p>
+                </li>
+                <li>
+                    <div class="rec-title">3. Reframe as "Path Recognition" Not Sales</div>
+                    <p class="rec-description">Help people recognize if they're on "Spiritual Awareness" (learning/collecting) vs. "Spiritual Mastery" (embodiment) path. Self-selection > FOMO pressure.</p>
+                </li>
+                <li>
+                    <div class="rec-title">4. Give One Free Practice</div>
+                    <p class="rec-description">Share "3-Minute Coherence Reset" - try for 7 days, then decide. Creates organic desire vs. scarcity urgency. Provides immediate practical value.</p>
+                </li>
+                <li>
+                    <div class="rec-title">5. Bridge from Quantum Jumping's Emotional High</div>
+                    <p class="rec-description">"Remember when you merged with your future self? That electrical feeling? Spiritual Mastery makes that your daily reality..." Anchor to the 4.63-rated session's momentum.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- What Actually Worked -->
+    <section style="padding: 5rem 0; background: #fafafa;">
+        <div class="mv-container">
+            <div class="section-header">
+                <span class="icon">✅</span>
+                <h2 class="mv-type--headline2" style="margin: 0;">What Actually Worked</h2>
+            </div>
+            <p style="margin-bottom: 2rem;">Top 5 resonance themes from 1,466 responses</p>
+
+            <div class="theme-box">
+                <h3 class="mv-type--headline5">1. Experiential Energy Work (19.3% of highlights)</h3>
+                <p>"I felt something" > "I learned something"</p>
+                <p class="quote">"When I merged with the other me it was very strong like an energy orgasm. It felt very powerful"</p>
+            </div>
+
+            <div class="theme-box">
+                <h3 class="mv-type--headline5">2. Practical Movement (17.3% mentioned Qi Gong)</h3>
+                <p>Attendees want tools they can USE immediately. Physical engagement = memorable value.</p>
+                <p class="quote">"I felt the energy in my hands with Lee"</p>
+            </div>
+
+            <div class="theme-box">
+                <h3 class="mv-type--headline5">3. Authenticity Messaging (10.7% mentioned truth/authentic self)</h3>
+                <p>"Coming home to yourself" resonated deeply. People want permission to BE, not BECOME someone new.</p>
+                <p class="quote">"Clarity in finally understanding what it means to 'come home to yourself'"</p>
+            </div>
+
+            <div class="theme-box">
+                <h3 class="mv-type--headline5">4. Vulnerable Storytelling</h3>
+                <p>Regan's Costa Rica crisis story got specific praise. Real life experience > theory. Removes guru pedestal.</p>
+            </div>
+
+            <div class="theme-box">
+                <h3 class="mv-type--headline5">5. Quantum Jumping Specifically (Vishen's Win)</h3>
+                <p>Future self visualization = emotional responses. Attendees used words: "Cried," "powerful," "phenomenal"</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Red Flags -->
+    <section style="padding: 5rem 0;">
+        <div class="mv-container">
+            <div class="section-header">
+                <span class="icon">🚨</span>
+                <h2 class="mv-type--headline2" style="margin: 0;">Red Flags from Direct Feedback</h2>
+            </div>
+
+            <div class="red-flags-box">
+                <h3 class="mv-type--headline5">Negative Sales Pitch Mention:</h3>
+                <div class="flag-item">
+                    "I only got to pop in for an hour and it was just a sales pitch by Vishen for the $4k program."
+                </div>
+            </div>
+
+            <div class="red-flags-box">
+                <h3 class="mv-type--headline5">Revealing Positive (showing what attendees expected):</h3>
+                <div class="flag-item">
+                    "Its the first summit I've attended where every session was fully informative and there were really meaningful activities that helped me right now, rather than it mostly seeming like a sales pitch." [5-star rating]
+                </div>
+                <p class="flag-note">Implication: Attendees NOTICED the event wasn't sales-heavy and LOVED it. The Spiritual Mastery intro may have triggered transactional expectations.</p>
+            </div>
+
+            <div class="red-flags-box">
+                <h3 class="mv-type--headline5">Repetition Complaint:</h3>
+                <div class="flag-item">
+                    "Shi Heng Yi, I was very excited to see him speaking live, and Regan's story. The rest was underwhelming, boring, a lot of repetition from Vishen" [1-star for Spiritual Mastery]
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Metrics -->
+    <section style="padding: 5rem 0; background: #fafafa;">
+        <div class="mv-container">
+            <div class="section-header">
+                <span class="icon">📈</span>
+                <h2 class="mv-type--headline2" style="margin: 0;">Success Metrics to Track</h2>
+            </div>
+
+            <div class="metrics-box">
+                <p>If adjustments work, expect to see in next survey:</p>
+                <ul>
+                    <li>Spiritual Mastery rating: <strong>4.50+</strong> (match Q&A session minimum)</li>
+                    <li>Highlight mentions: <strong>50+</strong> (vs. current 2)</li>
+                    <li>Sales perception mentions: <strong>0 negative</strong></li>
+                    <li>"Experienced something" language in feedback</li>
+                    <li>Comparison to Quantum Jumping: narrowed gap to <strong><0.10 points</strong></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Action Section -->
+    <section class="action-section" style="padding: 5rem 0;">
+        <div class="mv-container">
+            <h2 class="mv-type--headline2">THE CORE SHIFT REQUIRED</h2>
+            <p>The data reveals a clear gap: Vishen's experiential Quantum Jumping session created emotional resonance and memorable value (4.63 rating, 147 mentions), while the Spiritual Mastery pitch failed to register in attendees' memories (4.38 rating, 2 mentions).</p>
+
+            <p>The solution isn't to "pitch harder" - it's to transform the pitch into an experience that demonstrates the program's value rather than explaining it.</p>
+
+            <strong>TRANSFORMATION BEFORE TRANSACTION.<br>
+            TRANSMISSION BEFORE TEACHING.<br>
+            EXPERIENCE BEFORE ENROLLMENT.</strong>
+
+            <p class="footnote">Stop pitching. Start transmitting. Let attendees self-select based on resonance, not FOMO.</p>
+        </div>
+    </section>
+</body>
+</html>

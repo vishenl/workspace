@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Guide - Content Intro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Colors */
+      --white: #ffffff;
+      --white-90: rgba(255, 255, 255, 0.9);
+      --white-70: rgba(255, 255, 255, 0.7);
+      --white-50: rgba(255, 255, 255, 0.5);
+      --white-20: rgba(255, 255, 255, 0.2);
+      --black: #000000;
+      --black-40: rgba(0, 0, 0, 0.4);
+      --black-60: rgba(0, 0, 0, 0.6);
+
+      /* Category Colors */
+      --soul-purple: #9B6FF0;
+      --mind-blue: #4A90D9;
+      --body-green: #4CD964;
+      --career-orange: #FF9500;
+
+      /* Spacing */
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 12px;
+      --spacing-lg: 16px;
+      --spacing-xl: 20px;
+      --spacing-2xl: 24px;
+
+      /* Typography */
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      /* Transitions */
+      --transition-fast: 150ms ease;
+      --transition-medium: 250ms ease;
+      --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: var(--font-family);
+      background: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: var(--spacing-xl);
+    }
+
+    /* Phone Frame Container */
+    .phone-frame {
+      width: 375px;
+      height: 812px;
+      background: var(--black);
+      border-radius: 44px;
+      overflow: hidden;
+      position: relative;
+      box-shadow:
+        0 0 0 12px #1a1a1a,
+        0 0 0 14px #333,
+        0 50px 100px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Content Intro Card */
+    .content-intro {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background Image */
+    .bg-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      z-index: 1;
+    }
+
+    /* Top Gradient Overlay */
+    .gradient-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 140px;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.5) 0%,
+        rgba(0, 0, 0, 0.3) 40%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      z-index: 2;
+    }
+
+    /* Bottom Gradient Overlay */
+    .gradient-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 320px;
+      background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 0, 0, 0.7) 30%,
+        rgba(0, 0, 0, 0.3) 60%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      z-index: 2;
+    }
+
+    /* Top Controls */
+    .top-controls {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 60px var(--spacing-lg) var(--spacing-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      z-index: 10;
+    }
+
+    /* Category Badge - NEW */
+    .category-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      padding: 6px 12px;
+      background: var(--soul-purple);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform var(--transition-fast);
+    }
+
+    .category-badge:hover {
+      transform: scale(1.05);
+    }
+
+    .category-badge svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+
+    .icon-button {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--white-20);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--white-20);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .icon-button:hover {
+      background: var(--white-50);
+      transform: scale(1.08);
+    }
+
+    .icon-button:active {
+      transform: scale(0.95);
+    }
+
+    .icon-button.active {
+      background: var(--white);
+    }
+
+    .icon-button.active svg {
+      color: var(--black);
+    }
+
+    .icon-button svg {
+      width: 20px;
+      height: 20px;
+      color: var(--white);
+      transition: color var(--transition-fast);
+    }
+
+    /* Bottom Content */
+    .bottom-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: var(--spacing-xl);
+      padding-bottom: 40px;
+      z-index: 10;
+    }
+
+    /* Meta Info Row - NEW */
+    .meta-info {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: var(--white-70);
+      font-weight: 500;
+    }
+
+    .meta-item svg {
+      width: 16px;
+      height: 16px;
+      opacity: 0.8;
+    }
+
+    .meta-divider {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--white-50);
+    }
+
+    .meta-rating {
+      color: #FFD700;
+    }
+
+    /* Title */
+    .content-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: var(--spacing-sm);
+      letter-spacing: -0.3px;
+    }
+
+    /* Instructor Row */
+    .instructor-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .instructor-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--white-20);
+    }
+
+    .instructor-info {
+      flex: 1;
+    }
+
+    .instructor-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .instructor-title {
+      font-size: 12px;
+      color: var(--white-70);
+    }
+
+    /* Social Proof - NEW */
+    .social-proof {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      font-size: 12px;
+      color: var(--white-70);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .listener-avatars {
+      display: flex;
+      margin-right: var(--spacing-xs);
+    }
+
+    .listener-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--black);
+      margin-left: -8px;
+      object-fit: cover;
+    }
+
+    .listener-avatar:first-child {
+      margin-left: 0;
+    }
+
+    /* Play Button - NEW CTA */
+    .play-button {
+      width: 100%;
+      height: 56px;
+      border-radius: 28px;
+      background: var(--white);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-sm);
+      cursor: pointer;
+      font-family: var(--font-family);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--black);
+      transition: all var(--transition-medium);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .play-button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .play-button:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 32px rgba(255, 255, 255, 0.2);
+    }
+
+    .play-button:hover::before {
+      transform: translateX(100%);
+    }
+
+    .play-button:active {
+      transform: scale(0.98);
+    }
+
+    .play-button svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Progress Indicator - For Returning Users */
+    .progress-indicator {
+      display: none; /* Show when user has started */
+      align-items: center;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .progress-indicator.visible {
+      display: flex;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 4px;
+      background: var(--white-20);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--white);
+      border-radius: 2px;
+      width: 35%; /* Dynamic based on actual progress */
+      transition: width var(--transition-medium);
+    }
+
+    .progress-text {
+      font-size: 12px;
+      color: var(--white-70);
+      white-space: nowrap;
+    }
+
+    /* Streak Badge - NEW Engagement Element */
+    .streak-badge {
+      position: absolute;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: rgba(255, 149, 0, 0.9);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 10;
+      animation: slideDown 0.5s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    /* Series Indicator - NEW */
+    .series-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: var(--spacing-lg);
+    }
+
+    .series-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--white-20);
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .series-dot.active {
+      background: var(--white);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    .series-dot:hover:not(.active) {
+      background: var(--white-50);
+    }
+
+    /* Bookmark Animation */
+    @keyframes bookmarkPop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    .icon-button.bookmark-active svg {
+      animation: bookmarkPop 0.3s ease;
+      fill: currentColor;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 420px) {
+      .phone-frame {
+        width: 100%;
+        max-width: 375px;
+        height: auto;
+        aspect-ratio: 375 / 812;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      body {
+        padding: 0;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <div class="content-intro">
+      <!-- Background Image -->
+      <img
+        src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&h=1200&fit=crop&crop=faces"
+        alt="Jeffrey Allen"
+        class="bg-image"
+        loading="eager"
+      >
+
+      <!-- Gradient Overlays -->
+      <div class="gradient-top"></div>
+      <div class="gradient-bottom"></div>
+
+      <!-- Streak Badge (Engagement Element) -->
+      <div class="streak-badge">
+        <span>🔥</span>
+        <span>Day 3 Streak!</span>
+      </div>
+
+      <!-- Top Controls -->
+      <div class="top-controls">
+        <!-- Category Badge -->
+        <div class="category-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+          Soul
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="icon-button" aria-label="Toggle audio guide" title="Audio Guide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+          </button>
+          <button class="icon-button" aria-label="Save to favorites" title="Save" id="bookmarkBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bottom Content -->
+      <div class="bottom-content">
+        <!-- Meta Information -->
+        <div class="meta-info">
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12,6 12,12 16,14"/>
+            </svg>
+            <span>12 min</span>
+          </div>
+          <div class="meta-divider"></div>
+          <div class="meta-item meta-rating">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+            </svg>
+            <span>4.9</span>
+          </div>
+          <div class="meta-divider"></div>
+          <div class="meta-item">
+            <span>1.2k listened</span>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <h1 class="content-title">Open Your Heart Up To Infinite Potential</h1>
+
+        <!-- Instructor Row -->
+        <div class="instructor-row">
+          <img
+            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=faces"
+            alt="Jeffrey Allen"
+            class="instructor-avatar"
+          >
+          <div class="instructor-info">
+            <div class="instructor-name">Jeffrey Allen</div>
+            <div class="instructor-title">Energy Healer & Spiritual Teacher</div>
+          </div>
+        </div>
+
+        <!-- Social Proof -->
+        <div class="social-proof">
+          <div class="listener-avatars">
+            <img src="https://i.pravatar.cc/48?img=1" alt="" class="listener-avatar">
+            <img src="https://i.pravatar.cc/48?img=2" alt="" class="listener-avatar">
+            <img src="https://i.pravatar.cc/48?img=3" alt="" class="listener-avatar">
+          </div>
+          <span>Sarah, Mike & 1,247 others completed this</span>
+        </div>
+
+        <!-- Progress Indicator (for returning users) -->
+        <div class="progress-indicator visible">
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+          <span class="progress-text">4:12 left</span>
+        </div>
+
+        <!-- Play Button CTA -->
+        <button class="play-button" id="playBtn">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          <span>Continue Listening</span>
+        </button>
+
+        <!-- Series Indicator -->
+        <div class="series-indicator">
+          <div class="series-dot"></div>
+          <div class="series-dot active"></div>
+          <div class="series-dot"></div>
+          <div class="series-dot"></div>
+          <div class="series-dot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Bookmark toggle interaction
+    const bookmarkBtn = document.getElementById('bookmarkBtn');
+    bookmarkBtn.addEventListener('click', function() {
+      this.classList.toggle('active');
+      this.classList.toggle('bookmark-active');
+
+      // Remove animation class after it completes
+      setTimeout(() => {
+        this.classList.remove('bookmark-active');
+      }, 300);
+    });
+
+    // Play button interaction
+    const playBtn = document.getElementById('playBtn');
+    playBtn.addEventListener('click', function() {
+      // Simulate play action
+      this.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="6" y="4" width="4" height="16"/>
+          <rect x="14" y="4" width="4" height="16"/>
+        </svg>
+        <span>Playing...</span>
+      `;
+
+      // Animate progress bar
+      const progressFill = document.querySelector('.progress-fill');
+      progressFill.style.transition = 'width 10s linear';
+      progressFill.style.width = '100%';
+    });
+
+    // Series dot navigation
+    const seriesDots = document.querySelectorAll('.series-dot');
+    seriesDots.forEach((dot, index) => {
+      dot.addEventListener('click', function() {
+        seriesDots.forEach(d => d.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

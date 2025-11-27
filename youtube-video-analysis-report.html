@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Analysis Report - Daniel Priestley</title>
+    <link rel="stylesheet" href="mv-selfreset-base.css">
+    <style>
+        /* Page-specific styles only - following Mindvalley Design System */
+
+        body {
+            background-color: #ffffff;
+        }
+
+        /* Section spacing */
+        .mv-section {
+            padding: 4rem 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .mv-section:last-of-type {
+            border-bottom: none;
+        }
+
+        /* Header */
+        .mv-header {
+            padding: 5rem 0 4rem 0;
+            text-align: center;
+            background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .mv-kicker {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #7a12d4;
+            margin-bottom: 1rem;
+        }
+
+        .mv-subtitle {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 1.25rem;
+            color: #606060;
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+            line-height: 1.7;
+        }
+
+        .mv-video-title {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1.1rem;
+            color: #0f131a;
+            margin-top: 2rem;
+        }
+
+        .mv-meta {
+            font-size: 0.95rem;
+            color: #606060;
+            margin-top: 1.5rem;
+        }
+
+        .mv-meta strong {
+            color: #0f131a;
+            font-family: Grotesk-Medium, sans-serif;
+        }
+
+        /* Score Display */
+        .mv-score-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            padding: 3rem 0;
+        }
+
+        .mv-score-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: conic-gradient(#7a12d4 0deg, #7a12d4 270deg, #e5e5e5 270deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .mv-score-circle::before {
+            content: '';
+            width: 140px;
+            height: 140px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .mv-score-value {
+            position: relative;
+            z-index: 1;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 3rem;
+            color: #0f131a;
+        }
+
+        .mv-score-value span {
+            font-size: 1.5rem;
+            color: #909090;
+        }
+
+        .mv-score-label {
+            text-align: center;
+        }
+
+        .mv-score-label h3 {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1.1rem;
+            color: #606060;
+            margin-bottom: 0.5rem;
+        }
+
+        .mv-score-label p {
+            color: #7a12d4;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+        }
+
+        /* Metrics Grid */
+        .mv-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .mv-metric-card {
+            background: #fafafa;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #e5e5e5;
+        }
+
+        .mv-metric-value {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2.25rem;
+            color: #0f131a;
+            margin-bottom: 0.5rem;
+        }
+
+        .mv-metric-value.purple { color: #7a12d4; }
+
+        .mv-metric-label {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.85rem;
+            color: #909090;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Category Scores */
+        .mv-category-scores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .mv-category-score {
+            background: #ffffff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #e5e5e5;
+        }
+
+        .mv-category-score h4 {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.85rem;
+            color: #909090;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.75rem;
+        }
+
+        .mv-category-score .score {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2rem;
+            color: #0f131a;
+        }
+
+        .mv-category-score .score span {
+            font-size: 1rem;
+            color: #909090;
+        }
+
+        .mv-progress-bar {
+            height: 6px;
+            background: #e5e5e5;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.75rem;
+        }
+
+        .mv-progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: #7a12d4;
+        }
+
+        .mv-progress-fill.high { background: #22c55e; }
+        .mv-progress-fill.medium { background: #f59e0b; }
+        .mv-progress-fill.low { background: #ef4444; }
+
+        /* Section Header */
+        .mv-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #e5e5e5;
+        }
+
+        .mv-section-number {
+            width: 48px;
+            height: 48px;
+            background: #7a12d4;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            color: #ffffff;
+        }
+
+        .mv-section-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.5rem;
+            color: #0f131a;
+            flex: 1;
+        }
+
+        /* Score Badge */
+        .mv-score-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.875rem;
+        }
+
+        .mv-score-badge.high {
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+        }
+
+        .mv-score-badge.medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        .mv-score-badge.low {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+        }
+
+        /* Comparison Grid */
+        .mv-comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .mv-comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mv-comparison-box {
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .mv-comparison-box.current {
+            background: rgba(239, 68, 68, 0.05);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .mv-comparison-box.optimized {
+            background: rgba(34, 197, 94, 0.05);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        .mv-comparison-box h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .mv-comparison-box.current h4 { color: #dc2626; }
+        .mv-comparison-box.optimized h4 { color: #16a34a; }
+
+        .mv-comparison-box p {
+            color: #0f131a;
+            line-height: 1.7;
+        }
+
+        blockquote {
+            border-left: 3px solid #e5e5e5;
+            padding-left: 1rem;
+            font-style: italic;
+            color: #606060;
+        }
+
+        /* Title Options */
+        .mv-title-options {
+            margin-top: 2rem;
+        }
+
+        .mv-title-option {
+            background: #fafafa;
+            padding: 1.25rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e5e5e5;
+            transition: all 0.2s ease;
+        }
+
+        .mv-title-option:hover {
+            background: #f0f0f0;
+            border-color: #7a12d4;
+        }
+
+        .mv-title-option .title-text {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1rem;
+            color: #0f131a;
+        }
+
+        .mv-title-option .title-reason {
+            font-size: 0.85rem;
+            color: #909090;
+            max-width: 280px;
+            text-align: right;
+        }
+
+        /* Thumbnail Grid */
+        .mv-thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .mv-thumbnail-concept {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e5e5e5;
+        }
+
+        .mv-thumbnail-preview {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Grotesk-Bold, sans-serif;
+            color: #ffffff;
+        }
+
+        .mv-thumbnail-concept:nth-child(1) .mv-thumbnail-preview {
+            background: linear-gradient(135deg, #7a12d4 0%, #5a0ea0 100%);
+        }
+
+        .mv-thumbnail-concept:nth-child(2) .mv-thumbnail-preview {
+            background: linear-gradient(135deg, #0f131a 0%, #3d3d3d 100%);
+        }
+
+        .mv-thumbnail-concept:nth-child(3) .mv-thumbnail-preview {
+            background: linear-gradient(135deg, #dc2626 0%, #7a12d4 100%);
+        }
+
+        .mv-thumbnail-info {
+            padding: 1.5rem;
+        }
+
+        .mv-thumbnail-info h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            color: #0f131a;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .mv-thumbnail-info p {
+            color: #606060;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Tables */
+        .mv-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .mv-table th, .mv-table td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .mv-table th {
+            background: #fafafa;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.8rem;
+            color: #606060;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .mv-table td {
+            color: #0f131a;
+        }
+
+        .mv-table tr:hover td {
+            background: #fafafa;
+        }
+
+        /* Timeline */
+        .mv-timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .mv-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #22c55e, #f59e0b, #ef4444);
+            border-radius: 2px;
+        }
+
+        .mv-timeline-item {
+            position: relative;
+            padding: 1rem 0 1rem 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .mv-timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .mv-timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 1.25rem;
+            width: 10px;
+            height: 10px;
+            background: #7a12d4;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+        }
+
+        .mv-timeline-time {
+            font-family: Grotesk-Bold, sans-serif;
+            color: #7a12d4;
+            font-size: 0.9rem;
+        }
+
+        .mv-timeline-title {
+            font-family: Grotesk-Medium, sans-serif;
+            color: #0f131a;
+            font-size: 1.1rem;
+            margin: 0.25rem 0;
+        }
+
+        .mv-timeline-duration {
+            color: #909090;
+            font-size: 0.85rem;
+        }
+
+        .mv-risk-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-left: 0.75rem;
+        }
+
+        .mv-risk-badge.low { background: rgba(34, 197, 94, 0.1); color: #16a34a; }
+        .mv-risk-badge.medium { background: rgba(245, 158, 11, 0.1); color: #d97706; }
+        .mv-risk-badge.high { background: rgba(239, 68, 68, 0.1); color: #dc2626; }
+
+        /* CTA Grid */
+        .mv-cta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .mv-cta-item {
+            background: #fafafa;
+            padding: 1.25rem;
+            border-radius: 10px;
+            border-left: 4px solid #7a12d4;
+        }
+
+        .mv-cta-time {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.85rem;
+            color: #7a12d4;
+        }
+
+        .mv-cta-type {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1rem;
+            color: #0f131a;
+            margin: 0.25rem 0;
+        }
+
+        .mv-cta-script {
+            font-size: 0.9rem;
+            color: #606060;
+            font-style: italic;
+        }
+
+        /* Description Box */
+        .mv-description-box {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: #0f131a;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            border: 1px solid #e5e5e5;
+        }
+
+        /* Keywords */
+        .mv-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .mv-keyword {
+            background: #f0f0f0;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #0f131a;
+            font-family: Grotesk-Medium, sans-serif;
+        }
+
+        /* Quick Wins */
+        .mv-quick-wins {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .mv-quick-win {
+            background: #fafafa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            border: 1px solid #e5e5e5;
+        }
+
+        .mv-quick-win-number {
+            width: 36px;
+            height: 36px;
+            background: #7a12d4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Grotesk-Bold, sans-serif;
+            color: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .mv-quick-win-content h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            color: #0f131a;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .mv-quick-win-content p {
+            color: #606060;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Final Verdict */
+        .mv-verdict {
+            background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+            border: 2px solid #7a12d4;
+        }
+
+        .mv-verdict-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .mv-verdict-item {
+            background: #ffffff;
+            padding: 1.25rem;
+            border-radius: 10px;
+            border-left: 4px solid #7a12d4;
+        }
+
+        .mv-verdict-item strong {
+            font-family: Grotesk-Bold, sans-serif;
+            color: #0f131a;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .mv-verdict-item p {
+            color: #606060;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .mv-final-score {
+            text-align: center;
+            padding: 2rem;
+            background: #ffffff;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .mv-final-score-label {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #909090;
+            margin-bottom: 0.5rem;
+        }
+
+        .mv-final-score-value {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 4rem;
+            color: #22c55e;
+        }
+
+        .mv-final-score-value span {
+            font-size: 2rem;
+            color: #909090;
+        }
+
+        .mv-final-score-text {
+            font-family: Grotesk-Medium, sans-serif;
+            color: #606060;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        .mv-footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: #909090;
+            font-size: 0.9rem;
+        }
+
+        /* Lists */
+        .mv-list {
+            color: #0f131a;
+            padding-left: 1.5rem;
+            line-height: 2;
+        }
+
+        .mv-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .mv-list strong {
+            font-family: Grotesk-Medium, sans-serif;
+        }
+
+        /* Subsection headings */
+        .mv-subsection-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.1rem;
+            color: #0f131a;
+            margin: 2rem 0 1rem;
+        }
+
+        /* Primary CTA Button */
+        .mv-btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            background-color: #7a12d4;
+            color: white;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .mv-btn-primary:hover {
+            background-color: #5a0ea0;
+        }
+
+        /* Print styles */
+        @media print {
+            .mv-section {
+                break-inside: avoid;
+            }
+            body {
+                background: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="mv-header">
+        <div class="mv-container">
+            <p class="mv-kicker">YouTube Intelligence Report</p>
+            <h1 class="mv-type--headline1">Video Analysis Report</h1>
+            <p class="mv-subtitle">Comprehensive optimization analysis with actionable recommendations based on proven frameworks</p>
+            <div class="mv-video-title">"Give Me 29 Minutes and I'll Teach You to Make $1 Million"</div>
+            <p class="mv-meta">
+                Channel: <strong>Daniel Priestley</strong> &nbsp;|&nbsp;
+                Published: <strong>Sep 4, 2025</strong>
+            </p>
+        </div>
+    </header>
+
+    <!-- Overall Score Section -->
+    <section class="mv-section">
+        <div class="mv-container">
+            <div class="mv-score-section">
+                <div class="mv-score-circle">
+                    <div class="mv-score-value">7.5<span>/10</span></div>
+                </div>
+                <div class="mv-score-label">
+                    <h3>Current Video Score</h3>
+                    <p>Potential with optimizations: 9/10</p>
+                </div>
+            </div>
+
+            <!-- Metrics Grid -->
+            <div class="mv-metrics-grid">
+                <div class="mv-metric-card">
+                    <div class="mv-metric-value purple">289.7K</div>
+                    <div class="mv-metric-label">Total Views</div>
+                </div>
+                <div class="mv-metric-card">
+                    <div class="mv-metric-value">10.2K</div>
+                    <div class="mv-metric-label">Likes</div>
+                </div>
+                <div class="mv-metric-card">
+                    <div class="mv-metric-value">29:41</div>
+                    <div class="mv-metric-label">Duration</div>
+                </div>
+                <div class="mv-metric-card">
+                    <div class="mv-metric-value purple">3.5%</div>
+                    <div class="mv-metric-label">Like Ratio</div>
+                </div>
+            </div>
+
+            <!-- Category Scores -->
+            <div class="mv-category-scores">
+                <div class="mv-category-score">
+                    <h4>Title</h4>
+                    <div class="score">8<span>/10</span></div>
+                    <div class="mv-progress-bar"><div class="mv-progress-fill high" style="width: 80%"></div></div>
+                </div>
+                <div class="mv-category-score">
+                    <h4>Hook</h4>
+                    <div class="score">7<span>/10</span></div>
+                    <div class="mv-progress-bar"><div class="mv-progress-fill medium" style="width: 70%"></div></div>
+                </div>
+                <div class="mv-category-score">
+                    <h4>Content</h4>
+                    <div class="score">8<span>/10</span></div>
+                    <div class="mv-progress-bar"><div class="mv-progress-fill high" style="width: 80%"></div></div>
+                </div>
+                <div class="mv-category-score">
+                    <h4>Description</h4>
+                    <div class="score">6<span>/10</span></div>
+                    <div class="mv-progress-bar"><div class="mv-progress-fill medium" style="width: 60%"></div></div>
+                </div>
+                <div class="mv-category-score">
+                    <h4>CTAs</h4>
+                    <div class="score">6<span>/10</span></div>
+                    <div class="mv-progress-bar"><div class="mv-progress-fill medium" style="width: 60%"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 1: Title Analysis -->
+    <section class="mv-section">
+        <div class="mv-container">
+            <div class="mv-section-header">
+                <div class="mv-section-number">1</div>
+                <h2 class="mv-section-title">Title Analysis & Optimization</h2>
+                <span class="mv-score-badge high">8/10</span>
+            </div>
+
+            <div class="mv-comparison-grid">
+                <div class="mv-comparison-box current">
+                    <h4>Current Title</h4>
+                    <p>"Give Me 29 Minutes and I'll Teach You to Make $1 Million"</p>
+                </div>
+                <div class="mv-comparison-box optimized">
+                    <h4>Recommended Title</h4>
+                    <p>"The 5-Step Framework That Made Me $1 Million 6 Times (Copy This)"</p>
+                </div>
+            </div>
+
+            <h3 class="mv-subsection-title">What's Working</h3>
+            <ul class="mv-list">
+                <li>Specific time commitment (29 minutes) - creates concrete expectation</li>
+                <li>Bold promise ($1 Million) - high curiosity trigger</li>
+                <li>Direct address ("Give Me") - creates personal connection</li>
+                <li>Pattern interrupt with unconventional phrasing</li>
+            </ul>
+
+            <h3 class="mv-subsection-title">Alternative Title Options</h3>
+            <div class="mv-title-options">
+                <div class="mv-title-option">
+                    <span class="title-text">"The 5-Step Framework That Made Me $1 Million (Copy This)"</span>
+                    <span class="title-reason">Framework + social proof + clear CTA</span>
+                </div>
+                <div class="mv-title-option">
+                    <span class="title-text">"How I Built 6 Businesses to $1 Million (Exact Blueprint)"</span>
+                    <span class="title-reason">Credibility + specific outcome + curiosity</span>
+                </div>
+                <div class="mv-title-option">
+                    <span class="title-text">"$0 to $1 Million in 29 Minutes - The CAOS Method Explained"</span>
+                    <span class="title-reason">Time commitment + proprietary method</span>
+                </div>
+                <div class="mv-title-option">
+                    <span class="title-text">"Why Everyone Who Follows This Makes $1 Million (5 Steps)"</span>
+                    <span class="title-reason">Social proof + numbered list</span>
+                </div>
+                <div class="mv-title-option">
+                    <span class="title-text">"I'll Teach You to Make $1 Million (No Experience Needed)"</span>
+                    <span class="title-reason">Objection removal + bold promise</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Thumbnail -->
+    <section class="mv-section">
+        <div class="mv-container">
+            <div class="mv-section-header">
+                <div class="mv-section-number">2</div>
+                <h2 class="mv-section-title">Thumbnail Optimization</h2>
+            </div>
+
+            <h3 class="mv-subsection-title">Recommended Elements</h3>
+            <table class="mv-table">
+                <tr>
+                    <th>Element</th>
+                    <th>Recommendation</th>
+                </tr>
+                <tr>
+                    <td>Face</td>
+                    <td>Expressive face showing excitement/confidence - pointing gesture</td>
+                </tr>
+                <tr>
+                    <td>Text</td>
+                    <td>Max 3-4 words: "$0 → $1M" or "5 STEPS"</td>
+                </tr>
+                <tr>
+                    <td>Colors</td>
+                    <td>High contrast - yellow/black or blue/white</td>
+                </tr>
+                <tr>
+                    <td>Visual</td>
+                    <td>Arrow/progression showing journey OR money imagery</td>
+                </tr>
+                <tr>
+                    <td>Layout</td>
+                    <td>Face on left (1/3), text on right (2/3)</td>
+                </tr>
+            </table>
+
+            <h3 class="mv-subsection-title">Three Thumbnail Concepts</h3>
+            <div class="mv-thumbnail-grid">
+                <div class="mv-thumbnail-concept">
+                    <div class="mv-thumbnail-preview">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">$0 → $1M</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">Journey Progression</div>
+                        </div>
+                    </div>
+                    <div class="mv-thumbnail-info">
+                        <h4>Concept A: "The Journey"</h4>
+                        <p>Daniel pointing right → arrow graphic → "$1M" in bold. Simple progression visual.</p>
+                    </div>
+                </div>
+                <div class="mv-thumbnail-concept">
+                    <div class="mv-thumbnail-preview">
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.75rem; margin-bottom: 0.5rem;">CAOS</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">METHOD</div>
+                        </div>
+                    </div>
+                    <div class="mv-thumbnail-info">
+                        <h4>Concept B: "The Framework"</h4>
+                        <p>Split screen: Daniel's face + whiteboard with "CAOS" method. Educational feel.</p>
+                    </div>
+                </div>
+                <div class="mv-thumbnail-concept">
+                    <div class="mv-thumbnail-preview">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2.5rem; font-weight: bold;">$1M</div>
+                            <div style="font-size: 0.9rem; margin-top: 0.25rem;">⏱ 29 MIN</div>
+                        </div>
+                    </div>
+                    <div class="mv-thumbnail-info">
+                        <h4>Concept C: "The Bold Promise"</h4>
+                        <p>Extreme close-up face + "$1M" with stopwatch showing "29 min". High curiosity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Hook Analysis -->
+    <section class="mv-section">
+        <div class="mv-container">
+            <div class="mv-section-header">
+                <div class="mv-section-number">3</div>
+                <h2 class="mv-section-title">Hook Analysis (First 30 Seconds)</h2>
+                <span class="mv-score-badge medium">7/10</span>
+            </div>
+
+            <div class="mv-comparison-grid">
+                <div class="mv-comparison-box current">
+                    <h4>Current Hook (0:00 - 0:26)</h4>
+                    <blockquote>
+                        "Hi, I'm Daniel Priestley. In my early 20s, I developed my first multi-million dollar business before the age of 25. Since then, I've had six businesses go 0 to a million..."
+                    </blockquote>
+                </div>
+                <div class="mv-comparison-box optimized">
+                    <h4>Optimized Hook</h4>
+                    <blockquote>
+                        "What if I told you the exact system that took me from zero to $1 million - not once, but SIX times? In the next 29 minutes, I'm going to give you the complete 5-step framework..."
+                    </blockquote>
+                </div>
+            </div>
+
+            <h3 class="mv-subsection-title">Hook Scorecard</h3>
+            <table class="mv-table">
+                <tr>
+                    <th>Element</th>
+                    <th>Score</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>Credibility</td>
+                    <td>9/10</td>
+                    <td>Strong - 6 businesses to $1M, 3 to $10M</td>
+                </tr>
+                <tr>
+                    <td>Curiosity</td>
+                    <td>7/10</td>
+                    <td>Good but could be more specific</td>
+                </tr>
+                <tr>
+                    <td>Outcome Promise</td>
+                    <td>8/10</td>
+                    <td>Clear destination (7 figures)</td>
+                </tr>
+                <tr>
+                    <td>Pattern Interrupt</td>
+                    <td>5/10</td>
+                    <td>Standard intro format</td>
+                </tr>
+                <tr>
+                    <td>Time Commitment</td>
+                    <td>8/10</td>
+                    <td>Clear expectation set</td>
+                </tr>
+            </table>
+
+            <h3 class="mv-subsection-title">Key Improvements</h3>
+            <ul class="mv-list">
+                <li><strong>Open with curiosity question</strong> instead of introduction</li>
+                <li><strong>Numbers up front</strong> (6 times, 5 steps, 29 minutes)</li>
+                <li><strong>Objection removal</strong> (no experience, investment, connections)</li>
+                <li><strong>Faster to the content</strong> - gets to Step 1 quicker</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Section 4: Content Structure -->
+    <section class="mv-section">
+        <div class="mv-container">
+            <div class="mv-section-header">
+                <div class="mv-section-number">4</div>
+                <h2 class="mv-section-title">Content Structure & Retention</h2>
+                <span class="mv-score-badge high">8/10</span>
+            </div>
+
+            <h3 class="mv-subsection-title">Video Timeline & Retention Risk</h3>
+            <div class="mv-timeline">
+                <div class="mv-timeline-item">
+                    <span class="mv-timeline-time">0:00</span>
+                    <div class="mv-timeline-title">Intro <span class="mv-risk-badge low">LOW RISK</span></div>
+                    <span class="mv-timeline-duration">Duration: 49 seconds</span>
+                </div>
+                <div class="mv-timeline-item">
+                    <span class="mv-timeline-time">0:49</span>
+                    <div class="mv-timeline-title">Entrepreneur Apprenticeship <span class="mv-risk-badge medium">MEDIUM</span></div>
+                    <span class="mv-timeline-duration">Duration: 1:33</span>
+                </div>
+                <div class="mv-timeline-item">
+                    <span class="mv-timeline-time">2:22</span>
+                    <div class="mv-timeline-title">Your First Side Hustle <span class="mv-risk-badge medium">MEDIUM</span></div>
+                    <span class="mv-timeline-duration">Duration: 1:28</span>
+                </div>
+                <div class="mv-timeline-item">
+                    <span class="mv-timeline-time">3:50</span>
+                    <div class="mv-timeline-title">The CAOS Method <span class="mv-risk-badge high">HIGH RISK</span></div>
+                    <span class="mv-timeline-duration">Duration: 7:58 - Needs pattern interrupts</span>
+                </div>
+                <div class="mv-timeline-item">
+                    <span class="mv-timeline-time">11:48</span>
+                    <div class="mv-timeline-title">6-Figure Business <span class="mv-risk-badge high">HIGH RISK</span></div>
+                    <span class="mv-timeline-duration">Duration: 9:46 - Longest section</span>
+                </div>
+                <div class="mv-timeline-item">
+                    <span class="mv-timeline-time">21:34</span>
+                    <div class="mv-timeline-title">7-Figure Business <span class="mv-risk-badge medium">MEDIUM</span></div>
+                    <span class="mv-timeline-duration">Duration: 8:07</span>
+                </div>
+            </div>
+
+            <h3 class="mv-subsection-title">Pattern Interrupt Recommendations</h3>
+            <p style="color: #606060; margin-bottom: 1rem;">Every 3-4 minutes, add:</p>
+            <ul class="mv-list">
+                <li><strong>Visual change</strong> - switch from talking head to whiteboard/graphics</li>
+                <li><strong>Verbal interrupt</strong> - "Now here's where it gets interesting..."</li>
+                <li><strong>Story/example</strong> - share a specific case study</li>
+                <li><strong>Preview tease</strong> - "Coming up, I'll show you the exact team structure..."</li>
+            </ul>
+
+            <table class="mv-table" style="margin-top: 1.5rem;">
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Add This</th>
+                </tr>
+                <tr>
+                    <td>6:30</td>
+                    <td>Story: "Let me tell you about a client who used the waitlist strategy..."</td>
+                </tr>
+                <tr>
+                    <td>10:00</td>
+                    <td>Graphic: Show the MVP examples visually</td>
+                </tr>
+                <tr>
+                    <td>15:00</td>
+                    <td>Screen recording: Show actual landing page examples</td>
+                </tr>
+                <tr>
+                    <td>19:00</td>
+                    <td>Quick recap: "So far we've covered... now here's where the real scale happens"</td>
+                </tr>
+                <tr>
+                    <td>24:00</td>
+                    <td>Case study: Share specific revenue numbers from a real business</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- Section 5: CTA Strategy -->
+    <section class="mv-section">
+        <div class="mv-container">
+            <div class="mv-section-header">
+                <div class="mv-section-number">5</div>
+                <h2 class="mv-section-title">CTA Placement Strategy</h2>
+                <span class="mv-score-badge medium">6/10</span>
+            </div>
+
+            <p style="color: #606060; margin-bottom: 1.5rem;">
+                <strong style="color: #d97706;">Issue:</strong> All CTAs are currently bunched at the end. Distribute throughout the video.
+            </p>
+
+            <div class="mv-cta-grid">
+                <div class="mv-cta-item">
+                    <div class="mv-cta-time">0:30</div>
+                    <div class="mv-cta-type">Subscribe CTA</div>
+                    <div class="mv-cta-script">"Subscribe if you want more frameworks like this"</div>
+                </div>
+                <div class="mv-cta-item">
+                    <div class="mv-cta-time">8:00</div>
+                    <div class="mv-cta-type">Engagement CTA</div>
+                    <div class="mv-cta-script">"Comment below: which stage are you at right now?"</div>
+                </div>
+                <div class="mv-cta-item">
+                    <div class="mv-cta-time">15:00</div>
+                    <div class="mv-cta-type">Like CTA</div>
+                    <div class="mv-cta-script">"If this is helping, smash that like button"</div>
+                </div>
+                <div class="mv-cta-item">
+                    <div class="mv-cta-time">22:00</div>
+                    <div class="mv-cta-type">Resource CTA</div>
+                    <div class="mv-cta-script">"Grab the free assessment - link in description"</div>
+                </div>
+                <div class="mv-cta-item">
+                    <div class="mv-cta-time">29:00</div>
+                    <div class="mv-cta-type">End Screen</div>
+                    <div class="mv-cta-script">End screen + verbal subscribe CTA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Description Optimization -->
+    <section class="mv-section">
+        <div class="mv-container">
+            <div class="mv-section-header">
+                <div class="mv-section-number">6</div>
+                <h2 class="mv-section-title">Description & SEO Optimization</h2>
+                <span class="mv-score-badge medium">6/10</span>
+            </div>
+
+            <h3 class="mv-subsection-title">Optimized Description</h3>
+            <div class="mv-description-box">Want to build a 7-figure business from scratch? In this video, I reveal the exact 5-step framework I've used to take 6 different businesses from $0 to $1 million - and how you can do it too (no experience required).
+
+📈 WHAT YOU'LL LEARN:
+• The Entrepreneur Apprenticeship method
+• How to test business ideas with 90-day side hustles
+• The CAOS Method (Concept, Audience, Offer, Sales)
+• How to scale from 6 figures to 7 figures
+• The exact team structure for a $1M business
+
+⏱️ TIMESTAMPS:
+0:00 - The $1M Framework Overview
+0:49 - Step 1: Entrepreneur Apprenticeship
+2:22 - Step 2: Your First Side Hustle
+3:50 - Step 3: The CAOS Method (Most Important!)
+11:48 - Step 4: Building a 6-Figure Business
+21:34 - Step 5: Scaling to 7 Figures
+29:00 - Next Steps & Action Items
+
+🎁 FREE RESOURCES:
+→ Take the KPI Assessment (free): https://scorecard.dent.global/
+→ Free Workshop with Daniel: https://bit.ly/Webinar-KPIW
+→ ScoreApp (for landing pages): https://scoreapp.com
+
+#entrepreneurship #businessframework #makemoney #danielpriestley #businessstrategy</div>
+
+            <h3 class="mv-subsection-title">Target SEO Keywords</h3>
+            <div class="mv-keywords">
+                <span class="mv-keyword">how to make $1 million</span>
+                <span class="mv-keyword">7 figure business framework</span>
+                <span class="mv-keyword">daniel priestley</span>
+                <span class="mv-keyword">entrepreneur framework</span>
+                <span class="mv-keyword">CAOS method</span>
+                <span class="mv-keyword">product for prospects</span>
+                <span class="mv-keyword">start a business from scratch</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7: Quick Wins -->
+    <section class="mv-section">
+        <div class="mv-container">
+            <div class="mv-section-header">
+                <div class="mv-section-number">7</div>
+                <h2 class="mv-section-title">Quick Wins - Do Today</h2>
+            </div>
+
+            <div class="mv-quick-wins">
+                <div class="mv-quick-win">
+                    <div class="mv-quick-win-number">1</div>
+                    <div class="mv-quick-win-content">
+                        <h4>Update Title</h4>
+                        <p>Change to: "The 5-Step Framework That Made Me $1 Million 6 Times (Copy This)"</p>
+                    </div>
+                </div>
+                <div class="mv-quick-win">
+                    <div class="mv-quick-win-number">2</div>
+                    <div class="mv-quick-win-content">
+                        <h4>Update Description</h4>
+                        <p>Use the optimized version above with better keywords and clearer structure</p>
+                    </div>
+                </div>
+                <div class="mv-quick-win">
+                    <div class="mv-quick-win-number">3</div>
+                    <div class="mv-quick-win-content">
+                        <h4>Add Pinned Comment</h4>
+                        <p>"Which of these 5 steps are you currently on? Comment below and I'll reply with specific advice for your stage! Also - grab the free KPI Assessment: [link]"</p>
+                    </div>
+                </div>
+                <div class="mv-quick-win">
+                    <div class="mv-quick-win-number">4</div>
+                    <div class="mv-quick-win-content">
+                        <h4>Add End Screen</h4>
+                        <p>Point to related video: "Everyone Who Uses This Playbook Makes $1 Million"</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mv-subsection-title">For Future Videos</h3>
+            <ul class="mv-list">
+                <li><strong>Stronger hooks</strong> - lead with curiosity, not credentials</li>
+                <li><strong>More visual variety</strong> - B-roll, graphics, screen recordings</li>
+                <li><strong>Pattern interrupts</strong> every 3-4 minutes</li>
+                <li><strong>Earlier CTAs</strong> - don't wait until the end</li>
+                <li><strong>Preview teases</strong> throughout: "Coming up, I'll show you exactly..."</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Final Verdict -->
+    <section class="mv-section mv-verdict">
+        <div class="mv-container">
+            <div class="mv-section-header">
+                <div class="mv-section-number" style="background: #22c55e;">✓</div>
+                <h2 class="mv-section-title">Final Verdict</h2>
+            </div>
+
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem; color: #0f131a;">
+                The content is <strong style="color: #22c55e;">excellent</strong> - Daniel's CAOS framework and step-by-step methodology is genuinely valuable. The main opportunities are:
+            </p>
+
+            <div class="mv-verdict-grid">
+                <div class="mv-verdict-item">
+                    <strong>Better Packaging</strong>
+                    <p>Title & thumbnail optimization</p>
+                </div>
+                <div class="mv-verdict-item">
+                    <strong>Stronger Hook</strong>
+                    <p>Lead with curiosity, not credentials</p>
+                </div>
+                <div class="mv-verdict-item">
+                    <strong>Retention Tactics</strong>
+                    <p>Pattern interrupts throughout</p>
+                </div>
+                <div class="mv-verdict-item">
+                    <strong>SEO Optimization</strong>
+                    <p>Better description keywords</p>
+                </div>
+            </div>
+
+            <div class="mv-final-score">
+                <p class="mv-final-score-label">With Optimizations</p>
+                <div class="mv-final-score-value">9<span>/10</span></div>
+                <p class="mv-final-score-text">Potential Score</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mv-footer">
+        <div class="mv-container">
+            <p>Generated by YouTube Intelligence Agent</p>
+            <p style="margin-top: 0.5rem;">Report Date: November 25, 2025</p>
+        </div>
+    </footer>
+</body>
+</html>

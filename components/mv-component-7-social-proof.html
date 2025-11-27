@@ -1,0 +1,283 @@
+<!-- ============================================
+     MINDVALLEY A/B TEST COMPONENT #7
+     Real-Time Social Proof Popup
+
+     INSTALLATION:
+     1. Add this CSS to your <head> or stylesheet
+     2. Paste the HTML at the end of <body>
+     3. Configure the notifications array
+
+     PREDICTED UPLIFT: +6%
+     POSITION: Fixed bottom-left corner
+     ============================================ -->
+
+<!-- CSS - Add to your stylesheet -->
+<style>
+/* Component 7: Social Proof Popup */
+.mv-social-proof {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.mv-social-popup {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    max-width: 320px;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
+}
+
+.mv-social-popup.mv-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.mv-social-popup.mv-hiding {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+}
+
+.mv-popup-avatar {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba(122, 18, 212, 0.1) 0%, rgba(122, 18, 212, 0.05) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.mv-popup-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.mv-popup-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.mv-popup-content strong {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0f131a;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mv-popup-content span {
+    font-size: 0.8rem;
+    color: rgba(15, 19, 26, 0.5);
+}
+
+.mv-popup-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    color: rgba(15, 19, 26, 0.3);
+    font-size: 0.8rem;
+}
+
+.mv-social-popup:hover .mv-popup-close {
+    opacity: 1;
+}
+
+.mv-popup-close:hover {
+    color: rgba(15, 19, 26, 0.6);
+}
+
+/* Verified badge */
+.mv-popup-verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.mv-popup-verified::before {
+    content: '✓';
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+    .mv-social-proof {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+    }
+
+    .mv-social-popup {
+        max-width: none;
+    }
+}
+</style>
+
+<!-- HTML - Paste at end of <body> -->
+<div class="mv-social-proof" data-test="social-proof-v1">
+    <div class="mv-social-popup" id="mv-popup">
+        <button class="mv-popup-close" onclick="mvSocialProof.dismiss()">✕</button>
+        <div class="mv-popup-avatar" id="mv-popup-avatar">👤</div>
+        <div class="mv-popup-content">
+            <strong id="mv-popup-name">Sarah from London</strong>
+            <span id="mv-popup-action">just joined 2 minutes ago</span>
+            <div class="mv-popup-verified">Verified member</div>
+        </div>
+    </div>
+</div>
+
+<!-- TRACKING & FUNCTIONALITY SCRIPT -->
+<script>
+const mvSocialProof = (function() {
+    // Configuration
+    const config = {
+        initialDelay: 10000,      // 10 seconds before first popup
+        displayDuration: 5000,    // Show for 5 seconds
+        intervalMin: 25000,       // Min 25 seconds between popups
+        intervalMax: 45000,       // Max 45 seconds between popups
+        maxPopups: 10,            // Max popups per session
+        enabled: true
+    };
+
+    // Notification data - customize with your data
+    const notifications = [
+        { name: "Sarah", location: "London", action: "just joined", time: "2 minutes ago", avatar: "👩" },
+        { name: "Michael", location: "New York", action: "just joined", time: "3 minutes ago", avatar: "👨" },
+        { name: "Emma", location: "Sydney", action: "just started their trial", time: "4 minutes ago", avatar: "👩‍🦰" },
+        { name: "James", location: "Toronto", action: "just joined", time: "5 minutes ago", avatar: "👨‍🦱" },
+        { name: "Sofia", location: "Berlin", action: "just joined", time: "6 minutes ago", avatar: "👩‍🦳" },
+        { name: "David", location: "Singapore", action: "just started their trial", time: "7 minutes ago", avatar: "👨‍🦲" },
+        { name: "Lisa", location: "Amsterdam", action: "just joined", time: "8 minutes ago", avatar: "👱‍♀️" },
+        { name: "Robert", location: "Dubai", action: "just joined", time: "9 minutes ago", avatar: "🧔" },
+        { name: "Anna", location: "Stockholm", action: "just started their trial", time: "10 minutes ago", avatar: "👩‍🦱" },
+        { name: "Chris", location: "Los Angeles", action: "just joined", time: "11 minutes ago", avatar: "👨‍🦰" }
+    ];
+
+    let popupCount = 0;
+    let currentIndex = 0;
+    let isVisible = false;
+    let timeoutId = null;
+    let dismissed = false;
+
+    const popup = document.getElementById('mv-popup');
+    const avatarEl = document.getElementById('mv-popup-avatar');
+    const nameEl = document.getElementById('mv-popup-name');
+    const actionEl = document.getElementById('mv-popup-action');
+
+    function showPopup() {
+        if (!config.enabled || dismissed || popupCount >= config.maxPopups) return;
+
+        const notification = notifications[currentIndex];
+        currentIndex = (currentIndex + 1) % notifications.length;
+
+        // Update content
+        avatarEl.textContent = notification.avatar;
+        nameEl.textContent = `${notification.name} from ${notification.location}`;
+        actionEl.textContent = `${notification.action} ${notification.time}`;
+
+        // Show popup
+        popup.classList.remove('mv-hiding');
+        popup.classList.add('mv-visible');
+        isVisible = true;
+        popupCount++;
+
+        // Track impression
+        if (window.dataLayer) {
+            dataLayer.push({
+                'event': 'ab_test_impression',
+                'test_name': 'social_proof_popup',
+                'variant': 'real_time',
+                'component_id': 'social-proof-v1',
+                'popup_number': popupCount
+            });
+        }
+
+        // Hide after duration
+        timeoutId = setTimeout(hidePopup, config.displayDuration);
+    }
+
+    function hidePopup() {
+        popup.classList.add('mv-hiding');
+        popup.classList.remove('mv-visible');
+        isVisible = false;
+
+        // Schedule next popup
+        if (!dismissed && popupCount < config.maxPopups) {
+            const nextDelay = config.intervalMin + Math.random() * (config.intervalMax - config.intervalMin);
+            setTimeout(showPopup, nextDelay);
+        }
+    }
+
+    function dismiss() {
+        dismissed = true;
+        if (timeoutId) clearTimeout(timeoutId);
+        hidePopup();
+
+        // Track dismissal
+        if (window.dataLayer) {
+            dataLayer.push({
+                'event': 'ab_test_interaction',
+                'test_name': 'social_proof_popup',
+                'action': 'dismissed',
+                'popups_shown': popupCount
+            });
+        }
+    }
+
+    // Initialize
+    function init() {
+        // Shuffle notifications for variety
+        for (let i = notifications.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [notifications[i], notifications[j]] = [notifications[j], notifications[i]];
+        }
+
+        // Start after initial delay
+        setTimeout(showPopup, config.initialDelay);
+    }
+
+    // Start when DOM ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+    // Public API
+    return {
+        dismiss: dismiss,
+        enable: () => { config.enabled = true; },
+        disable: () => { config.enabled = false; hidePopup(); }
+    };
+})();
+</script>

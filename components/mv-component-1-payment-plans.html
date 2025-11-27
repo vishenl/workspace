@@ -1,0 +1,223 @@
+<!-- ============================================
+     MINDVALLEY A/B TEST COMPONENT #1
+     Payment Plan Options
+
+     INSTALLATION:
+     1. Add this CSS to your <head> or stylesheet
+     2. Paste the HTML where you want the component
+     3. Update links and prices as needed
+
+     PREDICTED UPLIFT: +20%
+     POSITION: Hero section, replace single pricing card
+     ============================================ -->
+
+<!-- CSS - Add to your stylesheet -->
+<style>
+/* Component 1: Payment Plan Options */
+.mv-pricing-options {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.mv-price-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 36px 32px;
+    border: 2px solid rgba(0, 0, 0, 0.08);
+    text-align: center;
+    min-width: 280px;
+    max-width: 320px;
+    flex: 1;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.mv-price-card:hover {
+    border-color: #7a12d4;
+    box-shadow: 0 8px 32px rgba(122, 18, 212, 0.15);
+    transform: translateY(-4px);
+}
+
+.mv-price-card.mv-featured {
+    border-color: #7a12d4;
+    background: linear-gradient(135deg, #ffffff 0%, rgba(122, 18, 212, 0.03) 100%);
+}
+
+.mv-price-card.mv-featured::before {
+    content: 'BEST VALUE';
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #7a12d4 0%, #9333ea 100%);
+    color: white;
+    padding: 8px 24px;
+    border-radius: 24px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    box-shadow: 0 4px 12px rgba(122, 18, 212, 0.3);
+}
+
+.mv-price-label {
+    font-size: 0.85rem;
+    color: rgba(15, 19, 26, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.mv-price-original {
+    font-size: 1.1rem;
+    color: rgba(15, 19, 26, 0.4);
+    text-decoration: line-through;
+    margin-bottom: 4px;
+}
+
+.mv-price-current {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #0f131a;
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+
+.mv-price-card.mv-featured .mv-price-current {
+    color: #7a12d4;
+}
+
+.mv-price-period {
+    font-size: 0.9rem;
+    color: rgba(15, 19, 26, 0.6);
+    margin-bottom: 16px;
+}
+
+.mv-price-savings {
+    display: inline-block;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.mv-price-cta {
+    display: block;
+    width: 100%;
+    padding: 16px 28px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.mv-price-card.mv-featured .mv-price-cta {
+    background: linear-gradient(135deg, #7a12d4 0%, #9333ea 100%);
+    color: white;
+    box-shadow: 0 4px 16px rgba(122, 18, 212, 0.3);
+}
+
+.mv-price-card.mv-featured .mv-price-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(122, 18, 212, 0.4);
+}
+
+.mv-price-card:not(.mv-featured) .mv-price-cta {
+    background: transparent;
+    color: #7a12d4;
+    border: 2px solid #7a12d4;
+}
+
+.mv-price-card:not(.mv-featured) .mv-price-cta:hover {
+    background: rgba(122, 18, 212, 0.08);
+}
+
+.mv-price-note {
+    margin-top: 14px;
+    font-size: 0.8rem;
+    color: rgba(15, 19, 26, 0.5);
+}
+
+@media (max-width: 680px) {
+    .mv-pricing-options {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mv-price-card {
+        width: 100%;
+        max-width: 340px;
+    }
+}
+</style>
+
+<!-- HTML - Paste where you want the component -->
+<div class="mv-pricing-options" data-test="payment-plans-v1">
+    <!-- Featured Option: Pay in Full -->
+    <div class="mv-price-card mv-featured">
+        <div class="mv-price-label">Pay in Full</div>
+        <div class="mv-price-original">$399/year</div>
+        <div class="mv-price-current">$199</div>
+        <div class="mv-price-period">per year (just $0.54/day)</div>
+        <div class="mv-price-savings">Save $200</div>
+        <a href="#checkout-annual" class="mv-price-cta">Start 15-Day Free Trial</a>
+        <p class="mv-price-note">Cancel anytime. No questions asked.</p>
+    </div>
+
+    <!-- Alternative: Payment Plan -->
+    <div class="mv-price-card">
+        <div class="mv-price-label">4 Easy Payments</div>
+        <div class="mv-price-original">$99.75/mo</div>
+        <div class="mv-price-current">$52.25</div>
+        <div class="mv-price-period">per month for 4 months</div>
+        <div class="mv-price-savings">0% Interest</div>
+        <a href="#checkout-installment" class="mv-price-cta">Choose Payment Plan</a>
+        <p class="mv-price-note">Via Klarna / Afterpay</p>
+    </div>
+</div>
+
+<!-- TRACKING SCRIPT -->
+<script>
+// Track component impressions and clicks
+(function() {
+    const component = document.querySelector('[data-test="payment-plans-v1"]');
+    if (!component) return;
+
+    // Track impression
+    if (window.dataLayer) {
+        dataLayer.push({
+            'event': 'ab_test_impression',
+            'test_name': 'payment_plans',
+            'variant': 'dual_option',
+            'component_id': 'payment-plans-v1'
+        });
+    }
+
+    // Track CTA clicks
+    component.querySelectorAll('.mv-price-cta').forEach(cta => {
+        cta.addEventListener('click', function(e) {
+            const isAnnual = this.href.includes('annual');
+            if (window.dataLayer) {
+                dataLayer.push({
+                    'event': 'ab_test_click',
+                    'test_name': 'payment_plans',
+                    'variant': 'dual_option',
+                    'option_selected': isAnnual ? 'annual' : 'installment'
+                });
+            }
+        });
+    });
+})();
+</script>

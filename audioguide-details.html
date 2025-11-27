@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audioguides - Guide Details</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-dark: #000000;
+      --bg-card: #1c1c1e;
+      --bg-elevated: #2c2c2e;
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.7);
+      --text-muted: rgba(255, 255, 255, 0.5);
+      --accent-purple: #9B6FF0;
+      --accent-gold: #FFD700;
+      --border: rgba(255, 255, 255, 0.1);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+
+    /* Phone Frame */
+    .phone-frame {
+      width: 375px;
+      height: 812px;
+      background: var(--bg-dark);
+      border-radius: 44px;
+      overflow: hidden;
+      position: relative;
+      box-shadow:
+        0 0 0 12px #1a1a1a,
+        0 0 0 14px #333,
+        0 50px 100px rgba(0, 0, 0, 0.5);
+    }
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .screen::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Sheet Handle */
+    .sheet-handle {
+      display: flex;
+      justify-content: center;
+      padding: 12px 0 8px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg-dark);
+    }
+
+    .handle-bar {
+      width: 36px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 24px 32px;
+      text-align: center;
+    }
+
+    .cover-art {
+      width: 200px;
+      height: 200px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      margin-bottom: 24px;
+    }
+
+    .cover-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .guide-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .guide-author {
+      font-size: 16px;
+      color: var(--accent-purple);
+      margin-bottom: 12px;
+    }
+
+    .guide-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--accent-gold);
+    }
+
+    .rating svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    .meta-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--text-muted);
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 24px 24px;
+    }
+
+    .action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 20px;
+      background: var(--bg-card);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      color: var(--text-primary);
+      transition: all 0.2s;
+      min-width: 72px;
+    }
+
+    .action-btn:hover {
+      background: var(--bg-elevated);
+    }
+
+    .action-btn svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .action-btn span {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    /* Play Button */
+    .play-section {
+      padding: 0 24px 24px;
+    }
+
+    .play-btn {
+      width: 100%;
+      height: 56px;
+      border-radius: 28px;
+      background: var(--text-primary);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--bg-dark);
+      transition: all 0.2s;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+    }
+
+    .play-btn svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* Description */
+    .description-section {
+      padding: 0 24px 24px;
+    }
+
+    .description {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .description-toggle {
+      background: none;
+      border: none;
+      color: var(--accent-purple);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    /* Author Section */
+    .author-section {
+      padding: 0 24px 24px;
+    }
+
+    .author-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      background: var(--bg-card);
+      border-radius: 16px;
+    }
+
+    .author-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .author-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .author-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .author-title {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .author-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent-purple);
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .author-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Content List */
+    .content-section {
+      padding: 0 24px 24px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .content-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .content-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      background: var(--bg-card);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .content-item:hover {
+      background: var(--bg-elevated);
+    }
+
+    .content-item.active {
+      background: rgba(155, 111, 240, 0.15);
+      border: 1px solid var(--accent-purple);
+    }
+
+    .item-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg-elevated);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .content-item.active .item-number {
+      background: var(--accent-purple);
+      color: white;
+    }
+
+    .content-item.completed .item-number {
+      background: #34C759;
+      color: white;
+    }
+
+    .content-item.completed .item-number svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .item-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .item-duration {
+      font-size: 13px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    /* Social Proof */
+    .social-proof {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 24px 32px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .listener-avatars {
+      display: flex;
+    }
+
+    .listener-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--bg-dark);
+      margin-left: -8px;
+      object-fit: cover;
+    }
+
+    .listener-avatar:first-child {
+      margin-left: 0;
+    }
+
+    /* Tags */
+    .tags-section {
+      padding: 0 24px 32px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 8px 14px;
+      background: var(--bg-card);
+      border-radius: 20px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Responsive */
+    @media (max-width: 420px) {
+      body {
+        padding: 0;
+      }
+
+      .phone-frame {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <div class="screen">
+      <!-- Sheet Handle -->
+      <div class="sheet-handle">
+        <div class="handle-bar"></div>
+      </div>
+
+      <!-- Hero Section -->
+      <div class="hero">
+        <div class="cover-art">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face" alt="Healing with Your Guides">
+        </div>
+        <h1 class="guide-title">Healing with Your Guides</h1>
+        <p class="guide-author">Sonia Choquette</p>
+        <div class="guide-meta">
+          <span class="rating">
+            <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+            4.8
+          </span>
+          <span class="meta-dot"></span>
+          <span>15 min</span>
+          <span class="meta-dot"></span>
+          <span>Soul</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="action-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="4" width="14" height="17" rx="2"/>
+            <line x1="9" y1="9" x2="15" y2="9"/>
+            <line x1="9" y1="13" x2="15" y2="13"/>
+            <line x1="9" y1="17" x2="12" y2="17"/>
+          </svg>
+          <span>Play on</span>
+        </button>
+        <button class="action-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7,10 12,15 17,10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Download</span>
+        </button>
+        <button class="action-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="18" cy="5" r="3"/>
+            <circle cx="6" cy="12" r="3"/>
+            <circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+          <span>Share</span>
+        </button>
+        <button class="action-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Favorite</span>
+        </button>
+      </div>
+
+      <!-- Play Button -->
+      <div class="play-section">
+        <button class="play-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          <span>Play Guide</span>
+        </button>
+      </div>
+
+      <!-- Description -->
+      <div class="description-section">
+        <p class="description">
+          In this empowering session with Sonia Choquette, you will heal your mind, body, and spirit with the support of your guides. Learn to connect with your inner wisdom and receive guidance for your highest good.
+        </p>
+        <button class="description-toggle">Read more</button>
+      </div>
+
+      <!-- Author Section -->
+      <div class="author-section">
+        <div class="author-card">
+          <div class="author-left">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face" alt="Sonia Choquette" class="author-avatar">
+            <div>
+              <div class="author-name">Sonia Choquette</div>
+              <div class="author-title">Spiritual Teacher & Author</div>
+            </div>
+          </div>
+          <button class="author-link">
+            More
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9,18 15,12 9,6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Content List -->
+      <div class="content-section">
+        <h2 class="section-title">Guide content</h2>
+        <div class="content-list">
+          <div class="content-item completed">
+            <div class="item-number">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20,6 9,17 4,12"/>
+              </svg>
+            </div>
+            <div class="item-info">
+              <div class="item-title">Introduction</div>
+              <div class="item-meta">Opening & grounding</div>
+            </div>
+            <span class="item-duration">2:30</span>
+          </div>
+          <div class="content-item active">
+            <div class="item-number">2</div>
+            <div class="item-info">
+              <div class="item-title">Connecting with Your Guides</div>
+              <div class="item-meta">Core meditation</div>
+            </div>
+            <span class="item-duration">8:00</span>
+          </div>
+          <div class="content-item">
+            <div class="item-number">3</div>
+            <div class="item-info">
+              <div class="item-title">Receiving Healing Energy</div>
+              <div class="item-meta">Deep healing work</div>
+            </div>
+            <span class="item-duration">3:00</span>
+          </div>
+          <div class="content-item">
+            <div class="item-number">4</div>
+            <div class="item-info">
+              <div class="item-title">Closing & Integration</div>
+              <div class="item-meta">Return to awareness</div>
+            </div>
+            <span class="item-duration">1:30</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Proof -->
+      <div class="social-proof">
+        <div class="listener-avatars">
+          <img src="https://i.pravatar.cc/48?img=1" alt="" class="listener-avatar">
+          <img src="https://i.pravatar.cc/48?img=2" alt="" class="listener-avatar">
+          <img src="https://i.pravatar.cc/48?img=3" alt="" class="listener-avatar">
+        </div>
+        <span>2,847 people completed this guide</span>
+      </div>
+
+      <!-- Tags -->
+      <div class="tags-section">
+        <div class="tags">
+          <span class="tag">Spiritual Growth</span>
+          <span class="tag">Healing</span>
+          <span class="tag">Intuition</span>
+          <span class="tag">Meditation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

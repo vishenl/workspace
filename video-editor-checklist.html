@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Friday Ad - Editor Checklist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .progress-section {
+            background: #f8fafc;
+            padding: 30px 40px;
+            border-bottom: 3px solid #e2e8f0;
+        }
+
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .progress-bar-wrapper {
+            flex: 1;
+            background: #e2e8f0;
+            height: 40px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .progress-text {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #1e3a8a;
+            min-width: 120px;
+            text-align: right;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .version-section {
+            margin-bottom: 50px;
+        }
+
+        .version-header {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .version-header h2 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .version-header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .category {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3b82f6;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-icon {
+            font-size: 1.2em;
+        }
+
+        .checklist-item {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checklist-item:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        }
+
+        .checklist-item.completed {
+            background: #ecfdf5;
+            border-color: #10b981;
+            opacity: 0.7;
+        }
+
+        .item-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-wrapper {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #10b981;
+        }
+
+        .item-content {
+            flex: 1;
+        }
+
+        .item-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .item-description {
+            color: #475569;
+            margin-bottom: 10px;
+        }
+
+        .item-details {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .item-details ul {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
+        .item-details li {
+            margin-bottom: 5px;
+            color: #334155;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .badge-critical {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-remove {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-include {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-technical {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .note-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .note-box strong {
+            color: #92400e;
+        }
+
+        .completion-message {
+            display: none;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 40px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .completion-message.show {
+            display: block;
+        }
+
+        .completion-message h3 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .progress-container {
+                flex-direction: column;
+            }
+
+            .progress-text {
+                text-align: center;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 Black Friday Ad - Editor Checklist</h1>
+            <p>Instagram Version: Pure Humor & Entertainment</p>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-container">
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar" id="progressBar">
+                        <span id="progressPercentage">0%</span>
+                    </div>
+                </div>
+                <div class="progress-text">
+                    <span id="completedCount">0</span> / <span id="totalCount">16</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="version-section">
+                <div class="version-header">
+                    <h2>VERSION 1: Instagram (Vishen's Personal)</h2>
+                    <p>🎯 Goal: 70% humor, 30% product | Max 20-30 seconds on Mindvalley content</p>
+                </div>
+
+                <!-- MUST INCLUDE - Humor Segments -->
+                <div class="category">
+                    <h3 class="category-title">
+                        <span class="category-icon">😂</span>
+                        MUST INCLUDE - Humor Segments
+                    </h3>
+
+                    <div class="checklist-item" data-item="1">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item1">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">Opening Hook - "Shit You Don't Need"</div>
+                                <div class="item-description">Sets the humorous tone for the entire video</div>
+                                <div class="item-details">
+                                    <strong>Include:</strong> "Make you buy more shit you don't need on the internet"
+                                    <div class="note-box">
+                                        <strong>CRITICAL:</strong> DO NOT censor the word "shit" - it must be fully audible. This is what grabs attention and sets up the humor.
+                                    </div>
+                                </div>
+                                <span class="badge badge-critical">CRITICAL</span>
+                                <span class="badge badge-include">MUST INCLUDE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item" data-item="2">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item2">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">Chakra Joke</div>
+                                <div class="item-description">Spiritual humor that resonates with audience</div>
+                                <div class="item-details">
+                                    <strong>Include:</strong> "Your chakras will probably block themselves out of spite"
+                                </div>
+                                <span class="badge badge-include">MUST INCLUDE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item" data-item="3">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item3">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">2025 Trauma & Mitochondria Joke</div>
+                                <div class="item-description">Blends personal growth with absurdist humor</div>
+                                <div class="item-details">
+                                    <strong>Include:</strong> "Do you really want to go into 2025 with your childhood trauma still unresolved and sub-optimized mitochondria?"
+                                </div>
+                                <span class="badge badge-include">MUST INCLUDE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item" data-item="4">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item4">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">Mercury Retrograde Joke (Choose Best Option)</div>
+                                <div class="item-description">Placement: Towards the end of the video</div>
+                                <div class="item-details">
+                                    <strong>Option A:</strong> "Mercury retrograde, that thing, it will not be able to touch you. You'll be able to say, f*** you, Mercury, because Mindvalley"
+                                    <br><br>
+                                    <strong>Option B:</strong> "Mercury retrograde, that will not be able to lay a finger on you because you are a whole new person. F*** you, Mercury."
+                                    <br><br>
+                                    <div class="note-box">
+                                        <strong>Editor's Choice:</strong> Pick whichever option flows better with the edit. Place towards the end of the video.
+                                    </div>
+                                </div>
+                                <span class="badge badge-include">MUST INCLUDE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item" data-item="5">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item5">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">"Ass That Won't Stop" Joke</div>
+                                <div class="item-description">Unexpected humor callback</div>
+                                <div class="item-details">
+                                    <strong>Include:</strong> "Maybe you just want an ass that won't stop"
+                                </div>
+                                <span class="badge badge-include">MUST INCLUDE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item" data-item="13">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item13">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">Ex-Relationship Revenge Joke</div>
+                                <div class="item-description">Empowering transformation narrative with humor</div>
+                                <div class="item-details">
+                                    <strong>Full quote:</strong> "This is the ultimate revenge. Do it to get back at them. Because you're gonna be so sexy, so wealthy, so in tune with yourself that frankly they will beg to have you back. And say no. Because I am in a relationship with Mindvalley."
+                                </div>
+                                <span class="badge badge-include">MUST INCLUDE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MINDVALLEY CONTENT SECTION -->
+                <div class="category">
+                    <h3 class="category-title">
+                        <span class="category-icon">🎓</span>
+                        Mindvalley Content (20-30 seconds MAX)
+                    </h3>
+
+                    <div class="checklist-item" data-item="6">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item6">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">Fast-Paced Product Montage</div>
+                                <div class="item-description">Show value quickly without dwelling</div>
+                                <div class="item-details">
+                                    <strong>Show (rapid cuts):</strong>
+                                    <ul>
+                                        <li>100+ courses</li>
+                                        <li>World-class teachers (quick visuals)</li>
+                                        <li>Categories: meditation, hypnotherapy, sound tech</li>
+                                        <li>Sexy Beast category (brief visual)</li>
+                                    </ul>
+                                    <div class="note-box">
+                                        <strong>Pacing:</strong> Very fast. Don't linger. Keep it moving.
+                                    </div>
+                                </div>
+                                <span class="badge badge-include">MUST INCLUDE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item" data-item="7">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item7">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">Teachers Description (Edited)</div>
+                                <div class="item-description">Streamlined credibility without redundancy</div>
+                                <div class="item-details">
+                                    <strong>Keep:</strong> "New York Times best-selling authors, scientists, biohackers, professors, spiritual leaders"
+                                    <br><br>
+                                    <strong>REMOVE:</strong> "Top-tier university lecturers from Harvard and Columbia" (redundant with professors)
+                                </div>
+                                <span class="badge badge-include">INCLUDE</span>
+                                <span class="badge badge-remove">EDIT</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item" data-item="8">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item8">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">Mindvalley Credibility (Brief Mentions)</div>
+                                <div class="item-description">Quick credibility markers without over-selling</div>
+                                <div class="item-details">
+                                    <strong>INCLUDE:</strong>
+                                    <ul>
+                                        <li>"If you've heard of Mindvalley, you know we're the ultimate app for human transformation"</li>
+                                        <li>"25,000 case studies from people all around the world"</li>
+                                        <li>"This app has been featured by Apple in every single Apple store in the world. Why?"</li>
+                                    </ul>
+                                    <strong>REMOVE:</strong>
+                                    <ul>
+                                        <li>Microsoft mention</li>
+                                        <li>Trust Pilot rating</li>
+                                        <li>Individual celebrity endorsements (Zaynab, Tony Gonzalez, Bianca Andreescu)</li>
+                                    </ul>
+                                </div>
+                                <span class="badge badge-include">INCLUDE</span>
+                                <span class="badge badge-remove">REMOVE EXTRAS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item" data-item="9">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item9">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">Miguel/Jose Reference</div>
+                                <div class="item-description">Celebrity mention with name change</div>
+                                <div class="item-details">
+                                    <strong>Include:</strong> The "sexy Miguel" bit
+                                    <br><br>
+                                    <div class="note-box">
+                                        <strong>IMPORTANT:</strong> Call him "Jose" or another name (NOT Miguel) to avoid confusion with testimonial for Miguel the artist.
+                                    </div>
+                                </div>
+                                <span class="badge badge-include">INCLUDE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item" data-item="10">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item10">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">App Features & Categories</div>
+                                <div class="item-description">Show range with playful ending</div>
+                                <div class="item-details">
+                                    <strong>Include:</strong>
+                                    <ul>
+                                        <li>Quest methodology mention</li>
+                                        <li>"All in unique categories from confident to sleep to, get this, even sexy times"</li>
+                                        <li>Show the Sexy Beast category visual</li>
+                                    </ul>
+                                </div>
+                                <span class="badge badge-include">MUST INCLUDE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item" data-item="11">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item11">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">AI Feature - Special Screen</div>
+                                <div class="item-description">Most important visual treatment</div>
+                                <div class="item-details">
+                                    <div class="note-box">
+                                        <strong>CRITICAL VISUAL:</strong> Create ONE FULL SCREEN with:
+                                        <ul>
+                                            <li>"MINDVALLEY AI" (large font at top)</li>
+                                            <li>"Because humans are stupid" (smaller font below as tagline)</li>
+                                            <li>ALL text must be on ONE screen simultaneously</li>
+                                            <li>Optional: Add audio waveform visual animation (if not too time-consuming, skip if rushed)</li>
+                                        </ul>
+                                        This single screen composition is what makes it funny.
+                                    </div>
+                                    <strong>Also include:</strong> Brief demonstration of AI capability
+                                </div>
+                                <span class="badge badge-critical">CRITICAL</span>
+                                <span class="badge badge-technical">SPECIAL VISUAL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item" data-item="12">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item12">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">Humor Break in Middle of Content</div>
+                                <div class="item-description">Don't make it feel like an infomercial</div>
+                                <div class="item-details">
+                                    <strong>Placement:</strong> Around the meditation/library section of Mindvalley content
+                                    <br><br>
+                                    <strong>What to inject:</strong> Mercury retrograde joke or similar humor beat
+                                    <br><br>
+                                    <div class="note-box">
+                                        <strong>Goal:</strong> Break up the product info with humor so it doesn't feel like a straight sales pitch. Find organic place to insert.
+                                    </div>
+                                </div>
+                                <span class="badge badge-include">MUST INCLUDE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WHAT TO REMOVE -->
+                <div class="category">
+                    <h3 class="category-title">
+                        <span class="category-icon">✂️</span>
+                        What to REMOVE Entirely
+                    </h3>
+
+                    <div class="checklist-item" data-item="14">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item14">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">Sections to Cut</div>
+                                <div class="item-description">Remove these completely from the edit</div>
+                                <div class="item-details">
+                                    <strong>CUT these sections:</strong>
+                                    <ul>
+                                        <li>"If you haven't heard of Mindvalley, you probably live in a country that we don't run into. Angola or something."</li>
+                                        <li>Trust Pilot rating mention</li>
+                                        <li>Celebrity endorsements section (Zaynab, Tony Gonzalez, Bianca Andreescu specifically called out)</li>
+                                        <li>Microsoft feature mention (keep Apple mention only)</li>
+                                        <li>Arrow/Aeryn joke (many members don't get this reference)</li>
+                                        <li>First two unspecified joke options mentioned early in feedback</li>
+                                        <li>Multiple other segments marked "remove this part" in transcript</li>
+                                    </ul>
+                                </div>
+                                <span class="badge badge-remove">REMOVE ALL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TECHNICAL & VISUAL -->
+                <div class="category">
+                    <h3 class="category-title">
+                        <span class="category-icon">🎨</span>
+                        Visual & Technical Adjustments
+                    </h3>
+
+                    <div class="checklist-item" data-item="15">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item15">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">Lighting Color Correction</div>
+                                <div class="item-description">Make lighting more natural and engaging</div>
+                                <div class="item-details">
+                                    <strong>Changes needed:</strong>
+                                    <ul>
+                                        <li>Change white light to more natural/warm tones</li>
+                                        <li>Prefer orange or auburn lighting</li>
+                                        <li>Make lighting slightly yellowish (not bright white)</li>
+                                        <li>Fix lapupu toy color (currently too white, should be more natural)</li>
+                                    </ul>
+                                    <div class="note-box">
+                                        <strong>Why:</strong> Studies show more natural lighting (less bright white) gets better Instagram engagement and response.
+                                    </div>
+                                </div>
+                                <span class="badge badge-technical">COLOR GRADE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CLOSING -->
+                <div class="category">
+                    <h3 class="category-title">
+                        <span class="category-icon">🎯</span>
+                        Closing & Call-to-Action
+                    </h3>
+
+                    <div class="checklist-item" data-item="16">
+                        <div class="item-header">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="item16">
+                            </div>
+                            <div class="item-content">
+                                <div class="item-title">Final CTA & Tagline</div>
+                                <div class="item-description">End on a strong, memorable note</div>
+                                <div class="item-details">
+                                    <strong>Text on screen:</strong>
+                                    <ul>
+                                        <li>"Get 50% off Mindvalley membership - Just for Black Friday"</li>
+                                    </ul>
+                                    <strong>Tagline option:</strong>
+                                    <ul>
+                                        <li>"Mindvalley: Be more spiritual, live longer, be happier, and get an ass that won't stop"</li>
+                                    </ul>
+                                    <div class="note-box">
+                                        <strong>Note:</strong> Confirm final tagline with Vishen if needed before finalizing.
+                                    </div>
+                                </div>
+                                <span class="badge badge-include">MUST INCLUDE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="completion-message" id="completionMessage">
+                <h3>🎉 Checklist Complete!</h3>
+                <p>All items checked off. Video should be ready for review!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get all checkboxes
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const progressBar = document.getElementById('progressBar');
+        const progressPercentage = document.getElementById('progressPercentage');
+        const completedCount = document.getElementById('completedCount');
+        const totalCount = document.getElementById('totalCount');
+        const completionMessage = document.getElementById('completionMessage');
+
+        // Set total count
+        totalCount.textContent = checkboxes.length;
+
+        // Load saved state from localStorage
+        function loadCheckboxStates() {
+            checkboxes.forEach((checkbox, index) => {
+                const saved = localStorage.getItem(`checkbox-${index}`);
+                if (saved === 'true') {
+                    checkbox.checked = true;
+                    checkbox.closest('.checklist-item').classList.add('completed');
+                }
+            });
+            updateProgress();
+        }
+
+        // Save checkbox state
+        function saveCheckboxState(index, checked) {
+            localStorage.setItem(`checkbox-${index}`, checked);
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const total = checkboxes.length;
+            const percentage = Math.round((checked / total) * 100);
+
+            progressBar.style.width = percentage + '%';
+            progressPercentage.textContent = percentage + '%';
+            completedCount.textContent = checked;
+
+            // Show completion message if all done
+            if (checked === total) {
+                completionMessage.classList.add('show');
+            } else {
+                completionMessage.classList.remove('show');
+            }
+        }
+
+        // Add event listeners to all checkboxes
+        checkboxes.forEach((checkbox, index) => {
+            checkbox.addEventListener('change', function() {
+                const item = this.closest('.checklist-item');
+
+                if (this.checked) {
+                    item.classList.add('completed');
+                } else {
+                    item.classList.remove('completed');
+                }
+
+                saveCheckboxState(index, this.checked);
+                updateProgress();
+            });
+        });
+
+        // Make entire item clickable
+        document.querySelectorAll('.checklist-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                // Don't toggle if clicking on the checkbox itself
+                if (e.target.type !== 'checkbox') {
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                    checkbox.dispatchEvent(new Event('change'));
+                }
+            });
+        });
+
+        // Load saved states on page load
+        loadCheckboxStates();
+    </script>
+</body>
+</html>
