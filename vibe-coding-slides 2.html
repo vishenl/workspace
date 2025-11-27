@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding Masterclass | Slides</title>
+    <link rel="stylesheet" href="mv-selfreset-base.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #0f131a;
+        }
+
+        /* Slide Container */
+        .slides-container {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            text-align: center;
+            background: white;
+            overflow: hidden;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        /* Slide Variants */
+        .slide.purple {
+            background: linear-gradient(135deg, #7a12d4 0%, #5a0fb0 100%);
+            color: white;
+        }
+
+        .slide.teal {
+            background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+            color: white;
+        }
+
+        .slide.dark {
+            background: #0f131a;
+            color: white;
+        }
+
+        .slide.light-purple {
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+        }
+
+        .slide.light-teal {
+            background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%);
+        }
+
+        /* Typography */
+        .slide-eyebrow {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.875rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .slide.purple .slide-eyebrow,
+        .slide.teal .slide-eyebrow,
+        .slide.dark .slide-eyebrow {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .slide-eyebrow:not(.slide.purple .slide-eyebrow):not(.slide.teal .slide-eyebrow):not(.slide.dark .slide-eyebrow) {
+            color: #7a12d4;
+        }
+
+        .slide-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 1000px;
+        }
+
+        .slide-subtitle {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            line-height: 1.5;
+            max-width: 800px;
+            opacity: 0.9;
+        }
+
+        .slide-content {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        /* Lists */
+        .slide-list {
+            list-style: none;
+            text-align: left;
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            line-height: 1.8;
+        }
+
+        .slide-list li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .slide-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.6em;
+            width: 8px;
+            height: 8px;
+            background: #7a12d4;
+            border-radius: 50%;
+        }
+
+        .slide.purple .slide-list li::before,
+        .slide.teal .slide-list li::before,
+        .slide.dark .slide-list li::before {
+            background: white;
+        }
+
+        .slide-list strong {
+            font-family: Grotesk-Bold, sans-serif;
+        }
+
+        /* Grid layouts */
+        .slide-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            text-align: left;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .slide-grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .slide-grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media (max-width: 900px) {
+            .slide-grid-3, .slide-grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .grid-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .slide:not(.purple):not(.teal):not(.dark) .grid-card {
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+        }
+
+        .grid-card h3 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .grid-card p {
+            font-size: 1rem;
+            opacity: 0.85;
+            line-height: 1.5;
+        }
+
+        .slide:not(.purple):not(.teal):not(.dark) .grid-card h3 {
+            color: #7a12d4;
+        }
+
+        /* Comparison */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .comparison-side {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .comparison-vs {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .comparison h3 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .comparison p {
+            font-size: 1.125rem;
+            line-height: 1.6;
+        }
+
+        /* Infrastructure Stack */
+        .infra-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .infra-layer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1.25rem;
+            color: white;
+        }
+
+        .infra-layer.l1 { background: linear-gradient(90deg, #7a12d4, #9333ea); }
+        .infra-layer.l2 { background: linear-gradient(90deg, #0d9488, #14b8a6); }
+        .infra-layer.l3 { background: linear-gradient(90deg, #3b82f6, #2563eb); }
+        .infra-layer.l4 { background: linear-gradient(90deg, #8b5cf6, #7c3aed); }
+
+        .infra-arrow {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #999;
+        }
+
+        /* VIBE Framework */
+        .vibe-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .vibe-step {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .slide:not(.purple):not(.teal):not(.dark) .vibe-step {
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+        }
+
+        .vibe-letter {
+            width: 60px;
+            height: 60px;
+            background: #7a12d4;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.75rem;
+            flex-shrink: 0;
+        }
+
+        .slide.purple .vibe-letter,
+        .slide.teal .vibe-letter {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .vibe-content h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .vibe-content p {
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+
+        /* Code/Prompt Box */
+        .prompt-box {
+            background: #1a1a2e;
+            color: #e5e5e5;
+            padding: 2rem;
+            border-radius: 12px;
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 1rem;
+            text-align: left;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            max-width: 900px;
+            width: 100%;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .prompt-box .comment {
+            color: #6a9955;
+        }
+
+        /* Big Number */
+        .big-number {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: clamp(5rem, 15vw, 12rem);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .slide.purple .big-number,
+        .slide.teal .big-number {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .slide:not(.purple):not(.teal):not(.dark) .big-number {
+            color: #7a12d4;
+        }
+
+        /* Quote */
+        .quote {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            font-style: italic;
+            line-height: 1.5;
+            max-width: 800px;
+        }
+
+        .quote-author {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 1.125rem;
+            margin-top: 1.5rem;
+            opacity: 0.7;
+        }
+
+        /* Table */
+        .slide-table {
+            width: 100%;
+            max-width: 900px;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 1.125rem;
+        }
+
+        .slide-table th,
+        .slide-table td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .slide.purple .slide-table th,
+        .slide.purple .slide-table td,
+        .slide.teal .slide-table th,
+        .slide.teal .slide-table td,
+        .slide.dark .slide-table th,
+        .slide.dark .slide-table td {
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .slide-table th {
+            font-family: Grotesk-Bold, sans-serif;
+            background: rgba(0,0,0,0.05);
+        }
+
+        .slide.purple .slide-table th,
+        .slide.teal .slide-table th,
+        .slide.dark .slide-table th {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Navigation */
+        .nav-controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: #7a12d4;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Progress */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #7a12d4;
+            transition: width 0.3s;
+            z-index: 100;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.875rem;
+            color: #999;
+            z-index: 100;
+        }
+
+        /* Class divider */
+        .class-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 999px;
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Timing badge */
+        .timing {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.35rem 1rem;
+            border-radius: 999px;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .slide:not(.purple):not(.teal):not(.dark) .timing {
+            background: #7a12d4;
+            color: white;
+        }
+
+        /* Keyboard hint */
+        .keyboard-hint {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.75rem;
+            color: #999;
+            z-index: 100;
+        }
+
+        .keyboard-hint kbd {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: #e5e5e5;
+            border-radius: 4px;
+            font-family: inherit;
+            margin: 0 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progress"></div>
+    <div class="slide-counter" id="counter"></div>
+    <div class="keyboard-hint">Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> or click arrows to navigate</div>
+
+    <div class="slides-container">
+
+        <!-- ==================== TITLE ==================== -->
+        <div class="slide purple active" data-class="intro">
+            <p class="slide-eyebrow">AI Mastery Program</p>
+            <h1 class="slide-title">VIBE CODING MASTERCLASS</h1>
+            <p class="slide-subtitle">Build Real Apps with AI - No Coding Required</p>
+            <p style="margin-top: 2rem; opacity: 0.7;">Two 60-Minute Classes + Q&A</p>
+        </div>
+
+        <!-- ==================== WHAT IS VIBE CODING ==================== -->
+        <div class="slide" data-class="intro">
+            <p class="slide-eyebrow">The Big Idea</p>
+            <h1 class="slide-title">What is Vibe Coding?</h1>
+            <p class="slide-subtitle">Building software by describing what you want in natural language, and letting AI write the code for you.</p>
+        </div>
+
+        <div class="slide light-purple" data-class="intro">
+            <p class="slide-eyebrow">The Shift</p>
+            <div class="comparison">
+                <div class="comparison-side">
+                    <h3>Old Way</h3>
+                    <p>Learn to code<br>&darr;<br>Write syntax<br>&darr;<br>Debug errors<br>&darr;<br><strong>Months of learning</strong></p>
+                </div>
+                <div class="comparison-vs">VS</div>
+                <div class="comparison-side">
+                    <h3>Vibe Coding</h3>
+                    <p>Describe what you want<br>&darr;<br>AI builds it<br>&darr;<br>Iterate with feedback<br>&darr;<br><strong>Hours to results</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== EXAMPLES ==================== -->
+        <div class="slide purple" data-class="intro">
+            <p class="slide-eyebrow">Real Examples</p>
+            <h1 class="slide-title">What People Have Built</h1>
+        </div>
+
+        <div class="slide" data-class="intro">
+            <div class="slide-content">
+                <div class="slide-grid slide-grid-4">
+                    <div class="grid-card">
+                        <h3>Lead Capture Quiz</h3>
+                        <p>Built in 3 hours. Captures 5,000+ leads.</p>
+                    </div>
+                    <div class="grid-card">
+                        <h3>Client Portal</h3>
+                        <p>Built in 1 weekend. Tracks projects & documents.</p>
+                    </div>
+                    <div class="grid-card">
+                        <h3>Event Registration</h3>
+                        <p>Built in 2 days. Payments + confirmations.</p>
+                    </div>
+                    <div class="grid-card">
+                        <h3>Habit Tracker</h3>
+                        <p>Built in 4 hours. User accounts + streaks.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide dark" data-class="intro">
+            <p class="slide-eyebrow">Key Insight</p>
+            <p class="quote">"Your business wisdom is more valuable than coding knowledge. AI handles the technical parts. You bring the vision."</p>
+        </div>
+
+        <!-- ==================== WHAT YOU'LL BUILD ==================== -->
+        <div class="slide" data-class="intro">
+            <p class="slide-eyebrow">By The End of These Classes</p>
+            <h1 class="slide-title">What You'll Build</h1>
+            <ul class="slide-list">
+                <li><strong>Landing pages with dynamic features</strong> - quizzes, signup forms, lead magnets</li>
+                <li><strong>Apps with databases</strong> - user accounts, saved data, persistent info</li>
+                <li><strong>Interactive tools</strong> - calculators, assessments, trackers</li>
+                <li><strong>Connected systems</strong> - apps that integrate with external services</li>
+            </ul>
+        </div>
+
+        <!-- ==================== INFRASTRUCTURE ==================== -->
+        <div class="slide purple" data-class="intro">
+            <p class="slide-eyebrow">Understanding The Stack</p>
+            <h1 class="slide-title">The Infrastructure Layers</h1>
+        </div>
+
+        <div class="slide" data-class="intro">
+            <p class="slide-eyebrow">How Apps Work</p>
+            <div class="infra-stack">
+                <div class="infra-layer l1">AI Coding Agent (Lovable, Claude Code, Cursor)</div>
+                <div class="infra-arrow">&darr;</div>
+                <div class="infra-layer l2">Database & Authentication (Supabase)</div>
+                <div class="infra-arrow">&darr;</div>
+                <div class="infra-layer l3">Code Repository (GitHub)</div>
+                <div class="infra-arrow">&darr;</div>
+                <div class="infra-layer l4">Hosting & Deployment (Vercel, Netlify)</div>
+            </div>
+        </div>
+
+        <div class="slide" data-class="intro">
+            <p class="slide-eyebrow">Simple Analogies</p>
+            <table class="slide-table">
+                <tr>
+                    <th>Layer</th>
+                    <th>Think of it as...</th>
+                    <th>What it does</th>
+                </tr>
+                <tr>
+                    <td><strong>AI Coding Agent</strong></td>
+                    <td>Your architect + construction crew</td>
+                    <td>Builds what you describe</td>
+                </tr>
+                <tr>
+                    <td><strong>Database</strong></td>
+                    <td>Your filing cabinet</td>
+                    <td>Stores and retrieves information</td>
+                </tr>
+                <tr>
+                    <td><strong>Repository</strong></td>
+                    <td>Project folder with version history</td>
+                    <td>Keeps track of all your code</td>
+                </tr>
+                <tr>
+                    <td><strong>Hosting</strong></td>
+                    <td>Your storefront's address</td>
+                    <td>Makes your app accessible online</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="slide light-purple" data-class="intro">
+            <p class="slide-eyebrow">Why We Use</p>
+            <h1 class="slide-title">Lovable</h1>
+            <p class="slide-subtitle" style="margin-bottom: 2rem;">An all-in-one solution that handles all four layers automatically</p>
+            <ul class="slide-list">
+                <li><strong>AI Coding:</strong> Built-in AI that understands your prompts</li>
+                <li><strong>Database:</strong> One-click Supabase integration</li>
+                <li><strong>Repository:</strong> Automatic GitHub connection</li>
+                <li><strong>Hosting:</strong> Instant deployment with shareable URLs</li>
+            </ul>
+        </div>
+
+        <!-- ==================== CLASS 1 DIVIDER ==================== -->
+        <div class="slide purple" data-class="class1">
+            <div class="class-badge">Class 1</div>
+            <h1 class="slide-title">Vibe Coding Foundations</h1>
+            <p class="slide-subtitle">60 Minutes + 30 Minutes Q&A</p>
+        </div>
+
+        <!-- ==================== VIBE FRAMEWORK ==================== -->
+        <div class="slide" data-class="class1">
+            <span class="timing">20-35 min</span>
+            <p class="slide-eyebrow">The Core Skill</p>
+            <h1 class="slide-title">The VIBE Framework</h1>
+            <p class="slide-subtitle">A simple structure for defining your requirements</p>
+        </div>
+
+        <div class="slide" data-class="class1">
+            <div class="vibe-steps">
+                <div class="vibe-step">
+                    <div class="vibe-letter">V</div>
+                    <div class="vibe-content">
+                        <h4>Vision</h4>
+                        <p>What is this? What does it do? What problem does it solve?</p>
+                    </div>
+                </div>
+                <div class="vibe-step">
+                    <div class="vibe-letter">I</div>
+                    <div class="vibe-content">
+                        <h4>Interaction</h4>
+                        <p>Who uses it? What actions do they take? What do they see?</p>
+                    </div>
+                </div>
+                <div class="vibe-step">
+                    <div class="vibe-letter">B</div>
+                    <div class="vibe-content">
+                        <h4>Backend</h4>
+                        <p>What data needs to be stored? Any user accounts? Any external services?</p>
+                    </div>
+                </div>
+                <div class="vibe-step">
+                    <div class="vibe-letter">E</div>
+                    <div class="vibe-content">
+                        <h4>Experience</h4>
+                        <p>What's the visual style? What's the emotional tone? Any reference examples?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide dark" data-class="class1">
+            <p class="slide-eyebrow">Example Prompt</p>
+            <div class="prompt-box"><span class="comment"># VISION</span>
+I need a landing page for my 5-Day Meditation Challenge.
+It's a free email course that helps busy entrepreneurs
+reduce stress through daily 10-minute practices.
+
+<span class="comment"># INTERACTION</span>
+Visitors should:
+- See the value proposition immediately
+- Take a short 3-question quiz
+- Enter their email to get started
+- See a confirmation message after signup
+
+<span class="comment"># BACKEND</span>
+I need a database to store:
+- Email addresses
+- Quiz answers
+- Signup timestamp
+
+<span class="comment"># EXPERIENCE</span>
+Style: Calm, modern, minimal. Think Headspace meets Apple.
+Colors: Soft blues, white backgrounds, subtle gradients.</div>
+        </div>
+
+        <!-- ==================== ITERATION ==================== -->
+        <div class="slide" data-class="class1">
+            <p class="slide-eyebrow">The Process</p>
+            <h1 class="slide-title">The Iteration Loop</h1>
+            <p class="slide-subtitle" style="margin-bottom: 2rem;">Vibe coding is conversational. Your first result won't be perfect.</p>
+            <div class="slide-grid slide-grid-4">
+                <div class="grid-card" style="text-align: center;">
+                    <h3>1. Generate</h3>
+                    <p>AI builds first version</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>2. Review</h3>
+                    <p>Look at what it created</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>3. Refine</h3>
+                    <p>Tell AI what to change</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>4. Repeat</h3>
+                    <p>Until you're satisfied</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide light-purple" data-class="class1">
+            <p class="slide-eyebrow">Pro Tips</p>
+            <h1 class="slide-title">Better Prompts</h1>
+            <ul class="slide-list">
+                <li><strong>Be specific:</strong> "#3B82F6" beats "blue"</li>
+                <li><strong>Give examples:</strong> "Like the signup form on Calm.com"</li>
+                <li><strong>One thing at a time:</strong> Request one change, see result, then next</li>
+                <li><strong>Describe outcomes:</strong> "Users should feel excited" not "Use exciting design"</li>
+            </ul>
+        </div>
+
+        <!-- ==================== DEMO ==================== -->
+        <div class="slide purple" data-class="class1">
+            <span class="timing">35-55 min</span>
+            <p class="slide-eyebrow">Live Demo</p>
+            <h1 class="slide-title">Let's Build a<br>Stress Type Quiz</h1>
+        </div>
+
+        <div class="slide" data-class="class1">
+            <p class="slide-eyebrow">What We're Building</p>
+            <ul class="slide-list">
+                <li>Hero section with compelling headline</li>
+                <li>3-question interactive quiz</li>
+                <li>Email capture form</li>
+                <li>Results displayed based on quiz answers</li>
+                <li>All data stored in Supabase database</li>
+                <li>Live URL anyone can visit</li>
+            </ul>
+        </div>
+
+        <div class="slide dark" data-class="class1">
+            <p class="slide-eyebrow">Demo Prompt</p>
+            <div class="prompt-box" style="font-size: 0.85rem;">Build a landing page for a "Discover Your Stress Type" quiz.
+
+TARGET: Entrepreneurs and professionals who want to understand
+their stress patterns.
+
+PAGE SECTIONS:
+1. Hero with headline: "What's Your Stress Type?"
+2. The quiz (3 questions, multiple choice)
+3. Email capture form
+4. Results section showing their stress type
+
+STYLE: Clean, calming, professional.
+DATABASE: Store email, quiz answers, and results in Supabase.</div>
+        </div>
+
+        <div class="slide" data-class="class1">
+            <p class="slide-eyebrow">Demo Steps</p>
+            <h1 class="slide-title">Watch & Learn</h1>
+            <ul class="slide-list">
+                <li><strong>Step 1:</strong> Create new project in Lovable</li>
+                <li><strong>Step 2:</strong> Enter initial prompt</li>
+                <li><strong>Step 3:</strong> Watch AI build (narrate what's happening)</li>
+                <li><strong>Step 4:</strong> Review & iterate</li>
+                <li><strong>Step 5:</strong> Connect Supabase database</li>
+                <li><strong>Step 6:</strong> Deploy & share the live URL</li>
+            </ul>
+        </div>
+
+        <div class="slide purple" data-class="class1">
+            <p class="slide-eyebrow">Key Takeaway</p>
+            <p class="quote">"Notice I'm describing what I want, not how to code it."</p>
+        </div>
+
+        <!-- ==================== ASSIGNMENT ==================== -->
+        <div class="slide" data-class="class1">
+            <span class="timing">55-60 min</span>
+            <p class="slide-eyebrow">Before Class 2</p>
+            <h1 class="slide-title">Your Assignment</h1>
+            <p class="slide-subtitle" style="margin-bottom: 2rem;">Build your own landing page with a form that stores data</p>
+            <div class="slide-grid slide-grid-4">
+                <div class="grid-card" style="text-align: center;">
+                    <h3>Lead Magnet</h3>
+                    <p>Ebook, guide, checklist signup</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>Event Registration</h3>
+                    <p>Workshop or webinar signups</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>Contact Form</h3>
+                    <p>That saves to database</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>Simple Quiz</h3>
+                    <p>For your niche</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== CLASS 2 DIVIDER ==================== -->
+        <div class="slide teal" data-class="class2">
+            <div class="class-badge">Class 2</div>
+            <h1 class="slide-title">Building Dynamic Apps<br>with Databases</h1>
+            <p class="slide-subtitle">60 Minutes + 30 Minutes Q&A</p>
+        </div>
+
+        <div class="slide" data-class="class2">
+            <p class="slide-eyebrow">What's New Today</p>
+            <table class="slide-table">
+                <tr>
+                    <th>Concept</th>
+                    <th>What It Enables</th>
+                </tr>
+                <tr>
+                    <td><strong>User Authentication</strong></td>
+                    <td>Users can create accounts, log in, have their own data</td>
+                </tr>
+                <tr>
+                    <td><strong>Database Design</strong></td>
+                    <td>Structure your data properly, create relationships</td>
+                </tr>
+                <tr>
+                    <td><strong>API Keys</strong></td>
+                    <td>Connect to external services (AI, email, payments)</td>
+                </tr>
+                <tr>
+                    <td><strong>CRUD Operations</strong></td>
+                    <td>Create, Read, Update, Delete data in your app</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- ==================== DATABASES ==================== -->
+        <div class="slide teal" data-class="class2">
+            <span class="timing">10-25 min</span>
+            <p class="slide-eyebrow">Core Concept</p>
+            <h1 class="slide-title">Understanding Databases</h1>
+        </div>
+
+        <div class="slide" data-class="class2">
+            <p class="slide-eyebrow">Simple Mental Model</p>
+            <h1 class="slide-title">A Database is a<br>Spreadsheet with Superpowers</h1>
+        </div>
+
+        <div class="slide" data-class="class2">
+            <table class="slide-table">
+                <tr>
+                    <th>Spreadsheet Term</th>
+                    <th>Database Term</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>A sheet/tab</td>
+                    <td><strong>A table</strong></td>
+                    <td>"users", "habits", "entries"</td>
+                </tr>
+                <tr>
+                    <td>A column</td>
+                    <td><strong>A field</strong></td>
+                    <td>"email", "name", "created_at"</td>
+                </tr>
+                <tr>
+                    <td>A row</td>
+                    <td><strong>A record</strong></td>
+                    <td>One user, one habit entry</td>
+                </tr>
+                <tr>
+                    <td>VLOOKUP</td>
+                    <td><strong>A relationship</strong></td>
+                    <td>Connecting user to their entries</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="slide dark" data-class="class2">
+            <p class="slide-eyebrow">Example Database Design</p>
+            <div class="prompt-box"><span class="comment"># TABLE: users</span>
+- id (auto-generated unique ID)
+- email
+- name
+- created_at
+
+<span class="comment"># TABLE: habits</span>
+- id
+- user_id (links to users table)
+- habit_name
+- target_frequency
+- created_at
+
+<span class="comment"># TABLE: habit_entries</span>
+- id
+- habit_id (links to habits table)
+- completed_date
+- notes (optional)</div>
+        </div>
+
+        <!-- ==================== AUTHENTICATION ==================== -->
+        <div class="slide" data-class="class2">
+            <p class="slide-eyebrow">User Authentication</p>
+            <h1 class="slide-title">How Login Works</h1>
+            <div class="slide-grid slide-grid-4">
+                <div class="grid-card" style="text-align: center;">
+                    <h3>1. Sign Up</h3>
+                    <p>User creates account</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>2. Log In</h3>
+                    <p>Enter credentials, get session</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>3. Protected Pages</h3>
+                    <p>Only visible when logged in</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>4. User Data</h3>
+                    <p>Each user sees only their own</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide light-teal" data-class="class2">
+            <p class="slide-eyebrow">Good News</p>
+            <h1 class="slide-title">Supabase Handles This</h1>
+            <p class="slide-subtitle">Just tell Lovable "add user authentication with Supabase" and it sets up signup, login, password reset, and session management automatically.</p>
+        </div>
+
+        <!-- ==================== API KEYS ==================== -->
+        <div class="slide teal" data-class="class2">
+            <span class="timing">25-35 min</span>
+            <p class="slide-eyebrow">Connecting Services</p>
+            <h1 class="slide-title">Understanding API Keys</h1>
+        </div>
+
+        <div class="slide" data-class="class2">
+            <p class="slide-eyebrow">What Are They?</p>
+            <h1 class="slide-title">API Keys are Passwords<br>for Your App</h1>
+            <p class="slide-subtitle">They let your app talk to external services</p>
+        </div>
+
+        <div class="slide" data-class="class2">
+            <p class="slide-eyebrow">Services That Need API Keys</p>
+            <div class="slide-grid slide-grid-3">
+                <div class="grid-card" style="text-align: center;">
+                    <h3>OpenAI / Claude</h3>
+                    <p>Use AI in your app</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>Stripe</h3>
+                    <p>Accept payments</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>SendGrid / Resend</h3>
+                    <p>Send emails</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" data-class="class2">
+            <p class="slide-eyebrow">How To Use Them</p>
+            <div class="vibe-steps">
+                <div class="vibe-step">
+                    <div class="vibe-letter">1</div>
+                    <div class="vibe-content">
+                        <h4>Get the Key</h4>
+                        <p>Sign up for the service and find your API key in their dashboard</p>
+                    </div>
+                </div>
+                <div class="vibe-step">
+                    <div class="vibe-letter">2</div>
+                    <div class="vibe-content">
+                        <h4>Store It Securely</h4>
+                        <p>Add to Lovable's environment variables (never share publicly)</p>
+                    </div>
+                </div>
+                <div class="vibe-step">
+                    <div class="vibe-letter">3</div>
+                    <div class="vibe-content">
+                        <h4>Use It</h4>
+                        <p>"Add a button that sends user input to OpenAI and displays the response"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== DEMO 2 ==================== -->
+        <div class="slide teal" data-class="class2">
+            <span class="timing">35-55 min</span>
+            <p class="slide-eyebrow">Live Demo</p>
+            <h1 class="slide-title">Let's Build a<br>Habit Tracker</h1>
+        </div>
+
+        <div class="slide" data-class="class2">
+            <p class="slide-eyebrow">What We're Building</p>
+            <ul class="slide-list">
+                <li>User signup/login with Supabase Auth</li>
+                <li>Dashboard showing user's habits</li>
+                <li>Add new habit functionality</li>
+                <li>Mark habits complete for today</li>
+                <li>Streak counter for each habit</li>
+                <li>All data persisted per user</li>
+            </ul>
+        </div>
+
+        <div class="slide dark" data-class="class2">
+            <p class="slide-eyebrow">Demo Prompt</p>
+            <div class="prompt-box" style="font-size: 0.85rem;">Build a habit tracking app called "Streak Builder".
+
+CORE FEATURES:
+1. User authentication (signup, login, logout) using Supabase
+2. Dashboard showing all habits for logged-in user
+3. Add new habits with name and target frequency
+4. Mark habits as complete for today
+5. Streak counter showing consecutive days
+
+DATABASE TABLES:
+- users (handled by Supabase Auth)
+- habits (user_id, name, frequency, created_at)
+- completions (habit_id, completed_date)
+
+STYLE: Clean, modern, motivating. Green for completed items.</div>
+        </div>
+
+        <div class="slide teal" data-class="class2">
+            <p class="slide-eyebrow">Key Takeaway</p>
+            <p class="quote">"We built a real app with user accounts in under 20 minutes."</p>
+        </div>
+
+        <!-- ==================== WHAT YOU CAN BUILD ==================== -->
+        <div class="slide" data-class="class2">
+            <p class="slide-eyebrow">What You Can Build Now</p>
+            <div class="slide-grid slide-grid-3">
+                <div class="grid-card" style="text-align: center;">
+                    <h3>Client Portals</h3>
+                    <p>Track project status</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>Course Platforms</h3>
+                    <p>Progress tracking</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>Booking Systems</h3>
+                    <p>Appointments</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>Community Tools</h3>
+                    <p>Posts, comments</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>AI-Powered Apps</h3>
+                    <p>GPT/Claude integration</p>
+                </div>
+                <div class="grid-card" style="text-align: center;">
+                    <h3>Dashboards</h3>
+                    <p>Personal analytics</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== CHALLENGE ==================== -->
+        <div class="slide purple" data-class="class2">
+            <p class="slide-eyebrow">Your Challenge</p>
+            <h1 class="slide-title">7-Day Builder Challenge</h1>
+            <p class="slide-subtitle">Build ONE app you'll actually use. Something that solves a real problem. Share it. Get feedback. Iterate.</p>
+        </div>
+
+        <!-- ==================== TRANSFORMATION ==================== -->
+        <div class="slide" data-class="close">
+            <p class="slide-eyebrow">The Transformation</p>
+            <table class="slide-table">
+                <tr>
+                    <th>After Class 1</th>
+                    <th>After Class 2</th>
+                    <th>After 30 Days</th>
+                </tr>
+                <tr>
+                    <td>Built 1 landing page</td>
+                    <td>Built 1 app with user accounts</td>
+                    <td>Built 5+ projects</td>
+                </tr>
+                <tr>
+                    <td>Understand infrastructure</td>
+                    <td>Comfortable with databases</td>
+                    <td>Validate ideas in days</td>
+                </tr>
+                <tr>
+                    <td>Write effective prompts</td>
+                    <td>Add auth and APIs</td>
+                    <td>"I'm a builder"</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="slide dark" data-class="close">
+            <p class="slide-eyebrow">Remember</p>
+            <p class="quote">"This isn't about becoming a developer. It's about becoming unstoppable as an entrepreneur."</p>
+        </div>
+
+        <div class="slide purple" data-class="close">
+            <p class="slide-eyebrow">Final Thought</p>
+            <h1 class="slide-title">You now have a superpower that 90% of your competitors don't know exists.</h1>
+        </div>
+
+        <div class="slide purple" data-class="close">
+            <h1 class="slide-title">Go Build Something Amazing.</h1>
+            <p class="slide-subtitle" style="margin-top: 2rem; opacity: 0.8;">Questions?</p>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-controls">
+        <button class="nav-btn" id="prevBtn" onclick="prevSlide()">&larr;</button>
+        <button class="nav-btn" id="nextBtn" onclick="nextSlide()">&rarr;</button>
+    </nav>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progress = document.getElementById('progress');
+        const counter = document.getElementById('counter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function showSlide(n) {
+            slides.forEach(s => s.classList.remove('active'));
+            currentSlide = Math.max(0, Math.min(n, totalSlides - 1));
+            slides[currentSlide].classList.add('active');
+
+            // Update progress
+            progress.style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
+            counter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+            // Update buttons
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>

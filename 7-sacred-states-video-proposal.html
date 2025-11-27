@@ -1,0 +1,3200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 7 Sacred States | Video Production Proposal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9A962;
+            --gold-light: #E8D5A3;
+            --gold-dark: #9A7B3C;
+            --deep-purple: #1a0a2e;
+            --purple: #2d1b4e;
+            --purple-light: #4a2c7a;
+            --white: #FFFFFF;
+            --off-white: #F8F6F3;
+            --text-light: rgba(255,255,255,0.9);
+            --text-muted: rgba(255,255,255,0.6);
+            --gradient-gold: linear-gradient(135deg, #C9A962 0%, #E8D5A3 50%, #C9A962 100%);
+            --gradient-purple: linear-gradient(180deg, #1a0a2e 0%, #2d1b4e 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--deep-purple);
+            color: var(--white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            background: rgba(26, 10, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(201, 169, 98, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 40px 80px;
+            background: var(--gradient-purple);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(201, 169, 98, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 10px 24px;
+            background: rgba(201, 169, 98, 0.15);
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .meta-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 45px;
+            background: var(--gradient-gold);
+            color: var(--deep-purple);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(201, 169, 98, 0.3);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Title Options Section */
+        .title-options {
+            background: linear-gradient(180deg, var(--deep-purple) 0%, var(--purple) 100%);
+        }
+
+        .title-grid {
+            display: grid;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .title-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .title-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .title-card.recommended {
+            background: rgba(201, 169, 98, 0.1);
+            border: 2px solid var(--gold);
+        }
+
+        .title-card.recommended::before {
+            content: 'RECOMMENDED';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--deep-purple);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .title-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .title-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .title-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .title-stat-value {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Thumbnail Section */
+        .thumbnails {
+            background: var(--purple);
+        }
+
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .thumbnail-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnail-card:hover {
+            transform: scale(1.02);
+        }
+
+        .thumbnail-card.recommended {
+            border: 2px solid var(--gold);
+        }
+
+        .thumbnail-preview {
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, var(--purple-light) 0%, var(--deep-purple) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .thumbnail-preview.concept-a {
+            background: linear-gradient(90deg, #1a3a5c 0%, #1a3a5c 50%, #5c3a1a 50%, #5c3a1a 100%);
+        }
+
+        .thumbnail-preview.concept-b {
+            background: radial-gradient(ellipse at center, var(--purple-light) 0%, var(--deep-purple) 100%);
+        }
+
+        .thumbnail-preview.concept-c {
+            background: linear-gradient(180deg, #87CEEB 0%, #E0F4FF 100%);
+        }
+
+        .thumbnail-preview.concept-d {
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 100%);
+        }
+
+        .thumbnail-mockup {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .thumbnail-mockup-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--white);
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .thumbnail-mockup-subtitle {
+            font-size: 1rem;
+            color: var(--gold);
+            margin-top: 10px;
+        }
+
+        .thumbnail-info {
+            padding: 25px;
+        }
+
+        .thumbnail-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .thumbnail-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Sacred States Grid */
+        .states-section {
+            background: var(--gradient-purple);
+        }
+
+        .states-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .state-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(201, 169, 98, 0.15);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .state-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-gold);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .state-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .state-card:hover::before {
+            opacity: 1;
+        }
+
+        .state-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            background: rgba(201, 169, 98, 0.1);
+            border-radius: 50%;
+        }
+
+        .state-day {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .state-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .state-object {
+            font-size: 0.9rem;
+            color: var(--gold-light);
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .state-story {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Mnemonic Section */
+        .mnemonic-section {
+            background: linear-gradient(135deg, var(--purple) 0%, var(--deep-purple) 100%);
+            text-align: center;
+            padding: 120px 40px;
+        }
+
+        .mnemonic-box {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px;
+            background: rgba(201, 169, 98, 0.08);
+            border: 2px solid var(--gold);
+            border-radius: 30px;
+            position: relative;
+        }
+
+        .mnemonic-label {
+            font-size: 0.85rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .mnemonic-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1.4;
+            margin-bottom: 40px;
+        }
+
+        .mnemonic-letters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .mnemonic-letter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .letter-circle {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep-purple);
+        }
+
+        .letter-word {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Script Section */
+        .script-section {
+            background: var(--deep-purple);
+        }
+
+        .script-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .script-block {
+            margin-bottom: 40px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid var(--gold);
+            border-radius: 0 16px 16px 0;
+        }
+
+        .script-timestamp {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--gold);
+            color: var(--deep-purple);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        .script-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .script-content {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .script-content p {
+            margin-bottom: 15px;
+        }
+
+        .script-content em {
+            color: var(--gold-light);
+            font-style: italic;
+        }
+
+        .script-content strong {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .script-direction {
+            background: rgba(201, 169, 98, 0.1);
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: var(--gold-light);
+            margin: 15px 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Editing Notes */
+        .editing-section {
+            background: var(--purple);
+        }
+
+        .editing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .editing-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 35px;
+            border: 1px solid rgba(201, 169, 98, 0.1);
+        }
+
+        .editing-card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .editing-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(201, 169, 98, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .editing-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .editing-list {
+            list-style: none;
+        }
+
+        .editing-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .editing-list li:last-child {
+            border-bottom: none;
+        }
+
+        .editing-list li::before {
+            content: '→';
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        /* YouTube Description */
+        .description-section {
+            background: var(--gradient-purple);
+        }
+
+        .description-box {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .description-header {
+            background: var(--gold);
+            color: var(--deep-purple);
+            padding: 20px 30px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .description-content {
+            padding: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            white-space: pre-wrap;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .copy-button {
+            margin-left: auto;
+            padding: 8px 16px;
+            background: var(--deep-purple);
+            color: var(--gold);
+            border: none;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-button:hover {
+            background: var(--purple);
+        }
+
+        /* Tags Section */
+        .tags-container {
+            margin-top: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tags-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .tags-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .tag {
+            padding: 8px 16px;
+            background: rgba(201, 169, 98, 0.1);
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: rgba(201, 169, 98, 0.2);
+            border-color: var(--gold);
+        }
+
+        /* Performance Projections */
+        .performance-section {
+            background: var(--purple);
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .performance-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+        }
+
+        .performance-card.highlight {
+            background: rgba(201, 169, 98, 0.1);
+            border-color: var(--gold);
+        }
+
+        .performance-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .performance-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .performance-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        /* Timeline */
+        .timeline-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-marker {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--deep-purple);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-item:not(:last-child) .timeline-marker::after {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: calc(100% + 30px);
+            background: rgba(201, 169, 98, 0.3);
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding-top: 10px;
+        }
+
+        .timeline-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .timeline-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Speaker Notes */
+        .speaker-section {
+            background: var(--gradient-purple);
+        }
+
+        .speaker-notes {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .speaker-note {
+            background: rgba(201, 169, 98, 0.05);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        .speaker-note-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .speaker-note-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gold);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .speaker-note-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .speaker-note-content {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .speaker-note-content ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        .speaker-note-content li {
+            margin-bottom: 10px;
+        }
+
+        .highlight-box {
+            background: rgba(201, 169, 98, 0.15);
+            border-left: 4px solid var(--gold);
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .highlight-box p {
+            color: var(--gold-light);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Checklist Section */
+        .checklist-section {
+            background: var(--deep-purple);
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .checklist-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(201, 169, 98, 0.15);
+            border-radius: 20px;
+            padding: 35px;
+        }
+
+        .checklist-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--gold);
+            border-radius: 5px;
+            flex-shrink: 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--deep-purple);
+            border-top: 1px solid rgba(201, 169, 98, 0.2);
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .footer-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--deep-purple);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .hero-meta {
+                gap: 30px;
+            }
+
+            .mnemonic-box {
+                padding: 40px 25px;
+            }
+
+            .thumbnail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .script-block {
+                padding: 25px;
+            }
+
+            .timeline-item {
+                gap: 20px;
+            }
+
+            .timeline-marker {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .mt-40 { margin-top: 40px; }
+        .mb-40 { margin-bottom: 40px; }
+        .gold-text { color: var(--gold); }
+
+        /* Rationale Section Styles */
+        .rationale-section {
+            background: linear-gradient(180deg, var(--purple) 0%, var(--deep-purple) 100%);
+        }
+
+        .rationale-intro {
+            margin-bottom: 80px;
+        }
+
+        .rationale-category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .principle-card {
+            background: rgba(201, 169, 98, 0.05);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .principle-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .principle-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .principle-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .principle-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .rationale-sections {
+            margin-top: 60px;
+        }
+
+        .rationale-block {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(201, 169, 98, 0.15);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .rationale-header {
+            background: rgba(201, 169, 98, 0.1);
+            padding: 25px 35px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid rgba(201, 169, 98, 0.2);
+        }
+
+        .rationale-timestamp {
+            background: var(--gold);
+            color: var(--deep-purple);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .rationale-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .rationale-content {
+            padding: 35px;
+        }
+
+        .decision-item {
+            margin-bottom: 35px;
+            padding-bottom: 35px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .decision-item:last-of-type {
+            margin-bottom: 20px;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .decision-header {
+            margin-bottom: 15px;
+        }
+
+        .decision-label {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+
+        .decision-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .decision-principles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .principle-tag {
+            background: rgba(201, 169, 98, 0.15);
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            color: var(--gold-light);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .decision-rationale {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .decision-rationale p {
+            margin-bottom: 12px;
+        }
+
+        .decision-rationale p:last-child {
+            margin-bottom: 0;
+        }
+
+        .decision-rationale strong {
+            color: var(--gold-light);
+        }
+
+        .retention-prediction {
+            background: rgba(201, 169, 98, 0.1);
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            border-radius: 12px;
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .retention-label {
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .retention-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .retention-note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Story Variation Table */
+        .story-variation {
+            margin-top: 80px;
+        }
+
+        .variation-table-container {
+            overflow-x: auto;
+            border-radius: 16px;
+            border: 1px solid rgba(201, 169, 98, 0.2);
+        }
+
+        .variation-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .variation-table th {
+            background: rgba(201, 169, 98, 0.15);
+            color: var(--gold);
+            font-weight: 600;
+            padding: 18px 20px;
+            text-align: left;
+            border-bottom: 2px solid rgba(201, 169, 98, 0.3);
+        }
+
+        .variation-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+        }
+
+        .variation-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .variation-table tr:hover {
+            background: rgba(201, 169, 98, 0.05);
+        }
+
+        .state-badge {
+            background: rgba(201, 169, 98, 0.2);
+            color: var(--gold);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .variation-note {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 25px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .rationale-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .retention-prediction {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-logo">MINDVALLEY</div>
+        <ul class="nav-links">
+            <li><a href="#titles">Titles</a></li>
+            <li><a href="#thumbnails">Thumbnails</a></li>
+            <li><a href="#states">7 States</a></li>
+            <li><a href="#script">Script</a></li>
+            <li><a href="#rationale">Rationale</a></li>
+            <li><a href="#editing">Editing</a></li>
+            <li><a href="#performance">Performance</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Video Production Proposal</div>
+            <h1 class="hero-title">UNFUCKWITHABLE</h1>
+            <p class="hero-subtitle">The 7 Sacred States That Changed My Life</p>
+
+            <div class="hero-meta">
+                <div class="meta-item">
+                    <div class="meta-value">20:00</div>
+                    <div class="meta-label">Video Length</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">1M+</div>
+                    <div class="meta-label">Target Views</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">7</div>
+                    <div class="meta-label">Sacred States</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-value">60%+</div>
+                    <div class="meta-label">Target AVD</div>
+                </div>
+            </div>
+
+            <a href="#script" class="cta-button">View Full Script</a>
+        </div>
+    </section>
+
+    <!-- Title Options -->
+    <section id="titles" class="section title-options">
+        <div class="section-header">
+            <div class="section-number">01</div>
+            <h2 class="section-title">Title Options</h2>
+            <p class="section-subtitle">Optimized for click-through rate and YouTube algorithm performance</p>
+        </div>
+
+        <div class="title-grid">
+            <div class="title-card recommended">
+                <div class="title-text">"Unfuckwithable: The 7 Sacred States That Changed My Life"</div>
+                <div class="title-meta">
+                    <div class="title-stat">CTR: <span class="title-stat-value">8-10%</span></div>
+                    <div class="title-stat">SEO: <span class="title-stat-value">Medium</span></div>
+                    <div class="title-stat">Shareability: <span class="title-stat-value">Very High</span></div>
+                </div>
+            </div>
+
+            <div class="title-card">
+                <div class="title-text">"7 Ancient States of Consciousness (That Science Finally Proved)"</div>
+                <div class="title-meta">
+                    <div class="title-stat">CTR: <span class="title-stat-value">6-8%</span></div>
+                    <div class="title-stat">SEO: <span class="title-stat-value">High</span></div>
+                    <div class="title-stat">Target: <span class="title-stat-value">Skeptics</span></div>
+                </div>
+            </div>
+
+            <div class="title-card">
+                <div class="title-text">"Master These 7 States & Nothing Can Break You | Vishen Lakhiani"</div>
+                <div class="title-meta">
+                    <div class="title-stat">CTR: <span class="title-stat-value">7-9%</span></div>
+                    <div class="title-stat">SEO: <span class="title-stat-value">Medium-High</span></div>
+                    <div class="title-stat">Psychology: <span class="title-stat-value">Resilience</span></div>
+                </div>
+            </div>
+
+            <div class="title-card">
+                <div class="title-text">"7 States of Being That Billionaires & Monks Both Practice Daily"</div>
+                <div class="title-meta">
+                    <div class="title-stat">CTR: <span class="title-stat-value">8-10%</span></div>
+                    <div class="title-stat">SEO: <span class="title-stat-value">High</span></div>
+                    <div class="title-stat">Appeal: <span class="title-stat-value">Dual Aspiration</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Thumbnails -->
+    <section id="thumbnails" class="section thumbnails">
+        <div class="section-header">
+            <div class="section-number">02</div>
+            <h2 class="section-title">Thumbnail Concepts</h2>
+            <p class="section-subtitle">Designed for maximum scroll-stopping power and mobile visibility</p>
+        </div>
+
+        <div class="thumbnail-grid">
+            <div class="thumbnail-card recommended">
+                <div class="thumbnail-preview concept-a">
+                    <div class="thumbnail-mockup">
+                        <div class="thumbnail-mockup-title">7 SACRED STATES</div>
+                        <div class="thumbnail-mockup-subtitle">UNFUCKWITHABLE</div>
+                    </div>
+                </div>
+                <div class="thumbnail-info">
+                    <div class="thumbnail-name">A. The Transformation Split (Recommended)</div>
+                    <div class="thumbnail-desc">Left side: Vishen stressed (cool blue tones). Right side: Vishen peaceful (warm golden). Lightning bolt divides. Before/after creates curiosity gap.</div>
+                </div>
+            </div>
+
+            <div class="thumbnail-card">
+                <div class="thumbnail-preview concept-b">
+                    <div class="thumbnail-mockup">
+                        <div class="thumbnail-mockup-title">7 SACRED STATES</div>
+                        <div class="thumbnail-mockup-subtitle">🧭 🪶 💗 🪨 🦴 📓 🏆</div>
+                    </div>
+                </div>
+                <div class="thumbnail-info">
+                    <div class="thumbnail-name">B. The Seven Objects</div>
+                    <div class="thumbnail-desc">Vishen centered with 7 objects arranged in arc. Ethereal lighting with sacred geometry background. Creates "what are those?" intrigue.</div>
+                </div>
+            </div>
+
+            <div class="thumbnail-card">
+                <div class="thumbnail-preview concept-c">
+                    <div class="thumbnail-mockup">
+                        <div style="color: #1a0a2e; font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700;">UNFUCKWITHABLE</div>
+                        <div style="color: #2d1b4e; font-size: 0.9rem; margin-top: 10px;">7 States • 7 Days • Forever Changed</div>
+                    </div>
+                </div>
+                <div class="thumbnail-info">
+                    <div class="thumbnail-name">C. The Bold Statement</div>
+                    <div class="thumbnail-desc">Close-up of Vishen's face with direct eye contact. Clean minimalist background. Bold text stops the scroll. Iman Gadzhi-inspired aesthetic.</div>
+                </div>
+            </div>
+
+            <div class="thumbnail-card">
+                <div class="thumbnail-preview concept-d">
+                    <div class="thumbnail-mockup">
+                        <div class="thumbnail-mockup-title" style="background: linear-gradient(to top, #C9A962, #E8D5A3); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">MASTER THE 7 STATES</div>
+                        <div class="thumbnail-mockup-subtitle">Ancient Wisdom • Modern Life</div>
+                    </div>
+                </div>
+                <div class="thumbnail-info">
+                    <div class="thumbnail-name">D. The Cosmic Journey</div>
+                    <div class="thumbnail-desc">Vishen in meditation with seven chakra-like energy points ascending. Cosmic galaxy background with particle effects. Appeals to spiritual audience.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sacred States -->
+    <section id="states" class="section states-section">
+        <div class="section-header">
+            <div class="section-number">03</div>
+            <h2 class="section-title">The 7 Sacred States</h2>
+            <p class="section-subtitle">Each state mapped to a day of the week with a physical object and powerful story</p>
+        </div>
+
+        <div class="states-grid">
+            <div class="state-card">
+                <div class="state-icon">🧭</div>
+                <div class="state-day">Monday</div>
+                <div class="state-name">Knowingness</div>
+                <div class="state-object">The Compass</div>
+                <div class="state-story">Julius Caesar demanded 40 talents of gold from his captors. Vishen paid $1.5M to honor a handshake. Know your worth.</div>
+            </div>
+
+            <div class="state-card">
+                <div class="state-icon">🪶</div>
+                <div class="state-day">Tuesday</div>
+                <div class="state-name">Faith</div>
+                <div class="state-object">The White Feather</div>
+                <div class="state-story">Marissa Peer healed cancer in one month through faith. Her crushed leg healed in 6 weeks against all predictions.</div>
+            </div>
+
+            <div class="state-card">
+                <div class="state-icon">💗</div>
+                <div class="state-day">Wednesday</div>
+                <div class="state-name">Love</div>
+                <div class="state-object">The Rose Quartz Heart</div>
+                <div class="state-story">John Lennon quit the Beatles at peak fame to be a devoted father. Love is an energy that can transform biology.</div>
+            </div>
+
+            <div class="state-card">
+                <div class="state-icon">🪨</div>
+                <div class="state-day">Thursday</div>
+                <div class="state-name">Stillness</div>
+                <div class="state-object">The River Rock</div>
+                <div class="state-story">At Burning Man, a guide called "Ripple" led Vishen through the desert to find his friends. Stillness reveals guidance.</div>
+            </div>
+
+            <div class="state-card">
+                <div class="state-icon">🦴</div>
+                <div class="state-day">Friday</div>
+                <div class="state-name">Non-Attachment</div>
+                <div class="state-object">The Fossil</div>
+                <div class="state-story">Steve Jobs was fired from Apple and called it "the lightness of being a beginner again." He returned to create the iPhone.</div>
+            </div>
+
+            <div class="state-card">
+                <div class="state-icon">📓</div>
+                <div class="state-day">Saturday</div>
+                <div class="state-name">Devotion</div>
+                <div class="state-object">The Tiny Notebook</div>
+                <div class="state-story">Easy Eddie testified against Al Capone. His son Butch O'Hare became a war hero. Chicago's airport bears his name.</div>
+            </div>
+
+            <div class="state-card">
+                <div class="state-icon">🏆</div>
+                <div class="state-day">Sunday</div>
+                <div class="state-name">Receiving</div>
+                <div class="state-object">The Cup</div>
+                <div class="state-story">A Dubai Sheikh carries $250K to give away. "Why do I solve all problems in a fun and easy way?"</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mnemonic -->
+    <section class="mnemonic-section">
+        <div class="mnemonic-box">
+            <div class="mnemonic-label">The Memory Device</div>
+            <div class="mnemonic-text">"Kind Folks Love Stillness, Not Dramatic Reactions"</div>
+            <div class="mnemonic-letters">
+                <div class="mnemonic-letter">
+                    <div class="letter-circle">K</div>
+                    <div class="letter-word">Knowingness</div>
+                </div>
+                <div class="mnemonic-letter">
+                    <div class="letter-circle">F</div>
+                    <div class="letter-word">Faith</div>
+                </div>
+                <div class="mnemonic-letter">
+                    <div class="letter-circle">L</div>
+                    <div class="letter-word">Love</div>
+                </div>
+                <div class="mnemonic-letter">
+                    <div class="letter-circle">S</div>
+                    <div class="letter-word">Stillness</div>
+                </div>
+                <div class="mnemonic-letter">
+                    <div class="letter-circle">N</div>
+                    <div class="letter-word">Non-attachment</div>
+                </div>
+                <div class="mnemonic-letter">
+                    <div class="letter-circle">D</div>
+                    <div class="letter-word">Devotion</div>
+                </div>
+                <div class="mnemonic-letter">
+                    <div class="letter-circle">R</div>
+                    <div class="letter-word">Receiving</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Script -->
+    <section id="script" class="section script-section">
+        <div class="section-header">
+            <div class="section-number">04</div>
+            <h2 class="section-title">Full Video Script</h2>
+            <p class="section-subtitle">20-minute script with timestamps, direction, and speaker notes</p>
+        </div>
+
+        <div class="script-container">
+            <!-- Hook -->
+            <div class="script-block">
+                <div class="script-timestamp">0:00 - 0:30</div>
+                <div class="script-heading">THE HOOK - Cold Open</div>
+                <div class="script-direction">[BLACK SCREEN - TEXT APPEARS: "UNFUCKWITHABLE"]</div>
+                <div class="script-direction">[CUT TO: Vishen on screen - direct to camera - intense energy]</div>
+                <div class="script-content">
+                    <p>"There's a word I invented that perfectly describes the state you want to be in... <strong>Unfuckwithable.</strong></p>
+                    <p>It means you're at peace. Nothing disturbs you. No drama, no chaos, no person can shake your inner calm.</p>
+                    <p>And I'm going to show you the exact 7 states that got me there.</p>
+                    <p>These aren't just ideas. Each one has a physical object, a day of the week, and a story that will change how you see everything.</p>
+                    <p>By the end of this video, you'll have a complete system — one you can start using tomorrow morning."</p>
+                </div>
+                <div class="script-direction">[QUICK FLASH: 7 objects montage - 1 second each with whoosh SFX]</div>
+                <div class="script-content">
+                    <p><strong>"Stay with me. This gets wild."</strong></p>
+                </div>
+            </div>
+
+            <!-- Context -->
+            <div class="script-block">
+                <div class="script-timestamp">0:30 - 2:00</div>
+                <div class="script-heading">CONTEXT + CREDIBILITY</div>
+                <div class="script-direction">[B-ROLL: Vishen at events, meditation shots, travel footage]</div>
+                <div class="script-content">
+                    <p>"So here's the thing. I spent two decades studying human consciousness. I've traveled to ashrams in India, learned from shamans in Peru, sat with monks in Japan, and brought back the best practices from every tradition.</p>
+                    <p>But I kept running into the same problem...</p>
+                    <p>These teachings were scattered. Disconnected. Hard to remember.</p>
+                    <p>So I created a system. Seven sacred states. Each one mapped to a day of the week. Each one represented by a physical object you can hold in your hand.</p>
+                    <p>Monday through Sunday. Seven states. One complete week. And at the end of that week, you start to become what I call <em>unfuckwithable.</em></p>
+                    <p>Now, I know that word might sound unconventional for a spiritual teacher... but that's exactly the point.</p>
+                    <p>This isn't about becoming a monk. It's about being so grounded, so centered, that life's chaos just... bounces off you."</p>
+                </div>
+                <div class="script-direction">[SHOW: All 7 objects arranged beautifully on table]</div>
+                <div class="script-content">
+                    <p>"Each of these objects represents a sacred state. And each one has a story that will blow your mind.</p>
+                    <p><strong>Let's dive in.</strong>"</p>
+                </div>
+            </div>
+
+            <!-- State 1: Knowingness -->
+            <div class="script-block">
+                <div class="script-timestamp">2:00 - 4:30</div>
+                <div class="script-heading">STATE 1: KNOWINGNESS (The Compass)</div>
+                <div class="script-direction">[SHOW: Compass - slow zoom in, rotating]</div>
+                <div class="script-content">
+                    <p>"<strong>State number one: KNOWINGNESS. The compass.</strong></p>
+                    <p>Knowingness means you know who you are. You know your worth. You're not seeking external validation — you have an internal compass that guides you.</p>
+                    <p>Let me tell you a story about Julius Caesar."</p>
+                </div>
+                <div class="script-direction">[B-ROLL: Ancient Rome imagery, pirate ships, gold coins]</div>
+                <div class="script-content">
+                    <p>"When Julius Caesar was captured by pirates, they demanded a ransom of 20 talents of gold. You know what Caesar said?</p>
+                    <p><em>'You undervalue me. I'm worth at least 40 talents.'</em></p>
+                    <p>He KNEW his worth. He didn't question it. He didn't diminish himself. Even when captured, even when powerless... he knew who he was.</p>
+                    <p>That's knowingness."</p>
+                </div>
+                <div class="script-direction">[RETURN TO: Vishen - personal story begins]</div>
+                <div class="script-content">
+                    <p>"Now, I had my own Julius Caesar moment a few years ago.</p>
+                    <p>I had made a handshake deal with someone. We agreed on terms. No contract. Just trust.</p>
+                    <p>Later, this person came back and said, <em>'Actually, I want to renegotiate. I want better terms.'</em></p>
+                    <p>Legally, they could do this. There was no contract.</p>
+                    <p>But I had given my word.</p>
+                    <p><strong>So I paid them $1.5 million dollars to honor that handshake.</strong>"</p>
+                </div>
+                <div class="script-direction">[PAUSE for 2 beats - let this land]</div>
+                <div class="script-content">
+                    <p>"People thought I was crazy.</p>
+                    <p>But here's what they didn't understand: <em>That payment wasn't for them. It was for me.</em></p>
+                    <p>It was to maintain my sense of who I am. A person who keeps his word. A person whose handshake means something.</p>
+                    <p>That's knowingness. That's the compass."</p>
+                </div>
+                <div class="script-direction">[TEXT ON SCREEN: "MONDAY = KNOWINGNESS"]</div>
+                <div class="script-content">
+                    <p>"Monday is the day you practice knowingness. You ask yourself: <em>'Who am I? What are my values? What is my worth?'</em></p>
+                    <p>And you let nothing — not money, not pressure, not other people's opinions — make you forget."</p>
+                </div>
+            </div>
+
+            <!-- State 2: Faith -->
+            <div class="script-block">
+                <div class="script-timestamp">4:30 - 6:30</div>
+                <div class="script-heading">STATE 2: FAITH (The White Feather)</div>
+                <div class="script-direction">[SHOW: White feather - soft lighting, floating]</div>
+                <div class="script-content">
+                    <p>"<strong>State number two: FAITH. The white feather.</strong></p>
+                    <p>Faith means trusting that what is meant for you cannot miss you. Even when things look impossible, you hold the belief that life is working FOR you, not against you.</p>
+                    <p>Let me tell you about Marissa Peer."</p>
+                </div>
+                <div class="script-direction">[B-ROLL: Photos of Marissa Peer, healing imagery]</div>
+                <div class="script-content">
+                    <p>"Marissa is one of the world's top therapists. She's worked with royalty, celebrities, Olympic athletes.</p>
+                    <p>But years ago, she was diagnosed with cancer.</p>
+                    <p>The doctors told her it was serious. They wanted to start aggressive treatment.</p>
+                    <p>But Marissa said, <em>'Give me one month.'</em></p>
+                    <p>She went inward. She used hypnotherapy, visualization, and faith. Deep, unshakeable faith that her body could heal itself.</p>
+                    <p><strong>One month later, she went back to the doctors. The cancer was gone.</strong></p>
+                    <p>They couldn't explain it. They called it a spontaneous remission.</p>
+                    <p>But Marissa knew: it was faith.</p>
+                    <p>And there's more. Years later, she was in a terrible accident. Her leg was crushed in 14 places. The doctors said she'd never walk normally again. Six months minimum for recovery.</p>
+                    <p><strong>Marissa healed in six WEEKS.</strong>"</p>
+                </div>
+                <div class="script-direction">[TEXT ON SCREEN: "TUESDAY = FAITH"]</div>
+                <div class="script-content">
+                    <p>"Tuesday is the day you practice faith. You say: <em>'What's meant for me cannot miss me. I trust the unfolding of my life.'</em></p>
+                    <p>And you let go of forcing. You let go of fear."</p>
+                </div>
+            </div>
+
+            <!-- State 3: Love -->
+            <div class="script-block">
+                <div class="script-timestamp">6:30 - 8:30</div>
+                <div class="script-heading">STATE 3: LOVE (The Rose Quartz Heart)</div>
+                <div class="script-direction">[SHOW: Rose quartz heart - warm lighting]</div>
+                <div class="script-content">
+                    <p>"<strong>State number three: LOVE. The rose quartz heart.</strong></p>
+                    <p>Love isn't just an emotion. It's an energy. A frequency. And science has proven it can be transmitted across space and affect other people's biology.</p>
+                    <p>Now let me tell you about John Lennon."</p>
+                </div>
+                <div class="script-direction">[B-ROLL: John Lennon images, Beatles footage, family scenes]</div>
+                <div class="script-content">
+                    <p>"Most people know John Lennon as the Beatles legend, right? Revolutionary artist. Cultural icon.</p>
+                    <p>But in 1975, at the peak of his fame, John Lennon did something radical.</p>
+                    <p><strong>He quit the Beatles. Walked away from music for FIVE YEARS.</strong></p>
+                    <p>Why?</p>
+                    <p>Because his son Julian was born, and John wanted to be a devoted father.</p>
+                    <p>He said, <em>'I've spent years chasing fame. Now I want to chase what really matters. Love. Family. Being present.'</em></p>
+                    <p>For five years, he was a stay-at-home dad. He baked bread. He changed diapers. He was just... Dad.</p>
+                    <p>That's love. Real love. The kind that doesn't just feel good — it TRANSFORMS you. It makes you choose differently."</p>
+                </div>
+                <div class="script-direction">[TEXT ON SCREEN: "WEDNESDAY = LOVE"]</div>
+                <div class="script-content">
+                    <p>"Wednesday is your day to practice love. Not just romantic love. Universal love.</p>
+                    <p>You ask: <em>'Who can I love today? Who needs my energy, my presence, my care?'</em></p>
+                    <p>And you transmit that frequency into the world."</p>
+                </div>
+            </div>
+
+            <!-- State 4: Stillness -->
+            <div class="script-block">
+                <div class="script-timestamp">8:30 - 10:30</div>
+                <div class="script-heading">STATE 4: STILLNESS (The River Rock)</div>
+                <div class="script-direction">[SHOW: River rock - calm water sounds]</div>
+                <div class="script-content">
+                    <p>"<strong>State number four: STILLNESS. The river rock.</strong></p>
+                    <p>Stillness means getting off your phone. Getting out of the noise. And just... being.</p>
+                    <p>In stillness, answers come. Guidance emerges. Magic happens.</p>
+                    <p>Let me tell you what happened to me at Burning Man."</p>
+                </div>
+                <div class="script-direction">[B-ROLL: Desert landscapes, Burning Man art, meditation]</div>
+                <div class="script-content">
+                    <p>"I was there for a week, disconnected from everything. No phone. No email. Just presence.</p>
+                    <p>One night, I was doing breathwork — deep, intense breathing. And I went into a trance state.</p>
+                    <p>In that state, a guide appeared to me. She called herself <strong>Ripple</strong>. She said, <em>'Your friends are waiting for you. Go to the temple at sunset.'</em></p>
+                    <p>Now, I was in the middle of the desert. 70,000 people. I had no phone. No way to contact anyone.</p>
+                    <p>But I trusted the message.</p>
+                    <p><strong>I went to the temple at sunset... and there they were. My two best friends. Waiting.</strong></p>
+                    <p>They said, <em>'We don't know why, but we felt like we should come here right now.'</em></p>
+                    <p>That's what stillness does. It connects you to a deeper intelligence. An intuitive knowing that goes beyond logic.</p>
+                    <p>But you can't hear it when you're scrolling Instagram."</p>
+                </div>
+                <div class="script-direction">[TEXT ON SCREEN: "THURSDAY = STILLNESS"]</div>
+                <div class="script-content">
+                    <p>"Thursday is stillness day. Turn off your phone. Meditate. Sit in nature. Breathe.</p>
+                    <p><strong>And listen.</strong>"</p>
+                </div>
+            </div>
+
+            <!-- State 5: Non-Attachment -->
+            <div class="script-block">
+                <div class="script-timestamp">10:30 - 12:30</div>
+                <div class="script-heading">STATE 5: NON-ATTACHMENT (The Fossil)</div>
+                <div class="script-direction">[SHOW: Fossil - textured close-up]</div>
+                <div class="script-content">
+                    <p>"<strong>State number five: NON-ATTACHMENT. The fossil.</strong></p>
+                    <p>The fossil represents something ancient, something that's already died and transformed into something else.</p>
+                    <p>Non-attachment means you have goals, you have dreams... but you don't tie your happiness to them. You hold them lightly.</p>
+                    <p>Let me tell you about Steve Jobs."</p>
+                </div>
+                <div class="script-direction">[B-ROLL: Steve Jobs images, Apple products, NeXT, Pixar]</div>
+                <div class="script-content">
+                    <p>"In 1985, Steve Jobs was fired from Apple. The company HE created. The company that was his entire identity.</p>
+                    <p>He was devastated.</p>
+                    <p>But then something shifted.</p>
+                    <p>Steve said, <em>'Getting fired from Apple was the best thing that ever happened to me. It freed me to enter one of the most creative periods of my life.'</em></p>
+                    <p>He called it <strong>'the lightness of being a beginner again.'</strong></p>
+                    <p>See, when you're not attached to one outcome, you're free to explore. To experiment. To discover.</p>
+                    <p>Steve went on to create NeXT and Pixar. Pixar became one of the most successful animation studios in history.</p>
+                    <p><strong>And eventually? Apple brought him BACK.</strong> And he created the iPod, the iPhone, the iPad.</p>
+                    <p>All because he didn't stay attached to the first version of his dream."</p>
+                </div>
+                <div class="script-direction">[TEXT ON SCREEN: "FRIDAY = NON-ATTACHMENT"]</div>
+                <div class="script-content">
+                    <p>"Friday is the day you practice letting go. You ask: <em>'What am I clinging to? What do I need to release?'</em></p>
+                    <p>And you trust that the universe has something better in store."</p>
+                </div>
+            </div>
+
+            <!-- State 6: Devotion -->
+            <div class="script-block">
+                <div class="script-timestamp">12:30 - 14:30</div>
+                <div class="script-heading">STATE 6: DEVOTION (The Tiny Notebook)</div>
+                <div class="script-direction">[SHOW: Tiny notebook - handwritten pages visible]</div>
+                <div class="script-content">
+                    <p>"<strong>State number six: DEVOTION. The tiny notebook.</strong></p>
+                    <p>Devotion means doing hard things because they're good for you. It means commitment. Discipline. Showing up even when you don't feel like it.</p>
+                    <p>Let me tell you one of the most powerful stories I've ever heard."</p>
+                </div>
+                <div class="script-direction">[B-ROLL: 1930s Chicago noir aesthetic, WWII planes]</div>
+                <div class="script-content">
+                    <p>"In the 1930s, there was a lawyer named Easy Eddie. He worked for Al Capone — one of the most dangerous mobsters in American history.</p>
+                    <p>Eddie was brilliant. He kept Capone out of prison for years. And Capone paid him millions.</p>
+                    <p>Eddie lived in a mansion. He had everything. But he had a son named Butch.</p>
+                    <p>And one day, Eddie realized: <em>'What kind of man am I showing my son to be?'</em></p>
+                    <p><strong>So Eddie made a choice. He turned on Al Capone. He testified against him. And Capone went to prison.</strong></p>
+                    <p>Eddie knew this decision would probably cost him his life. And it did. A year later, Eddie was shot and killed.</p>
+                    <p>But here's the thing...</p>
+                    <p>His son, Butch O'Hare, grew up watching his father's devotion to honor. To doing the right thing, no matter the cost.</p>
+                    <p>Butch became a fighter pilot in World War II. And in 1942, <strong>he single-handedly fought off nine Japanese bombers, saving an aircraft carrier and 3,500 soldiers.</strong></p>
+                    <p>Butch became America's first flying ace. A national hero.</p>
+                    <p><strong>They named Chicago O'Hare Airport after him.</strong></p>
+                    <p>That's devotion. That's legacy."</p>
+                </div>
+                <div class="script-direction">[TEXT ON SCREEN: "SATURDAY = DEVOTION"]</div>
+                <div class="script-content">
+                    <p>"Saturday is devotion day. You do the hard thing. You keep the promise. You honor your word.</p>
+                    <p><strong>Not because it's easy. Because it's right.</strong>"</p>
+                </div>
+            </div>
+
+            <!-- State 7: Receiving -->
+            <div class="script-block">
+                <div class="script-timestamp">14:30 - 16:30</div>
+                <div class="script-heading">STATE 7: RECEIVING (The Cup)</div>
+                <div class="script-direction">[SHOW: Cup - light pouring into it]</div>
+                <div class="script-content">
+                    <p>"<strong>State number seven: RECEIVING. The cup.</strong></p>
+                    <p>Most of us are terrible at receiving. We give, we work, we hustle... but we forget to open ourselves to the blessings that want to come to us.</p>
+                    <p>Receiving is an art.</p>
+                    <p>I once met a Sheikh in Dubai."</p>
+                </div>
+                <div class="script-direction">[B-ROLL: Dubai imagery, African villages, generosity]</div>
+                <div class="script-content">
+                    <p>"He was incredibly wealthy. And he had this practice:</p>
+                    <p><strong>He would carry $250,000 in cash with him wherever he traveled.</strong></p>
+                    <p>And whenever he visited a developing country, he would give away 20% of it. Just... give it away to villages, to schools, to families who needed it.</p>
+                    <p>I asked him, <em>'Why do you do this?'</em></p>
+                    <p>He said, <em>'Because the more I give, the more I receive. Generosity creates a flow. And when you're in flow, blessings chase you.'</em></p>
+                    <p>Now, receiving isn't just about money. It's about being open. Open to love. Open to help. Open to opportunities.</p>
+                    <p>One of my mentors, Barry Morman, taught me this affirmation:</p>
+                    <p><strong><em>'Why do I solve all problems in a fun and easy way?'</em></strong></p>
+                    <p>Not <em>'how'</em> — <strong>'why.'</strong></p>
+                    <p>Because when you ask 'why,' your brain starts looking for evidence that it's true. It opens you to receive solutions you couldn't see before."</p>
+                </div>
+                <div class="script-direction">[TEXT ON SCREEN: "SUNDAY = RECEIVING"]</div>
+                <div class="script-content">
+                    <p>"Sunday is receiving day. You rest. You open your hands. You say: <em>'I am worthy of blessings. I am ready to receive.'</em></p>
+                    <p>And you let life give to you."</p>
+                </div>
+            </div>
+
+            <!-- System Recap -->
+            <div class="script-block">
+                <div class="script-timestamp">16:30 - 18:00</div>
+                <div class="script-heading">THE COMPLETE SYSTEM + MNEMONIC</div>
+                <div class="script-direction">[SHOW: All 7 objects together - beautiful layout]</div>
+                <div class="script-content">
+                    <p>"So there you have it. <strong>The seven sacred states.</strong></p>
+                    <p>Monday: KNOWINGNESS — the compass<br>
+                    Tuesday: FAITH — the white feather<br>
+                    Wednesday: LOVE — the rose quartz heart<br>
+                    Thursday: STILLNESS — the river rock<br>
+                    Friday: NON-ATTACHMENT — the fossil<br>
+                    Saturday: DEVOTION — the tiny notebook<br>
+                    Sunday: RECEIVING — the cup</p>
+                    <p>Here's how you remember them:</p>
+                    <p><strong>'Kind Folks Love Stillness, Not Dramatic Reactions.'</strong></p>
+                    <p>K - Knowingness | F - Faith | L - Love | S - Stillness | N - Non-attachment | D - Devotion | R - Receiving"</p>
+                </div>
+                <div class="script-direction">[B-ROLL: Vishen's morning routine with objects]</div>
+                <div class="script-content">
+                    <p>"Every morning, I touch the object for that day. I hold it. I feel it. And I set my intention to embody that state.</p>
+                    <p><strong>It takes 30 seconds.</strong></p>
+                    <p>But it changes everything.</p>
+                    <p>Because when you practice these seven states, you become <strong>unfuckwithable.</strong></p>
+                    <p>Nothing can shake you. No drama. No chaos. No external circumstance can disturb your peace.</p>
+                    <p>You're rooted. Centered. Powerful."</p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="script-block">
+                <div class="script-timestamp">18:00 - 19:30</div>
+                <div class="script-heading">THE TRANSFORMATION + CTA</div>
+                <div class="script-direction">[Direct to camera - intimate energy, tight close-up]</div>
+                <div class="script-content">
+                    <p>"So here's my challenge to you.</p>
+                    <p>This week — just ONE week — practice these seven states.</p>
+                    <p>Find your own seven objects. They don't have to be the same as mine. Just choose seven things that represent these states to you.</p>
+                    <p>Put them somewhere you'll see them every morning.</p>
+                    <p>And every day, pick up that day's object, hold it, and embody that state.</p>
+                    <p><strong>Monday: Know yourself.<br>
+                    Tuesday: Have faith.<br>
+                    Wednesday: Love deeply.<br>
+                    Thursday: Be still.<br>
+                    Friday: Let go.<br>
+                    Saturday: Stay devoted.<br>
+                    Sunday: Receive blessings.</strong></p>
+                    <p>Do this for one week. And watch what happens.</p>
+                    <p>If this resonated with you, I want to hear about it. <strong>Comment below and tell me: Which of these seven states do you need most right now?</strong></p>
+                    <p>And if you want to go deeper — if you want to master these states at a level most people never reach — I've created a complete program on this at Mindvalley. The link is in the description.</p>
+                    <p>But whether you join or not, I want you to practice this week.</p>
+                    <p><strong>Because you deserve to be unfuckwithable.</strong></p>
+                    <p>You deserve to walk through life with unshakeable peace.</p>
+                    <p>I'll see you in the next video."</p>
+                </div>
+            </div>
+
+            <!-- End -->
+            <div class="script-block">
+                <div class="script-timestamp">19:30 - 20:00</div>
+                <div class="script-heading">END SCREEN + FINAL MESSAGE</div>
+                <div class="script-direction">[Soft music - V.O. over B-roll]</div>
+                <div class="script-content">
+                    <p><em>"Remember: the most powerful person in the room is the one who cannot be disturbed.</em></p>
+                    <p><em>That's you. Starting now."</em></p>
+                </div>
+                <div class="script-direction">[END SCREEN: Subscribe button, next video, Mindvalley link]</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speaker Notes -->
+    <section class="section speaker-section">
+        <div class="section-header">
+            <div class="section-number">05</div>
+            <h2 class="section-title">Speaker Notes for Vishen</h2>
+            <p class="section-subtitle">Performance guidance to maximize emotional impact and authenticity</p>
+        </div>
+
+        <div class="speaker-notes">
+            <div class="speaker-note">
+                <div class="speaker-note-header">
+                    <div class="speaker-note-icon">🎭</div>
+                    <div class="speaker-note-title">Energy & Delivery</div>
+                </div>
+                <div class="speaker-note-content">
+                    <ul>
+                        <li><strong>Opening (0:00-0:30):</strong> High intensity. Direct eye contact. The word "unfuckwithable" should land with power — you're owning it, not apologizing for it.</li>
+                        <li><strong>Context (0:30-2:00):</strong> Warm, conversational. You're inviting viewers into your world. Genuine enthusiasm about the system.</li>
+                        <li><strong>Stories:</strong> Vary your pace. Slow down on emotional beats. Speed up on exciting moments. Let the $1.5M moment land with a full pause.</li>
+                        <li><strong>CTA (18:00-19:30):</strong> Intimate, not salesy. You're genuinely inviting them on a journey. The "you deserve" line should feel like a gift, not a pitch.</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>KEY PRINCIPLE:</strong> This video is about transformation, not information. Every story should build emotional connection. You're not teaching — you're sharing.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="speaker-note">
+                <div class="speaker-note-header">
+                    <div class="speaker-note-icon">💡</div>
+                    <div class="speaker-note-title">Key Moments to Nail</div>
+                </div>
+                <div class="speaker-note-content">
+                    <ul>
+                        <li><strong>"$1.5 million dollars"</strong> — Pause BEFORE and AFTER. Let viewers process the number.</li>
+                        <li><strong>"The cancer was gone"</strong> — This is a miracle moment. Your tone should reflect wonder.</li>
+                        <li><strong>"There they were. My two best friends. Waiting."</strong> — Mystical, almost disbelief in your voice.</li>
+                        <li><strong>"They named Chicago O'Hare Airport after him."</strong> — Pause. Let the legacy land.</li>
+                        <li><strong>"Kind Folks Love Stillness, Not Dramatic Reactions"</strong> — Say it slowly, clearly. This is the takeaway they'll remember.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="speaker-note">
+                <div class="speaker-note-header">
+                    <div class="speaker-note-icon">⚡</div>
+                    <div class="speaker-note-title">Physical Objects During Filming</div>
+                </div>
+                <div class="speaker-note-content">
+                    <ul>
+                        <li>Have all 7 objects physically present during filming</li>
+                        <li>When introducing each state, HOLD the object. Touch it. Feel it. This creates authenticity.</li>
+                        <li>For the final montage (16:30-18:00), film yourself actually doing the morning routine with the objects</li>
+                        <li>Objects should be clean, well-lit, and "hero shot" worthy</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>THE OBJECTS:</strong> Compass, white feather, rose quartz heart, river rock, fossil (20 million years old if possible), tiny Estonian notebook, beautiful cup</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="speaker-note">
+                <div class="speaker-note-header">
+                    <div class="speaker-note-icon">🎯</div>
+                    <div class="speaker-note-title">Authenticity Reminders</div>
+                </div>
+                <div class="speaker-note-content">
+                    <ul>
+                        <li>These are YOUR stories. Let the emotion be real. If you feel moved by the Easy Eddie story, show it.</li>
+                        <li>The Burning Man story with "Ripple" is wild — own the mysticism. Don't over-explain or apologize.</li>
+                        <li>The word "unfuckwithable" is YOUR invention. Say it like you're proud of it.</li>
+                        <li>When you say "you deserve to be unfuckwithable" — mean it. Look into the camera like you're speaking to one person who needs to hear this.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script Design Rationale -->
+    <section id="rationale" class="section rationale-section">
+        <div class="section-header">
+            <div class="section-number">06</div>
+            <h2 class="section-title">Script Design Rationale</h2>
+            <p class="section-subtitle">Why every section was crafted this way, grounded in YouTube design principles</p>
+        </div>
+
+        <!-- Core YouTube Principles -->
+        <div class="rationale-intro">
+            <h3 class="rationale-category-title">Core YouTube Principles Applied</h3>
+            <div class="principles-grid">
+                <div class="principle-card">
+                    <div class="principle-number">01</div>
+                    <div class="principle-name">The Retention Imperative</div>
+                    <div class="principle-desc">YouTube prioritizes Average View Duration (AVD) above all else. A 60% AVP signals "this content keeps people watching." Every second must earn its place.</div>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-number">02</div>
+                    <div class="principle-name">The 30-Second Cliff</div>
+                    <div class="principle-desc">30-40% of viewers leave in the first 30 seconds. No warmup, no intros, no "hey guys." The hook must be extraordinary.</div>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-number">03</div>
+                    <div class="principle-name">Pattern Interrupts</div>
+                    <div class="principle-desc">After 30-60 seconds of the same pattern, attention wanes. Visual/audio/narrative shifts reset attention. MrBeast pioneered this technique.</div>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-number">04</div>
+                    <div class="principle-name">Open Loops</div>
+                    <div class="principle-desc">The Zeigarnik Effect: humans need to close open loops. "Wait until you hear this" creates tension that keeps viewers watching.</div>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-number">05</div>
+                    <div class="principle-name">Emotional Variance</div>
+                    <div class="principle-desc">All high-energy exhausts. All contemplative bores. The best videos oscillate between emotional states to prevent fatigue.</div>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-number">06</div>
+                    <div class="principle-name">Specificity Builds Credibility</div>
+                    <div class="principle-desc">"$1.5 million" works. "A lot of money" doesn't. Specific details create believability and memorability.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section-by-Section Rationale -->
+        <div class="rationale-sections">
+            <h3 class="rationale-category-title">Section-by-Section Design Decisions</h3>
+
+            <!-- Hook Rationale -->
+            <div class="rationale-block">
+                <div class="rationale-header">
+                    <div class="rationale-timestamp">0:00 - 0:30</div>
+                    <div class="rationale-title">THE HOOK</div>
+                </div>
+                <div class="rationale-content">
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 1:</span>
+                            <span class="decision-title">"UNFUCKWITHABLE" on Black Screen</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Pattern Interrupt</span>
+                            <span class="principle-tag">Curiosity Gap</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> Black screen creates contrast when most videos start with faces and motion. The word is profane enough to surprise but meaningful enough to demand definition. Immediate "wait, what?" response.</p>
+                            <p><strong>Alternative rejected:</strong> Traditional greeting would lose 40%+ of viewers in first 5 seconds. This approach loses maybe 5% (language-sensitive) but gains 35%+ through curiosity.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 2:</span>
+                            <span class="decision-title">Immediate Definition, No Warmup</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Front-Load Value</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> MrBeast's data shows viewers decide within 3-7 seconds. The definition IS the hook: "at peace, nothing disturbs you, no drama, no chaos." By second 10, viewers know exactly what they'll get.</p>
+                            <p><strong>Word choices matter:</strong> "Peace" = universal desire. "Nothing disturbs you" = addresses anxiety epidemic. "No drama, no chaos, no person" = specific pain points.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 3:</span>
+                            <span class="decision-title">"7 States + Physical Objects + Days"</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Numbered Frameworks</span>
+                            <span class="principle-tag">Curiosity Stacking</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> Numbered lists perform 2-3x better on YouTube. "Physical objects" is unexpected in spiritual content. "Days of the week" creates implementable structure. Three hooks stacked = triple-layered value proposition.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 4:</span>
+                            <span class="decision-title">"Stay with me. This gets wild."</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Open Loop</span>
+                            <span class="principle-tag">Micro-Commitment</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> Explicit attention request + open loop. Viewers wonder: "What's the wild part?" Vagueness is strategic — if we said "wait until Burning Man," they might skip ahead.</p>
+                        </div>
+                    </div>
+
+                    <div class="retention-prediction">
+                        <span class="retention-label">Retention Prediction:</span>
+                        <span class="retention-value">~75-80% at 0:30</span>
+                        <span class="retention-note">(Strong for YouTube)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Context Rationale -->
+            <div class="rationale-block">
+                <div class="rationale-header">
+                    <div class="rationale-timestamp">0:30 - 2:00</div>
+                    <div class="rationale-title">CONTEXT + CREDIBILITY</div>
+                </div>
+                <div class="rationale-content">
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 1:</span>
+                            <span class="decision-title">Credentials Through Experience, Not Lists</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Authority Through Story</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> "I have 3 bestselling books" feels egotistical. "Ashrams in India, shamans in Peru, monks in Japan" shows credentials through experience. Plus, geographic variety enables visual B-roll.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 2:</span>
+                            <span class="decision-title">Present Problem Before Solution</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Problem-Agitate-Solve</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> People don't want solutions to problems they don't feel. "Teachings were scattered, hard to remember" validates frustration. Sets up mnemonic payoff later.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 3:</span>
+                            <span class="decision-title">"Unconventional Word" Acknowledgment</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Objection Handling</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> Proactively addresses viewers put off by language. "That's exactly the point" converts objection into feature. Shows self-awareness and intentionality.</p>
+                        </div>
+                    </div>
+
+                    <div class="retention-prediction">
+                        <span class="retention-label">Retention Prediction:</span>
+                        <span class="retention-value">~65-70% at 2:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- State 1 Rationale -->
+            <div class="rationale-block">
+                <div class="rationale-header">
+                    <div class="rationale-timestamp">2:00 - 4:30</div>
+                    <div class="rationale-title">STATE 1: KNOWINGNESS</div>
+                </div>
+                <div class="rationale-content">
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 1:</span>
+                            <span class="decision-title">Julius Caesar Story First (Not Personal)</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Pattern Variation</span>
+                            <span class="principle-tag">Authority by Association</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> Historical story before personal creates variety. Caesar is unexpected in spiritual content — viewers expect Buddha, Gandhi. This is a pattern interrupt. Caesar knew his worth → Vishen teaches Caesar's lesson = elevated teaching.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 2:</span>
+                            <span class="decision-title">The $1.5 Million Story</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Specificity</span>
+                            <span class="principle-tag">Vulnerability</span>
+                            <span class="principle-tag">High Stakes</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> "$1.5 million" is specific and shocking. Vulnerability increases trust (Brene Brown research). The twist "That payment wasn't for them. It was for me" creates an aha moment.</p>
+                            <p><strong>Story order:</strong> Caesar establishes principle externally (proof it's real). Personal story makes it internal (proof Vishen lives it). 1-2 punch is more persuasive than either alone.</p>
+                        </div>
+                    </div>
+
+                    <div class="retention-prediction">
+                        <span class="retention-label">Retention Prediction:</span>
+                        <span class="retention-value">~60-65% at 4:30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- State 2 Rationale -->
+            <div class="rationale-block">
+                <div class="rationale-header">
+                    <div class="rationale-timestamp">4:30 - 6:30</div>
+                    <div class="rationale-title">STATE 2: FAITH</div>
+                </div>
+                <div class="rationale-content">
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 1:</span>
+                            <span class="decision-title">Medical/Healing Story</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">High Stakes Content</span>
+                            <span class="principle-tag">Verification Desire</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> Medical content performs extremely well on YouTube (life/death stakes). Marissa Peer is verifiable — viewers can Google her. Two healing stories back-to-back reinforces: this isn't a one-time fluke.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 2:</span>
+                            <span class="decision-title">"They Couldn't Explain It"</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Mystery + Science Tension</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> Acknowledging scientific skepticism builds broader appeal. Creates productive tension: "Was it really faith or coincidence?" Mystery left slightly open respects intelligent viewers.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 3:</span>
+                            <span class="decision-title">The Medical Disclaimer</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Objection Handling</span>
+                            <span class="principle-tag">Legal Safety</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> "I'm not saying faith replaces medicine" prevents misinterpretation. Shows intellectual honesty. Legally necessary — YouTube can demonetize medical misinformation.</p>
+                        </div>
+                    </div>
+
+                    <div class="retention-prediction">
+                        <span class="retention-label">Retention Prediction:</span>
+                        <span class="retention-value">~58-62% at 6:30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- State 3 Rationale -->
+            <div class="rationale-block">
+                <div class="rationale-header">
+                    <div class="rationale-timestamp">6:30 - 8:30</div>
+                    <div class="rationale-title">STATE 3: LOVE</div>
+                </div>
+                <div class="rationale-content">
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 1:</span>
+                            <span class="decision-title">Science First, Sentiment Second</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Credibility for Skeptics</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> "Love" risks feeling soft or cliched. Starting with scientific studies (love affecting plant growth, DNA) grounds it in evidence. Appeals to Mindvalley's educated professional audience who want spirituality validated by data.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 2:</span>
+                            <span class="decision-title">John Lennon Story</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Celebrity Recognition</span>
+                            <span class="principle-tag">Surprising Choice</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> Lennon is universally known. The surprising element: "He quit the Beatles for FIVE YEARS to be a stay-at-home dad." "He baked bread. He changed diapers." — these mundane details humanize the biggest rock star in the world.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Why Love is State #3</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Structural rationale:</strong> Love is emotionally warm content. After two "masculine" concepts (self-worth, resilience), it creates emotional variation. Lennon story provides a "breather" — uplifting and heartwarming before heavier content.</p>
+                        </div>
+                    </div>
+
+                    <div class="retention-prediction">
+                        <span class="retention-label">Retention Prediction:</span>
+                        <span class="retention-value">~55-58% at 8:30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- State 4 Rationale -->
+            <div class="rationale-block">
+                <div class="rationale-header">
+                    <div class="rationale-timestamp">8:30 - 10:30</div>
+                    <div class="rationale-title">STATE 4: STILLNESS</div>
+                </div>
+                <div class="rationale-content">
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 1:</span>
+                            <span class="decision-title">Most Mystical Story at Midpoint</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Peak Interest Placement</span>
+                            <span class="principle-tag">Re-engagement</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> At 8:30 (~40% through), viewer fatigue is a risk. The Burning Man story is the most unusual story in the entire video. "A fairy called Ripple" is so unexpected that drifting viewers snap back to attention.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 2:</span>
+                            <span class="decision-title">Phone/Scroll Callout</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Relatable Pain Point</span>
+                            <span class="principle-tag">Self-Aware Irony</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> "You can't hear it when you're scrolling Instagram" is universally relatable. There's intentional irony — they're watching on their phone. Creates connection through self-aware humor.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 3:</span>
+                            <span class="decision-title">No Over-Explanation of Synchronicity</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Trust Your Audience</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> Over-explaining ("quantum entanglement...") would feel defensive. Confidence comes from understatement. Present facts, let viewers draw conclusions. Believers feel validated; skeptics can still appreciate the story.</p>
+                        </div>
+                    </div>
+
+                    <div class="retention-prediction">
+                        <span class="retention-label">Retention Prediction:</span>
+                        <span class="retention-value">~52-55% at 10:30</span>
+                        <span class="retention-note">(Possible 5% drop on mystical content, recovery on synchronicity payoff)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- State 5 Rationale -->
+            <div class="rationale-block">
+                <div class="rationale-header">
+                    <div class="rationale-timestamp">10:30 - 12:30</div>
+                    <div class="rationale-title">STATE 5: NON-ATTACHMENT</div>
+                </div>
+                <div class="rationale-content">
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 1:</span>
+                            <span class="decision-title">Steve Jobs as Central Figure</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Maximum Cultural Relevance</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> Jobs is the most recognized entrepreneur of the modern era. His story is known but his LESSON often isn't articulated this clearly. "Getting fired was the best thing" reframes failure — viewers who've experienced setbacks find hope.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 2:</span>
+                            <span class="decision-title">"Lightness of Being a Beginner"</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Quotable Wisdom</span>
+                            <span class="principle-tag">Shareability</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> This Jobs quote is beautiful and shareable. Viewers will screenshot it. Reframes non-attachment positively: not losing something, but gaining freedom. "Lightness" connects to "unfuckwithable."</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 3:</span>
+                            <span class="decision-title">The Full Arc (Success → Loss → Triumph)</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Narrative Satisfaction</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> Apple → Fired → NeXT/Pixar → Return to Apple → iPod/iPhone/iPad. Complete emotional journey in 2 minutes. Payoff shows non-attachment led to GREATER success — crucial for ambitious viewers who fear letting go.</p>
+                        </div>
+                    </div>
+
+                    <div class="retention-prediction">
+                        <span class="retention-label">Retention Prediction:</span>
+                        <span class="retention-value">~50-53% at 12:30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- State 6 Rationale -->
+            <div class="rationale-block">
+                <div class="rationale-header">
+                    <div class="rationale-timestamp">12:30 - 14:30</div>
+                    <div class="rationale-title">STATE 6: DEVOTION</div>
+                </div>
+                <div class="rationale-content">
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 1:</span>
+                            <span class="decision-title">Most Emotional Story Here</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Emotional Peak Before Final Act</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> At 12:30 (63% through), committed viewers deserve the emotional peak. Father sacrifices life → Son becomes hero → Airport named after him. This is the tearjerker, placed to prime viewers for emotional close.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 2:</span>
+                            <span class="decision-title">Gangster-to-Hero Genre Shift</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Unexpected Territory</span>
+                            <span class="principle-tag">Cognitive Surprise</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> We've had Romans, Beatles, Silicon Valley, Burning Man. Now: 1930s Chicago mob. COMPLETELY different setting creates cognitive surprise that re-engages attention. Gangster story in spiritual content is unexpected.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 3:</span>
+                            <span class="decision-title">"They Named the Airport After Him"</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Concrete Payoff</span>
+                            <span class="principle-tag">Verifiable Fact</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> O'Hare International Airport is one of the busiest in the world. Viewers have BEEN there. Real-world connection grounds the story in verifiable history. Satisfying payoff they'll remember every time they see O'Hare mentioned.</p>
+                        </div>
+                    </div>
+
+                    <div class="retention-prediction">
+                        <span class="retention-label">Retention Prediction:</span>
+                        <span class="retention-value">~48-51% at 14:30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- State 7 Rationale -->
+            <div class="rationale-block">
+                <div class="rationale-header">
+                    <div class="rationale-timestamp">14:30 - 16:30</div>
+                    <div class="rationale-title">STATE 7: RECEIVING</div>
+                </div>
+                <div class="rationale-content">
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 1:</span>
+                            <span class="decision-title">End with Receiving (Not Giving)</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Counter-Intuitive Close</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> Most spiritual content ends with "giving" or "service." Ending with "receiving" is unexpected but psychologically accurate: ambitious people struggle to RECEIVE. Final lesson is permission — "It's OK to receive. You're worthy."</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 2:</span>
+                            <span class="decision-title">$250K Cash Story</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Luxury + Generosity Contrast</span>
+                            <span class="principle-tag">Specific Numbers</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> $250,000 cash is specific and shocking. Shows receiving and giving are connected — wealth flows through generous people. Dubai imagery is visually compelling and aspirational for Mindvalley's audience.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 3:</span>
+                            <span class="decision-title">Barry Morman Affirmation</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Immediately Actionable Tool</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> "Why do I solve all problems in a fun and easy way?" is usable IMMEDIATELY. The insight that "why" works better than "how" provides standalone value. Viewers leave with a practical tool, not just inspiration.</p>
+                        </div>
+                    </div>
+
+                    <div class="retention-prediction">
+                        <span class="retention-label">Retention Prediction:</span>
+                        <span class="retention-value">~46-49% at 16:30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Rationale -->
+            <div class="rationale-block">
+                <div class="rationale-header">
+                    <div class="rationale-timestamp">16:30 - 18:00</div>
+                    <div class="rationale-title">THE COMPLETE SYSTEM + MNEMONIC</div>
+                </div>
+                <div class="rationale-content">
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 1:</span>
+                            <span class="decision-title">Visual Payoff - All Objects Together</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Completeness Satisfaction</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> The brain craves completion. All 7 objects together satisfies the pattern we've been building. Beauty shot is visually rewarding. Creates screenshot moment — viewers may save as reference.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 2:</span>
+                            <span class="decision-title">Mnemonic Reveal</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Shareability</span>
+                            <span class="principle-tag">Memory Aid</span>
+                            <span class="principle-tag">Payoff</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> "Kind Folks Love Stillness, Not Dramatic Reactions" is clever and shareable. Solves the problem stated at 1:00 ("hard to remember") — this is the PAYOFF. Comments will be full of people testing if they remember it.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 3:</span>
+                            <span class="decision-title">"Takes 30 Seconds"</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Objection Removal</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> Biggest objection to any practice is time. "30 seconds" obliterates this. Makes system feel ACHIEVABLE, not overwhelming. Implementation intention increases dramatically.</p>
+                        </div>
+                    </div>
+
+                    <div class="retention-prediction">
+                        <span class="retention-label">Retention Prediction:</span>
+                        <span class="retention-value">~44-47% at 18:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Rationale -->
+            <div class="rationale-block">
+                <div class="rationale-header">
+                    <div class="rationale-timestamp">18:00 - 20:00</div>
+                    <div class="rationale-title">CTA + CLOSE</div>
+                </div>
+                <div class="rationale-content">
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 1:</span>
+                            <span class="decision-title">7-Day Challenge Frame</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Commitment Trigger</span>
+                            <span class="principle-tag">Action Oriented</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> Challenges perform well on YouTube — create community and accountability. "Just ONE week" feels achievable. Transforms passive viewing into active doing.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 2:</span>
+                            <span class="decision-title">"Which State Do You Need Most?"</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Engagement Algorithm Boost</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> YouTube's algorithm heavily weights comments. Question is easy to answer (just name one state). Low friction = high response. Prompts self-reflection, which deepens the lesson.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 3:</span>
+                            <span class="decision-title">Soft CTA + Permission Structure</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Value-First Selling</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> "Whether you join or not" gives permission to NOT buy. Paradoxically INCREASES conversions — viewers trust speakers who don't hard-sell. Value delivered regardless of purchase.</p>
+                        </div>
+                    </div>
+
+                    <div class="decision-item">
+                        <div class="decision-header">
+                            <span class="decision-label">Decision 4:</span>
+                            <span class="decision-title">"You Deserve to Be Unfuckwithable"</span>
+                        </div>
+                        <div class="decision-principles">
+                            <span class="principle-tag">Affirmational Close</span>
+                            <span class="principle-tag">Full Circle</span>
+                        </div>
+                        <div class="decision-rationale">
+                            <p><strong>Why:</strong> "You deserve" is empowering — positions viewer as worthy. Brings video full circle: started with "unfuckwithable," ends with "you deserve to be unfuckwithable." Viewers leave feeling good.</p>
+                        </div>
+                    </div>
+
+                    <div class="retention-prediction">
+                        <span class="retention-label">Final Completion Rate:</span>
+                        <span class="retention-value">~40-43%</span>
+                        <span class="retention-note">(Strong for 20-minute content)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story Variation Table -->
+        <div class="story-variation">
+            <h3 class="rationale-category-title">Story Type Variation (Prevents Fatigue)</h3>
+            <div class="variation-table-container">
+                <table class="variation-table">
+                    <thead>
+                        <tr>
+                            <th>State</th>
+                            <th>Story Type</th>
+                            <th>Tone</th>
+                            <th>Period</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="state-badge">1. Knowingness</span></td>
+                            <td>Historical + Personal</td>
+                            <td>Bold</td>
+                            <td>Ancient + Modern</td>
+                            <td>Establish pattern</td>
+                        </tr>
+                        <tr>
+                            <td><span class="state-badge">2. Faith</span></td>
+                            <td>Medical/Healing</td>
+                            <td>Miraculous</td>
+                            <td>Contemporary</td>
+                            <td>High stakes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="state-badge">3. Love</span></td>
+                            <td>Celebrity/Family</td>
+                            <td>Warm</td>
+                            <td>1970s</td>
+                            <td>Emotional breather</td>
+                        </tr>
+                        <tr>
+                            <td><span class="state-badge">4. Stillness</span></td>
+                            <td>Mystical/Personal</td>
+                            <td>Mysterious</td>
+                            <td>Contemporary</td>
+                            <td>Re-engage at midpoint</td>
+                        </tr>
+                        <tr>
+                            <td><span class="state-badge">5. Non-Attachment</span></td>
+                            <td>Business/Success</td>
+                            <td>Triumphant</td>
+                            <td>1980s-2000s</td>
+                            <td>Appeal to ambitious</td>
+                        </tr>
+                        <tr>
+                            <td><span class="state-badge">6. Devotion</span></td>
+                            <td>Gangster/War</td>
+                            <td>Emotional</td>
+                            <td>1930s-1940s</td>
+                            <td>Emotional peak</td>
+                        </tr>
+                        <tr>
+                            <td><span class="state-badge">7. Receiving</span></td>
+                            <td>Wealth/Wisdom</td>
+                            <td>Abundant</td>
+                            <td>Contemporary</td>
+                            <td>Uplifting close</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="variation-note">No two adjacent stories have the same tone or setting. This unpredictability maintains attention throughout.</p>
+        </div>
+    </section>
+
+    <!-- Editing Notes -->
+    <section id="editing" class="section editing-section">
+        <div class="section-header">
+            <div class="section-number">07</div>
+            <h2 class="section-title">Editing Notes</h2>
+            <p class="section-subtitle">Comprehensive guidance for post-production team</p>
+        </div>
+
+        <div class="editing-grid">
+            <div class="editing-card">
+                <div class="editing-card-header">
+                    <div class="editing-icon">🎬</div>
+                    <div class="editing-card-title">Visual Style</div>
+                </div>
+                <ul class="editing-list">
+                    <li>Cinematic, premium aesthetic (Iman Gadzhi meets Jay Shetty)</li>
+                    <li>Warm color grading — golden hour tones, slightly desaturated</li>
+                    <li>Consistent LUT throughout entire video</li>
+                    <li>Shallow depth of field for object close-ups</li>
+                    <li>High contrast for text readability</li>
+                </ul>
+            </div>
+
+            <div class="editing-card">
+                <div class="editing-card-header">
+                    <div class="editing-icon">✂️</div>
+                    <div class="editing-card-title">Pacing & Cuts</div>
+                </div>
+                <ul class="editing-list">
+                    <li>Hook (0:00-0:30): Jump cuts every 2-3 seconds, high energy</li>
+                    <li>Stories: Let emotional beats breathe, cut filler ruthlessly</li>
+                    <li>Pattern interrupt every 30-60 seconds (B-roll, text, zoom)</li>
+                    <li>Never stay on same shot more than 5 seconds during B-roll</li>
+                    <li>Final 2 minutes: Minimal cutting, let sincerity show</li>
+                </ul>
+            </div>
+
+            <div class="editing-card">
+                <div class="editing-card-header">
+                    <div class="editing-icon">🎨</div>
+                    <div class="editing-card-title">Graphics & Text</div>
+                </div>
+                <ul class="editing-list">
+                    <li>State names: Elegant serif font (Playfair Display or similar)</li>
+                    <li>Day assignments: Bold, screenshot-worthy cards</li>
+                    <li>Key quotes: Beautiful typography with subtle animation</li>
+                    <li>Mnemonic: Animated letters popping in K-F-L-S-N-D-R</li>
+                    <li>Object icons: Stay in corner during each state section</li>
+                </ul>
+            </div>
+
+            <div class="editing-card">
+                <div class="editing-card-header">
+                    <div class="editing-icon">🎵</div>
+                    <div class="editing-card-title">Music & Sound</div>
+                </div>
+                <ul class="editing-list">
+                    <li>Opening: Mysterious tension, no music for first 3 seconds</li>
+                    <li>Each state: Mood-matched music (contemplative, hopeful, etc.)</li>
+                    <li>Object sounds: Compass click, feather whoosh, water flow</li>
+                    <li>Transitions: Whooshes, subtle risers</li>
+                    <li>Emotional peaks: Music swells, then silence for key lines</li>
+                </ul>
+            </div>
+
+            <div class="editing-card">
+                <div class="editing-card-header">
+                    <div class="editing-icon">🎞️</div>
+                    <div class="editing-card-title">B-Roll Needed</div>
+                </div>
+                <ul class="editing-list">
+                    <li>All 7 objects — multiple angles, hero shots, macro details</li>
+                    <li>Vishen morning routine — touching/holding each object</li>
+                    <li>Historical footage: Rome, Beatles, Apple, WWII planes</li>
+                    <li>Nature: Water, mountains, sunrise, desert</li>
+                    <li>Spiritual sites: Temples, ashrams, Burning Man art</li>
+                </ul>
+            </div>
+
+            <div class="editing-card">
+                <div class="editing-card-header">
+                    <div class="editing-icon">📱</div>
+                    <div class="editing-card-title">Retention Tricks</div>
+                </div>
+                <ul class="editing-list">
+                    <li>First 3 seconds: No intro — straight to "UNFUCKWITHABLE"</li>
+                    <li>Tease upcoming content: "Stay with me. This gets wild."</li>
+                    <li>Mid-roll reminder at 10:00: "If you're still here, hit like"</li>
+                    <li>Each story = mini payoff to maintain momentum</li>
+                    <li>End with challenge, not pitch — keeps them engaged</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- YouTube Description -->
+    <section class="section description-section">
+        <div class="section-header">
+            <div class="section-number">08</div>
+            <h2 class="section-title">YouTube Description</h2>
+            <p class="section-subtitle">SEO-optimized description ready to copy and paste</p>
+        </div>
+
+        <div class="description-box">
+            <div class="description-header">
+                <span>📋</span> Full YouTube Description
+                <button class="copy-button" onclick="copyDescription()">Copy to Clipboard</button>
+            </div>
+            <div class="description-content" id="youtube-description">Unfuckwithable: The 7 Sacred States That Will Transform Your Life
+
+After two decades studying consciousness across the world, I've distilled the most powerful teachings into 7 sacred states — each mapped to a day of the week, each represented by a physical object you can hold.
+
+This isn't theory. This is a practical system you can start using tomorrow.
+
+In this video, you'll discover:
+✅ The 7 Sacred States that create unshakeable inner peace
+✅ How Julius Caesar, Steve Jobs, and John Lennon embodied these principles
+✅ A 7-day practice that takes only 30 seconds per day
+✅ The mnemonic that makes this system unforgettable
+✅ How to become "unfuckwithable" — at peace no matter what life throws at you
+
+THE 7 SACRED STATES:
+1. Knowingness (Monday) - Know your worth like Julius Caesar
+2. Faith (Tuesday) - Trust what's meant for you like Marissa Peer
+3. Love (Wednesday) - Transmit love like John Lennon
+4. Stillness (Thursday) - Find guidance like my Burning Man experience
+5. Non-Attachment (Friday) - Embrace change like Steve Jobs
+6. Devotion (Saturday) - Honor your values like Easy Eddie
+7. Receiving (Sunday) - Open to blessings like the Dubai Sheikh
+
+💎 WANT TO GO DEEPER?
+Join my complete program on mastering these 7 states at Mindvalley:
+👉 [MINDVALLEY LINK]
+
+📖 CHAPTERS:
+0:00 - The Meaning of "Unfuckwithable"
+0:30 - Why I Created This System
+2:00 - State 1: Knowingness (The Compass)
+4:30 - State 2: Faith (The White Feather)
+6:30 - State 3: Love (The Rose Quartz Heart)
+8:30 - State 4: Stillness (The River Rock)
+10:30 - State 5: Non-Attachment (The Fossil)
+12:30 - State 6: Devotion (The Tiny Notebook)
+14:30 - State 7: Receiving (The Cup)
+16:30 - The Complete System & Mnemonic
+18:00 - Your 7-Day Challenge
+19:30 - Final Message
+
+🌟 THE MNEMONIC:
+"Kind Folks Love Stillness, Not Dramatic Reactions"
+K - Knowingness | F - Faith | L - Love | S - Stillness
+N - Non-attachment | D - Devotion | R - Receiving
+
+💬 COMMENT BELOW: Which of these 7 states do you need most right now?
+
+📱 FOLLOW ME:
+Instagram: @vishen
+Facebook: /OfficialVishen
+TikTok: @vishenlakhiani
+Website: vishen.com
+
+📚 MY BOOKS:
+• The Code of the Extraordinary Mind
+• The Buddha and the Badass
+• The Six Phase Meditation
+
+#Mindfulness #PersonalGrowth #Spirituality #Consciousness #VishenLakhiani #Mindvalley #Meditation #SelfDevelopment #InnerPeace #Unfuckwithable</div>
+        </div>
+
+        <div class="tags-container">
+            <div class="tags-title">Recommended Tags</div>
+            <div class="tags-grid">
+                <span class="tag">Vishen Lakhiani</span>
+                <span class="tag">Mindvalley</span>
+                <span class="tag">personal growth</span>
+                <span class="tag">spiritual awakening</span>
+                <span class="tag">consciousness</span>
+                <span class="tag">meditation techniques</span>
+                <span class="tag">inner peace</span>
+                <span class="tag">mindfulness practice</span>
+                <span class="tag">self development</span>
+                <span class="tag">life transformation</span>
+                <span class="tag">manifestation</span>
+                <span class="tag">unfuckwithable</span>
+                <span class="tag">sacred states</span>
+                <span class="tag">emotional resilience</span>
+                <span class="tag">mental strength</span>
+                <span class="tag">spiritual teacher</span>
+                <span class="tag">Jay Shetty</span>
+                <span class="tag">motivational speech</span>
+                <span class="tag">daily practice</span>
+                <span class="tag">morning routine</span>
+                <span class="tag">Steve Jobs lessons</span>
+                <span class="tag">John Lennon wisdom</span>
+                <span class="tag">abundance mindset</span>
+                <span class="tag">letting go</span>
+                <span class="tag">higher consciousness</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Projections -->
+    <section id="performance" class="section performance-section">
+        <div class="section-header">
+            <div class="section-number">09</div>
+            <h2 class="section-title">Expected Performance</h2>
+            <p class="section-subtitle">Projected metrics based on content quality and optimization</p>
+        </div>
+
+        <div class="performance-grid">
+            <div class="performance-card highlight">
+                <div class="performance-value">1M+</div>
+                <div class="performance-label">Target Views</div>
+                <div class="performance-note">60-90 days with promotion</div>
+            </div>
+            <div class="performance-card">
+                <div class="performance-value">8-10%</div>
+                <div class="performance-label">Expected CTR</div>
+                <div class="performance-note">Bold title + compelling thumbnail</div>
+            </div>
+            <div class="performance-card">
+                <div class="performance-value">60%+</div>
+                <div class="performance-label">Target AVD</div>
+                <div class="performance-note">12+ minutes average watch</div>
+            </div>
+            <div class="performance-card">
+                <div class="performance-value">20K+</div>
+                <div class="performance-label">New Subscribers</div>
+                <div class="performance-note">If viral trajectory achieved</div>
+            </div>
+        </div>
+
+        <div class="section-header mt-40">
+            <h3 class="section-title" style="font-size: 1.8rem;">Production Timeline</h3>
+        </div>
+
+        <div class="timeline-container">
+            <div class="timeline-item">
+                <div class="timeline-marker">1</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Pre-Production</div>
+                    <div class="timeline-desc">Finalize script, source all 7 objects, scout filming location, prepare wardrobe, brief camera and lighting team on cinematic vision.</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">2</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Production Day</div>
+                    <div class="timeline-desc">Film main footage (Vishen direct-to-camera), object hero shots, morning routine montage, additional B-roll. Capture backup takes.</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">3</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Post-Production</div>
+                    <div class="timeline-desc">Full edit with timestamps, color grading, sound design, graphics, text overlays, music licensing, captions/subtitles.</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">4</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Thumbnail & Assets</div>
+                    <div class="timeline-desc">Create 3-4 thumbnail variations for A/B testing. Prepare end screen, cards, and all YouTube metadata.</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">5</div>
+                <div class="timeline-content">
+                    <div class="timeline-title">Launch & Optimization</div>
+                    <div class="timeline-desc">Upload at optimal time, monitor analytics, respond to comments, share across social platforms, email list announcement.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklist -->
+    <section class="section checklist-section">
+        <div class="section-header">
+            <div class="section-number">10</div>
+            <h2 class="section-title">Production Checklist</h2>
+            <p class="section-subtitle">Everything needed to execute this video flawlessly</p>
+        </div>
+
+        <div class="checklist-grid">
+            <div class="checklist-card">
+                <div class="checklist-card-title">📋 Pre-Production</div>
+                <ul class="checklist">
+                    <li><span class="checkbox"></span>Script finalized and timed (~20 min)</li>
+                    <li><span class="checkbox"></span>Vishen rehearsed and comfortable</li>
+                    <li><span class="checkbox"></span>All 7 physical objects sourced</li>
+                    <li><span class="checkbox"></span>B-roll shot list created</li>
+                    <li><span class="checkbox"></span>Location scout complete</li>
+                    <li><span class="checkbox"></span>Lighting setup tested (warm, cinematic)</li>
+                    <li><span class="checkbox"></span>Audio setup tested (clean dialogue)</li>
+                </ul>
+            </div>
+
+            <div class="checklist-card">
+                <div class="checklist-card-title">🎬 Production</div>
+                <ul class="checklist">
+                    <li><span class="checkbox"></span>Main footage filmed (direct-to-camera)</li>
+                    <li><span class="checkbox"></span>All 7 objects filmed (multiple angles)</li>
+                    <li><span class="checkbox"></span>Morning routine filmed (with objects)</li>
+                    <li><span class="checkbox"></span>Additional B-roll captured</li>
+                    <li><span class="checkbox"></span>Backup recordings saved</li>
+                </ul>
+            </div>
+
+            <div class="checklist-card">
+                <div class="checklist-card-title">✂️ Post-Production</div>
+                <ul class="checklist">
+                    <li><span class="checkbox"></span>Full edit complete with timestamps</li>
+                    <li><span class="checkbox"></span>Color grading applied (consistent LUT)</li>
+                    <li><span class="checkbox"></span>Audio mixing (dialogue clear, music balanced)</li>
+                    <li><span class="checkbox"></span>Sound design added</li>
+                    <li><span class="checkbox"></span>Graphics and text overlays completed</li>
+                    <li><span class="checkbox"></span>Music licensed and attributed</li>
+                    <li><span class="checkbox"></span>Captions/subtitles added</li>
+                </ul>
+            </div>
+
+            <div class="checklist-card">
+                <div class="checklist-card-title">📤 Upload & Launch</div>
+                <ul class="checklist">
+                    <li><span class="checkbox"></span>Thumbnail created (3+ variations)</li>
+                    <li><span class="checkbox"></span>Title finalized</li>
+                    <li><span class="checkbox"></span>Description optimized</li>
+                    <li><span class="checkbox"></span>Tags added</li>
+                    <li><span class="checkbox"></span>Chapters/timestamps set</li>
+                    <li><span class="checkbox"></span>End screen configured</li>
+                    <li><span class="checkbox"></span>Pinned comment drafted</li>
+                    <li><span class="checkbox"></span>Social media posts scheduled</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">MINDVALLEY</div>
+        <p class="footer-text">Video Production Proposal • The 7 Sacred States • November 2025</p>
+        <p class="footer-quote">"The most powerful person in the room is the one who cannot be disturbed.<br>That's you. Starting now."</p>
+    </footer>
+
+    <script>
+        function copyDescription() {
+            const description = document.getElementById('youtube-description').innerText;
+            navigator.clipboard.writeText(description).then(() => {
+                const button = document.querySelector('.copy-button');
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy to Clipboard';
+                }, 2000);
+            });
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-header, .state-card, .title-card, .thumbnail-card, .editing-card, .speaker-note').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
