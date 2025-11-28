@@ -24,6 +24,10 @@
             --color-gray-900: #18181b;
             --color-accent: #6366f1;
             --color-accent-light: #818cf8;
+            --color-ai: #3b82f6;
+            --color-mindset: #8b5cf6;
+            --color-soul: #ec4899;
+            --color-longevity: #10b981;
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
@@ -168,6 +172,16 @@
             margin: 0 auto;
         }
 
+        .section-full {
+            max-width: 100%;
+            padding: 6rem 2rem;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         .section-dark {
             background: var(--color-gray-900);
         }
@@ -203,6 +217,18 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+        }
+
+        .card-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .card-grid-2 {
+                grid-template-columns: 1fr;
+            }
         }
 
         .card {
@@ -266,6 +292,42 @@
             color: var(--color-white);
         }
 
+        /* Two-Part Hook */
+        .hook-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .hook-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hook-box {
+            background: var(--color-gray-900);
+            border: 2px solid var(--color-accent);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .hook-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .hook-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
         /* Quote Block */
         .quote-block {
             background: var(--color-gray-900);
@@ -287,56 +349,296 @@
             color: var(--color-gray-500);
         }
 
-        /* Identity Section */
-        .identity-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+        /* Four Circles Diagram */
+        .circles-container {
+            display: flex;
+            justify-content: center;
             align-items: center;
-            margin: 4rem 0;
+            padding: 4rem 0;
+            position: relative;
         }
 
-        @media (max-width: 768px) {
-            .identity-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+        .circles-diagram {
+            position: relative;
+            width: 500px;
+            height: 500px;
+        }
+
+        @media (max-width: 600px) {
+            .circles-diagram {
+                width: 320px;
+                height: 320px;
             }
         }
 
-        .identity-image {
-            width: 100%;
-            border-radius: 16px;
-            aspect-ratio: 4/3;
-            object-fit: cover;
-        }
-
-        /* Pillars */
-        .pillar {
+        .circle {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
             display: flex;
-            gap: 2rem;
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--color-gray-800);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 700;
+            transition: transform 0.3s;
+            cursor: pointer;
         }
 
-        .pillar:last-child {
-            border-bottom: none;
+        @media (max-width: 600px) {
+            .circle {
+                width: 150px;
+                height: 150px;
+            }
         }
 
-        .pillar-number {
-            font-size: 3rem;
+        .circle:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .circle-ai {
+            background: rgba(59, 130, 246, 0.2);
+            border: 2px solid var(--color-ai);
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .circle-mindset {
+            background: rgba(139, 92, 246, 0.2);
+            border: 2px solid var(--color-mindset);
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+        }
+
+        .circle-soul {
+            background: rgba(236, 72, 153, 0.2);
+            border: 2px solid var(--color-soul);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .circle-longevity {
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid var(--color-longevity);
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .circle-label {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        @media (max-width: 600px) {
+            .circle-label {
+                font-size: 1rem;
+            }
+        }
+
+        .circle-emoji {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .circle-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 5;
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.4);
+        }
+
+        @media (max-width: 600px) {
+            .circle-center {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        .circle-center-text {
+            font-size: 0.875rem;
             font-weight: 800;
-            color: var(--color-gray-700);
-            min-width: 80px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        .pillar-content h3 {
-            font-size: 1.5rem;
+        @media (max-width: 600px) {
+            .circle-center-text {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Intersection Cards */
+        .intersection-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .intersection-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .intersection-card {
+            background: var(--color-gray-900);
+            border: 1px solid var(--color-gray-800);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .intersection-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .intersection-title {
+            font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        .pillar-content p {
+        .intersection-desc {
             color: var(--color-gray-400);
+            font-size: 0.9rem;
+        }
+
+        /* Credibility Cards */
+        .cred-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .cred-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .cred-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cred-card {
+            background: var(--color-gray-900);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .cred-card-ai {
+            border: 2px solid var(--color-ai);
+        }
+
+        .cred-card-mindset {
+            border: 2px solid var(--color-mindset);
+        }
+
+        .cred-card-soul {
+            border: 2px solid var(--color-soul);
+        }
+
+        .cred-card-longevity {
+            border: 2px solid var(--color-longevity);
+        }
+
+        .cred-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cred-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .cred-list {
+            list-style: none;
+            text-align: left;
+            font-size: 0.85rem;
+            color: var(--color-gray-400);
+        }
+
+        .cred-list li {
+            padding: 0.25rem 0;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .cred-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+        }
+
+        /* Audience Section */
+        .audience-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid var(--color-gray-700);
+            border-radius: 24px;
+            padding: 3rem;
+            margin: 2rem 0;
+        }
+
+        .audience-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .audience-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .audience-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .audience-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--color-gray-900);
+            border-radius: 12px;
+        }
+
+        .audience-icon {
+            font-size: 1.5rem;
+        }
+
+        .audience-text {
+            font-weight: 500;
         }
 
         /* Voice & Tone */
@@ -413,48 +715,6 @@
             margin-top: 0.5rem;
         }
 
-        /* Signature Ideas */
-        .idea-card {
-            background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-black) 100%);
-            border: 1px solid var(--color-gray-800);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .idea-card h3 {
-            font-size: 1.75rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            color: var(--color-accent-light);
-        }
-
-        .idea-card p {
-            color: var(--color-gray-300);
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-
-        .idea-use {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--color-gray-800);
-        }
-
-        .idea-use-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--color-gray-500);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.75rem;
-        }
-
-        .idea-use-text {
-            color: var(--color-gray-400);
-            font-size: 0.95rem;
-        }
-
         /* Bio Variations */
         .bio-box {
             background: var(--color-gray-900);
@@ -504,7 +764,43 @@
             color: var(--color-white);
         }
 
-        /* Origin Story Timeline */
+        /* Intro Formula */
+        .intro-box {
+            background: var(--color-gray-900);
+            border: 1px solid var(--color-gray-800);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-context {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--color-gray-800);
+            border-radius: 100px;
+            display: inline-block;
+        }
+
+        .intro-context-ai { color: var(--color-ai); }
+        .intro-context-mindset { color: var(--color-mindset); }
+        .intro-context-soul { color: var(--color-soul); }
+        .intro-context-longevity { color: var(--color-longevity); }
+
+        .intro-script {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--color-gray-200);
+        }
+
+        .intro-script strong {
+            color: var(--color-white);
+        }
+
+        /* Timeline */
         .timeline {
             position: relative;
             padding-left: 3rem;
@@ -613,43 +909,10 @@
         }
 
         /* Utility Classes */
-        .text-accent {
-            color: var(--color-accent);
-        }
-
-        .text-muted {
-            color: var(--color-gray-400);
-        }
-
-        .mt-4 {
-            margin-top: 2rem;
-        }
-
-        .mb-4 {
-            margin-bottom: 2rem;
-        }
-
-        /* Image Gallery */
-        .image-gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        @media (max-width: 768px) {
-            .image-gallery {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        .gallery-image {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
-            border-radius: 12px;
-            border: 1px solid var(--color-gray-800);
-        }
+        .text-accent { color: var(--color-accent); }
+        .text-muted { color: var(--color-gray-400); }
+        .mt-4 { margin-top: 2rem; }
+        .mb-4 { margin-bottom: 2rem; }
 
         /* Hashtag & Content Pillars */
         .hashtag-grid {
@@ -684,6 +947,59 @@
             margin-bottom: 0.5rem;
         }
 
+        /* Testing Box */
+        .testing-box {
+            background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-black) 100%);
+            border: 2px solid var(--color-accent);
+            border-radius: 24px;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .testing-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+        }
+
+        .testing-statement {
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .testing-subtext {
+            color: var(--color-gray-400);
+            font-size: 1rem;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .image-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .gallery-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid var(--color-gray-800);
+        }
+
         /* Mobile Nav Toggle */
         .nav-toggle {
             display: none;
@@ -715,6 +1031,26 @@
                 display: flex;
             }
         }
+
+        /* Warning Box */
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .warning-title {
+            color: #ef4444;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .warning-text {
+            color: var(--color-gray-300);
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 <body>
@@ -725,12 +1061,12 @@
             <button class="nav-toggle" onclick="toggleNav()">&#9776;</button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#positioning">Positioning</a></li>
-                <li><a href="#identity">Identity</a></li>
-                <li><a href="#pillars">Pillars</a></li>
+                <li><a href="#circles">Four Circles</a></li>
+                <li><a href="#audience">Audience</a></li>
+                <li><a href="#intros">Video Intros</a></li>
                 <li><a href="#voice">Voice</a></li>
-                <li><a href="#ideas">Signature Ideas</a></li>
                 <li><a href="#bios">Bios</a></li>
-                <li><a href="#story">Origin Story</a></li>
+                <li><a href="#story">Story</a></li>
             </ul>
         </div>
     </nav>
@@ -738,19 +1074,19 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <div class="hero-badge">Personal Brand Book v1.0</div>
+            <div class="hero-badge">Personal Brand Book v2.0</div>
             <h1>Vishen Lakhiani</h1>
-            <p class="hero-subtitle">Who I am. What I stand for. How I show up in the world.</p>
+            <p class="hero-subtitle">Mission-led. High performance. Spirituality meets strategy.</p>
             <img src="https://storyblok-cdn.mindvalley.com/f/60579/432x463/41b4612b72/future-human-2025-03_04405-photo-by-all-is-amazing-1.png?quality=60&auto=webp&dpr=1&width=400" alt="Vishen Lakhiani" class="hero-image">
 
             <div class="toc">
                 <h3>Quick Navigation</h3>
                 <ul class="toc-list">
-                    <li><a href="#positioning"><span class="toc-num">01</span> Core Positioning Statement</a></li>
-                    <li><a href="#identity"><span class="toc-num">02</span> Brand Identity: Who Is Vishen?</a></li>
-                    <li><a href="#pillars"><span class="toc-num">03</span> The Five Brand Pillars</a></li>
-                    <li><a href="#voice"><span class="toc-num">04</span> Voice & Tone Guidelines</a></li>
-                    <li><a href="#ideas"><span class="toc-num">05</span> Signature Ideas & Frameworks</a></li>
+                    <li><a href="#positioning"><span class="toc-num">01</span> Core Positioning & Two-Part Hook</a></li>
+                    <li><a href="#circles"><span class="toc-num">02</span> The Four Circles of Expertise</a></li>
+                    <li><a href="#audience"><span class="toc-num">03</span> Who I Talk To (Audience)</a></li>
+                    <li><a href="#intros"><span class="toc-num">04</span> Video Intro Formulas</a></li>
+                    <li><a href="#voice"><span class="toc-num">05</span> Voice & Tone Guidelines</a></li>
                     <li><a href="#bios"><span class="toc-num">06</span> Bio Variations (Copy & Paste)</a></li>
                     <li><a href="#story"><span class="toc-num">07</span> Origin Story & Timeline</a></li>
                     <li><a href="#content"><span class="toc-num">08</span> Content Pillars & Hashtags</a></li>
@@ -763,41 +1099,59 @@
     <section class="section" id="positioning">
         <div class="section-header">
             <div class="section-number">01 / Core Positioning</div>
-            <h2 class="section-title">Who Am I & What Do I Stand For?</h2>
-            <p class="section-description">The single most important question your brand must answer clearly.</p>
+            <h2 class="section-title">Who Am I & What Am I Doing For You?</h2>
+            <p class="section-description">Lead with mission, not title. Lead with value, not credentials.</p>
+        </div>
+
+        <!-- Two-Part Hook -->
+        <div class="hook-grid">
+            <div class="hook-box">
+                <div class="hook-label">Part 1: Who I Am + Mission</div>
+                <p class="hook-text">"I'm Vishen Lakhiani and I'm transforming a billion lives through Mindvalley."</p>
+            </div>
+            <div class="hook-box">
+                <div class="hook-label">Part 2: What I Do For YOU</div>
+                <p class="hook-text">"I help high performers merge spirituality and strategy to become the best versions of themselves."</p>
+            </div>
         </div>
 
         <div class="positioning-box">
             <div class="positioning-label">Primary Positioning Statement</div>
-            <p class="positioning-statement">I'm the <strong>accidental guru</strong> who discovered that consciousness beats convention&mdash;an immigrant entrepreneur who stumbled into meditation, built a $100M platform, and accidentally became the guide for millions seeking to escape borrowed lives and design their own extraordinary reality.</p>
+            <p class="positioning-statement">I speak at the intersection of <strong>AI, Mindset, Soul, and Longevity</strong>&mdash;helping high performers merge spirituality and strategy to evolve into the best versions of themselves. Transformation never ends.</p>
+        </div>
+
+        <div class="warning-box">
+            <div class="warning-title">What NOT to Lead With</div>
+            <p class="warning-text">Don't lead with "Founder of Mindvalley" or "$100M company." This can trigger cynicism ("he built this to get rich"). Instead, lead with the MISSION: "Transforming a billion lives." The business proof comes secondary&mdash;people already assume a billion lives = significant resources.</p>
+        </div>
+
+        <div class="testing-box">
+            <div class="testing-label">The Testing Angle</div>
+            <p class="testing-statement">"I spend millions of dollars a year testing personal growth, AI, and longevity ideas on myself&mdash;so I can share the best with you."</p>
+            <p class="testing-subtext">From signing world-class authors, to running events, to building products&mdash;I'm the guinea pig so you don't have to be.</p>
         </div>
 
         <div class="card-grid">
             <div class="card">
-                <div class="card-icon">&#127793;</div>
-                <h3>The Accidental Teacher</h3>
-                <p>I didn't set out to become a spiritual teacher. I was a broke tech employee who Googled "how to find happiness" and discovered meditation. That discovery changed everything.</p>
+                <div class="card-icon">&#127919;</div>
+                <h3>Mission-Led, Not Title-Led</h3>
+                <p>"Transforming a billion lives" is more empowering than "Founder of Mindvalley." One invites everyone in. The other creates distance.</p>
             </div>
             <div class="card">
-                <div class="card-icon">&#128161;</div>
-                <h3>The Question Asker</h3>
-                <p>I challenge the invisible rules that run our lives&mdash;what I call "Brules" (bullshit rules). From education to work to success, I ask: Is this really true? Or did we just inherit it?</p>
+                <div class="card-icon">&#129504;</div>
+                <h3>Spirituality + Strategy</h3>
+                <p>No one talks about this openly, but all successful people use BOTH spirituality and strategy. I make that integration explicit and accessible.</p>
             </div>
             <div class="card">
-                <div class="card-icon">&#127758;</div>
-                <h3>The Unity Builder</h3>
-                <p>I believe humanity's natural state is unity, not division. Everything I build&mdash;from Mindvalley to events to content&mdash;is designed to bring people together across borders.</p>
+                <div class="card-icon">&#128200;</div>
+                <h3>Performance is the Trunk</h3>
+                <p>Think of my brand as a tree. The trunk is HIGH PERFORMANCE. AI, Mindset, Soul, and Longevity are the major branches that all feed into performance.</p>
             </div>
-        </div>
-
-        <div class="highlight-box">
-            <h4>The One-Liner (Use This)</h4>
-            <p>Vishen Lakhiani is a New York Times bestselling author, founder of Mindvalley, and a voice for reimagining how we learn, work, and live&mdash;challenging the invisible rules that keep humanity playing small.</p>
         </div>
 
         <div class="quote-block">
-            <p class="quote-text">"If you want to change the world, change education."</p>
-            <p class="quote-attribution">&mdash; Nelson Mandela (the quote that sparked Mindvalley)</p>
+            <p class="quote-text">"Transformation never ends. The single most consistent foundation to success in life is lifelong learning. There isn't an end. It's perpetual, it's consistent."</p>
+            <p class="quote-attribution">&mdash; Team Discussion, November 2025</p>
         </div>
     </section>
 
@@ -823,100 +1177,217 @@
         </div>
     </section>
 
-    <!-- Identity Section -->
-    <section class="section" id="identity">
-        <div class="section-header">
-            <div class="section-number">02 / Brand Identity</div>
-            <h2 class="section-title">Who Is Vishen?</h2>
-            <p class="section-description">The authentic person behind the brand&mdash;not a persona, but the real story.</p>
-        </div>
-
-        <div class="identity-grid">
-            <div>
-                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">The Background</h3>
-                <p class="text-muted" style="margin-bottom: 1.5rem;">
-                    Malaysian-born. Raised Hindu in a Muslim country. Computer engineer by training. Failed Silicon Valley startup founder. Commission-only salesman who hit rock bottom. Discovered meditation out of desperation. Built Mindvalley from $0 to $100M+ guided by intuition and daily practice.
-                </p>
-                <p class="text-muted" style="margin-bottom: 1.5rem;">
-                    Father of two. Married to an Estonian woman from the Lutheran faith at a time when interracial marriages were still questioned. Put on a Muslim watchlist at JFK despite not being Muslim. Relocated to Malaysia. Used pain as fuel for mission.
-                </p>
-                <p class="text-muted">
-                    <strong style="color: var(--color-white);">Core belief:</strong> The human species is capable of extraordinary things. Our natural state is unity. The systems dividing us&mdash;education, politics, religion, business&mdash;need to evolve.
-                </p>
+    <!-- Four Circles Section -->
+    <section class="section-full section-dark" id="circles">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-number">02 / The Four Circles</div>
+                <h2 class="section-title">AI. Mindset. Soul. Longevity.</h2>
+                <p class="section-description">These four domains define my expertise. Where they intersect is where the magic happens.</p>
             </div>
-            <img src="https://storyblok-cdn.mindvalley.com/f/60579/1176x1568/b46ba408da/3.webp?quality=60&auto=webp&dpr=1&width=600" alt="Vishen Lakhiani" class="identity-image">
-        </div>
 
-        <div class="identity-grid" style="margin-top: 4rem;">
-            <img src="https://storyblok-cdn.mindvalley.com/f/60579/972x1458/7b963fd668/08-abt-vishen-early-years.webp?quality=60&auto=webp&dpr=1&width=600" alt="Young Vishen" class="identity-image">
-            <div>
-                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">The Transformation</h3>
-                <p class="text-muted" style="margin-bottom: 1.5rem;">
-                    <strong style="color: var(--color-white);">Before:</strong> School felt like a prison. Creativity suppressed. Microsoft career that felt wrong. Dot-com crash wiped everything out. Broke, desperate, burnt out.
-                </p>
-                <p class="text-muted" style="margin-bottom: 1.5rem;">
-                    <strong style="color: var(--color-white);">The Moment:</strong> One night, desperate, Googled "how to find happiness." Found a meditation class. Within months, sales skyrocketed. Creativity exploded. Asked: "Why didn't school teach us THIS?"
-                </p>
-                <p class="text-muted">
-                    <strong style="color: var(--color-white);">After:</strong> Founded Mindvalley in 2004 selling meditation CDs. Built it into the world's largest personal transformation platform. Now look better, feel better, and get more done in my 40s than I did in my 20s.
-                </p>
+            <div class="circles-container">
+                <div class="circles-diagram">
+                    <div class="circle circle-ai">
+                        <span class="circle-emoji">&#129302;</span>
+                        <span class="circle-label">AI</span>
+                    </div>
+                    <div class="circle circle-mindset">
+                        <span class="circle-emoji">&#129504;</span>
+                        <span class="circle-label">Mindset</span>
+                    </div>
+                    <div class="circle circle-soul">
+                        <span class="circle-emoji">&#10024;</span>
+                        <span class="circle-label">Soul</span>
+                    </div>
+                    <div class="circle circle-longevity">
+                        <span class="circle-emoji">&#128170;</span>
+                        <span class="circle-label">Longevity</span>
+                    </div>
+                    <div class="circle-center">
+                        <span class="circle-center-text">High<br>Performance</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Credibility for Each Circle -->
+            <h3 style="text-align: center; margin-bottom: 2rem; font-size: 1.5rem;">My Credibility in Each Domain</h3>
+            <div class="cred-grid">
+                <div class="cred-card cred-card-ai">
+                    <div class="cred-emoji">&#129302;</div>
+                    <h4 class="cred-title" style="color: var(--color-ai);">AI</h4>
+                    <ul class="cred-list">
+                        <li>CS degree from top-5 engineering university</li>
+                        <li>Created app featured in every Apple Store globally</li>
+                        <li>Building AI-powered education tools</li>
+                        <li>60+ hours/week using Claude & AI tools</li>
+                    </ul>
+                </div>
+                <div class="cred-card cred-card-mindset">
+                    <div class="cred-emoji">&#129504;</div>
+                    <h4 class="cred-title" style="color: var(--color-mindset);">Mindset</h4>
+                    <ul class="cred-list">
+                        <li>#1 highest-rated program on Mindvalley</li>
+                        <li>NYT Bestseller: Code of the Extraordinary Mind</li>
+                        <li>#1 on Amazon globally (5 times)</li>
+                        <li>Created "Consciousness Engineering" framework</li>
+                    </ul>
+                </div>
+                <div class="cred-card cred-card-soul">
+                    <div class="cred-emoji">&#10024;</div>
+                    <h4 class="cred-title" style="color: var(--color-soul);">Soul</h4>
+                    <ul class="cred-list">
+                        <li>Quit Silicon Valley 22 years ago for meditation</li>
+                        <li>Face of the Silva Method</li>
+                        <li>Created the 6 Phase Meditation (millions of users)</li>
+                        <li>20+ years daily meditation practice</li>
+                    </ul>
+                </div>
+                <div class="cred-card cred-card-longevity">
+                    <div class="cred-emoji">&#128170;</div>
+                    <h4 class="cred-title" style="color: var(--color-longevity);">Longevity</h4>
+                    <ul class="cred-list">
+                        <li>11 years martial arts, 2nd degree black belt</li>
+                        <li>Exceptional biomarkers for age</li>
+                        <li>Invested in Viome (longevity company)</li>
+                        <li>Look & feel better at 48 than at 28</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Intersections -->
+            <h3 style="text-align: center; margin: 4rem 0 2rem; font-size: 1.5rem;">Where The Circles Intersect</h3>
+            <div class="intersection-grid">
+                <div class="intersection-card">
+                    <div class="intersection-label" style="color: var(--color-mindset);">Mindset + Soul</div>
+                    <div class="intersection-title">Mindvalley Membership</div>
+                    <p class="intersection-desc">The core of what Mindvalley offers&mdash;personal transformation programs that merge practical mindset tools with spiritual wisdom.</p>
+                </div>
+                <div class="intersection-card">
+                    <div class="intersection-label" style="color: var(--color-soul);">Soul + Longevity</div>
+                    <div class="intersection-title">Spiritual Wellness</div>
+                    <p class="intersection-desc">Meditation retreats, speaking engagements, wellness experiences. Where I do most of my speaking (e.g., Soho House longevity retreat).</p>
+                </div>
+                <div class="intersection-card">
+                    <div class="intersection-label" style="color: var(--color-ai);">AI + Mindset</div>
+                    <div class="intersection-title">Mindvalley Academy</div>
+                    <p class="intersection-desc">Mastery degrees and advanced education programs. Using AI to enhance learning and personal development at scale.</p>
+                </div>
+                <div class="intersection-card">
+                    <div class="intersection-label" style="color: var(--color-longevity);">AI + Longevity</div>
+                    <div class="intersection-title">Vibrantly</div>
+                    <p class="intersection-desc">The new company I'm building at the intersection of artificial intelligence and human longevity optimization.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 3rem;">
+                <h4>Quarterly Focus Strategy</h4>
+                <p>With four circles, content can rotate quarterly: Q1 = AI focus, Q2 = Mindset focus, Q3 = Soul focus, Q4 = Longevity focus. But other circles are always mentioned&mdash;they're branches of the same tree, not separate identities.</p>
             </div>
         </div>
     </section>
 
-    <!-- Pillars Section -->
-    <section class="section section-dark" id="pillars">
+    <!-- Audience Section -->
+    <section class="section" id="audience">
         <div class="section-header">
-            <div class="section-number">03 / Brand Pillars</div>
-            <h2 class="section-title">What I Stand For</h2>
-            <p class="section-description">The five non-negotiable principles that guide everything I create and say.</p>
+            <div class="section-number">03 / Who I Talk To</div>
+            <h2 class="section-title">High Performers & Rebels Against Mediocrity</h2>
+            <p class="section-description">Not just entrepreneurs. Not just founders. Anyone ambitious enough to reject "normal."</p>
         </div>
 
-        <div class="pillar">
-            <div class="pillar-number">01</div>
-            <div class="pillar-content">
-                <h3>Consciousness Engineering</h3>
-                <p>A systematic, science-backed approach to upgrading beliefs and habits. Your mind is like an operating system&mdash;it can be debugged, upgraded, and optimized. I teach people to become the engineers of their own consciousness.</p>
+        <div class="audience-box">
+            <h3 class="audience-title">My Audience Is...</h3>
+            <div class="audience-list">
+                <div class="audience-item">
+                    <span class="audience-icon">&#128640;</span>
+                    <span class="audience-text">High performers seeking the next level</span>
+                </div>
+                <div class="audience-item">
+                    <span class="audience-icon">&#129504;</span>
+                    <span class="audience-text">Ambitious people who rebel against "normal"</span>
+                </div>
+                <div class="audience-item">
+                    <span class="audience-icon">&#128293;</span>
+                    <span class="audience-text">Rebels against the "job, retire, done" playbook</span>
+                </div>
+                <div class="audience-item">
+                    <span class="audience-icon">&#127793;</span>
+                    <span class="audience-text">People who see personal growth as rebellion</span>
+                </div>
+                <div class="audience-item">
+                    <span class="audience-icon">&#128188;</span>
+                    <span class="audience-text">Entrepreneurs AND employees who want more</span>
+                </div>
+                <div class="audience-item">
+                    <span class="audience-icon">&#129497;</span>
+                    <span class="audience-text">Where hippies and high-level entrepreneurs coexist</span>
+                </div>
             </div>
         </div>
 
-        <div class="pillar">
-            <div class="pillar-number">02</div>
-            <div class="pillar-content">
-                <h3>Extraordinary Living</h3>
-                <p>Rejecting mediocrity and societal "brules" (bullshit rules). Extraordinary isn't about achievement&mdash;it's about refusing to live a borrowed life. It's about questioning the playbook you were handed and writing your own.</p>
+        <div class="card-grid-2">
+            <div class="card">
+                <h3>Why NOT Just Entrepreneurs</h3>
+                <p>If I only speak to founders, they eventually "graduate out" of needing Mindvalley. They mature out. High performers is broader&mdash;it's a lifelong identity, not a career phase.</p>
+            </div>
+            <div class="card">
+                <h3>Mediocrity Is The Enemy</h3>
+                <p>Anyone can be normal. That's the insult. My people are those who refuse mediocrity. We're not normal. None of us working on this are normal. That's why we do what we do.</p>
             </div>
         </div>
 
-        <div class="pillar">
-            <div class="pillar-number">03</div>
-            <div class="pillar-content">
-                <h3>Business as a Force for Good</h3>
-                <p>Merging profit with purpose and transformation. Mindvalley proves that conscious capitalism works. We're profitable, self-funded, and singularly obsessed with elevating humanity&mdash;not reporting to investors.</p>
-            </div>
+        <div class="quote-block">
+            <p class="quote-text">"Mindvalley is the only space in the world where a complete hippie and a high-level entrepreneur can coexist without contradiction. They can sit in harmony."</p>
+            <p class="quote-attribution">&mdash; Team Discussion</p>
+        </div>
+    </section>
+
+    <!-- Video Intros Section -->
+    <section class="section section-dark" id="intros">
+        <div class="section-header">
+            <div class="section-number">04 / Video Intro Formulas</div>
+            <h2 class="section-title">How To Open Videos</h2>
+            <p class="section-description">Context-specific credibility lines for different content topics.</p>
         </div>
 
-        <div class="pillar">
-            <div class="pillar-number">04</div>
-            <div class="pillar-content">
-                <h3>Science Meets Spirituality</h3>
-                <p>Evidence-based approaches to human potential. I don't ask you to believe&mdash;I ask you to experiment. Every framework I teach can be tested, measured, and validated in your own life.</p>
-            </div>
+        <div class="highlight-box">
+            <h4>The Universal Two-Part Hook</h4>
+            <p><strong>Part 1:</strong> "I'm Vishen Lakhiani and I'm transforming a billion lives through Mindvalley."<br>
+            <strong>Part 2:</strong> "I help high performers merge spirituality and strategy to become the best versions of themselves."</p>
         </div>
 
-        <div class="pillar">
-            <div class="pillar-number">05</div>
-            <div class="pillar-content">
-                <h3>Global Unity & Earth Identity</h3>
-                <p>Before we colonize other planets, we must fix our own. I serve as a spokesperson for the Earth Flag and believe in "Earth identity"&mdash;one human family, sharing one home, capable of extraordinary co-creation.</p>
-            </div>
+        <h3 style="margin: 3rem 0 1.5rem;">Context-Specific Intros</h3>
+
+        <div class="intro-box">
+            <span class="intro-context intro-context-ai">AI Content</span>
+            <p class="intro-script">"I'm <strong>Vishen Lakhiani</strong>. I have a computer science degree from one of the top engineering universities in the world, and I created an app that's now featured in every Apple Store globally. Today I want to show you how to get <strong>50X leverage</strong> from AI&mdash;and what that actually means for your life and work."</p>
+        </div>
+
+        <div class="intro-box">
+            <span class="intro-context intro-context-mindset">Mindset Content</span>
+            <p class="intro-script">"I'm <strong>Vishen Lakhiani</strong>. I wrote a book called The Code of the Extraordinary Mind that hit #1 on Amazon globally, and I've spent 20 years studying how the world's most extraordinary people think differently. Here's what I discovered about <strong>[topic]</strong>..."</p>
+        </div>
+
+        <div class="intro-box">
+            <span class="intro-context intro-context-soul">Soul/Spirituality Content</span>
+            <p class="intro-script">"I'm <strong>Vishen Lakhiani</strong>. Twenty-two years ago, I quit Silicon Valley to become a meditation teacher. I became the face of the Silva Method and created the 6 Phase Meditation that millions now use daily. Today I want to share <strong>[spiritual concept]</strong>..."</p>
+        </div>
+
+        <div class="intro-box">
+            <span class="intro-context intro-context-longevity">Longevity Content</span>
+            <p class="intro-script">"I'm <strong>Vishen Lakhiani</strong>. I'm a biohacker, a second-degree black belt, and I look and feel better at 48 than I did at 28. I obsess over optimizing human performance, and today I want to show you <strong>[longevity topic]</strong>..."</p>
+        </div>
+
+        <div class="warning-box">
+            <div class="warning-title">Always End With Mission</div>
+            <p class="warning-text">Every video should tie back to a reason to follow: "I share this because I believe everyone deserves to learn what successful people know but rarely talk about: the fusion of spirituality and strategy." Without this, people get AI content from you, then longevity content&mdash;and it doesn't connect.</p>
         </div>
     </section>
 
     <!-- Voice Section -->
     <section class="section" id="voice">
         <div class="section-header">
-            <div class="section-number">04 / Voice & Tone</div>
+            <div class="section-number">05 / Voice & Tone</div>
             <h2 class="section-title">How I Sound</h2>
             <p class="section-description">Guidelines for maintaining authentic communication across all platforms.</p>
         </div>
@@ -927,16 +1398,16 @@
                 <p>I speak with conviction. I don't hedge or apologize for my ideas. But confidence isn't arrogance&mdash;I'm always open to being wrong.</p>
             </div>
             <div class="card">
-                <h3>Provocative (Not Offensive)</h3>
-                <p>I challenge assumptions and question the status quo. I'm willing to say unpopular things if they're true. But I never punch down or attack individuals.</p>
+                <h3>Mission-Led, Not Ego-Led</h3>
+                <p>Lead with "transforming lives" not "I built a $100M company." Show the impact, not the trophy case. Let proof come through story, not stats.</p>
             </div>
             <div class="card">
                 <h3>Vulnerable & Human</h3>
                 <p>I share my struggles, fears, and failures openly. Recent content about hair loss, aging, and visibility fears connects because it's real.</p>
             </div>
             <div class="card">
-                <h3>Data + Story</h3>
-                <p>I blend scientific evidence with personal narrative. Lead with story, support with data. Make the complex accessible without dumbing it down.</p>
+                <h3>Spirituality for Skeptics</h3>
+                <p>I make spiritual concepts accessible to business-minded people. Data + story. Not "the universe will manifest" but "here's the science behind why this works."</p>
             </div>
         </div>
 
@@ -944,99 +1415,45 @@
         <div class="voice-grid">
             <div class="voice-item voice-do">
                 <div class="voice-label">&#10003; Do Say</div>
-                <p>"I discovered something that changed everything..."</p>
+                <p>"I'm transforming a billion lives through Mindvalley..."</p>
             </div>
             <div class="voice-item voice-dont">
                 <div class="voice-label">&#10007; Don't Say</div>
-                <p>"I'm going to teach you the secret to..."</p>
+                <p>"I'm the founder of a $100 million company..."</p>
             </div>
             <div class="voice-item voice-do">
                 <div class="voice-label">&#10003; Do Say</div>
-                <p>"What if we questioned this assumption?"</p>
+                <p>"I help high performers merge spirituality and strategy..."</p>
             </div>
             <div class="voice-item voice-dont">
                 <div class="voice-label">&#10007; Don't Say</div>
-                <p>"Everyone else is wrong about this..."</p>
+                <p>"I teach entrepreneurs how to succeed..."</p>
             </div>
             <div class="voice-item voice-do">
                 <div class="voice-label">&#10003; Do Say</div>
-                <p>"Here's what the research shows..."</p>
-            </div>
-            <div class="voice-item voice-dont">
-                <div class="voice-label">&#10007; Don't Say</div>
-                <p>"The universe will manifest this for you..."</p>
-            </div>
-            <div class="voice-item voice-do">
-                <div class="voice-label">&#10003; Do Say</div>
-                <p>"I was terrified to share this, but..."</p>
+                <p>"All successful people use this, but no one talks about it..."</p>
             </div>
             <div class="voice-item voice-dont">
                 <div class="voice-label">&#10007; Don't Say</div>
                 <p>"As someone who has achieved success..."</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Signature Ideas Section -->
-    <section class="section section-dark" id="ideas">
-        <div class="section-header">
-            <div class="section-number">05 / Signature Ideas</div>
-            <h2 class="section-title">My Frameworks & Concepts</h2>
-            <p class="section-description">The intellectual property that defines my thought leadership.</p>
-        </div>
-
-        <div class="idea-card">
-            <h3>Brules (Bullshit Rules)</h3>
-            <p>The invisible rules we inherit from culture, family, and society that we follow blindly&mdash;even when they no longer serve us. College is the only path to success? Brule. You need to work 40 hours a week? Brule. Retirement at 65? Brule. My work is about helping people identify their brules and consciously choose which rules to follow.</p>
-            <div class="idea-use">
-                <div class="idea-use-label">When to Use This Concept</div>
-                <p class="idea-use-text">When challenging conventional wisdom. When discussing education, career, success, relationships. When helping someone see that their "limitation" is actually an inherited belief they can question.</p>
+            <div class="voice-item voice-do">
+                <div class="voice-label">&#10003; Do Say</div>
+                <p>"Here's what I learned spending millions testing this..."</p>
             </div>
-        </div>
-
-        <div class="idea-card">
-            <h3>The 6 Phase Meditation</h3>
-            <p>A radical re-envisioning of meditation for modern life. Not about sitting in silence for hours&mdash;it's a 20-minute practice that combines gratitude, forgiveness, visualization, intention, blessing, and presence. Used by high performers and creatives worldwide.</p>
-            <div class="idea-use">
-                <div class="idea-use-label">When to Use This Concept</div>
-                <p class="idea-use-text">When discussing meditation, productivity, mental health, morning routines. When someone says "I can't meditate." Position as: "The meditation that makes meditation actually work for your real life."</p>
-            </div>
-        </div>
-
-        <div class="idea-card">
-            <h3>Consciousness Engineering</h3>
-            <p>A two-part framework for human transformation: upgrade your models of reality (beliefs about how the world works) and your systems for living (habits and practices). Like debugging and upgrading your personal operating system.</p>
-            <div class="idea-use">
-                <div class="idea-use-label">When to Use This Concept</div>
-                <p class="idea-use-text">When explaining personal growth to skeptics or technical audiences. When discussing the systematic approach to transformation. Best for B2B, speaking, and intellectual contexts.</p>
-            </div>
-        </div>
-
-        <div class="idea-card">
-            <h3>The Borrowed Identity Problem (NEW)</h3>
-            <p>Most people are living borrowed identities&mdash;versions of success, happiness, and purpose handed to them by family, culture, and social media. Borrowed dreams. Borrowed metrics. Borrowed timelines. The path to extraordinary living starts with asking: "Is this goal mine, or borrowed?"</p>
-            <div class="idea-use">
-                <div class="idea-use-label">When to Use This Concept</div>
-                <p class="idea-use-text">For mainstream cultural conversations. Social media content about identity, purpose, success. Mental health discussions. Highly relatable&mdash;use frequently for cultural breakthrough.</p>
-            </div>
-        </div>
-
-        <div class="idea-card">
-            <h3>Bending Reality</h3>
-            <p>The state where you're happy in the present while having a vision for the future that pulls you forward. When you operate from this state, "lucky" coincidences increase, opportunities appear, and life seems to bend in your favor. Not magic&mdash;it's pattern recognition meeting action.</p>
-            <div class="idea-use">
-                <div class="idea-use-label">When to Use This Concept</div>
-                <p class="idea-use-text">When discussing manifestation, goal-setting, or entrepreneurship. Best used with business/achievement audiences who might be skeptical of pure "spiritual" language.</p>
+            <div class="voice-item voice-dont">
+                <div class="voice-label">&#10007; Don't Say</div>
+                <p>"The universe will manifest this for you..."</p>
             </div>
         </div>
     </section>
 
     <!-- Bios Section -->
-    <section class="section" id="bios">
+    <section class="section section-dark" id="bios">
         <div class="section-header">
             <div class="section-number">06 / Bio Variations</div>
             <h2 class="section-title">Ready-to-Use Bios</h2>
-            <p class="section-description">Copy and paste these for different platforms and contexts.</p>
+            <p class="section-description">Copy and paste these for different platforms and contexts. Updated to lead with mission.</p>
         </div>
 
         <div class="bio-box">
@@ -1044,7 +1461,7 @@
                 <span>Twitter/X Bio</span>
                 <span class="bio-chars">160 chars</span>
             </div>
-            <p class="bio-text">Founder @Mindvalley. NYT bestselling author. Questioning the brules that keep humanity playing small. Father, meditator, accidental teacher.</p>
+            <p class="bio-text">Transforming a billion lives through @Mindvalley. NYT bestselling author. Merging spirituality & strategy for high performers. AI | Mindset | Soul | Longevity</p>
             <button class="copy-btn" onclick="copyText(this)">Copy to Clipboard</button>
         </div>
 
@@ -1053,7 +1470,7 @@
                 <span>Instagram Bio</span>
                 <span class="bio-chars">150 chars</span>
             </div>
-            <p class="bio-text">Founder of @Mindvalley<br>NYT Bestselling Author<br>Reimagining education, work & human potential<br>&#128218; Code of the Extraordinary Mind</p>
+            <p class="bio-text">Transforming a billion lives through @Mindvalley<br>Helping high performers merge spirituality + strategy<br>AI &#129302; Mindset &#129504; Soul &#10024; Longevity &#128170;</p>
             <button class="copy-btn" onclick="copyText(this)">Copy to Clipboard</button>
         </div>
 
@@ -1062,7 +1479,7 @@
                 <span>LinkedIn Bio</span>
                 <span class="bio-chars">Short</span>
             </div>
-            <p class="bio-text">Founder and CEO of Mindvalley, the world's largest personal transformation platform. New York Times bestselling author of "The Code of the Extraordinary Mind" and "The Buddha and the Badass." On a mission to elevate human consciousness by reimagining education, work, and how we live together as a species.</p>
+            <p class="bio-text">On a mission to transform a billion lives through Mindvalley, the world's largest personal transformation platform. NYT bestselling author helping high performers merge spirituality and strategy across AI, Mindset, Soul, and Longevity. App featured in every Apple Store globally. 20M+ students across 195 countries.</p>
             <button class="copy-btn" onclick="copyText(this)">Copy to Clipboard</button>
         </div>
 
@@ -1071,7 +1488,7 @@
                 <span>Speaker Bio</span>
                 <span class="bio-chars">Medium</span>
             </div>
-            <p class="bio-text">Vishen Lakhiani is the founder and CEO of Mindvalley, the world's largest platform for personal transformation, with over 20 million students across 195+ countries. A New York Times bestselling author of "The Code of the Extraordinary Mind," his work challenges the invisible rules ("brules") that keep humanity playing small.<br><br>What began as a personal quest to manage startup stress through meditation has evolved into a global movement. His books&mdash;including the Wall Street Journal bestseller "The Buddha and the Badass" and USA Today bestseller "The 6 Phase Meditation Method"&mdash;have sold over 1 million copies and been translated into 25+ languages.<br><br>Vishen speaks at major events worldwide on personal transformation, conscious leadership, and the future of education. His mission: to elevate the consciousness of one billion people by 2038.</p>
+            <p class="bio-text">Vishen Lakhiani is on a mission to transform a billion lives. As founder of Mindvalley&mdash;the world's largest personal transformation platform with 20M+ students across 195 countries&mdash;he helps high performers merge spirituality and strategy to become the best versions of themselves.<br><br>A New York Times bestselling author of "The Code of the Extraordinary Mind" (#1 on Amazon globally), Vishen speaks at the intersection of AI, Mindset, Soul, and Longevity. His app is featured in every Apple Store worldwide, and his meditation method (The 6 Phase) is used by millions daily.<br><br>With a computer science degree from a top-5 engineering university, 22 years of daily meditation practice, and biomarkers that defy his age, Vishen embodies the integration he teaches: where technology meets consciousness, and performance meets purpose.</p>
             <button class="copy-btn" onclick="copyText(this)">Copy to Clipboard</button>
         </div>
 
@@ -1080,13 +1497,13 @@
                 <span>Full Bio</span>
                 <span class="bio-chars">Long-form</span>
             </div>
-            <p class="bio-text">Vishen Lakhiani is the founder and CEO of Mindvalley, the world's largest personal transformation and education platform. What began as a small meditation website in 2004 has evolved into a global movement&mdash;with an app featured in every Apple Store worldwide, over 20 million students, and a team representing more than 50 nations.<br><br>A New York Times bestselling author, Vishen has written three books that challenge conventional thinking about success and human potential: "The Code of the Extraordinary Mind" (NYT Bestseller, #1 on Amazon globally), "The Buddha and the Badass" (Wall Street Journal Bestseller), and "The 6 Phase Meditation Method" (USA Today Bestseller). His work has been translated into 25+ languages and sold over 1 million copies.<br><br>Vishen's journey to becoming an accidental teacher began when he discovered meditation as a broke, burnt-out tech employee in Silicon Valley. That discovery transformed his life&mdash;and sparked a mission to bring transformational education to everyone. Inspired by Nelson Mandela's quote "If you want to change the world, change education," he founded Mindvalley to create a new type of education company focused on unifying the world and teaching the things that truly matter for human flourishing.<br><br>Today, Vishen serves as a spokesperson for the Earth Flag, a global symbol of unity and planetary identity. He believes humanity's next evolution lies not just in technology, but in remembering that we are one human family, sharing one home, capable of extraordinary things.<br><br>His mission: to elevate the consciousness of one billion people by 2038. Before we colonize other planets, we must first evolve our own.</p>
+            <p class="bio-text">Vishen Lakhiani is on a mission to transform a billion lives by 2038. As founder of Mindvalley&mdash;the world's largest personal transformation and education platform&mdash;he helps high performers merge spirituality and strategy to become the best versions of themselves.<br><br>What began as a desperate Google search for "how to find happiness" while broke and burnt out in Silicon Valley has evolved into a global movement: an app featured in every Apple Store worldwide, over 20 million students across 195+ countries, and a team representing more than 50 nations.<br><br>Vishen speaks at the intersection of four domains: AI (computer science degree from a top-5 engineering university), Mindset (NYT bestselling author of "The Code of the Extraordinary Mind"), Soul (quit Silicon Valley 22 years ago to become a meditation teacher, face of the Silva Method), and Longevity (2nd-degree black belt, exceptional biomarkers, investor in longevity companies).<br><br>His three books have sold over 1 million copies and been translated into 25+ languages. His signature 6 Phase Meditation is practiced by millions worldwide.<br><br>Vishen believes transformation never ends. The single most consistent foundation to success in life is lifelong learning&mdash;and the fusion of spirituality and strategy that successful people use but rarely talk about. He spends millions of dollars a year testing personal growth, AI, and longevity ideas on himself, sharing the best with his audience.<br><br>His mission: to help humanity remember that we are one species, sharing one planet, capable of extraordinary things. Before we colonize other planets, we must first evolve our own.</p>
             <button class="copy-btn" onclick="copyText(this)">Copy to Clipboard</button>
         </div>
     </section>
 
     <!-- Origin Story Section -->
-    <section class="section section-dark" id="story">
+    <section class="section" id="story">
         <div class="section-header">
             <div class="section-number">07 / Origin Story</div>
             <h2 class="section-title">The Journey</h2>
@@ -1103,7 +1520,7 @@
             <div class="timeline-item">
                 <div class="timeline-year">Early Career</div>
                 <div class="timeline-title">Microsoft to Silicon Valley</div>
-                <p class="timeline-text">Computer engineering degree. Joined Microsoft but quickly realized corporate life wasn't for me. Left to pursue a software startup in Silicon Valley. The timing was disastrous.</p>
+                <p class="timeline-text">Computer engineering degree from top-5 university. Joined Microsoft but quickly realized corporate life wasn't for me. Left to pursue a software startup in Silicon Valley. The timing was disastrous.</p>
             </div>
 
             <div class="timeline-item">
@@ -1121,18 +1538,12 @@
             <div class="timeline-item">
                 <div class="timeline-year">2004</div>
                 <div class="timeline-title">Mindvalley is Born</div>
-                <p class="timeline-text">Registered a tiny website to sell meditation CDs. The simplest expression of a big dream: bring transformational education to everyone. Started as a small digital publisher.</p>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-year">2003</div>
-                <div class="timeline-title">The Watchlist</div>
-                <p class="timeline-text">At JFK airport, taken to a small room and told I'd been added to a Muslim watchlist&mdash;despite not being Muslim. Couldn't board a flight without 3-hour interviews. Had to report to government every 28 days. Relocated to Malaysia with Kristina.</p>
+                <p class="timeline-text">Registered a tiny website to sell meditation CDs. The simplest expression of a big dream: bring transformational education to everyone. Inspired by Mandela: "If you want to change the world, change education."</p>
             </div>
 
             <div class="timeline-item">
                 <div class="timeline-year">2010</div>
-                <div class="timeline-title">A-Fest Launches</div>
+                <div class="timeline-title">A-Fest & Events</div>
                 <p class="timeline-text">Moved beyond online courses to create real-world experiences. A-Fest became one of the world's most unique gatherings for conscious entrepreneurs and changemakers.</p>
             </div>
 
@@ -1143,87 +1554,81 @@
             </div>
 
             <div class="timeline-item">
-                <div class="timeline-year">2020</div>
-                <div class="timeline-title">The Buddha and the Badass</div>
-                <p class="timeline-text">Second book showing that spirituality and business aren't opposites&mdash;they're partners. Wall Street Journal Bestseller.</p>
-            </div>
-
-            <div class="timeline-item">
                 <div class="timeline-year">Today</div>
                 <div class="timeline-title">Mission: 1 Billion by 2038</div>
-                <p class="timeline-text">Mindvalley App in every Apple Store globally. 20M+ students. Team from 50+ nations. 300 people working full-time on evolving human consciousness. Goal: elevate 1 billion souls by 2038.</p>
+                <p class="timeline-text">App in every Apple Store globally. 20M+ students. Team from 50+ nations. Spending millions testing AI, mindset, soul, and longevity ideas. Goal: transform 1 billion lives by 2038.</p>
             </div>
         </div>
     </section>
 
     <!-- Content Pillars Section -->
-    <section class="section" id="content">
+    <section class="section section-dark" id="content">
         <div class="section-header">
             <div class="section-number">08 / Content Strategy</div>
             <h2 class="section-title">Content Pillars & Hashtags</h2>
-            <p class="section-description">Themes and topics for consistent social media presence.</p>
+            <p class="section-description">Organized by the four circles, with intersections.</p>
         </div>
 
         <div class="card-grid">
-            <div class="card">
-                <h3>Pillar 1: Brules & Questioning</h3>
-                <p>Challenge conventional wisdom. Call out societal bullshit rules. Education, career, success, relationships, parenting. "What if everything you believed about X is wrong?"</p>
+            <div class="card" style="border-color: var(--color-ai);">
+                <h3 style="color: var(--color-ai);">&#129302; AI & Technology</h3>
+                <p>How AI is changing work. Leverage and productivity. The future of learning. Building with AI. Tech meets consciousness.</p>
+                <div class="hashtag-grid">
+                    <span class="hashtag">#AI</span>
+                    <span class="hashtag">#FutureOfWork</span>
+                    <span class="hashtag">#50XLeverage</span>
+                </div>
+            </div>
+            <div class="card" style="border-color: var(--color-mindset);">
+                <h3 style="color: var(--color-mindset);">&#129504; Mindset & Performance</h3>
+                <p>Brules and questioning. Code of the Extraordinary Mind. Consciousness engineering. Mental performance. Success reimagined.</p>
                 <div class="hashtag-grid">
                     <span class="hashtag">#Brules</span>
-                    <span class="hashtag">#QuestionEverything</span>
                     <span class="hashtag">#ExtraordinaryMind</span>
+                    <span class="hashtag">#HighPerformance</span>
                 </div>
             </div>
-            <div class="card">
-                <h3>Pillar 2: Meditation & Mindset</h3>
-                <p>6 Phase Meditation. Morning routines. Mental performance. Consciousness engineering. Making meditation practical for busy people.</p>
+            <div class="card" style="border-color: var(--color-soul);">
+                <h3 style="color: var(--color-soul);">&#10024; Soul & Spirituality</h3>
+                <p>6 Phase Meditation. Intuition. Manifestation (but grounded). Silva Method. The spiritual side of success that no one talks about.</p>
                 <div class="hashtag-grid">
                     <span class="hashtag">#6PhaseMeditation</span>
+                    <span class="hashtag">#SilvaMethod</span>
+                    <span class="hashtag">#Meditation</span>
+                </div>
+            </div>
+            <div class="card" style="border-color: var(--color-longevity);">
+                <h3 style="color: var(--color-longevity);">&#128170; Longevity & Biohacking</h3>
+                <p>Health optimization. Biomarkers. Sleep. Movement. Looking and feeling better at 48 than 28. The physical foundation of performance.</p>
+                <div class="hashtag-grid">
+                    <span class="hashtag">#Longevity</span>
+                    <span class="hashtag">#Biohacking</span>
+                    <span class="hashtag">#HealthOptimization</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>&#127758; Unity & Mission</h3>
+                <p>Earth identity. One human family. Breaking down borders. Transforming a billion lives. The "why" behind everything.</p>
+                <div class="hashtag-grid">
+                    <span class="hashtag">#TransformABillionLives</span>
                     <span class="hashtag">#Mindvalley</span>
-                    <span class="hashtag">#MorningRoutine</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3>Pillar 3: Conscious Business</h3>
-                <p>Building companies that transform. Buddha and the Badass principles. Work culture innovation. Making business a force for good.</p>
-                <div class="hashtag-grid">
-                    <span class="hashtag">#BuddhaAndBadass</span>
-                    <span class="hashtag">#ConsciousBusiness</span>
-                    <span class="hashtag">#WorkCulture</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3>Pillar 4: Personal Journey</h3>
-                <p>Behind the scenes. Vulnerable moments. Failures and learnings. Family. Aging. Health journey. The human side of building a movement.</p>
-                <div class="hashtag-grid">
-                    <span class="hashtag">#BehindTheScenes</span>
-                    <span class="hashtag">#VishenLakhiani</span>
-                    <span class="hashtag">#FounderLife</span>
-                </div>
-            </div>
-            <div class="card">
-                <h3>Pillar 5: Unity & Global Citizenship</h3>
-                <p>Earth identity. Breaking down borders. Diversity. Global community. The future of humanity. Before we colonize other planets...</p>
-                <div class="hashtag-grid">
-                    <span class="hashtag">#EarthFlag</span>
-                    <span class="hashtag">#OneHumanFamily</span>
                     <span class="hashtag">#Unity</span>
                 </div>
             </div>
             <div class="card">
-                <h3>Pillar 6: Education Revolution</h3>
-                <p>The future of learning. Why school is broken. Mindvalley University. Lifelong learning. Teaching what actually matters.</p>
+                <h3>&#128247; Behind The Scenes</h3>
+                <p>Personal journey. Testing on myself. Vulnerable moments. Family. Building Mindvalley. The human side of the mission.</p>
                 <div class="hashtag-grid">
-                    <span class="hashtag">#FutureOfEducation</span>
-                    <span class="hashtag">#TransformationalEducation</span>
-                    <span class="hashtag">#MindvalleyU</span>
+                    <span class="hashtag">#BehindTheScenes</span>
+                    <span class="hashtag">#VishenLakhiani</span>
+                    <span class="hashtag">#FounderJourney</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Image Gallery Section -->
-    <section class="section section-dark">
+    <section class="section">
         <div class="section-header">
             <div class="section-number">09 / Visual Assets</div>
             <h2 class="section-title">Approved Imagery</h2>
@@ -1247,7 +1652,7 @@
     <!-- Footer -->
     <footer class="footer">
         <p class="footer-text">
-            Vishen Lakhiani Brand Book v1.0 | Last Updated: November 2025<br>
+            Vishen Lakhiani Brand Book v2.0 | Last Updated: November 2025<br>
             Questions? Contact media@mindvalley.com
         </p>
     </footer>
