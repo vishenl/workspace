@@ -55,6 +55,29 @@ Practical marketing execution guide:
 
 ---
 
+### 4. **youtube-7-day-challenge.html**
+Complete YouTube challenge strategy:
+- "7 Days to Flawesome" series positioning
+- Day-by-day outlines with hooks and CTAs
+- Conversion funnel design
+- Success metrics framework
+
+**Use this for:** YouTube content strategy, video scripting, challenge marketing
+
+---
+
+### 5. **social-media-strategy.html**
+Social media content strategy:
+- 50+ short-form video ideas
+- 5 content pillars with hooks
+- Story bank from "Live By Your Own Rules" Quest
+- Quote bank for viral hooks
+- Conversion funnel to YouTube challenge
+
+**Use this for:** TikTok, Reels, Shorts content planning, driving traffic to YouTube
+
+---
+
 ## 🎯 Quick Reference
 
 ### Who Is Kristina Mand-Lakhiani?
@@ -134,6 +157,42 @@ Don't slay them, befriend them → Turn shame into power
 3. **Your Dragons Are Your Power** - "What if your flaws are actually your strengths?"
 4. **Brules (Bullshit Rules)** - "Life by whose rules?"
 5. **Success-Happiness Divide** - "Stop choosing between success and wellbeing"
+
+---
+
+## 📖 Key Stories (From "Live By Your Own Rules")
+
+### High-Impact Personal Stories
+- **"I Missed Me Too"** - When a colleague said "I missed you," Kristina replied "I missed me too" - pivotal realization of losing herself
+- **Perfect at 40** - "Instagrammable glamorous life, a beautiful facade" but something terribly wrong inside
+- **Singing Lullabies** - Physically present with kids while mentally planning tomorrow's video
+- **Richard Branson Dinner** - "Find what you're passionate about, find people who do it better than you, get out of their way"
+
+### Powerful Metaphors & Analogies
+- **X-Men Mystique** - "If you spend half your concentration looking normal, you only pay half attention to what really matters"
+- **Building with Polished Facade** - Dark basement/attic hiding what we're afraid to look at
+- **Backpack of Rotten Potatoes** - Each grudge is a potato that rots over time, weighing only you down
+- **Red Marker vs Green Marker** - Teachers mark what's wrong; what if they highlighted what's right?
+
+### Key Frameworks & Exercises
+- **Perfect Me vs Real Me Essay** - Two columns showing the gap where suffering lives
+- **7-Step Emotional First-Aid** - Acknowledge, Accept, Locate, Name, Diagnose, Relax, Release
+- **Red/Blue Perception Exercise** - Look for red, try to recall blue (demonstrates RAS)
+- **Self-Talk Exercise** - Write your inner critic's words, have someone read them back
+- **Life Is Happening FOR You** - Reframe painful experiences through value lens
+
+---
+
+## 💬 Quotable Lines for Marketing
+
+- "You cannot shame yourself out of being you. You can only hate yourself trying."
+- "The world doesn't need Perfect You; the world needs Real You." (via Lisa Nichols)
+- "Pain ceases to be suffering once it finds meaning." (Viktor Frankl)
+- "Beliefs are viruses that feed on evidence." (Eric Edmeades)
+- "I feel anger" vs "I'm angry" - one keeps you stuck, one sets you free
+- "Authenticity is like the red pill - once you take it, there's no way back"
+- "Positivity tyranny" - the toxic expectation to be positive all the time
+- "Emotional analgesia" - society teaches us not to feel pain
 
 ---
 
@@ -279,6 +338,8 @@ For detailed information on any specific aspect, refer to the corresponding docu
 - **Brand Strategy** → brand-profile-comprehensive.md (sections 1-6)
 - **Positioning & Messaging** → positioning-strategy.md
 - **Campaign Execution** → marketing-angles-campaigns.md
+- **YouTube Strategy** → youtube-7-day-challenge.html
+- **Social Media** → social-media-strategy.html
 - **Audience Research** → brand-profile-comprehensive.md (section 4)
 - **Content Strategy** → brand-profile-comprehensive.md (section 5)
 - **Business Model** → brand-profile-comprehensive.md (section 6)
