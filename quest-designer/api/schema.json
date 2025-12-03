@@ -1,0 +1,547 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quest-designer.mindvalley.com/api/schema.json",
+  "title": "Mindvalley Quest Designer API Schema",
+  "description": "Complete schema definitions for creating and validating Mindvalley Quests programmatically. Designed for both human and AI consumption.",
+  "version": "1.0.0",
+
+  "schemas": {
+    "Quest": {
+      "type": "object",
+      "description": "A complete Mindvalley Quest - a transformational learning journey",
+      "required": ["title", "duration_days", "author", "pillars", "daily_lessons"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The name of the Quest",
+          "examples": ["Becoming Limitless", "WildFit", "Super Productivity"]
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "A compelling subtitle that expands on the transformation promise"
+        },
+        "duration_days": {
+          "type": "integer",
+          "minimum": 7,
+          "maximum": 90,
+          "description": "Total number of days in the Quest. Standard formats: 21, 30, 45, 60, 90"
+        },
+        "author": {
+          "$ref": "#/schemas/Author"
+        },
+        "pillars": {
+          "type": "array",
+          "description": "Which of the 5 Pillars of Transformation this Quest emphasizes",
+          "items": {
+            "$ref": "#/schemas/Pillar"
+          },
+          "minItems": 1
+        },
+        "transformation_promise": {
+          "type": "string",
+          "description": "The core transformation the learner will experience by completing this Quest"
+        },
+        "target_audience": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "pain_points": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "desires": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "daily_lessons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schemas/DailyLesson"
+          }
+        },
+        "habit_scaffolds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schemas/HabitScaffold"
+          }
+        },
+        "story_arc": {
+          "$ref": "#/schemas/StoryArc"
+        },
+        "peer_groups": {
+          "$ref": "#/schemas/PeerGroups"
+        },
+        "weekly_live_calls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/schemas/LiveCall"
+          }
+        }
+      }
+    },
+
+    "Author": {
+      "type": "object",
+      "description": "The Quest teacher/author information",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "credentials": {
+          "type": "string",
+          "description": "Professional credentials and expertise"
+        },
+        "bio": {
+          "type": "string"
+        },
+        "photo_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "social_proof": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Key achievements, media appearances, or credentials"
+        }
+      }
+    },
+
+    "Pillar": {
+      "type": "string",
+      "enum": [
+        "transcendent_practice",
+        "new_models_of_reality",
+        "critical_reflection",
+        "habit_scaffolding",
+        "community_social"
+      ],
+      "description": "The 5 Pillars of Transformation that drive deep, lasting change",
+      "x-pillar-details": {
+        "transcendent_practice": {
+          "name": "Transcendent Practice",
+          "description": "Daily exercises that shift consciousness and create peak experiences",
+          "examples": ["Meditation", "Visualization", "Breathwork", "Flow states"]
+        },
+        "new_models_of_reality": {
+          "name": "New Models of Reality",
+          "description": "Paradigm shifts that change how learners see themselves and the world",
+          "examples": ["Belief upgrades", "Mental models", "Worldview expansion"]
+        },
+        "critical_reflection": {
+          "name": "Critical Reflection",
+          "description": "Journaling, self-assessment, and insight exercises",
+          "examples": ["Daily journaling", "Self-assessment", "Integration exercises"]
+        },
+        "habit_scaffolding": {
+          "name": "Habit Scaffolding",
+          "description": "Behavior design for lasting change through tiny habits and identity shifts",
+          "examples": ["Tiny habits", "Anchoring", "Identity-based change"]
+        },
+        "community_social": {
+          "name": "Community & Social Learning",
+          "description": "Peer groups, accountability, and social amplification of transformation",
+          "examples": ["Peer groups", "Accountability partners", "Tribe connections"]
+        }
+      }
+    },
+
+    "DailyLesson": {
+      "type": "object",
+      "description": "A single day's lesson content in the Quest",
+      "required": ["day", "title", "objective", "task", "pillar"],
+      "properties": {
+        "day": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Day number in the Quest sequence"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Compelling lesson title"
+        },
+        "objective": {
+          "type": "string",
+          "description": "Learning outcome in behavioral terms - what the learner will be able to DO"
+        },
+        "video_content": {
+          "type": "object",
+          "properties": {
+            "duration_minutes": {
+              "type": "integer",
+              "minimum": 5,
+              "maximum": 30
+            },
+            "key_concepts": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "stories": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": ["personal", "case_study", "metaphor", "research"]
+                  },
+                  "summary": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "task": {
+          "type": "string",
+          "description": "The specific action learners will take today"
+        },
+        "task_duration_minutes": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 60
+        },
+        "reflection_prompt": {
+          "type": "string",
+          "description": "Journaling question for integration and self-discovery"
+        },
+        "pillar": {
+          "$ref": "#/schemas/Pillar"
+        },
+        "story_stage": {
+          "$ref": "#/schemas/StoryStage"
+        },
+        "bonus_resources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string", "enum": ["pdf", "audio", "video", "worksheet"] },
+              "title": { "type": "string" },
+              "url": { "type": "string", "format": "uri" }
+            }
+          }
+        }
+      }
+    },
+
+    "HabitScaffold": {
+      "type": "object",
+      "description": "A behavior design structure for building lasting habits using BJ Fogg's methodology",
+      "required": ["habit", "anchor", "identity_label"],
+      "properties": {
+        "habit": {
+          "type": "string",
+          "description": "The target behavior to install"
+        },
+        "start_day": {
+          "type": "integer",
+          "description": "Day in Quest when this habit is introduced"
+        },
+        "anchor": {
+          "type": "string",
+          "description": "The trigger behavior (After I...)"
+        },
+        "tiny_version": {
+          "type": "string",
+          "description": "The 2-minute starter version of the habit"
+        },
+        "identity_label": {
+          "type": "string",
+          "description": "Identity statement (I am a...)"
+        },
+        "celebration": {
+          "type": "string",
+          "description": "Immediate reward action to reinforce the behavior"
+        },
+        "progression": {
+          "type": "array",
+          "description": "How the habit scales over time",
+          "items": {
+            "type": "object",
+            "properties": {
+              "week": { "type": "integer" },
+              "duration": { "type": "integer" },
+              "focus": { "type": "string" }
+            }
+          }
+        },
+        "obstacle_strategies": {
+          "type": "array",
+          "description": "Pre-planned responses to common obstacles",
+          "items": {
+            "type": "object",
+            "properties": {
+              "obstacle": { "type": "string" },
+              "strategy": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+
+    "StoryStage": {
+      "type": "string",
+      "enum": [
+        "ordinary_world",
+        "call_to_adventure",
+        "crossing_threshold",
+        "tests_and_allies",
+        "transformation"
+      ],
+      "description": "Stage in the Hero's Journey narrative arc"
+    },
+
+    "StoryArc": {
+      "type": "object",
+      "description": "The Hero's Journey structure for the Quest narrative",
+      "properties": {
+        "quest_title": {
+          "type": "string"
+        },
+        "stages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "$ref": "#/schemas/StoryStage"
+              },
+              "days": {
+                "type": "array",
+                "items": { "type": "integer" },
+                "minItems": 2,
+                "maxItems": 2,
+                "description": "Start and end day for this stage [start, end]"
+              },
+              "purpose": {
+                "type": "string",
+                "description": "What this stage accomplishes in the transformation"
+              },
+              "key_elements": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "emotional_arc": {
+                "type": "string",
+                "description": "The emotional journey during this stage"
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "PeerGroups": {
+      "type": "object",
+      "description": "Social learning and community structure",
+      "properties": {
+        "group_size": {
+          "type": "string",
+          "enum": ["3-5", "6-10", "11-20"],
+          "description": "Optimal group size"
+        },
+        "call_format": {
+          "type": "string",
+          "enum": ["structured", "open", "hot_seat", "accountability"]
+        },
+        "weekly_structure": {
+          "type": "object",
+          "properties": {
+            "duration_minutes": { "type": "integer" },
+            "segments": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "duration": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "discussion_prompts": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Weekly discussion questions"
+        },
+        "accountability_structure": {
+          "type": "object",
+          "properties": {
+            "partner_matching": {
+              "type": "string",
+              "enum": ["random", "timezone", "goals", "manual"]
+            },
+            "check_in_frequency": {
+              "type": "string",
+              "enum": ["daily", "every_other_day", "weekly"]
+            },
+            "check_in_format": { "type": "string" }
+          }
+        },
+        "community_challenges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "week": { "type": "integer" },
+              "challenge": { "type": "string" },
+              "collective_goal": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+
+    "LiveCall": {
+      "type": "object",
+      "description": "Weekly live Q&A or coaching call",
+      "properties": {
+        "week": { "type": "integer" },
+        "title": { "type": "string" },
+        "duration_minutes": { "type": "integer" },
+        "focus_topic": { "type": "string" },
+        "call_type": {
+          "type": "string",
+          "enum": ["q_and_a", "coaching", "guest_expert", "celebration", "hot_seat"]
+        },
+        "preparation_prompt": {
+          "type": "string",
+          "description": "What students should prepare before the call"
+        }
+      }
+    }
+  },
+
+  "templates": {
+    "21_day_blueprint": {
+      "description": "Standard 21-day Quest template with all pillars integrated",
+      "structure": {
+        "week_1": {
+          "days": [1, 7],
+          "story_stages": ["ordinary_world", "call_to_adventure"],
+          "primary_focus": "Foundation & Vision"
+        },
+        "week_2": {
+          "days": [8, 14],
+          "story_stages": ["crossing_threshold", "tests_and_allies"],
+          "primary_focus": "Practice & Community"
+        },
+        "week_3": {
+          "days": [15, 21],
+          "story_stages": ["tests_and_allies", "transformation"],
+          "primary_focus": "Integration & Identity Shift"
+        }
+      }
+    }
+  },
+
+  "examples": {
+    "daily_lesson_example": {
+      "day": 7,
+      "title": "Overcoming the Inner Critic",
+      "objective": "Learner recognizes negative self-talk patterns and transforms them into empowering affirmations.",
+      "video_content": {
+        "duration_minutes": 12,
+        "key_concepts": ["Inner critic identification", "Reframing technique", "Affirmation creation"],
+        "stories": [
+          {
+            "type": "personal",
+            "summary": "Author shares their journey with their own inner critic"
+          }
+        ]
+      },
+      "task": "Track one negative belief today. Write it down, then rewrite it as an empowering affirmation. Say the new belief out loud 3 times.",
+      "task_duration_minutes": 15,
+      "reflection_prompt": "What belief did you rewrite today? How did it feel to speak the new affirmation? What shifts did you notice in your body or mood?",
+      "pillar": "critical_reflection",
+      "story_stage": "tests_and_allies"
+    },
+
+    "habit_scaffold_example": {
+      "habit": "Morning meditation",
+      "start_day": 3,
+      "anchor": "After brushing teeth",
+      "tiny_version": "Take 3 deep breaths",
+      "identity_label": "I am a meditator",
+      "celebration": "Say 'I'm awesome!' and smile",
+      "progression": [
+        { "week": 1, "duration": 2, "focus": "Just sit" },
+        { "week": 2, "duration": 5, "focus": "Breath awareness" },
+        { "week": 3, "duration": 10, "focus": "Full practice" }
+      ],
+      "obstacle_strategies": [
+        { "obstacle": "I don't have time", "strategy": "Remember: the tiny version is only 3 breaths" },
+        { "obstacle": "I forget", "strategy": "Place meditation cushion next to toothbrush" }
+      ]
+    }
+  },
+
+  "api_endpoints": {
+    "GET /api/schema": {
+      "description": "Returns this complete schema document",
+      "response": "application/json"
+    },
+    "GET /api/schema/quest": {
+      "description": "Returns only the Quest schema",
+      "response": "application/json"
+    },
+    "GET /api/schema/daily-lesson": {
+      "description": "Returns only the DailyLesson schema",
+      "response": "application/json"
+    },
+    "GET /api/schema/habit-scaffold": {
+      "description": "Returns only the HabitScaffold schema",
+      "response": "application/json"
+    },
+    "POST /api/quest/validate": {
+      "description": "Validates a Quest JSON against the schema",
+      "request": "application/json",
+      "response": {
+        "valid": "boolean",
+        "errors": "array of validation errors"
+      }
+    },
+    "POST /api/quest/preview": {
+      "description": "Generates a visual preview of the Quest (v2 - coming soon)",
+      "request": "application/json",
+      "response": "text/html"
+    },
+    "GET /api/templates": {
+      "description": "Returns available Quest templates",
+      "response": "application/json"
+    },
+    "GET /api/templates/{template_id}": {
+      "description": "Returns a specific template with full structure",
+      "response": "application/json"
+    }
+  },
+
+  "ai_instructions": {
+    "purpose": "This schema enables AI systems to create, validate, and co-design Mindvalley Quests programmatically.",
+    "usage_guidelines": [
+      "Always include at least 2-3 pillars in any Quest design",
+      "Ensure daily_lessons cover the full duration_days",
+      "Include habit_scaffolds for behavioral change Quests",
+      "Map lessons to story_stages for narrative coherence",
+      "Include reflection_prompts for integration",
+      "Design tasks that take 10-30 minutes",
+      "Video content should be 8-20 minutes per day"
+    ],
+    "best_practices": [
+      "Start with the transformation_promise - what will change?",
+      "Design backwards from the desired outcome",
+      "Use habit_scaffolding for behavioral Quests",
+      "Include community elements for accountability",
+      "Balance information with experience (transcendent_practice)",
+      "Use the Hero's Journey for emotional engagement"
+    ]
+  }
+}
