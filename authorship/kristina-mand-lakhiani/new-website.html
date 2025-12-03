@@ -1,0 +1,2243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kristina Mand-Lakhiani | Become Flawesome</title>
+    <meta name="description" content="Wall Street Journal bestselling author and Mindvalley co-founder helping high-achievers break free from perfectionism to live authentically. Your greatest potential comes from self-acceptance.">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Kristina Mand-Lakhiani | Become Flawesome">
+    <meta property="og:description" content="Wall Street Journal bestselling author helping high-achievers break free from perfectionism. Your greatest potential comes from self-acceptance.">
+    <meta property="og:image" content="https://kristinamand.com/wp-content/uploads/2024/08/kristina.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://kristinamand.com/wp-content/uploads/2022/12/favicon.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-cream: #FDF8F3;
+            --color-warm-white: #FEFCFA;
+            --color-gold: #C9A86C;
+            --color-gold-light: #E8D4B8;
+            --color-charcoal: #2D2D2D;
+            --color-soft-black: #1A1A1A;
+            --color-gray: #6B6B6B;
+            --color-light-gray: #9B9B9B;
+            --color-rose: #E8B4B8;
+            --color-sage: #A8BBA8;
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-warm-white);
+            color: var(--color-charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.25rem 0;
+            transition: all 0.4s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 40px rgba(0, 0, 0, 0.06);
+            padding: 1rem 0;
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--color-soft-black);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--color-charcoal);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-gold);
+        }
+
+        .nav-cta {
+            background: var(--color-soft-black);
+            color: white !important;
+            padding: 0.75rem 1.75rem;
+            border-radius: 100px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--color-charcoal);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--color-soft-black);
+            margin: 6px 0;
+            transition: 0.3s;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .mobile-menu-links a {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--color-soft-black);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu-links a:hover {
+            color: var(--color-gold);
+        }
+
+        .mobile-menu-cta {
+            margin-top: 2rem;
+        }
+
+        .mobile-menu-cta .btn-primary {
+            font-size: 1rem;
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        .stagger-6 { transition-delay: 0.6s; }
+
+        /* Focus States for Accessibility */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--color-gold);
+            outline-offset: 3px;
+        }
+
+        .btn-primary:focus-visible,
+        .btn-secondary:focus-visible {
+            outline: 3px solid var(--color-gold);
+            outline-offset: 3px;
+        }
+
+        /* Skip to content link for screen readers */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-soft-black);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0 0 8px 8px;
+            z-index: 10000;
+            transition: top 0.3s ease;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Visually hidden for screen readers */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--color-gold) 0%, #B8956A 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .newsletter-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .newsletter-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+        }
+
+        .newsletter h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input[type="email"] {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid transparent;
+            border-radius: 100px;
+            font-size: 1rem;
+            font-family: var(--font-body);
+            background: white;
+            color: var(--color-charcoal);
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form input[type="email"]:focus {
+            outline: none;
+            border-color: var(--color-soft-black);
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .newsletter-form input[type="email"]::placeholder {
+            color: var(--color-light-gray);
+        }
+
+        .newsletter-form button {
+            background: var(--color-soft-black);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 100px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--color-charcoal);
+            transform: translateY(-2px);
+        }
+
+        .newsletter-privacy {
+            font-size: 0.8125rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form button {
+                width: 100%;
+            }
+        }
+
+        /* Video Testimonial Section */
+        .video-testimonials {
+            padding: 6rem 0;
+            background: var(--color-cream);
+        }
+
+        .video-testimonials-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-thumbnail {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-play-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--color-soft-black);
+            margin-left: 4px;
+        }
+
+        .video-thumbnail:hover .video-play-btn {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: white;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-info h4 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: var(--color-soft-black);
+            margin-bottom: 0.5rem;
+        }
+
+        .video-info p {
+            font-size: 0.9375rem;
+            color: var(--color-gray);
+        }
+
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-warm-white) 50%, rgba(232, 212, 184, 0.15) 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(ellipse at center, rgba(201, 168, 108, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-gold);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--color-gold);
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--color-soft-black);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--color-gold);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--color-gray);
+            max-width: 500px;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--color-soft-black);
+            color: white;
+            padding: 1.125rem 2rem;
+            border-radius: 100px;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-charcoal);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-primary:hover svg {
+            transform: translateX(4px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: transparent;
+            color: var(--color-charcoal);
+            padding: 1.125rem 2rem;
+            border-radius: 100px;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1.5px solid var(--color-charcoal);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-charcoal);
+            color: white;
+        }
+
+        .hero-image {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            border-radius: 300px 300px 200px 200px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.12);
+        }
+
+        .hero-image-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.1) 100%);
+            z-index: 1;
+        }
+
+        .hero-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .hero-floating-badge {
+            position: absolute;
+            bottom: 10%;
+            left: -20px;
+            background: white;
+            padding: 1.25rem 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            z-index: 3;
+        }
+
+        .hero-floating-badge .badge-number {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-gold);
+        }
+
+        .hero-floating-badge .badge-label {
+            font-size: 0.8125rem;
+            color: var(--color-gray);
+        }
+
+        /* Trust Bar */
+        .trust-bar {
+            padding: 4rem 0;
+            background: white;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .trust-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .trust-bar-label {
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-light-gray);
+            margin-bottom: 2rem;
+        }
+
+        .trust-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            opacity: 0.7;
+        }
+
+        .trust-logos img {
+            height: 28px;
+            object-fit: contain;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .trust-logos img:hover {
+            filter: grayscale(0%);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 6rem 0;
+            background: var(--color-soft-black);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .stats-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 500;
+            color: var(--color-gold);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            font-size: 0.9375rem;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.02em;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            padding: 8rem 0;
+            background: var(--color-cream);
+            position: relative;
+        }
+
+        .philosophy-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-eyebrow {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--color-soft-black);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--color-gray);
+            line-height: 1.8;
+        }
+
+        .philosophy-statement {
+            background: white;
+            border-radius: 24px;
+            padding: 4rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+            position: relative;
+        }
+
+        .philosophy-statement::before {
+            content: '"';
+            font-family: var(--font-display);
+            font-size: 8rem;
+            color: var(--color-gold-light);
+            position: absolute;
+            top: 1rem;
+            left: 2rem;
+            line-height: 1;
+            opacity: 0.5;
+        }
+
+        .philosophy-statement blockquote {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--color-soft-black);
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .pillar-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .pillar-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--color-cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+        }
+
+        .pillar-card h3 {
+            font-size: 1.375rem;
+            color: var(--color-soft-black);
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-card .pillar-subtitle {
+            font-size: 0.875rem;
+            color: var(--color-gold);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-card p {
+            font-size: 0.9375rem;
+            color: var(--color-gray);
+            line-height: 1.7;
+        }
+
+        /* About Section */
+        .about {
+            padding: 8rem 0;
+            background: white;
+        }
+
+        .about-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image-main {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
+        }
+
+        .about-image-main img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .about-image-accent {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 200px;
+            height: 200px;
+            background: var(--color-gold-light);
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .about-content h2 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            color: var(--color-soft-black);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .about-content .lead {
+            font-size: 1.125rem;
+            color: var(--color-charcoal);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-content p {
+            color: var(--color-gray);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .credentials-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .credential-tag {
+            background: var(--color-cream);
+            padding: 0.625rem 1.25rem;
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--color-charcoal);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 8rem 0;
+            background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-warm-white) 100%);
+        }
+
+        .products-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        }
+
+        .product-card.featured {
+            grid-column: span 2;
+            flex-direction: row;
+        }
+
+        .product-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card.featured .product-image {
+            flex: 0 0 45%;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            min-height: 280px;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--color-gold);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .product-content {
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card.featured .product-content {
+            padding: 3rem;
+            justify-content: center;
+        }
+
+        .product-type {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-gold);
+            margin-bottom: 0.75rem;
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            color: var(--color-soft-black);
+            margin-bottom: 1rem;
+        }
+
+        .product-card.featured .product-title {
+            font-size: 2rem;
+        }
+
+        .product-description {
+            font-size: 0.9375rem;
+            color: var(--color-gray);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .product-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-meta-item {
+            font-size: 0.8125rem;
+            color: var(--color-charcoal);
+        }
+
+        .product-meta-item strong {
+            color: var(--color-gold);
+        }
+
+        .product-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--color-soft-black);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .product-link:hover {
+            color: var(--color-gold);
+        }
+
+        .product-link svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-link:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 8rem 0;
+            background: var(--color-soft-black);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201, 168, 108, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .testimonials-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonials .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .testimonials .section-eyebrow {
+            color: var(--color-gold);
+        }
+
+        .testimonials .section-title {
+            color: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .testimonial-card.featured {
+            background: rgba(201, 168, 108, 0.1);
+            border-color: rgba(201, 168, 108, 0.2);
+        }
+
+        .testimonial-quote {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--color-gold-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            color: var(--color-charcoal);
+        }
+
+        .testimonial-info h4 {
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-info p {
+            font-size: 0.8125rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--color-cream) 0%, rgba(232, 212, 184, 0.3) 100%);
+            position: relative;
+        }
+
+        .cta-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--color-soft-black);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-subtitle {
+            font-size: 1.125rem;
+            color: var(--color-gray);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Instagram Section */
+        .instagram {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .instagram-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .instagram-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .instagram-item {
+            aspect-ratio: 1;
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .instagram-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .instagram-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .instagram-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            transition: background 0.3s ease;
+        }
+
+        .instagram-item:hover::after {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 5rem 0 2rem;
+            background: var(--color-soft-black);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            font-size: 0.9375rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--color-gold);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h4 {
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            font-size: 0.9375rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--color-gold);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .hero-content {
+                order: 2;
+            }
+
+            .hero-image {
+                order: 1;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .hero-subtitle {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-ctas {
+                justify-content: center;
+            }
+
+            .about-inner {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-card.featured {
+                grid-column: span 1;
+                flex-direction: column;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .instagram-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-ctas {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item {
+                padding: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo" aria-label="Kristina Mand-Lakhiani - Home">Kristina Mand-Lakhiani</a>
+            <div class="nav-links" role="navigation" aria-label="Main navigation">
+                <a href="#about">About</a>
+                <a href="#philosophy">Philosophy</a>
+                <a href="#programs">Programs</a>
+                <a href="#book">Book</a>
+                <a href="https://kristinamand.com/masterclass/" class="nav-cta">Free Masterclass</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+        <div class="mobile-menu-links">
+            <a href="#about" class="mobile-menu-link">About</a>
+            <a href="#philosophy" class="mobile-menu-link">Philosophy</a>
+            <a href="#programs" class="mobile-menu-link">Programs</a>
+            <a href="#book" class="mobile-menu-link">Book</a>
+        </div>
+        <div class="mobile-menu-cta">
+            <a href="https://kristinamand.com/masterclass/" class="btn-primary">
+                Free Masterclass
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <main id="main-content">
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-content fade-in">
+                <div class="hero-eyebrow">Wall Street Journal Bestselling Author</div>
+                <h1 class="hero-title">Your Greatest Potential Comes From <em>Self-Acceptance</em></h1>
+                <p class="hero-subtitle">I help high-achievers break free from perfectionism to live authentically aligned lives. Stop fixing yourself. Start embracing who you already are.</p>
+                <div class="hero-ctas">
+                    <a href="https://kristinamand.com/flawesome/flawesomeb/" class="btn-primary">
+                        Get the Book
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 8h10M9 4l4 4-4 4"/>
+                        </svg>
+                    </a>
+                    <a href="https://kristinamand.com/masterclass/" class="btn-secondary">Watch Free Masterclass</a>
+                </div>
+            </div>
+            <div class="hero-image fade-in-right">
+                <div class="hero-image-wrapper">
+                    <img src="https://i1.wp.com/kristinamand.com/wp-content/uploads/2024/08/kristina.jpg" alt="Kristina Mand-Lakhiani" loading="eager">
+                </div>
+                <div class="hero-floating-badge">
+                    <div class="badge-number">#1</div>
+                    <div class="badge-label">WSJ Bestseller</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="trust-bar">
+        <div class="trust-bar-inner">
+            <div class="trust-bar-label">As Featured In</div>
+            <div class="trust-logos">
+                <img src="https://kristinamand.com/wp-content/uploads/2022/11/forbes.png" alt="Forbes">
+                <img src="https://kristinamand.com/wp-content/uploads/2022/11/logo-1.png" alt="Media Logo">
+                <img src="https://kristinamand.com/wp-content/uploads/2022/11/logo-4.png" alt="Media Logo">
+                <img src="https://kristinamand.com/wp-content/uploads/2022/11/logo-7.png" alt="Media Logo">
+                <img src="https://kristinamand.com/wp-content/uploads/2023/01/logo-10.png" alt="Media Logo">
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-inner">
+            <div class="stats-grid">
+                <div class="stat-item fade-in stagger-1">
+                    <div class="stat-number">20M+</div>
+                    <div class="stat-label">Platform Followers</div>
+                </div>
+                <div class="stat-item fade-in stagger-2">
+                    <div class="stat-number">40K+</div>
+                    <div class="stat-label">Quest Students</div>
+                </div>
+                <div class="stat-item fade-in stagger-3">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Podcast Episodes</div>
+                </div>
+                <div class="stat-item fade-in stagger-4">
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">Years in Personal Growth</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy" id="philosophy">
+        <div class="philosophy-inner">
+            <div class="section-header fade-in">
+                <div class="section-eyebrow">The Flawesome Philosophy</div>
+                <h2 class="section-title">Flaws + Awesome = Flawesome</h2>
+                <p class="section-subtitle">Unlike traditional self-help that focuses on fixing yourself, I believe your greatest potential comes from embracing who you already are - flaws and all.</p>
+            </div>
+
+            <div class="philosophy-statement scale-in">
+                <blockquote>Your flaws are not things to fix. They are doorways to your power. The journey from perfectionism to authentic self-acceptance is the path to true fulfillment.</blockquote>
+            </div>
+
+            <div class="pillars-grid">
+                <div class="pillar-card fade-in stagger-1">
+                    <div class="pillar-icon" aria-hidden="true">&#x1F5FA;</div>
+                    <h3>Honesty</h3>
+                    <div class="pillar-subtitle">The Map</div>
+                    <p>You can't know where you're going until you're honest with yourself. Radical self-honesty about your beliefs, values, and the masks you wear.</p>
+                </div>
+                <div class="pillar-card fade-in stagger-2">
+                    <div class="pillar-icon" aria-hidden="true">&#x26F5;</div>
+                    <h3>Kindness</h3>
+                    <div class="pillar-subtitle">The Boat</div>
+                    <p>Self-compassion is the vehicle for transformation. Moving beyond self-judgment through forgiveness of self and others.</p>
+                </div>
+                <div class="pillar-card fade-in stagger-3">
+                    <div class="pillar-icon" aria-hidden="true">&#x1F30A;</div>
+                    <h3>Courage</h3>
+                    <div class="pillar-subtitle">The Sail</div>
+                    <p>The courage to live your truth. Facing the fear of rejection and judgment to show up authentically in every moment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-inner">
+            <div class="about-image fade-in-left">
+                <div class="about-image-main">
+                    <img src="https://kristinamand.com/wp-content/uploads/2022/11/about_me.jpeg" alt="Kristina Mand-Lakhiani speaking on stage" loading="lazy">
+                </div>
+                <div class="about-image-accent"></div>
+            </div>
+            <div class="about-content fade-in-right">
+                <h2>I've Been Where You Are</h2>
+                <p class="lead">I co-built a $100M+ company while battling perfectionism. I survived a public divorce while maintaining authenticity. I emerged stronger - now teaching what I learned the hard way.</p>
+                <p>As an entrepreneur, Wall Street Journal best-selling author, speaker, and mother, I've spent 20+ years in personal transformation - collaborating with the world's leading thinkers in consciousness, relationships, and human performance.</p>
+                <p>Born in Soviet Estonia, I learned early what it means to live by others' rules. My journey from perfectionist achiever to "flawesome" human wasn't linear - it was forged through real challenges, real failures, and real transformation.</p>
+
+                <div class="credentials-list">
+                    <span class="credential-tag">Co-founder of Mindvalley</span>
+                    <span class="credential-tag">WSJ #1 Bestselling Author</span>
+                    <span class="credential-tag">Forbes Contributor</span>
+                    <span class="credential-tag">Hay House Author</span>
+                </div>
+
+                <a href="#programs" class="btn-primary">
+                    Explore My Work
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 8h10M9 4l4 4-4 4"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="programs">
+        <div class="products-inner">
+            <div class="section-header fade-in">
+                <div class="section-eyebrow">Start Your Journey</div>
+                <h2 class="section-title">Programs & Resources</h2>
+                <p class="section-subtitle">Choose your path to becoming flawesome - from the bestselling book to immersive transformation programs.</p>
+            </div>
+
+            <div class="products-grid">
+                <!-- Featured Product: Book -->
+                <div class="product-card featured scale-in" id="book">
+                    <div class="product-image">
+                        <span class="product-badge">#1 Bestseller</span>
+                        <img src="https://kristinamand.com/wp-content/uploads/2023/01/IMG_2861.jpeg" alt="Becoming Flawesome Book cover" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <div class="product-type">Book</div>
+                        <h3 class="product-title">Becoming Flawesome</h3>
+                        <p class="product-description">Embark on a transformational journey that redefines your self-image and paves the way for a deeply authentic, beautifully imperfect life. This Wall Street Journal #1 bestseller is your guide to embracing your fully awesome self - flaws and all.</p>
+                        <div class="product-meta">
+                            <div class="product-meta-item"><strong>4x</strong> Bestseller Lists</div>
+                            <div class="product-meta-item"><strong>$300+</strong> in Bonuses</div>
+                        </div>
+                        <a href="https://kristinamand.com/flawesome/flawesomeb/" class="product-link">
+                            Get Book & Bonuses
+                            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 8h10M9 4l4 4-4 4"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quest 1 -->
+                <div class="product-card fade-in stagger-1">
+                    <div class="product-image">
+                        <img src="https://kristinamand.com/wp-content/uploads/2023/05/IMG_3636-1-1024x576.jpg" alt="From Awesome to Flawesome Quest" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <div class="product-type">Mindvalley Quest</div>
+                        <h3 class="product-title">From Awesome to Flawesome</h3>
+                        <p class="product-description">A 25-day transformation to end perfectionism and embrace radical self-acceptance. Turn your flaws into your greatest strengths.</p>
+                        <div class="product-meta">
+                            <div class="product-meta-item"><strong>25</strong> Days</div>
+                            <div class="product-meta-item"><strong>4K+</strong> Students</div>
+                        </div>
+                        <a href="https://kristinamand.com/flawesome/from-awesome-to-flawesome/" class="product-link">
+                            Join Now
+                            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 8h10M9 4l4 4-4 4"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quest 2 -->
+                <div class="product-card fade-in stagger-2">
+                    <div class="product-image">
+                        <img src="https://kristinamand.com/wp-content/uploads/2022/11/live_by_your_own_rules-1024x580.jpg" alt="Live By Your Own Rules Quest" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <div class="product-type">Mindvalley Quest</div>
+                        <h3 class="product-title">Live By Your Own Rules</h3>
+                        <p class="product-description">A 31-day journey to question every societal expectation and create an extraordinary life on your own terms.</p>
+                        <div class="product-meta">
+                            <div class="product-meta-item"><strong>31</strong> Days</div>
+                            <div class="product-meta-item"><strong>19K+</strong> Students</div>
+                        </div>
+                        <a href="https://www.mindvalley.com/ownrules/special" class="product-link">
+                            Learn More
+                            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 8h10M9 4l4 4-4 4"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quest 3 -->
+                <div class="product-card fade-in stagger-3">
+                    <div class="product-image">
+                        <img src="https://kristinamand.com/wp-content/uploads/2023/05/IMG_3635-1-1024x576.jpg" alt="10 Questions for Self-Love Quest" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <div class="product-type">Free Quest</div>
+                        <h3 class="product-title">10 Questions for Self-Love</h3>
+                        <p class="product-description">Hug your imperfections and turn your dragons into allies in this 10-day journey towards boundless self-love.</p>
+                        <div class="product-meta">
+                            <div class="product-meta-item"><strong>10</strong> Days</div>
+                            <div class="product-meta-item"><strong>15K+</strong> Students</div>
+                        </div>
+                        <a href="https://www.mindvalley.com/selflove" class="product-link">
+                            Start Free
+                            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 8h10M9 4l4 4-4 4"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Masterclass -->
+                <div class="product-card fade-in stagger-4">
+                    <div class="product-image">
+                        <img src="https://i1.wp.com/kristinamand.com/wp-content/uploads/2024/05/masterclass-1080x1080-1-e1716277062899.png" alt="Free Masterclass on Success Without Sacrifice" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <div class="product-type">Free Masterclass</div>
+                        <h3 class="product-title">Success Without Sacrifice</h3>
+                        <p class="product-description">Stop making the impossible choice between your well-being and your success. Watch this free masterclass.</p>
+                        <div class="product-meta">
+                            <div class="product-meta-item"><strong>60</strong> Minutes</div>
+                            <div class="product-meta-item"><strong>Free</strong></div>
+                        </div>
+                        <a href="https://kristinamand.com/masterclass/" class="product-link">
+                            Watch Free
+                            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 8h10M9 4l4 4-4 4"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" aria-labelledby="testimonials-heading">
+        <div class="testimonials-inner">
+            <div class="section-header fade-in">
+                <div class="section-eyebrow">What People Say</div>
+                <h2 class="section-title" id="testimonials-heading">Transforming Lives Worldwide</h2>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card featured fade-in stagger-1">
+                    <p class="testimonial-quote">"I have rarely seen a speaker moving the audience with such depth and authenticity. She told the truth in a way that was riveting - she had people crying, standing on their feet, so moved and inspired."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" aria-hidden="true">KW</div>
+                        <div class="testimonial-info">
+                            <h4>Katherine Woodward Thomas</h4>
+                            <p>NYT Bestselling Author</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in stagger-2">
+                    <p class="testimonial-quote">"She is so incredibly authentic. We have forgotten what it is to be authentic and Kristina made the distinction that there are several deeper layers to that particular onion."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" aria-hidden="true">SR</div>
+                        <div class="testimonial-info">
+                            <h4>Dr. Srikumar Rao</h4>
+                            <p>TED Speaker, Business Professor</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in stagger-3">
+                    <p class="testimonial-quote">"I don't think she realizes what a beautiful powerful speaker she is. She speaks from the heart and totally delivers a great message. I was giving her a standing ovation."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" aria-hidden="true">MP</div>
+                        <div class="testimonial-info">
+                            <h4>Marisa Peer</h4>
+                            <p>UK's Leading Therapist</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in stagger-4">
+                    <p class="testimonial-quote">"This is not your average self-help book. It's a brilliant, raw and honest exploration of the human experience that produces real transformation."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" aria-hidden="true">FA</div>
+                        <div class="testimonial-info">
+                            <h4>Florencia Andres</h4>
+                            <p>Bestselling Author</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in stagger-5">
+                    <p class="testimonial-quote">"Her vow to live consciously, speak her truth, and achieve full self-acceptance inspires me to become a better woman. She practices what she teaches."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" aria-hidden="true">TS</div>
+                        <div class="testimonial-info">
+                            <h4>Tania Safuan</h4>
+                            <p>Brand Consultant</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in stagger-6">
+                    <p class="testimonial-quote">"Kristina takes us on an inward journey toward authenticity. Reading her book, I was reminded that what is essential cannot be seen with the eyes but with the heart."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" aria-hidden="true">RA</div>
+                        <div class="testimonial-info">
+                            <h4>Princess Rym Ali</h4>
+                            <p>Anna Lindh Foundation President</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Testimonials Section -->
+    <section class="video-testimonials" aria-labelledby="video-testimonials-heading">
+        <div class="video-testimonials-inner">
+            <div class="section-header fade-in">
+                <div class="section-eyebrow">Watch & Learn</div>
+                <h2 class="section-title" id="video-testimonials-heading">Featured Appearances</h2>
+                <p class="section-subtitle">Experience Kristina's message through her most impactful talks and interviews.</p>
+            </div>
+            <div class="video-grid">
+                <div class="video-card fade-in stagger-1">
+                    <div class="video-wrapper">
+                        <iframe
+                            src="https://www.youtube.com/embed/qkq-FQFMVJI"
+                            title="Kristina Mand-Lakhiani TEDx Talk on Becoming Flawesome"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h4>The Art of Becoming Flawesome</h4>
+                        <p>TEDx Talk - Embracing imperfection as the path to authentic living</p>
+                    </div>
+                </div>
+                <div class="video-card fade-in stagger-2">
+                    <div class="video-wrapper">
+                        <iframe
+                            src="https://www.youtube.com/embed/xN_CNA-Gc-k"
+                            title="Kristina Mand-Lakhiani on Living By Your Own Rules"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h4>Live By Your Own Rules</h4>
+                        <p>Mindvalley Masterclass - Breaking free from societal expectations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter" aria-labelledby="newsletter-heading">
+        <div class="newsletter-inner">
+            <div class="newsletter-icon" aria-hidden="true">&#x2728;</div>
+            <h2 id="newsletter-heading">Join the Flawesome Movement</h2>
+            <p>Get weekly insights on self-acceptance, authentic living, and breaking free from perfectionism. Plus exclusive content not shared anywhere else.</p>
+            <form class="newsletter-form" action="https://kristinamand.com/newsletter-signup" method="POST" aria-label="Newsletter signup form">
+                <label for="newsletter-email" class="visually-hidden">Email address</label>
+                <input
+                    type="email"
+                    id="newsletter-email"
+                    name="email"
+                    placeholder="Enter your email address"
+                    required
+                    autocomplete="email"
+                    aria-describedby="newsletter-privacy"
+                >
+                <button type="submit">Subscribe</button>
+            </form>
+            <p class="newsletter-privacy" id="newsletter-privacy">No spam, ever. Unsubscribe anytime. Your email is safe with us.</p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-inner fade-in">
+            <h2 class="cta-title">Ready to Become Flawesome?</h2>
+            <p class="cta-subtitle">Stop performing. Start living. Join thousands who have discovered that their greatest potential comes from self-acceptance, not self-improvement.</p>
+            <div class="cta-buttons">
+                <a href="https://kristinamand.com/masterclass/" class="btn-primary">
+                    Watch Free Masterclass
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 8h10M9 4l4 4-4 4"/>
+                    </svg>
+                </a>
+                <a href="https://kristinamand.com/quiz/" class="btn-secondary">Take the Flawesome Quiz</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Section -->
+    <section class="instagram" aria-labelledby="instagram-heading">
+        <div class="instagram-inner">
+            <div class="section-header fade-in">
+                <div class="section-eyebrow">@kristinamand</div>
+                <h2 class="section-title" id="instagram-heading">Follow the Journey</h2>
+                <p class="section-subtitle">Real stories, vulnerable moments, and everyday philosophy shared with authenticity.</p>
+            </div>
+            <div class="instagram-grid">
+                <a href="https://www.instagram.com/p/Crr2Ko5Jlg0/" class="instagram-item fade-in stagger-1" target="_blank" rel="noopener noreferrer" aria-label="View Instagram post">
+                    <img src="https://i1.wp.com/kristinamand.com/wp-content/uploads/2024/08/ig_1.jpg" alt="Kristina's Instagram post about self-acceptance" loading="lazy">
+                </a>
+                <a href="https://www.instagram.com/p/C8NGY9TIA0U/" class="instagram-item fade-in stagger-2" target="_blank" rel="noopener noreferrer" aria-label="View Instagram post">
+                    <img src="https://i1.wp.com/kristinamand.com/wp-content/uploads/2024/08/cover.png" alt="Kristina's Instagram post" loading="lazy">
+                </a>
+                <a href="https://www.instagram.com/p/C89kRzEhFJ-/" class="instagram-item fade-in stagger-3" target="_blank" rel="noopener noreferrer" aria-label="View Instagram post">
+                    <img src="https://i1.wp.com/kristinamand.com/wp-content/uploads/2024/08/ig_2.jpg" alt="Kristina's Instagram post about authenticity" loading="lazy">
+                </a>
+                <a href="https://www.instagram.com/p/CfJkIeAL33h/" class="instagram-item fade-in stagger-4" target="_blank" rel="noopener noreferrer" aria-label="View Instagram post">
+                    <img src="https://kristinamand.com/wp-content/uploads/2022/11/ig-post-8.jpg" alt="Kristina's Instagram post" loading="lazy">
+                </a>
+                <a href="https://www.instagram.com/p/CgzRnQ-sAMi/" class="instagram-item fade-in stagger-5" target="_blank" rel="noopener noreferrer" aria-label="View Instagram post">
+                    <img src="https://kristinamand.com/wp-content/uploads/2022/11/ig-post-2.jpg" alt="Kristina's Instagram post" loading="lazy">
+                </a>
+                <a href="https://www.instagram.com/p/CiN7pKCrw_v/" class="instagram-item fade-in stagger-6" target="_blank" rel="noopener noreferrer" aria-label="View Instagram post">
+                    <img src="https://kristinamand.com/wp-content/uploads/2022/11/ig-post-4.jpg" alt="Kristina's Instagram post" loading="lazy">
+                </a>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <h3>Kristina Mand-Lakhiani</h3>
+                    <p>Helping high-achievers break free from perfectionism to live authentically aligned lives. Your greatest potential comes from self-acceptance.</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/kristinamand/" aria-label="Instagram">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="https://open.spotify.com/show/26AWO7IjxTCS2eNEXVIwBJ" aria-label="Spotify">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCpvwDq4ZFy3fYOhR5rpOCKw" aria-label="YouTube">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Programs</h4>
+                    <ul>
+                        <li><a href="https://kristinamand.com/flawesome/flawesomeb/">Becoming Flawesome</a></li>
+                        <li><a href="https://kristinamand.com/flawesome/from-awesome-to-flawesome/">From Awesome to Flawesome</a></li>
+                        <li><a href="https://www.mindvalley.com/ownrules/special">Live By Your Own Rules</a></li>
+                        <li><a href="https://www.mindvalley.com/selflove">10 Questions for Self-Love</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://kristinamand.com/masterclass/">Free Masterclass</a></li>
+                        <li><a href="https://kristinamand.com/quiz/">Flawesome Quiz</a></li>
+                        <li><a href="https://kristinamand.com/blog">Blog</a></li>
+                        <li><a href="https://www.mindvalley.com/bookclub/">Book Club</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://forms.gle/2yFfSa3TdLhAcMG66">Speaking Inquiries</a></li>
+                        <li><a href="https://www.instagram.com/kristinamand/">Instagram</a></li>
+                        <li><a href="https://open.spotify.com/show/26AWO7IjxTCS2eNEXVIwBJ">Podcast</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Kristina Mand-Lakhiani. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+        let isMenuOpen = false;
+
+        function toggleMobileMenu() {
+            isMenuOpen = !isMenuOpen;
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileMenuBtn.setAttribute('aria-expanded', isMenuOpen);
+            mobileMenuBtn.setAttribute('aria-label', isMenuOpen ? 'Close menu' : 'Open menu');
+
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+        }
+
+        function closeMobileMenu() {
+            if (isMenuOpen) {
+                isMenuOpen = false;
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                mobileMenuBtn.setAttribute('aria-label', 'Open menu');
+                document.body.style.overflow = '';
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        // Close menu when clicking a link
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                closeMobileMenu();
+            });
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isMenuOpen) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close menu when clicking outside
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                closeMobileMenu();
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    const navHeight = nav.offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Scroll Animations with Intersection Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -100px 0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Optional: stop observing after animation
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Trigger hero animations immediately
+        setTimeout(() => {
+            document.querySelectorAll('.hero .fade-in, .hero .fade-in-right').forEach(el => {
+                el.classList.add('visible');
+            });
+        }, 100);
+
+        // Newsletter Form Handling (with simple validation feedback)
+        const newsletterForm = document.querySelector('.newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                const emailInput = this.querySelector('input[type="email"]');
+                const button = this.querySelector('button');
+
+                // Simple client-side validation is already handled by HTML5
+                // This adds a visual feedback before actual submission
+                button.textContent = 'Subscribing...';
+                button.disabled = true;
+
+                // For demo purposes - in production, this would be an actual form submission
+                // Remove this setTimeout and let the form submit naturally
+                // setTimeout(() => {
+                //     button.textContent = 'Subscribed!';
+                //     emailInput.value = '';
+                // }, 1500);
+            });
+        }
+    </script>
+</body>
+</html>

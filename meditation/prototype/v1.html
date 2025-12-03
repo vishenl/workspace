@@ -753,6 +753,550 @@
                 display: block;
             }
         }
+
+        /* ========================================
+           REFLECTIONS CHECK-IN SYSTEM
+           ======================================== */
+
+        /* Check-in Modal */
+        .checkin-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .checkin-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .checkin-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .checkin-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .checkin-header h2 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .checkin-header p {
+            opacity: 0.9;
+            font-size: 0.9375rem;
+        }
+
+        .checkin-progress {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .checkin-progress .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+
+        .checkin-progress .dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .checkin-progress .dot.completed {
+            background: #48bb78;
+        }
+
+        .checkin-body {
+            padding: 2rem;
+        }
+
+        .checkin-step {
+            display: none;
+        }
+
+        .checkin-step.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            color: #0f131a;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .step-subtitle {
+            color: #718096;
+            font-size: 0.9375rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .option-btn {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .option-btn:hover {
+            border-color: #3b82f6;
+            background: #f7fafc;
+        }
+
+        .option-btn.selected {
+            border-color: #3b82f6;
+            background: #eff6ff;
+            color: #3b82f6;
+        }
+
+        .option-btn .emoji {
+            font-size: 1.75rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .option-btn .label {
+            font-size: 0.8125rem;
+            font-weight: 500;
+        }
+
+        /* Slider for emotional regulation */
+        .regulation-slider {
+            margin: 1.5rem 0;
+        }
+
+        .regulation-slider input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(to right, #f56565 0%, #fbbf24 50%, #48bb78 100%);
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .regulation-slider input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #3b82f6;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .regulation-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: #718096;
+        }
+
+        .regulation-value {
+            text-align: center;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2.5rem;
+            color: #3b82f6;
+            margin: 1rem 0;
+        }
+
+        /* Text input for limiting beliefs */
+        .belief-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: none;
+            height: 100px;
+        }
+
+        .belief-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .belief-hint {
+            font-size: 0.8125rem;
+            color: #9ca3af;
+            margin-top: 0.5rem;
+        }
+
+        /* Check-in footer */
+        .checkin-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .checkin-btn {
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            font-family: Grotesk-Medium, sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9375rem;
+            border: none;
+        }
+
+        .checkin-btn.secondary {
+            background: #f7fafc;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+        }
+
+        .checkin-btn.secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .checkin-btn.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+        }
+
+        .checkin-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .checkin-btn.primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Check-in results */
+        .checkin-results {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .results-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .results-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .results-recommendation {
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        .results-recommendation h4 {
+            font-family: Grotesk-Medium, sans-serif;
+            color: #22543d;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .results-recommendation p {
+            color: #2d3748;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+        }
+
+        /* Streak indicator */
+        .streak-banner {
+            background: linear-gradient(135deg, #f6e05e 0%, #f6ad55 100%);
+            color: #744210;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .streak-banner .flame {
+            font-size: 1.25rem;
+        }
+
+        /* Check-in trigger button */
+        .checkin-trigger {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: Grotesk-Medium, sans-serif;
+            font-weight: 500;
+            z-index: 100;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .checkin-trigger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .checkin-trigger .pulse {
+            width: 10px;
+            height: 10px;
+            background: #48bb78;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ========================================
+           INSIGHTS DASHBOARD
+           ======================================== */
+
+        .insights-section {
+            display: none;
+        }
+
+        .insights-section.active {
+            display: block;
+        }
+
+        .insights-header {
+            margin-bottom: 2rem;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .insight-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .insight-card.highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .insight-card .metric {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2.5rem;
+        }
+
+        .insight-card .label {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .trend-chart {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .trend-chart h3 {
+            font-family: Grotesk-Medium, sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5rem;
+            height: 150px;
+            padding-top: 1rem;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, #667eea, #764ba2);
+            border-radius: 4px 4px 0 0;
+            min-height: 10px;
+            transition: height 0.5s ease;
+            position: relative;
+        }
+
+        .chart-bar .day-label {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.6875rem;
+            color: #718096;
+        }
+
+        .pattern-alert {
+            background: linear-gradient(135deg, #fef5e7 0%, #feebc8 100%);
+            border-left: 4px solid #ed8936;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pattern-alert h4 {
+            color: #c05621;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pattern-alert p {
+            color: #744210;
+            font-size: 0.9375rem;
+        }
+
+        .quest-recommendation {
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .quest-recommendation img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .quest-recommendation h4 {
+            font-family: Grotesk-Medium, sans-serif;
+            color: #22543d;
+            margin-bottom: 0.5rem;
+        }
+
+        .quest-recommendation p {
+            font-size: 0.875rem;
+            color: #2d3748;
+            margin-bottom: 0.75rem;
+        }
+
+        .quest-recommendation .btn {
+            background: #22543d;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* Personalized greeting */
+        .personalized-greeting {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .personalized-greeting h3 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .personalized-greeting p {
+            opacity: 0.9;
+            font-size: 0.9375rem;
+        }
+
+        .personalized-greeting .checkin-btn-small {
+            background: white;
+            color: #667eea;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+        }
+
+        /* Nav item with notification dot */
+        .nav-item .notification-dot {
+            width: 8px;
+            height: 8px;
+            background: #f56565;
+            border-radius: 50%;
+            margin-left: auto;
+        }
     </style>
 </head>
 <body>
@@ -785,6 +1329,20 @@
                         <span class="nav-item-icon">📚</span>
                         <span>Collections</span>
                     </a>
+                </div>
+
+                <!-- Reflections -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Mind Mastery</div>
+                    <div class="nav-item" id="navCheckin" onclick="openCheckinModal()">
+                        <span class="nav-item-icon">🧠</span>
+                        <span>Daily Reflection</span>
+                        <span class="notification-dot" id="checkinNotification"></span>
+                    </div>
+                    <div class="nav-item" id="navInsights" data-view="insights">
+                        <span class="nav-item-icon">📊</span>
+                        <span>My Insights</span>
+                    </div>
                 </div>
 
                 <!-- My Content -->
@@ -981,6 +1539,220 @@
             </div>
         </div>
     </div>
+
+    <!-- Daily Reflections Check-in Modal -->
+    <div class="checkin-modal" id="checkinModal">
+        <div class="checkin-content">
+            <div class="checkin-header">
+                <h2>Daily Reflection</h2>
+                <p>2 minutes to train your self-awareness</p>
+                <div class="checkin-progress">
+                    <div class="dot active" data-step="1"></div>
+                    <div class="dot" data-step="2"></div>
+                    <div class="dot" data-step="3"></div>
+                    <div class="dot" data-step="4"></div>
+                    <div class="dot" data-step="5"></div>
+                    <div class="dot" data-step="6"></div>
+                </div>
+            </div>
+
+            <div class="checkin-body">
+                <!-- Step 1: Sleep Quality -->
+                <div class="checkin-step active" data-step="1">
+                    <h3 class="step-title">💤 How did you sleep last night?</h3>
+                    <p class="step-subtitle">Sleep affects everything - let's start here</p>
+                    <div class="option-grid">
+                        <button class="option-btn" data-field="sleepQuality" data-value="deep_restorative">
+                            <span class="emoji">😴</span>
+                            <span class="label">Deep & Restorative</span>
+                        </button>
+                        <button class="option-btn" data-field="sleepQuality" data-value="good_enough">
+                            <span class="emoji">🙂</span>
+                            <span class="label">Good Enough</span>
+                        </button>
+                        <button class="option-btn" data-field="sleepQuality" data-value="restless">
+                            <span class="emoji">😕</span>
+                            <span class="label">Restless</span>
+                        </button>
+                        <button class="option-btn" data-field="sleepQuality" data-value="terrible">
+                            <span class="emoji">😫</span>
+                            <span class="label">Terrible</span>
+                        </button>
+                        <button class="option-btn" data-field="sleepQuality" data-value="didnt_sleep">
+                            <span class="emoji">😵</span>
+                            <span class="label">Didn't Sleep</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Energy Level -->
+                <div class="checkin-step" data-step="2">
+                    <h3 class="step-title">⚡ What's your energy level right now?</h3>
+                    <p class="step-subtitle">Notice your physical state without judgment</p>
+                    <div class="option-grid">
+                        <button class="option-btn" data-field="energyLevel" data-value="energized">
+                            <span class="emoji">🔥</span>
+                            <span class="label">Energized & Ready</span>
+                        </button>
+                        <button class="option-btn" data-field="energyLevel" data-value="balanced">
+                            <span class="emoji">⚖️</span>
+                            <span class="label">Balanced</span>
+                        </button>
+                        <button class="option-btn" data-field="energyLevel" data-value="low_energy">
+                            <span class="emoji">🔋</span>
+                            <span class="label">Low Energy</span>
+                        </button>
+                        <button class="option-btn" data-field="energyLevel" data-value="exhausted">
+                            <span class="emoji">😩</span>
+                            <span class="label">Exhausted</span>
+                        </button>
+                        <button class="option-btn" data-field="energyLevel" data-value="wired_tired">
+                            <span class="emoji">⚡😓</span>
+                            <span class="label">Wired but Tired</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Dominant Emotion -->
+                <div class="checkin-step" data-step="3">
+                    <h3 class="step-title">💚 What's your dominant emotion right now?</h3>
+                    <p class="step-subtitle">Naming emotions is the first step to mastery</p>
+                    <div class="option-grid">
+                        <button class="option-btn" data-field="dominantEmotion" data-value="peaceful">
+                            <span class="emoji">😌</span>
+                            <span class="label">Peaceful</span>
+                        </button>
+                        <button class="option-btn" data-field="dominantEmotion" data-value="happy">
+                            <span class="emoji">😊</span>
+                            <span class="label">Happy</span>
+                        </button>
+                        <button class="option-btn" data-field="dominantEmotion" data-value="neutral">
+                            <span class="emoji">😐</span>
+                            <span class="label">Neutral</span>
+                        </button>
+                        <button class="option-btn" data-field="dominantEmotion" data-value="anxious">
+                            <span class="emoji">😰</span>
+                            <span class="label">Anxious</span>
+                        </button>
+                        <button class="option-btn" data-field="dominantEmotion" data-value="stressed">
+                            <span class="emoji">😤</span>
+                            <span class="label">Stressed</span>
+                        </button>
+                        <button class="option-btn" data-field="dominantEmotion" data-value="sad">
+                            <span class="emoji">😢</span>
+                            <span class="label">Sad</span>
+                        </button>
+                        <button class="option-btn" data-field="dominantEmotion" data-value="frustrated">
+                            <span class="emoji">😠</span>
+                            <span class="label">Frustrated</span>
+                        </button>
+                        <button class="option-btn" data-field="dominantEmotion" data-value="overwhelmed">
+                            <span class="emoji">🤯</span>
+                            <span class="label">Overwhelmed</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Emotional Regulation -->
+                <div class="checkin-step" data-step="4">
+                    <h3 class="step-title">❤️ How emotionally regulated do you feel?</h3>
+                    <p class="step-subtitle">1 = completely dysregulated, 10 = totally in control</p>
+                    <div class="regulation-value" id="regulationValue">5</div>
+                    <div class="regulation-slider">
+                        <input type="range" min="1" max="10" value="5" id="regulationSlider" data-field="emotionalRegulation">
+                        <div class="regulation-labels">
+                            <span>Dysregulated</span>
+                            <span>In Control</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Thought Quality -->
+                <div class="checkin-step" data-step="5">
+                    <h3 class="step-title">💭 What's the quality of your thoughts today?</h3>
+                    <p class="step-subtitle">Metacognition - observing your thinking patterns</p>
+                    <div class="option-grid">
+                        <button class="option-btn" data-field="thoughtQuality" data-value="clear_focused">
+                            <span class="emoji">🎯</span>
+                            <span class="label">Clear & Focused</span>
+                        </button>
+                        <button class="option-btn" data-field="thoughtQuality" data-value="calm_present">
+                            <span class="emoji">🧘</span>
+                            <span class="label">Calm & Present</span>
+                        </button>
+                        <button class="option-btn" data-field="thoughtQuality" data-value="scattered">
+                            <span class="emoji">🌀</span>
+                            <span class="label">Scattered</span>
+                        </button>
+                        <button class="option-btn" data-field="thoughtQuality" data-value="racing">
+                            <span class="emoji">🏃</span>
+                            <span class="label">Racing</span>
+                        </button>
+                        <button class="option-btn" data-field="thoughtQuality" data-value="negative_loops">
+                            <span class="emoji">🔄</span>
+                            <span class="label">Negative Loops</span>
+                        </button>
+                        <button class="option-btn" data-field="thoughtQuality" data-value="foggy">
+                            <span class="emoji">🌫️</span>
+                            <span class="label">Foggy</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 6: Presence Level -->
+                <div class="checkin-step" data-step="6">
+                    <h3 class="step-title">🎯 How present are you feeling right now?</h3>
+                    <p class="step-subtitle">Where is your attention focused?</p>
+                    <div class="option-grid">
+                        <button class="option-btn" data-field="presenceLevel" data-value="fully_present">
+                            <span class="emoji">✨</span>
+                            <span class="label">Fully Present</span>
+                        </button>
+                        <button class="option-btn" data-field="presenceLevel" data-value="mostly_here">
+                            <span class="emoji">👀</span>
+                            <span class="label">Mostly Here</span>
+                        </button>
+                        <button class="option-btn" data-field="presenceLevel" data-value="mind_wandering">
+                            <span class="emoji">💭</span>
+                            <span class="label">Mind Wandering</span>
+                        </button>
+                        <button class="option-btn" data-field="presenceLevel" data-value="lost_in_past">
+                            <span class="emoji">⏪</span>
+                            <span class="label">Lost in Past</span>
+                        </button>
+                        <button class="option-btn" data-field="presenceLevel" data-value="anxious_future">
+                            <span class="emoji">⏩</span>
+                            <span class="label">Anxious About Future</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Step -->
+                <div class="checkin-step" data-step="results">
+                    <div class="checkin-results">
+                        <div class="results-icon">🎯</div>
+                        <h3 class="results-title">Reflection Complete!</h3>
+                        <p id="streakMessage">You're building self-awareness one day at a time.</p>
+                        <div class="results-recommendation" id="recommendationBox">
+                            <h4>🧘 EVE AI Recommends</h4>
+                            <p id="recommendationText">Based on your reflection, we've personalized your meditation recommendations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkin-footer">
+                <button class="checkin-btn secondary" id="checkinBackBtn" onclick="checkinBack()" style="display: none;">Back</button>
+                <button class="checkin-btn primary" id="checkinNextBtn" onclick="checkinNext()" disabled>Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Check-in Button -->
+    <button class="checkin-trigger" id="checkinTrigger" onclick="openCheckinModal()">
+        <span class="pulse"></span>
+        <span>Daily Reflection</span>
+    </button>
 
     <script>
         // Sample meditation data using our 33-field structure
@@ -1460,6 +2232,685 @@
                 closeModal();
             }
         });
+
+        // ========================================
+        // REFLECTIONS CHECK-IN SYSTEM
+        // ========================================
+
+        // Reflection Data Model
+        const ReflectionsManager = {
+            STORAGE_KEY: 'mindvalley_reflections',
+            STREAK_KEY: 'mindvalley_streak',
+
+            // Current reflection being collected
+            currentReflection: {
+                sleepQuality: null,
+                energyLevel: null,
+                dominantEmotion: null,
+                emotionalRegulation: 5,
+                thoughtQuality: null,
+                presenceLevel: null,
+                timestamp: null,
+                derivedOutcomes: []
+            },
+
+            // Outcome mappings based on reflection inputs
+            outcomeMappings: {
+                sleepQuality: {
+                    terrible: ['improve_sleep', 'calm_nervous_system', 'reduce_stress'],
+                    didnt_sleep: ['improve_sleep', 'energy_restore', 'calm_nervous_system'],
+                    restless: ['improve_sleep', 'relax_body'],
+                    good_enough: [],
+                    deep_restorative: ['maintain_balance', 'deepen_practice']
+                },
+                energyLevel: {
+                    exhausted: ['energy_restore', 'deep_rest', 'calm_nervous_system'],
+                    wired_tired: ['parasympathetic_activation', 'nervous_system_reset', 'ground_center'],
+                    low_energy: ['energy_boost', 'gentle_awakening'],
+                    balanced: ['maintain_balance'],
+                    energized: ['channel_energy', 'focus_enhancement']
+                },
+                dominantEmotion: {
+                    overwhelmed: ['reduce_anxiety', 'grounding', 'emotional_regulation'],
+                    anxious: ['reduce_anxiety', 'calm_mind', 'breathwork'],
+                    stressed: ['reduce_stress', 'relax_body', 'release_tension'],
+                    frustrated: ['emotional_release', 'patience', 'perspective'],
+                    sad: ['self_compassion', 'heart_healing', 'emotional_processing'],
+                    neutral: ['mindfulness', 'presence'],
+                    happy: ['gratitude', 'joy_amplification'],
+                    peaceful: ['deepen_practice', 'spiritual_growth']
+                },
+                thoughtQuality: {
+                    racing: ['calm_mind', 'thought_observation', 'slow_down'],
+                    negative_loops: ['cognitive_reframe', 'self_compassion', 'break_patterns'],
+                    scattered: ['improve_focus', 'ground_center', 'clarity'],
+                    foggy: ['mental_clarity', 'energy_boost', 'awaken_mind'],
+                    calm_present: ['deepen_practice', 'mindfulness'],
+                    clear_focused: ['maintain_focus', 'flow_state']
+                },
+                presenceLevel: {
+                    anxious_future: ['present_moment', 'reduce_anxiety', 'ground_center'],
+                    lost_in_past: ['present_moment', 'release_past', 'forgiveness'],
+                    mind_wandering: ['mindfulness', 'anchor_attention'],
+                    mostly_here: ['deepen_presence'],
+                    fully_present: ['spiritual_growth', 'deepen_practice']
+                }
+            },
+
+            // Meditation recommendations based on outcomes
+            meditationRecommendations: {
+                improve_sleep: { ids: [7], message: "Sleep restoration meditation to help you rest deeply" },
+                calm_nervous_system: { ids: [3, 7], message: "Nervous system reset with breathwork and delta waves" },
+                reduce_anxiety: { ids: [3, 6], message: "Anxiety relief through breathwork and grounding" },
+                reduce_stress: { ids: [1, 3, 5], message: "Stress release through guided relaxation" },
+                energy_restore: { ids: [7], message: "Restorative practices to rebuild your energy" },
+                parasympathetic_activation: { ids: [3, 4], message: "Activate your rest-and-digest system" },
+                ground_center: { ids: [4, 5], message: "Grounding meditation to anchor your presence" },
+                emotional_regulation: { ids: [1, 6], message: "Emotional balance and regulation practices" },
+                calm_mind: { ids: [1, 2, 3], message: "Quiet your mind with focused attention" },
+                improve_focus: { ids: [2, 5], message: "Enhance concentration with gamma wave training" },
+                self_compassion: { ids: [6, 8], message: "Heart-centered practices for self-love" },
+                cognitive_reframe: { ids: [6, 8], message: "Rewire limiting beliefs and thought patterns" },
+                present_moment: { ids: [1, 4], message: "Present moment awareness meditation" },
+                deepen_practice: { ids: [8], message: "Advanced practices to elevate your journey" },
+                spiritual_growth: { ids: [8], message: "Expand consciousness and inner connection" }
+            },
+
+            // Quest recommendations for persistent patterns
+            questRecommendations: {
+                improve_sleep: { name: "Sleep Mastery Quest", author: "Shawn Stevenson", reason: "Persistent sleep challenges" },
+                reduce_anxiety: { name: "The Quest for Personal Mastery", author: "Srikumar Rao", reason: "Recurring anxiety patterns" },
+                cognitive_reframe: { name: "Uncompromised Life", author: "Marisa Peer", reason: "Limiting belief patterns detected" },
+                improve_focus: { name: "Superbrain Quest", author: "Jim Kwik", reason: "Focus and clarity challenges" },
+                emotional_regulation: { name: "Becoming Limitless", author: "Vishen Lakhiani", reason: "Emotional regulation patterns" },
+                spiritual_growth: { name: "Duality Quest", author: "Jeffrey Allen", reason: "Ready for deeper spiritual work" }
+            },
+
+            // Save reflection to localStorage
+            saveReflection(reflection) {
+                const reflections = this.getReflections();
+                reflections.push({
+                    ...reflection,
+                    timestamp: new Date().toISOString(),
+                    derivedOutcomes: this.deriveOutcomes(reflection)
+                });
+                localStorage.setItem(this.STORAGE_KEY, JSON.stringify(reflections));
+                this.updateStreak();
+                return reflection;
+            },
+
+            // Get all reflections
+            getReflections() {
+                const stored = localStorage.getItem(this.STORAGE_KEY);
+                return stored ? JSON.parse(stored) : [];
+            },
+
+            // Get reflections from last N days
+            getRecentReflections(days = 7) {
+                const reflections = this.getReflections();
+                const cutoff = new Date();
+                cutoff.setDate(cutoff.getDate() - days);
+                return reflections.filter(r => new Date(r.timestamp) > cutoff);
+            },
+
+            // Get today's reflection if exists
+            getTodayReflection() {
+                const reflections = this.getReflections();
+                const today = new Date().toDateString();
+                return reflections.find(r => new Date(r.timestamp).toDateString() === today);
+            },
+
+            // Derive outcomes from reflection
+            deriveOutcomes(reflection) {
+                const outcomes = new Set();
+
+                // Physical dimension
+                if (reflection.sleepQuality && this.outcomeMappings.sleepQuality[reflection.sleepQuality]) {
+                    this.outcomeMappings.sleepQuality[reflection.sleepQuality].forEach(o => outcomes.add(o));
+                }
+                if (reflection.energyLevel && this.outcomeMappings.energyLevel[reflection.energyLevel]) {
+                    this.outcomeMappings.energyLevel[reflection.energyLevel].forEach(o => outcomes.add(o));
+                }
+
+                // Emotional dimension
+                if (reflection.dominantEmotion && this.outcomeMappings.dominantEmotion[reflection.dominantEmotion]) {
+                    this.outcomeMappings.dominantEmotion[reflection.dominantEmotion].forEach(o => outcomes.add(o));
+                }
+                if (reflection.emotionalRegulation <= 4) {
+                    outcomes.add('emotional_regulation');
+                    outcomes.add('self_compassion');
+                }
+
+                // Cognitive dimension
+                if (reflection.thoughtQuality && this.outcomeMappings.thoughtQuality[reflection.thoughtQuality]) {
+                    this.outcomeMappings.thoughtQuality[reflection.thoughtQuality].forEach(o => outcomes.add(o));
+                }
+                if (reflection.presenceLevel && this.outcomeMappings.presenceLevel[reflection.presenceLevel]) {
+                    this.outcomeMappings.presenceLevel[reflection.presenceLevel].forEach(o => outcomes.add(o));
+                }
+
+                return Array.from(outcomes);
+            },
+
+            // Get meditation recommendations based on current reflection
+            getRecommendations(reflection = null) {
+                const ref = reflection || this.currentReflection;
+                const outcomes = this.deriveOutcomes(ref);
+
+                // Score meditations based on outcome matches
+                const scores = {};
+                outcomes.forEach(outcome => {
+                    if (this.meditationRecommendations[outcome]) {
+                        this.meditationRecommendations[outcome].ids.forEach(id => {
+                            scores[id] = (scores[id] || 0) + 1;
+                        });
+                    }
+                });
+
+                // Sort by score and return top recommendations
+                const sortedIds = Object.entries(scores)
+                    .sort((a, b) => b[1] - a[1])
+                    .map(([id]) => parseInt(id));
+
+                return {
+                    meditationIds: sortedIds.slice(0, 4),
+                    primaryOutcome: outcomes[0],
+                    message: outcomes[0] && this.meditationRecommendations[outcomes[0]]
+                        ? this.meditationRecommendations[outcomes[0]].message
+                        : "Personalized recommendations based on your reflection"
+                };
+            },
+
+            // Detect persistent patterns (for Quest recommendations)
+            detectPatterns() {
+                const recentReflections = this.getRecentReflections(7);
+                if (recentReflections.length < 5) return null;
+
+                // Count outcome frequencies
+                const outcomeCounts = {};
+                recentReflections.forEach(r => {
+                    (r.derivedOutcomes || []).forEach(outcome => {
+                        outcomeCounts[outcome] = (outcomeCounts[outcome] || 0) + 1;
+                    });
+                });
+
+                // Find patterns that appear 5+ times in 7 days
+                const patterns = Object.entries(outcomeCounts)
+                    .filter(([_, count]) => count >= 5)
+                    .map(([outcome, count]) => ({
+                        outcome,
+                        count,
+                        quest: this.questRecommendations[outcome]
+                    }))
+                    .filter(p => p.quest);
+
+                return patterns.length > 0 ? patterns[0] : null;
+            },
+
+            // Streak management
+            updateStreak() {
+                const streakData = this.getStreak();
+                const today = new Date().toDateString();
+
+                if (streakData.lastDate === today) {
+                    return streakData; // Already checked in today
+                }
+
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+
+                if (streakData.lastDate === yesterday.toDateString()) {
+                    // Consecutive day - increment streak
+                    streakData.count += 1;
+                } else if (streakData.lastDate !== today) {
+                    // Streak broken - reset to 1
+                    streakData.count = 1;
+                }
+
+                streakData.lastDate = today;
+                localStorage.setItem(this.STREAK_KEY, JSON.stringify(streakData));
+                return streakData;
+            },
+
+            getStreak() {
+                const stored = localStorage.getItem(this.STREAK_KEY);
+                return stored ? JSON.parse(stored) : { count: 0, lastDate: null };
+            },
+
+            // Check if user has completed today's reflection
+            hasCompletedToday() {
+                return this.getTodayReflection() !== null;
+            },
+
+            // Reset current reflection
+            resetCurrentReflection() {
+                this.currentReflection = {
+                    sleepQuality: null,
+                    energyLevel: null,
+                    dominantEmotion: null,
+                    emotionalRegulation: 5,
+                    thoughtQuality: null,
+                    presenceLevel: null,
+                    timestamp: null,
+                    derivedOutcomes: []
+                };
+            },
+
+            // Get insights summary
+            getInsightsSummary() {
+                const reflections = this.getReflections();
+                const recent = this.getRecentReflections(7);
+                const streak = this.getStreak();
+
+                // Calculate averages and trends
+                let totalRegulation = 0;
+                const emotionCounts = {};
+                const thoughtCounts = {};
+
+                recent.forEach(r => {
+                    totalRegulation += r.emotionalRegulation || 5;
+                    if (r.dominantEmotion) {
+                        emotionCounts[r.dominantEmotion] = (emotionCounts[r.dominantEmotion] || 0) + 1;
+                    }
+                    if (r.thoughtQuality) {
+                        thoughtCounts[r.thoughtQuality] = (thoughtCounts[r.thoughtQuality] || 0) + 1;
+                    }
+                });
+
+                const avgRegulation = recent.length > 0 ? (totalRegulation / recent.length).toFixed(1) : 0;
+                const mostCommonEmotion = Object.entries(emotionCounts).sort((a, b) => b[1] - a[1])[0];
+                const mostCommonThought = Object.entries(thoughtCounts).sort((a, b) => b[1] - a[1])[0];
+
+                return {
+                    totalReflections: reflections.length,
+                    weeklyReflections: recent.length,
+                    currentStreak: streak.count,
+                    avgRegulation,
+                    mostCommonEmotion: mostCommonEmotion ? mostCommonEmotion[0] : null,
+                    mostCommonThought: mostCommonThought ? mostCommonThought[0] : null,
+                    recentReflections: recent
+                };
+            }
+        };
+
+        // Check-in Modal State
+        let checkinStep = 1;
+        const totalSteps = 6;
+
+        function openCheckinModal() {
+            // Check if already completed today
+            if (ReflectionsManager.hasCompletedToday()) {
+                const proceed = confirm("You've already completed today's reflection. Would you like to do another one?");
+                if (!proceed) return;
+            }
+
+            ReflectionsManager.resetCurrentReflection();
+            checkinStep = 1;
+            updateCheckinUI();
+            document.getElementById('checkinModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCheckinModal() {
+            document.getElementById('checkinModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateCheckinUI() {
+            // Update progress dots
+            document.querySelectorAll('.checkin-progress .dot').forEach(dot => {
+                const step = parseInt(dot.dataset.step);
+                dot.classList.remove('active', 'completed');
+                if (step === checkinStep) {
+                    dot.classList.add('active');
+                } else if (step < checkinStep) {
+                    dot.classList.add('completed');
+                }
+            });
+
+            // Show current step
+            document.querySelectorAll('.checkin-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            const currentStepEl = document.querySelector(`.checkin-step[data-step="${checkinStep}"]`);
+            if (currentStepEl) {
+                currentStepEl.classList.add('active');
+            }
+
+            // Update buttons
+            const backBtn = document.getElementById('checkinBackBtn');
+            const nextBtn = document.getElementById('checkinNextBtn');
+
+            backBtn.style.display = checkinStep > 1 && checkinStep !== 'results' ? 'block' : 'none';
+
+            if (checkinStep === 'results') {
+                nextBtn.textContent = 'See My Recommendations';
+                nextBtn.disabled = false;
+                nextBtn.onclick = finishCheckin;
+            } else if (checkinStep === totalSteps) {
+                nextBtn.textContent = 'Complete';
+                nextBtn.onclick = submitCheckin;
+            } else {
+                nextBtn.textContent = 'Next';
+                nextBtn.onclick = checkinNext;
+            }
+
+            // Check if current step has a selection (to enable next button)
+            updateNextButtonState();
+        }
+
+        function updateNextButtonState() {
+            const nextBtn = document.getElementById('checkinNextBtn');
+
+            if (checkinStep === 4) {
+                // Slider step - always enabled
+                nextBtn.disabled = false;
+            } else if (checkinStep === 'results') {
+                nextBtn.disabled = false;
+            } else {
+                // Check if an option is selected
+                const currentStepEl = document.querySelector(`.checkin-step[data-step="${checkinStep}"]`);
+                const selectedBtn = currentStepEl ? currentStepEl.querySelector('.option-btn.selected') : null;
+                nextBtn.disabled = !selectedBtn;
+            }
+        }
+
+        function checkinNext() {
+            if (checkinStep < totalSteps) {
+                checkinStep++;
+                updateCheckinUI();
+            }
+        }
+
+        function checkinBack() {
+            if (checkinStep > 1) {
+                checkinStep--;
+                updateCheckinUI();
+            }
+        }
+
+        function submitCheckin() {
+            // Save the reflection
+            const reflection = ReflectionsManager.saveReflection(ReflectionsManager.currentReflection);
+
+            // Get recommendations
+            const recommendations = ReflectionsManager.getRecommendations(reflection);
+            const pattern = ReflectionsManager.detectPatterns();
+            const streak = ReflectionsManager.getStreak();
+
+            // Update results UI
+            document.getElementById('streakMessage').innerHTML = streak.count > 1
+                ? `🔥 <strong>${streak.count} day streak!</strong> You're building self-awareness one day at a time.`
+                : "You're building self-awareness one day at a time.";
+
+            let recHtml = `<h4>🧘 EVE AI Recommends</h4><p>${recommendations.message}</p>`;
+
+            if (pattern) {
+                recHtml += `
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.1);">
+                        <h4 style="color: #c05621;">📚 Quest Recommendation</h4>
+                        <p><strong>${pattern.quest.name}</strong> with ${pattern.quest.author}</p>
+                        <p style="font-size: 0.8125rem; opacity: 0.8;">Reason: ${pattern.quest.reason}</p>
+                    </div>
+                `;
+            }
+
+            document.getElementById('recommendationBox').innerHTML = recHtml;
+
+            // Show results step
+            checkinStep = 'results';
+            updateCheckinUI();
+
+            // Update check-in notification
+            updateCheckinNotification();
+        }
+
+        function finishCheckin() {
+            closeCheckinModal();
+
+            // Refresh meditations with personalized recommendations
+            const recommendations = ReflectionsManager.getRecommendations();
+            if (recommendations.meditationIds.length > 0) {
+                // Reorder meditations to show recommended ones first
+                const recommended = meditations.filter(m => recommendations.meditationIds.includes(m.id));
+                const others = meditations.filter(m => !recommendations.meditationIds.includes(m.id));
+                const reordered = [...recommended, ...others];
+
+                // Update page title to show personalized view
+                updatePageHeader('For You', 'Based on your reflection, we recommend these practices');
+
+                // Render with recommended first
+                renderMeditations(reordered);
+            }
+        }
+
+        // Handle option button clicks
+        document.querySelectorAll('.option-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const field = this.dataset.field;
+                const value = this.dataset.value;
+
+                // Deselect siblings
+                this.parentElement.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+
+                // Select this one
+                this.classList.add('selected');
+
+                // Update current reflection
+                ReflectionsManager.currentReflection[field] = value;
+
+                // Enable next button
+                updateNextButtonState();
+            });
+        });
+
+        // Handle regulation slider
+        const regulationSlider = document.getElementById('regulationSlider');
+        if (regulationSlider) {
+            regulationSlider.addEventListener('input', function() {
+                document.getElementById('regulationValue').textContent = this.value;
+                ReflectionsManager.currentReflection.emotionalRegulation = parseInt(this.value);
+            });
+        }
+
+        // Close check-in modal on background click
+        document.getElementById('checkinModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCheckinModal();
+            }
+        });
+
+        // Update check-in notification dot
+        function updateCheckinNotification() {
+            const notification = document.getElementById('checkinNotification');
+            const trigger = document.getElementById('checkinTrigger');
+
+            if (ReflectionsManager.hasCompletedToday()) {
+                if (notification) notification.style.display = 'none';
+                if (trigger) trigger.style.display = 'none';
+            } else {
+                if (notification) notification.style.display = 'block';
+                if (trigger) trigger.style.display = 'flex';
+            }
+        }
+
+        // Insights view handler
+        document.getElementById('navInsights')?.addEventListener('click', function() {
+            showInsightsView();
+        });
+
+        function showInsightsView() {
+            const insights = ReflectionsManager.getInsightsSummary();
+
+            // Create insights content
+            const mainContent = document.getElementById('mainContent');
+            const existingGrid = document.getElementById('meditationGrid');
+
+            // Hide meditation grid temporarily
+            existingGrid.style.display = 'none';
+
+            // Remove existing insights if any
+            const existingInsights = document.getElementById('insightsContainer');
+            if (existingInsights) existingInsights.remove();
+
+            // Create insights view
+            const insightsHtml = `
+                <div id="insightsContainer" class="insights-section active">
+                    <div class="insights-header">
+                        <h2 style="font-family: Grotesk-Bold, sans-serif; margin-bottom: 0.5rem;">Your Mind Mastery Journey</h2>
+                        <p style="color: #718096;">Track your patterns and progress over time</p>
+                    </div>
+
+                    <div class="insights-grid">
+                        <div class="insight-card highlight">
+                            <div class="metric">${insights.currentStreak}</div>
+                            <div class="label">🔥 Day Streak</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="metric">${insights.totalReflections}</div>
+                            <div class="label">Total Reflections</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="metric">${insights.avgRegulation}/10</div>
+                            <div class="label">Avg Emotional Regulation</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="metric">${insights.weeklyReflections}/7</div>
+                            <div class="label">This Week</div>
+                        </div>
+                    </div>
+
+                    ${insights.weeklyReflections >= 5 ? `
+                        <div class="pattern-alert">
+                            <h4>📊 Pattern Detected</h4>
+                            <p>You've shown consistent ${formatEmotionLabel(insights.mostCommonEmotion)} patterns this week.
+                            ${insights.mostCommonThought ? `Your thoughts have been mostly ${formatThoughtLabel(insights.mostCommonThought)}.` : ''}</p>
+                        </div>
+                    ` : ''}
+
+                    <div class="trend-chart">
+                        <h3>Emotional Regulation - Last 7 Days</h3>
+                        <div class="chart-bars">
+                            ${generateChartBars(insights.recentReflections)}
+                        </div>
+                    </div>
+
+                    ${insights.totalReflections === 0 ? `
+                        <div style="text-align: center; padding: 3rem; background: #f7fafc; border-radius: 12px;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">🧠</div>
+                            <h3 style="font-family: Grotesk-Medium, sans-serif; margin-bottom: 0.5rem;">Start Your Journey</h3>
+                            <p style="color: #718096; margin-bottom: 1.5rem;">Complete your first daily reflection to see insights</p>
+                            <button onclick="openCheckinModal()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 0.875rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                                Start Daily Reflection
+                            </button>
+                        </div>
+                    ` : ''}
+
+                    <div style="margin-top: 2rem;">
+                        <button onclick="closeInsightsView()" style="background: #f7fafc; color: #4a5568; padding: 0.75rem 1.5rem; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer;">
+                            ← Back to Meditations
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            existingGrid.insertAdjacentHTML('beforebegin', insightsHtml);
+            updatePageHeader('My Insights', 'Your mind mastery progress and patterns');
+        }
+
+        function closeInsightsView() {
+            const insightsContainer = document.getElementById('insightsContainer');
+            if (insightsContainer) insightsContainer.remove();
+
+            document.getElementById('meditationGrid').style.display = 'grid';
+            updatePageHeader('For You', 'EVE AI has selected these tracks to match your moment');
+        }
+
+        function generateChartBars(reflections) {
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const today = new Date();
+            let bars = '';
+
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dayName = days[date.getDay()];
+
+                const reflection = reflections.find(r => {
+                    const rDate = new Date(r.timestamp);
+                    return rDate.toDateString() === date.toDateString();
+                });
+
+                const regulation = reflection ? reflection.emotionalRegulation : 0;
+                const height = regulation * 10; // 10px per point
+
+                bars += `<div class="chart-bar" style="height: ${height}px;"><span class="day-label">${dayName}</span></div>`;
+            }
+
+            return bars;
+        }
+
+        function formatEmotionLabel(emotion) {
+            const labels = {
+                peaceful: 'peaceful',
+                happy: 'happy',
+                neutral: 'neutral',
+                anxious: 'anxious',
+                stressed: 'stressed',
+                sad: 'sad',
+                frustrated: 'frustrated',
+                overwhelmed: 'overwhelmed'
+            };
+            return labels[emotion] || emotion;
+        }
+
+        function formatThoughtLabel(thought) {
+            const labels = {
+                clear_focused: 'clear and focused',
+                calm_present: 'calm and present',
+                scattered: 'scattered',
+                racing: 'racing',
+                negative_loops: 'in negative loops',
+                foggy: 'foggy'
+            };
+            return labels[thought] || thought;
+        }
+
+        // Initialize check-in state on page load
+        updateCheckinNotification();
+
+        // Add personalized greeting if user has reflection data
+        function addPersonalizedGreeting() {
+            const todayReflection = ReflectionsManager.getTodayReflection();
+            const streak = ReflectionsManager.getStreak();
+
+            if (!todayReflection && streak.count > 0) {
+                // User has streak but hasn't done today's reflection
+                const greetingHtml = `
+                    <div class="personalized-greeting" id="personalizedGreeting">
+                        <div>
+                            <h3>🔥 ${streak.count} day streak! Keep it going!</h3>
+                            <p>Take 2 minutes to check in with yourself today</p>
+                        </div>
+                        <button class="checkin-btn-small" onclick="openCheckinModal()">Daily Reflection</button>
+                    </div>
+                `;
+
+                const filterBar = document.querySelector('.filter-bar');
+                if (filterBar && !document.getElementById('personalizedGreeting')) {
+                    filterBar.insertAdjacentHTML('beforebegin', greetingHtml);
+                }
+            } else if (todayReflection) {
+                // User already completed today - show personalized message
+                const recommendations = ReflectionsManager.getRecommendations(todayReflection);
+                if (recommendations.message) {
+                    updatePageHeader('For You', recommendations.message);
+                }
+            }
+        }
+
+        // Call on page load
+        addPersonalizedGreeting();
     </script>
 </body>
 </html>

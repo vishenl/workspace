@@ -1,0 +1,2579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindvalley Quest Designer | Transform Lives Through Learning</title>
+    <meta name="description" content="Design world-class Mindvalley Quests using behavior design, storytelling, and the 5 Pillars of Transformation. Human + AI co-creation space.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Mindvalley Quest Designer">
+    <meta property="og:description" content="Create transformational learning experiences with behavior design and the 5 Pillars of Transformation.">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'mv-purple': {
+                            50: '#faf5ff',
+                            100: '#f3e8ff',
+                            200: '#e9d5ff',
+                            300: '#d8b4fe',
+                            400: '#c084fc',
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            700: '#7c3aed',
+                            800: '#6b21a8',
+                            900: '#581c87',
+                        },
+                        'mv-gold': {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                        },
+                        'mv-deep': {
+                            blue: '#1e1b4b',
+                            purple: '#2e1065',
+                            navy: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        'display': ['Fraunces', 'serif'],
+                        'body': ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 20px rgba(168, 85, 247, 0.3)' },
+                            '100%': { boxShadow: '0 0 40px rgba(168, 85, 247, 0.6)' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles */
+        .gradient-text {
+            background: linear-gradient(135deg, #a855f7 0%, #fbbf24 50%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradient-shift 8s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(168, 85, 247, 0.25);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #a855f7, #fbbf24);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(ellipse at top, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at bottom right, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+                        linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
+        }
+
+        .section-gradient {
+            background: linear-gradient(180deg, #1e1b4b 0%, #0f172a 50%, #1e1b4b 100%);
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Code block styling */
+        .code-block {
+            background: #1e1b4b;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            font-family: 'Fira Code', 'Consolas', monospace;
+        }
+
+        /* Accordion animation */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .accordion-content.open {
+            max-height: 2000px;
+        }
+
+        /* Tab active state */
+        .tab-btn.active {
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            color: white;
+        }
+    </style>
+</head>
+<body class="font-body bg-mv-deep-navy text-white antialiased">
+
+    <!-- ============================================ -->
+    <!-- STICKY NAVIGATION -->
+    <!-- ============================================ -->
+    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="glass-card">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16 md:h-20">
+                    <!-- Logo -->
+                    <a href="#" class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-mv-purple-500 to-mv-gold-400 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <span class="font-display font-bold text-xl text-white">Quest Designer</span>
+                    </a>
+
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex items-center space-x-6">
+                        <a href="#home" class="nav-link text-gray-300 hover:text-white transition-colors">Home</a>
+                        <a href="#framework" class="nav-link text-gray-300 hover:text-white transition-colors">5 Pillars</a>
+                        <a href="#storytelling" class="nav-link text-gray-300 hover:text-white transition-colors">Storytelling</a>
+                        <a href="#quest-dna" class="nav-link text-gray-300 hover:text-white transition-colors">Quest DNA</a>
+                        <a href="#build" class="nav-link text-gray-300 hover:text-white transition-colors">Build</a>
+                        <a href="#final-days" class="nav-link text-gray-300 hover:text-white transition-colors">Final Days</a>
+                        <a href="#for-ai" class="nav-link flex items-center space-x-1 text-mv-gold-400 hover:text-mv-gold-300 transition-colors font-medium">
+                            <span>For AI</span>
+                            <span class="text-lg">🤖</span>
+                        </a>
+                        <a href="#contact" class="px-5 py-2.5 bg-gradient-to-r from-mv-purple-600 to-mv-purple-500 hover:from-mv-purple-500 hover:to-mv-purple-400 rounded-full text-white font-medium transition-all hover:shadow-lg hover:shadow-mv-purple-500/30">
+                            Get Started
+                        </a>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-card border-t border-white/10">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#home" class="block py-2 text-gray-300 hover:text-white">Home</a>
+                <a href="#framework" class="block py-2 text-gray-300 hover:text-white">5 Pillars</a>
+                <a href="#storytelling" class="block py-2 text-gray-300 hover:text-white">Storytelling</a>
+                <a href="#quest-dna" class="block py-2 text-gray-300 hover:text-white">Quest DNA</a>
+                <a href="#build" class="block py-2 text-gray-300 hover:text-white">Build</a>
+                <a href="#final-days" class="block py-2 text-gray-300 hover:text-white">Final Days</a>
+                <a href="#templates" class="block py-2 text-gray-300 hover:text-white">Templates</a>
+                <a href="#for-ai" class="block py-2 text-mv-gold-400 font-medium">🤖 For AI</a>
+                <a href="#contact" class="block py-3 mt-2 text-center bg-gradient-to-r from-mv-purple-600 to-mv-purple-500 rounded-full text-white font-medium">
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- HERO SECTION -->
+    <!-- ============================================ -->
+    <section id="home" class="hero-gradient min-h-screen flex items-center pt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Hero Content -->
+                <div class="animate-slide-up">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-mv-purple-900/50 border border-mv-purple-500/30 mb-6">
+                        <span class="w-2 h-2 bg-mv-gold-400 rounded-full animate-pulse mr-2"></span>
+                        <span class="text-sm text-mv-purple-200">Human + AI Co-Creation Platform</span>
+                    </div>
+
+                    <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        Design <span class="gradient-text">Transformational</span> Quests
+                    </h1>
+
+                    <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                        Create world-class Mindvalley Quests using behavior design, storytelling, altered states, and the 5 Pillars of Transformation. Built for humans and AI to collaborate.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#build" class="px-8 py-4 bg-gradient-to-r from-mv-purple-600 to-mv-purple-500 hover:from-mv-purple-500 hover:to-mv-purple-400 rounded-full text-white font-semibold text-lg transition-all hover:shadow-xl hover:shadow-mv-purple-500/30 text-center">
+                            Start Building
+                        </a>
+                        <a href="#framework" class="px-8 py-4 border border-mv-purple-500/50 hover:border-mv-purple-400 rounded-full text-white font-semibold text-lg transition-all hover:bg-mv-purple-500/10 text-center">
+                            Learn the Framework
+                        </a>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/10">
+                        <div>
+                            <div class="font-display text-3xl font-bold text-mv-gold-400">5</div>
+                            <div class="text-sm text-gray-400">Transformation Pillars</div>
+                        </div>
+                        <div>
+                            <div class="font-display text-3xl font-bold text-mv-gold-400">21+</div>
+                            <div class="text-sm text-gray-400">Day Quest Format</div>
+                        </div>
+                        <div>
+                            <div class="font-display text-3xl font-bold text-mv-gold-400">100%</div>
+                            <div class="text-sm text-gray-400">AI Compatible</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Visual -->
+                <div class="relative animate-fade-in">
+                    <div class="relative">
+                        <!-- Floating Cards -->
+                        <div class="absolute -top-4 -left-4 w-64 glass-card rounded-2xl p-4 animate-float z-10">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-semibold">Day 7 Complete</div>
+                                    <div class="text-xs text-gray-400">Inner Critic Reframe</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="absolute -bottom-4 -right-4 w-72 glass-card rounded-2xl p-4 animate-float z-10" style="animation-delay: 2s;">
+                            <div class="text-xs text-mv-purple-300 uppercase tracking-wider mb-2">Habit Scaffold</div>
+                            <div class="text-sm mb-1"><span class="text-mv-gold-400">Anchor:</span> After brushing teeth</div>
+                            <div class="text-sm"><span class="text-mv-gold-400">Identity:</span> "I am a meditator"</div>
+                        </div>
+
+                        <!-- Main Card -->
+                        <div class="glass-card rounded-3xl p-8 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-mv-purple-500/30 to-transparent rounded-full blur-3xl"></div>
+
+                            <h3 class="font-display text-2xl font-semibold mb-6">Quest Preview</h3>
+
+                            <!-- Progress Arc -->
+                            <div class="flex items-center justify-center mb-6">
+                                <svg class="w-48 h-48" viewBox="0 0 200 200">
+                                    <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(168, 85, 247, 0.2)" stroke-width="12"/>
+                                    <circle cx="100" cy="100" r="80" fill="none" stroke="url(#progressGradient)" stroke-width="12" stroke-linecap="round" stroke-dasharray="502" stroke-dashoffset="150" transform="rotate(-90 100 100)"/>
+                                    <defs>
+                                        <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#a855f7"/>
+                                            <stop offset="100%" stop-color="#fbbf24"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <text x="100" y="95" text-anchor="middle" class="font-display" fill="white" font-size="32" font-weight="bold">70%</text>
+                                    <text x="100" y="120" text-anchor="middle" fill="#9ca3af" font-size="12">Complete</text>
+                                </svg>
+                            </div>
+
+                            <!-- Pillars Mini Preview -->
+                            <div class="grid grid-cols-5 gap-2">
+                                <div class="text-center p-2 rounded-lg bg-emerald-500/20">
+                                    <div class="text-lg mb-1">📚</div>
+                                    <div class="text-xs text-gray-400">Learn</div>
+                                </div>
+                                <div class="text-center p-2 rounded-lg bg-blue-500/20">
+                                    <div class="text-lg mb-1">🔄</div>
+                                    <div class="text-xs text-gray-400">Practice</div>
+                                </div>
+                                <div class="text-center p-2 rounded-lg bg-purple-500/20">
+                                    <div class="text-lg mb-1">🔮</div>
+                                    <div class="text-xs text-gray-400">Reflect</div>
+                                </div>
+                                <div class="text-center p-2 rounded-lg bg-amber-500/20">
+                                    <div class="text-lg mb-1">👥</div>
+                                    <div class="text-xs text-gray-400">Connect</div>
+                                </div>
+                                <div class="text-center p-2 rounded-lg bg-rose-500/20">
+                                    <div class="text-lg mb-1">🌟</div>
+                                    <div class="text-xs text-gray-400">Transform</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <a href="#framework" class="flex flex-col items-center text-gray-400 hover:text-white transition-colors">
+                <span class="text-sm mb-2">Explore</span>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- PART 1: THE FRAMEWORK - 5 PILLARS SECTION -->
+    <!-- ============================================ -->
+    <section id="framework" class="section-gradient py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-4xl mx-auto mb-16">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-mv-purple-900/50 border border-mv-purple-500/30 mb-6">
+                    <span class="text-sm text-mv-purple-200">Part 1: The Science of Transformation</span>
+                </div>
+                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+                    The <span class="gradient-text">5 Pillars</span> of Transformation
+                </h2>
+                <p class="text-xl text-gray-300 mb-4">
+                    Every world-class Mindvalley program integrates these five core mechanisms that drive deep, lasting transformation.
+                </p>
+                <p class="text-gray-400 italic">
+                    "You are not just designing content. You are awakening identities."
+                </p>
+            </div>
+
+            <!-- Research Foundation Banner -->
+            <div class="glass-card rounded-2xl p-6 mb-12 border border-mv-purple-500/20">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-mv-purple-500 to-mv-gold-500 flex items-center justify-center">
+                            <span class="text-xl">📚</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white">Research-Backed Framework</h4>
+                            <p class="text-sm text-gray-400">Synthesized from 15+ learning and behavioral models</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-full bg-white/5 text-gray-300 text-xs">BJ Fogg</span>
+                        <span class="px-3 py-1 rounded-full bg-white/5 text-gray-300 text-xs">Atomic Habits</span>
+                        <span class="px-3 py-1 rounded-full bg-white/5 text-gray-300 text-xs">Hero's Journey</span>
+                        <span class="px-3 py-1 rounded-full bg-white/5 text-gray-300 text-xs">Generation Effect</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Pillars Grid -->
+            <div class="grid lg:grid-cols-2 gap-8 mb-16">
+
+                <!-- Pillar 1: Critical Reflection (THE LEVERAGE POINT) -->
+                <div class="pillar-card glass-card rounded-3xl p-8 transition-all duration-500 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-500/20 to-transparent rounded-full blur-2xl"></div>
+                    <div class="relative">
+                        <div class="flex items-start justify-between mb-6">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                </svg>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-semibold">LEVERAGE POINT</span>
+                        </div>
+                        <h3 class="font-display text-2xl font-semibold mb-3 text-white">1. Critical Reflection</h3>
+                        <p class="text-gray-300 mb-4">
+                            Learners examine core beliefs, assumptions, and internal narratives. This is the <span class="text-purple-400 font-semibold">leverage point</span> of transformation.
+                        </p>
+
+                        <!-- How It Works -->
+                        <div class="bg-white/5 rounded-xl p-4 mb-4">
+                            <h4 class="text-sm font-semibold text-purple-300 mb-2">How It Works:</h4>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li class="flex items-start"><span class="text-purple-400 mr-2">•</span>Journaling prompts that surface hidden beliefs</li>
+                                <li class="flex items-start"><span class="text-purple-400 mr-2">•</span>Future pacing and before-after reflections</li>
+                                <li class="flex items-start"><span class="text-purple-400 mr-2">•</span>Self-assessment exercises for deeper processing</li>
+                            </ul>
+                        </div>
+
+                        <!-- Example Prompts -->
+                        <div class="border-l-2 border-purple-500/50 pl-4 mb-4">
+                            <p class="text-sm text-gray-400 italic">"What belief did you notice shifting today?"</p>
+                            <p class="text-sm text-gray-400 italic mt-1">"What would Future You thank you for doing today?"</p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-sm">Journaling</span>
+                            <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-sm">Self-Assessment</span>
+                            <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-sm">Future Pacing</span>
+                            <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-sm">Integration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pillar 2: Reflective Writing & Active Study -->
+                <div class="pillar-card glass-card rounded-3xl p-8 transition-all duration-500 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/20 to-transparent rounded-full blur-2xl"></div>
+                    <div class="relative">
+                        <div class="flex items-start justify-between mb-6">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                </svg>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold">GENERATION EFFECT</span>
+                        </div>
+                        <h3 class="font-display text-2xl font-semibold mb-3 text-white">2. Reflective Writing & Active Study</h3>
+                        <p class="text-gray-300 mb-4">
+                            Learners generate insight by writing, explaining, and summarizing. This creates deeper processing and embeds transformation through the <span class="text-blue-400 font-semibold">generation effect</span>.
+                        </p>
+
+                        <div class="bg-white/5 rounded-xl p-4 mb-4">
+                            <h4 class="text-sm font-semibold text-blue-300 mb-2">Why It Works:</h4>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li class="flex items-start"><span class="text-blue-400 mr-2">•</span>Active recall strengthens neural pathways</li>
+                                <li class="flex items-start"><span class="text-blue-400 mr-2">•</span>Teaching others (Feynman effect) deepens mastery</li>
+                                <li class="flex items-start"><span class="text-blue-400 mr-2">•</span>Written insights become reference for identity</li>
+                            </ul>
+                        </div>
+
+                        <div class="border-l-2 border-blue-500/50 pl-4 mb-4">
+                            <p class="text-sm text-gray-400 italic">"Who else in your life would benefit from this insight?"</p>
+                            <p class="text-sm text-gray-400 italic mt-1">"Explain this concept as if teaching a friend."</p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm">Active Recall</span>
+                            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm">Summarizing</span>
+                            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm">Teaching Others</span>
+                            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm">Feynman Effect</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pillar 3: Social Discourse -->
+                <div class="pillar-card glass-card rounded-3xl p-8 transition-all duration-500 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-rose-500/20 to-transparent rounded-full blur-2xl"></div>
+                    <div class="relative">
+                        <div class="flex items-start justify-between mb-6">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-400 to-rose-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-semibold">TRIBE POWER</span>
+                        </div>
+                        <h3 class="font-display text-2xl font-semibold mb-3 text-white">3. Social Discourse</h3>
+                        <p class="text-gray-300 mb-4">
+                            Transformation accelerates in tribe. Learners discuss insights, share wins, and troubleshoot together. Builds <span class="text-rose-400 font-semibold">accountability, emotional connection, and group flow</span>.
+                        </p>
+
+                        <div class="bg-white/5 rounded-xl p-4 mb-4">
+                            <h4 class="text-sm font-semibold text-rose-300 mb-2">Community Elements:</h4>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li class="flex items-start"><span class="text-rose-400 mr-2">•</span>Buddy pairing or pods (3-5 people)</li>
+                                <li class="flex items-start"><span class="text-rose-400 mr-2">•</span>Weekly peer prompts and discussions</li>
+                                <li class="flex items-start"><span class="text-rose-400 mr-2">•</span>Troubleshooting support for stuck learners</li>
+                                <li class="flex items-start"><span class="text-rose-400 mr-2">•</span>Post-Quest continuation communities</li>
+                            </ul>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-sm">Peer Groups</span>
+                            <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-sm">Accountability</span>
+                            <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-sm">Tribe</span>
+                            <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-sm">Group Flow</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pillar 4: Rate of Application -->
+                <div class="pillar-card glass-card rounded-3xl p-8 transition-all duration-500 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-500/20 to-transparent rounded-full blur-2xl"></div>
+                    <div class="relative">
+                        <div class="flex items-start justify-between mb-6">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                </svg>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold">STICKINESS</span>
+                        </div>
+                        <h3 class="font-display text-2xl font-semibold mb-3 text-white">4. Rate of Application</h3>
+                        <p class="text-gray-300 mb-4">
+                            Daily micro-actions build momentum. Every lesson leads to a real-world action, experiment, or challenge. This increases the <span class="text-amber-400 font-semibold">"stickiness" of change</span>.
+                        </p>
+
+                        <div class="bg-white/5 rounded-xl p-4 mb-4">
+                            <h4 class="text-sm font-semibold text-amber-300 mb-2">Habit Design Principles:</h4>
+                            <ul class="text-sm text-gray-400 space-y-1">
+                                <li class="flex items-start"><span class="text-amber-400 mr-2">•</span>Start tiny - Day 1 as an easy win</li>
+                                <li class="flex items-start"><span class="text-amber-400 mr-2">•</span>Habit stacking - Link to existing behaviors</li>
+                                <li class="flex items-start"><span class="text-amber-400 mr-2">•</span>Anchor to identity - "I am a [identity]"</li>
+                                <li class="flex items-start"><span class="text-amber-400 mr-2">•</span>Celebrate consistency over intensity</li>
+                            </ul>
+                        </div>
+
+                        <div class="border-l-2 border-amber-500/50 pl-4 mb-4">
+                            <p class="text-sm text-gray-400">
+                                <span class="text-amber-300 font-semibold">Example:</span> Super Productivity uses daily task batching rituals stacked onto existing routines (e.g., morning email) to build "time confidence."
+                            </p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-sm">Tiny Habits</span>
+                            <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-sm">Habit Stacking</span>
+                            <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-sm">Identity Shift</span>
+                            <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-sm">Never Miss Twice</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pillar 5: Altered States & Insight -->
+                <div class="pillar-card glass-card rounded-3xl p-8 transition-all duration-500 group relative overflow-hidden lg:col-span-2">
+                    <div class="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-emerald-500/20 to-transparent rounded-full blur-2xl"></div>
+                    <div class="relative">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <div class="flex items-start justify-between mb-6">
+                                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold">BREAKTHROUGH AMPLIFIER</span>
+                                </div>
+                                <h3 class="font-display text-2xl font-semibold mb-3 text-white">5. Altered States & Insight</h3>
+                                <p class="text-gray-300 mb-4">
+                                    Meditations, breathwork, visualizations, and embodied practices shift learners from passive thinking to intuitive insight. These <span class="text-emerald-400 font-semibold">amplify breakthroughs</span> and embed new identity.
+                                </p>
+
+                                <div class="border-l-2 border-emerald-500/50 pl-4 mb-4">
+                                    <p class="text-sm text-gray-400">
+                                        <span class="text-emerald-300 font-semibold">Be Extraordinary</span> uses masterful altered states to embed new identity through visualization and emotional stories from Vishen's past (burnout, bankruptcy, rejection) that mirror the learner's inner critic.
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="bg-white/5 rounded-xl p-4 mb-4">
+                                    <h4 class="text-sm font-semibold text-emerald-300 mb-3">Transcendent Practices:</h4>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-emerald-400">🧘</span>
+                                            <span class="text-sm text-gray-300">Meditation</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-emerald-400">🌬️</span>
+                                            <span class="text-sm text-gray-300">Breathwork</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-emerald-400">🎯</span>
+                                            <span class="text-sm text-gray-300">Visualization</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-emerald-400">🌊</span>
+                                            <span class="text-sm text-gray-300">Flow States</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-emerald-400">🎵</span>
+                                            <span class="text-sm text-gray-300">Sound/Music</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-emerald-400">🏃</span>
+                                            <span class="text-sm text-gray-300">Movement</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-sm">Peak Experiences</span>
+                                    <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-sm">Intuitive Insight</span>
+                                    <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-sm">Embodied Learning</span>
+                                    <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-sm">Consciousness Shift</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WildFit Example Callout -->
+            <div class="glass-card rounded-3xl p-8 bg-gradient-to-br from-mv-purple-900/30 to-mv-gold-900/20 border border-mv-purple-500/30">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="w-24 h-24 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center flex-shrink-0">
+                        <span class="text-4xl">🥗</span>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-display text-xl font-semibold text-white mb-2">Example: WildFit in Action</h4>
+                        <p class="text-gray-300 mb-4">
+                            WildFit expertly uses <span class="text-purple-400">critical reflection</span> + <span class="text-amber-400">habit stacking</span> to shift identity from "someone trying to eat healthy" to <span class="text-emerald-400 font-semibold">"a WildFitter"</span> who naturally chooses nourishing foods.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="flex items-center space-x-2 text-sm">
+                                <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                                <span class="text-gray-400">Critical Reflection</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-sm">
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                                <span class="text-gray-400">Habit Scaffolding</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-sm">
+                                <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                                <span class="text-gray-400">Social Discourse</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-sm">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                <span class="text-gray-400">Identity Labels</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#examples" class="px-6 py-3 bg-gradient-to-r from-mv-purple-600 to-mv-purple-500 hover:from-mv-purple-500 hover:to-mv-purple-400 rounded-full text-white font-medium transition-all hover:shadow-lg flex-shrink-0">
+                        See More Examples
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- STORYTELLING & EMOTIONAL ENGAGEMENT -->
+    <!-- ============================================ -->
+    <section id="storytelling" class="py-24 bg-mv-deep-navy">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-4xl mx-auto mb-16">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-rose-500/20 border border-rose-500/30 mb-6">
+                    <span class="text-sm text-rose-300">Part 2: The Art of Transformation</span>
+                </div>
+                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+                    <span class="gradient-text">Storytelling</span> & Emotional Engagement
+                </h2>
+                <p class="text-xl text-gray-300 mb-4">
+                    Your Quest is a transformational story — and the learner is the hero.
+                </p>
+                <p class="text-gray-400 italic">
+                    "Stories are memory palaces for principles. They make the abstract unforgettable."
+                </p>
+            </div>
+
+            <!-- Course as Hero's Journey -->
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Hero's Journey Framework -->
+                <div class="glass-card rounded-3xl p-8">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-400 to-rose-600 flex items-center justify-center">
+                            <span class="text-2xl">🧙</span>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-semibold">NARRATIVE FRAMEWORK</span>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold mb-4 text-white">Course as a Hero's Journey</h3>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3 p-3 rounded-xl bg-white/5">
+                            <span class="text-xl">🏠</span>
+                            <div>
+                                <h4 class="font-semibold text-white text-sm">Ordinary World</h4>
+                                <p class="text-xs text-gray-400">Learner is stuck, confused, or unfulfilled</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3 p-3 rounded-xl bg-white/5">
+                            <span class="text-xl">📯</span>
+                            <div>
+                                <h4 class="font-semibold text-white text-sm">Call to Adventure</h4>
+                                <p class="text-xs text-gray-400">Clear challenge and outcome promised</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3 p-3 rounded-xl bg-white/5">
+                            <span class="text-xl">⚔️</span>
+                            <div>
+                                <h4 class="font-semibold text-white text-sm">Trials & Allies</h4>
+                                <p class="text-xs text-gray-400">Daily practices, community support, coaching</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3 p-3 rounded-xl bg-white/5">
+                            <span class="text-xl">🔥</span>
+                            <div>
+                                <h4 class="font-semibold text-white text-sm">Ordeal</h4>
+                                <p class="text-xs text-gray-400">Mid-program resistance, doubt, stuckness</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3 p-3 rounded-xl bg-white/5">
+                            <span class="text-xl">🏆</span>
+                            <div>
+                                <h4 class="font-semibold text-white text-sm">Reward</h4>
+                                <p class="text-xs text-gray-400">Identity shift, insight, habit mastery</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3 p-3 rounded-xl bg-white/5">
+                            <span class="text-xl">🌍</span>
+                            <div>
+                                <h4 class="font-semibold text-white text-sm">Return</h4>
+                                <p class="text-xs text-gray-400">Application in real life, ripple to others</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Teaching Stories -->
+                <div class="glass-card rounded-3xl p-8">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center">
+                            <span class="text-2xl">🧩</span>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold">STORY TYPES</span>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold mb-4 text-white">Use Teaching Stories Daily</h3>
+                    <p class="text-gray-300 mb-6">Stories are memory palaces for principles. Blend these three types throughout your Quest:</p>
+
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl bg-gradient-to-r from-purple-900/30 to-purple-800/20 border border-purple-500/30">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <span class="text-lg">👤</span>
+                                <h4 class="font-semibold text-purple-300">Personal Stories</h4>
+                            </div>
+                            <p class="text-sm text-gray-400">Your own journey, struggles, and breakthroughs. Builds <span class="text-purple-400">credibility</span>.</p>
+                            <p class="text-xs text-gray-500 mt-2 italic">Example: Vishen's stories of burnout, bankruptcy, and rejection in Be Extraordinary</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-gradient-to-r from-emerald-900/30 to-emerald-800/20 border border-emerald-500/30">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <span class="text-lg">👥</span>
+                                <h4 class="font-semibold text-emerald-300">Learner Case Studies</h4>
+                            </div>
+                            <p class="text-sm text-gray-400">Stories of past students who've transformed. Builds <span class="text-emerald-400">relatability</span>.</p>
+                            <p class="text-xs text-gray-500 mt-2 italic">Example: "Sarah was skeptical about meditation, but after 21 days..."</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-gradient-to-r from-blue-900/30 to-blue-800/20 border border-blue-500/30">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <span class="text-lg">🔮</span>
+                                <h4 class="font-semibold text-blue-300">Analogies & Metaphors</h4>
+                            </div>
+                            <p class="text-sm text-gray-400">Complex ideas made simple through comparison. Builds <span class="text-blue-400">comprehension</span>.</p>
+                            <p class="text-xs text-gray-500 mt-2 italic">Example: "Your mind is like a garden — thoughts are seeds..."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Be Extraordinary Example -->
+            <div class="glass-card rounded-3xl p-8 bg-gradient-to-br from-purple-900/30 to-rose-900/20 border border-purple-500/30">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="w-24 h-24 rounded-2xl bg-gradient-to-br from-purple-500 to-rose-500 flex items-center justify-center flex-shrink-0">
+                        <span class="text-4xl">🎤</span>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-display text-xl font-semibold text-white mb-2">Example: Be Extraordinary's Emotional Mastery</h4>
+                        <p class="text-gray-300 mb-4">
+                            Be Extraordinary uses <span class="text-purple-400">emotional stories from Vishen's past</span> (burnout, bankruptcy, rejection) to <span class="text-rose-400">mirror the learner's inner critic</span>, then shows their triumph. This creates a powerful before-after arc that the learner can project onto their own journey.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="flex items-center space-x-2 text-sm">
+                                <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                                <span class="text-gray-400">Vulnerability + Triumph</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-sm">
+                                <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                                <span class="text-gray-400">Mirror Effect</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-sm">
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                                <span class="text-gray-400">Identity Projection</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- QUEST DESIGN DNA SECTION -->
+    <!-- ============================================ -->
+    <section id="quest-dna" class="section-gradient py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-4xl mx-auto mb-16">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-500/20 border border-blue-500/30 mb-6">
+                    <span class="text-sm text-blue-300">Part 3: The Structure</span>
+                </div>
+                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+                    Quest Design <span class="gradient-text">DNA</span>
+                </h2>
+                <p class="text-xl text-gray-300">
+                    The proven structure for transformational programs that get real results.
+                </p>
+            </div>
+
+            <!-- Quest Structure -->
+            <div class="grid lg:grid-cols-3 gap-8 mb-12">
+                <!-- Duration & Format -->
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                            <span class="text-xl">📅</span>
+                        </div>
+                        <h3 class="font-semibold text-lg">Duration</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex items-center justify-between">
+                            <span>Typical range:</span>
+                            <span class="text-blue-400 font-medium">10-30 days</span>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span>Most common:</span>
+                            <span class="text-blue-400 font-medium">21 days</span>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span>Deep transform:</span>
+                            <span class="text-blue-400 font-medium">90 days</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Daily Flow -->
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
+                            <span class="text-xl">⏱️</span>
+                        </div>
+                        <h3 class="font-semibold text-lg">Daily Format</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex items-center justify-between">
+                            <span>Total time:</span>
+                            <span class="text-emerald-400 font-medium">~20 min/day</span>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span>Video lesson:</span>
+                            <span class="text-emerald-400 font-medium">5-15 min</span>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span>Task/practice:</span>
+                            <span class="text-emerald-400 font-medium">5-15 min</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Pacing -->
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+                            <span class="text-xl">📈</span>
+                        </div>
+                        <h3 class="font-semibold text-lg">Pacing</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex items-center justify-between">
+                            <span>Intensity:</span>
+                            <span class="text-purple-400 font-medium">Light → Intense</span>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span>Skill depth:</span>
+                            <span class="text-purple-400 font-medium">Progressive</span>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span>Integration:</span>
+                            <span class="text-purple-400 font-medium">Built-in space</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Learning Arc Timeline -->
+            <div class="glass-card rounded-3xl p-8">
+                <h3 class="font-display text-2xl font-semibold mb-8 text-center">The Learning Arc (Hero's Journey Applied)</h3>
+
+                <div class="grid lg:grid-cols-5 gap-4">
+                    <!-- Phase 1 -->
+                    <div class="p-4 rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 text-center">
+                        <div class="w-10 h-10 mx-auto rounded-full bg-gray-600 flex items-center justify-center mb-3 text-lg">🎯</div>
+                        <h4 class="font-semibold text-white text-sm mb-1">Orientation & Vision</h4>
+                        <p class="text-xs text-amber-400 mb-2">Days 0-1</p>
+                        <ul class="text-xs text-gray-400 space-y-1 text-left">
+                            <li>• Set the big promise</li>
+                            <li>• Future self identity</li>
+                            <li>• Clear intention</li>
+                        </ul>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div class="p-4 rounded-2xl bg-gradient-to-br from-emerald-900/30 to-emerald-800/20 border border-emerald-700/50 text-center">
+                        <div class="w-10 h-10 mx-auto rounded-full bg-emerald-600 flex items-center justify-center mb-3 text-lg">🌱</div>
+                        <h4 class="font-semibold text-white text-sm mb-1">Quick Wins & Habit Seeding</h4>
+                        <p class="text-xs text-emerald-400 mb-2">Days 2-7</p>
+                        <ul class="text-xs text-gray-400 space-y-1 text-left">
+                            <li>• Simple, rewarding tasks</li>
+                            <li>• Early momentum</li>
+                            <li>• Tribe introductions</li>
+                        </ul>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="p-4 rounded-2xl bg-gradient-to-br from-purple-900/30 to-purple-800/20 border border-purple-700/50 text-center">
+                        <div class="w-10 h-10 mx-auto rounded-full bg-purple-600 flex items-center justify-center mb-3 text-lg">🔄</div>
+                        <h4 class="font-semibold text-white text-sm mb-1">Identity Shifts & Challenges</h4>
+                        <p class="text-xs text-purple-400 mb-2">Days 8-14</p>
+                        <ul class="text-xs text-gray-400 space-y-1 text-left">
+                            <li>• Larger reframes</li>
+                            <li>• Life experiments</li>
+                            <li>• Obstacle coaching</li>
+                        </ul>
+                    </div>
+
+                    <!-- Phase 4 -->
+                    <div class="p-4 rounded-2xl bg-gradient-to-br from-amber-900/30 to-amber-800/20 border border-amber-700/50 text-center">
+                        <div class="w-10 h-10 mx-auto rounded-full bg-amber-600 flex items-center justify-center mb-3 text-lg">🏆</div>
+                        <h4 class="font-semibold text-white text-sm mb-1">Mastery & Integration</h4>
+                        <p class="text-xs text-amber-400 mb-2">Days 15-20</p>
+                        <ul class="text-xs text-gray-400 space-y-1 text-left">
+                            <li>• Core practice fluency</li>
+                            <li>• Personalization</li>
+                            <li>• Teach others (Feynman)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Phase 5 -->
+                    <div class="p-4 rounded-2xl bg-gradient-to-br from-mv-purple-900/40 to-mv-gold-900/30 border border-mv-purple-500/50 text-center animate-glow">
+                        <div class="w-10 h-10 mx-auto rounded-full bg-gradient-to-br from-mv-purple-500 to-mv-gold-500 flex items-center justify-center mb-3 text-lg">🎉</div>
+                        <h4 class="font-semibold text-white text-sm mb-1">Celebration & Continuation</h4>
+                        <p class="text-xs text-mv-gold-400 mb-2">Final Days</p>
+                        <ul class="text-xs text-gray-400 space-y-1 text-left">
+                            <li>• Letter to future self</li>
+                            <li>• Re-commitment</li>
+                            <li>• Next steps</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- BUILD YOUR QUEST SECTION -->
+    <!-- ============================================ -->
+    <section id="build" class="py-24 bg-mv-deep-navy">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-mv-gold-500/20 border border-mv-gold-500/30 mb-6">
+                    <span class="text-sm text-mv-gold-300">Interactive Tools</span>
+                </div>
+                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+                    Build Your <span class="gradient-text">Quest</span>
+                </h2>
+                <p class="text-xl text-gray-300">
+                    Use our interactive tools to design each element of your transformational Quest.
+                </p>
+            </div>
+
+            <!-- Tool Tabs -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="tab-btn active px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 font-medium transition-all" data-tab="daily-task">
+                    Daily Task Builder
+                </button>
+                <button class="tab-btn px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 font-medium transition-all" data-tab="habit-scaffold">
+                    Habit Scaffold Planner
+                </button>
+                <button class="tab-btn px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 font-medium transition-all" data-tab="story-arc">
+                    Hero's Journey Map
+                </button>
+                <button class="tab-btn px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 font-medium transition-all" data-tab="peer-group">
+                    Peer Group Designer
+                </button>
+            </div>
+
+            <!-- Tab Content: Daily Task Builder -->
+            <div id="daily-task-content" class="tab-content">
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Form Side -->
+                    <div class="glass-card rounded-3xl p-8">
+                        <h3 class="font-display text-2xl font-semibold mb-6">Design a Daily Lesson</h3>
+
+                        <form id="daily-task-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Quest Title</label>
+                                <input type="text" id="quest-title" placeholder="e.g., Becoming Limitless"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Day Number</label>
+                                    <input type="number" id="day-number" min="1" max="60" value="7"
+                                        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Primary Pillar</label>
+                                    <select id="primary-pillar"
+                                        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                                        <option value="transcendent-practice">Transcendent Practice</option>
+                                        <option value="new-models">New Models of Reality</option>
+                                        <option value="critical-reflection" selected>Critical Reflection</option>
+                                        <option value="habit-scaffold">Habit Scaffolding</option>
+                                        <option value="community">Community & Social</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Lesson Title</label>
+                                <input type="text" id="lesson-title" placeholder="e.g., Overcoming the Inner Critic"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Learning Objective</label>
+                                <textarea id="learning-objective" rows="2" placeholder="What will the learner be able to do after this lesson?"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all resize-none"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Daily Task</label>
+                                <textarea id="daily-task" rows="2" placeholder="The specific action learners will take today..."
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all resize-none"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Teaching Story or Metaphor</label>
+                                <textarea id="story-metaphor" rows="2" placeholder="A personal story, case study, or analogy that brings this lesson to life..."
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all resize-none"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Reflection Prompt</label>
+                                <textarea id="reflection-prompt" rows="2" placeholder="What question will help learners integrate this lesson?"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all resize-none"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Community Prompt</label>
+                                <textarea id="community-prompt" rows="2" placeholder="What discussion question will spark tribe engagement?"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all resize-none"></textarea>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Video Duration (min)</label>
+                                    <input type="number" id="video-duration" min="5" max="30" value="12"
+                                        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Total Time (min)</label>
+                                    <input type="number" id="total-time" min="10" max="60" value="20"
+                                        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                                </div>
+                            </div>
+
+                            <button type="button" onclick="generateDailyTaskJSON()"
+                                class="w-full px-6 py-4 bg-gradient-to-r from-mv-purple-600 to-mv-purple-500 hover:from-mv-purple-500 hover:to-mv-purple-400 rounded-xl text-white font-semibold transition-all hover:shadow-lg hover:shadow-mv-purple-500/30">
+                                Generate JSON
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Preview Side -->
+                    <div class="glass-card rounded-3xl p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="font-display text-2xl font-semibold">JSON Output</h3>
+                            <button onclick="copyToClipboard('daily-task-output')"
+                                class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm font-medium transition-all flex items-center space-x-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                </svg>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+
+                        <pre id="daily-task-output" class="code-block rounded-xl p-6 text-sm overflow-x-auto text-gray-300 min-h-[400px]">{
+  "title": "Becoming Limitless",
+  "duration_days": 21,
+  "daily_lesson": {
+    "day": 7,
+    "title": "Overcoming the Inner Critic",
+    "objective": "Learner recognizes and reframes negative self-talk.",
+    "teaching_story": "When I was 26, I was $200k in debt and my inner critic told me I'd never succeed...",
+    "task": "Track one negative belief today and rewrite it as an empowering affirmation.",
+    "reflection_prompt": "What belief did you rewrite? How did it feel?",
+    "community_prompt": "Share your most powerful reframe with the tribe. What voice did you silence today?",
+    "pillar": "Critical Reflection",
+    "video_duration_min": 12,
+    "time_estimate_min": 20
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Habit Scaffold Planner -->
+            <div id="habit-scaffold-content" class="tab-content hidden">
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Form Side -->
+                    <div class="glass-card rounded-3xl p-8">
+                        <h3 class="font-display text-2xl font-semibold mb-6">Design a Habit Scaffold</h3>
+
+                        <form id="habit-scaffold-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Target Habit</label>
+                                <input type="text" id="target-habit" placeholder="e.g., Morning meditation"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Start Day</label>
+                                    <input type="number" id="habit-start-day" min="1" max="60" value="3"
+                                        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Duration (minutes)</label>
+                                    <input type="number" id="habit-duration" min="1" max="120" value="5"
+                                        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Anchor (Trigger Behavior)</label>
+                                <input type="text" id="habit-anchor" placeholder="e.g., After brushing teeth"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Tiny Version (2-min starter)</label>
+                                <input type="text" id="tiny-version" placeholder="e.g., Take 3 deep breaths"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Identity Label</label>
+                                <input type="text" id="identity-label" placeholder="e.g., I am a meditator"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Celebration (Immediate Reward)</label>
+                                <input type="text" id="celebration" placeholder="e.g., Say 'I'm awesome!' and smile"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Fallback Strategy ("Never Miss Twice")</label>
+                                <input type="text" id="fallback-strategy" placeholder="e.g., If I miss today, I'll do just 1 minute tomorrow"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Post-Quest Continuation Plan</label>
+                                <textarea id="post-quest-plan" rows="2" placeholder="How will the learner maintain this habit after the Quest ends?"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all resize-none"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Accountability Structure</label>
+                                <select id="accountability-structure"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                                    <option value="buddy">Accountability Buddy</option>
+                                    <option value="tribe">Tribe Post & Streaks</option>
+                                    <option value="pod">Small Pod (3-5 people)</option>
+                                    <option value="self">Self-Tracking Only</option>
+                                </select>
+                            </div>
+
+                            <button type="button" onclick="generateHabitScaffoldJSON()"
+                                class="w-full px-6 py-4 bg-gradient-to-r from-mv-purple-600 to-mv-purple-500 hover:from-mv-purple-500 hover:to-mv-purple-400 rounded-xl text-white font-semibold transition-all hover:shadow-lg hover:shadow-mv-purple-500/30">
+                                Generate JSON
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Preview Side -->
+                    <div class="glass-card rounded-3xl p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="font-display text-2xl font-semibold">JSON Output</h3>
+                            <button onclick="copyToClipboard('habit-scaffold-output')"
+                                class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm font-medium transition-all flex items-center space-x-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                </svg>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+
+                        <pre id="habit-scaffold-output" class="code-block rounded-xl p-6 text-sm overflow-x-auto text-gray-300 min-h-[400px]">{
+  "habit_scaffold": {
+    "habit": "Morning meditation",
+    "start_day": 3,
+    "duration_minutes": 5,
+    "anchor": "After brushing teeth",
+    "tiny_version": "Take 3 deep breaths",
+    "identity_label": "I am a meditator",
+    "celebration": "Say 'I'm awesome!' and smile",
+    "fallback_strategy": "If I miss, do just 1 minute tomorrow. Never miss twice.",
+    "accountability": "buddy",
+    "progression": [
+      { "week": 1, "duration": 2, "focus": "Just sit" },
+      { "week": 2, "duration": 5, "focus": "Breath awareness" },
+      { "week": 3, "duration": 10, "focus": "Full practice" }
+    ],
+    "post_quest_plan": "Join the alumni meditation circle. Set phone reminder. Track streaks in journal."
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Hero's Journey Map -->
+            <div id="story-arc-content" class="tab-content hidden">
+                <div class="glass-card rounded-3xl p-8">
+                    <h3 class="font-display text-2xl font-semibold mb-8 text-center">The Hero's Journey Arc</h3>
+
+                    <!-- Visual Journey Map -->
+                    <div class="relative">
+                        <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+                            <!-- Stage 1: Ordinary World -->
+                            <div class="journey-stage flex-1 text-center p-6 rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50">
+                                <div class="w-12 h-12 mx-auto rounded-full bg-gray-600 flex items-center justify-center mb-4">
+                                    <span class="text-xl">🏠</span>
+                                </div>
+                                <h4 class="font-semibold mb-2">Ordinary World</h4>
+                                <p class="text-sm text-gray-400">Days 1-3</p>
+                                <p class="text-xs text-gray-500 mt-2">Where the learner starts. Current reality, pain points.</p>
+                            </div>
+
+                            <div class="hidden lg:block text-gray-600">→</div>
+
+                            <!-- Stage 2: Call to Adventure -->
+                            <div class="journey-stage flex-1 text-center p-6 rounded-2xl bg-gradient-to-br from-blue-900/30 to-blue-800/30 border border-blue-700/50">
+                                <div class="w-12 h-12 mx-auto rounded-full bg-blue-600 flex items-center justify-center mb-4">
+                                    <span class="text-xl">📯</span>
+                                </div>
+                                <h4 class="font-semibold mb-2">Call to Adventure</h4>
+                                <p class="text-sm text-gray-400">Days 4-7</p>
+                                <p class="text-xs text-gray-500 mt-2">The vision. What's possible. Why change now.</p>
+                            </div>
+
+                            <div class="hidden lg:block text-gray-600">→</div>
+
+                            <!-- Stage 3: Crossing Threshold -->
+                            <div class="journey-stage flex-1 text-center p-6 rounded-2xl bg-gradient-to-br from-purple-900/30 to-purple-800/30 border border-purple-700/50">
+                                <div class="w-12 h-12 mx-auto rounded-full bg-purple-600 flex items-center justify-center mb-4">
+                                    <span class="text-xl">🚪</span>
+                                </div>
+                                <h4 class="font-semibold mb-2">Crossing Threshold</h4>
+                                <p class="text-sm text-gray-400">Days 8-10</p>
+                                <p class="text-xs text-gray-500 mt-2">First real commitment. Breaking old patterns.</p>
+                            </div>
+
+                            <div class="hidden lg:block text-gray-600">→</div>
+
+                            <!-- Stage 4: Tests & Allies -->
+                            <div class="journey-stage flex-1 text-center p-6 rounded-2xl bg-gradient-to-br from-amber-900/30 to-amber-800/30 border border-amber-700/50">
+                                <div class="w-12 h-12 mx-auto rounded-full bg-amber-600 flex items-center justify-center mb-4">
+                                    <span class="text-xl">⚔️</span>
+                                </div>
+                                <h4 class="font-semibold mb-2">Tests & Allies</h4>
+                                <p class="text-sm text-gray-400">Days 11-17</p>
+                                <p class="text-xs text-gray-500 mt-2">Practice. Community. Building skills.</p>
+                            </div>
+
+                            <div class="hidden lg:block text-gray-600">→</div>
+
+                            <!-- Stage 5: Transformation -->
+                            <div class="journey-stage flex-1 text-center p-6 rounded-2xl bg-gradient-to-br from-mv-purple-900/50 to-mv-gold-900/30 border border-mv-purple-500/50 animate-glow">
+                                <div class="w-12 h-12 mx-auto rounded-full bg-gradient-to-br from-mv-purple-500 to-mv-gold-500 flex items-center justify-center mb-4">
+                                    <span class="text-xl">🦋</span>
+                                </div>
+                                <h4 class="font-semibold mb-2">Transformation</h4>
+                                <p class="text-sm text-gray-400">Days 18-21+</p>
+                                <p class="text-xs text-gray-500 mt-2">Integration. New identity. Lasting change.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Journey JSON Schema -->
+                    <div class="mt-12">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="font-semibold">Story Arc Schema</h4>
+                            <button onclick="copyToClipboard('story-arc-output')"
+                                class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm font-medium transition-all flex items-center space-x-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                </svg>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                        <pre id="story-arc-output" class="code-block rounded-xl p-6 text-sm overflow-x-auto text-gray-300">{
+  "story_arc": {
+    "quest_title": "Your Quest Name",
+    "stages": [
+      {
+        "name": "Ordinary World",
+        "days": [1, 3],
+        "purpose": "Establish current reality and pain points",
+        "key_elements": ["Self-assessment", "Current state reflection", "Desire mapping"]
+      },
+      {
+        "name": "Call to Adventure",
+        "days": [4, 7],
+        "purpose": "Paint the vision of transformation",
+        "key_elements": ["Future self visualization", "Why now", "Possibility expansion"]
+      },
+      {
+        "name": "Crossing the Threshold",
+        "days": [8, 10],
+        "purpose": "First major commitment and action",
+        "key_elements": ["Breaking pattern", "First habit anchor", "Public commitment"]
+      },
+      {
+        "name": "Tests and Allies",
+        "days": [11, 17],
+        "purpose": "Build skills through practice and community",
+        "key_elements": ["Daily practice", "Peer support", "Overcoming obstacles"]
+      },
+      {
+        "name": "Transformation",
+        "days": [18, 21],
+        "purpose": "Integration and identity shift",
+        "key_elements": ["Celebration", "Teaching others", "New identity anchoring"]
+      }
+    ]
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Peer Group Designer -->
+            <div id="peer-group-content" class="tab-content hidden">
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Form Side -->
+                    <div class="glass-card rounded-3xl p-8">
+                        <h3 class="font-display text-2xl font-semibold mb-6">Design Peer Group Activities</h3>
+
+                        <form id="peer-group-form" class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Group Size</label>
+                                <select id="group-size"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                                    <option value="3-5">Micro Group (3-5 people)</option>
+                                    <option value="6-10" selected>Small Group (6-10 people)</option>
+                                    <option value="11-20">Medium Group (11-20 people)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Weekly Call Format</label>
+                                <select id="call-format"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all">
+                                    <option value="structured">Structured Agenda</option>
+                                    <option value="open">Open Discussion</option>
+                                    <option value="hot-seat">Hot Seat Coaching</option>
+                                    <option value="accountability">Accountability Check-in</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Weekly Discussion Prompt</label>
+                                <textarea id="discussion-prompt" rows="3" placeholder="What question will spark meaningful group dialogue?"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all resize-none"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Accountability Partner Task</label>
+                                <textarea id="accountability-task" rows="2" placeholder="What will partners check in about?"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all resize-none"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Community Challenge</label>
+                                <textarea id="community-challenge" rows="2" placeholder="What collective challenge will bond the group?"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-mv-purple-500 focus:ring-1 focus:ring-mv-purple-500 transition-all resize-none"></textarea>
+                            </div>
+
+                            <button type="button" onclick="generatePeerGroupJSON()"
+                                class="w-full px-6 py-4 bg-gradient-to-r from-mv-purple-600 to-mv-purple-500 hover:from-mv-purple-500 hover:to-mv-purple-400 rounded-xl text-white font-semibold transition-all hover:shadow-lg hover:shadow-mv-purple-500/30">
+                                Generate JSON
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Preview Side -->
+                    <div class="glass-card rounded-3xl p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="font-display text-2xl font-semibold">JSON Output</h3>
+                            <button onclick="copyToClipboard('peer-group-output')"
+                                class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm font-medium transition-all flex items-center space-x-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                </svg>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+
+                        <pre id="peer-group-output" class="code-block rounded-xl p-6 text-sm overflow-x-auto text-gray-300 min-h-[400px]">{
+  "peer_group": {
+    "group_size": "6-10",
+    "call_format": "structured",
+    "weekly_structure": {
+      "duration_minutes": 60,
+      "segments": [
+        { "name": "Check-in Round", "duration": 10 },
+        { "name": "Discussion", "duration": 30 },
+        { "name": "Commitments", "duration": 15 },
+        { "name": "Closing", "duration": 5 }
+      ]
+    },
+    "discussion_prompt": "What breakthrough did you have this week?",
+    "accountability_task": "Share your daily practice completion",
+    "community_challenge": "30-day meditation streak as a group"
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- INTEGRATION & FINAL DAYS SECTION -->
+    <!-- ============================================ -->
+    <section id="final-days" class="section-gradient py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-4xl mx-auto mb-16">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-mv-gold-500/20 border border-mv-gold-500/30 mb-6">
+                    <span class="text-sm text-mv-gold-300">Part 4: The Conclusion</span>
+                </div>
+                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+                    Integration & <span class="gradient-text">Continuation</span>
+                </h2>
+                <p class="text-xl text-gray-300">
+                    How you end a Quest determines whether transformation sticks. These final elements are non-negotiable.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Final Days Checklist -->
+                <div class="glass-card rounded-3xl p-8">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-mv-gold-400 to-mv-gold-600 flex items-center justify-center">
+                            <span class="text-2xl">🎉</span>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-mv-gold-500/20 text-mv-gold-300 text-xs font-semibold">REQUIRED ELEMENTS</span>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold mb-4 text-white">Final Days Must Include</h3>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3 p-4 rounded-xl bg-emerald-900/20 border border-emerald-500/30">
+                            <div class="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-white text-sm">Recap of Learnings</h4>
+                                <p class="text-xs text-gray-400">Summarize key insights and celebrate how far they've come</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3 p-4 rounded-xl bg-blue-900/20 border border-blue-500/30">
+                            <div class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-white text-sm">Clear "What Now?" Plan</h4>
+                                <p class="text-xs text-gray-400">Specific next steps to maintain momentum post-Quest</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3 p-4 rounded-xl bg-purple-900/20 border border-purple-500/30">
+                            <div class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-white text-sm">Celebration Moment</h4>
+                                <p class="text-xs text-gray-400">Ritual or ceremony marking their transformation</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3 p-4 rounded-xl bg-rose-900/20 border border-rose-500/30">
+                            <div class="w-6 h-6 rounded-full bg-rose-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-white text-sm">Community Graduation</h4>
+                                <p class="text-xs text-gray-400">Post, video, or ceremony to share with the tribe</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3 p-4 rounded-xl bg-amber-900/20 border border-amber-500/30">
+                            <div class="w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-white text-sm">Next Steps Invitation</h4>
+                                <p class="text-xs text-gray-400">Rewatch, repeat, join alumni tribe, or next Quest</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Letter to Future Self -->
+                <div class="glass-card rounded-3xl p-8">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+                            <span class="text-2xl">✉️</span>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-semibold">POWERFUL EXERCISE</span>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold mb-4 text-white">Letter to Future Self</h3>
+                    <p class="text-gray-300 mb-6">Invite learners to write a letter to their future self (6 months or 1 year ahead). This anchors their transformation and creates accountability.</p>
+
+                    <div class="bg-white/5 rounded-xl p-6 mb-6 border border-purple-500/20">
+                        <h4 class="text-sm font-semibold text-purple-300 mb-3">Prompt Template:</h4>
+                        <p class="text-sm text-gray-400 italic mb-4">
+                            "Dear Future Me, I just completed [Quest Name] and I want you to remember..."
+                        </p>
+                        <ul class="text-sm text-gray-400 space-y-2">
+                            <li class="flex items-start"><span class="text-purple-400 mr-2">•</span>The beliefs I've shifted</li>
+                            <li class="flex items-start"><span class="text-purple-400 mr-2">•</span>The habits I've built</li>
+                            <li class="flex items-start"><span class="text-purple-400 mr-2">•</span>The person I'm becoming</li>
+                            <li class="flex items-start"><span class="text-purple-400 mr-2">•</span>My commitment to myself</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-gradient-to-r from-mv-purple-900/30 to-mv-gold-900/20 border border-mv-purple-500/30">
+                        <p class="text-sm text-gray-300">
+                            <span class="text-mv-gold-400 font-semibold">Pro tip:</span> Use a service like FutureMe.org to email the letter back to them in 6 months. The surprise email becomes a powerful re-engagement moment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Re-engagement Strategy -->
+            <div class="glass-card rounded-3xl p-8 mt-8 bg-gradient-to-br from-mv-purple-900/20 to-mv-gold-900/10 border border-mv-purple-500/20">
+                <h3 class="font-display text-xl font-semibold mb-6 text-center text-white">Post-Quest Re-engagement Strategies</h3>
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-emerald-500/20 flex items-center justify-center mb-3">
+                            <span class="text-xl">🔄</span>
+                        </div>
+                        <h4 class="font-semibold text-sm text-white mb-1">Repeat Option</h4>
+                        <p class="text-xs text-gray-400">Encourage rewatching for deeper integration</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-blue-500/20 flex items-center justify-center mb-3">
+                            <span class="text-xl">👥</span>
+                        </div>
+                        <h4 class="font-semibold text-sm text-white mb-1">Alumni Tribe</h4>
+                        <p class="text-xs text-gray-400">Dedicated community for graduates</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-purple-500/20 flex items-center justify-center mb-3">
+                            <span class="text-xl">🎓</span>
+                        </div>
+                        <h4 class="font-semibold text-sm text-white mb-1">Buddy Circles</h4>
+                        <p class="text-xs text-gray-400">Ongoing accountability groups</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-amber-500/20 flex items-center justify-center mb-3">
+                            <span class="text-xl">🚀</span>
+                        </div>
+                        <h4 class="font-semibold text-sm text-white mb-1">Advanced Quest</h4>
+                        <p class="text-xs text-gray-400">Next level programs to continue growth</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- TEMPLATES & TOOLS SECTION -->
+    <!-- ============================================ -->
+    <section id="templates" class="py-24 bg-mv-deep-navy">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-emerald-500/20 border border-emerald-500/30 mb-6">
+                    <span class="text-sm text-emerald-300">Ready-to-Use Resources</span>
+                </div>
+                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+                    Templates & <span class="gradient-text">Tools</span>
+                </h2>
+                <p class="text-xl text-gray-300">
+                    Download pre-built templates and use our interactive tools to accelerate your Quest design.
+                </p>
+            </div>
+
+            <!-- Templates Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Template 1 -->
+                <div class="glass-card rounded-2xl p-6 hover:border-mv-purple-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">21-Day Quest Blueprint</h3>
+                    <p class="text-gray-400 text-sm mb-4">Complete day-by-day structure with all 5 pillars integrated.</p>
+                    <button class="text-mv-purple-400 hover:text-mv-purple-300 text-sm font-medium flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>Download JSON</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Template 2 -->
+                <div class="glass-card rounded-2xl p-6 hover:border-mv-purple-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Habit Stack Library</h3>
+                    <p class="text-gray-400 text-sm mb-4">50+ pre-designed habit scaffolds for common transformations.</p>
+                    <button class="text-mv-purple-400 hover:text-mv-purple-300 text-sm font-medium flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>Browse Library</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Template 3 -->
+                <div class="glass-card rounded-2xl p-6 hover:border-mv-purple-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Reflection Prompt Bank</h3>
+                    <p class="text-gray-400 text-sm mb-4">200+ journaling prompts organized by pillar and journey stage.</p>
+                    <button class="text-mv-purple-400 hover:text-mv-purple-300 text-sm font-medium flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>Explore Prompts</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Template 4 -->
+                <div class="glass-card rounded-2xl p-6 hover:border-mv-purple-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Community Playbook</h3>
+                    <p class="text-gray-400 text-sm mb-4">Peer group facilitation guides and social learning frameworks.</p>
+                    <button class="text-mv-purple-400 hover:text-mv-purple-300 text-sm font-medium flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>Get Playbook</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Template 5 -->
+                <div class="glass-card rounded-2xl p-6 hover:border-mv-purple-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-500 to-rose-600 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m0 0V3a1 1 0 011 1h2a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1h2a1 1 0 011-1v1m8 0H8m0 0v1"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Storytelling Frameworks</h3>
+                    <p class="text-gray-400 text-sm mb-4">Hero's Journey templates with video script structures.</p>
+                    <button class="text-mv-purple-400 hover:text-mv-purple-300 text-sm font-medium flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>View Frameworks</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Template 6: API Access -->
+                <div class="glass-card rounded-2xl p-6 bg-gradient-to-br from-mv-purple-900/30 to-mv-gold-900/20 border border-mv-purple-500/30 hover:border-mv-purple-400/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-mv-purple-500 to-mv-gold-500 flex items-center justify-center mb-4">
+                        <span class="text-2xl">🤖</span>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Full API Access</h3>
+                    <p class="text-gray-400 text-sm mb-4">Machine-readable schemas for AI integration and automation.</p>
+                    <a href="#for-ai" class="text-mv-gold-400 hover:text-mv-gold-300 text-sm font-medium flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+                        <span>View API Docs</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- EXAMPLES SECTION -->
+    <!-- ============================================ -->
+    <section id="examples" class="py-24 bg-mv-deep-navy">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-rose-500/20 border border-rose-500/30 mb-6">
+                    <span class="text-sm text-rose-300">Real-World Success</span>
+                </div>
+                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+                    Quest <span class="gradient-text">Examples</span>
+                </h2>
+                <p class="text-xl text-gray-300">
+                    Learn from Mindvalley's most successful Quests and see the 5 Pillars in action.
+                </p>
+            </div>
+
+            <!-- Examples Carousel -->
+            <div class="grid md:grid-cols-3 gap-8">
+
+                <!-- WildFit -->
+                <div class="glass-card rounded-3xl overflow-hidden group hover:border-emerald-500/50 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-emerald-600 to-emerald-800 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <span class="px-3 py-1 rounded-full bg-white/20 text-white text-xs backdrop-blur-sm">90-Day Transformation</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-2xl font-semibold mb-2">WildFit</h3>
+                        <p class="text-gray-400 text-sm mb-4">Transform your relationship with food through behavior psychology and habit design.</p>
+
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <span class="w-24 text-gray-500">Pillar Focus:</span>
+                                <span class="text-emerald-400">Habit Scaffolding + New Models</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <span class="w-24 text-gray-500">Duration:</span>
+                                <span class="text-gray-300">90 days</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <span class="w-24 text-gray-500">Community:</span>
+                                <span class="text-gray-300">Peer accountability groups</span>
+                            </div>
+                        </div>
+
+                        <button class="w-full py-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 font-medium transition-all">
+                            View Quest Structure
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Be Extraordinary -->
+                <div class="glass-card rounded-3xl overflow-hidden group hover:border-purple-500/50 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-purple-600 to-purple-800 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <span class="px-3 py-1 rounded-full bg-white/20 text-white text-xs backdrop-blur-sm">30-Day Program</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-2xl font-semibold mb-2">Be Extraordinary</h3>
+                        <p class="text-gray-400 text-sm mb-4">Master the foundational systems for extraordinary living with Vishen Lakhiani.</p>
+
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <span class="w-24 text-gray-500">Pillar Focus:</span>
+                                <span class="text-purple-400">All 5 Pillars Integrated</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <span class="w-24 text-gray-500">Duration:</span>
+                                <span class="text-gray-300">30 days</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <span class="w-24 text-gray-500">Community:</span>
+                                <span class="text-gray-300">Global tribe + Live calls</span>
+                            </div>
+                        </div>
+
+                        <button class="w-full py-3 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 font-medium transition-all">
+                            View Quest Structure
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Super Productivity -->
+                <div class="glass-card rounded-3xl overflow-hidden group hover:border-amber-500/50 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-amber-600 to-amber-800 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <span class="px-3 py-1 rounded-full bg-white/20 text-white text-xs backdrop-blur-sm">21-Day Sprint</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-2xl font-semibold mb-2">Super Productivity</h3>
+                        <p class="text-gray-400 text-sm mb-4">Install the systems and habits of the world's most productive people.</p>
+
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm">
+                                <span class="w-24 text-gray-500">Pillar Focus:</span>
+                                <span class="text-amber-400">Habit Scaffolding + Practice</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <span class="w-24 text-gray-500">Duration:</span>
+                                <span class="text-gray-300">21 days</span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <span class="w-24 text-gray-500">Community:</span>
+                                <span class="text-gray-300">Accountability partners</span>
+                            </div>
+                        </div>
+
+                        <button class="w-full py-3 rounded-xl bg-amber-600/20 hover:bg-amber-600/30 text-amber-400 font-medium transition-all">
+                            View Quest Structure
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FOR AI SECTION - MACHINE READABLE -->
+    <!-- ============================================ -->
+    <section id="for-ai" class="section-gradient py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-mv-gold-500/20 border border-mv-gold-500/30 mb-6">
+                    <span class="text-2xl mr-2">🤖</span>
+                    <span class="text-sm text-mv-gold-300">Machine-Readable Interface</span>
+                </div>
+                <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+                    For <span class="gradient-text">AI Systems</span>
+                </h2>
+                <p class="text-xl text-gray-300">
+                    Structured schemas and API endpoints for AI agents to read, create, and co-design Mindvalley Quests programmatically.
+                </p>
+            </div>
+
+            <!-- API Endpoint Cards -->
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+
+                <!-- Schema Overview -->
+                <div class="glass-card rounded-3xl p-8">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-mv-purple-500 to-mv-purple-600 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-xl font-semibold">Complete Quest Schema</h3>
+                            <p class="text-sm text-gray-400">Full data structure for Quest creation</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block rounded-xl p-4 text-xs overflow-x-auto mb-4">
+                        <code class="text-mv-purple-300">GET</code> <code class="text-gray-300">/api/schema/quest</code>
+                    </div>
+
+                    <pre class="code-block rounded-xl p-4 text-xs overflow-x-auto text-gray-300 max-h-80">{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MindvalleyQuest",
+  "type": "object",
+  "required": ["title", "duration_days", "author", "pillars", "daily_lessons"],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Quest name"
+    },
+    "duration_days": {
+      "type": "integer",
+      "minimum": 7,
+      "maximum": 90,
+      "description": "Total days in the Quest"
+    },
+    "author": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "credentials": { "type": "string" },
+        "bio": { "type": "string" }
+      }
+    },
+    "pillars": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "transcendent_practice",
+          "new_models_of_reality",
+          "critical_reflection",
+          "habit_scaffolding",
+          "community_social"
+        ]
+      }
+    },
+    "daily_lessons": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/DailyLesson" }
+    },
+    "habit_scaffolds": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/HabitScaffold" }
+    },
+    "story_arc": { "$ref": "#/$defs/StoryArc" },
+    "peer_groups": { "$ref": "#/$defs/PeerGroups" }
+  }
+}</pre>
+                </div>
+
+                <!-- Daily Lesson Schema -->
+                <div class="glass-card rounded-3xl p-8">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-xl font-semibold">Daily Lesson Schema</h3>
+                            <p class="text-sm text-gray-400">Structure for individual day content</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block rounded-xl p-4 text-xs overflow-x-auto mb-4">
+                        <code class="text-mv-purple-300">GET</code> <code class="text-gray-300">/api/schema/daily-lesson</code>
+                    </div>
+
+                    <pre class="code-block rounded-xl p-4 text-xs overflow-x-auto text-gray-300 max-h-80">{
+  "$defs": {
+    "DailyLesson": {
+      "type": "object",
+      "required": ["day", "title", "objective", "task", "pillar"],
+      "properties": {
+        "day": { "type": "integer", "minimum": 1 },
+        "title": { "type": "string", "maxLength": 100 },
+        "objective": {
+          "type": "string",
+          "description": "Learning outcome in behavioral terms"
+        },
+        "teaching_story": {
+          "type": "string",
+          "description": "Personal story, case study, or metaphor"
+        },
+        "video_duration_min": {
+          "type": "integer", "minimum": 5, "maximum": 30
+        },
+        "time_estimate_min": {
+          "type": "integer", "minimum": 10, "maximum": 60,
+          "description": "Total learner time including practice"
+        },
+        "task": {
+          "type": "string",
+          "description": "Specific action for the day"
+        },
+        "reflection_prompt": {
+          "type": "string",
+          "description": "Journaling question for integration"
+        },
+        "community_prompt": {
+          "type": "string",
+          "description": "Discussion question for tribe engagement"
+        },
+        "pillar": {
+          "enum": ["transcendent_practice", "new_models_of_reality",
+            "critical_reflection", "habit_scaffolding", "community_social"]
+        },
+        "learning_arc_phase": {
+          "enum": ["orientation", "quick_wins", "identity_shifts",
+            "mastery", "celebration"],
+          "description": "Position in the 5-phase learning arc"
+        }
+      }
+    }
+  }
+}</pre>
+                </div>
+
+                <!-- Habit Scaffold Schema -->
+                <div class="glass-card rounded-3xl p-8">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-xl font-semibold">Habit Scaffold Schema</h3>
+                            <p class="text-sm text-gray-400">Behavior design structure</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block rounded-xl p-4 text-xs overflow-x-auto mb-4">
+                        <code class="text-mv-purple-300">GET</code> <code class="text-gray-300">/api/schema/habit-scaffold</code>
+                    </div>
+
+                    <pre class="code-block rounded-xl p-4 text-xs overflow-x-auto text-gray-300 max-h-80">{
+  "$defs": {
+    "HabitScaffold": {
+      "type": "object",
+      "required": ["habit", "anchor", "identity_label"],
+      "properties": {
+        "habit": { "type": "string", "description": "Target behavior" },
+        "start_day": { "type": "integer", "description": "Day introduced" },
+        "anchor": { "type": "string", "description": "Trigger (After I...)" },
+        "tiny_version": { "type": "string", "description": "2-min starter" },
+        "identity_label": { "type": "string", "description": "I am a..." },
+        "celebration": { "type": "string", "description": "Immediate reward" },
+        "fallback_strategy": {
+          "type": "string",
+          "description": "Never miss twice - recovery plan"
+        },
+        "accountability": {
+          "enum": ["buddy", "tribe", "pod", "self"],
+          "description": "Social support structure"
+        },
+        "progression": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "week": { "type": "integer" },
+              "duration": { "type": "integer" },
+              "focus": { "type": "string" }
+            }
+          }
+        },
+        "post_quest_plan": {
+          "type": "string",
+          "description": "Continuation strategy after Quest ends"
+        }
+      }
+    }
+  }
+}</pre>
+                </div>
+
+                <!-- Full API Spec -->
+                <div class="glass-card rounded-3xl p-8 bg-gradient-to-br from-mv-purple-900/30 to-mv-gold-900/20 border border-mv-purple-500/30">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-mv-purple-500 to-mv-gold-500 flex items-center justify-center">
+                            <span class="text-2xl">🔗</span>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-xl font-semibold">OpenAPI Specification</h3>
+                            <p class="text-sm text-gray-400">Full API docs for integration</p>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-300 mb-6">
+                        Access the complete OpenAPI 3.0 specification for programmatic Quest creation, validation, and retrieval.
+                    </p>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-white/5">
+                            <div class="flex items-center space-x-3">
+                                <code class="text-emerald-400 text-sm">GET</code>
+                                <code class="text-gray-300 text-sm">/api/schema</code>
+                            </div>
+                            <span class="text-xs text-gray-500">All schemas</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-white/5">
+                            <div class="flex items-center space-x-3">
+                                <code class="text-blue-400 text-sm">POST</code>
+                                <code class="text-gray-300 text-sm">/api/quest/validate</code>
+                            </div>
+                            <span class="text-xs text-gray-500">Validate Quest JSON</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-white/5">
+                            <div class="flex items-center space-x-3">
+                                <code class="text-blue-400 text-sm">POST</code>
+                                <code class="text-gray-300 text-sm">/api/quest/preview</code>
+                            </div>
+                            <span class="text-xs text-gray-500">Generate preview (v2)</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-white/5">
+                            <div class="flex items-center space-x-3">
+                                <code class="text-emerald-400 text-sm">GET</code>
+                                <code class="text-gray-300 text-sm">/api/templates</code>
+                            </div>
+                            <span class="text-xs text-gray-500">Template library</span>
+                        </div>
+                    </div>
+
+                    <button onclick="downloadOpenAPISpec()" class="w-full mt-6 px-6 py-4 bg-gradient-to-r from-mv-purple-600 to-mv-gold-500 hover:from-mv-purple-500 hover:to-mv-gold-400 rounded-xl text-white font-semibold transition-all hover:shadow-lg">
+                        Download OpenAPI Spec
+                    </button>
+                </div>
+            </div>
+
+            <!-- Example AI Request/Response -->
+            <div class="glass-card rounded-3xl p-8">
+                <h3 class="font-display text-2xl font-semibold mb-6 text-center">Example: AI Creates a Daily Lesson</h3>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Request -->
+                    <div>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <code class="text-blue-400 text-sm font-semibold">POST</code>
+                            <code class="text-gray-400 text-sm">/api/quest/lesson</code>
+                        </div>
+                        <pre class="code-block rounded-xl p-4 text-xs overflow-x-auto text-gray-300">{
+  "quest_title": "Becoming Limitless",
+  "day": 7,
+  "pillar": "critical_reflection",
+  "story_stage": "tests_and_allies",
+  "topic": "inner critic",
+  "generate": {
+    "title": true,
+    "objective": true,
+    "task": true,
+    "reflection_prompt": true
+  }
+}</pre>
+                    </div>
+
+                    <!-- Response -->
+                    <div>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <code class="text-emerald-400 text-sm font-semibold">200</code>
+                            <code class="text-gray-400 text-sm">Response</code>
+                        </div>
+                        <pre class="code-block rounded-xl p-4 text-xs overflow-x-auto text-gray-300">{
+  "success": true,
+  "daily_lesson": {
+    "day": 7,
+    "title": "Overcoming the Inner Critic",
+    "objective": "Learner recognizes negative self-talk patterns and transforms them into empowering affirmations.",
+    "task": "Track one negative belief today. Write it down, then rewrite it as an empowering affirmation. Say the new belief out loud 3 times.",
+    "reflection_prompt": "What belief did you rewrite today? How did it feel to speak the new affirmation? What shifts did you notice in your body or mood?",
+    "pillar": "critical_reflection",
+    "story_stage": "tests_and_allies",
+    "suggested_video_duration": 12
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CONTACT / CTA SECTION -->
+    <!-- ============================================ -->
+    <section id="contact" class="py-24 bg-mv-deep-navy relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-mv-purple-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-mv-gold-500/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="glass-card rounded-3xl p-12 text-center">
+                <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-mv-purple-500 to-mv-gold-400 flex items-center justify-center mb-8 animate-glow">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+
+                <h2 class="font-display text-3xl sm:text-4xl font-bold mb-6">
+                    Ready to Create Your <span class="gradient-text">Quest</span>?
+                </h2>
+
+                <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                    Join the growing community of authors designing transformational experiences. Whether you're human or AI, we're here to help you build something extraordinary.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#build" class="px-8 py-4 bg-gradient-to-r from-mv-purple-600 to-mv-purple-500 hover:from-mv-purple-500 hover:to-mv-purple-400 rounded-full text-white font-semibold text-lg transition-all hover:shadow-xl hover:shadow-mv-purple-500/30">
+                        Start Building Now
+                    </a>
+                    <a href="mailto:authors@mindvalley.com" class="px-8 py-4 border border-mv-purple-500/50 hover:border-mv-purple-400 rounded-full text-white font-semibold text-lg transition-all hover:bg-mv-purple-500/10">
+                        Contact Support
+                    </a>
+                </div>
+
+                <div class="mt-12 pt-8 border-t border-white/10">
+                    <p class="text-gray-400 text-sm">
+                        Built with ❤️ for the Mindvalley Author Community
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FOOTER -->
+    <!-- ============================================ -->
+    <footer class="py-12 bg-mv-deep-navy border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Brand -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-mv-purple-500 to-mv-gold-400 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <span class="font-display font-bold text-xl text-white">Quest Designer</span>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-md">
+                        The co-creation platform where humans and AI design transformational Quests together using behavior science and the 5 Pillars of Transformation.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#framework" class="text-gray-400 hover:text-white transition-colors">The Framework</a></li>
+                        <li><a href="#build" class="text-gray-400 hover:text-white transition-colors">Build Your Quest</a></li>
+                        <li><a href="#templates" class="text-gray-400 hover:text-white transition-colors">Templates</a></li>
+                        <li><a href="#for-ai" class="text-gray-400 hover:text-white transition-colors">API for AI</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">OpenAPI Spec</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Author Guidelines</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between">
+                <p class="text-gray-500 text-sm">
+                    © 2024 Mindvalley. All rights reserved.
+                </p>
+                <div class="flex items-center space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================================ -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Tab Switching
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.dataset.tab;
+
+                // Update button states
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Show corresponding content
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+                document.getElementById(`${tabId}-content`).classList.remove('hidden');
+            });
+        });
+
+        // Navbar scroll effect
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-mv-deep-navy/80', 'backdrop-blur-xl');
+            } else {
+                nav.classList.remove('bg-mv-deep-navy/80', 'backdrop-blur-xl');
+            }
+        });
+
+        // Generate Daily Task JSON
+        function generateDailyTaskJSON() {
+            const data = {
+                title: document.getElementById('quest-title').value || 'Becoming Limitless',
+                duration_days: 21,
+                daily_lesson: {
+                    day: parseInt(document.getElementById('day-number').value) || 7,
+                    title: document.getElementById('lesson-title').value || 'Overcoming the Inner Critic',
+                    objective: document.getElementById('learning-objective').value || 'Learner recognizes and reframes negative self-talk.',
+                    teaching_story: document.getElementById('story-metaphor').value || "When I was 26, I was $200k in debt and my inner critic told me I'd never succeed...",
+                    task: document.getElementById('daily-task').value || 'Track one negative belief today and rewrite it as an empowering affirmation.',
+                    reflection_prompt: document.getElementById('reflection-prompt').value || 'What belief did you rewrite? How did it feel?',
+                    community_prompt: document.getElementById('community-prompt').value || 'Share your most powerful reframe with the tribe. What voice did you silence today?',
+                    pillar: formatPillar(document.getElementById('primary-pillar').value),
+                    video_duration_min: parseInt(document.getElementById('video-duration').value) || 12,
+                    time_estimate_min: parseInt(document.getElementById('total-time').value) || 20
+                }
+            };
+
+            document.getElementById('daily-task-output').textContent = JSON.stringify(data, null, 2);
+        }
+
+        // Generate Habit Scaffold JSON
+        function generateHabitScaffoldJSON() {
+            const data = {
+                habit_scaffold: {
+                    habit: document.getElementById('target-habit').value || 'Morning meditation',
+                    start_day: parseInt(document.getElementById('habit-start-day').value) || 3,
+                    duration_minutes: parseInt(document.getElementById('habit-duration').value) || 5,
+                    anchor: document.getElementById('habit-anchor').value || 'After brushing teeth',
+                    tiny_version: document.getElementById('tiny-version').value || 'Take 3 deep breaths',
+                    identity_label: document.getElementById('identity-label').value || 'I am a meditator',
+                    celebration: document.getElementById('celebration').value || "Say 'I'm awesome!' and smile",
+                    fallback_strategy: document.getElementById('fallback-strategy').value || "If I miss, do just 1 minute tomorrow. Never miss twice.",
+                    accountability: document.getElementById('accountability-structure').value || 'buddy',
+                    progression: [
+                        { week: 1, duration: 2, focus: 'Just sit' },
+                        { week: 2, duration: 5, focus: 'Breath awareness' },
+                        { week: 3, duration: 10, focus: 'Full practice' }
+                    ],
+                    post_quest_plan: document.getElementById('post-quest-plan').value || 'Join the alumni meditation circle. Set phone reminder. Track streaks in journal.'
+                }
+            };
+
+            document.getElementById('habit-scaffold-output').textContent = JSON.stringify(data, null, 2);
+        }
+
+        // Generate Peer Group JSON
+        function generatePeerGroupJSON() {
+            const data = {
+                peer_group: {
+                    group_size: document.getElementById('group-size').value || '6-10',
+                    call_format: document.getElementById('call-format').value || 'structured',
+                    weekly_structure: {
+                        duration_minutes: 60,
+                        segments: [
+                            { name: 'Check-in Round', duration: 10 },
+                            { name: 'Discussion', duration: 30 },
+                            { name: 'Commitments', duration: 15 },
+                            { name: 'Closing', duration: 5 }
+                        ]
+                    },
+                    discussion_prompt: document.getElementById('discussion-prompt').value || 'What breakthrough did you have this week?',
+                    accountability_task: document.getElementById('accountability-task').value || 'Share your daily practice completion',
+                    community_challenge: document.getElementById('community-challenge').value || '30-day meditation streak as a group'
+                }
+            };
+
+            document.getElementById('peer-group-output').textContent = JSON.stringify(data, null, 2);
+        }
+
+        // Format pillar name
+        function formatPillar(value) {
+            const mapping = {
+                'transcendent-practice': 'Transcendent Practice',
+                'new-models': 'New Models of Reality',
+                'critical-reflection': 'Critical Reflection',
+                'habit-scaffold': 'Habit Scaffolding',
+                'community': 'Community & Social'
+            };
+            return mapping[value] || value;
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                // Show feedback
+                const btn = event.target.closest('button');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Copied!</span>';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+
+        // Download OpenAPI Spec
+        function downloadOpenAPISpec() {
+            const spec = {
+                openapi: '3.0.0',
+                info: {
+                    title: 'Mindvalley Quest Designer API',
+                    version: '1.0.0',
+                    description: 'API for creating and managing Mindvalley Quests programmatically'
+                },
+                paths: {
+                    '/api/schema': {
+                        get: {
+                            summary: 'Get all schemas',
+                            responses: {
+                                '200': { description: 'All available schemas' }
+                            }
+                        }
+                    },
+                    '/api/schema/quest': {
+                        get: {
+                            summary: 'Get Quest schema',
+                            responses: {
+                                '200': { description: 'Complete Quest JSON schema' }
+                            }
+                        }
+                    },
+                    '/api/schema/daily-lesson': {
+                        get: {
+                            summary: 'Get Daily Lesson schema',
+                            responses: {
+                                '200': { description: 'Daily Lesson JSON schema' }
+                            }
+                        }
+                    },
+                    '/api/schema/habit-scaffold': {
+                        get: {
+                            summary: 'Get Habit Scaffold schema',
+                            responses: {
+                                '200': { description: 'Habit Scaffold JSON schema' }
+                            }
+                        }
+                    },
+                    '/api/quest/validate': {
+                        post: {
+                            summary: 'Validate Quest JSON',
+                            requestBody: {
+                                content: {
+                                    'application/json': {
+                                        schema: { '$ref': '#/components/schemas/Quest' }
+                                    }
+                                }
+                            },
+                            responses: {
+                                '200': { description: 'Validation result' }
+                            }
+                        }
+                    },
+                    '/api/templates': {
+                        get: {
+                            summary: 'Get template library',
+                            responses: {
+                                '200': { description: 'List of available templates' }
+                            }
+                        }
+                    }
+                }
+            };
+
+            const blob = new Blob([JSON.stringify(spec, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'quest-designer-openapi.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- ============================================ -->
+    <!-- STRUCTURED DATA FOR AI CRAWLERS -->
+    <!-- ============================================ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Mindvalley Quest Designer",
+        "description": "A co-creation platform for designing transformational Mindvalley Quests using the 5 Pillars of Transformation, behavior design, and AI assistance.",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "Daily Task Builder",
+            "Habit Scaffold Planner",
+            "Hero's Journey Mapping",
+            "Peer Group Designer",
+            "AI-Compatible JSON Schemas",
+            "OpenAPI Integration"
+        ],
+        "creator": {
+            "@type": "Organization",
+            "name": "Mindvalley"
+        }
+    }
+    </script>
+</body>
+</html>

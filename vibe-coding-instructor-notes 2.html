@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding Masterclass - Instructor Notes</title>
+    <link rel="stylesheet" href="mv-selfreset-base.css">
+    <style>
+        body {
+            background: #fafafa;
+            padding: 0;
+        }
+
+        /* Stunning Header */
+        .page-header {
+            background: linear-gradient(135deg, #1a0a2e 0%, #16082a 50%, #0f0518 100%);
+            color: white;
+            padding: 5rem 1rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(122, 18, 212, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header h1 {
+            color: white;
+            margin-bottom: 0.75rem;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            background: linear-gradient(135deg, #fff 0%, #c4b5fd 50%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header .subtitle {
+            opacity: 0.8;
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Floating Elements */
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.5;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: #7a12d4;
+            top: -100px;
+            right: -50px;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: #06b6d4;
+            bottom: -50px;
+            left: 10%;
+            animation-delay: -5s;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: #a855f7;
+            top: 30%;
+            left: 5%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        /* Quiz CTA Banner */
+        .quiz-banner {
+            background: linear-gradient(135deg, #7a12d4 0%, #a855f7 50%, #06b6d4 100%);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .quiz-banner-text {
+            color: white;
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1.125rem;
+        }
+
+        .quiz-banner-text span {
+            opacity: 0.9;
+        }
+
+        .quiz-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: #7a12d4;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            padding: 0.875rem 1.75rem;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .quiz-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .quiz-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .section-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #7a12d4 0%, #a855f7 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 24px rgba(122, 18, 212, 0.25);
+        }
+
+        /* Visual Dividers */
+        .visual-divider {
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #7a12d4, #a855f7, #06b6d4, transparent);
+            border-radius: 2px;
+            margin: 3rem 0;
+        }
+
+        /* Illustration Cards */
+        .illustration-card {
+            background: linear-gradient(135deg, #f8f4ff 0%, #f0e6fa 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .illustration-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, rgba(122, 18, 212, 0.1) 0%, transparent 70%);
+            border-radius: 0 20px 0 100%;
+        }
+
+        .illustration-card .big-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Stats Cards */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #7a12d4 0%, #a855f7 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-card .stat-number {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-card .stat-label {
+            opacity: 0.9;
+            font-size: 0.9375rem;
+        }
+
+        /* Quote Highlight */
+        .quote-highlight {
+            background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-highlight::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 8rem;
+            font-family: Georgia, serif;
+            color: rgba(122, 18, 212, 0.3);
+            line-height: 1;
+        }
+
+        .quote-highlight p {
+            font-size: 1.375rem;
+            font-style: italic;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-highlight .quote-author {
+            margin-top: 1rem;
+            font-style: normal;
+            opacity: 0.7;
+            font-size: 1rem;
+        }
+
+        /* Image Placeholders */
+        .visual-placeholder {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .visual-placeholder .placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .visual-placeholder p {
+            color: #6366f1;
+            font-family: Grotesk-Medium, sans-serif;
+        }
+
+        /* Workflow Diagram */
+        .workflow-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 2rem 0;
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .workflow-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 56px;
+            width: 3px;
+            height: calc(100% - 20px);
+            background: linear-gradient(180deg, #7a12d4 0%, #a855f7 100%);
+        }
+
+        .workflow-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #7a12d4 0%, #a855f7 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(122, 18, 212, 0.3);
+        }
+
+        .workflow-content {
+            flex: 1;
+            padding-bottom: 2rem;
+        }
+
+        .workflow-content h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.125rem;
+            color: #7a12d4;
+            margin-bottom: 0.5rem;
+        }
+
+        .section h2 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.5rem;
+            color: #0f131a;
+            margin: 0;
+        }
+
+        .section h3 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.125rem;
+            color: #7a12d4;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .section h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .timing-badge {
+            display: inline-block;
+            background: #f0e6fa;
+            color: #7a12d4;
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.875rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            margin-left: 0.5rem;
+        }
+
+        .slide-group {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .slide-group h4 {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1rem;
+            color: #0f131a;
+            margin: 0 0 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .slide-range {
+            font-size: 0.75rem;
+            background: #7a12d4;
+            color: white;
+            padding: 0.125rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        li:last-child {
+            margin-bottom: 0;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #f0e6fa 0%, #e6f0fa 100%);
+            border-left: 4px solid #7a12d4;
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+        }
+
+        .tip-box strong {
+            color: #7a12d4;
+        }
+
+        .warning-box {
+            background: #fff3e6;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+        }
+
+        .warning-box strong {
+            color: #d97706;
+        }
+
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .checklist li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.25rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid #7a12d4;
+            border-radius: 4px;
+        }
+
+        .qa-item {
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .qa-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .qa-question {
+            font-family: Grotesk-Medium, sans-serif;
+            color: #7a12d4;
+            margin-bottom: 0.5rem;
+        }
+
+        .qa-answer {
+            color: #404040;
+            line-height: 1.6;
+        }
+
+        .language-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .language-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .language-do, .language-dont {
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .language-do {
+            background: #e6f9e6;
+            border: 1px solid #22c55e;
+        }
+
+        .language-dont {
+            background: #fee2e2;
+            border: 1px solid #ef4444;
+        }
+
+        .language-do h5, .language-dont h5 {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.875rem;
+            margin: 0 0 0.5rem;
+        }
+
+        .language-do h5 {
+            color: #16a34a;
+        }
+
+        .language-dont h5 {
+            color: #dc2626;
+        }
+
+        .language-do ul, .language-dont ul {
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .toc {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .toc h2 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            margin: 0 0 1rem;
+            color: #0f131a;
+        }
+
+        .toc-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list a {
+            color: #7a12d4;
+            text-decoration: none;
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.9375rem;
+        }
+
+        .toc-list a:hover {
+            text-decoration: underline;
+        }
+
+        @media print {
+            .page-header {
+                padding: 2rem 1rem;
+            }
+
+            .section {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #e0e0e0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="header-content">
+            <h1 class="mv-type--headline2">Vibe Coding Masterclass</h1>
+            <p class="subtitle">Instructor Notes & Delivery Guide</p>
+        </div>
+    </header>
+
+    <!-- Quiz CTA Banner -->
+    <div class="quiz-banner">
+        <div class="quiz-banner-text">
+            🎯 <strong>Test Your Knowledge</strong> <span>— 15 questions covering all class concepts</span>
+        </div>
+        <a href="vibe-coding-quiz.html" class="quiz-btn">
+            Take the Quiz
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </a>
+    </div>
+
+    <div class="content-wrapper">
+        <!-- Table of Contents -->
+        <nav class="toc" style="background: linear-gradient(135deg, #fff 0%, #f8f4ff 100%); border: 2px solid #e9e3f5;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+                <h2 style="margin: 0;">📚 Quick Navigation</h2>
+                <a href="vibe-coding-quiz.html" style="display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #7a12d4 0%, #a855f7 100%); color: white; padding: 0.5rem 1rem; border-radius: 100px; text-decoration: none; font-family: Grotesk-Medium, sans-serif; font-size: 0.875rem;">
+                    🎯 Take the Quiz
+                </a>
+            </div>
+            <ul class="toc-list">
+                <li><a href="#overview">📋 Overview & Philosophy</a></li>
+                <li><a href="#principles">💡 Core Principles</a></li>
+                <li><a href="#workflow">🔄 The 5-Step Workflow</a></li>
+                <li><a href="#prep">✅ Pre-Class Preparation</a></li>
+                <li><a href="#class1">1️⃣ Class 1 Delivery Notes</a></li>
+                <li><a href="#class2">2️⃣ Class 2 Delivery Notes</a></li>
+                <li><a href="#demo">🛠️ Demo Preparation</a></li>
+                <li><a href="#real-examples">🎬 Real Class Examples</a></li>
+                <li><a href="#faq">❓ Common Questions</a></li>
+                <li><a href="#language">💬 Language Guidelines</a></li>
+                <li><a href="#troubleshooting">🔧 Troubleshooting</a></li>
+            </ul>
+        </nav>
+
+        <!-- Overview -->
+        <section id="overview" class="section">
+            <div class="section-header">
+                <div class="section-icon">🎯</div>
+                <h2>Overview & Teaching Philosophy</h2>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Classes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">60+30</div>
+                    <div class="stat-label">Minutes Each</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Possibilities</div>
+                </div>
+            </div>
+
+            <h3>Course Structure</h3>
+            <ul>
+                <li><strong>Class 1:</strong> Foundations of Vibe Coding (60 min + 30 min Q&A)</li>
+                <li><strong>Class 2:</strong> Dynamic Apps & Databases (60 min + 30 min Q&A)</li>
+            </ul>
+
+            <h3>Core Teaching Philosophy</h3>
+
+            <div class="illustration-card">
+                <div class="big-emoji">✨</div>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="font-size: 1.5rem;">🎬</span>
+                        <div><strong>Inspire first, teach second.</strong> Start with "wow" moments - show what's possible before explaining how.</div>
+                    </li>
+                    <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="font-size: 1.5rem;">🔓</span>
+                        <div><strong>Demystify the technology.</strong> Most students are intimidated by "coding." Your job is to make it feel accessible.</div>
+                    </li>
+                    <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="font-size: 1.5rem;">🔄</span>
+                        <div><strong>Emphasize iteration.</strong> Vibe coding is conversational - it's okay to refine and improve.</div>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span style="font-size: 1.5rem;">🏆</span>
+                        <div><strong>Celebrate progress over perfection.</strong> A working prototype is a win, even if it's not polished.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="quote-highlight">
+                <p>You're not teaching students to become developers. You're giving entrepreneurs a superpower - the ability to build their ideas without waiting for technical resources.</p>
+                <div class="quote-author">— The Core Mindset</div>
+            </div>
+
+            <h3>Student Outcomes</h3>
+            <p>By the end of both classes, students should be able to:</p>
+            <ul>
+                <li>Use the VIBE framework to structure their app requirements</li>
+                <li>Build functional web applications with user accounts and databases</li>
+                <li>Connect external APIs (like OpenAI, Stripe) to add advanced features</li>
+                <li>Deploy their apps to a live URL they can share</li>
+            </ul>
+
+            <h3>Examples to Show at the Start</h3>
+            <p>Open with real examples of what vibe coding can create. Show these to inspire before teaching:</p>
+            <ul>
+                <li><strong>Class notes & slides</strong> - The very slides and notes you're using were built with vibe coding</li>
+                <li><strong>Curriculum documents</strong> - Spiritual mastery curriculum built from interviews with teachers</li>
+                <li><strong>Celebration pages</strong> - Speaking mastery graduation celebrating student wins</li>
+                <li><strong>Video analysis tools</strong> - Apps that analyze YouTube videos and suggest improvements</li>
+                <li><strong>Company websites</strong> - Real business websites built in hours, not weeks</li>
+                <li><strong>Supplement website pages</strong> - Product pages built by scanning existing sites and interviews</li>
+                <li><strong>Personal apps</strong> - NutriTrack (food tracking with AI analysis and PubMed research)</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Opening line:</strong> "These were all built by people just like you, with zero coding experience. And I'm going to show you how."
+            </div>
+        </section>
+
+        <!-- Core Principles -->
+        <section id="principles" class="section">
+            <div class="section-header">
+                <div class="section-icon">💡</div>
+                <h2>Core Principles from Live Classes</h2>
+            </div>
+
+            <h3>Principle 1: Start with MVP (Minimal Viable Product)</h3>
+            <p>Don't try to build the entire dream app. Start with something small.</p>
+            <div class="tip-box">
+                <strong>The Lake Analogy:</strong> "If you see a lake in the forest, you don't just jump in. You dip your toe in first, you test the water. Is it cold? Is it warm? A minimal viable product is testing the water."
+            </div>
+            <ul>
+                <li>For a complex app idea, the MVP might just be a landing page that asks: "Are you interested? Leave an email."</li>
+                <li>If interested, "Tell me why." If not interested, "Tell me why not."</li>
+                <li>This validates the idea before investing time in building</li>
+            </ul>
+
+            <h3>Principle 2: User Stories vs. Features</h3>
+            <p><strong>Don't tell the AI what to build. Describe the problem you're trying to solve.</strong></p>
+
+            <div class="language-grid" style="margin: 1rem 0;">
+                <div class="language-dont">
+                    <h5>✗ Feature Request (Avoid)</h5>
+                    <p style="font-size: 0.875rem;">"I want a map that shows cemetery locations with clickable pins that open a modal with headstone photos..."</p>
+                </div>
+                <div class="language-do">
+                    <h5>✓ User Story (Better)</h5>
+                    <p style="font-size: 0.875rem;">"I am a 4th generation person in my family, and I've inherited a tote full of black and white photos. I want to honor my family members who have passed..."</p>
+                </div>
+            </div>
+
+            <p>When you share user stories instead of features, you let the AI come up with even better solutions than you imagined.</p>
+
+            <h3>Principle 3: ChatGPT is Your CEO, Lovable is Your CTO</h3>
+            <p>Think of it as having two team members:</p>
+            <ul>
+                <li><strong>ChatGPT = CMO/CEO:</strong> Creative co-visioning, brainstorming, understanding customer needs, making the product likable</li>
+                <li><strong>Lovable/Claude = CTO:</strong> Spits out hard facts and logic, executes the technical implementation</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>The Temperature Difference:</strong> "My ChatGPT calls me 'bro' and has a witty sense of humor. It also makes stuff up 5% of the time because it's designed to be hyper-creative. My Claude is like someone with Asperger's - it speaks in straight logic, doesn't empathize, but it's more accurate for building tools."
+            </div>
+
+            <h3>Principle 4: There Is No Fancy Prompt</h3>
+            <p><strong>"You just talk to it like you're talking to your sister or your brother."</strong></p>
+            <ul>
+                <li>Don't worry about perfect prompt engineering</li>
+                <li>The one trick: Ask it to "ask 5 clarifying questions" - then the AI will ask what it needs to know</li>
+                <li>Natural conversation beats complex prompts</li>
+            </ul>
+
+            <h3>Principle 5: You Are the Boss</h3>
+            <p>With AI, you're in charge. You can be direct.</p>
+            <div class="tip-box">
+                <strong>Don't be polite:</strong> Instead of "Can we make the design purple?" just say "Make it purple." You can yell at it, be demanding - the AI won't mind. (Some say it's good therapy to take out frustrations on AI!)
+            </div>
+        </section>
+
+        <div class="visual-divider"></div>
+
+        <!-- The 5-Step Workflow -->
+        <section id="workflow" class="section">
+            <div class="section-header">
+                <div class="section-icon">🔄</div>
+                <h2>The 5-Step Vibe Coding Workflow</h2>
+            </div>
+
+            <p style="margin-bottom: 1.5rem;">This is the repeatable process that works every time:</p>
+
+            <!-- Visual Workflow Diagram -->
+            <div class="workflow-visual">
+                <div class="workflow-step">
+                    <div class="workflow-number">1</div>
+                    <div class="workflow-content">
+                        <h4>Brainstorm with ChatGPT</h4>
+                        <p>Use ChatGPT as your creative partner. Describe your idea in natural language.</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">2</div>
+                    <div class="workflow-content">
+                        <h4>Answer Clarifying Questions</h4>
+                        <p>ChatGPT asks 5 questions to understand your vision. Answer quickly and simply.</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">3</div>
+                    <div class="workflow-content">
+                        <h4>Get the Lovable Prompt</h4>
+                        <p>Ask ChatGPT to create the first prompt for Lovable.</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">4</div>
+                    <div class="workflow-content">
+                        <h4>Paste into Lovable</h4>
+                        <p>Copy the prompt and paste directly into Lovable. Watch it build!</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">5</div>
+                    <div class="workflow-content">
+                        <h4>Iterate & Repeat</h4>
+                        <p>Go back to ChatGPT for the next step. Repeat until your app is complete.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Detailed Step Instructions</h3>
+
+            <div class="slide-group">
+                <h4>Step 1: Brainstorm with ChatGPT</h4>
+                <p>Use ChatGPT as your creative partner. Describe your idea in natural language.</p>
+                <div style="background: #1a1a1a; color: #f0f0f0; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.875rem; margin: 0.5rem 0;">
+"Hey ChatGPT, I'm here with my friend [Name], and we want to brainstorm an app idea. I want you to listen to the app they want to build, and help us develop the idea further by asking 5 clarifying questions."
+                </div>
+            </div>
+
+            <div class="slide-group">
+                <h4>Step 2: Answer Clarifying Questions</h4>
+                <p>ChatGPT will ask 5 questions to understand your vision. Answer quickly and simply. Examples:</p>
+                <ul>
+                    <li>"Who is this for?" → "Families and historical societies"</li>
+                    <li>"What problem does it solve?" → "It connects generations together"</li>
+                    <li>"What does the first version need to do?" → "Show a map to locate headstones"</li>
+                </ul>
+                <div class="warning-box">
+                    <strong>Keep it simple:</strong> Don't over-explain. When a student says too much, gently interrupt: "Stop, stop. Don't tell it how to solve the problem. Just describe the problem."
+                </div>
+            </div>
+
+            <div class="slide-group">
+                <h4>Step 3: Ask ChatGPT for a Lovable Prompt</h4>
+                <p>Once ChatGPT understands your idea, ask:</p>
+                <div style="background: #1a1a1a; color: #f0f0f0; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.875rem; margin: 0.5rem 0;">
+"I want to use Lovable to build a fully functioning app. Let's start with just a simple page with good copy, right colors, right design. Give me the Lovable prompt."
+                </div>
+                <p style="margin-top: 0.5rem;"><em>Note: Lovable has around 5000 character limit for prompts. When you say "give me a Lovable prompt," ChatGPT knows to keep it within that limit.</em></p>
+            </div>
+
+            <div class="slide-group">
+                <h4>Step 4: Paste into Lovable</h4>
+                <p>Copy everything ChatGPT gave you and paste directly into Lovable. Don't change a thing.</p>
+                <ul>
+                    <li>Let Lovable generate the app (narrate while waiting)</li>
+                    <li>Show the preview - students see a working app!</li>
+                    <li>Use "Visual Edits" mode to make quick changes by clicking</li>
+                </ul>
+            </div>
+
+            <div class="slide-group">
+                <h4>Step 5: Go Back to ChatGPT for the Next Step</h4>
+                <p>Once your first version is done, return to ChatGPT:</p>
+                <div style="background: #1a1a1a; color: #f0f0f0; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.875rem; margin: 0.5rem 0;">
+"Great, first step done. Now give me the second step."
+                </div>
+                <p style="margin-top: 0.5rem;">Repeat this cycle until your app is complete. It's a dance between ChatGPT (vision) and Lovable (execution).</p>
+            </div>
+
+            <div class="tip-box">
+                <strong>The Compound Effect:</strong> "Every little win compounds. You may start by building a presentation. Then you realize you can build an entire website. Then you realize you can send transcripts into vibe coding software and build notes. The time from idea to creation shrinks. Your ideas become working prototypes in less than one day. Sometimes in half an hour."
+            </div>
+        </section>
+
+        <!-- Pre-Class Preparation -->
+        <section id="prep" class="section">
+            <div class="section-header">
+                <div class="section-icon">📋</div>
+                <h2>Pre-Class Preparation</h2>
+            </div>
+
+            <h3>24 Hours Before</h3>
+            <ul class="checklist">
+                <li>Test your Lovable account - ensure you have credits available</li>
+                <li>Create a fresh project for the demo (so you start clean)</li>
+                <li>Test Supabase connection in a sample project</li>
+                <li>Have backup screenshots ready in case of technical issues</li>
+                <li>Review the slide deck and practice transitions</li>
+            </ul>
+
+            <h3>1 Hour Before</h3>
+            <ul class="checklist">
+                <li>Open Lovable in browser, logged in and ready</li>
+                <li>Open Supabase dashboard in a separate tab</li>
+                <li>Close unnecessary browser tabs and applications</li>
+                <li>Test screen sharing with slide deck</li>
+                <li>Have the curriculum document open for reference</li>
+                <li>Prepare a glass of water</li>
+            </ul>
+
+            <h3>Technical Setup</h3>
+            <ul>
+                <li><strong>Browser:</strong> Chrome or Edge recommended (best compatibility with Lovable)</li>
+                <li><strong>Screen resolution:</strong> 1920x1080 or higher for clear demos</li>
+                <li><strong>Zoom/screen share:</strong> Use "Optimize for video" if available</li>
+                <li><strong>Tabs to have open:</strong>
+                    <ul>
+                        <li>Slide deck</li>
+                        <li>ChatGPT (for brainstorming)</li>
+                        <li>Lovable (fresh project)</li>
+                        <li>Supabase dashboard</li>
+                        <li>Unsplash.com (for free images)</li>
+                        <li>The live example apps (for inspiration)</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Recommended Tools to Mention</h3>
+            <ul>
+                <li><strong>Whisper Flow (wispr.flow.ai):</strong> Voice-to-text for any app. "You're speaking, not typing." Works in WhatsApp, emails, everywhere. For Android, recommend "Dictate."</li>
+                <li><strong>Unsplash:</strong> Free library of professional images. Never use AI-generated images when you can use real ones.</li>
+                <li><strong>Replet:</strong> More advanced than Lovable, good for apps that need OpenAI integration. Has "Add OpenAI to your app" as a managed service.</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>Important:</strong> Always have a backup plan. If Lovable or Supabase has issues during the live demo, be prepared to show screenshots or a pre-recorded video of the key steps.
+            </div>
+        </section>
+
+        <!-- Class 1 Delivery Notes -->
+        <section id="class1" class="section">
+            <div class="section-header">
+                <div class="section-icon">1️⃣</div>
+                <h2>Class 1: Foundations of Vibe Coding</h2>
+            </div>
+
+            <div class="slide-group">
+                <h4><span class="slide-range">Slides 1-3</span> Opening & Hook</h4>
+                <p><strong>Timing:</strong> 5 minutes</p>
+                <ul>
+                    <li>Start with energy! This is the "wow" moment.</li>
+                    <li>Show the live example apps immediately - don't make students wait.</li>
+                    <li>Key message: "These were built by people just like you, with zero coding experience."</li>
+                    <li>Let students click around the examples for 30 seconds if time permits.</li>
+                </ul>
+                <div class="tip-box">
+                    <strong>Instructor tip:</strong> Ask students: "What would YOU build if you could create any app?" This plants the seed early.
+                </div>
+            </div>
+
+            <div class="slide-group">
+                <h4><span class="slide-range">Slides 4-7</span> What is Vibe Coding?</h4>
+                <p><strong>Timing:</strong> 8 minutes</p>
+                <ul>
+                    <li>Define vibe coding as "describing what you want in plain language."</li>
+                    <li>Emphasize: This is NOT traditional coding. You're having a conversation with AI.</li>
+                    <li>Use the Andrej Karpathy quote - it adds credibility.</li>
+                    <li>When showing the infrastructure diagram, keep it simple: "These are just layers that work together. You don't need to understand the technical details."</li>
+                </ul>
+                <div class="warning-box">
+                    <strong>Avoid:</strong> Don't get too technical with the infrastructure explanation. Students just need to know the layers exist, not how they work internally.
+                </div>
+            </div>
+
+            <div class="slide-group">
+                <h4><span class="slide-range">Slides 8-10</span> Why Lovable?</h4>
+                <p><strong>Timing:</strong> 5 minutes</p>
+                <ul>
+                    <li>Position Lovable as the "all-in-one solution" - this is its key advantage.</li>
+                    <li>Briefly mention alternatives (Bolt, Cursor) but don't dwell on them.</li>
+                    <li>Key selling points: Supabase built-in, GitHub sync, one-click deploy.</li>
+                    <li>If students ask "Why not X?" - say Lovable is optimized for non-developers and has the best UX.</li>
+                </ul>
+            </div>
+
+            <div class="slide-group">
+                <h4><span class="slide-range">Slides 11-15</span> The VIBE Framework</h4>
+                <p><strong>Timing:</strong> 10 minutes</p>
+                <ul>
+                    <li>This is the most important teaching moment in Class 1.</li>
+                    <li>Go through each letter slowly: Vision, Interaction, Backend, Experience.</li>
+                    <li>Use the "Stress Type Quiz" example to illustrate each component.</li>
+                    <li>Have students mentally apply VIBE to their own idea (give them 60 seconds to think).</li>
+                </ul>
+                <div class="tip-box">
+                    <strong>Engagement technique:</strong> Ask students to type one word describing their app idea in the chat. This keeps them engaged and thinking about applications.
+                </div>
+            </div>
+
+            <div class="slide-group">
+                <h4><span class="slide-range">Slides 16-25</span> Live Demo: Stress Type Quiz</h4>
+                <p><strong>Timing:</strong> 25 minutes</p>
+                <ul>
+                    <li>This is the main event. Take your time and narrate every step.</li>
+                    <li><strong>Step 1:</strong> Show the VIBE prompt being pasted into Lovable.</li>
+                    <li><strong>Step 2:</strong> Let Lovable generate the app (narrate what's happening).</li>
+                    <li><strong>Step 3:</strong> Show the preview - students should see a working app!</li>
+                    <li><strong>Step 4:</strong> Make an iteration - change a color or add a feature with natural language.</li>
+                    <li><strong>Step 5:</strong> Connect Supabase - show how easy the integration is.</li>
+                    <li><strong>Step 6:</strong> Deploy and share the live URL.</li>
+                </ul>
+                <div class="warning-box">
+                    <strong>If something breaks:</strong> Don't panic! This is a learning moment. Say: "This is why iteration is so important in vibe coding. Let me show you how we fix this..." Then use natural language to debug.
+                </div>
+            </div>
+
+            <div class="slide-group">
+                <h4><span class="slide-range">Slides 26-28</span> Wrap-up & Preview</h4>
+                <p><strong>Timing:</strong> 7 minutes</p>
+                <ul>
+                    <li>Recap the VIBE framework - have students say each letter with you.</li>
+                    <li>Share resources: Lovable docs, example prompts, community links.</li>
+                    <li>Tease Class 2: "Next time, we add user accounts and persistent data!"</li>
+                    <li>Encourage students to experiment before next class.</li>
+                </ul>
+            </div>
+
+            <h3>Q&A Session (30 minutes)</h3>
+            <ul>
+                <li>Group common questions into themes before answering.</li>
+                <li>If you don't know an answer, say: "Great question - let me find out and follow up."</li>
+                <li>Encourage students to share their screen if they've tried something.</li>
+            </ul>
+        </section>
+
+        <!-- Class 2 Delivery Notes -->
+        <section id="class2" class="section">
+            <div class="section-header">
+                <div class="section-icon">2️⃣</div>
+                <h2>Class 2: Dynamic Apps & Databases</h2>
+            </div>
+
+            <div class="slide-group">
+                <h4><span class="slide-range">Slides 29-31</span> Welcome Back & Recap</h4>
+                <p><strong>Timing:</strong> 5 minutes</p>
+                <ul>
+                    <li>Quick energy check - ask students to share one thing they tried since Class 1.</li>
+                    <li>Speed recap of VIBE framework (should take 90 seconds max).</li>
+                    <li>Set the stage: "Today we're adding real power - user accounts and databases."</li>
+                </ul>
+            </div>
+
+            <div class="slide-group">
+                <h4><span class="slide-range">Slides 32-36</span> Understanding Databases</h4>
+                <p><strong>Timing:</strong> 10 minutes</p>
+                <ul>
+                    <li>Use the spreadsheet analogy - everyone understands spreadsheets.</li>
+                    <li>Tables = Sheets, Fields = Columns, Records = Rows.</li>
+                    <li>Show a real Supabase table view - it looks like a spreadsheet!</li>
+                    <li>Explain Row Level Security in simple terms: "Each user only sees their own data."</li>
+                </ul>
+                <div class="tip-box">
+                    <strong>Teaching tip:</strong> Draw the connection to real apps they use: "Instagram stores your posts in a table. Spotify stores your playlists. You're about to do the same thing."
+                </div>
+            </div>
+
+            <div class="slide-group">
+                <h4><span class="slide-range">Slides 37-40</span> User Authentication</h4>
+                <p><strong>Timing:</strong> 8 minutes</p>
+                <ul>
+                    <li>Keep it simple: "Sign up, log in, stay logged in across devices."</li>
+                    <li>Supabase handles all the security - students don't need to worry about passwords.</li>
+                    <li>Show the Supabase Auth dashboard - users appear here automatically.</li>
+                    <li>Mention email verification and magic links as options.</li>
+                </ul>
+            </div>
+
+            <div class="slide-group">
+                <h4><span class="slide-range">Slides 41-50</span> Live Demo: Habit Tracker</h4>
+                <p><strong>Timing:</strong> 30 minutes</p>
+                <ul>
+                    <li>This demo is more complex - narrate even more carefully.</li>
+                    <li><strong>Step 1:</strong> Start with the VIBE prompt for the Habit Tracker.</li>
+                    <li><strong>Step 2:</strong> Show initial generation (no database yet).</li>
+                    <li><strong>Step 3:</strong> Connect Supabase and enable auth.</li>
+                    <li><strong>Step 4:</strong> Create the habits table (show both Lovable and Supabase views).</li>
+                    <li><strong>Step 5:</strong> Test sign-up with a real email.</li>
+                    <li><strong>Step 6:</strong> Add a habit, show it persisting.</li>
+                    <li><strong>Step 7:</strong> Log out and log back in - data is still there!</li>
+                    <li><strong>Step 8:</strong> Deploy to production.</li>
+                </ul>
+                <div class="warning-box">
+                    <strong>Common issues:</strong> Row Level Security can be tricky. If data isn't showing, check that RLS policies are set up correctly in Supabase. Have a pre-configured project as backup.
+                </div>
+            </div>
+
+            <div class="slide-group">
+                <h4><span class="slide-range">Slides 51-55</span> API Keys & External Services</h4>
+                <p><strong>Timing:</strong> 10 minutes</p>
+                <ul>
+                    <li>Explain APIs as "doors to other services."</li>
+                    <li>Show where to get an OpenAI API key (don't show your actual key!).</li>
+                    <li>Demonstrate adding the key to Lovable's environment variables.</li>
+                    <li>Quick example: Add an AI-powered feature to the Habit Tracker.</li>
+                </ul>
+                <div class="tip-box">
+                    <strong>Security reminder:</strong> Never share API keys on screen or in recordings. Use placeholder text like "sk-xxx" when showing where keys go.
+                </div>
+            </div>
+
+            <div class="slide-group">
+                <h4><span class="slide-range">Slides 56-60</span> Next Steps & Closing</h4>
+                <p><strong>Timing:</strong> 7 minutes</p>
+                <ul>
+                    <li>Celebrate what students have learned - they can now build real apps!</li>
+                    <li>Share the idea generation framework for finding their first project.</li>
+                    <li>Provide community resources and support channels.</li>
+                    <li>End with inspiration: "Your first app doesn't have to be perfect. It just has to exist."</li>
+                </ul>
+            </div>
+
+            <h3>Q&A Session (30 minutes)</h3>
+            <ul>
+                <li>Expect more technical questions in this session.</li>
+                <li>Common topics: pricing, limits, specific integrations.</li>
+                <li>Encourage students to share ideas - facilitate peer feedback.</li>
+            </ul>
+        </section>
+
+        <!-- Demo Preparation -->
+        <section id="demo" class="section">
+            <div class="section-header">
+                <div class="section-icon">🛠️</div>
+                <h2>Demo Preparation</h2>
+            </div>
+
+            <h3>Class 1 Demo: Stress Type Quiz</h3>
+            <p><strong>Purpose:</strong> Show the full cycle from prompt to deployed app.</p>
+
+            <h4>VIBE Prompt to Use:</h4>
+            <div style="background: #1a1a1a; color: #f0f0f0; padding: 1.5rem; border-radius: 8px; font-family: monospace; font-size: 0.875rem; line-height: 1.6; margin: 1rem 0; white-space: pre-wrap;">Vision: A Stress Type Quiz that helps users discover their stress personality type.
+
+Interaction:
+- Welcome screen with "Discover Your Stress Type" heading
+- 8 multiple-choice questions with 4 options each
+- Progress bar showing quiz completion
+- Results page with stress type + personalized tips
+- Button to retake or share results
+
+Backend:
+- Store quiz results in Supabase
+- Track which stress type is most common
+- Save user email (optional) for follow-up
+
+Experience:
+- Calming color palette (soft blues, greens)
+- Smooth transitions between questions
+- Mobile-friendly design
+- Celebratory animation on completion</div>
+
+            <h3>Class 2 Demo: Habit Tracker</h3>
+            <p><strong>Purpose:</strong> Demonstrate user accounts, databases, and data persistence.</p>
+
+            <h4>VIBE Prompt to Use:</h4>
+            <div style="background: #1a1a1a; color: #f0f0f0; padding: 1.5rem; border-radius: 8px; font-family: monospace; font-size: 0.875rem; line-height: 1.6; margin: 1rem 0; white-space: pre-wrap;">Vision: A personal habit tracker where users can create, track, and visualize their daily habits.
+
+Interaction:
+- Sign up / login with email
+- Dashboard showing today's habits as checkboxes
+- Add new habit button with name and frequency
+- Weekly view showing habit streaks
+- Settings page to edit or delete habits
+
+Backend:
+- User authentication with Supabase
+- Habits table: id, user_id, name, frequency, created_at
+- Completions table: id, habit_id, date, completed
+- Row-level security so users only see their own data
+
+Experience:
+- Motivating color scheme (greens for completion)
+- Streak counters with fire emoji 🔥
+- Satisfying checkbox animations
+- Mobile-first responsive design</div>
+
+            <h3>Backup Plans</h3>
+            <ul>
+                <li><strong>If Lovable is slow:</strong> Have a pre-built project ready to show.</li>
+                <li><strong>If Supabase won't connect:</strong> Show screenshots of the connection flow.</li>
+                <li><strong>If deploy fails:</strong> Skip to showing an already-deployed example.</li>
+                <li><strong>If everything fails:</strong> Switch to conceptual teaching with slides and screenshots.</li>
+            </ul>
+
+            <h3>Running Two Demos in Parallel</h3>
+            <p>To save time during generation, you can run two demos simultaneously:</p>
+            <ul>
+                <li>Call up two volunteers at the start</li>
+                <li>While Lovable generates one app, switch to ChatGPT with the second volunteer</li>
+                <li>Bounce between them as each step processes</li>
+                <li>This keeps energy high and eliminates dead time</li>
+            </ul>
+        </section>
+
+        <div class="visual-divider"></div>
+
+        <!-- Real Class Examples -->
+        <section id="real-examples" class="section">
+            <div class="section-header">
+                <div class="section-icon">🎬</div>
+                <h2>Real Class Examples</h2>
+            </div>
+
+            <div class="illustration-card">
+                <div class="big-emoji">📚</div>
+                <p style="font-size: 1.125rem; color: #7a12d4; font-family: Grotesk-Medium, sans-serif;">These are actual demos from live classes. Use these stories to illustrate the process and make the teaching come alive!</p>
+            </div>
+
+            <div class="slide-group" style="border-left: 4px solid #7a12d4; margin-left: 0;">
+                <h4 style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="background: linear-gradient(135deg, #7a12d4 0%, #a855f7 100%); color: white; padding: 0.25rem 0.75rem; border-radius: 100px; font-size: 0.75rem;">DEMO 1</span>
+                    The Whispering Stone (Legacy Platform)
+                </h4>
+                <p><strong>Student:</strong> Lori, entrepreneur from Indiana</p>
+                <p><strong>Original idea:</strong> A complex legacy platform with interactive gravestone maps, AI animation, family trees, fundraising, and more.</p>
+
+                <h5 style="margin-top: 1rem; color: #7a12d4;">The Teaching Moment:</h5>
+                <p>Lori started listing all the features she wanted. The instructor had to gently redirect:</p>
+                <blockquote style="border-left: 3px solid #7a12d4; padding-left: 1rem; margin: 1rem 0; font-style: italic; color: #404040;">
+                    "Stop, stop. You're not a product designer, which is normal. None of us are product designers. Don't try to build Facebook. Build something small first."
+                </blockquote>
+
+                <h5 style="margin-top: 1rem; color: #7a12d4;">The User Story:</h5>
+                <p>When asked to share a user story, Lori said:</p>
+                <blockquote style="border-left: 3px solid #7a12d4; padding-left: 1rem; margin: 1rem 0; font-style: italic; color: #404040;">
+                    "I am a 4th generation person in my family, and I've inherited a tote full of black and white photos. I have no idea who they are..."
+                </blockquote>
+
+                <h5 style="margin-top: 1rem; color: #7a12d4;">The Result:</h5>
+                <p>In 25 minutes, built a complete prototype with:</p>
+                <ul>
+                    <li>Landing page: "Preserve the Story, Honor the Life"</li>
+                    <li>Email signup for early access</li>
+                    <li>Memorial creation flow with photo upload</li>
+                    <li>View memorials section</li>
+                    <li>Headstone locator feature</li>
+                </ul>
+                <p style="margin-top: 0.5rem;"><em>Note: Data didn't save because no database was connected - that's the next class!</em></p>
+            </div>
+
+            <div class="slide-group">
+                <h4>Example 2: Longevity Medicine Research Platform</h4>
+                <p><strong>Student:</strong> Jahija, orthopedic surgeon transitioning to longevity medicine</p>
+                <p><strong>Idea:</strong> A platform that curates the top scientific studies on longevity, filtering through thousands of articles to find the most relevant research.</p>
+
+                <h5 style="margin-top: 1rem; color: #7a12d4;">ChatGPT Clarifying Questions:</h5>
+                <ul>
+                    <li>"What type of studies?" → "Cellular biology and mechanics"</li>
+                    <li>"How science-heavy should summaries be?" → "Randomized, double-blind studies only"</li>
+                    <li>"Who is it for?" → "Longevity practitioners"</li>
+                    <li>"What unique value?" → "Cross-links and integrates state of the art knowledge"</li>
+                    <li>"What should users do on landing page?" → "Engage in discussion about study outcomes"</li>
+                </ul>
+
+                <h5 style="margin-top: 1rem; color: #7a12d4;">The Tool Choice:</h5>
+                <p>This was built on <strong>Replet</strong> instead of Lovable because:</p>
+                <ul>
+                    <li>More complex app requiring AI integration</li>
+                    <li>Replet offers "Add OpenAI to your app" as managed service</li>
+                    <li>Good teaching moment: show students there are different tools for different needs</li>
+                </ul>
+
+                <h5 style="margin-top: 1rem; color: #7a12d4;">The Result:</h5>
+                <p>Generated: "Decode the Signs of Human Longevity" - a sleek landing page with study exploration and waitlist signup.</p>
+            </div>
+
+            <div class="slide-group">
+                <h4>Example 3: NutriTrack (Personal Food Tracker)</h4>
+                <p><strong>Context:</strong> Vishen's personal app, mentioned in the Mindvalley newsletter</p>
+                <p><strong>What it does:</strong></p>
+                <ul>
+                    <li>Photograph food and calculate macros using ChatGPT Vision</li>
+                    <li>Track calories, protein, carbs, fat, fiber, sugar</li>
+                    <li>Generate smart insights based on eating patterns</li>
+                    <li>Medical research mode that connects to PubMed</li>
+                    <li>Interactive ChatGPT conversations about nutrition</li>
+                </ul>
+
+                <div class="tip-box">
+                    <strong>Real impact:</strong> "After 5 days of logging my food, under the insights, it started to show me that I was severely fiber deficient. This app helped me heal a gut issue because I discovered I wasn't eating any fiber."
+                </div>
+
+                <p><strong>Technical note:</strong> This connects to both OpenAI and Supabase. Students can build apps this complex once they complete both classes.</p>
+            </div>
+
+            <h3>What Students Said They Would Build</h3>
+            <p>After seeing examples, students typed their ideas in chat:</p>
+            <ul style="column-count: 2; column-gap: 2rem;">
+                <li>Video analysis tools</li>
+                <li>Photographic arts platform</li>
+                <li>Prototyping tools</li>
+                <li>Web pages & landing pages</li>
+                <li>Presentation builders</li>
+                <li>App development</li>
+                <li>A bookshop</li>
+                <li>Slides & decks</li>
+            </ul>
+            <p style="margin-top: 1rem;"><em>Ask students to share their ideas in chat - it keeps them engaged and thinking about applications.</em></p>
+        </section>
+
+        <!-- Common Questions -->
+        <section id="faq" class="section">
+            <div class="section-header">
+                <div class="section-icon">❓</div>
+                <h2>Common Questions & Answers</h2>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Q: How much does Lovable cost?</div>
+                <div class="qa-answer">Lovable has a free tier that's great for learning and prototyping. Paid plans start around $20/month and give you more projects and features. For most people starting out, the free tier is enough to build your first few apps.</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Q: Can I build a mobile app with Lovable?</div>
+                <div class="qa-answer">Lovable builds web apps that work great on mobile browsers. They're "responsive" which means they adapt to any screen size. For a true native mobile app (in the App Store), you'd need additional tools, but for most use cases, a mobile-friendly web app works perfectly.</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Q: What if I want to hire a developer later?</div>
+                <div class="qa-answer">Great question! Lovable syncs your code to GitHub, which is the industry standard. Any developer can take that code and continue building on it. You're not locked into Lovable forever.</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Q: How do I handle payments in my app?</div>
+                <div class="qa-answer">You can integrate Stripe by getting an API key and connecting it through Lovable. It's one of the most common integrations. I'd recommend building your core app first, then adding payments as a second step.</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Q: Is my data secure?</div>
+                <div class="qa-answer">Supabase uses enterprise-grade security, including encryption and Row Level Security. It's the same technology used by major companies. That said, always follow best practices - don't store sensitive data you don't need, and use strong authentication.</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Q: What happens if Lovable changes or shuts down?</div>
+                <div class="qa-answer">Your code is yours. It's stored in GitHub and follows standard coding practices. You could take that code and host it anywhere, or continue development with a traditional developer. You're not trapped.</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Q: How is this different from Wix or Squarespace?</div>
+                <div class="qa-answer">Those are great for static websites and landing pages. Vibe coding with Lovable lets you build actual applications - things with user accounts, databases, business logic, and integrations. It's the difference between a brochure and a product.</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Q: Do I need to know any coding at all?</div>
+                <div class="qa-answer">No! That's the whole point of vibe coding. You describe what you want in plain English, and the AI handles the technical implementation. That said, over time you might pick up some terminology - and that's a bonus, not a requirement.</div>
+            </div>
+        </section>
+
+        <!-- Language Guidelines -->
+        <section id="language" class="section">
+            <div class="section-header">
+                <div class="section-icon">💬</div>
+                <h2>Language Guidelines</h2>
+            </div>
+
+            <p style="margin-bottom: 1.5rem;">The words we use shape how students perceive this technology. Here's how to frame concepts:</p>
+
+            <div class="language-grid">
+                <div class="language-do">
+                    <h5>✓ Say This</h5>
+                    <ul>
+                        <li>"Vibe coding"</li>
+                        <li>"Describe what you want"</li>
+                        <li>"Have a conversation with AI"</li>
+                        <li>"Iterate and refine"</li>
+                        <li>"Your AI co-builder"</li>
+                        <li>"Build real applications"</li>
+                        <li>"Anyone can do this"</li>
+                    </ul>
+                </div>
+                <div class="language-dont">
+                    <h5>✗ Avoid This</h5>
+                    <ul>
+                        <li>"No-code" (implies limitation)</li>
+                        <li>"Write code"</li>
+                        <li>"Programming"</li>
+                        <li>"Debug" (say "fix" or "improve")</li>
+                        <li>"Technical skills required"</li>
+                        <li>"It's complicated"</li>
+                        <li>"You need to learn..."</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Tone & Energy</h3>
+            <ul>
+                <li><strong>Enthusiastic but grounded.</strong> Be excited about the technology without overselling.</li>
+                <li><strong>Empowering, not intimidating.</strong> Students should feel capable, not overwhelmed.</li>
+                <li><strong>Honest about limitations.</strong> It's okay to say "Vibe coding is great for X, but not ideal for Y."</li>
+                <li><strong>Celebratory of progress.</strong> Acknowledge every small win students make.</li>
+            </ul>
+        </section>
+
+        <!-- Troubleshooting -->
+        <section id="troubleshooting" class="section">
+            <div class="section-header">
+                <div class="section-icon">🔧</div>
+                <h2>Troubleshooting Guide</h2>
+            </div>
+
+            <h3>During Live Demos</h3>
+
+            <div class="qa-item">
+                <div class="qa-question">Issue: Lovable is generating slowly</div>
+                <div class="qa-answer">Keep talking! Narrate what's happening: "The AI is thinking through the architecture..." Use this time to explain what's being built. If it takes more than 60 seconds, acknowledge it: "Sometimes the AI needs a moment - let's look at what it's building..." You can also switch to another volunteer's demo while waiting.</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Issue: AI-generated images look fake</div>
+                <div class="qa-answer">Show students how to replace with real images from Unsplash:
+                    <ol style="margin-top: 0.5rem;">
+                        <li>Go to unsplash.com and search for what you need</li>
+                        <li>Click "Share" and copy the link</li>
+                        <li>Tell Lovable: "Replace the image behind [text] with this new image" and paste the link</li>
+                    </ol>
+                    Key message: "Never use AI-generated images when you can use real ones. Unsplash is free."
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Issue: ChatGPT is generating too much junk</div>
+                <div class="qa-answer">"ChatGPT sometimes gets super excited, and then it wants to show off, so it goes and designs these BS screens." Just ignore it! Say: "Don't worry about all this junk. Just ask it to give you the first instructional prompt." Stay focused on the immediate next step.</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Issue: The generated app looks different than expected</div>
+                <div class="qa-answer">This is actually a teaching moment! Say: "This is why iteration is key in vibe coding. Let me show you how we refine this..." Then demonstrate making changes with natural language prompts.</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Issue: Supabase connection fails</div>
+                <div class="qa-answer">Check that you've clicked "Enable Supabase" in Lovable settings. Verify the project URL and anon key are correct. If it still fails, show screenshots of a working connection and move on.</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Issue: Authentication isn't working</div>
+                <div class="qa-answer">Ensure email confirmations are disabled in Supabase Auth settings (for demo purposes). Check that auth is enabled in the Lovable project. Test with a fresh email address.</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Issue: Data isn't saving or showing</div>
+                <div class="qa-answer">Row Level Security might be blocking access. Check that RLS policies are set up in Supabase. For demos, you can temporarily disable RLS (but explain this is just for testing).</div>
+            </div>
+
+            <h3>Student-Side Issues</h3>
+
+            <div class="qa-item">
+                <div class="qa-question">Issue: Student can't sign up for Lovable</div>
+                <div class="qa-answer">Have them try a different email or browser. Incognito mode often helps. Worst case, they can watch and follow along, then try later.</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Issue: Student's app won't deploy</div>
+                <div class="qa-answer">Check for error messages in Lovable. Often it's a simple fix like a missing dependency. Have them share their screen so you can diagnose together.</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Issue: Student is frustrated / overwhelmed</div>
+                <div class="qa-answer">Validate their feelings: "This is new, and it's okay to feel challenged." Remind them that iteration is part of the process. Offer to help during Q&A or office hours.</div>
+            </div>
+        </section>
+
+        <!-- Important Caveats -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">⚠️</div>
+                <h2>Important Caveats to Share</h2>
+            </div>
+
+            <p style="margin-bottom: 1rem;">Be honest with students about what vibe coding can and cannot do:</p>
+
+            <div class="qa-item">
+                <div class="qa-question">Prototypes vs. Production Apps</div>
+                <div class="qa-answer">"What we're doing is building a prototype. To build a functioning app for the public, that can be more complex. You gotta worry about security, hosting, all of these different things. If you don't do security right, you could get hacked. Someone could steal your customer's emails."</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">When to Still Hire a Developer</div>
+                <div class="qa-answer">"Launching an app to the public requires testing, compliance, deployment on the App Store. You may still hire a developer for that - but your cost is gonna go down by more than 50% because you've already built the prototype."</div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question">Scope of These Classes</div>
+                <div class="qa-answer">"Building a clickable prototype that you can take to a developer who can build a functioning demo - that's what we're doing. It's way beyond the scope of this class to build production-ready public apps. But you CAN easily build webpages - like the supplement website I showed you. There's nothing to hack on a landing page."</div>
+            </div>
+        </section>
+
+        <div class="visual-divider"></div>
+
+        <!-- Memorable Quotes -->
+        <section class="section" style="background: linear-gradient(135deg, #f8f4ff 0%, #fff 100%);">
+            <div class="section-header">
+                <div class="section-icon">💬</div>
+                <h2>Memorable Quotes to Use</h2>
+            </div>
+
+            <p style="margin-bottom: 1.5rem;">Sprinkle these throughout your teaching:</p>
+
+            <div class="quote-highlight">
+                <p>"A good goal should scare you a little and excite you a lot."</p>
+                <div class="quote-author">— Gio Vitale (use when students feel intimidated)</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                <div style="background: linear-gradient(135deg, #7a12d4 0%, #a855f7 100%); color: white; padding: 1.5rem; border-radius: 16px;">
+                    <p style="font-style: italic; font-size: 1rem; line-height: 1.6; margin: 0;">"The time from idea to creation shrinks. Your ideas become working prototypes in less than one day."</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #06b6d4 0%, #22d3ee 100%); color: white; padding: 1.5rem; border-radius: 16px;">
+                    <p style="font-style: italic; font-size: 1rem; line-height: 1.6; margin: 0;">"My ideas stay in my head as ideas. Not anymore."</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%); color: white; padding: 1.5rem; border-radius: 16px;">
+                    <p style="font-style: italic; font-size: 1rem; line-height: 1.6; margin: 0;">"You're getting AI to communicate in code instead of English."</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); color: #1a1a1a; padding: 1.5rem; border-radius: 16px;">
+                    <p style="font-style: italic; font-size: 1rem; line-height: 1.6; margin: 0;">"Don't try to build Facebook. Build something small first."</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%); color: white; padding: 1.5rem; border-radius: 16px;">
+                    <p style="font-style: italic; font-size: 1rem; line-height: 1.6; margin: 0;">"There is no fancy prompt. Just talk to it like your sister or brother."</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%); color: white; padding: 1.5rem; border-radius: 16px;">
+                    <p style="font-style: italic; font-size: 1rem; line-height: 1.6; margin: 0;">"With AI, you're the boss. You can be direct!"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Notes -->
+        <section class="section" style="background: linear-gradient(135deg, #7a12d4 0%, #5a0ea0 100%); color: white;">
+            <div class="section-header" style="border-bottom-color: rgba(255,255,255,0.2);">
+                <div class="section-icon" style="background: rgba(255,255,255,0.2);">✨</div>
+                <h2 style="color: white;">Final Notes</h2>
+            </div>
+            <p style="font-size: 1.125rem; line-height: 1.8;">Remember: You're not just teaching a tool. You're unlocking a new capability for entrepreneurs and creators. When students leave your class, they should feel empowered to bring their ideas to life - even if they've never written a line of code.</p>
+            <p style="font-size: 1.125rem; line-height: 1.8; margin-top: 1rem;">The magic of vibe coding isn't the technology. It's the realization that the barrier between idea and reality just got a lot smaller.</p>
+            <p style="font-size: 1.125rem; line-height: 1.8; margin-top: 1rem;">As one student said after seeing her app built in 25 minutes: <em>"This is really great because I was stuck and I didn't know how to get going. This really helps."</em></p>
+            <p style="font-size: 1.125rem; line-height: 1.8; margin-top: 1rem; font-family: Grotesk-Bold, sans-serif;">Happy teaching!</p>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Presentation Feedback — Daniel Priestley Speech Analysis</title>
+  <link rel="icon" href="https://danielpriestley.com/wp-content/uploads/2023/04/cropped-daniel-priestley-icon-32x32.png" type="image/png" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-black: #0a0a0a;
+      --color-dark: #111111;
+      --color-card: #1a1a1a;
+      --color-accent: #8b5cf6;
+      --color-accent-dim: rgba(139, 92, 246, 0.15);
+      --color-teal: #00d4aa;
+      --color-warning: #f59e0b;
+      --color-danger: #ef4444;
+      --color-success: #22c55e;
+      --color-white: #ffffff;
+      --color-gray: #888888;
+      --color-light-gray: #cccccc;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--color-black);
+      color: var(--color-white);
+      line-height: 1.7;
+      padding: 0;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-black) 100%);
+      padding: 80px 40px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .header h1 {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .header .subtitle {
+      font-size: 20px;
+      color: var(--color-gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--color-accent-dim);
+      color: var(--color-accent);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 80px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .section-number {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--color-accent), #6d28d9);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-white);
+      flex-shrink: 0;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 40px 0 20px 0;
+      color: var(--color-accent);
+    }
+
+    h4 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 30px 0 12px 0;
+    }
+
+    p {
+      color: var(--color-light-gray);
+      margin-bottom: 16px;
+    }
+
+    strong {
+      color: var(--color-white);
+      font-weight: 600;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .card-icon.success { background: rgba(34, 197, 94, 0.15); }
+    .card-icon.warning { background: rgba(245, 158, 11, 0.15); }
+    .card-icon.danger { background: rgba(239, 68, 68, 0.15); }
+    .card-icon.info { background: var(--color-accent-dim); }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    /* Score Card */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .score-card {
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .score-value {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .score-value.high { color: var(--color-success); }
+    .score-value.medium { color: var(--color-warning); }
+    .score-value.low { color: var(--color-danger); }
+
+    .score-label {
+      font-size: 14px;
+      color: var(--color-gray);
+    }
+
+    /* List Styles */
+    ul {
+      list-style: none;
+      margin: 20px 0;
+    }
+
+    ul li {
+      padding: 12px 0;
+      padding-left: 32px;
+      position: relative;
+      color: var(--color-light-gray);
+    }
+
+    ul li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--color-accent);
+      font-weight: 600;
+    }
+
+    ol {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+
+    ol li {
+      padding: 8px 0;
+      color: var(--color-light-gray);
+    }
+
+    /* Comparison Table */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .comparison-table th {
+      font-weight: 600;
+      color: var(--color-white);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .comparison-table td {
+      color: var(--color-light-gray);
+    }
+
+    .comparison-table .current {
+      color: var(--color-warning);
+    }
+
+    .comparison-table .recommended {
+      color: var(--color-success);
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      margin: 40px 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 64px;
+      padding-bottom: 32px;
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 16px;
+      top: 4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--color-accent);
+    }
+
+    .timeline-time {
+      font-size: 14px;
+      color: var(--color-accent);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .timeline-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .timeline-desc {
+      color: var(--color-gray);
+      font-size: 15px;
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: var(--color-accent-dim);
+      border-left: 4px solid var(--color-accent);
+      padding: 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+    }
+
+    .highlight-box p {
+      color: var(--color-white);
+      margin: 0;
+    }
+
+    /* Quote */
+    blockquote {
+      font-size: 20px;
+      font-style: italic;
+      color: var(--color-white);
+      border-left: 4px solid var(--color-accent);
+      padding-left: 24px;
+      margin: 32px 0;
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
+    .tag.green { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+    .tag.yellow { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+    .tag.red { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+    .tag.blue { background: var(--color-accent-dim); color: var(--color-accent); }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 60px 24px;
+      color: var(--color-gray);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header { padding: 60px 24px; }
+      .header h1 { font-size: 32px; }
+      .score-grid { grid-template-columns: repeat(2, 1fr); }
+      h2 { font-size: 26px; }
+      .section-number { width: 40px; height: 40px; font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="badge">Presentation Analysis</div>
+    <h1>Daniel Priestley Speech Feedback</h1>
+    <p class="subtitle">A comprehensive analysis with recommendations for pacing, structure, and transformation theory integration</p>
+  </header>
+
+  <div class="container">
+
+    <!-- EXECUTIVE SUMMARY -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <h2>Executive Summary</h2>
+      </div>
+
+      <div class="score-grid">
+        <div class="score-card">
+          <div class="score-value high">8</div>
+          <div class="score-label">Content Quality</div>
+        </div>
+        <div class="score-card">
+          <div class="score-value medium">6</div>
+          <div class="score-label">Structure</div>
+        </div>
+        <div class="score-card">
+          <div class="score-value medium">5</div>
+          <div class="score-label">Pacing</div>
+        </div>
+        <div class="score-card">
+          <div class="score-value medium">6</div>
+          <div class="score-label">Transformation Arc</div>
+        </div>
+      </div>
+
+      <p><strong>Overall Assessment:</strong> Daniel delivers exceptional frameworks with clear intellectual property—the Product Ecosystem, ICP, and 90% value principle are gold. However, the structure is disrupted by Q&A interruptions and hot seats, the pacing drags in technical explanations, and the transformation arc lacks emotional case studies. With restructuring, this could be a masterclass-defining keynote.</p>
+
+      <div class="highlight-box">
+        <p><strong>Key Opportunity:</strong> The "Products don't make money. Ecosystems make profit." concept is the CORE THESIS. Currently it appears mid-talk. It should FRAME the entire presentation from minute 5, with every framework building toward the ecosystem reveal.</p>
+      </div>
+    </section>
+
+    <!-- PACING ANALYSIS -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <h2>Pacing Analysis</h2>
+      </div>
+
+      <h3>Current Pacing Issues</h3>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon warning">⚡</div>
+          <span class="card-title">Q&A Interrupts the Flow</span>
+        </div>
+        <p>Questions from the audience interrupt the narrative arc throughout the talk. While Daniel handles them expertly, each interruption breaks the momentum and forces cognitive reset.</p>
+        <p><strong>Fix:</strong> Batch Q&A into specific windows (after major sections) or save for the end. Say upfront: "I'm going to cover a lot—hold your questions until I give you a chance."</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon danger">🔥</div>
+          <span class="card-title">Hot Seats Break Main Narrative</span>
+        </div>
+        <p>The hot seat consultations with Angela and Diane are valuable but derail the core teaching. The audience watches two individual cases when they're expecting frameworks they can apply themselves.</p>
+        <p><strong>Fix:</strong> Either (1) save hot seats for a separate session, or (2) use them strategically after presenting the framework to DEMONSTRATE its application. "Let me show you exactly how this works..."</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon warning">📉</div>
+          <span class="card-title">Framework Density in Middle Third</span>
+        </div>
+        <p>The ICP → IP → Ecosystem → Pricing sequence is information-dense without emotional relief. The audience needs stories between concepts to let the ideas sink in.</p>
+        <p><strong>Fix:</strong> Add a transformation story after each major framework. "Let me tell you about a client who had this exact problem..." Case studies make theory real.</p>
+      </div>
+
+      <h3>Recommended Pacing Structure</h3>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Section</th>
+            <th class="current">Current</th>
+            <th class="recommended">Recommended</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Opening Hook (90% Value)</td>
+            <td class="current">~5 min</td>
+            <td class="recommended">5 min (perfect)</td>
+          </tr>
+          <tr>
+            <td>Frame Setting (Ecosystem Thesis)</td>
+            <td class="current">~2 min (mid-talk)</td>
+            <td class="recommended">5 min (move to minute 5-10)</td>
+          </tr>
+          <tr>
+            <td>ICP & Market Segmentation</td>
+            <td class="current">~15 min</td>
+            <td class="recommended">10 min (add case study)</td>
+          </tr>
+          <tr>
+            <td>Current → Desired Reality</td>
+            <td class="current">~10 min</td>
+            <td class="recommended">8 min (tighten)</td>
+          </tr>
+          <tr>
+            <td>Intellectual Property Framework</td>
+            <td class="current">~12 min</td>
+            <td class="recommended">10 min (add naming examples)</td>
+          </tr>
+          <tr>
+            <td>Product Ecosystem</td>
+            <td class="current">~15 min</td>
+            <td class="recommended">12 min (this is the climax)</td>
+          </tr>
+          <tr>
+            <td>Pricing Strategies</td>
+            <td class="current">~10 min</td>
+            <td class="recommended">8 min (consolidate)</td>
+          </tr>
+          <tr>
+            <td>Demand Generation</td>
+            <td class="current">~8 min</td>
+            <td class="recommended">7 min (11 touches is gold)</td>
+          </tr>
+          <tr>
+            <td>Hot Seats</td>
+            <td class="current">Scattered (~25 min)</td>
+            <td class="recommended">15 min (consolidated at end)</td>
+          </tr>
+          <tr>
+            <td>Q&A</td>
+            <td class="current">Scattered</td>
+            <td class="recommended">15 min (batched at end)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- STRUCTURE RECOMMENDATIONS -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <h2>Structural Recommendations</h2>
+      </div>
+
+      <h3>The Problem: Framework Stacking</h3>
+      <p>Currently, the talk follows a pattern of: <strong>Framework → Framework → Framework → Hot Seat → Framework</strong>. This is educational but lacks emotional engagement. The audience learns concepts but doesn't FEEL the transformation potential.</p>
+
+      <h3>The Solution: Story-Framework-Application Structure</h3>
+      <p>Each major concept should follow: <strong>Story (hook) → Framework (teach) → Application (prove)</strong>. This creates emotional investment before intellectual understanding, then demonstrates real-world impact.</p>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon info">🔄</div>
+          <span class="card-title">Recommended Structure</span>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 0-5</div>
+            <div class="timeline-title">The Hook: 90% Value Depends on WHO</div>
+            <div class="timeline-desc">"A Porsche in front of a 5-year-old is a waste of a Porsche. Your product isn't the problem—your audience is."</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 5-10</div>
+            <div class="timeline-title">The Frame: Ecosystems Make Profit</div>
+            <div class="timeline-desc">"Products don't make money. Ecosystems make profit. Today I'll show you how to build yours." This is the through-line for everything.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 10-20</div>
+            <div class="timeline-title">ICP Deep Dive + Case Study</div>
+            <div class="timeline-desc">Teach the ICP framework, then tell a story of a business that found their perfect customer. "They were selling to everyone. Then they found their 9%..."</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 20-30</div>
+            <div class="timeline-title">Current → Desired Reality + The Movie</div>
+            <div class="timeline-desc">"Customers don't buy products. They buy the movie in their head." Add a vivid example of someone buying a transformation, not a product.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 30-40</div>
+            <div class="timeline-title">Intellectual Property + Naming Exercise</div>
+            <div class="timeline-desc">Principles + Process = Proprietary Method. Have the audience start naming their own framework in real-time. Interactive moment.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 40-55</div>
+            <div class="timeline-title">The Product Ecosystem (Climax)</div>
+            <div class="timeline-desc">Gift → Product for Prospects → Core → Product for Clients. This is the PAYOFF. Everything builds to this. Draw it live.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 55-65</div>
+            <div class="timeline-title">Pricing & Demand Generation</div>
+            <div class="timeline-desc">5-20% value pricing. 11 touches. Demand must outstrip supply. Make it actionable with specific numbers.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 65-80</div>
+            <div class="timeline-title">Hot Seat Demonstrations</div>
+            <div class="timeline-desc">NOW bring Angela and Diane on stage. "Watch me apply everything we just learned in real-time." This reinforces the teaching.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 80-90</div>
+            <div class="timeline-title">Q&A + Call to Action</div>
+            <div class="timeline-desc">Batched questions. End with: "The person who can take care of winning work already has their own business. You have to own this first."</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRANSFORMATION THEORY -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <h2>Transformation Theory Integration</h2>
+      </div>
+
+      <p>Daniel's content is highly intellectual and tactical. To maximize impact, it needs more emotional transformation elements woven throughout:</p>
+
+      <h3>A. The Hero's Journey Framework</h3>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon info">🗺️</div>
+          <span class="card-title">Mapping Daniel's Content to Hero's Journey</span>
+        </div>
+
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Stage</th>
+              <th>Current State</th>
+              <th>Recommended Enhancement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Ordinary World</strong></td>
+              <td>Implied</td>
+              <td>Make explicit: "You have expertise, ideas, maybe a business—but it's not working the way you dreamed. You're trading time for money."</td>
+            </tr>
+            <tr>
+              <td><strong>Call to Adventure</strong></td>
+              <td>90% value hook</td>
+              <td>Good start. Add: "What if your product is perfect and your audience is wrong?"</td>
+            </tr>
+            <tr>
+              <td><strong>Refusal of the Call</strong></td>
+              <td>Missing</td>
+              <td>Address skepticism: "I know you're thinking 'but my market is different.' I've heard that from every industry. It's not."</td>
+            </tr>
+            <tr>
+              <td><strong>Meeting the Mentor</strong></td>
+              <td>Daniel's credibility</td>
+              <td>Add specific outcome story: "I've helped X entrepreneurs generate Y in revenue using exactly what I'm about to show you."</td>
+            </tr>
+            <tr>
+              <td><strong>Crossing the Threshold</strong></td>
+              <td>ICP framework</td>
+              <td>This is the paradigm shift. Slow down. "Once you see this, you can't unsee it."</td>
+            </tr>
+            <tr>
+              <td><strong>Tests/Allies/Enemies</strong></td>
+              <td>The "convince everyone" trap</td>
+              <td>Name the enemy: "The biggest mistake is trying to be everything to everyone. That's the path to mediocrity."</td>
+            </tr>
+            <tr>
+              <td><strong>The Ordeal</strong></td>
+              <td>Hot seats</td>
+              <td>Position hot seats as "real challenges we'll solve together" to increase stakes.</td>
+            </tr>
+            <tr>
+              <td><strong>The Reward</strong></td>
+              <td>Product ecosystem framework</td>
+              <td>Make it visual. Draw it live. "This is YOUR ecosystem. You walk out with this."</td>
+            </tr>
+            <tr>
+              <td><strong>Return with Elixir</strong></td>
+              <td>Weak currently</td>
+              <td>End with transformation vision: "In 6 months, you'll have demand outstripping supply. You'll be turning people away."</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>B. Eugene Schwartz's Awareness Levels</h3>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon info">🎯</div>
+          <span class="card-title">Awareness Level Mapping</span>
+        </div>
+
+        <ul>
+          <li><strong>Unaware:</strong> "I have expertise but no product."<br>
+          <span class="tag blue">Address with:</span> "Your knowledge IS a product waiting to be packaged."</li>
+
+          <li><strong>Problem Aware:</strong> "I know I need to productize but don't know how."<br>
+          <span class="tag blue">Address with:</span> "You don't have a product problem—you have an ecosystem problem."</li>
+
+          <li><strong>Solution Aware:</strong> "I've tried courses/coaching but can't scale."<br>
+          <span class="tag blue">Address with:</span> "Single products don't scale. Ecosystems do."</li>
+
+          <li><strong>Product Aware:</strong> "I know about scorecards and lead magnets."<br>
+          <span class="tag blue">Address with:</span> "A scorecard without an ecosystem is just a survey. Here's how they connect."</li>
+
+          <li><strong>Most Aware:</strong> "I know Daniel's work and want the advanced strategy."<br>
+          <span class="tag blue">Address with:</span> The Dent accelerator pitch and deeper implementation support.</li>
+        </ul>
+      </div>
+
+      <h3>C. Belief Shifting Techniques</h3>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">🔑</div>
+          <span class="card-title">Core Beliefs to Shift</span>
+        </div>
+
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Old Belief</th>
+              <th>New Belief</th>
+              <th>Key Evidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>"I need a better product"</td>
+              <td>"I need a better customer"</td>
+              <td>90% value depends on who's looking (Porsche analogy)</td>
+            </tr>
+            <tr>
+              <td>"Customers buy products"</td>
+              <td>"Customers buy the movie in their head"</td>
+              <td>Current reality → Desired reality framework</td>
+            </tr>
+            <tr>
+              <td>"I need one great offer"</td>
+              <td>"I need an ecosystem of offers"</td>
+              <td>Gift → Prospect Product → Core → Client Product</td>
+            </tr>
+            <tr>
+              <td>"Price is about cost"</td>
+              <td>"Price is about value delivered"</td>
+              <td>5-20% of quantifiable ROI</td>
+            </tr>
+            <tr>
+              <td>"I need more marketing"</td>
+              <td>"I need demand to outstrip supply"</td>
+              <td>The seesaw analogy + 11 touches</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>D. The Missing Case Studies</h3>
+
+      <p>Daniel's talk is framework-heavy but story-light. Unlike Gary Brecka (who has Dana White), Daniel doesn't anchor his frameworks in memorable transformation stories.</p>
+
+      <div class="highlight-box">
+        <p><strong>Recommendation:</strong> Create 2-3 signature case studies that demonstrate each major framework in action. Name the businesses, share specific numbers, describe the transformation arc. "Sarah came to me with 3 products and no sales. 6 months later, she had 4 products and a waiting list. Here's exactly what changed..."</p>
+      </div>
+    </section>
+
+    <!-- SPECIFIC IMPROVEMENTS -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <h2>Specific Tactical Improvements</h2>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✅</div>
+          <span class="card-title">What's Working (Keep These)</span>
+        </div>
+        <ul>
+          <li><strong>The 90% value hook</strong> — instantly reframes the problem</li>
+          <li><strong>The Porsche analogy</strong> — perfect, memorable, repeatable</li>
+          <li><strong>Market segmentation (1%/9%/90%)</strong> — specific, actionable numbers</li>
+          <li><strong>Product Ecosystem framework</strong> — the intellectual centerpiece</li>
+          <li><strong>The 30 Test concept</strong> — practical, demystifies sales</li>
+          <li><strong>11 touches to notice</strong> — memorable, quotable insight</li>
+          <li><strong>"Demand must outstrip supply"</strong> — powerful mental model</li>
+          <li><strong>ScoreApp integration</strong> — practical tool recommendation</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon warning">⚠️</div>
+          <span class="card-title">What Needs Work</span>
+        </div>
+        <ul>
+          <li><strong>Move ecosystem framework earlier</strong> — frame it in minute 5-10, detail it in minute 40</li>
+          <li><strong>Add transformation case studies</strong> — every framework needs a story</li>
+          <li><strong>Batch Q&A and hot seats</strong> — don't interrupt the teaching flow</li>
+          <li><strong>Strengthen the opening promise</strong> — what will they walk away with?</li>
+          <li><strong>Add interactive moments</strong> — have them start naming their IP live</li>
+          <li><strong>Visual aids</strong> — draw the ecosystem live on a whiteboard</li>
+          <li><strong>Stronger ending</strong> — paint the vision of their transformed business</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon danger">🚫</div>
+          <span class="card-title">What to Cut or Reduce</span>
+        </div>
+        <ul>
+          <li><strong>Extended tangents during Q&A</strong> — some answers go too deep</li>
+          <li><strong>Repetitive emphasis on same points</strong> — once is enough if the framework is clear</li>
+          <li><strong>Technical details without stories</strong> — theory needs proof</li>
+          <li><strong>Self-interruptions</strong> — "let me come back to that" happens often</li>
+        </ul>
+      </div>
+
+      <h3>Specific Language Upgrades</h3>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Current</th>
+            <th>Recommended</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>"Let me answer that question..."</td>
+            <td>"Great question—hold it. We'll cover that in 10 minutes."</td>
+            <td>Maintain flow control</td>
+          </tr>
+          <tr>
+            <td>"Does that make sense?"</td>
+            <td>"Here's how that looks in practice..."</td>
+            <td>Show, don't ask for validation</td>
+          </tr>
+          <tr>
+            <td>"The thing about this is..."</td>
+            <td>"The breakthrough insight is..."</td>
+            <td>Elevate language to match content quality</td>
+          </tr>
+          <tr>
+            <td>"I'll come back to that"</td>
+            <td>Cut—either address it or note it for Q&A</td>
+            <td>Creates cognitive debt</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SPECIFIC QUOTES ANALYSIS -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">6</div>
+        <h2>Specific Quote Analysis</h2>
+      </div>
+
+      <h3>Brilliant Lines (Keep These Exactly)</h3>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✨</div>
+          <span class="card-title">The 90% Value Hook</span>
+        </div>
+        <blockquote style="border-color: var(--color-success);">"90% of the value that you offer depends on who's looking. A Porsche in front of a 5-year-old is a waste of a Porsche. There's nothing about the Porsche that needs to change—just who's looking."</blockquote>
+        <p><strong>Why it works:</strong> Instantly reframes the problem from "my product isn't good enough" to "I haven't found the right people." This is liberating and opens minds to the ICP framework.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✨</div>
+          <span class="card-title">The Movie in Their Head</span>
+        </div>
+        <blockquote style="border-color: var(--color-success);">"Customers don't buy products and services. Customers buy the ability to step into the movie that they have in their head about what their life could be like."</blockquote>
+        <p><strong>Why it works:</strong> Shifts entrepreneurs from feature-selling to transformation-selling. The "movie" metaphor is visceral and memorable—people can visualize their customers' fantasies.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✨</div>
+          <span class="card-title">Ecosystems vs Products</span>
+        </div>
+        <blockquote style="border-color: var(--color-success);">"Products and services don't make money. Product and service ecosystems make profit. You need a suite of products that work together."</blockquote>
+        <p><strong>Why it works:</strong> This is the CORE THESIS. It challenges the common "one product" mentality and opens the door to the four-level ecosystem framework. Should be positioned as the central idea of the entire talk.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✨</div>
+          <span class="card-title">The 11 Touches Insight</span>
+        </div>
+        <blockquote style="border-color: var(--color-success);">"In order for people to buy from you first, they need to notice you. They see you for the first time when they see you for the 11th time."</blockquote>
+        <p><strong>Why it works:</strong> Counter-intuitive, specific, and instantly quotable. This reframes content strategy from "viral moments" to "consistent presence." The number 11 is oddly specific—which makes it memorable.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✨</div>
+          <span class="card-title">The Hiring Reality</span>
+        </div>
+        <blockquote style="border-color: var(--color-success);">"The person who can take care of winning the work already has their own business and they're killing it."</blockquote>
+        <p><strong>Why it works:</strong> Brutally honest insight that saves entrepreneurs from the "hire a salesperson to fix it" trap. This challenges a common fantasy with uncomfortable truth.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✨</div>
+          <span class="card-title">Name Everything</span>
+        </div>
+        <blockquote style="border-color: var(--color-success);">"All of the most iconic products have a name. They have a visual associated with it. It helps people to know what it is."</blockquote>
+        <p><strong>Why it works:</strong> Simple, actionable advice that most entrepreneurs overlook. Naming creates intellectual property and positions your methodology as proprietary.</p>
+      </div>
+
+      <h3>Lines That Need Improvement</h3>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon warning">⚠️</div>
+          <span class="card-title">The Self-Interruption Pattern</span>
+        </div>
+        <blockquote style="border-color: var(--color-warning);">"Let me come back to that..." / "I'll address that in a moment..."</blockquote>
+        <p><strong>Problem:</strong> These phrases create cognitive debt. The audience is now tracking multiple open loops, which reduces their bandwidth for the current content.</p>
+        <div class="highlight-box" style="margin-top: 16px;">
+          <p><strong>Fix:</strong> Either address it immediately in one sentence, or say "Great question—I'll cover that in the Q&A section. For now, let's stay with..."</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon warning">⚠️</div>
+          <span class="card-title">The Validation Seeking</span>
+        </div>
+        <blockquote style="border-color: var(--color-warning);">"Does that make sense?" / "Are you with me?"</blockquote>
+        <p><strong>Problem:</strong> These phrases signal uncertainty. They also put the burden on the audience to validate the speaker. High-status presenters assume understanding and move forward.</p>
+        <div class="highlight-box" style="margin-top: 16px;">
+          <p><strong>Fix:</strong> Replace with examples: "Here's what that looks like in practice..." or interactive: "Raise your hand if you've experienced this..."</p>
+        </div>
+      </div>
+
+      <h3>Quotes That Need Repositioning</h3>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon info">📍</div>
+          <span class="card-title">Move Earlier: The Ecosystem Thesis</span>
+        </div>
+        <blockquote style="border-color: var(--color-accent);">"Products and services don't make money. Product and service ecosystems make profit."</blockquote>
+        <p><strong>Current position:</strong> Mid-talk when introducing the product ecosystem</p>
+        <p><strong>Recommended position:</strong> Minute 5-10, as the FRAME for everything</p>
+        <p><strong>Why:</strong> This should be the through-line. "By the end of today, you'll have a complete product ecosystem. Let me show you what that means..." Then every framework builds toward the ecosystem reveal.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon info">📍</div>
+          <span class="card-title">Move to Closing: The Demand Principle</span>
+        </div>
+        <blockquote style="border-color: var(--color-accent);">"Demand must massively outstrip supply. Think of it as a seesaw: if it tips even 10% toward more supply than demand, your entire business falls apart."</blockquote>
+        <p><strong>Current position:</strong> Scattered in demand generation section</p>
+        <p><strong>Recommended position:</strong> As part of the CLOSING statement</p>
+        <p><strong>Why:</strong> This is the vision of success. End with: "When you have your ecosystem right, demand outstrips supply. You have a waiting list. You're turning people away. THAT is the goal."</p>
+      </div>
+
+    </section>
+
+    <!-- THE ULTIMATE TALK -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">7</div>
+        <h2>The Optimized Talk Structure</h2>
+      </div>
+
+      <p>Here's how I'd restructure the talk for maximum transformation:</p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">0:00 - 5:00</div>
+          <div class="timeline-title">The Hook: 90% Value Depends on WHO</div>
+          <div class="timeline-desc">"A Porsche in front of a 5-year-old is a waste of a Porsche. Your product might be perfect—for the wrong person."</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">5:00 - 10:00</div>
+          <div class="timeline-title">The Frame: Ecosystems Make Profit</div>
+          <div class="timeline-desc">"Products don't make money. Ecosystems do. By the end of today, you'll have your complete ecosystem mapped."</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">10:00 - 20:00</div>
+          <div class="timeline-title">ICP + Market Segmentation + Case Study</div>
+          <div class="timeline-desc">1%/9%/90% framework. Story of entrepreneur who found their 9% and tripled revenue.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">20:00 - 30:00</div>
+          <div class="timeline-title">Current → Desired Reality</div>
+          <div class="timeline-desc">"Customers buy the movie in their head." Map the transformation journey with a vivid example.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">30:00 - 40:00</div>
+          <div class="timeline-title">Intellectual Property + Interactive Naming</div>
+          <div class="timeline-desc">Principles + Process. Have audience start naming their methodology. "What will you call your framework?"</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">40:00 - 55:00</div>
+          <div class="timeline-title">The Product Ecosystem (Climax)</div>
+          <div class="timeline-desc">Gift → Prospect → Core → Client. Draw live on whiteboard. This is the PAYOFF.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">55:00 - 65:00</div>
+          <div class="timeline-title">Pricing + Demand Generation</div>
+          <div class="timeline-desc">5-20% value pricing. 11 touches. 2-7 hours. The seesaw of demand vs supply.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">65:00 - 80:00</div>
+          <div class="timeline-title">Hot Seats: Live Application</div>
+          <div class="timeline-desc">"Watch me apply everything we learned." Angela and Diane—now the audience sees the framework in action.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">80:00 - 90:00</div>
+          <div class="timeline-title">Q&A + Vision Closing</div>
+          <div class="timeline-desc">"Demand outstrips supply. You have a waiting list. You're turning people away. That's where this takes you."</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL THOUGHTS -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">8</div>
+        <h2>Final Thoughts</h2>
+      </div>
+
+      <blockquote>
+        "Products and services don't make money. Product and service ecosystems make profit."
+      </blockquote>
+
+      <p>This line is the HEART of Daniel's message. It should be the through-line of the talk, introduced at minute 5, reinforced throughout, and delivered as the climax when revealing the four-level ecosystem.</p>
+
+      <div class="highlight-box">
+        <p><strong>The Bottom Line:</strong> Daniel has world-class frameworks and genuine expertise. The content is exceptional—clear, actionable, immediately valuable. What's missing is emotional engagement. Add transformation stories. Batch the Q&A and hot seats. Position the ecosystem as the central thesis from the start. This talk could transform how entrepreneurs think about their businesses.</p>
+      </div>
+
+      <p style="margin-top: 40px; color: var(--color-gray); text-align: center;">
+        <span class="tag green">Content</span>
+        <span class="tag yellow">Structure</span>
+        <span class="tag yellow">Pacing</span>
+        <span class="tag yellow">Transformation</span>
+      </p>
+    </section>
+
+  </div>
+
+  <footer class="footer">
+    <p>Presentation Analysis prepared for Mindvalley Entrepreneurship Mastery</p>
+    <p style="margin-top: 8px; font-size: 14px;">Based on transformation theory frameworks from Joseph Campbell, Eugene Schwartz, and Mindvalley</p>
+  </footer>
+
+</body>
+</html>
