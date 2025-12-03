@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Ultimate Human — Gary Brecka Presentation</title>
+  <link rel="icon" href="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e5b4f39af84d2adae7df_favicon.png" type="image/png" />
+  <style>
+    /* ========================================
+       SLIDE DECK STYLES
+       ======================================== */
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-black: #0a0a0a;
+      --color-dark: #111111;
+      --color-card: #1a1a1a;
+      --color-accent: #00d4aa;
+      --color-accent-dim: rgba(0, 212, 170, 0.15);
+      --color-white: #ffffff;
+      --color-gray: #888888;
+      --color-light-gray: #cccccc;
+      --gradient-accent: linear-gradient(135deg, #00d4aa 0%, #00a88a 100%);
+      --gradient-dark: linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--color-black);
+      color: var(--color-white);
+    }
+
+    /* Slide Container */
+    .slides-container {
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 80px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .slide.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .slide-inner {
+      max-width: 1200px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Split Layout for Image Slides */
+    .slide-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1400px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .slide-split.reverse {
+      direction: rtl;
+    }
+
+    .slide-split.reverse > * {
+      direction: ltr;
+    }
+
+    .slide-split .content {
+      padding-right: 20px;
+    }
+
+    .slide-split.reverse .content {
+      padding-right: 0;
+      padding-left: 20px;
+    }
+
+    .slide-split .image-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide-split .slide-image {
+      max-width: 100%;
+      max-height: 70vh;
+      border-radius: 24px;
+      object-fit: cover;
+      box-shadow: 0 25px 80px rgba(0, 212, 170, 0.15);
+    }
+
+    /* Typography */
+    .slide-number {
+      position: absolute;
+      top: 30px;
+      left: 40px;
+      font-size: 14px;
+      color: var(--color-gray);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+    }
+
+    .slide-category {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-accent);
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 72px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 30px;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 42px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+
+    .slide-split h2 {
+      font-size: 48px;
+    }
+
+    .slide-split h3 {
+      font-size: 36px;
+    }
+
+    .subtitle {
+      font-size: 28px;
+      color: var(--color-light-gray);
+      line-height: 1.5;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .slide-split .subtitle {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    .highlight {
+      color: var(--color-accent);
+    }
+
+    .big-number {
+      font-size: 180px;
+      font-weight: 900;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .medium-number {
+      font-size: 120px;
+      font-weight: 900;
+      color: var(--color-accent);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    /* Quote Slides */
+    .quote {
+      font-size: 48px;
+      font-weight: 300;
+      line-height: 1.4;
+      font-style: italic;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .quote-mark {
+      font-size: 120px;
+      color: var(--color-accent);
+      line-height: 0.5;
+      opacity: 0.3;
+    }
+
+    /* Two Column Layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      text-align: left;
+    }
+
+    .two-col h3 {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .two-col p {
+      font-size: 20px;
+      color: var(--color-light-gray);
+      line-height: 1.6;
+    }
+
+    /* List Styles */
+    .slide-list {
+      list-style: none;
+      text-align: left;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .slide-split .slide-list {
+      margin: 0;
+      max-width: none;
+    }
+
+    .slide-list li {
+      font-size: 28px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .slide-split .slide-list li {
+      font-size: 22px;
+      padding: 12px 0;
+    }
+
+    .slide-list li:last-child {
+      border-bottom: none;
+    }
+
+    .slide-list .icon {
+      width: 40px;
+      height: 40px;
+      background: var(--color-accent-dim);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-accent);
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .slide-split .slide-list .icon {
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+    }
+
+    /* Pathway Diagram */
+    .pathway {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin: 40px 0;
+    }
+
+    .slide-split .pathway {
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .pathway-item {
+      background: var(--color-card);
+      padding: 24px 32px;
+      border-radius: 16px;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .slide-split .pathway-item {
+      padding: 16px 24px;
+      font-size: 18px;
+    }
+
+    .pathway-arrow {
+      font-size: 32px;
+      color: var(--color-accent);
+    }
+
+    .slide-split .pathway-arrow {
+      font-size: 24px;
+    }
+
+    .pathway-result {
+      background: var(--gradient-accent);
+      color: var(--color-black);
+    }
+
+    /* Scale Visualization */
+    .scale {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 40px 0;
+    }
+
+    .scale-item {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 700;
+      transition: transform 0.3s ease;
+    }
+
+    .scale-item:hover {
+      transform: scale(1.1);
+    }
+
+    .scale-1 { background: #22c55e; }
+    .scale-2 { background: #4ade80; }
+    .scale-3 { background: #86efac; color: #0a0a0a; }
+    .scale-4 { background: #fef08a; color: #0a0a0a; }
+    .scale-5 { background: #fcd34d; color: #0a0a0a; }
+    .scale-6 { background: #fb923c; color: #0a0a0a; }
+    .scale-7 { background: #f97316; }
+    .scale-8 { background: #ef4444; }
+    .scale-9 { background: #dc2626; }
+    .scale-10 { background: #991b1b; }
+
+    .scale-labels {
+      display: flex;
+      justify-content: space-between;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+
+    .scale-labels span {
+      font-size: 16px;
+      color: var(--color-gray);
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      text-align: left;
+    }
+
+    .card {
+      background: var(--color-card);
+      padding: 32px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .card-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .card h4 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      font-size: 16px;
+      color: var(--color-gray);
+      line-height: 1.5;
+    }
+
+    /* Donut Chart */
+    .donut-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      margin: 40px 0;
+    }
+
+    .slide-split .donut-container {
+      justify-content: flex-start;
+      gap: 40px;
+      margin: 30px 0;
+    }
+
+    .donut {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--color-accent) 0deg 108deg,
+        #ff6b6b 108deg 360deg
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .slide-split .donut {
+      width: 180px;
+      height: 180px;
+    }
+
+    .donut-inner {
+      width: 150px;
+      height: 150px;
+      background: var(--color-black);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .slide-split .donut-inner {
+      width: 110px;
+      height: 110px;
+    }
+
+    .donut-inner .percent {
+      font-size: 36px;
+      font-weight: 700;
+    }
+
+    .slide-split .donut-inner .percent {
+      font-size: 28px;
+    }
+
+    .donut-inner .label {
+      font-size: 14px;
+      color: var(--color-gray);
+    }
+
+    .donut-legend {
+      text-align: left;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+
+    .slide-split .legend-item {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    .legend-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.heart { background: var(--color-accent); }
+    .legend-dot.micro { background: #ff6b6b; }
+
+    /* Protocol Images Grid */
+    .protocol-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .protocol-item {
+      text-align: center;
+    }
+
+    .protocol-item img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 12px;
+    }
+
+    .protocol-item span {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 16px;
+      z-index: 1000;
+    }
+
+    .nav button {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav button:hover {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-black);
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--gradient-accent);
+      transition: width 0.3s ease;
+      z-index: 1000;
+    }
+
+    /* Logo */
+    .logo {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      height: 30px;
+      opacity: 0.7;
+    }
+
+    /* Speaker Notes Toggle */
+    .notes-toggle {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 12px 20px;
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 30px;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .speaker-notes {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      width: 350px;
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 24px;
+      display: none;
+      z-index: 1000;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .speaker-notes.visible {
+      display: block;
+    }
+
+    .speaker-notes h5 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-accent);
+      margin-bottom: 12px;
+    }
+
+    .speaker-notes p {
+      font-size: 14px;
+      color: var(--color-light-gray);
+      line-height: 1.6;
+    }
+
+    /* Title Slide Special */
+    .title-slide {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+    }
+
+    .title-slide h1 {
+      font-size: 90px;
+    }
+
+    .title-slide .author {
+      font-size: 32px;
+      color: var(--color-accent);
+      margin-top: 30px;
+      font-weight: 500;
+    }
+
+    .title-slide .event {
+      font-size: 20px;
+      color: var(--color-gray);
+      margin-top: 10px;
+    }
+
+    /* Keyboard hints */
+    .keyboard-hint {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      font-size: 12px;
+      color: var(--color-gray);
+      z-index: 1000;
+    }
+
+    .keyboard-hint kbd {
+      background: var(--color-card);
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin: 0 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .slide {
+        padding: 40px;
+      }
+
+      h1 { font-size: 48px; }
+      h2 { font-size: 40px; }
+      h3 { font-size: 32px; }
+      .subtitle { font-size: 20px; }
+      .big-number { font-size: 120px; }
+      .quote { font-size: 32px; }
+      .two-col { grid-template-columns: 1fr; gap: 30px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .pathway { flex-wrap: wrap; }
+      .scale-item { width: 50px; height: 50px; font-size: 18px; }
+      .slide-split { grid-template-columns: 1fr; gap: 30px; }
+      .slide-split .slide-image { max-height: 40vh; }
+      .protocol-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progress"></div>
+
+  <div class="slides-container">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide title-slide active" data-notes="Open with energy. Make eye contact across the room. Pause after 'Become' for effect.">
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <h1>The Ultimate Human</h1>
+        <p class="subtitle">How to Add 7 Years to Your Life<br>Through the Science of Human Optimization</p>
+        <p class="author">Gary Brecka</p>
+        <p class="event">House of Superhumans</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: The 84-Day Promise with Gary Image -->
+    <div class="slide" data-notes="This is your HOOK. Say the number slowly. Let it land. 'Three hundred billion.' Pause. 'Gone tomorrow.' This creates cognitive dissonance that opens minds.">
+      <span class="slide-number">01</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-split">
+        <div class="content">
+          <p class="slide-category">The Foundation</p>
+          <div class="big-number" style="font-size: 140px;">84</div>
+          <h2 style="font-size: 42px;">Days to a New You</h2>
+          <p class="subtitle">300 billion cells that work with you today will not be with you tomorrow. Every 84 days, you become an entirely different cellular human being.</p>
+        </div>
+        <div class="image-container">
+          <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/687000b7c6bae5fc0475247f_Gary-Brecka-Biography.avif" alt="Gary Brecka" class="slide-image" />
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: The Question -->
+    <div class="slide" data-notes="Rhetorical question. Let it hang in the air. Make them FEEL the absurdity of not believing in their body's ability to heal.">
+      <span class="slide-number">02</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">The Question</p>
+        <h2 class="quote">"If we become entirely different cellular human beings every 84 days...<br><br><span class="highlight">What is it to not heal from?</span>"</h2>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: My Two Promises -->
+    <div class="slide" data-notes="State your promises clearly. These create a LOOP that must be closed. Promise #1 creates hope. Promise #2 creates curiosity. Both create commitment to stay.">
+      <span class="slide-number">03</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">My Commitment to You</p>
+        <h2>Two Promises</h2>
+        <div class="two-col" style="margin-top: 50px;">
+          <div class="card">
+            <div class="card-icon">1</div>
+            <h4>Add 7 Years</h4>
+            <p>If you do what I ask you to do today, I will add seven years to the lifespan of everyone in this room.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">2</div>
+            <h4>Any Ailment</h4>
+            <p>I will take any ailment you or a loved one suffers from and tell you exactly what raw material is missing from their body.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: The Big Idea -->
+    <div class="slide" data-notes="THIS IS YOUR CORE THESIS. Repeat it. 'One thing goes wrong that causes everything.' Have them say it back to you. This is the frame for everything that follows.">
+      <span class="slide-number">04</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">The Core Principle</p>
+        <h2>One Thing Causes Everything</h2>
+        <p class="subtitle" style="margin-top: 40px;">In a human body, rarely if ever do multiple systems fail at the same time.<br><br>It's not an explosion. <span class="highlight">It's a domino effect.</span><br><br>Find the one thing, and you find what causes everything.</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: The Tree Analogy with Image -->
+    <div class="slide" data-notes="Use your hands to demonstrate. Point to an imaginary tree. This analogy is GOLD - it bridges complex biochemistry to something everyone understands.">
+      <span class="slide-number">05</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-split reverse">
+        <div class="content">
+          <p class="slide-category">The Tree Analogy</p>
+          <h2>We Treat the Leaf,<br>Not the Soil</h2>
+          <p class="subtitle" style="margin-top: 30px;">A true botanist wouldn't even touch a rotting leaf. They would test the soil. Add the missing nitrogen. And the leaf would heal.</p>
+          <p class="subtitle" style="margin-top: 20px;"><span class="highlight">Human beings are no different.</span></p>
+        </div>
+        <div class="image-container">
+          <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67f7e0cf3c0d56a6fb94c92e_grounding-v2.avif" alt="Nature and grounding" class="slide-image" />
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Serotonin Pathway -->
+    <div class="slide" data-notes="Walk them through the pathway slowly. Point to each box. 'Tryptophan... goes here... becomes serotonin.' Make it visual with your hands.">
+      <span class="slide-number">06</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">Pathway #1</p>
+        <h3>The Mood Factory</h3>
+        <div class="pathway">
+          <div class="pathway-item">Tryptophan</div>
+          <div class="pathway-arrow">→</div>
+          <div class="pathway-item">5-HTP</div>
+          <div class="pathway-arrow">→</div>
+          <div class="pathway-item pathway-result">Serotonin</div>
+        </div>
+        <p class="subtitle">Serotonin is the foundation of all mood and emotion.<br>If you can't convert tryptophan, you can't manufacture mood.<br><br><span class="highlight">Result?</span> Depression. ADHD. Anxiety. OCD.</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: The Treatment Problem -->
+    <div class="slide" data-notes="Pause after 'the treatment is not to raise serotonin.' Let the cognitive dissonance sink in. This is a paradigm-shifting moment.">
+      <span class="slide-number">07</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">The Problem</p>
+        <h2>"In the United States, we define depression as an inadequate supply of serotonin.<br><br><span class="highlight">And yet the treatment is not to raise serotonin.</span>"</h2>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: Dopamine Pathway -->
+    <div class="slide" data-notes="The addiction story is powerful. Speak with compassion. 'Addicts don't wake up wanting to get high. They wake up wanting to feel NORMAL.'">
+      <span class="slide-number">08</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">Pathway #2</p>
+        <h3>The Addiction Connection</h3>
+        <div class="pathway">
+          <div class="pathway-item">Tyrosine</div>
+          <div class="pathway-arrow">→</div>
+          <div class="pathway-item">L-DOPA</div>
+          <div class="pathway-arrow">→</div>
+          <div class="pathway-item pathway-result">Dopamine</div>
+        </div>
+        <p class="subtitle" style="margin-top: 30px;"><span class="highlight">The absence of dopamine is the presence of addiction.</span><br><br>No addict ever woke up wanting to get high.<br>They woke up wanting to feel <em>normal</em>.</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: Anxiety Scale -->
+    <div class="slide" data-notes="This is interactive. Point to each number as you describe the symptoms. Have the audience imagine themselves at each level. 'At a 3, you feel anxious...'">
+      <span class="slide-number">09</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">Understanding Anxiety</p>
+        <h3>The Catecholamine Scale</h3>
+        <div class="scale">
+          <div class="scale-item scale-1">1</div>
+          <div class="scale-item scale-2">2</div>
+          <div class="scale-item scale-3">3</div>
+          <div class="scale-item scale-4">4</div>
+          <div class="scale-item scale-5">5</div>
+          <div class="scale-item scale-6">6</div>
+          <div class="scale-item scale-7">7</div>
+          <div class="scale-item scale-8">8</div>
+          <div class="scale-item scale-9">9</div>
+          <div class="scale-item scale-10">10</div>
+        </div>
+        <div class="scale-labels">
+          <span>Calm</span>
+          <span>Anxious</span>
+          <span>Fear without cause</span>
+          <span>Heart racing</span>
+          <span>Full panic</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: The Shark Example -->
+    <div class="slide" data-notes="This is your STORY moment. Act it out. Describe lying in bed, thinking about a shark. Make it vivid. Get a laugh. Then hit them with the insight.">
+      <span class="slide-number">10</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">The Proof</p>
+        <h2>The Shark in Your Bedroom</h2>
+        <p class="subtitle" style="margin-top: 40px;">You could be lying in bed thinking about getting eaten by a shark.<br><br>The chances of a shark making it to your hotel room? <span class="highlight">Zero.</span><br><br>But you'll have the <em>exact same reaction</em> as if someone held a knife to you.<br><br><strong>Because neurophysiologically, they are exactly the same thing.</strong></p>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: Homocysteine with Image -->
+    <div class="slide" data-notes="Transition: 'Now let's talk about your heart.' The homocysteine story sets up the Dana White case study.">
+      <span class="slide-number">11</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-split">
+        <div class="content">
+          <p class="slide-category">Pathway #3</p>
+          <h3>The Homocysteine Connection</h3>
+          <p class="subtitle" style="margin-top: 20px;">When homocysteine rises, your vascular system constricts. Your blood pressure goes up.</p>
+          <p class="subtitle" style="margin-top: 20px;">You get diagnosed with hypertension.</p>
+          <p class="subtitle" style="margin-top: 20px;">They medicate your heart when <span class="highlight">nothing is wrong with your heart.</span></p>
+        </div>
+        <div class="image-container">
+          <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67f7e0cfbb47e1e5209e4428_cold-water-v2.avif" alt="Cold water therapy" class="slide-image" />
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 13: The 70/30 Split -->
+    <div class="slide" data-notes="This is a MIND-BLOWING fact for most people. 'How many of you think the heart pumps 100% of your blood?' Watch hands go up. 'Wrong. It's 30%.'">
+      <span class="slide-number">12</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">The Truth About Circulation</p>
+        <h3>Your Heart Only Does 30%</h3>
+        <div class="donut-container">
+          <div class="donut">
+            <div class="donut-inner">
+              <span class="percent">30%</span>
+              <span class="label">Heart</span>
+            </div>
+          </div>
+          <div class="donut-legend">
+            <div class="legend-item">
+              <div class="legend-dot heart"></div>
+              <span><strong>30%</strong> — Heart (what cardiologists look at)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot micro"></div>
+              <span><strong>70%</strong> — Microvascular (what we ignore)</span>
+            </div>
+          </div>
+        </div>
+        <p class="subtitle">63,000 miles of blood vessels. 70% are not pumped by the heart.<br>They move by <span class="highlight">vasomotor</span> — like a snake swallowing a mouse.</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 14: Dana White Story with Image -->
+    <div class="slide" data-notes="This is your CASE STUDY. Name drop strategically. '11 days later, off his meds. Cancelled the surgery.' This builds massive credibility.">
+      <span class="slide-number">13</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-split reverse">
+        <div class="content">
+          <p class="slide-category">Case Study</p>
+          <h2 style="font-size: 42px;">Dana White</h2>
+          <ul class="slide-list" style="margin-top: 30px;">
+            <li><span class="icon">1</span> Uncontrolled hypertension on 3 medications</li>
+            <li><span class="icon">2</span> Scheduled for heart ablation surgery</li>
+            <li><span class="icon">3</span> 10 years of cardiac exams: All normal</li>
+            <li><span class="icon">→</span> <strong>11 days later:</strong> Off all meds</li>
+            <li><span class="icon">→</span> <strong>21 weeks later:</strong> Surgery cancelled</li>
+          </ul>
+        </div>
+        <div class="image-container">
+          <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e8a2e97d5ee3a35ecd1bf4_Dana-White-Gary-Brecka.avif" alt="Dana White with Gary Brecka" class="slide-image" />
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 15: The Inheritance Myth -->
+    <div class="slide" data-notes="This challenges a CORE BELIEF. Speak with authority. 'I'll give you $100,000 if you can tell me what gene carries hypertension. There isn't one.'">
+      <span class="slide-number">14</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">Myth Busting</p>
+        <h2>There Is No Gene for Hypertension</h2>
+        <p class="subtitle" style="margin-top: 40px;">We don't pass disease from generation to generation.<br>We pass <span class="highlight">deficiencies</span> that lead to the expression of disease.<br><br>"You have high blood pressure because your uncle had it."<br><strong>Show me the gene.</strong></p>
+      </div>
+    </div>
+
+    <!-- SLIDE 16: Hydrogen Introduction with Image -->
+    <div class="slide" data-notes="Transition to hydrogen. 'Now I want to share what I believe is the biggest discovery of our time.' Build anticipation.">
+      <span class="slide-number">15</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-split">
+        <div class="content">
+          <p class="slide-category">The Breakthrough</p>
+          <h2 style="font-size: 42px;">Hydrogen Therapy</h2>
+          <p class="subtitle" style="margin-top: 20px;">The smallest, lightest element in the universe.</p>
+          <p class="subtitle" style="margin-top: 20px;">10% of your body weight is hydrogen.</p>
+          <p class="subtitle" style="margin-top: 20px;">I believe this will be <span class="highlight">as common as a multivitamin</span> within five years.</p>
+        </div>
+        <div class="image-container">
+          <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67f7e0cf9de3e1b3a75ace62_breath-work-v2.avif" alt="Breathwork and hydrogen" class="slide-image" />
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 17: NRF2 Pathway -->
+    <div class="slide" data-notes="Keep this simple. 'Your body has an intelligent pathway that knows how to balance itself. Hydrogen activates it.'">
+      <span class="slide-number">16</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">The Science</p>
+        <h3>The NRF2 Pathway</h3>
+        <p class="subtitle">Inside every cell is an intelligent pathway that influences your DNA.<br>It creates <span class="highlight">redox homeostasis</span> — the balance between oxidation and antioxidation.</p>
+        <div class="cards-grid" style="margin-top: 40px;">
+          <div class="card">
+            <h4>Glutathione</h4>
+            <p>Most powerful antioxidant in the body</p>
+          </div>
+          <div class="card">
+            <h4>Catalase</h4>
+            <p>Converts hydrogen peroxide to water</p>
+          </div>
+          <div class="card">
+            <h4>SOD</h4>
+            <p>Neutralizes superoxide radicals</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 18: Hydrogen Applications -->
+    <div class="slide" data-notes="Make it practical. 'You can breathe it. Bathe in it. Drink it.' Show how accessible this is.">
+      <span class="slide-number">17</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">How to Use Hydrogen</p>
+        <h3>Three Ways to Access</h3>
+        <div class="cards-grid" style="margin-top: 40px;">
+          <div class="card">
+            <div class="card-icon">💨</div>
+            <h4>Breathe It</h4>
+            <p>Hydrogen inhalation therapy. Direct access to the bloodstream.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🛁</div>
+            <h4>Bathe In It</h4>
+            <p>Hydrogen-infused baths. Absorbs through the skin.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">💧</div>
+            <h4>Drink It</h4>
+            <p>Hydrogen water tablets or bottles. Most accessible method.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 19: Hyperbaric Warning -->
+    <div class="slide" data-notes="If you have practitioners in the room, this is valuable. 'If you're using hyperbaric, you HAVE to take hydrogen after.' Practical, actionable advice.">
+      <span class="slide-number">18</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">Pro Tip</p>
+        <h2>Hyperbaric + Hydrogen</h2>
+        <p class="subtitle" style="margin-top: 40px;">If you're using a hyperbaric chamber,<br>you <span class="highlight">must</span> take hydrogen immediately after.<br><br>Hyper-oxidation is not necessarily good.<br>Hydrogen neutralizes the oxidative stress and keeps the balance.<br><br><strong>12 ppm hydrogen in 6-8 oz of water.</strong></p>
+      </div>
+    </div>
+
+    <!-- SLIDE 20: Morning Routine with Image -->
+    <div class="slide" data-notes="'This is what I do every single morning.' Walk through each item. Make it feel achievable.">
+      <span class="slide-number">19</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-split reverse">
+        <div class="content">
+          <p class="slide-category">The Protocol</p>
+          <h3>Gary's Morning Routine</h3>
+          <ul class="slide-list" style="margin-top: 20px;">
+            <li><span class="icon">💧</span> Hydrogen water first thing</li>
+            <li><span class="icon">🧬</span> Amino acids supplement</li>
+            <li><span class="icon">⚡</span> Hydrate with minerals</li>
+            <li><span class="icon">🌿</span> Mineral salt for 12 essential minerals</li>
+          </ul>
+          <p class="subtitle" style="margin-top: 30px;">The majority of us are mineral deficient. Your bones need <span class="highlight">12 minerals</span> to make hydroxyapatite.</p>
+        </div>
+        <div class="image-container">
+          <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67f7e0cfceb0410ea63b66cd_sunlight-v2.avif" alt="Morning sunlight" class="slide-image" />
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 21: The 5 Essentials with Protocol Images -->
+    <div class="slide" data-notes="These are free. Emphasize that. 'Sunlight. Breath work. Grounding. Cold water. Sleep. Cost nothing. Change everything.'">
+      <span class="slide-number">20</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">The Foundation</p>
+        <h3>5 Things That Cost Nothing</h3>
+        <div class="protocol-grid">
+          <div class="protocol-item">
+            <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67f7e0cfceb0410ea63b66cd_sunlight-v2.avif" alt="Sunlight" />
+            <span>Sunlight</span>
+          </div>
+          <div class="protocol-item">
+            <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67f7e0cf9de3e1b3a75ace62_breath-work-v2.avif" alt="Breath Work" />
+            <span>Breath Work</span>
+          </div>
+          <div class="protocol-item">
+            <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67f7e0cf3c0d56a6fb94c92e_grounding-v2.avif" alt="Grounding" />
+            <span>Grounding</span>
+          </div>
+          <div class="protocol-item">
+            <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67f7e0cfbb47e1e5209e4428_cold-water-v2.avif" alt="Cold Water" />
+            <span>Cold Water</span>
+          </div>
+          <div class="protocol-item">
+            <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=400&h=400&fit=crop" alt="Sleep" />
+            <span>Deep Sleep</span>
+          </div>
+        </div>
+        <p class="subtitle" style="margin-top: 30px;">Deep sleep activates the <span class="highlight">glymphatic system</span> — the brain's detox.</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 22: The Fix is Simple -->
+    <div class="slide" data-notes="This is your MESSAGE. 'The solution is simple. That's why it's not promoted. You can't patent simple.'">
+      <span class="slide-number">21</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">The Truth</p>
+        <h2 class="quote">"The reason this has never become a thing is because the solution is simple<br><span class="highlight">and it's not patentable.</span><br><br>We cannot build an industry on managing disease.<br>But we can build a life on fixing it."</h2>
+      </div>
+    </div>
+
+    <!-- SLIDE 23: Call to Action -->
+    <div class="slide" data-notes="Clear call to action. 'Get tested. Know your deficiencies. Fix the raw materials.' Then open for Q&A.">
+      <span class="slide-number">22</span>
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-inner">
+        <p class="slide-category">Your Next Step</p>
+        <h2>Get Tested</h2>
+        <ul class="slide-list" style="margin-top: 40px;">
+          <li><span class="icon">1</span> Get a methylation test</li>
+          <li><span class="icon">2</span> Check your homocysteine levels</li>
+          <li><span class="icon">3</span> Identify your specific deficiencies</li>
+          <li><span class="icon">4</span> Supplement for deficiency, not supplementation</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SLIDE 24: Closing with Gary Image -->
+    <div class="slide title-slide" data-notes="End strong. 'Remember: One thing causes everything. Find the one thing. Questions?' Then stay for Q&A as long as needed.">
+      <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e57ecfd0a806a10c95ec_logo.svg" alt="The Ultimate Human" class="logo" />
+      <div class="slide-split" style="max-width: 1200px;">
+        <div class="content" style="text-align: center;">
+          <div class="medium-number" style="font-size: 100px;">7</div>
+          <h2 style="font-size: 38px;">Years Added to Your Life</h2>
+          <p class="subtitle" style="margin-top: 30px;">One thing causes everything.<br>Find the one thing.<br><br><span class="highlight">Now let's take your questions.</span></p>
+        </div>
+        <div class="image-container">
+          <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/687000b7c6bae5fc0475247f_Gary-Brecka-Biography.avif" alt="Gary Brecka" class="slide-image" style="max-height: 60vh;" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <button onclick="prevSlide()">←</button>
+    <button onclick="nextSlide()">→</button>
+  </div>
+
+  <button class="notes-toggle" onclick="toggleNotes()">Speaker Notes</button>
+  <div class="speaker-notes" id="speakerNotes">
+    <h5>Speaker Notes</h5>
+    <p id="notesContent">Click through slides to see notes.</p>
+  </div>
+
+  <div class="keyboard-hint">
+    <kbd>←</kbd> <kbd>→</kbd> to navigate &nbsp;|&nbsp; <kbd>N</kbd> for notes
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const progress = document.getElementById('progress');
+    const notesContent = document.getElementById('notesContent');
+    const speakerNotes = document.getElementById('speakerNotes');
+
+    function showSlide(n) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (n + totalSlides) % totalSlides;
+      slides[currentSlide].classList.add('active');
+
+      // Update progress bar
+      progress.style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
+
+      // Update speaker notes
+      const notes = slides[currentSlide].getAttribute('data-notes');
+      notesContent.textContent = notes || 'No notes for this slide.';
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    function toggleNotes() {
+      speakerNotes.classList.toggle('visible');
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      } else if (e.key === 'n' || e.key === 'N') {
+        toggleNotes();
+      }
+    });
+
+    // Touch swipe support
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+    });
+
+    // Initialize
+    showSlide(0);
+  </script>
+</body>
+</html>

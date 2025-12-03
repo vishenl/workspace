@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Presentation Feedback — Gary Brecka Speech Analysis</title>
+  <link rel="icon" href="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/67e2e5b4f39af84d2adae7df_favicon.png" type="image/png" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-black: #0a0a0a;
+      --color-dark: #111111;
+      --color-card: #1a1a1a;
+      --color-accent: #00d4aa;
+      --color-accent-dim: rgba(0, 212, 170, 0.15);
+      --color-warning: #f59e0b;
+      --color-danger: #ef4444;
+      --color-success: #22c55e;
+      --color-white: #ffffff;
+      --color-gray: #888888;
+      --color-light-gray: #cccccc;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--color-black);
+      color: var(--color-white);
+      line-height: 1.7;
+      padding: 0;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-black) 100%);
+      padding: 80px 40px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .header h1 {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .header .subtitle {
+      font-size: 20px;
+      color: var(--color-gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--color-accent-dim);
+      color: var(--color-accent);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 80px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .section-number {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-accent);
+      background: linear-gradient(135deg, var(--color-accent), #00a88a);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-black);
+      flex-shrink: 0;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 40px 0 20px 0;
+      color: var(--color-accent);
+    }
+
+    h4 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 30px 0 12px 0;
+    }
+
+    p {
+      color: var(--color-light-gray);
+      margin-bottom: 16px;
+    }
+
+    strong {
+      color: var(--color-white);
+      font-weight: 600;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .card-icon.success { background: rgba(34, 197, 94, 0.15); }
+    .card-icon.warning { background: rgba(245, 158, 11, 0.15); }
+    .card-icon.danger { background: rgba(239, 68, 68, 0.15); }
+    .card-icon.info { background: var(--color-accent-dim); }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    /* Score Card */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .score-card {
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .score-value {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .score-value.high { color: var(--color-success); }
+    .score-value.medium { color: var(--color-warning); }
+    .score-value.low { color: var(--color-danger); }
+
+    .score-label {
+      font-size: 14px;
+      color: var(--color-gray);
+    }
+
+    /* List Styles */
+    ul {
+      list-style: none;
+      margin: 20px 0;
+    }
+
+    ul li {
+      padding: 12px 0;
+      padding-left: 32px;
+      position: relative;
+      color: var(--color-light-gray);
+    }
+
+    ul li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--color-accent);
+      font-weight: 600;
+    }
+
+    ol {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+
+    ol li {
+      padding: 8px 0;
+      color: var(--color-light-gray);
+    }
+
+    /* Comparison Table */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .comparison-table th {
+      font-weight: 600;
+      color: var(--color-white);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .comparison-table td {
+      color: var(--color-light-gray);
+    }
+
+    .comparison-table .current {
+      color: var(--color-warning);
+    }
+
+    .comparison-table .recommended {
+      color: var(--color-success);
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      margin: 40px 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 64px;
+      padding-bottom: 32px;
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 16px;
+      top: 4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--color-accent);
+    }
+
+    .timeline-time {
+      font-size: 14px;
+      color: var(--color-accent);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .timeline-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .timeline-desc {
+      color: var(--color-gray);
+      font-size: 15px;
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: var(--color-accent-dim);
+      border-left: 4px solid var(--color-accent);
+      padding: 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+    }
+
+    .highlight-box p {
+      color: var(--color-white);
+      margin: 0;
+    }
+
+    /* Quote */
+    blockquote {
+      font-size: 20px;
+      font-style: italic;
+      color: var(--color-white);
+      border-left: 4px solid var(--color-accent);
+      padding-left: 24px;
+      margin: 32px 0;
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
+    .tag.green { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+    .tag.yellow { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+    .tag.red { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+    .tag.blue { background: var(--color-accent-dim); color: var(--color-accent); }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 60px 24px;
+      color: var(--color-gray);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header { padding: 60px 24px; }
+      .header h1 { font-size: 32px; }
+      .score-grid { grid-template-columns: repeat(2, 1fr); }
+      h2 { font-size: 26px; }
+      .section-number { width: 40px; height: 40px; font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="badge">Presentation Analysis</div>
+    <h1>Gary Brecka Speech Feedback</h1>
+    <p class="subtitle">A comprehensive analysis with recommendations for pacing, structure, and transformation theory integration</p>
+  </header>
+
+  <div class="container">
+
+    <!-- EXECUTIVE SUMMARY -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <h2>Executive Summary</h2>
+      </div>
+
+      <div class="score-grid">
+        <div class="score-card">
+          <div class="score-value high">9</div>
+          <div class="score-label">Content Quality</div>
+        </div>
+        <div class="score-card">
+          <div class="score-value medium">6</div>
+          <div class="score-label">Structure</div>
+        </div>
+        <div class="score-card">
+          <div class="score-value medium">5</div>
+          <div class="score-label">Pacing</div>
+        </div>
+        <div class="score-card">
+          <div class="score-value medium">7</div>
+          <div class="score-label">Transformation Arc</div>
+        </div>
+      </div>
+
+      <p><strong>Overall Assessment:</strong> Gary's content is exceptional—groundbreaking insights, powerful case studies, and genuine expertise. However, the presentation structure meanders, the pacing is uneven, and the transformation arc is incomplete. With restructuring, this could be a world-class keynote.</p>
+
+      <div class="highlight-box">
+        <p><strong>Key Opportunity:</strong> The "One Thing Causes Everything" principle is GOLD. But it appears at minute ~45. It should be the FRAME for the entire talk, introduced in the first 5 minutes.</p>
+      </div>
+    </section>
+
+    <!-- PACING ANALYSIS -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <h2>Pacing Analysis</h2>
+      </div>
+
+      <h3>Current Pacing Issues</h3>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon warning">⚡</div>
+          <span class="card-title">Front-Loaded Complexity</span>
+        </div>
+        <p>The talk dives into biochemistry (tryptophan, serotonin, dopamine pathways) within the first 10 minutes. While scientifically accurate, this can overwhelm audiences before they're emotionally invested.</p>
+        <p><strong>Fix:</strong> Lead with STORY, not science. The 84-day cellular regeneration hook is perfect—but then go to a transformation story (Dana White) before explaining the mechanisms.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon danger">🌀</div>
+          <span class="card-title">The Hydrogen Rabbit Hole</span>
+        </div>
+        <p>The hydrogen therapy section runs 15+ minutes with deep dives into NRF2, redox homeostasis, and clinical studies. This is the most technically dense section and risks losing non-practitioners.</p>
+        <p><strong>Fix:</strong> Compress to 5 minutes with a clear takeaway: "Hydrogen activates your body's natural balancing system. You can breathe it, bathe in it, or drink it. Here's how."</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon warning">📉</div>
+          <span class="card-title">Energy Dip in Middle Third</span>
+        </div>
+        <p>Between the neurotransmitter pathways and the Dana White story, there's an extended technical explanation that loses momentum. The audience needs an emotional anchor every 8-10 minutes.</p>
+        <p><strong>Fix:</strong> Add micro-stories or audience interactions. "Who here knows someone with anxiety? Raise your hand." This re-engages the room.</p>
+      </div>
+
+      <h3>Recommended Pacing Structure</h3>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Section</th>
+            <th class="current">Current</th>
+            <th class="recommended">Recommended</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Opening Hook (84 days)</td>
+            <td class="current">~3 min</td>
+            <td class="recommended">5 min (add more tension)</td>
+          </tr>
+          <tr>
+            <td>Promises + Frame Setting</td>
+            <td class="current">~2 min</td>
+            <td class="recommended">3 min (add "One Thing" principle)</td>
+          </tr>
+          <tr>
+            <td>Neurotransmitter Pathways</td>
+            <td class="current">~20 min</td>
+            <td class="recommended">12 min (simplify, add stories)</td>
+          </tr>
+          <tr>
+            <td>Anxiety Scale Explanation</td>
+            <td class="current">~10 min</td>
+            <td class="recommended">7 min (shark story is perfect)</td>
+          </tr>
+          <tr>
+            <td>Homocysteine/Cardiovascular</td>
+            <td class="current">~12 min</td>
+            <td class="recommended">8 min (integrate Dana White here)</td>
+          </tr>
+          <tr>
+            <td>Dana White Case Study</td>
+            <td class="current">Scattered</td>
+            <td class="recommended">5 min (consolidated narrative)</td>
+          </tr>
+          <tr>
+            <td>Hydrogen Therapy</td>
+            <td class="current">~15 min</td>
+            <td class="recommended">5 min (simplify drastically)</td>
+          </tr>
+          <tr>
+            <td>Daily Protocol</td>
+            <td class="current">~3 min</td>
+            <td class="recommended">5 min (expand, make actionable)</td>
+          </tr>
+          <tr>
+            <td>Q&A / Testimonials</td>
+            <td class="current">Open-ended</td>
+            <td class="recommended">15 min (structured)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- STRUCTURE RECOMMENDATIONS -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <h2>Structural Recommendations</h2>
+      </div>
+
+      <h3>The Problem: Linear Information Dump</h3>
+      <p>Currently, the talk follows a pattern of: <strong>Concept → Explanation → Concept → Explanation</strong>. This is educational but not transformational. The audience learns facts but may not CHANGE.</p>
+
+      <h3>The Solution: Nested Loop Structure</h3>
+      <p>Use the Nested Loop technique from storytelling: open multiple "loops" that create tension, then close them strategically. This keeps audiences engaged and creates satisfying payoffs.</p>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon info">🔄</div>
+          <span class="card-title">Recommended Structure</span>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 0-5</div>
+            <div class="timeline-title">Open Loop #1: The 84-Day Promise</div>
+            <div class="timeline-desc">"Every 84 days you become a new person. So why aren't you healing?" Create tension. Don't resolve yet.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 5-8</div>
+            <div class="timeline-title">Open Loop #2: The Core Principle</div>
+            <div class="timeline-desc">"One thing causes everything. Today I'll show you how to find your one thing." Frame everything that follows.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 8-10</div>
+            <div class="timeline-title">Open Loop #3: Dana White Teaser</div>
+            <div class="timeline-desc">"Dana White was scheduled for heart surgery. 11 days later, he cancelled it. I'll tell you how."</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 10-25</div>
+            <div class="timeline-title">Teaching Section (Serotonin, Dopamine, Anxiety)</div>
+            <div class="timeline-desc">Now deliver the content—but reference the open loops: "This is how we found Dana's one thing..."</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 25-30</div>
+            <div class="timeline-title">Close Loop #3: Dana White Full Story</div>
+            <div class="timeline-desc">Deliver the payoff. The audience has been waiting. This is emotional peak #1.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 30-40</div>
+            <div class="timeline-title">Teaching Section (Homocysteine, Circulation)</div>
+            <div class="timeline-desc">Continue teaching with the frame established. Add the shark analogy here for levity.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 40-45</div>
+            <div class="timeline-title">Close Loop #2: The Practical Application</div>
+            <div class="timeline-desc">"Here's how YOU find your one thing. Get tested. Here's exactly what to look for."</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 45-50</div>
+            <div class="timeline-title">Close Loop #1: The 84-Day Protocol</div>
+            <div class="timeline-desc">"Remember I said you become a new person every 84 days? Here's your 84-day protocol."</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">Minutes 50-60</div>
+            <div class="timeline-title">Call to Action + Q&A</div>
+            <div class="timeline-desc">Clear next steps. Then open for questions with the promise: "Name any ailment..."</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRANSFORMATION THEORY -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <h2>Transformation Theory Integration</h2>
+      </div>
+
+      <p>The most powerful presentations don't just inform—they transform. Here's how to apply key transformation principles to Gary's talk:</p>
+
+      <h3>A. The Hero's Journey Framework</h3>
+
+      <p>Gary's audience is on a hero's journey. The talk should guide them through it:</p>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon info">🗺️</div>
+          <span class="card-title">Mapping Gary's Content to Hero's Journey</span>
+        </div>
+
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Stage</th>
+              <th>Current State</th>
+              <th>Recommended Enhancement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Ordinary World</strong></td>
+              <td>Implied</td>
+              <td>Make it explicit: "You've been told disease is inherited. You've been told there's no cure. You've been told to just manage symptoms."</td>
+            </tr>
+            <tr>
+              <td><strong>Call to Adventure</strong></td>
+              <td>84-day promise</td>
+              <td>Perfect. Add: "What if everything you've been told is wrong?"</td>
+            </tr>
+            <tr>
+              <td><strong>Refusal of the Call</strong></td>
+              <td>Missing</td>
+              <td>Address skepticism directly: "I know some of you are thinking 'this sounds too simple.' I get it. I thought the same thing."</td>
+            </tr>
+            <tr>
+              <td><strong>Meeting the Mentor</strong></td>
+              <td>Gary himself</td>
+              <td>Establish credibility early with Dana White, but make it about SERVICE not ego: "I've spent 20 years proving this works."</td>
+            </tr>
+            <tr>
+              <td><strong>Crossing the Threshold</strong></td>
+              <td>Tree analogy</td>
+              <td>This is the paradigm shift moment. Slow down here. Let it land.</td>
+            </tr>
+            <tr>
+              <td><strong>Tests/Allies/Enemies</strong></td>
+              <td>Pharmaceutical industry critique</td>
+              <td>Keep but soften. "The system isn't evil—it just isn't designed for root cause."</td>
+            </tr>
+            <tr>
+              <td><strong>The Ordeal</strong></td>
+              <td>Dana White story</td>
+              <td>Expand the emotional stakes. "His doctor said it was life-threatening."</td>
+            </tr>
+            <tr>
+              <td><strong>The Reward</strong></td>
+              <td>Knowledge of pathways</td>
+              <td>Make it PERSONAL: "By the end of today, you'll know YOUR pathway."</td>
+            </tr>
+            <tr>
+              <td><strong>Return with Elixir</strong></td>
+              <td>Daily protocol</td>
+              <td>This is weak currently. Needs more emphasis: "Here's exactly what you do tomorrow morning."</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>B. Eugene Schwartz's Awareness Levels</h3>
+
+      <p>The audience arrives at different awareness levels. Gary needs to move them all:</p>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon info">🎯</div>
+          <span class="card-title">Awareness Level Mapping</span>
+        </div>
+
+        <ul>
+          <li><strong>Unaware:</strong> "I feel tired and foggy but don't know why."<br>
+          <span class="tag blue">Address with:</span> "300 billion cells die every day. Your body is trying to tell you something."</li>
+
+          <li><strong>Problem Aware:</strong> "I know I have anxiety/depression/hypertension."<br>
+          <span class="tag blue">Address with:</span> "What if your diagnosis isn't a disease—it's a deficiency?"</li>
+
+          <li><strong>Solution Aware:</strong> "I've tried supplements but nothing works."<br>
+          <span class="tag blue">Address with:</span> "You've been supplementing for supplementation, not for YOUR deficiency."</li>
+
+          <li><strong>Product Aware:</strong> "I've heard of methylation testing."<br>
+          <span class="tag blue">Address with:</span> "Testing is step one. Here's what to do with the results."</li>
+
+          <li><strong>Most Aware:</strong> "I follow Gary and know this works."<br>
+          <span class="tag blue">Address with:</span> The VIP community pitch and deeper protocols.</li>
+        </ul>
+      </div>
+
+      <h3>C. Belief Shifting Techniques</h3>
+
+      <p>Transformation requires shifting beliefs. Gary touches on these but could make them more explicit:</p>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">🔑</div>
+          <span class="card-title">Core Beliefs to Shift</span>
+        </div>
+
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Old Belief</th>
+              <th>New Belief</th>
+              <th>Key Evidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>"Disease is inherited"</td>
+              <td>"Deficiencies are inherited"</td>
+              <td>"Show me the gene for hypertension. There isn't one."</td>
+            </tr>
+            <tr>
+              <td>"My body is broken"</td>
+              <td>"My body is missing raw materials"</td>
+              <td>Tree analogy: test the soil, not the leaf.</td>
+            </tr>
+            <tr>
+              <td>"This is just who I am"</td>
+              <td>"In 84 days, I can be someone else"</td>
+              <td>Cellular regeneration science + Dana White proof.</td>
+            </tr>
+            <tr>
+              <td>"Solutions are expensive/complicated"</td>
+              <td>"Solutions are simple and free"</td>
+              <td>5 essentials: sunlight, breathwork, grounding, cold, sleep.</td>
+            </tr>
+            <tr>
+              <td>"I need a doctor to fix me"</td>
+              <td>"I need to give my body what it needs"</td>
+              <td>"The treatment for low serotonin is not to raise serotonin?!"</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>D. The Transformation Gap</h3>
+
+      <p>People attend talks to close a gap between who they are and who they want to become. Gary should explicitly name this gap:</p>
+
+      <div class="highlight-box">
+        <p><strong>Suggested Language:</strong> "When you walked in here, you believed your health was determined by your genetics. When you walk out, you'll know it's determined by your deficiencies—and deficiencies can be fixed. That's the difference between managing disease and eliminating it."</p>
+      </div>
+    </section>
+
+    <!-- SPECIFIC IMPROVEMENTS -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <h2>Specific Tactical Improvements</h2>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✅</div>
+          <span class="card-title">What's Working (Keep These)</span>
+        </div>
+        <ul>
+          <li><strong>The 84-day hook</strong> — scientifically compelling and emotionally resonant</li>
+          <li><strong>The two promises</strong> — creates accountability and audience investment</li>
+          <li><strong>The tree analogy</strong> — perfect bridge from complex to simple</li>
+          <li><strong>The shark story</strong> — humor + insight, memorable and repeatable</li>
+          <li><strong>The Dana White case study</strong> — social proof at the highest level</li>
+          <li><strong>The Q&A promise</strong> — creates anticipation and demonstrates expertise</li>
+          <li><strong>"One thing causes everything"</strong> — the most powerful idea in the talk</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon warning">⚠️</div>
+          <span class="card-title">What Needs Work</span>
+        </div>
+        <ul>
+          <li><strong>Move "One Thing" principle earlier</strong> — This should be minute 5, not minute 45</li>
+          <li><strong>Consolidate Dana White story</strong> — Currently scattered; needs one powerful narrative arc</li>
+          <li><strong>Compress hydrogen section</strong> — Too technical, too long; loses non-practitioners</li>
+          <li><strong>Add explicit transformation arc</strong> — Name the journey the audience is on</li>
+          <li><strong>Strengthen the ending</strong> — Current ending feels abrupt; needs clear call-to-action before Q&A</li>
+          <li><strong>More audience interaction</strong> — Add hand-raises, questions, think-pair-share moments</li>
+          <li><strong>Visual aids</strong> — The pathways need diagrams; the anxiety scale needs a visual</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon danger">🚫</div>
+          <span class="card-title">What to Cut or Reduce</span>
+        </div>
+        <ul>
+          <li><strong>Extended NRF2 explanation</strong> — Most audiences don't need this depth</li>
+          <li><strong>Multiple references to "Big Pharma"</strong> — Can feel conspiratorial; one mention is enough</li>
+          <li><strong>The Chesapeake Bay algae story</strong> — Interesting but derails the narrative</li>
+          <li><strong>Self-deprecating jokes about age/memory</strong> — Undermines authority at wrong moments</li>
+          <li><strong>Extended testimonial section</strong> — 2-3 powerful ones > many mediocre ones</li>
+        </ul>
+      </div>
+
+      <h3>Specific Language Upgrades</h3>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Current</th>
+            <th>Recommended</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>"I'm not going to go on my bandwagon..."</td>
+            <td>Cut entirely</td>
+            <td>Apologizing for content before delivering it</td>
+          </tr>
+          <tr>
+            <td>"I was made famous for..."</td>
+            <td>"This is what allowed me to help..."</td>
+            <td>Service-oriented framing</td>
+          </tr>
+          <tr>
+            <td>"If you don't believe me..."</td>
+            <td>"The research confirms..."</td>
+            <td>Evidence-based, not defensive</td>
+          </tr>
+          <tr>
+            <td>"I feel like Joe Biden up here"</td>
+            <td>Cut</td>
+            <td>Political reference; divisive</td>
+          </tr>
+          <tr>
+            <td>"This is not a sales pitch"</td>
+            <td>Cut</td>
+            <td>Mentioning it makes people think it is</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SPECIFIC QUOTES ANALYSIS -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">6</div>
+        <h2>Specific Quote Analysis</h2>
+      </div>
+
+      <p>Here are concrete examples from Gary's actual speech—lines that work brilliantly and lines that need improvement, with specific rewrites.</p>
+
+      <h3>Brilliant Lines (Keep These Exactly)</h3>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✨</div>
+          <span class="card-title">The Opening Hook</span>
+        </div>
+        <blockquote style="border-color: var(--color-success);">"Today, and tomorrow, 300 billion cells that work with you today will not be with you tomorrow. The good news is that every 84 days we turn over nearly all 323 of themselves. So you tell me, what is it to not heal from?"</blockquote>
+        <p><strong>Why it works:</strong> Creates immediate cognitive dissonance. The audience can't argue with the science, and the rhetorical question opens their mind to new possibilities. This is a perfect hook—memorable, specific, and emotionally resonant.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✨</div>
+          <span class="card-title">The Addiction Reframe</span>
+        </div>
+        <blockquote style="border-color: var(--color-success);">"No addict ever woke up one day and said, I want to get really banged up. Addicts woke up every day of their life and said, I want to feel normal. And it was the search for normalcy that developed that addiction."</blockquote>
+        <p><strong>Why it works:</strong> Instantly shifts the audience's perception of addiction from moral failure to biological deficiency. The compassion in this reframe is palpable. This line creates empathy and opens minds to the dopamine pathway explanation.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✨</div>
+          <span class="card-title">The Gene Challenge</span>
+        </div>
+        <blockquote style="border-color: var(--color-success);">"I will give $100,000 to anyone in this room that can tell me what gene carries hypertension. There is no gene for hypertension. So if something is inherited on the genome, it has to have a gene to carry it."</blockquote>
+        <p><strong>Why it works:</strong> Bold, specific, and instantly memorable. The money offer creates urgency and credibility. This line shatters the "it runs in my family" belief that keeps people stuck.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✨</div>
+          <span class="card-title">The Tree Analogy</span>
+        </div>
+        <blockquote style="border-color: var(--color-success);">"If you had a leaf rotting in any of the trees out here, and you called a true arborist, a true botanist, out to look at that tree—they wouldn't even touch the leaf, right? What would they do? They'd core test the soil. They would say, 'You know what, there's no nitrogen in the soil.' They would add nitrogen to the soil and the leaf would heal."</blockquote>
+        <p><strong>Why it works:</strong> Perfect analogy that bridges complex biochemistry to something everyone understands. Visual, memorable, and creates an "aha" moment. This should be used earlier in the talk.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✨</div>
+          <span class="card-title">The Snake Analogy</span>
+        </div>
+        <blockquote style="border-color: var(--color-success);">"I want you to think of a snake swallowing a mouse, right? You don't put a hose in the snake's mouth and push the mouse along. It's a muscular contraction."</blockquote>
+        <p><strong>Why it works:</strong> Vivid, slightly gross, and unforgettable. This makes the concept of vasomotor circulation instantly understandable. The audience will never forget this image.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✨</div>
+          <span class="card-title">The Core Principle</span>
+        </div>
+        <blockquote style="border-color: var(--color-success);">"In a human body, rarely if ever, do multiple systems fail at the same time. Usually one thing goes wrong that causes everything. It's a domino effect... And if you can find out the one thing, you can find out what causes everything."</blockquote>
+        <p><strong>Why it works:</strong> Simple, powerful, memorable. This is the FRAME for the entire talk. <strong>Problem: It comes at minute ~45.</strong> This should be minute 5-8.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon success">✨</div>
+          <span class="card-title">The Shark Story</span>
+        </div>
+        <blockquote style="border-color: var(--color-success);">"You could be laying in your bed tonight and just begin to think about getting eaten by a shark. Just think about it. Right? And I think most of us could reason that the chances of the shark could get it out on the ocean, making it into our hotel room, there's little flippers biting you in the bed are zero. But you could have the exact same reaction."</blockquote>
+        <p><strong>Why it works:</strong> Humor + insight. Gets a laugh while making a profound neurological point. "Little flippers biting you in bed" is comedy gold. Perfect for the anxiety section.</p>
+      </div>
+
+      <h3>Lines That Need Improvement</h3>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon danger">❌</div>
+          <span class="card-title">The Bandwagon Apology</span>
+        </div>
+        <blockquote style="border-color: var(--color-danger);">"I'm not going to go on my bandwagon about how we've been blindsided and lied to about inherited disease."</blockquote>
+        <p><strong>Problem:</strong> This is a verbal tic that undermines authority. Saying "I'm not going to talk about X" while talking about X creates cognitive dissonance. It also pre-frames the content as a "bandwagon" (i.e., emotional, not scientific).</p>
+        <div class="highlight-box" style="margin-top: 16px;">
+          <p><strong>Rewrite:</strong> Simply cut this sentence entirely and go straight to: "The human genome is expressly designed to not pass disease from generation to generation. What we pass are deficiencies."</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon danger">❌</div>
+          <span class="card-title">The False Modesty</span>
+        </div>
+        <blockquote style="border-color: var(--color-danger);">"This is what I was making—I'm not allowed to say famous for—but I was promoted for with taking Dana White."</blockquote>
+        <p><strong>Problem:</strong> False modesty undermines credibility. The stumble and self-correction signals discomfort with claiming authority. This makes the audience wonder if Gary is unsure of himself.</p>
+        <div class="highlight-box" style="margin-top: 16px;">
+          <p><strong>Rewrite:</strong> "Let me tell you about Dana White. This case put this work on the map because the results were undeniable."</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon danger">❌</div>
+          <span class="card-title">The Political Reference</span>
+        </div>
+        <blockquote style="border-color: var(--color-danger);">"I feel like Joe Biden up here. Let's just leave that one alone, right? You don't talk about politics, don't talk about religion, and don't talk about science, so we're pretty rough."</blockquote>
+        <p><strong>Problem:</strong> Political references instantly alienate ~50% of any audience. This was said after a stumble, making it a double negative—self-deprecation + divisive humor. The "don't talk about science" line is also confusing when Gary's entire talk IS science.</p>
+        <div class="highlight-box" style="margin-top: 16px;">
+          <p><strong>Rewrite:</strong> Cut entirely. If Gary stumbles, a simple "Let me say that again..." is more professional than political humor.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon danger">❌</div>
+          <span class="card-title">The Equipment Complaint</span>
+        </div>
+        <blockquote style="border-color: var(--color-danger);">"What was the budget for this event? Did a brother get a reasonable—I couldn't put this in my speech 'cause Tim, I gotta give you a hard time for that. They make actually larger ones. And they have those in UK."</blockquote>
+        <p><strong>Problem:</strong> Complaining about event equipment creates awkwardness. The audience doesn't know where to look. This undermines the event organizer and distracts from the content. It's not funny enough to justify the discomfort.</p>
+        <div class="highlight-box" style="margin-top: 16px;">
+          <p><strong>Rewrite:</strong> Skip the commentary entirely. If the whiteboard is too small, just say: "I'll walk you through this visually" and move on. Never criticize the host's setup from stage.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon danger">❌</div>
+          <span class="card-title">The Birthday Tangent</span>
+        </div>
+        <blockquote style="border-color: var(--color-danger);">"I'm 55 and what, two weeks? So I ask my wife when my birthday is. That was a terrible example of not having brain fog. I sort of threw myself under the bus there."</blockquote>
+        <p><strong>Problem:</strong> Self-deprecating humor about memory/brain fog while teaching about brain optimization. This undermines the very message Gary is delivering. If his protocols work, why is he joking about forgetting his birthday?</p>
+        <div class="highlight-box" style="margin-top: 16px;">
+          <p><strong>Rewrite:</strong> Cut the birthday reference entirely. If needed for credibility: "I'm in my mid-50s and my cognitive function has never been sharper—because I follow these protocols."</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon warning">⚠️</div>
+          <span class="card-title">The Laser Pointer Joke</span>
+        </div>
+        <blockquote style="border-color: var(--color-warning);">"Three honest people in the audience, right? Don't forget I have a laser pointer, so if I just see your attention wandering, I will just burn out your retina..."</blockquote>
+        <p><strong>Problem:</strong> Mild humor but runs too long. The "burning retinas" callback happens 3-4 more times throughout the talk. Once is funny; repetition becomes a crutch. Also slightly aggressive for an audience of potential customers.</p>
+        <div class="highlight-box" style="margin-top: 16px;">
+          <p><strong>Rewrite:</strong> Use the joke once, then let it go. "I see a few honest people in the room. Good. This next part is for you." Then move on.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon warning">⚠️</div>
+          <span class="card-title">The Oversold Hydrogen Claim</span>
+        </div>
+        <blockquote style="border-color: var(--color-warning);">"I believe that the discovery of the impact of hydrogen as a selective antioxidant, which I believe will be as common as a multivitamin in five years, is maybe one of the biggest discoveries of our millennia."</blockquote>
+        <p><strong>Problem:</strong> "Biggest discoveries of our millennia" is hyperbolic. It sets off skepticism alarms. The claim is too big and unfalsifiable. Saying "I believe" twice in one sentence also signals uncertainty.</p>
+        <div class="highlight-box" style="margin-top: 16px;">
+          <p><strong>Rewrite:</strong> "The research on hydrogen as a selective antioxidant is extraordinary. I predict it will be as common as a multivitamin within five years. Here's why..."</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon warning">⚠️</div>
+          <span class="card-title">The Algae Tangent</span>
+        </div>
+        <blockquote style="border-color: var(--color-warning);">"I used to live on the Chesapeake Bay in Maryland. It was an estuary, and I'll never forget when some bright scientist said the oxygen level in the water is too low... And within two years this algae had blanketed the entire bottom of the Chesapeake Bay and nearly every species that lived in there was extinct."</blockquote>
+        <p><strong>Problem:</strong> This story takes 2-3 minutes and the connection to the main point is weak. The audience has to work to understand the analogy. Time would be better spent on the core content.</p>
+        <div class="highlight-box" style="margin-top: 16px;">
+          <p><strong>Rewrite:</strong> Cut entirely or compress to one sentence: "Every time we try to outsmart Mother Nature, it backfires. That's why I prefer working WITH your body's natural systems."</p>
+        </div>
+      </div>
+
+      <h3>Quotes That Need Repositioning</h3>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon info">📍</div>
+          <span class="card-title">Move Earlier: The Core Thesis</span>
+        </div>
+        <blockquote style="border-color: var(--color-accent);">"In a human body, rarely if ever, do multiple systems fail at the same time. Usually one thing goes wrong that causes everything."</blockquote>
+        <p><strong>Current position:</strong> Approximately minute 45</p>
+        <p><strong>Recommended position:</strong> Minute 5-8, immediately after the opening hook</p>
+        <p><strong>Why:</strong> This is the FRAME for everything. Every case study, every pathway, every protocol should be explained through this lens. Saying it at minute 45 is like explaining the rules of the game after it's mostly over.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon info">📍</div>
+          <span class="card-title">Move Earlier: The Patentability Quote</span>
+        </div>
+        <blockquote style="border-color: var(--color-accent);">"The reason this has never become a thing is because the solution is simple and it's not patentable. We cannot build an industry on managing disease. But we can build a life on fixing it."</blockquote>
+        <p><strong>Current position:</strong> Scattered in the middle</p>
+        <p><strong>Recommended position:</strong> As the CLOSING statement, right before Q&A</p>
+        <p><strong>Why:</strong> This is the emotional climax. It should land when the audience has all the evidence and is ready to believe. It's the "call to arms" that sends them into the world ready to act.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon info">📍</div>
+          <span class="card-title">Consolidate: The Dana White Story</span>
+        </div>
+        <p>Currently, the Dana White story is told in pieces:</p>
+        <ul>
+          <li>"I was promoted for... taking Dana White" (early mention)</li>
+          <li>"Dana White had brittle hypertension..." (middle)</li>
+          <li>"11 days after I met Dana... he was scheduled for heart ablation" (later)</li>
+          <li>"21 weeks later he's off his cardiovascular meds" (scattered)</li>
+          <li>"The cardiologist called me with some very choice words" (later still)</li>
+        </ul>
+        <p><strong>Problem:</strong> The power of this story is diluted across the talk. Each mention gets partial attention. The emotional arc is broken.</p>
+        <div class="highlight-box" style="margin-top: 16px;">
+          <p><strong>Recommendation:</strong> Tell the Dana White story ONCE, in full, with dramatic structure:<br><br>
+          1. The setup: "Dana White—the UFC guy—was on three medications with uncontrolled blood pressure."<br>
+          2. The stakes: "He was scheduled for heart ablation surgery. That's where they permanently burn part of your heart."<br>
+          3. The mystery: "But here's the thing: ten years of cardiac exams, all normal. Nothing wrong with his heart."<br>
+          4. The intervention: "I looked at his blood work. Found one thing."<br>
+          5. The result: "11 days later: off all meds. 21 weeks later: surgery cancelled."<br>
+          6. The conflict: "His cardiologist called me. He had some... choice words."<br>
+          7. The vindication: "Then he invited me to the complicated case committee."</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- THE ULTIMATE TALK -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">7</div>
+        <h2>The Optimized Talk Structure</h2>
+      </div>
+
+      <p>Here's how I'd restructure the talk for maximum transformation:</p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">0:00 - 5:00</div>
+          <div class="timeline-title">The Hook: 84 Days to a New You</div>
+          <div class="timeline-desc">"300 billion cells die today. In 84 days, you're a completely different person. So tell me—what is it to NOT heal from?"</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">5:00 - 8:00</div>
+          <div class="timeline-title">The Frame: One Thing Causes Everything</div>
+          <div class="timeline-desc">"In my career, I've seen hundreds of 'complicated' cases. They all have one thing in common: they're not complicated. One thing went wrong. Find it, fix it."</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">8:00 - 10:00</div>
+          <div class="timeline-title">The Promise: Two Commitments</div>
+          <div class="timeline-desc">Add 7 years + name any ailment. Also tease: "I'm going to tell you about a man who cancelled heart surgery in 11 days."</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">10:00 - 15:00</div>
+          <div class="timeline-title">The Paradigm Shift: Soil, Not Leaves</div>
+          <div class="timeline-desc">Tree analogy → "We don't inherit disease, we inherit deficiency" → Challenge: "Show me the gene for hypertension."</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">15:00 - 25:00</div>
+          <div class="timeline-title">The Science: Three Pathways</div>
+          <div class="timeline-desc">Serotonin (mood), Dopamine (addiction), Catecholamines (anxiety). Use the shark story. Keep it visual.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">25:00 - 30:00</div>
+          <div class="timeline-title">The Proof: Dana White Story</div>
+          <div class="timeline-desc">Full narrative arc. Build tension. "The cardiologist called me with some choice words..." → Resolution.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">30:00 - 38:00</div>
+          <div class="timeline-title">The Hidden System: 70/30 Circulation</div>
+          <div class="timeline-desc">Homocysteine → vascular constriction → 70% microvascular revelation. This is a mind-blow moment.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">38:00 - 43:00</div>
+          <div class="timeline-title">The Breakthrough: Hydrogen (Simplified)</div>
+          <div class="timeline-desc">"The smallest element may be the biggest discovery." NRF2 in 60 seconds. Three ways to use it. Done.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">43:00 - 50:00</div>
+          <div class="timeline-title">The Protocol: Your 84-Day Reset</div>
+          <div class="timeline-desc">Morning routine + 5 free essentials. Make it concrete: "Here's what you do tomorrow morning."</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">50:00 - 55:00</div>
+          <div class="timeline-title">The Call to Action</div>
+          <div class="timeline-desc">Get tested. Find your deficiency. "Remember: one thing causes everything. Your job is to find the one thing."</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-time">55:00+</div>
+          <div class="timeline-title">Q&A: Name Any Ailment</div>
+          <div class="timeline-desc">Deliver on the promise. This is where Gary shines. Let it breathe.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL THOUGHTS -->
+    <section>
+      <div class="section-header">
+        <div class="section-number">8</div>
+        <h2>Final Thoughts</h2>
+      </div>
+
+      <blockquote>
+        "The solution is simple and it's not patentable. We cannot build an industry on managing disease. But we can build a life on fixing it."
+      </blockquote>
+
+      <p>This line is the HEART of Gary's message. It should be the emotional climax of the talk, delivered with conviction after all the evidence has been presented. Right now, it's buried. Make it the crescendo.</p>
+
+      <div class="highlight-box">
+        <p><strong>The Bottom Line:</strong> Gary has a world-class message and genuine expertise. The content doesn't need to change—it needs to be restructured for emotional impact and transformation. Move "One Thing" to the front. Consolidate Dana White. Compress hydrogen. Strengthen the ending. This talk could change millions of lives.</p>
+      </div>
+
+      <p style="margin-top: 40px; color: var(--color-gray); text-align: center;">
+        <span class="tag green">Content</span>
+        <span class="tag yellow">Structure</span>
+        <span class="tag yellow">Pacing</span>
+        <span class="tag blue">Transformation</span>
+      </p>
+    </section>
+
+  </div>
+
+  <footer class="footer">
+    <p>Presentation Analysis prepared for House of Superhumans</p>
+    <p style="margin-top: 8px; font-size: 14px;">Based on transformation theory frameworks from Joseph Campbell, Eugene Schwartz, and Mindvalley</p>
+  </footer>
+
+</body>
+</html>
