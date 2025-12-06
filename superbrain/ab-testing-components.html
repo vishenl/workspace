@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Superbrain A/B Testing Components — 7 High-Impact Tests</title>
+  <meta name="description" content="Ready-to-implement A/B test variants for the Superbrain sales page with hypotheses, expected lift, and copy-paste HTML components." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Superbrain A/B Testing Components" />
+  <meta property="og:description" content="7 high-impact A/B tests with ready-to-use HTML components" />
+  <meta property="og:image" content="https://storyblok-cdn.mindvalley.com/f/60579/1920x1080/da25f4caa8/sb_questcover_en.jpg" />
+
+  <link rel="stylesheet" href="../mindvalley-core.css" />
+  <style>
+    .test-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      border: 1px solid #e5e7eb;
+    }
+    .test-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #7a12d4 0%, #5b0da0 100%);
+      color: white;
+      font-family: Grotesk-Bold, sans-serif;
+      font-size: 1.5rem;
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+    .impact-badge {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-family: Grotesk-Bold, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .impact-critical { background: #fef2f2; color: #dc2626; }
+    .impact-high { background: #fef3c7; color: #d97706; }
+    .impact-medium { background: #ecfdf5; color: #059669; }
+    .hypothesis-box {
+      background: #f0fdf4;
+      border-left: 4px solid #22c55e;
+      padding: 1.25rem;
+      border-radius: 0 0.75rem 0.75rem 0;
+      margin: 1.5rem 0;
+    }
+    .variant-container {
+      background: #f9fafb;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+    .variant-label {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: #e5e7eb;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-family: Grotesk-Bold, sans-serif;
+      margin-bottom: 1rem;
+    }
+    .variant-label.control { background: #dbeafe; color: #1d4ed8; }
+    .variant-label.challenger { background: #fae8ff; color: #a21caf; }
+    .component-preview {
+      background: white;
+      border: 2px dashed #d1d5db;
+      border-radius: 0.75rem;
+      padding: 2rem;
+      margin: 1rem 0;
+    }
+    .code-block {
+      background: #1f2937;
+      color: #f9fafb;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      overflow-x: auto;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      margin: 1rem 0;
+    }
+    .code-block code {
+      color: #f9fafb;
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .metric-item {
+      text-align: center;
+      padding: 1rem;
+      background: #f3f4f6;
+      border-radius: 0.5rem;
+    }
+    .metric-value {
+      font-family: Grotesk-Bold, sans-serif;
+      font-size: 1.5rem;
+      color: #7a12d4;
+    }
+    .btn-preview {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2rem;
+      background-color: #7a12d4;
+      color: white;
+      font-family: Grotesk-Bold, sans-serif;
+      font-size: 1rem;
+      border-radius: 999px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-preview-outline {
+      background: transparent;
+      color: #7a12d4;
+      border: 2px solid #7a12d4;
+    }
+    .priority-list {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+    .priority-item {
+      padding: 0.5rem 1rem;
+      background: #f3f4f6;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+    }
+    .toc-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background: #f9fafb;
+      border-radius: 0.75rem;
+      margin-bottom: 0.75rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+    }
+    .toc-item:hover {
+      background: #f3f4f6;
+      transform: translateX(4px);
+    }
+    .copy-btn {
+      background: #7a12d4;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: Grotesk-Medium, sans-serif;
+    }
+    .copy-btn:hover {
+      background: #5b0da0;
+    }
+    .stat-highlight {
+      font-family: Grotesk-Bold, sans-serif;
+      font-size: 2.5rem;
+      color: #7a12d4;
+    }
+  </style>
+</head>
+<body style="background: #f9fafb;">
+
+  <!-- Header -->
+  <section style="background: linear-gradient(135deg, #7a12d4 0%, #5b0da0 100%); color: white; padding: 4rem 0;">
+    <div class="mv-container">
+      <div style="
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.12em;
+        margin-bottom: 1rem;
+        opacity: 0.8;
+        font-family: Grotesk-Medium, sans-serif;
+      ">
+        A/B Testing Playbook
+      </div>
+      <h1 class="mv-type--headline2" style="margin: 0 0 1rem 0; color: white;">
+        7 High-Impact Tests for Superbrain
+      </h1>
+      <p style="font-size: 1.25rem; opacity: 0.9; max-width: 600px;">
+        Ready-to-implement test variants with hypotheses, expected lift projections, and copy-paste HTML components.
+      </p>
+
+      <div class="metrics-grid" style="max-width: 600px; margin-top: 2rem;">
+        <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 0.75rem; text-align: center;">
+          <div style="font-size: 2rem; font-family: Grotesk-Bold, sans-serif;">7</div>
+          <div style="opacity: 0.8; font-size: 0.875rem;">Tests</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 0.75rem; text-align: center;">
+          <div style="font-size: 2rem; font-family: Grotesk-Bold, sans-serif;">+25-45%</div>
+          <div style="opacity: 0.8; font-size: 0.875rem;">Expected Lift</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 0.75rem; text-align: center;">
+          <div style="font-size: 2rem; font-family: Grotesk-Bold, sans-serif;">21</div>
+          <div style="opacity: 0.8; font-size: 0.875rem;">Variants</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="mv-container" style="padding: 3rem 0;">
+    <h2 class="mv-type--headline5" style="margin-bottom: 1.5rem;">Test Priority Order</h2>
+    <p style="color: #6b7280; margin-bottom: 2rem;">Run these tests sequentially, implementing winners before moving to the next test.</p>
+
+    <a href="#test-1" class="toc-item">
+      <span class="test-number" style="width: 32px; height: 32px; font-size: 1rem;">1</span>
+      <div style="flex: 1;">
+        <strong>Hero Headline</strong>
+        <p style="margin: 0; color: #6b7280; font-size: 0.875rem;">The single highest-impact element on any sales page</p>
+      </div>
+      <span class="impact-badge impact-critical">Critical</span>
+    </a>
+
+    <a href="#test-2" class="toc-item">
+      <span class="test-number" style="width: 32px; height: 32px; font-size: 1rem;">2</span>
+      <div style="flex: 1;">
+        <strong>CTA Button Copy</strong>
+        <p style="margin: 0; color: #6b7280; font-size: 0.875rem;">Small change, big impact on click-through rates</p>
+      </div>
+      <span class="impact-badge impact-critical">Critical</span>
+    </a>
+
+    <a href="#test-3" class="toc-item">
+      <span class="test-number" style="width: 32px; height: 32px; font-size: 1rem;">3</span>
+      <div style="flex: 1;">
+        <strong>Social Proof Placement</strong>
+        <p style="margin: 0; color: #6b7280; font-size: 0.875rem;">Stats above the fold to build immediate credibility</p>
+      </div>
+      <span class="impact-badge impact-high">High</span>
+    </a>
+
+    <a href="#test-4" class="toc-item">
+      <span class="test-number" style="width: 32px; height: 32px; font-size: 1rem;">4</span>
+      <div style="flex: 1;">
+        <strong>Price Anchoring</strong>
+        <p style="margin: 0; color: #6b7280; font-size: 0.875rem;">Value stack presentation to justify pricing</p>
+      </div>
+      <span class="impact-badge impact-high">High</span>
+    </a>
+
+    <a href="#test-5" class="toc-item">
+      <span class="test-number" style="width: 32px; height: 32px; font-size: 1rem;">5</span>
+      <div style="flex: 1;">
+        <strong>Urgency Messaging</strong>
+        <p style="margin: 0; color: #6b7280; font-size: 0.875rem;">Different scarcity angles and countdown formats</p>
+      </div>
+      <span class="impact-badge impact-high">High</span>
+    </a>
+
+    <a href="#test-6" class="toc-item">
+      <span class="test-number" style="width: 32px; height: 32px; font-size: 1rem;">6</span>
+      <div style="flex: 1;">
+        <strong>Hero Subheadline</strong>
+        <p style="margin: 0; color: #6b7280; font-size: 0.875rem;">Supporting copy that reinforces the headline promise</p>
+      </div>
+      <span class="impact-badge impact-medium">Medium</span>
+    </a>
+
+    <a href="#test-7" class="toc-item">
+      <span class="test-number" style="width: 32px; height: 32px; font-size: 1rem;">7</span>
+      <div style="flex: 1;">
+        <strong>Risk Reversal Copy</strong>
+        <p style="margin: 0; color: #6b7280; font-size: 0.875rem;">Guarantee messaging to reduce purchase anxiety</p>
+      </div>
+      <span class="impact-badge impact-medium">Medium</span>
+    </a>
+  </section>
+
+  <!-- Test 1: Hero Headline -->
+  <section id="test-1" class="mv-container" style="padding: 2rem 0;">
+    <div class="test-card">
+      <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+        <span class="test-number">1</span>
+        <div>
+          <span class="impact-badge impact-critical">Critical Impact</span>
+          <h2 class="mv-type--headline4" style="margin: 0.5rem 0 0 0;">Hero Headline</h2>
+        </div>
+      </div>
+
+      <p style="color: #4b5563; font-size: 1.125rem; margin-bottom: 1.5rem;">
+        The headline is the most important element on any sales page. It's responsible for 80% of a page's success. Testing different angles can yield 20-50% conversion improvements.
+      </p>
+
+      <div class="hypothesis-box">
+        <strong>Hypothesis:</strong> A headline focused on specific, tangible outcomes will outperform the current generic "unlock potential" messaging because it creates a clearer mental picture of success.
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <div class="metric-value">+15-30%</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Expected Lift</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">2 weeks</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Test Duration</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">5,000</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Min. Visitors</div>
+        </div>
+      </div>
+
+      <!-- Control -->
+      <div class="variant-container">
+        <span class="variant-label control">Control (Current)</span>
+        <div class="component-preview">
+          <h1 style="font-family: Grotesk-Bold, sans-serif; font-size: 2.5rem; line-height: 1.2; margin: 0;">
+            Unlock your brain's limitless potential
+          </h1>
+        </div>
+        <p style="color: #6b7280; font-size: 0.875rem; margin: 0.5rem 0 0 0;">
+          <strong>Angle:</strong> Generic aspiration / Vague promise
+        </p>
+      </div>
+
+      <!-- Variant A -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant A — Outcome-Focused</span>
+        <div class="component-preview">
+          <h1 style="font-family: Grotesk-Bold, sans-serif; font-size: 2.5rem; line-height: 1.2; margin: 0;">
+            Remember every name. Absorb any book. Think with crystal clarity.
+          </h1>
+        </div>
+        <p style="color: #6b7280; font-size: 0.875rem; margin: 0.5rem 0 0 0;">
+          <strong>Angle:</strong> Specific outcomes / Tangible benefits
+        </p>
+        <div class="code-block">
+          <code>&lt;h1 class="mv-type--headline1"&gt;
+  Remember every name. Absorb any book. Think with crystal clarity.
+&lt;/h1&gt;</code>
+        </div>
+      </div>
+
+      <!-- Variant B -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant B — Social Proof</span>
+        <div class="component-preview">
+          <h1 style="font-family: Grotesk-Bold, sans-serif; font-size: 2.5rem; line-height: 1.2; margin: 0;">
+            The brain training system trusted by Elon Musk, Will Smith, and 3 million students
+          </h1>
+        </div>
+        <p style="color: #6b7280; font-size: 0.875rem; margin: 0.5rem 0 0 0;">
+          <strong>Angle:</strong> Celebrity endorsement / Social proof
+        </p>
+        <div class="code-block">
+          <code>&lt;h1 class="mv-type--headline1"&gt;
+  The brain training system trusted by Elon Musk, Will Smith, and 3 million students
+&lt;/h1&gt;</code>
+        </div>
+      </div>
+
+      <!-- Variant C -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant C — Curiosity Gap</span>
+        <div class="component-preview">
+          <h1 style="font-family: Grotesk-Bold, sans-serif; font-size: 2.5rem; line-height: 1.2; margin: 0;">
+            What if you could learn in weeks what takes others years?
+          </h1>
+        </div>
+        <p style="color: #6b7280; font-size: 0.875rem; margin: 0.5rem 0 0 0;">
+          <strong>Angle:</strong> Question format / Curiosity trigger
+        </p>
+        <div class="code-block">
+          <code>&lt;h1 class="mv-type--headline1"&gt;
+  What if you could learn in weeks what takes others years?
+&lt;/h1&gt;</code>
+        </div>
+      </div>
+
+      <!-- Variant D -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant D — Time + Transformation</span>
+        <div class="component-preview">
+          <h1 style="font-family: Grotesk-Bold, sans-serif; font-size: 2.5rem; line-height: 1.2; margin: 0;">
+            30 days to a sharper, faster, unstoppable mind
+          </h1>
+        </div>
+        <p style="color: #6b7280; font-size: 0.875rem; margin: 0.5rem 0 0 0;">
+          <strong>Angle:</strong> Specific timeframe / Transformation promise
+        </p>
+        <div class="code-block">
+          <code>&lt;h1 class="mv-type--headline1"&gt;
+  30 days to a sharper, faster, unstoppable mind
+&lt;/h1&gt;</code>
+        </div>
+      </div>
+
+      <div style="background: #fef3c7; padding: 1rem; border-radius: 0.75rem; margin-top: 1.5rem;">
+        <strong>Testing Tip:</strong> Run a 4-way test initially, then do a final head-to-head between the top 2 performers.
+      </div>
+    </div>
+  </section>
+
+  <!-- Test 2: CTA Button Copy -->
+  <section id="test-2" class="mv-container" style="padding: 2rem 0;">
+    <div class="test-card">
+      <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+        <span class="test-number">2</span>
+        <div>
+          <span class="impact-badge impact-critical">Critical Impact</span>
+          <h2 class="mv-type--headline4" style="margin: 0.5rem 0 0 0;">CTA Button Copy</h2>
+        </div>
+      </div>
+
+      <p style="color: #4b5563; font-size: 1.125rem; margin-bottom: 1.5rem;">
+        The CTA button is where the conversion happens. Small copy changes can yield 10-40% improvements. The key is matching user intent and reducing friction.
+      </p>
+
+      <div class="hypothesis-box">
+        <strong>Hypothesis:</strong> Action-oriented CTA copy that emphasizes the transformation (not the transaction) will outperform generic "Become a Member" because it focuses on what the user gets, not what they do.
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <div class="metric-value">+10-25%</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Expected Lift</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">1 week</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Test Duration</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">3,000</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Min. Visitors</div>
+        </div>
+      </div>
+
+      <!-- Control -->
+      <div class="variant-container">
+        <span class="variant-label control">Control (Current)</span>
+        <div class="component-preview" style="text-align: center;">
+          <button class="btn-preview">Become a member</button>
+        </div>
+        <p style="color: #6b7280; font-size: 0.875rem; margin: 0.5rem 0 0 0;">
+          <strong>Angle:</strong> Transaction-focused
+        </p>
+      </div>
+
+      <!-- Variant A -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant A — Transformation Focus</span>
+        <div class="component-preview" style="text-align: center;">
+          <button class="btn-preview">Start My Transformation</button>
+        </div>
+        <div class="code-block">
+          <code>&lt;a href="#" class="btn-primary"&gt;Start My Transformation&lt;/a&gt;</code>
+        </div>
+      </div>
+
+      <!-- Variant B -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant B — Urgency + Value</span>
+        <div class="component-preview" style="text-align: center;">
+          <button class="btn-preview">Get 50% Off — Unlock My Superbrain</button>
+        </div>
+        <div class="code-block">
+          <code>&lt;a href="#" class="btn-primary"&gt;Get 50% Off — Unlock My Superbrain&lt;/a&gt;</code>
+        </div>
+      </div>
+
+      <!-- Variant C -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant C — Low Commitment</span>
+        <div class="component-preview" style="text-align: center;">
+          <button class="btn-preview">Try It Risk-Free for 15 Days</button>
+        </div>
+        <div class="code-block">
+          <code>&lt;a href="#" class="btn-primary"&gt;Try It Risk-Free for 15 Days&lt;/a&gt;</code>
+        </div>
+      </div>
+
+      <!-- Variant D -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant D — Specific Outcome</span>
+        <div class="component-preview" style="text-align: center;">
+          <button class="btn-preview">Yes, I Want a Better Memory</button>
+        </div>
+        <div class="code-block">
+          <code>&lt;a href="#" class="btn-primary"&gt;Yes, I Want a Better Memory&lt;/a&gt;</code>
+        </div>
+      </div>
+
+      <div style="background: #fef3c7; padding: 1rem; border-radius: 0.75rem; margin-top: 1.5rem;">
+        <strong>Testing Tip:</strong> Also test button color (green vs purple) as a separate follow-up test.
+      </div>
+    </div>
+  </section>
+
+  <!-- Test 3: Social Proof Placement -->
+  <section id="test-3" class="mv-container" style="padding: 2rem 0;">
+    <div class="test-card">
+      <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+        <span class="test-number">3</span>
+        <div>
+          <span class="impact-badge impact-high">High Impact</span>
+          <h2 class="mv-type--headline4" style="margin: 0.5rem 0 0 0;">Social Proof Placement</h2>
+        </div>
+      </div>
+
+      <p style="color: #4b5563; font-size: 1.125rem; margin-bottom: 1.5rem;">
+        Moving key statistics above the fold establishes credibility immediately. This is especially important for cold traffic who doesn't know Mindvalley.
+      </p>
+
+      <div class="hypothesis-box">
+        <strong>Hypothesis:</strong> Displaying student statistics immediately below the headline will increase engagement because it provides instant social proof before any selling begins.
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <div class="metric-value">+8-15%</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Expected Lift</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">2 weeks</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Test Duration</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">5,000</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Min. Visitors</div>
+        </div>
+      </div>
+
+      <!-- Control -->
+      <div class="variant-container">
+        <span class="variant-label control">Control (Current)</span>
+        <p style="color: #6b7280; margin: 0;">
+          Statistics appear below the fold, after the hero section and media logos.
+        </p>
+      </div>
+
+      <!-- Variant A -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant A — Stats Bar Below Headline</span>
+        <div class="component-preview">
+          <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; padding: 1.5rem 0; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb;">
+            <div style="text-align: center;">
+              <div style="font-family: Grotesk-Bold, sans-serif; font-size: 1.75rem; color: #7a12d4;">3M+</div>
+              <div style="font-size: 0.875rem; color: #6b7280;">Students</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-family: Grotesk-Bold, sans-serif; font-size: 1.75rem; color: #7a12d4;">90%</div>
+              <div style="font-size: 0.875rem; color: #6b7280;">Improved Memory</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-family: Grotesk-Bold, sans-serif; font-size: 1.75rem; color: #7a12d4;">195</div>
+              <div style="font-size: 0.875rem; color: #6b7280;">Countries</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-family: Grotesk-Bold, sans-serif; font-size: 1.75rem; color: #7a12d4;">4.8★</div>
+              <div style="font-size: 0.875rem; color: #6b7280;">Rating</div>
+            </div>
+          </div>
+        </div>
+        <div class="code-block">
+          <code>&lt;div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; padding: 1.5rem 0; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb;"&gt;
+  &lt;div style="text-align: center;"&gt;
+    &lt;div style="font-family: Grotesk-Bold, sans-serif; font-size: 1.75rem; color: #7a12d4;"&gt;3M+&lt;/div&gt;
+    &lt;div style="font-size: 0.875rem; color: #6b7280;"&gt;Students&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div style="text-align: center;"&gt;
+    &lt;div style="font-family: Grotesk-Bold, sans-serif; font-size: 1.75rem; color: #7a12d4;"&gt;90%&lt;/div&gt;
+    &lt;div style="font-size: 0.875rem; color: #6b7280;"&gt;Improved Memory&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div style="text-align: center;"&gt;
+    &lt;div style="font-family: Grotesk-Bold, sans-serif; font-size: 1.75rem; color: #7a12d4;"&gt;195&lt;/div&gt;
+    &lt;div style="font-size: 0.875rem; color: #6b7280;"&gt;Countries&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div style="text-align: center;"&gt;
+    &lt;div style="font-family: Grotesk-Bold, sans-serif; font-size: 1.75rem; color: #7a12d4;"&gt;4.8★&lt;/div&gt;
+    &lt;div style="font-size: 0.875rem; color: #6b7280;"&gt;Rating&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+        </div>
+      </div>
+
+      <!-- Variant B -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant B — Inline with Headline</span>
+        <div class="component-preview">
+          <p style="font-size: 0.9rem; color: #22c55e; margin: 0 0 0.5rem 0; font-family: Grotesk-Medium, sans-serif;">
+            ★★★★★ Trusted by 3,000,000+ students in 195 countries
+          </p>
+          <h1 style="font-family: Grotesk-Bold, sans-serif; font-size: 2rem; line-height: 1.2; margin: 0;">
+            Unlock your brain's limitless potential
+          </h1>
+        </div>
+        <div class="code-block">
+          <code>&lt;p style="font-size: 0.9rem; color: #22c55e; margin: 0 0 0.5rem 0; font-family: Grotesk-Medium, sans-serif;"&gt;
+  ★★★★★ Trusted by 3,000,000+ students in 195 countries
+&lt;/p&gt;</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Test 4: Price Anchoring -->
+  <section id="test-4" class="mv-container" style="padding: 2rem 0;">
+    <div class="test-card">
+      <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+        <span class="test-number">4</span>
+        <div>
+          <span class="impact-badge impact-high">High Impact</span>
+          <h2 class="mv-type--headline4" style="margin: 0.5rem 0 0 0;">Price Anchoring / Value Stack</h2>
+        </div>
+      </div>
+
+      <p style="color: #4b5563; font-size: 1.125rem; margin-bottom: 1.5rem;">
+        How you present the price dramatically affects perceived value. A visible value stack makes the discount feel more significant.
+      </p>
+
+      <div class="hypothesis-box">
+        <strong>Hypothesis:</strong> A detailed value stack that itemizes what's included will increase conversions because it makes the $199 feel like an incredible deal compared to the $16,000+ total value.
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <div class="metric-value">+10-20%</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Expected Lift</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">2 weeks</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Test Duration</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">4,000</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Min. Visitors</div>
+        </div>
+      </div>
+
+      <!-- Control -->
+      <div class="variant-container">
+        <span class="variant-label control">Control (Current)</span>
+        <div class="component-preview" style="max-width: 300px; margin: 0 auto;">
+          <div style="text-align: center; padding: 1.5rem; background: #f9fafb; border-radius: 1rem;">
+            <p style="color: #6b7280; margin: 0 0 0.5rem 0;">Mindvalley Membership</p>
+            <p style="text-decoration: line-through; color: #9ca3af; margin: 0;">$399</p>
+            <p style="font-family: Grotesk-Bold, sans-serif; font-size: 2.5rem; margin: 0;">$199<span style="font-size: 1rem; color: #6b7280;">/year</span></p>
+          </div>
+        </div>
+        <p style="color: #6b7280; font-size: 0.875rem; margin: 0.5rem 0 0 0;">
+          <strong>Angle:</strong> Simple price display with discount
+        </p>
+      </div>
+
+      <!-- Variant A -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant A — Full Value Stack</span>
+        <div class="component-preview">
+          <div style="max-width: 400px; margin: 0 auto; background: #f9fafb; padding: 1.5rem; border-radius: 1rem;">
+            <h4 style="font-family: Grotesk-Bold, sans-serif; margin: 0 0 1rem 0;">What You're Getting:</h4>
+
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">
+              <span>Superbrain Quest</span>
+              <span style="color: #6b7280;">$299</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">
+              <span>100+ Additional Programs</span>
+              <span style="color: #6b7280;">$15,000+</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">
+              <span>Speed Reading Bonus</span>
+              <span style="color: #6b7280;">$99</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">
+              <span>Private Community</span>
+              <span style="color: #6b7280;">$1,200/yr</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; padding: 1rem 0; margin-top: 0.5rem; border-top: 2px solid #7a12d4;">
+              <span style="font-family: Grotesk-Bold, sans-serif;">Total Value:</span>
+              <span style="font-family: Grotesk-Bold, sans-serif;">$16,598+</span>
+            </div>
+
+            <div style="text-align: center; margin-top: 1rem; padding: 1rem; background: #22c55e; border-radius: 0.5rem; color: white;">
+              <p style="margin: 0; font-size: 0.875rem;">You Pay Today</p>
+              <p style="font-family: Grotesk-Bold, sans-serif; font-size: 2rem; margin: 0;">Just $199</p>
+            </div>
+          </div>
+        </div>
+        <div class="code-block" style="max-height: 200px; overflow-y: auto;">
+          <code>&lt;div style="max-width: 400px; background: #f9fafb; padding: 1.5rem; border-radius: 1rem;"&gt;
+  &lt;h4 style="font-family: Grotesk-Bold; margin: 0 0 1rem 0;"&gt;What You're Getting:&lt;/h4&gt;
+
+  &lt;div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;"&gt;
+    &lt;span&gt;Superbrain Quest&lt;/span&gt;
+    &lt;span style="color: #6b7280;"&gt;$299&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;!-- Add more items... --&gt;
+
+  &lt;div style="text-align: center; margin-top: 1rem; padding: 1rem; background: #22c55e; border-radius: 0.5rem; color: white;"&gt;
+    &lt;p style="margin: 0; font-size: 0.875rem;"&gt;You Pay Today&lt;/p&gt;
+    &lt;p style="font-family: Grotesk-Bold; font-size: 2rem; margin: 0;"&gt;Just $199&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+        </div>
+      </div>
+
+      <!-- Variant B -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant B — Savings Emphasis</span>
+        <div class="component-preview" style="max-width: 350px; margin: 0 auto;">
+          <div style="text-align: center; padding: 1.5rem; background: #f9fafb; border-radius: 1rem;">
+            <div style="background: #dc2626; color: white; padding: 0.5rem 1rem; border-radius: 999px; display: inline-block; margin-bottom: 1rem; font-family: Grotesk-Bold, sans-serif;">
+              SAVE $200 TODAY
+            </div>
+            <p style="text-decoration: line-through; color: #9ca3af; font-size: 1.5rem; margin: 0;">$399</p>
+            <p style="font-family: Grotesk-Bold, sans-serif; font-size: 3rem; margin: 0; color: #22c55e;">$199</p>
+            <p style="color: #6b7280; margin: 0.5rem 0 0 0;">That's just $0.55/day for unlimited access</p>
+          </div>
+        </div>
+        <div class="code-block">
+          <code>&lt;div style="background: #dc2626; color: white; padding: 0.5rem 1rem; border-radius: 999px; display: inline-block;"&gt;
+  SAVE $200 TODAY
+&lt;/div&gt;
+&lt;p style="text-decoration: line-through; color: #9ca3af; font-size: 1.5rem;"&gt;$399&lt;/p&gt;
+&lt;p style="font-family: Grotesk-Bold; font-size: 3rem; color: #22c55e;"&gt;$199&lt;/p&gt;
+&lt;p style="color: #6b7280;"&gt;That's just $0.55/day for unlimited access&lt;/p&gt;</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Test 5: Urgency Messaging -->
+  <section id="test-5" class="mv-container" style="padding: 2rem 0;">
+    <div class="test-card">
+      <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+        <span class="test-number">5</span>
+        <div>
+          <span class="impact-badge impact-high">High Impact</span>
+          <h2 class="mv-type--headline4" style="margin: 0.5rem 0 0 0;">Urgency Messaging</h2>
+        </div>
+      </div>
+
+      <p style="color: #4b5563; font-size: 1.125rem; margin-bottom: 1.5rem;">
+        Urgency drives action, but the wrong type can feel manipulative. Test different scarcity angles to find what resonates with your audience.
+      </p>
+
+      <div class="hypothesis-box">
+        <strong>Hypothesis:</strong> Combining countdown urgency with a specific reason "why now" will outperform countdown alone because it gives logical justification for the deadline.
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <div class="metric-value">+5-15%</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Expected Lift</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">1 week</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Test Duration</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">3,000</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Min. Visitors</div>
+        </div>
+      </div>
+
+      <!-- Control -->
+      <div class="variant-container">
+        <span class="variant-label control">Control (Current)</span>
+        <div class="component-preview">
+          <div style="background: #f59e0b; color: #0f131a; padding: 0.75rem 1rem; text-align: center; font-family: Grotesk-Bold, sans-serif;">
+            Exclusive 50% off for Black Friday by Friday, December 5 at 12:53 PM EST
+            <span style="margin-left: 1rem; background: rgba(0,0,0,0.1); padding: 0.25rem 0.5rem; border-radius: 4px;">00h 29m 57s</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variant A -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant A — Loss Aversion</span>
+        <div class="component-preview">
+          <div style="background: #dc2626; color: white; padding: 1rem; text-align: center;">
+            <p style="font-family: Grotesk-Bold, sans-serif; font-size: 1.125rem; margin: 0;">
+              ⚠️ Price increases to $399 in: <span style="background: rgba(0,0,0,0.2); padding: 0.25rem 0.75rem; border-radius: 4px; margin-left: 0.5rem;">00:29:57</span>
+            </p>
+          </div>
+        </div>
+        <div class="code-block">
+          <code>&lt;div style="background: #dc2626; color: white; padding: 1rem; text-align: center;"&gt;
+  ⚠️ Price increases to $399 in: &lt;span&gt;00:29:57&lt;/span&gt;
+&lt;/div&gt;</code>
+        </div>
+      </div>
+
+      <!-- Variant B -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant B — Social Proof + Urgency</span>
+        <div class="component-preview">
+          <div style="background: linear-gradient(90deg, #7a12d4, #5b0da0); color: white; padding: 1rem; text-align: center;">
+            <p style="margin: 0; font-size: 0.9rem;">
+              🔥 <strong>2,847 people</strong> joined in the last 24 hours — Black Friday ends in <strong>00:29:57</strong>
+            </p>
+          </div>
+        </div>
+        <div class="code-block">
+          <code>&lt;div style="background: linear-gradient(90deg, #7a12d4, #5b0da0); color: white; padding: 1rem; text-align: center;"&gt;
+  🔥 &lt;strong&gt;2,847 people&lt;/strong&gt; joined in the last 24 hours — Black Friday ends in &lt;strong&gt;00:29:57&lt;/strong&gt;
+&lt;/div&gt;</code>
+        </div>
+      </div>
+
+      <!-- Variant C -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant C — Bonus Expiration</span>
+        <div class="component-preview">
+          <div style="background: #0f131a; color: white; padding: 1rem; text-align: center;">
+            <p style="margin: 0;">
+              <span style="color: #f59e0b;">⏰ BONUS ALERT:</span> Speed Reading Masterclass ($99 value) FREE — only for the next <strong style="color: #22c55e;">00:29:57</strong>
+            </p>
+          </div>
+        </div>
+        <div class="code-block">
+          <code>&lt;div style="background: #0f131a; color: white; padding: 1rem; text-align: center;"&gt;
+  &lt;span style="color: #f59e0b;"&gt;⏰ BONUS ALERT:&lt;/span&gt; Speed Reading Masterclass ($99 value) FREE — only for the next &lt;strong style="color: #22c55e;"&gt;00:29:57&lt;/strong&gt;
+&lt;/div&gt;</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Test 6: Hero Subheadline -->
+  <section id="test-6" class="mv-container" style="padding: 2rem 0;">
+    <div class="test-card">
+      <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+        <span class="test-number">6</span>
+        <div>
+          <span class="impact-badge impact-medium">Medium Impact</span>
+          <h2 class="mv-type--headline4" style="margin: 0.5rem 0 0 0;">Hero Subheadline</h2>
+        </div>
+      </div>
+
+      <p style="color: #4b5563; font-size: 1.125rem; margin-bottom: 1.5rem;">
+        The subheadline supports the headline and addresses objections. Testing different angles can improve engagement.
+      </p>
+
+      <div class="hypothesis-box">
+        <strong>Hypothesis:</strong> A subheadline that addresses the "how" and "time investment" will outperform benefit-only copy because it answers the reader's immediate questions.
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <div class="metric-value">+5-12%</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Expected Lift</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">2 weeks</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Test Duration</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">5,000</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Min. Visitors</div>
+        </div>
+      </div>
+
+      <!-- Control -->
+      <div class="variant-container">
+        <span class="variant-label control">Control (Current)</span>
+        <div class="component-preview">
+          <p style="font-size: 1.25rem; color: #4b5563; margin: 0; max-width: 600px;">
+            Supercharge your memory, focus, and learning capacity in just 30 days without experiencing overwhelm or adjusting your daily schedule
+          </p>
+        </div>
+      </div>
+
+      <!-- Variant A -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant A — Time Focus</span>
+        <div class="component-preview">
+          <p style="font-size: 1.25rem; color: #4b5563; margin: 0; max-width: 600px;">
+            Just 15 minutes a day for 30 days. That's all it takes to install a "Superbrain" that serves you for life.
+          </p>
+        </div>
+        <div class="code-block">
+          <code>&lt;p style="font-size: 1.25rem; color: #4b5563;"&gt;
+  Just 15 minutes a day for 30 days. That's all it takes to install a "Superbrain" that serves you for life.
+&lt;/p&gt;</code>
+        </div>
+      </div>
+
+      <!-- Variant B -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant B — Authority Focus</span>
+        <div class="component-preview">
+          <p style="font-size: 1.25rem; color: #4b5563; margin: 0; max-width: 600px;">
+            The same brain training system used by Elon Musk, Will Smith, and top performers at Google, Nike, and Harvard — now available to you.
+          </p>
+        </div>
+        <div class="code-block">
+          <code>&lt;p style="font-size: 1.25rem; color: #4b5563;"&gt;
+  The same brain training system used by Elon Musk, Will Smith, and top performers at Google, Nike, and Harvard — now available to you.
+&lt;/p&gt;</code>
+        </div>
+      </div>
+
+      <!-- Variant C -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant C — Problem/Solution</span>
+        <div class="component-preview">
+          <p style="font-size: 1.25rem; color: #4b5563; margin: 0; max-width: 600px;">
+            Stop forgetting names, struggling through books, and feeling like your brain is working against you. Jim Kwik's proven method fixes all of it.
+          </p>
+        </div>
+        <div class="code-block">
+          <code>&lt;p style="font-size: 1.25rem; color: #4b5563;"&gt;
+  Stop forgetting names, struggling through books, and feeling like your brain is working against you. Jim Kwik's proven method fixes all of it.
+&lt;/p&gt;</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Test 7: Risk Reversal -->
+  <section id="test-7" class="mv-container" style="padding: 2rem 0;">
+    <div class="test-card">
+      <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+        <span class="test-number">7</span>
+        <div>
+          <span class="impact-badge impact-medium">Medium Impact</span>
+          <h2 class="mv-type--headline4" style="margin: 0.5rem 0 0 0;">Risk Reversal / Guarantee Copy</h2>
+        </div>
+      </div>
+
+      <p style="color: #4b5563; font-size: 1.125rem; margin-bottom: 1.5rem;">
+        How you present the guarantee can significantly reduce purchase anxiety. Stronger guarantees often increase conversions.
+      </p>
+
+      <div class="hypothesis-box">
+        <strong>Hypothesis:</strong> A more prominent, boldly-worded guarantee will reduce purchase friction because it shifts the risk from buyer to seller and addresses the "what if it doesn't work" objection.
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <div class="metric-value">+5-10%</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Expected Lift</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">2 weeks</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Test Duration</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-value">4,000</div>
+          <div style="color: #6b7280; font-size: 0.875rem;">Min. Visitors</div>
+        </div>
+      </div>
+
+      <!-- Control -->
+      <div class="variant-container">
+        <span class="variant-label control">Control (Current)</span>
+        <div class="component-preview">
+          <p style="font-size: 0.875rem; color: #6b7280; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+            <span>🛡️</span> 15-day money-back guarantee
+          </p>
+        </div>
+      </div>
+
+      <!-- Variant A -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant A — Bold Guarantee Box</span>
+        <div class="component-preview">
+          <div style="background: #f0fdf4; border: 2px solid #22c55e; border-radius: 1rem; padding: 1.5rem; max-width: 400px;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div style="font-size: 2.5rem;">🛡️</div>
+              <div>
+                <p style="font-family: Grotesk-Bold, sans-serif; font-size: 1.125rem; margin: 0; color: #166534;">
+                  100% Risk-Free Guarantee
+                </p>
+              </div>
+            </div>
+            <p style="color: #4b5563; margin: 0; font-size: 0.95rem;">
+              Try Superbrain for 15 full days. If you don't feel sharper, more focused, and more confident in your memory — get a complete refund. No questions, no hassle, no hard feelings.
+            </p>
+          </div>
+        </div>
+        <div class="code-block">
+          <code>&lt;div style="background: #f0fdf4; border: 2px solid #22c55e; border-radius: 1rem; padding: 1.5rem;"&gt;
+  &lt;div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;"&gt;
+    &lt;div style="font-size: 2.5rem;"&gt;🛡️&lt;/div&gt;
+    &lt;p style="font-family: Grotesk-Bold; font-size: 1.125rem; color: #166534;"&gt;
+      100% Risk-Free Guarantee
+    &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;p style="color: #4b5563;"&gt;
+    Try Superbrain for 15 full days. If you don't feel sharper, more focused, and more confident in your memory — get a complete refund. No questions, no hassle, no hard feelings.
+  &lt;/p&gt;
+&lt;/div&gt;</code>
+        </div>
+      </div>
+
+      <!-- Variant B -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant B — "Say Maybe" Framing</span>
+        <div class="component-preview">
+          <div style="background: #fef3c7; border-radius: 1rem; padding: 1.5rem; max-width: 400px; text-align: center;">
+            <p style="font-family: Grotesk-Bold, sans-serif; font-size: 1.25rem; margin: 0 0 0.75rem 0;">
+              You don't have to say YES today.
+            </p>
+            <p style="color: #4b5563; margin: 0;">
+              Just say MAYBE. Try everything for 15 days. If it's not for you, one click gets you a full refund. The only risk is missing out.
+            </p>
+          </div>
+        </div>
+        <div class="code-block">
+          <code>&lt;div style="background: #fef3c7; border-radius: 1rem; padding: 1.5rem; text-align: center;"&gt;
+  &lt;p style="font-family: Grotesk-Bold; font-size: 1.25rem;"&gt;
+    You don't have to say YES today.
+  &lt;/p&gt;
+  &lt;p style="color: #4b5563;"&gt;
+    Just say MAYBE. Try everything for 15 days. If it's not for you, one click gets you a full refund. The only risk is missing out.
+  &lt;/p&gt;
+&lt;/div&gt;</code>
+        </div>
+      </div>
+
+      <!-- Variant C -->
+      <div class="variant-container">
+        <span class="variant-label challenger">Variant C — Results-Based Guarantee</span>
+        <div class="component-preview">
+          <div style="background: #0f131a; color: white; border-radius: 1rem; padding: 1.5rem; max-width: 450px;">
+            <p style="font-family: Grotesk-Bold, sans-serif; font-size: 1.125rem; margin: 0 0 0.75rem 0; color: #f59e0b;">
+              THE SUPERBRAIN PROMISE
+            </p>
+            <p style="margin: 0; line-height: 1.7;">
+              Complete the 30-day program. If you can't remember at least 20 items in sequence using Jim's techniques, email us and we'll refund every penny — plus let you keep access as our apology.
+            </p>
+          </div>
+        </div>
+        <div class="code-block">
+          <code>&lt;div style="background: #0f131a; color: white; border-radius: 1rem; padding: 1.5rem;"&gt;
+  &lt;p style="font-family: Grotesk-Bold; color: #f59e0b;"&gt;THE SUPERBRAIN PROMISE&lt;/p&gt;
+  &lt;p&gt;Complete the 30-day program. If you can't remember at least 20 items in sequence using Jim's techniques, email us and we'll refund every penny — plus let you keep access as our apology.&lt;/p&gt;
+&lt;/div&gt;</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testing Best Practices -->
+  <section class="mv-container" style="padding: 3rem 0;">
+    <div class="test-card" style="background: linear-gradient(135deg, #7a12d4 0%, #5b0da0 100%); color: white;">
+      <h2 class="mv-type--headline4" style="margin-bottom: 1.5rem; color: white;">
+        A/B Testing Best Practices
+      </h2>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+        <div>
+          <h3 style="font-family: Grotesk-Bold, sans-serif; margin-bottom: 0.75rem;">📊 Statistical Significance</h3>
+          <p style="opacity: 0.9; margin: 0;">
+            Wait for 95% confidence before declaring a winner. Use a calculator like AB Testguide or VWO's tool.
+          </p>
+        </div>
+
+        <div>
+          <h3 style="font-family: Grotesk-Bold, sans-serif; margin-bottom: 0.75rem;">⏱️ Run Full Cycles</h3>
+          <p style="opacity: 0.9; margin: 0;">
+            Always run tests for at least 7 days (ideally 14) to account for day-of-week variations.
+          </p>
+        </div>
+
+        <div>
+          <h3 style="font-family: Grotesk-Bold, sans-serif; margin-bottom: 0.75rem;">🎯 One Variable at a Time</h3>
+          <p style="opacity: 0.9; margin: 0;">
+            Test one element per experiment. If you change headline AND button, you won't know which caused the lift.
+          </p>
+        </div>
+
+        <div>
+          <h3 style="font-family: Grotesk-Bold, sans-serif; margin-bottom: 0.75rem;">📈 Document Everything</h3>
+          <p style="opacity: 0.9; margin: 0;">
+            Keep a testing log with hypotheses, results, and learnings. Build institutional knowledge over time.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Summary -->
+  <section class="mv-container" style="padding: 2rem 0 4rem 0;">
+    <div class="test-card">
+      <h2 class="mv-type--headline4" style="margin-bottom: 1.5rem;">
+        Expected Combined Impact
+      </h2>
+
+      <p style="color: #4b5563; font-size: 1.125rem; margin-bottom: 2rem;">
+        If all 7 tests result in winners (assuming conservative lift estimates), the compound effect could yield:
+      </p>
+
+      <div style="text-align: center; padding: 2rem; background: #f0fdf4; border-radius: 1rem; margin-bottom: 2rem;">
+        <div class="stat-highlight">+45-80%</div>
+        <p style="color: #166534; font-family: Grotesk-Bold, sans-serif; margin: 0.5rem 0 0 0;">
+          Potential Conversion Rate Improvement
+        </p>
+      </div>
+
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="background: #f3f4f6;">
+            <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #e5e7eb;">Test</th>
+            <th style="padding: 1rem; text-align: center; border-bottom: 2px solid #e5e7eb;">Conservative</th>
+            <th style="padding: 1rem; text-align: center; border-bottom: 2px solid #e5e7eb;">Optimistic</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 1rem; border-bottom: 1px solid #e5e7eb;">1. Hero Headline</td>
+            <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">+15%</td>
+            <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">+30%</td>
+          </tr>
+          <tr>
+            <td style="padding: 1rem; border-bottom: 1px solid #e5e7eb;">2. CTA Button Copy</td>
+            <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">+10%</td>
+            <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">+25%</td>
+          </tr>
+          <tr>
+            <td style="padding: 1rem; border-bottom: 1px solid #e5e7eb;">3. Social Proof Placement</td>
+            <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">+8%</td>
+            <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">+15%</td>
+          </tr>
+          <tr>
+            <td style="padding: 1rem; border-bottom: 1px solid #e5e7eb;">4. Price Anchoring</td>
+            <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">+10%</td>
+            <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">+20%</td>
+          </tr>
+          <tr>
+            <td style="padding: 1rem; border-bottom: 1px solid #e5e7eb;">5. Urgency Messaging</td>
+            <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">+5%</td>
+            <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">+15%</td>
+          </tr>
+          <tr>
+            <td style="padding: 1rem; border-bottom: 1px solid #e5e7eb;">6. Hero Subheadline</td>
+            <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">+5%</td>
+            <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">+12%</td>
+          </tr>
+          <tr>
+            <td style="padding: 1rem; border-bottom: 1px solid #e5e7eb;">7. Risk Reversal Copy</td>
+            <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">+5%</td>
+            <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e5e7eb;">+10%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="color: #6b7280; font-size: 0.875rem; margin-top: 1.5rem;">
+        * Compound effect calculated assuming sequential wins. Actual results will vary based on traffic quality, market conditions, and implementation.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mv-container" style="
+    padding: 3rem 0;
+    color: #6b7280;
+    font-size: 0.875rem;
+    text-align: center;
+    border-top: 1px solid #e5e7eb;
+  ">
+    <p>Superbrain A/B Testing Components — Ready-to-Implement Variants</p>
+    <p style="margin-top: 0.5rem;">Prepared for Mindvalley • December 2025</p>
+  </footer>
+
+</body>
+</html>
