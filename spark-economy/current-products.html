@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Current Products → Sparks — Spark Economy</title>
+  <meta name="description" content="How Mindvalley's current product architecture maps to the Spark Economy" />
+  <meta name="theme-color" content="#7a12d4" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Current Products → Sparks — Spark Economy">
+  <meta property="og:description" content="How Mindvalley's current product architecture maps to the Spark Economy">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1755456068149-75e1a1748c7a?w=1200&h=630&fit=crop&auto=format">
+  <meta property="og:url" content="https://vishen.github.io/workspace/spark-economy/current-products.html">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Current Products → Sparks — Spark Economy">
+  <meta name="twitter:description" content="How Mindvalley's current product architecture maps to the Spark Economy">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1755456068149-75e1a1748c7a?w=1200&h=630&fit=crop&auto=format">
+  <link rel="stylesheet" href="../mindvalley-core.css" />
+  <link rel="stylesheet" href="spark-docs.css" />
+  <style>
+    .product-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .product-card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .product-card__price {
+      background: #f3f4f6;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-family: Grotesk-Bold, sans-serif;
+    }
+    .product-card__price--spark {
+      background: linear-gradient(135deg, #7a12d4 0%, #5a0ea0 100%);
+      color: white;
+    }
+    .arrow-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 0;
+    }
+    .arrow-icon {
+      font-size: 2rem;
+      color: #7a12d4;
+    }
+    .comparison-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .comparison-row__arrow {
+      font-size: 1.5rem;
+      color: #7a12d4;
+    }
+    .journey-step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+    }
+    .journey-step__number {
+      width: 32px;
+      height: 32px;
+      background: #7a12d4;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Grotesk-Bold, sans-serif;
+      flex-shrink: 0;
+    }
+    .journey-step--spark {
+      border-left: 4px solid #7a12d4;
+    }
+    .tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-family: Grotesk-Medium, sans-serif;
+    }
+    .tag--current { background: #f3f4f6; color: #4b5563; }
+    .tag--spark { background: #f0e8f7; color: #7a12d4; }
+    .tag--new { background: #dcfce7; color: #166534; }
+    .problem-box {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .solution-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .comparison-row {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .comparison-row__arrow {
+        transform: rotate(90deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="spark-nav">
+    <div class="spark-nav__container">
+      <a href="index.html" class="spark-nav__logo">
+        <span class="spark-nav__icon">✨</span>
+        <span>Spark Economy</span>
+      </a>
+      <div class="spark-nav__links">
+        <a href="current-products.html" class="active">Current → Sparks</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="tiers.html">Tiers</a>
+        <a href="economics.html">Economics</a>
+        <a href="ux-flows.html">UX Flows</a>
+        <a href="psychology.html">Psychology</a>
+        <a href="rollout.html">Rollout</a>
+        <a href="metrics.html">Metrics</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <section class="spark-section-header">
+    <div class="mv-container">
+      <a href="index.html" class="spark-back">← Back to Overview</a>
+      <div class="spark-section-header__number">Start Here</div>
+      <h1 class="mv-type--headline1">From Current Products to Sparks</h1>
+      <p style="font-size: 1.25rem; color: #4b5563; max-width: 40rem;">
+        How Mindvalley's existing product architecture evolves with the Spark Economy — and why it solves our biggest challenges.
+      </p>
+    </div>
+  </section>
+
+  <!-- Current Product Architecture -->
+  <section class="mv-container" style="padding: 5rem 0;">
+    <h2 class="mv-type--headline2" style="margin-bottom: 0.5rem;">Mindvalley Today</h2>
+    <p style="color: #4b5563; margin-bottom: 2rem; max-width: 40rem;">Our current product lineup and how members access each offering.</p>
+
+    <div class="spark-grid spark-grid--2" style="gap: 1.5rem;">
+      <!-- Meditation Library -->
+      <div class="product-card">
+        <div class="product-card__header">
+          <div>
+            <span class="tag tag--current">Current Product</span>
+            <h3 class="mv-type--headline5" style="margin-top: 0.5rem;">Meditation Library</h3>
+          </div>
+          <div class="product-card__price">$99/year</div>
+        </div>
+        <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem;">
+          <li>1,000+ guided meditations</li>
+          <li>Standalone subscription</li>
+          <li>Separate from Membership</li>
+          <li>Low awareness among members</li>
+        </ul>
+        <div class="problem-box" style="margin-top: 1rem;">
+          <strong style="color: #dc2626;">Problem:</strong> Most members don't know it exists. Underutilized asset that could drive daily engagement.
+        </div>
+      </div>
+
+      <!-- Mindvalley Membership -->
+      <div class="product-card">
+        <div class="product-card__header">
+          <div>
+            <span class="tag tag--current">Current Product</span>
+            <h3 class="mv-type--headline5" style="margin-top: 0.5rem;">Mindvalley Membership</h3>
+          </div>
+          <div class="product-card__price">$299-$800/year</div>
+        </div>
+        <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem;">
+          <li>110+ programs (Quests)</li>
+          <li>Individual programs: $200-$500</li>
+          <li>Pillar membership: $299/year</li>
+          <li>All-access: $600-$800/year</li>
+        </ul>
+        <div class="problem-box" style="margin-top: 1rem;">
+          <strong style="color: #dc2626;">Problem:</strong> Members buy one program and stop exploring. 45% churn annually.
+        </div>
+      </div>
+
+      <!-- Monthly Summits -->
+      <div class="product-card">
+        <div class="product-card__header">
+          <div>
+            <span class="tag tag--current">Current Product</span>
+            <h3 class="mv-type--headline5" style="margin-top: 0.5rem;">Monthly Summits</h3>
+          </div>
+          <div class="product-card__price">FREE for members</div>
+        </div>
+        <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem;">
+          <li>6 virtual summits per year</li>
+          <li>Live with world-class speakers</li>
+          <li>Included in membership</li>
+          <li>Great engagement driver</li>
+        </ul>
+        <div class="solution-box" style="margin-top: 1rem;">
+          <strong style="color: #059669;">Opportunity:</strong> Perfect funnel to introduce members to Mastery programs.
+        </div>
+      </div>
+
+      <!-- Mastery Programs -->
+      <div class="product-card">
+        <div class="product-card__header">
+          <div>
+            <span class="tag tag--current">Current Product</span>
+            <h3 class="mv-type--headline5" style="margin-top: 0.5rem;">Mastery Programs</h3>
+          </div>
+          <div class="product-card__price">$5,000</div>
+        </div>
+        <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem;">
+          <li>Deep-dive, multi-month programs</li>
+          <li>Direct access to teachers</li>
+          <li>Cohort-based learning</li>
+          <li>Premium transformation</li>
+        </ul>
+        <div class="problem-box" style="margin-top: 1rem;">
+          <strong style="color: #dc2626;">Problem:</strong> $5,000 is a steep ask. Many interested members can't afford it upfront.
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="product-card">
+        <div class="product-card__header">
+          <div>
+            <span class="tag tag--current">Current Product</span>
+            <h3 class="mv-type--headline5" style="margin-top: 0.5rem;">Certifications</h3>
+          </div>
+          <div class="product-card__price">$4,000-$10,000</div>
+        </div>
+        <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem;">
+          <li>Become a certified practitioner</li>
+          <li>Teach Mindvalley methodologies</li>
+          <li>Build a coaching business</li>
+          <li>Professional credentials</li>
+        </ul>
+        <div class="problem-box" style="margin-top: 1rem;">
+          <strong style="color: #dc2626;">Problem:</strong> High price barrier. Long consideration cycle.
+        </div>
+      </div>
+
+      <!-- Live Events -->
+      <div class="product-card">
+        <div class="product-card__header">
+          <div>
+            <span class="tag tag--current">Current Product</span>
+            <h3 class="mv-type--headline5" style="margin-top: 0.5rem;">Live Events</h3>
+          </div>
+          <div class="product-card__price">$2,000-$5,000</div>
+        </div>
+        <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem;">
+          <li>A-Fest (flagship experience)</li>
+          <li>Mindvalley University</li>
+          <li>Regional events</li>
+          <li>In-person transformation</li>
+        </ul>
+        <div class="problem-box" style="margin-top: 1rem;">
+          <strong style="color: #dc2626;">Problem:</strong> Price + travel makes it inaccessible. One-time purchase, hard to budget.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Core Problems -->
+  <section style="background: #1a1a2e; color: white; padding: 5rem 0;">
+    <div class="mv-container">
+      <h2 class="mv-type--headline2" style="color: white; margin-bottom: 2rem;">The Three Problems Sparks Solve</h2>
+
+      <div class="spark-grid spark-grid--3">
+        <div style="background: rgba(255,255,255,0.05); border-radius: 1rem; padding: 2rem;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🚪</div>
+          <h3 class="mv-type--headline5" style="color: white; margin-bottom: 1rem;">Single Program Mentality</h3>
+          <p style="opacity: 0.8;">Members buy one Quest, complete it (or don't), and never explore the other 109 programs. They don't see the library as valuable.</p>
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <strong style="color: #4ade80;">Spark Solution:</strong>
+            <p style="opacity: 0.8; font-size: 0.9rem; margin-top: 0.5rem;">Monthly Sparks encourage trying new programs. "I have 500 Sparks — let me try Silva Mind Control."</p>
+          </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.05); border-radius: 1rem; padding: 2rem;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🧘</div>
+          <h3 class="mv-type--headline5" style="color: white; margin-bottom: 1rem;">Hidden Meditation Library</h3>
+          <p style="opacity: 0.8;">1,000+ meditations sit unused. Most members don't know it exists or see value in a separate $99 subscription.</p>
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <strong style="color: #4ade80;">Spark Solution:</strong>
+            <p style="opacity: 0.8; font-size: 0.9rem; margin-top: 0.5rem;">Meditation included in all tiers. Daily meditation earns Sparks — creating a habit loop.</p>
+          </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.05); border-radius: 1rem; padding: 2rem;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🏔️</div>
+          <h3 class="mv-type--headline5" style="color: white; margin-bottom: 1rem;">Mastery Price Barrier</h3>
+          <p style="opacity: 0.8;">$5,000 for Mastery is intimidating. Summit attendees get excited but can't commit to such a large purchase.</p>
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <strong style="color: #4ade80;">Spark Solution:</strong>
+            <p style="opacity: 0.8; font-size: 0.9rem; margin-top: 0.5rem;">Accumulate Sparks toward Mastery over time. "I'm 60% there" creates commitment.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product-by-Product Transformation -->
+  <section class="mv-container" style="padding: 5rem 0;">
+    <h2 class="mv-type--headline2" style="margin-bottom: 0.5rem;">How Each Product Transforms</h2>
+    <p style="color: #4b5563; margin-bottom: 3rem; max-width: 40rem;">Side-by-side comparison of current state vs. Spark Economy.</p>
+
+    <!-- Meditation Library -->
+    <div style="margin-bottom: 4rem;">
+      <h3 class="mv-type--headline4" style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span>🧘</span> Meditation Library
+      </h3>
+      <div class="comparison-row">
+        <div class="product-card">
+          <span class="tag tag--current">TODAY</span>
+          <h4 class="mv-type--headline6" style="margin: 1rem 0 0.5rem;">Separate $99/year Product</h4>
+          <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem; font-size: 0.95rem;">
+            <li>Standalone subscription</li>
+            <li>Low awareness</li>
+            <li>No connection to membership</li>
+            <li>Passive — no engagement incentive</li>
+          </ul>
+        </div>
+        <div class="comparison-row__arrow">→</div>
+        <div class="product-card" style="border: 2px solid #7a12d4;">
+          <span class="tag tag--spark">WITH SPARKS</span>
+          <h4 class="mv-type--headline6" style="margin: 1rem 0 0.5rem;">Included in All Tiers + Earns Sparks</h4>
+          <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem; font-size: 0.95rem;">
+            <li>✓ Included from Explorer ($49) and up</li>
+            <li>✓ Daily meditation = earn 5-10 Sparks</li>
+            <li>✓ 7-day streak = bonus 50 Sparks</li>
+            <li>✓ Creates daily habit + engagement</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mindvalley Membership -->
+    <div style="margin-bottom: 4rem;">
+      <h3 class="mv-type--headline4" style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span>📚</span> Mindvalley Membership (110 Programs)
+      </h3>
+      <div class="comparison-row">
+        <div class="product-card">
+          <span class="tag tag--current">TODAY</span>
+          <h4 class="mv-type--headline6" style="margin: 1rem 0 0.5rem;">Fixed Annual Subscription</h4>
+          <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem; font-size: 0.95rem;">
+            <li>$299/year (pillar) or $600-$800 (all-access)</li>
+            <li>Unlimited access feels overwhelming</li>
+            <li>No incentive to explore new programs</li>
+            <li>45% cancel annually</li>
+          </ul>
+        </div>
+        <div class="comparison-row__arrow">→</div>
+        <div class="product-card" style="border: 2px solid #7a12d4;">
+          <span class="tag tag--spark">WITH SPARKS</span>
+          <h4 class="mv-type--headline6" style="margin: 1rem 0 0.5rem;">Tiered Access + Program Unlocks</h4>
+          <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem; font-size: 0.95rem;">
+            <li>✓ Seeker ($99): 1,200 Sparks/mo = 4 programs</li>
+            <li>✓ Transformer ($149): 2,000 Sparks/mo = 6+ programs</li>
+            <li>✓ Completing a program = earn 200 Sparks</li>
+            <li>✓ "Spending" Sparks makes programs feel earned</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monthly Summits -->
+    <div style="margin-bottom: 4rem;">
+      <h3 class="mv-type--headline4" style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span>🎤</span> Monthly Summits (6/year)
+      </h3>
+      <div class="comparison-row">
+        <div class="product-card">
+          <span class="tag tag--current">TODAY</span>
+          <h4 class="mv-type--headline6" style="margin: 1rem 0 0.5rem;">Free for Members</h4>
+          <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem; font-size: 0.95rem;">
+            <li>Included in membership</li>
+            <li>Great engagement driver</li>
+            <li>No path to upsell</li>
+            <li>Attendees excited but don't convert</li>
+          </ul>
+        </div>
+        <div class="comparison-row__arrow">→</div>
+        <div class="product-card" style="border: 2px solid #7a12d4;">
+          <span class="tag tag--spark">WITH SPARKS</span>
+          <h4 class="mv-type--headline6" style="margin: 1rem 0 0.5rem;">Free + Funnel to Mastery</h4>
+          <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem; font-size: 0.95rem;">
+            <li>✓ Still free for all members</li>
+            <li>✓ Attending = earn 100-200 Sparks</li>
+            <li>✓ Post-Summit: "Use your Sparks toward Mastery"</li>
+            <li>✓ Shows progress: "You're 30% to Mastery!"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mastery Programs -->
+    <div style="margin-bottom: 4rem;">
+      <h3 class="mv-type--headline4" style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span>🏆</span> Mastery Programs
+      </h3>
+      <div class="comparison-row">
+        <div class="product-card">
+          <span class="tag tag--current">TODAY</span>
+          <h4 class="mv-type--headline6" style="margin: 1rem 0 0.5rem;">$5,000 One-Time Payment</h4>
+          <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem; font-size: 0.95rem;">
+            <li>Large upfront commitment</li>
+            <li>Payment plans available but still big</li>
+            <li>Hard to justify emotionally</li>
+            <li>Low conversion from Summit excitement</li>
+          </ul>
+        </div>
+        <div class="comparison-row__arrow">→</div>
+        <div class="product-card" style="border: 2px solid #7a12d4;">
+          <span class="tag tag--spark">WITH SPARKS</span>
+          <h4 class="mv-type--headline6" style="margin: 1rem 0 0.5rem;">50,000 Sparks OR Cash OR Combo</h4>
+          <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem; font-size: 0.95rem;">
+            <li>✓ Full Sparks: 50,000 (accumulated over time)</li>
+            <li>✓ Hybrid: 25,000 Sparks + $2,500 cash</li>
+            <li>✓ Cash still available: $5,000</li>
+            <li>✓ Progress visible: "72% to Silva Mastery!"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div style="margin-bottom: 4rem;">
+      <h3 class="mv-type--headline4" style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span>🎓</span> Certifications
+      </h3>
+      <div class="comparison-row">
+        <div class="product-card">
+          <span class="tag tag--current">TODAY</span>
+          <h4 class="mv-type--headline6" style="margin: 1rem 0 0.5rem;">$4,000-$10,000 Cash</h4>
+          <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem; font-size: 0.95rem;">
+            <li>High price for career changers</li>
+            <li>Long consideration cycle</li>
+            <li>No incremental path</li>
+            <li>Feels like a "big bet"</li>
+          </ul>
+        </div>
+        <div class="comparison-row__arrow">→</div>
+        <div class="product-card" style="border: 2px solid #7a12d4;">
+          <span class="tag tag--spark">WITH SPARKS</span>
+          <h4 class="mv-type--headline6" style="margin: 1rem 0 0.5rem;">40,000-100,000 Sparks OR Combo</h4>
+          <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem; font-size: 0.95rem;">
+            <li>✓ Accumulate over 1-2 years naturally</li>
+            <li>✓ Feels like "graduation" not "purchase"</li>
+            <li>✓ Hybrid: 50% Sparks + 50% cash</li>
+            <li>✓ Creates long-term retention goal</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Events -->
+    <div style="margin-bottom: 2rem;">
+      <h3 class="mv-type--headline4" style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span>✈️</span> Live Events (A-Fest, MV University)
+      </h3>
+      <div class="comparison-row">
+        <div class="product-card">
+          <span class="tag tag--current">TODAY</span>
+          <h4 class="mv-type--headline6" style="margin: 1rem 0 0.5rem;">$2,000-$5,000 Cash</h4>
+          <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem; font-size: 0.95rem;">
+            <li>One-time large expense</li>
+            <li>Hard to budget for</li>
+            <li>Travel costs on top</li>
+            <li>Once-in-a-lifetime feel (but shouldn't be)</li>
+          </ul>
+        </div>
+        <div class="comparison-row__arrow">→</div>
+        <div class="product-card" style="border: 2px solid #7a12d4;">
+          <span class="tag tag--spark">WITH SPARKS</span>
+          <h4 class="mv-type--headline6" style="margin: 1rem 0 0.5rem;">20,000-50,000 Sparks OR Combo</h4>
+          <ul style="color: #4b5563; margin: 0; padding-left: 1.25rem; font-size: 0.95rem;">
+            <li>✓ A-Fest: 50,000 Sparks (or 25K + $2,500)</li>
+            <li>✓ Regional events: 20,000 Sparks</li>
+            <li>✓ Save toward events over months</li>
+            <li>✓ Luminary tier: 1 free event/year</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- User Journey: Summit to Mastery -->
+  <section style="background: linear-gradient(135deg, #7a12d4 0%, #5a0ea0 100%); color: white; padding: 5rem 0;">
+    <div class="mv-container">
+      <h2 class="mv-type--headline2" style="color: white; margin-bottom: 0.5rem;">User Journey: Summit → Mastery</h2>
+      <p style="opacity: 0.9; margin-bottom: 2rem; max-width: 40rem;">How Sparks create a natural path from Summit excitement to Mastery enrollment.</p>
+
+      <div class="spark-grid spark-grid--2" style="gap: 2rem;">
+        <!-- Today's Journey -->
+        <div>
+          <h3 class="mv-type--headline5" style="color: white; margin-bottom: 1.5rem;">
+            <span style="opacity: 0.5;">Today:</span> Summit Excitement → Nothing
+          </h3>
+
+          <div class="journey-step">
+            <div class="journey-step__number">1</div>
+            <div>
+              <strong>Attends Summit</strong>
+              <p style="color: #4b5563; margin: 0.25rem 0 0; font-size: 0.9rem;">Gets inspired by Jose Silva teaching</p>
+            </div>
+          </div>
+
+          <div class="journey-step">
+            <div class="journey-step__number">2</div>
+            <div>
+              <strong>Sees Mastery Offer</strong>
+              <p style="color: #4b5563; margin: 0.25rem 0 0; font-size: 0.9rem;">"Silva Mastery — $5,000"</p>
+            </div>
+          </div>
+
+          <div class="journey-step">
+            <div class="journey-step__number">3</div>
+            <div>
+              <strong>Feels Sticker Shock</strong>
+              <p style="color: #4b5563; margin: 0.25rem 0 0; font-size: 0.9rem;">"I can't afford that right now..."</p>
+            </div>
+          </div>
+
+          <div class="journey-step" style="background: #fef2f2;">
+            <div class="journey-step__number" style="background: #dc2626;">4</div>
+            <div>
+              <strong style="color: #dc2626;">Excitement Fades</strong>
+              <p style="color: #4b5563; margin: 0.25rem 0 0; font-size: 0.9rem;">No action. Interest dies. Lost opportunity.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- With Sparks Journey -->
+        <div>
+          <h3 class="mv-type--headline5" style="color: white; margin-bottom: 1.5rem;">
+            <span style="color: #4ade80;">With Sparks:</span> Summit → Progress → Mastery
+          </h3>
+
+          <div class="journey-step journey-step--spark">
+            <div class="journey-step__number">1</div>
+            <div>
+              <strong>Attends Summit + Earns Sparks</strong>
+              <p style="color: #4b5563; margin: 0.25rem 0 0; font-size: 0.9rem;">+200 Sparks for attending. "Nice bonus!"</p>
+            </div>
+          </div>
+
+          <div class="journey-step journey-step--spark">
+            <div class="journey-step__number">2</div>
+            <div>
+              <strong>Sees Mastery Offer — With Progress</strong>
+              <p style="color: #4b5563; margin: 0.25rem 0 0; font-size: 0.9rem;">"Silva Mastery — 50,000 Sparks. You have 12,000 (24%)"</p>
+            </div>
+          </div>
+
+          <div class="journey-step journey-step--spark">
+            <div class="journey-step__number">3</div>
+            <div>
+              <strong>Sees Achievable Path</strong>
+              <p style="color: #4b5563; margin: 0.25rem 0 0; font-size: 0.9rem;">"At my rate, I'll be there in 8 months!"</p>
+            </div>
+          </div>
+
+          <div class="journey-step journey-step--spark">
+            <div class="journey-step__number">4</div>
+            <div>
+              <strong>Engages More to Earn Faster</strong>
+              <p style="color: #4b5563; margin: 0.25rem 0 0; font-size: 0.9rem;">Daily meditation, referrals, program completions</p>
+            </div>
+          </div>
+
+          <div class="journey-step" style="background: #f0fdf4; border-left: 4px solid #4ade80;">
+            <div class="journey-step__number" style="background: #059669;">5</div>
+            <div>
+              <strong style="color: #059669;">Enrolls in Mastery</strong>
+              <p style="color: #4b5563; margin: 0.25rem 0 0; font-size: 0.9rem;">Uses 40,000 Sparks + $1,000 cash. Feels earned, not spent.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Member Perspective -->
+  <section class="mv-container" style="padding: 5rem 0;">
+    <h2 class="mv-type--headline2" style="margin-bottom: 2rem;">What Members See</h2>
+
+    <div class="spark-grid spark-grid--2" style="gap: 2rem;">
+      <div>
+        <h3 class="mv-type--headline5" style="margin-bottom: 1rem;">Monthly Experience</h3>
+        <div style="background: #f9f7fc; border-radius: 1rem; padding: 2rem;">
+          <p style="color: #4b5563; margin-bottom: 1.5rem;"><strong>Sarah is a Seeker ($99/month):</strong></p>
+          <ul style="color: #4b5563; line-height: 2;">
+            <li>Receives <strong>1,200 Sparks</strong> on the 1st of each month</li>
+            <li>Uses 300 Sparks to unlock "The Silva Method"</li>
+            <li>Does 20 meditation sessions → earns 100 Sparks</li>
+            <li>Completes Silva → earns 200 Sparks</li>
+            <li>Refers a friend → earns 500 Sparks</li>
+            <li>Attends June Summit → earns 200 Sparks</li>
+          </ul>
+          <div style="margin-top: 1.5rem; padding: 1rem; background: white; border-radius: 0.5rem;">
+            <strong>End of Month Balance:</strong>
+            <div style="font-size: 1.5rem; color: #7a12d4; font-family: Grotesk-Bold, sans-serif;">1,900 Sparks</div>
+            <p style="font-size: 0.85rem; color: #6b7280; margin: 0.5rem 0 0;">Plus 1,200 more coming next month</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="mv-type--headline5" style="margin-bottom: 1rem;">Progress Toward Goals</h3>
+        <div style="background: #f9f7fc; border-radius: 1rem; padding: 2rem;">
+          <p style="color: #4b5563; margin-bottom: 1.5rem;"><strong>Sarah's Dashboard Shows:</strong></p>
+
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span style="font-size: 0.9rem;">Silva Mastery (50,000 Sparks)</span>
+              <span style="font-size: 0.9rem; color: #7a12d4;">38%</span>
+            </div>
+            <div style="height: 12px; background: #e5e7eb; border-radius: 6px; overflow: hidden;">
+              <div style="width: 38%; height: 100%; background: linear-gradient(90deg, #7a12d4, #9333ea);"></div>
+            </div>
+            <p style="font-size: 0.8rem; color: #6b7280; margin-top: 0.5rem;">19,000 / 50,000 Sparks • ~6 months to go</p>
+          </div>
+
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+              <span style="font-size: 0.9rem;">A-Fest 2025 (50,000 Sparks)</span>
+              <span style="font-size: 0.9rem; color: #7a12d4;">38%</span>
+            </div>
+            <div style="height: 12px; background: #e5e7eb; border-radius: 6px; overflow: hidden;">
+              <div style="width: 38%; height: 100%; background: linear-gradient(90deg, #7a12d4, #9333ea);"></div>
+            </div>
+            <p style="font-size: 0.8rem; color: #6b7280; margin-top: 0.5rem;">Same Sparks, different goal option</p>
+          </div>
+
+          <div style="background: white; padding: 1rem; border-radius: 0.5rem; border-left: 4px solid #7a12d4;">
+            <p style="font-size: 0.9rem; color: #4b5563; margin: 0;">💡 <strong>Tip:</strong> Upgrade to Transformer for 2,000 Sparks/month and reach Mastery 3 months faster!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Reference Table -->
+  <section style="background: #f9f7fc; padding: 5rem 0;">
+    <div class="mv-container">
+      <h2 class="mv-type--headline2" style="margin-bottom: 2rem;">Quick Reference: Current → Sparks</h2>
+
+      <div class="spark-metrics-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Current Price</th>
+              <th>Spark Price</th>
+              <th>Key Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Meditation Library</strong></td>
+              <td>$99/year (separate)</td>
+              <td>Included in all tiers</td>
+              <td style="color: #059669;">Absorbed + earns Sparks</td>
+            </tr>
+            <tr>
+              <td><strong>Single Quest</strong></td>
+              <td>$200-$500</td>
+              <td>300 Sparks (~$30)</td>
+              <td style="color: #059669;">90% more accessible</td>
+            </tr>
+            <tr>
+              <td><strong>Membership</strong></td>
+              <td>$299-$800/year</td>
+              <td>$49-$499/month (tiered)</td>
+              <td style="color: #7a12d4;">Monthly + Sparks</td>
+            </tr>
+            <tr>
+              <td><strong>Summit</strong></td>
+              <td>Free (included)</td>
+              <td>Free + earn 200 Sparks</td>
+              <td style="color: #059669;">Now earns toward Mastery</td>
+            </tr>
+            <tr>
+              <td><strong>Mastery</strong></td>
+              <td>$5,000</td>
+              <td>50,000 Sparks or hybrid</td>
+              <td style="color: #059669;">Achievable path</td>
+            </tr>
+            <tr>
+              <td><strong>Certification</strong></td>
+              <td>$4,000-$10,000</td>
+              <td>40,000-100,000 Sparks</td>
+              <td style="color: #059669;">Long-term goal</td>
+            </tr>
+            <tr>
+              <td><strong>A-Fest</strong></td>
+              <td>$5,000</td>
+              <td>50,000 Sparks or hybrid</td>
+              <td style="color: #059669;">Save over time</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="spark-callout" style="margin-top: 2rem;">
+        <div class="spark-callout__title">The Core Shift</div>
+        <p>From <strong>"Buy this expensive thing"</strong> → <strong>"You're already 40% there — keep going!"</strong></p>
+        <p style="margin-top: 1rem;">Sparks turn one-time purchases into earned achievements. The psychology shifts from spending to investing in yourself.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation -->
+  <section class="mv-container" style="padding: 5rem 0;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <a href="index.html" class="spark-back">← Overview</a>
+      <a href="architecture.html" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #7a12d4; text-decoration: none; font-family: Grotesk-Medium, sans-serif;">
+        Next: System Architecture →
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mv-container" style="padding: 4rem 0; color: #6b7280; font-size: 0.9rem; border-top: 1px solid #e5e7eb;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div><strong>Spark Economy Blueprint</strong> — Version 2.0</div>
+      <div>© Mindvalley</div>
+    </div>
+  </footer>
+</body>
+</html>

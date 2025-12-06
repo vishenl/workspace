@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3-Phase Rollout — Spark Economy</title>
+  <meta name="description" content="Implementation roadmap from optional overlay to marketplace economy" />
+  <meta name="theme-color" content="#7a12d4" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="3-Phase Rollout — Spark Economy">
+  <meta property="og:description" content="Implementation roadmap from optional overlay to marketplace economy">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1755456068149-75e1a1748c7a?w=1200&h=630&fit=crop&auto=format">
+  <meta property="og:url" content="https://vishen.github.io/workspace/spark-economy/rollout.html">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="3-Phase Rollout — Spark Economy">
+  <meta name="twitter:description" content="Implementation roadmap from optional overlay to marketplace economy">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1755456068149-75e1a1748c7a?w=1200&h=630&fit=crop&auto=format">
+
+  <link rel="stylesheet" href="../mindvalley-core.css" />
+  <link rel="stylesheet" href="spark-docs.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="spark-nav">
+    <div class="spark-nav__container">
+      <a href="index.html" class="spark-nav__logo">
+        <span class="spark-nav__icon">✨</span>
+        <span>Spark Economy</span>
+      </a>
+      <div class="spark-nav__links">
+        <a href="current-products.html">Current → Sparks</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="tiers.html">Tiers</a>
+        <a href="economics.html">Economics</a>
+        <a href="ux-flows.html">UX Flows</a>
+        <a href="psychology.html">Psychology</a>
+        <a href="rollout.html" class="active">Rollout</a>
+        <a href="metrics.html">Metrics</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <section class="spark-section-header">
+    <div class="mv-container">
+      <a href="index.html" class="spark-back">← Back to Overview</a>
+      <div class="spark-section-header__number">Part 07</div>
+      <h1 class="mv-type--headline1">3-Phase Rollout Plan</h1>
+      <p style="font-size: 1.25rem; color: #4b5563; max-width: 40rem;">
+        Implementation roadmap from optional overlay to default currency to marketplace economy.
+      </p>
+    </div>
+  </section>
+
+  <!-- Timeline Overview -->
+  <section class="mv-container" style="padding: 5rem 0;">
+    <h2 class="mv-type--headline2" style="margin-bottom: 2rem;">Implementation Timeline</h2>
+
+    <div style="display: flex; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 200px; background: linear-gradient(135deg, #f9f7fc 0%, #f0e8f7 100%); padding: 1.5rem; border-radius: 1rem; border-left: 4px solid #7a12d4;">
+        <div style="font-size: 0.85rem; color: #7a12d4; font-family: Grotesk-Medium, sans-serif;">PHASE 1</div>
+        <div style="font-size: 1.25rem; font-family: Grotesk-Bold, sans-serif; margin: 0.5rem 0;">Optional Overlay</div>
+        <div style="color: #6b7280;">Months 1-6</div>
+      </div>
+      <div style="flex: 1; min-width: 200px; background: linear-gradient(135deg, #f0e8f7 0%, #e0d4f0 100%); padding: 1.5rem; border-radius: 1rem; border-left: 4px solid #7a12d4;">
+        <div style="font-size: 0.85rem; color: #7a12d4; font-family: Grotesk-Medium, sans-serif;">PHASE 2</div>
+        <div style="font-size: 1.25rem; font-family: Grotesk-Bold, sans-serif; margin: 0.5rem 0;">Default Currency</div>
+        <div style="color: #6b7280;">Months 7-18</div>
+      </div>
+      <div style="flex: 1; min-width: 200px; background: linear-gradient(135deg, #7a12d4 0%, #5a0ea0 100%); color: white; padding: 1.5rem; border-radius: 1rem;">
+        <div style="font-size: 0.85rem; opacity: 0.8; font-family: Grotesk-Medium, sans-serif;">PHASE 3</div>
+        <div style="font-size: 1.25rem; font-family: Grotesk-Bold, sans-serif; margin: 0.5rem 0;">Marketplace</div>
+        <div style="opacity: 0.8;">Months 19-30</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Phase 1 -->
+  <section style="background: #f9f7fc; padding: 5rem 0;">
+    <div class="mv-container">
+      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+        <div class="spark-timeline__phase">Phase 1</div>
+        <h2 class="mv-type--headline2" style="margin: 0;">Credits as Optional Overlay</h2>
+      </div>
+      <p style="color: #6b7280; margin-bottom: 2rem;">Months 1-6 | Budget: $900K</p>
+
+      <div class="spark-grid spark-grid--2">
+        <div class="spark-card">
+          <h3 class="mv-type--headline5" style="margin-bottom: 1rem;">Objectives</h3>
+          <ul style="color: #4b5563;">
+            <li>Introduce Sparks without disrupting current business</li>
+            <li>Test pricing, earning rates, and member response</li>
+            <li>Build infrastructure and UX</li>
+            <li>Gather data for optimization</li>
+          </ul>
+        </div>
+
+        <div class="spark-card">
+          <h3 class="mv-type--headline5" style="margin-bottom: 1rem;">Success Metrics</h3>
+          <ul style="color: #4b5563;">
+            <li>Beta member engagement: +40% DAU</li>
+            <li>Program starts: +25%</li>
+            <li>Meditation usage: +100%</li>
+            <li>NPS: Maintain or improve</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="mv-type--headline4" style="margin: 2rem 0 1.5rem;">Implementation Timeline</h3>
+
+      <div class="spark-timeline">
+        <div class="spark-timeline__item">
+          <div class="spark-timeline__phase">Month 1-2: Foundation</div>
+          <h4 class="mv-type--headline6" style="margin: 0.5rem 0;">Build Core Infrastructure</h4>
+          <ul style="color: #4b5563; font-size: 0.9rem;">
+            <li>Build Spark ledger system (backend)</li>
+            <li>Design and test Spark wallet UI</li>
+            <li>Create dual-pricing display system</li>
+            <li>Set up analytics tracking</li>
+          </ul>
+        </div>
+
+        <div class="spark-timeline__item">
+          <div class="spark-timeline__phase">Month 3-4: Beta Launch</div>
+          <h4 class="mv-type--headline6" style="margin: 0.5rem 0;">Limited Release</h4>
+          <ul style="color: #4b5563; font-size: 0.9rem;">
+            <li>Launch to 10% of members (opt-in)</li>
+            <li>Test earning mechanics</li>
+            <li>Test redemption flows</li>
+            <li>Monitor breakage and engagement</li>
+          </ul>
+        </div>
+
+        <div class="spark-timeline__item">
+          <div class="spark-timeline__phase">Month 5-6: Expanded Beta</div>
+          <h4 class="mv-type--headline6" style="margin: 0.5rem 0;">Scale & Optimize</h4>
+          <ul style="color: #4b5563; font-size: 0.9rem;">
+            <li>Expand to 30% of members</li>
+            <li>Introduce tier multipliers</li>
+            <li>Launch referral Spark program</li>
+            <li>A/B test conversion flows</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Phase 2 -->
+  <section class="mv-container" style="padding: 5rem 0;">
+    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+      <div class="spark-timeline__phase">Phase 2</div>
+      <h2 class="mv-type--headline2" style="margin: 0;">Credits as Default Currency</h2>
+    </div>
+    <p style="color: #6b7280; margin-bottom: 2rem;">Months 7-18 | Budget: $2.65M</p>
+
+    <div class="spark-grid spark-grid--2">
+      <div class="spark-card">
+        <h3 class="mv-type--headline5" style="margin-bottom: 1rem;">Objectives</h3>
+        <ul style="color: #4b5563;">
+          <li>Make Sparks the primary transaction currency</li>
+          <li>Migrate all members to tier-based subscriptions</li>
+          <li>Optimize earning/spending balance</li>
+          <li>Achieve retention and ARPU targets</li>
+        </ul>
+      </div>
+
+      <div class="spark-card">
+        <h3 class="mv-type--headline5" style="margin-bottom: 1rem;">Success Metrics</h3>
+        <ul style="color: #4b5563;">
+          <li>Active members: 400,000+</li>
+          <li>Retention: 65%+</li>
+          <li>ARPU: $450+</li>
+          <li>Mastery conversions: +100%</li>
+          <li>MRR: $35M+</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="mv-type--headline4" style="margin: 2rem 0 1.5rem;">Implementation Timeline</h3>
+
+    <div class="spark-timeline">
+      <div class="spark-timeline__item">
+        <div class="spark-timeline__phase">Month 7-9: Full Rollout</div>
+        <h4 class="mv-type--headline6" style="margin: 0.5rem 0;">100% Member Migration</h4>
+        <ul style="color: #4b5563; font-size: 0.9rem;">
+          <li>Launch to 100% of members</li>
+          <li>Grandfather existing members with bonus Sparks</li>
+          <li>Marketing campaign: "Introducing Sparks"</li>
+          <li>Support team training</li>
+        </ul>
+      </div>
+
+      <div class="spark-timeline__item">
+        <div class="spark-timeline__phase">Month 10-12: Optimization</div>
+        <h4 class="mv-type--headline6" style="margin: 0.5rem 0;">Data-Driven Refinement</h4>
+        <ul style="color: #4b5563; font-size: 0.9rem;">
+          <li>Analyze tier distribution</li>
+          <li>Adjust earning rates based on data</li>
+          <li>Launch discovery challenges</li>
+          <li>Implement variable Spark drops</li>
+        </ul>
+      </div>
+
+      <div class="spark-timeline__item">
+        <div class="spark-timeline__phase">Month 13-15: Premium Push</div>
+        <h4 class="mv-type--headline6" style="margin: 0.5rem 0;">Mastery & Events Focus</h4>
+        <ul style="color: #4b5563; font-size: 0.9rem;">
+          <li>Launch Summit → Mastery flow</li>
+          <li>Implement Mastery Goal Tracker</li>
+          <li>Create urgency campaigns for events</li>
+          <li>Introduce Corporate tiers</li>
+        </ul>
+      </div>
+
+      <div class="spark-timeline__item">
+        <div class="spark-timeline__phase">Month 16-18: Scale</div>
+        <h4 class="mv-type--headline6" style="margin: 0.5rem 0;">Prepare for Marketplace</h4>
+        <ul style="color: #4b5563; font-size: 0.9rem;">
+          <li>Launch Creator tiers</li>
+          <li>Optimize breakage (target 18-22%)</li>
+          <li>Refine win-back campaigns</li>
+          <li>Prepare for Phase 3</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Phase 3 -->
+  <section style="background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 100%); color: white; padding: 5rem 0;">
+    <div class="mv-container">
+      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+        <div style="background: rgba(255,255,255,0.2); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-family: Grotesk-Medium, sans-serif;">Phase 3</div>
+        <h2 class="mv-type--headline2" style="color: white; margin: 0;">Marketplace Credit Economy</h2>
+      </div>
+      <p style="opacity: 0.7; margin-bottom: 2rem;">Months 19-30 | Budget: $3.05M</p>
+
+      <div class="spark-grid spark-grid--2">
+        <div style="background: rgba(255,255,255,0.1); border-radius: 1rem; padding: 2rem;">
+          <h3 class="mv-type--headline5" style="color: white; margin-bottom: 1rem;">Objectives</h3>
+          <ul style="opacity: 0.9;">
+            <li>Open Spark system to external creators</li>
+            <li>Transform Mindvalley into transformation marketplace</li>
+            <li>Create new revenue streams from commissions</li>
+            <li>Build network effects</li>
+          </ul>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.1); border-radius: 1rem; padding: 2rem;">
+          <h3 class="mv-type--headline5" style="color: white; margin-bottom: 1rem;">Success Metrics</h3>
+          <ul style="opacity: 0.9;">
+            <li>Marketplace partners: 200+</li>
+            <li>Partner GMV: $50M+</li>
+            <li>Commission revenue: $10M+</li>
+            <li>Member cross-pollination: 40%+ try partner content</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="mv-type--headline4" style="color: white; margin: 3rem 0 1.5rem;">Partner Economics</h3>
+
+      <div style="background: rgba(255,255,255,0.1); border-radius: 1rem; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          <div style="padding: 1rem; font-family: Grotesk-Medium, sans-serif; opacity: 0.7;">Tier</div>
+          <div style="padding: 1rem; font-family: Grotesk-Medium, sans-serif; opacity: 0.7;">Commission</div>
+          <div style="padding: 1rem; font-family: Grotesk-Medium, sans-serif; opacity: 0.7;">Requirements</div>
+          <div style="padding: 1rem; font-family: Grotesk-Medium, sans-serif; opacity: 0.7;">Partner Receives</div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          <div style="padding: 1rem;">New Partner</div>
+          <div style="padding: 1rem;">30%</div>
+          <div style="padding: 1rem; font-size: 0.9rem;">Application approved</div>
+          <div style="padding: 1rem;">70%</div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          <div style="padding: 1rem;">Verified</div>
+          <div style="padding: 1rem;">25%</div>
+          <div style="padding: 1rem; font-size: 0.9rem;">100+ redemptions, 4.5+ rating</div>
+          <div style="padding: 1rem;">75%</div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          <div style="padding: 1rem;">Premier</div>
+          <div style="padding: 1rem;">20%</div>
+          <div style="padding: 1rem; font-size: 0.9rem;">500+ redemptions, curated</div>
+          <div style="padding: 1rem;">80%</div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; background: rgba(255,255,255,0.05);">
+          <div style="padding: 1rem; font-weight: 600;">Elite</div>
+          <div style="padding: 1rem; font-weight: 600;">15%</div>
+          <div style="padding: 1rem; font-size: 0.9rem;">2000+ redemptions, exclusive</div>
+          <div style="padding: 1rem; font-weight: 600; color: #4ade80;">85%</div>
+        </div>
+      </div>
+
+      <div style="background: rgba(122, 18, 212, 0.3); border: 1px solid rgba(122, 18, 212, 0.5); border-radius: 1rem; padding: 1.5rem; margin-top: 2rem;">
+        <h4 style="color: #f0e68c; margin-bottom: 0.75rem;">Example Transaction</h4>
+        <ul style="opacity: 0.9; font-size: 0.95rem;">
+          <li>Member redeems 10,000 Sparks ($1,000 value) at partner event</li>
+          <li>Partner receives: $700-850 (depending on tier)</li>
+          <li>Mindvalley receives: $150-300 commission</li>
+          <li><strong>Member stays in Mindvalley ecosystem</strong></li>
+        </ul>
+      </div>
+
+      <h3 class="mv-type--headline4" style="color: white; margin: 3rem 0 1.5rem;">Implementation Timeline</h3>
+
+      <div class="spark-grid spark-grid--2">
+        <div style="background: rgba(255,255,255,0.1); border-radius: 1rem; padding: 1.5rem;">
+          <div style="font-size: 0.85rem; opacity: 0.7; margin-bottom: 0.5rem;">Month 19-21</div>
+          <div style="font-weight: 600; margin-bottom: 0.75rem;">Marketplace Foundation</div>
+          <ul style="font-size: 0.9rem; opacity: 0.8;">
+            <li>Build partner application system</li>
+            <li>Create payout infrastructure</li>
+            <li>Define quality standards</li>
+            <li>Legal/compliance framework</li>
+          </ul>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.1); border-radius: 1rem; padding: 1.5rem;">
+          <div style="font-size: 0.85rem; opacity: 0.7; margin-bottom: 0.5rem;">Month 22-24</div>
+          <div style="font-weight: 600; margin-bottom: 0.75rem;">Pilot Launch</div>
+          <ul style="font-size: 0.9rem; opacity: 0.8;">
+            <li>Invite 20-30 premium partners</li>
+            <li>Test Spark redemptions at partners</li>
+            <li>Refine commission structure</li>
+            <li>Gather partner feedback</li>
+          </ul>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.1); border-radius: 1rem; padding: 1.5rem;">
+          <div style="font-size: 0.85rem; opacity: 0.7; margin-bottom: 0.5rem;">Month 25-27</div>
+          <div style="font-weight: 600; margin-bottom: 0.75rem;">Expansion</div>
+          <ul style="font-size: 0.9rem; opacity: 0.8;">
+            <li>Open applications to wider partner base</li>
+            <li>Launch partner marketing tools</li>
+            <li>Implement partner analytics dashboard</li>
+            <li>Scale payout operations</li>
+          </ul>
+        </div>
+
+        <div style="background: rgba(122, 18, 212, 0.3); border: 1px solid rgba(122, 18, 212, 0.5); border-radius: 1rem; padding: 1.5rem;">
+          <div style="font-size: 0.85rem; opacity: 0.7; margin-bottom: 0.5rem;">Month 28-30</div>
+          <div style="font-weight: 600; margin-bottom: 0.75rem;">Scale</div>
+          <ul style="font-size: 0.9rem; opacity: 0.8;">
+            <li>Target 200+ marketplace partners</li>
+            <li>Launch partner promotion features</li>
+            <li>Implement dynamic partner pricing</li>
+            <li>Build partner success team</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team & Budget -->
+  <section class="mv-container" style="padding: 5rem 0;">
+    <h2 class="mv-type--headline2" style="margin-bottom: 2rem;">Team & Budget Requirements</h2>
+
+    <div class="spark-grid spark-grid--2">
+      <div class="spark-card">
+        <h3 class="mv-type--headline5" style="margin-bottom: 1.5rem;">Phase 1 Team</h3>
+        <div class="spark-metrics-table">
+          <table>
+            <tbody>
+              <tr>
+                <td>Product Manager</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Backend Engineers</td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>Frontend Engineers</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Designer</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Data Analyst</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>QA Engineer</td>
+                <td>1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="spark-card">
+        <h3 class="mv-type--headline5" style="margin-bottom: 1.5rem;">Phase 2-3 Additions</h3>
+        <div class="spark-metrics-table">
+          <table>
+            <tbody>
+              <tr>
+                <td>Growth PM</td>
+                <td>+1</td>
+              </tr>
+              <tr>
+                <td>Backend Engineers</td>
+                <td>+2</td>
+              </tr>
+              <tr>
+                <td>Partner Success</td>
+                <td>+2</td>
+              </tr>
+              <tr>
+                <td>Finance Analyst</td>
+                <td>+1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="mv-type--headline4" style="margin: 2rem 0 1.5rem;">Budget Summary</h3>
+
+    <div class="spark-metrics-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Phase</th>
+            <th>Duration</th>
+            <th>Engineering</th>
+            <th>Marketing</th>
+            <th>Operations</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Phase 1</td>
+            <td>6 months</td>
+            <td>$720K</td>
+            <td>$90K</td>
+            <td>$90K</td>
+            <td><strong>$900K</strong></td>
+          </tr>
+          <tr>
+            <td>Phase 2</td>
+            <td>12 months</td>
+            <td>$1.8M</td>
+            <td>$500K</td>
+            <td>$350K</td>
+            <td><strong>$2.65M</strong></td>
+          </tr>
+          <tr>
+            <td>Phase 3</td>
+            <td>12 months</td>
+            <td>$2.2M</td>
+            <td>$300K</td>
+            <td>$550K</td>
+            <td><strong>$3.05M</strong></td>
+          </tr>
+          <tr style="background: #f0e8f7; font-weight: bold;">
+            <td>Total</td>
+            <td>30 months</td>
+            <td>$4.72M</td>
+            <td>$890K</td>
+            <td>$990K</td>
+            <td><strong>$6.6M</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Navigation -->
+  <section class="mv-container" style="padding: 5rem 0;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <a href="psychology.html" class="spark-back">← Psychology</a>
+      <a href="metrics.html" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #7a12d4; text-decoration: none; font-family: Grotesk-Medium, sans-serif;">
+        Next: Success Metrics →
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mv-container" style="padding: 4rem 0; color: #6b7280; font-size: 0.9rem; border-top: 1px solid #e5e7eb;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div><strong>Spark Economy Blueprint</strong> — Version 2.0</div>
+      <div>© Mindvalley</div>
+    </div>
+  </footer>
+</body>
+</html>
