@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLISS Optimization Report | Mindvalley States</title>
+    <style>
+        :root {
+            --bliss-color: #f59e0b;
+            --bliss-light: #fef3c7;
+            --purple: #7a12d4;
+            --green: #10b981;
+            --red: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--gray-800);
+            line-height: 1.6;
+            background: var(--gray-50);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .report-header {
+            background: linear-gradient(135deg, var(--gray-900) 0%, #1e1e3f 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .report-header h1 {
+            font-size: 42px;
+            margin-bottom: 16px;
+        }
+
+        .report-header h1 span {
+            color: var(--bliss-color);
+        }
+
+        .report-header p {
+            font-size: 18px;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .report-meta {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .report-meta-item {
+            text-align: center;
+        }
+
+        .report-meta-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.6;
+        }
+
+        .report-meta-value {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            margin: -40px auto 40px;
+            max-width: 700px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .toc h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-500);
+            margin-bottom: 20px;
+        }
+
+        .toc-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .toc-list { grid-template-columns: 1fr; }
+        }
+
+        .toc-list a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--gray-50);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .toc-list a:hover {
+            background: var(--bliss-light);
+            color: var(--gray-900);
+        }
+
+        .toc-number {
+            width: 28px;
+            height: 28px;
+            background: var(--bliss-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* Sections */
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .section-header {
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--gray-100);
+        }
+
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--bliss-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section h2 {
+            font-size: 28px;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            color: var(--gray-500);
+            font-size: 16px;
+        }
+
+        h3 {
+            font-size: 20px;
+            color: var(--gray-900);
+            margin: 32px 0 16px;
+        }
+
+        h4 {
+            font-size: 16px;
+            color: var(--gray-700);
+            margin: 24px 0 12px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--gray-600);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        th {
+            background: var(--gray-900);
+            color: white;
+            font-weight: 600;
+        }
+
+        th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+
+        th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        tr:nth-child(even) {
+            background: var(--gray-50);
+        }
+
+        tr:last-child td:first-child {
+            border-radius: 0 0 0 8px;
+        }
+
+        tr:last-child td:last-child {
+            border-radius: 0 0 8px 0;
+        }
+
+        .good { color: var(--green); font-weight: 600; }
+        .bad { color: var(--red); font-weight: 600; }
+        .neutral { color: var(--bliss-color); font-weight: 600; }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        .card {
+            background: var(--gray-50);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .card.highlight {
+            background: var(--bliss-light);
+            border-color: var(--bliss-color);
+        }
+
+        .card h4 {
+            margin: 0 0 12px;
+            color: var(--gray-900);
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: var(--gray-600);
+        }
+
+        li strong {
+            color: var(--gray-800);
+        }
+
+        /* Callouts */
+        .callout {
+            background: var(--bliss-light);
+            border-left: 4px solid var(--bliss-color);
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+        }
+
+        .callout.green {
+            background: #d1fae5;
+            border-color: var(--green);
+        }
+
+        .callout.red {
+            background: #fee2e2;
+            border-color: var(--red);
+        }
+
+        .callout h4 {
+            margin: 0 0 8px;
+            color: var(--gray-900);
+        }
+
+        .callout p {
+            margin: 0;
+        }
+
+        /* Quote */
+        .quote {
+            background: var(--gray-900);
+            color: white;
+            padding: 32px;
+            border-radius: 16px;
+            margin: 24px 0;
+            position: relative;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 80px;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            color: var(--bliss-color);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+
+        .quote p {
+            color: rgba(255,255,255,0.9);
+            font-size: 18px;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--bliss-color);
+        }
+
+        /* Metrics Box */
+        .metrics-box {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        @media (max-width: 700px) {
+            .metrics-box { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .metric {
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .metric.good {
+            border-color: var(--green);
+            background: #d1fae5;
+        }
+
+        .metric.bad {
+            border-color: var(--red);
+            background: #fee2e2;
+        }
+
+        .metric.neutral {
+            border-color: var(--bliss-color);
+            background: var(--bliss-light);
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        .metric-benchmark {
+            font-size: 11px;
+            color: var(--gray-400);
+            margin-top: 8px;
+        }
+
+        /* Hook Examples */
+        .hook-list {
+            list-style: none;
+            padding: 0;
+            margin: 24px 0;
+        }
+
+        .hook-list li {
+            background: var(--gray-50);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--bliss-color);
+        }
+
+        .hook-list li strong {
+            display: block;
+            font-size: 18px;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+
+        .hook-list li span {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        /* Questions */
+        .question-list {
+            list-style: none;
+            padding: 0;
+            counter-reset: question;
+        }
+
+        .question-list li {
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            position: relative;
+            padding-left: 70px;
+        }
+
+        .question-list li::before {
+            counter-increment: question;
+            content: "Q" counter(question);
+            position: absolute;
+            left: 20px;
+            top: 24px;
+            width: 36px;
+            height: 36px;
+            background: var(--bliss-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .question-list li strong {
+            display: block;
+            font-size: 16px;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+
+        .question-list li p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Target Box */
+        .target-box {
+            background: linear-gradient(135deg, var(--bliss-color) 0%, #d97706 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            margin: 32px 0;
+        }
+
+        .target-box h3 {
+            color: white;
+            font-size: 24px;
+            margin: 0 0 16px;
+        }
+
+        .target-box p {
+            color: rgba(255,255,255,0.9);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+
+        .target-audience-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .target-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Changes Table */
+        .changes-table {
+            margin: 24px 0;
+        }
+
+        .change-row {
+            display: grid;
+            grid-template-columns: 200px 1fr 1fr;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        @media (max-width: 700px) {
+            .change-row { grid-template-columns: 1fr; }
+        }
+
+        .change-row:last-child {
+            border-bottom: none;
+        }
+
+        .change-section {
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .change-purpose {
+            color: var(--gray-600);
+        }
+
+        .change-match {
+            color: var(--green);
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .report-footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray-500);
+            font-size: 14px;
+        }
+
+        /* Print Styles */
+        @media print {
+            body { background: white; }
+            .section { box-shadow: none; border: 1px solid var(--gray-200); }
+            .toc { box-shadow: none; border: 1px solid var(--gray-200); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="report-header">
+        <h1>BLISS <span>Optimization Report</span></h1>
+        <p>Comprehensive analysis and recommendations for improving ad performance and landing page conversions</p>
+        <div class="report-meta">
+            <div class="report-meta-item">
+                <div class="report-meta-label">Product</div>
+                <div class="report-meta-value">BLISS</div>
+            </div>
+            <div class="report-meta-item">
+                <div class="report-meta-label">Platform</div>
+                <div class="report-meta-value">Meta Ads</div>
+            </div>
+            <div class="report-meta-item">
+                <div class="report-meta-label">Date</div>
+                <div class="report-meta-value">December 2025</div>
+            </div>
+            <div class="report-meta-item">
+                <div class="report-meta-label">Status</div>
+                <div class="report-meta-value">Ready for Review</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="toc">
+        <h2>Table of Contents</h2>
+        <ul class="toc-list">
+            <li><a href="#current-performance"><span class="toc-number">1</span> Current Performance Analysis</a></li>
+            <li><a href="#ad-optimization"><span class="toc-number">2</span> Ad Optimization Strategy</a></li>
+            <li><a href="#page-optimization"><span class="toc-number">3</span> Landing Page Optimization</a></li>
+            <li><a href="#page-changes"><span class="toc-number">4</span> Page Changes Summary</a></li>
+            <li><a href="#primary-target"><span class="toc-number">5</span> Primary Ad Target</a></li>
+            <li><a href="#shawn-questions"><span class="toc-number">6</span> Questions for Shawn Wells</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <!-- Section 1: Current Performance -->
+        <section class="section" id="current-performance">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <h2>Current Performance Analysis</h2>
+                <p class="section-subtitle">Understanding what's working and what needs improvement</p>
+            </div>
+
+            <h3>Current Ad Metrics</h3>
+            <div class="metrics-box">
+                <div class="metric good">
+                    <div class="metric-value">6.57%</div>
+                    <div class="metric-label">CTR</div>
+                    <div class="metric-benchmark">Benchmark: 1-2%</div>
+                </div>
+                <div class="metric neutral">
+                    <div class="metric-value">$1.94</div>
+                    <div class="metric-label">CPC</div>
+                    <div class="metric-benchmark">Benchmark: $1.50-3.00</div>
+                </div>
+                <div class="metric bad">
+                    <div class="metric-value">$96.30</div>
+                    <div class="metric-label">CPM</div>
+                    <div class="metric-benchmark">Benchmark: $15-40</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">?</div>
+                    <div class="metric-label">Conversion Rate</div>
+                    <div class="metric-benchmark">Needs tracking</div>
+                </div>
+            </div>
+
+            <h3>Diagnosis</h3>
+
+            <div class="callout green">
+                <h4>What's Working Well</h4>
+                <p><strong>CTR is exceptional (6.57%)</strong> — This is 3-6x above industry average. The creative is resonating strongly with viewers. People want to click.</p>
+            </div>
+
+            <div class="callout red">
+                <h4>The Problem: CPM is Too High</h4>
+                <p><strong>CPM of $96.30 is 2-4x higher than normal.</strong> This is inflating your CPA despite excellent CTR. The issue is likely audience targeting, ad account restrictions, or frequency saturation — not the creative itself.</p>
+            </div>
+
+            <h3>Root Cause Analysis</h3>
+            <table>
+                <tr>
+                    <th>Potential Cause</th>
+                    <th>Likelihood</th>
+                    <th>Solution</th>
+                </tr>
+                <tr>
+                    <td>Audience too narrow/competitive</td>
+                    <td class="neutral">High</td>
+                    <td>Broaden targeting, test new audiences</td>
+                </tr>
+                <tr>
+                    <td>Health claims triggering restrictions</td>
+                    <td class="neutral">Medium</td>
+                    <td>Review ad copy for flagged terms</td>
+                </tr>
+                <tr>
+                    <td>Frequency saturation</td>
+                    <td class="neutral">Medium</td>
+                    <td>Check frequency, rotate creatives</td>
+                </tr>
+                <tr>
+                    <td>Landing page conversion leak</td>
+                    <td class="neutral">Unknown</td>
+                    <td>Install conversion tracking</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Section 2: Ad Optimization -->
+        <section class="section" id="ad-optimization">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <h2>Ad Optimization Strategy</h2>
+                <p class="section-subtitle">Specific recommendations to improve ad performance</p>
+            </div>
+
+            <h3>Hook Optimization</h3>
+            <p>The current hook takes ~8 seconds to land: <em>"Imagine if you could get all of the fun of alcohol without actually wasting so much money on alcohol and damaging your health with alcohol."</em></p>
+            <p>On Meta, you have <strong>1-3 seconds</strong> to capture attention. Here are stronger alternatives:</p>
+
+            <ul class="hook-list">
+                <li>
+                    <strong>"I stopped drinking. But I didn't stop partying."</strong>
+                    <span>Direct, intriguing, creates curiosity gap</span>
+                </li>
+                <li>
+                    <strong>"I threw away my bar. Here's what replaced it."</strong>
+                    <span>Visual, specific, leverages Vishen's personal story</span>
+                </li>
+                <li>
+                    <strong>"My friends think I'm drunk. I'm not. I'm on this."</strong>
+                    <span>Pattern interrupt, social proof implied</span>
+                </li>
+                <li>
+                    <strong>"2 pills. Zero hangover. Same social energy as 3 drinks."</strong>
+                    <span>Specific, quantified, benefit-focused</span>
+                </li>
+                <li>
+                    <strong>"The 'social lubricant' that doesn't destroy your liver."</strong>
+                    <span>Uses Shawn's language, health-conscious angle</span>
+                </li>
+            </ul>
+
+            <h3>Script Structure Recommendations</h3>
+            <table>
+                <tr>
+                    <th>Section</th>
+                    <th>Current</th>
+                    <th>Recommended</th>
+                </tr>
+                <tr>
+                    <td>Hook (0-3s)</td>
+                    <td class="bad">Long conditional "Imagine if..."</td>
+                    <td class="good">Direct statement with intrigue</td>
+                </tr>
+                <tr>
+                    <td>Problem (3-10s)</td>
+                    <td class="neutral">Mentioned but not visceral</td>
+                    <td class="good">Agitate: hangovers, regret, health damage</td>
+                </tr>
+                <tr>
+                    <td>Solution (10-25s)</td>
+                    <td class="good">Vishen's personal story</td>
+                    <td class="good">Keep — this is strong</td>
+                </tr>
+                <tr>
+                    <td>Credibility (25-40s)</td>
+                    <td class="good">Shawn's serotonin explanation</td>
+                    <td class="good">Keep — builds trust</td>
+                </tr>
+                <tr>
+                    <td>CTA (40-45s)</td>
+                    <td class="bad">Missing</td>
+                    <td class="good">Add: "Try BLISS risk-free. 60-day guarantee."</td>
+                </tr>
+            </table>
+
+            <h3>Audience Targeting Recommendations</h3>
+            <p>To reduce CPM, test these audience expansions:</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Sober Curious</h4>
+                    <p>People interested in Dry January, sober living, alcohol-free lifestyle, mocktails</p>
+                </div>
+                <div class="card">
+                    <h4>Health Optimizers</h4>
+                    <p>Biohackers, longevity enthusiasts, fitness, clean eating, wellness</p>
+                </div>
+                <div class="card">
+                    <h4>Social Anxiety</h4>
+                    <p>Introvert content, social skills, confidence building, therapy/self-help</p>
+                </div>
+                <div class="card">
+                    <h4>Mindvalley Lookalikes</h4>
+                    <p>1-3% lookalikes from purchasers or engaged users</p>
+                </div>
+            </div>
+
+            <h3>Creative Variations to Test</h3>
+            <ol>
+                <li><strong>UGC Testimonial Cut:</strong> Splice in real customer testimonials (Lee Holden, Trajana, Faisal quotes)</li>
+                <li><strong>Before/After Format:</strong> Split screen showing "Night with alcohol" vs "Night with BLISS"</li>
+                <li><strong>Shawn-Led Science Ad:</strong> Shawn explaining the serotonin mechanism as the primary hook</li>
+                <li><strong>Social Proof Opener:</strong> Start with "112 five-star reviews" or "Over 10,000 hangovers prevented"</li>
+            </ol>
+        </section>
+
+        <!-- Section 3: Landing Page Optimization -->
+        <section class="section" id="page-optimization">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <h2>Landing Page Optimization</h2>
+                <p class="section-subtitle">Aligning the page with ad messaging for better conversions</p>
+            </div>
+
+            <h3>Gap Analysis: Ad vs Original Page</h3>
+            <table>
+                <tr>
+                    <th>Ad Message</th>
+                    <th>Original Page</th>
+                    <th>Gap</th>
+                </tr>
+                <tr>
+                    <td>"All the fun of alcohol without damage"</td>
+                    <td>Generic "mood & social energy"</td>
+                    <td class="bad">Missing alcohol replacement hook</td>
+                </tr>
+                <tr>
+                    <td>Vishen's bar → tea story</td>
+                    <td>No personal story</td>
+                    <td class="bad">Missing emotional narrative</td>
+                </tr>
+                <tr>
+                    <td>"Serotonin is the focus"</td>
+                    <td>Buried in ingredients section</td>
+                    <td class="bad">Science not prominent</td>
+                </tr>
+                <tr>
+                    <td>"Social lubricant"</td>
+                    <td>"Next-Gen Socializing"</td>
+                    <td class="neutral">Close but could be stronger</td>
+                </tr>
+                <tr>
+                    <td>Connect, relax, communicate</td>
+                    <td>Benefits cover this</td>
+                    <td class="good">OK</td>
+                </tr>
+            </table>
+
+            <h3>Conversion Optimization Principles Applied</h3>
+
+            <div class="card-grid">
+                <div class="card highlight">
+                    <h4>Message Match</h4>
+                    <p>Landing page now mirrors the ad's alcohol-replacement positioning. Visitors see continuity from ad to page.</p>
+                </div>
+                <div class="card highlight">
+                    <h4>Social Proof Above Fold</h4>
+                    <p>Rating, reviews, and credibility indicators visible immediately on page load.</p>
+                </div>
+                <div class="card highlight">
+                    <h4>Emotional Narrative</h4>
+                    <p>Vishen's personal transformation story creates emotional connection and relatability.</p>
+                </div>
+                <div class="card highlight">
+                    <h4>Risk Reversal</h4>
+                    <p>60-day guarantee prominently displayed with urgency CTA to reduce purchase anxiety.</p>
+                </div>
+            </div>
+
+            <h3>Expected Impact</h3>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Expected Change</th>
+                    <th>Rationale</th>
+                </tr>
+                <tr>
+                    <td>Bounce Rate</td>
+                    <td class="good">↓ 15-25%</td>
+                    <td>Better message match reduces confusion</td>
+                </tr>
+                <tr>
+                    <td>Conversion Rate</td>
+                    <td class="good">↑ 20-40%</td>
+                    <td>Clearer value prop, risk reversal, social proof</td>
+                </tr>
+                <tr>
+                    <td>Time on Page</td>
+                    <td class="good">↑ 30%+</td>
+                    <td>More engaging content, story sections</td>
+                </tr>
+                <tr>
+                    <td>CPA</td>
+                    <td class="good">↓ 15-30%</td>
+                    <td>Better qualified traffic converts higher</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Section 4: Page Changes Summary -->
+        <section class="section" id="page-changes">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <h2>Page Changes Summary</h2>
+                <p class="section-subtitle">What was added to the optimized BLISS page</p>
+            </div>
+
+            <p><strong>Note:</strong> No content was removed. All additions enhance the existing page.</p>
+
+            <table>
+                <tr>
+                    <th>New Section</th>
+                    <th>Purpose</th>
+                    <th>Ad Message Match</th>
+                </tr>
+                <tr>
+                    <td><strong>Hero Banner</strong></td>
+                    <td>Dark banner with "All The Fun of Alcohol. None of The Damage."</td>
+                    <td class="good">Matches ad hook directly</td>
+                </tr>
+                <tr>
+                    <td><strong>Social Proof Bar</strong></td>
+                    <td>4.8/5 rating, 6 patents, Shawn Wells, 60-day guarantee</td>
+                    <td class="good">Builds instant credibility</td>
+                </tr>
+                <tr>
+                    <td><strong>Vishen's Story Section</strong></td>
+                    <td>Direct quote about cocktails → tea transformation</td>
+                    <td class="good">Emotional narrative from ad</td>
+                </tr>
+                <tr>
+                    <td><strong>Alcohol vs BLISS Comparison</strong></td>
+                    <td>Side-by-side table (hangover, liver, calories, cost)</td>
+                    <td class="good">Reinforces "replace alcohol" angle</td>
+                </tr>
+                <tr>
+                    <td><strong>Serotonin Science Section</strong></td>
+                    <td>Shawn Wells quote about serotonin being the focus</td>
+                    <td class="good">Direct lift from ad script</td>
+                </tr>
+                <tr>
+                    <td><strong>Urgency Banner</strong></td>
+                    <td>"Try BLISS Risk-Free — 60-Day Money-Back Guarantee" + CTA</td>
+                    <td class="good">Creates urgency, reduces risk</td>
+                </tr>
+                <tr>
+                    <td><strong>Updated Tagline</strong></td>
+                    <td>"The social lubricant that changed how I connect with friends"</td>
+                    <td class="good">Uses "social lubricant" from ad</td>
+                </tr>
+            </table>
+
+            <div class="callout">
+                <h4>View the Optimized Page</h4>
+                <p><a href="https://vishenl.github.io/workspace/states/bliss.html" target="_blank" style="color: var(--bliss-color); font-weight: 600;">https://vishenl.github.io/workspace/states/bliss.html</a></p>
+            </div>
+        </section>
+
+        <!-- Section 5: Primary Target -->
+        <section class="section" id="primary-target">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <h2>Primary Ad Target Recommendation</h2>
+                <p class="section-subtitle">The audience most likely to convert</p>
+            </div>
+
+            <div class="target-box">
+                <h3>Primary Target: "The Sober-Curious Social Drinker"</h3>
+                <p>Health-conscious professionals (28-45) who drink socially but are increasingly aware of alcohol's negative effects and actively seeking alternatives.</p>
+                <div class="target-audience-tags">
+                    <span class="target-tag">Dry January participants</span>
+                    <span class="target-tag">Wellness enthusiasts</span>
+                    <span class="target-tag">Social anxiety sufferers</span>
+                    <span class="target-tag">Biohackers</span>
+                    <span class="target-tag">Mindvalley community</span>
+                </div>
+            </div>
+
+            <h3>Why This Audience?</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Problem Aware</h4>
+                    <p>They already know alcohol is bad for them. No education needed — just a solution.</p>
+                </div>
+                <div class="card">
+                    <h4>Solution Seeking</h4>
+                    <p>Actively looking for alcohol alternatives. High intent, ready to buy.</p>
+                </div>
+                <div class="card">
+                    <h4>Health Investment</h4>
+                    <p>Already spending on supplements, wellness, and self-improvement.</p>
+                </div>
+                <div class="card">
+                    <h4>Social Drivers</h4>
+                    <p>Value connection and social experiences — BLISS's core benefit.</p>
+                </div>
+            </div>
+
+            <h3>Messaging Angles by Audience Segment</h3>
+            <table>
+                <tr>
+                    <th>Segment</th>
+                    <th>Primary Pain Point</th>
+                    <th>Messaging Angle</th>
+                </tr>
+                <tr>
+                    <td>Sober-Curious</td>
+                    <td>Want to quit but fear missing out socially</td>
+                    <td>"All the fun, none of the damage"</td>
+                </tr>
+                <tr>
+                    <td>Health Optimizers</td>
+                    <td>Alcohol disrupts sleep, fitness, longevity</td>
+                    <td>"Zero calories, zero liver damage"</td>
+                </tr>
+                <tr>
+                    <td>Social Anxiety</td>
+                    <td>Need "liquid courage" but hate the side effects</td>
+                    <td>"Social confidence without the hangover"</td>
+                </tr>
+                <tr>
+                    <td>Busy Professionals</td>
+                    <td>Can't afford hangover productivity loss</td>
+                    <td>"Wake up sharp. No lost mornings."</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Section 6: Questions for Shawn -->
+        <section class="section" id="shawn-questions">
+            <div class="section-header">
+                <div class="section-number">6</div>
+                <h2>Questions for Shawn Wells</h2>
+                <p class="section-subtitle">5 questions to gather more compelling marketing content</p>
+            </div>
+
+            <p>These questions are designed to extract specific, quantifiable information that can be used in ads and landing page copy to increase credibility and conversions.</p>
+
+            <ul class="question-list">
+                <li>
+                    <strong>What's the clinical onset time for each key ingredient, and which ingredient do users "feel" first?</strong>
+                    <p><em>Why this matters:</em> Specificity sells. If we can say "You'll feel Zembrin working in 45 minutes, then Affron kicks in at 90 minutes," it creates tangible expectations and reduces skepticism. Time-to-effect is a major purchase driver for nootropics.</p>
+                </li>
+                <li>
+                    <strong>How does BLISS affect serotonin differently than alcohol? Specifically, why doesn't BLISS cause the "serotonin crash" that alcohol does the next day?</strong>
+                    <p><em>Why this matters:</em> "Hangxiety" (next-day anxiety after drinking) is a massive pain point. If we can explain the mechanism clearly — why alcohol depletes serotonin while BLISS supports it — we have a powerful scientific differentiator for our comparison content.</p>
+                </li>
+                <li>
+                    <strong>Are there any clinical studies showing social/mood outcomes specifically (not just cognitive)? Any data on user-reported social confidence, ease of conversation, or connection?</strong>
+                    <p><em>Why this matters:</em> We have cognitive data (memory, focus) but BLISS is positioned as a "social lubricant." User-reported or clinical data on social outcomes would be gold for testimonials and claims. Even survey data from beta users would help.</p>
+                </li>
+                <li>
+                    <strong>What's the synergy between Affron Saffron and Zembrin? Why did you combine these two specifically for the "bliss" effect?</strong>
+                    <p><em>Why this matters:</em> The story of "why these ingredients together" is compelling content. If there's a 1+1=3 synergy story, it justifies the premium price and differentiates from single-ingredient competitors. Formula storytelling builds perceived value.</p>
+                </li>
+                <li>
+                    <strong>For someone who currently drinks 2-3 glasses of wine at social events, what's the recommended BLISS protocol? Should they take it before, can they still have one drink, what's the ideal scenario?</strong>
+                    <p><em>Why this matters:</em> Most people won't quit alcohol cold turkey. Giving them a "bridge protocol" (e.g., "Take BLISS 1 hour before, have one drink if you want, you'll likely find you don't need it") makes the product more accessible and reduces the perceived commitment required to try it.</p>
+                </li>
+            </ul>
+
+            <div class="quote">
+                <p>"The more specific and scientific we can get about HOW BLISS works, the more we can justify the premium price and differentiate from generic 'mood supplements.' Shawn's expertise is our competitive moat — let's extract as much of it as possible."</p>
+            </div>
+        </section>
+
+        <!-- Action Items -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">+</div>
+                <h2>Recommended Next Steps</h2>
+                <p class="section-subtitle">Prioritized action items</p>
+            </div>
+
+            <h3>Immediate (This Week)</h3>
+            <ol>
+                <li><strong>Install conversion tracking</strong> on the BLISS page to measure landing page → purchase rate</li>
+                <li><strong>Review the optimized page</strong> at the staging URL and provide feedback</li>
+                <li><strong>Test broader audience targeting</strong> to reduce CPM while maintaining CTR</li>
+            </ol>
+
+            <h3>Short-Term (Next 2 Weeks)</h3>
+            <ol start="4">
+                <li><strong>Create 2-3 new hook variations</strong> based on recommendations above</li>
+                <li><strong>Interview Shawn</strong> using the 5 questions provided</li>
+                <li><strong>Produce a UGC-style testimonial cut</strong> using existing customer quotes</li>
+            </ol>
+
+            <h3>Medium-Term (Next Month)</h3>
+            <ol start="7">
+                <li><strong>A/B test original vs optimized landing page</strong> once conversion tracking is live</li>
+                <li><strong>Expand ad creative library</strong> with Shawn-led science ad, before/after format</li>
+                <li><strong>Build audience segments</strong> for sober-curious, health optimizers, social anxiety</li>
+            </ol>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="report-footer">
+        <p>BLISS Optimization Report | Mindvalley States | December 2025</p>
+        <p>Prepared for internal team review</p>
+    </footer>
+
+</body>
+</html>
