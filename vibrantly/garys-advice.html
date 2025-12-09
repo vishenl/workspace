@@ -18,18 +18,60 @@
   <!-- Theme -->
   <meta name="theme-color" content="#3d4a2c" />
 
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --color-olive-900: #2d3620;
+      --color-olive-800: #3d4a2c;
+      --color-olive-700: #4a5a38;
+      --color-olive-600: #5a6b47;
+      --color-olive-500: #6b7c58;
+      --color-olive-400: #8fa876;
+      --color-olive-300: #a8bc94;
+      --color-olive-200: #c4d4b0;
+      --color-olive-100: #dce8cc;
+      --color-olive-50: #f0f5e8;
+
+      --color-cream-100: #faf9f6;
+      --color-cream-200: #f5f3ef;
+      --color-cream-300: #ebe7e0;
+
+      --color-gold: #d4a574;
+      --color-gold-light: #e8c9a0;
+
+      --shadow-sm: 0 1px 2px rgba(45, 54, 32, 0.04);
+      --shadow-md: 0 4px 12px rgba(45, 54, 32, 0.08);
+      --shadow-lg: 0 8px 24px rgba(45, 54, 32, 0.12);
+      --shadow-xl: 0 16px 48px rgba(45, 54, 32, 0.16);
+
+      --radius-sm: 0.5rem;
+      --radius-md: 1rem;
+      --radius-lg: 1.5rem;
+      --radius-xl: 2rem;
+      --radius-full: 9999px;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background-color: #f5f3ef;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--color-cream-200);
       color: #1f2937;
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .layout {
@@ -39,8 +81,8 @@
 
     /* Sidebar */
     .sidebar {
-      width: 260px;
-      background-color: #3d4a2c;
+      width: 280px;
+      background: linear-gradient(180deg, var(--color-olive-800) 0%, var(--color-olive-900) 100%);
       color: white;
       position: fixed;
       left: 0;
@@ -49,196 +91,251 @@
       display: flex;
       flex-direction: column;
       z-index: 100;
+      border-right: 1px solid rgba(255,255,255,0.05);
     }
 
     .sidebar-logo {
-      padding: 1.5rem;
+      padding: 2rem 1.5rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .sidebar-logo svg {
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
     }
 
     .sidebar-logo span {
-      font-weight: 600;
-      font-size: 1.125rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
     }
 
     .sidebar-nav {
       flex: 1;
-      padding: 0 0.75rem;
+      padding: 1.5rem 1rem;
+      overflow-y: auto;
     }
 
     .nav-link {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem 1rem;
-      border-radius: 0.75rem;
-      color: #b8c4a8;
+      gap: 0.875rem;
+      padding: 0.875rem 1rem;
+      border-radius: var(--radius-md);
+      color: var(--color-olive-200);
       text-decoration: none;
       margin-bottom: 0.25rem;
-      transition: background-color 0.2s;
+      transition: all 0.2s ease;
+      font-weight: 500;
+      font-size: 0.9375rem;
     }
 
     .nav-link:hover {
-      background-color: rgba(74, 90, 56, 0.5);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      transform: translateX(4px);
     }
 
     .nav-link.active {
-      background-color: #4a5a38;
+      background: linear-gradient(135deg, var(--color-olive-600), var(--color-olive-700));
       color: white;
+      box-shadow: var(--shadow-md);
     }
 
     .nav-link svg {
       width: 1.25rem;
       height: 1.25rem;
+      opacity: 0.8;
     }
 
     .nav-link .emoji {
-      font-size: 1.125rem;
+      font-size: 1.25rem;
     }
 
     .nav-section {
-      margin-top: 1.5rem;
-      margin-bottom: 0.5rem;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
       padding: 0 1rem;
-      font-size: 0.75rem;
+      font-size: 0.6875rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #8a9a78;
+      letter-spacing: 0.1em;
+      color: var(--color-olive-400);
+      font-weight: 600;
     }
 
     /* Main Content */
     .main {
       flex: 1;
-      margin-left: 260px;
+      margin-left: 280px;
+      min-height: 100vh;
     }
 
     /* Header */
     .header {
-      background-color: #f5f3ef;
-      padding: 1rem 2rem;
+      background: linear-gradient(180deg, var(--color-cream-200) 0%, rgba(245,243,239,0.95) 100%);
+      backdrop-filter: blur(12px);
+      padding: 1.25rem 2.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
       z-index: 50;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
     }
 
     .search-bar {
       flex: 1;
-      max-width: 32rem;
+      max-width: 480px;
       position: relative;
     }
 
     .search-bar input {
       width: 100%;
-      padding: 0.75rem 3rem;
-      border-radius: 9999px;
-      border: 1px solid #e5e7eb;
+      padding: 0.875rem 1.25rem 0.875rem 3rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-cream-300);
       background: white;
-      font-size: 1rem;
+      font-size: 0.9375rem;
+      font-family: inherit;
       outline: none;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
     }
 
     .search-bar input:focus {
-      border-color: #8fa876;
+      border-color: var(--color-olive-400);
+      box-shadow: 0 0 0 3px rgba(143, 168, 118, 0.15);
+    }
+
+    .search-bar input::placeholder {
+      color: #9ca3af;
     }
 
     .search-bar .icon-left {
       position: absolute;
-      left: 1rem;
+      left: 1.125rem;
       top: 50%;
       transform: translateY(-50%);
-      color: #9ca3af;
+      font-size: 1rem;
     }
 
     .header-right {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      margin-left: 1.5rem;
+      gap: 0.5rem;
+      margin-left: 2rem;
     }
 
     .header-btn {
-      padding: 0.5rem;
-      color: #6b7280;
-      background: none;
-      border: none;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-olive-600);
+      background: white;
+      border: 1px solid var(--color-cream-300);
+      border-radius: var(--radius-md);
       cursor: pointer;
       position: relative;
+      transition: all 0.2s ease;
     }
 
     .header-btn:hover {
-      color: #3d4a2c;
+      background: var(--color-olive-50);
+      border-color: var(--color-olive-200);
+    }
+
+    .header-btn svg {
+      width: 1.25rem;
+      height: 1.25rem;
     }
 
     .notification-badge {
       position: absolute;
-      top: 0.25rem;
-      right: 0.25rem;
-      width: 1rem;
-      height: 1rem;
-      background: #ef4444;
+      top: -0.25rem;
+      right: -0.25rem;
+      width: 1.125rem;
+      height: 1.125rem;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
       color: white;
       font-size: 0.625rem;
-      border-radius: 9999px;
+      font-weight: 700;
+      border-radius: var(--radius-full);
       display: flex;
       align-items: center;
       justify-content: center;
+      border: 2px solid var(--color-cream-200);
     }
 
     .avatar {
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 9999px;
-      background: linear-gradient(135deg, #f59e0b, #ea580c);
-      border: 2px solid #8fa876;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--color-gold), #e67e22);
+      border: 2px solid white;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.875rem;
+      box-shadow: var(--shadow-md);
+      margin-left: 0.5rem;
     }
 
     /* Content */
     .content {
-      padding: 2rem;
+      padding: 2rem 2.5rem 4rem;
+      max-width: 1400px;
     }
 
     /* Hero */
     .hero {
-      background: linear-gradient(135deg, #3d4a2c, #5a6b47);
-      border-radius: 1.5rem;
-      padding: 2rem;
+      background: linear-gradient(135deg, var(--color-olive-800) 0%, var(--color-olive-700) 50%, var(--color-olive-600) 100%);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
       color: white;
       margin-bottom: 2rem;
       position: relative;
       overflow: hidden;
+      box-shadow: var(--shadow-xl);
     }
 
-    .hero-circle-1 {
+    .hero::before {
+      content: '';
       position: absolute;
       top: 0;
+      left: 0;
       right: 0;
-      width: 16rem;
-      height: 16rem;
-      background: rgba(143, 168, 118, 0.2);
-      border-radius: 9999px;
-      transform: translate(50%, -50%);
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
     }
 
-    .hero-circle-2 {
+    .hero-glow {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 12rem;
-      height: 12rem;
-      background: rgba(196, 217, 142, 0.1);
-      border-radius: 9999px;
-      transform: translate(-50%, 50%);
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+    }
+
+    .hero-glow-1 {
+      top: -200px;
+      right: -100px;
+      background: var(--color-olive-400);
+    }
+
+    .hero-glow-2 {
+      bottom: -200px;
+      left: -100px;
+      background: var(--color-gold);
+      opacity: 0.2;
     }
 
     .hero-content {
@@ -246,15 +343,37 @@
       z-index: 10;
       display: flex;
       align-items: flex-start;
-      gap: 1.5rem;
+      gap: 2rem;
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+      flex-shrink: 0;
     }
 
     .hero-image {
-      width: 6rem;
-      height: 6rem;
-      border-radius: 1rem;
+      width: 120px;
+      height: 120px;
+      border-radius: var(--radius-lg);
       object-fit: cover;
-      border: 2px solid #8fa876;
+      border: 3px solid rgba(255,255,255,0.2);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-image-badge {
+      position: absolute;
+      bottom: -8px;
+      right: -8px;
+      background: linear-gradient(135deg, var(--color-gold), #e67e22);
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      box-shadow: var(--shadow-md);
+      border: 2px solid var(--color-olive-800);
     }
 
     .hero-text {
@@ -262,45 +381,81 @@
     }
 
     .hero-eyebrow {
-      color: #c4d98e;
-      font-size: 0.875rem;
-      font-weight: 500;
-      margin-bottom: 0.25rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      padding: 0.375rem 0.875rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-olive-100);
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .hero-eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--color-gold);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
     }
 
     .hero-title {
-      font-size: 1.875rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
     }
 
     .hero-description {
-      color: #b8c4a8;
-      max-width: 40rem;
+      color: var(--color-olive-200);
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      max-width: 540px;
     }
 
     .hero-counter {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(8px);
-      border-radius: 1rem;
-      padding: 1rem;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
       text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      min-width: 140px;
     }
 
     .hero-counter-label {
-      color: #c4d98e;
-      font-size: 0.75rem;
-      margin-bottom: 0.25rem;
+      color: var(--color-olive-300);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
     }
 
     .hero-counter-value {
-      font-size: 2.25rem;
-      font-weight: 700;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.75rem;
+      font-weight: 600;
+      line-height: 1;
     }
 
     .hero-counter-value span {
-      color: #b8c4a8;
-      font-size: 1rem;
+      color: var(--color-olive-400);
+      font-size: 1.25rem;
+      font-weight: 400;
     }
 
     .hero-stats {
@@ -308,117 +463,169 @@
       z-index: 10;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      gap: 1.5rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .hero-stat {
+      text-align: center;
     }
 
     .hero-stat-value {
-      font-size: 1.875rem;
-      font-weight: 700;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.25rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
     }
 
     .hero-stat-label {
-      color: #b8c4a8;
-      font-size: 0.875rem;
+      color: var(--color-olive-300);
+      font-size: 0.8125rem;
+      font-weight: 500;
     }
 
     /* Tabs */
     .tabs {
       display: flex;
       gap: 0.5rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      background: white;
+      padding: 0.375rem;
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-cream-300);
+      width: fit-content;
     }
 
     .tab {
       padding: 0.75rem 1.5rem;
-      border-radius: 9999px;
-      font-weight: 500;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 0.875rem;
       cursor: pointer;
       border: none;
-      transition: all 0.2s;
+      transition: all 0.25s ease;
+      font-family: inherit;
     }
 
     .tab.active {
-      background: #3d4a2c;
+      background: linear-gradient(135deg, var(--color-olive-700), var(--color-olive-800));
       color: white;
+      box-shadow: var(--shadow-md);
     }
 
     .tab:not(.active) {
-      background: white;
-      color: #6b7280;
+      background: transparent;
+      color: var(--color-olive-600);
     }
 
     .tab:not(.active):hover {
-      background: #f0ebe4;
+      background: var(--color-olive-50);
+      color: var(--color-olive-800);
     }
 
     /* Cards */
     .card {
       background: white;
-      border-radius: 1.5rem;
-      padding: 1.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
       margin-bottom: 1.5rem;
+      border: 1px solid rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-lg);
     }
 
     .card-header {
       display: flex;
       align-items: flex-start;
-      gap: 1rem;
+      gap: 1.25rem;
     }
 
     .card-icon {
-      width: 3rem;
-      height: 3rem;
-      border-radius: 1rem;
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: var(--radius-lg);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
+      font-size: 1.75rem;
+      flex-shrink: 0;
     }
 
-    .card-icon.yellow { background: #fef3c7; }
-    .card-icon.blue { background: #dbeafe; }
-    .card-icon.green { background: #dcfce7; }
-    .card-icon.red { background: #fef2f2; }
-    .card-icon.purple { background: #f3e8ff; }
+    .card-icon.yellow {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2);
+    }
+    .card-icon.blue {
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    }
+    .card-icon.green {
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+    }
+    .card-icon.red {
+      background: linear-gradient(135deg, #fee2e2, #fecaca);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+    }
+    .card-icon.purple {
+      background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+      box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
+    }
+    .card-icon.olive {
+      background: linear-gradient(135deg, var(--color-olive-100), var(--color-olive-200));
+      box-shadow: 0 4px 12px rgba(143, 168, 118, 0.2);
+    }
 
     .card-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #1f2937;
-      margin-bottom: 0.5rem;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.375rem;
+      font-weight: 600;
+      color: var(--color-olive-900);
+      margin-bottom: 0.375rem;
+      letter-spacing: -0.01em;
     }
 
     .card-subtitle {
-      font-size: 0.875rem;
-      color: #6b7280;
+      font-size: 0.9375rem;
+      color: var(--color-olive-500);
     }
 
     .card-description {
-      color: #6b7280;
+      color: var(--color-olive-600);
       margin-top: 1rem;
+      font-size: 1rem;
+      line-height: 1.7;
     }
 
     .highlight-box {
-      background: #f5f3ef;
-      border-radius: 0.75rem;
-      padding: 1rem;
-      margin-top: 1rem;
+      background: linear-gradient(135deg, var(--color-cream-100), var(--color-cream-200));
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      border-left: 3px solid var(--color-olive-400);
     }
 
     .highlight-box-title {
       font-size: 0.875rem;
-      font-weight: 500;
-      color: #3d4a2c;
+      font-weight: 700;
+      color: var(--color-olive-800);
       margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .highlight-box-text {
-      font-size: 0.875rem;
-      color: #6b7280;
+      font-size: 0.9375rem;
+      color: var(--color-olive-600);
+      line-height: 1.6;
     }
 
     /* Pathway Cards */
@@ -428,42 +635,99 @@
       gap: 1.5rem;
     }
 
+    .pathway-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
+    }
+
+    .pathway-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .pathway-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .pathway-icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .pathway-icon.blue {
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    }
+    .pathway-icon.gold {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+    }
+
+    .pathway-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+      color: var(--color-olive-900);
+      font-size: 1.125rem;
+    }
+
+    .pathway-subtitle {
+      font-size: 0.8125rem;
+      color: var(--color-olive-500);
+    }
+
     .pathway-flow {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      margin: 1rem 0;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: var(--color-cream-100);
+      border-radius: var(--radius-md);
     }
 
     .pathway-item {
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
       font-size: 0.875rem;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .pathway-item.green {
-      background: #f0fdf4;
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
       color: #166534;
     }
 
-    .pathway-item.yellow {
-      background: #fefce8;
-      color: #854d0e;
+    .pathway-item.gold {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      color: #92400e;
     }
 
     .pathway-arrow {
-      color: #9ca3af;
+      color: var(--color-olive-400);
+      font-size: 1.25rem;
     }
 
     .tag-group {
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
     }
 
     .tag-label {
-      font-size: 0.75rem;
-      color: #9ca3af;
-      margin-bottom: 0.5rem;
+      font-size: 0.6875rem;
+      color: var(--color-olive-500);
+      margin-bottom: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
     .tags {
@@ -473,41 +737,79 @@
     }
 
     .tag {
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.25rem;
-      font-size: 0.75rem;
+      padding: 0.375rem 0.75rem;
+      border-radius: var(--radius-full);
+      font-size: 0.8125rem;
+      font-weight: 500;
     }
 
-    .tag.gray { background: #f5f3ef; color: #6b7280; }
-    .tag.red { background: #fef2f2; color: #dc2626; }
+    .tag.gray {
+      background: var(--color-cream-200);
+      color: var(--color-olive-700);
+    }
+    .tag.red {
+      background: #fef2f2;
+      color: #dc2626;
+    }
 
     /* Quote Card */
     .quote-card {
-      background: #3d4a2c;
-      border-radius: 1.5rem;
-      padding: 1.5rem;
+      background: linear-gradient(135deg, var(--color-olive-800) 0%, var(--color-olive-900) 100%);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
       color: white;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
     }
 
-    .quote-content {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    .quote-mark {
-      font-size: 2.5rem;
+    .quote-card::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 12rem;
+      color: rgba(255,255,255,0.05);
       line-height: 1;
     }
 
+    .quote-content {
+      position: relative;
+      z-index: 1;
+    }
+
     .quote-text {
-      font-size: 1.125rem;
-      margin-bottom: 1rem;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.375rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      font-style: italic;
     }
 
     .quote-author {
-      color: #c4d98e;
-      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .quote-author-image {
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-md);
+      object-fit: cover;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .quote-author-name {
+      color: var(--color-gold-light);
+      font-weight: 600;
+      font-size: 0.9375rem;
+    }
+
+    .quote-author-title {
+      color: var(--color-olive-300);
+      font-size: 0.8125rem;
     }
 
     /* Protocols Grid */
@@ -518,75 +820,98 @@
     }
 
     .protocol-card {
-      background: #f5f3ef;
-      border-radius: 1rem;
-      padding: 1rem;
+      background: linear-gradient(135deg, var(--color-cream-100), white);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
       display: flex;
       align-items: flex-start;
-      gap: 0.75rem;
+      gap: 1rem;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.04);
     }
 
     .protocol-card:hover {
-      background: #f0ebe4;
+      background: white;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
     }
 
     .protocol-icon {
-      width: 3rem;
-      height: 3rem;
+      width: 3.5rem;
+      height: 3.5rem;
       background: white;
-      border-radius: 0.75rem;
+      border-radius: var(--radius-md);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
     }
 
     .protocol-timing {
-      font-size: 0.75rem;
-      color: #8fa876;
-      font-weight: 500;
+      font-size: 0.6875rem;
+      color: var(--color-olive-500);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       margin-bottom: 0.25rem;
     }
 
     .protocol-name {
       font-weight: 700;
-      color: #1f2937;
+      color: var(--color-olive-900);
       margin-bottom: 0.25rem;
+      font-size: 0.9375rem;
     }
 
     .protocol-desc {
-      font-size: 0.875rem;
-      color: #6b7280;
+      font-size: 0.8125rem;
+      color: var(--color-olive-600);
+      line-height: 1.5;
     }
 
     /* Checklist */
+    .checklist-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
     .checklist-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
-      margin-top: 1.5rem;
     }
 
     .checklist-phase {
-      background: #f5f3ef;
-      border-radius: 1rem;
-      padding: 1rem;
+      background: linear-gradient(135deg, var(--color-cream-100), white);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      border: 1px solid rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
+    }
+
+    .checklist-phase:hover {
+      box-shadow: var(--shadow-md);
     }
 
     .checklist-week {
-      font-size: 0.75rem;
-      color: #8fa876;
-      font-weight: 500;
+      font-size: 0.6875rem;
+      color: var(--color-olive-500);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       margin-bottom: 0.25rem;
     }
 
     .checklist-title {
       font-weight: 700;
-      color: #1f2937;
-      margin-bottom: 0.75rem;
+      color: var(--color-olive-900);
+      margin-bottom: 1rem;
+      font-size: 0.9375rem;
     }
 
     .checklist-items {
@@ -596,77 +921,130 @@
     .checklist-items li {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      color: #6b7280;
-      margin-bottom: 0.5rem;
+      gap: 0.625rem;
+      font-size: 0.8125rem;
+      color: var(--color-olive-600);
+      margin-bottom: 0.625rem;
     }
 
     .checklist-box {
-      width: 1rem;
-      height: 1rem;
-      border: 2px solid #d1d5db;
+      width: 1.125rem;
+      height: 1.125rem;
+      border: 2px solid var(--color-olive-300);
       border-radius: 0.25rem;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .checklist-items li:hover .checklist-box {
+      border-color: var(--color-olive-500);
+      background: var(--color-olive-50);
     }
 
     /* Recommendations */
     .recommendation {
       background: white;
-      border-radius: 1.5rem;
-      padding: 1.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
       margin-bottom: 1.5rem;
+      border: 1px solid rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
+    }
+
+    .recommendation:hover {
+      box-shadow: var(--shadow-lg);
     }
 
     .recommendation-header {
       display: flex;
       align-items: flex-start;
-      gap: 1rem;
+      gap: 1.25rem;
     }
 
     .priority-badge {
-      display: inline-block;
-      padding: 0.25rem 0.5rem;
-      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.375rem 0.75rem;
+      border-radius: var(--radius-full);
       font-size: 0.75rem;
-      font-weight: 500;
+      font-weight: 600;
       margin-right: 0.75rem;
     }
 
-    .priority-badge.high { background: #fef2f2; color: #dc2626; }
-    .priority-badge.medium { background: #fefce8; color: #ca8a04; }
-    .priority-badge.maintain { background: #f0fdf4; color: #16a34a; }
-    .priority-badge.enhancement { background: #f0f9ff; color: #0284c7; }
+    .priority-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .priority-badge.high {
+      background: linear-gradient(135deg, #fef2f2, #fee2e2);
+      color: #dc2626;
+    }
+    .priority-badge.high::before { background: #dc2626; }
+
+    .priority-badge.medium {
+      background: linear-gradient(135deg, #fefce8, #fef3c7);
+      color: #ca8a04;
+    }
+    .priority-badge.medium::before { background: #ca8a04; }
+
+    .priority-badge.maintain {
+      background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+      color: #16a34a;
+    }
+    .priority-badge.maintain::before { background: #16a34a; }
+
+    .priority-badge.enhancement {
+      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+      color: #0284c7;
+    }
+    .priority-badge.enhancement::before { background: #0284c7; }
+
+    .recommendation-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
 
     .recommendation-category {
-      font-size: 0.875rem;
-      color: #9ca3af;
+      font-size: 0.8125rem;
+      color: var(--color-olive-500);
+      font-weight: 500;
     }
 
     .recommendation-title {
-      font-size: 1.125rem;
-      font-weight: 700;
-      color: #1f2937;
-      margin: 0.5rem 0;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-olive-900);
+      margin-bottom: 0.5rem;
     }
 
     .recommendation-description {
-      color: #6b7280;
-      margin-bottom: 1rem;
+      color: var(--color-olive-600);
+      margin-bottom: 1.25rem;
+      line-height: 1.7;
     }
 
     .action-box {
-      background: #f5f3ef;
-      border-radius: 0.75rem;
-      padding: 1rem;
-      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--color-cream-100), var(--color-cream-200));
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
     .action-box-title {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: #3d4a2c;
-      margin-bottom: 0.5rem;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--color-olive-800);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
 
     .action-list {
@@ -676,14 +1054,16 @@
     .action-list li {
       display: flex;
       align-items: flex-start;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      color: #6b7280;
-      margin-bottom: 0.5rem;
+      gap: 0.75rem;
+      font-size: 0.9375rem;
+      color: var(--color-olive-700);
+      margin-bottom: 0.625rem;
+      line-height: 1.5;
     }
 
     .action-check {
-      color: #8fa876;
+      color: var(--color-olive-500);
+      font-weight: 700;
       margin-top: 0.125rem;
     }
 
@@ -691,44 +1071,83 @@
       display: flex;
       align-items: flex-start;
       gap: 0.5rem;
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       font-style: italic;
-      color: #6b7280;
+      color: var(--color-olive-600);
+      padding-left: 1rem;
+      border-left: 2px solid var(--color-olive-300);
+    }
+
+    .recommendation-quote span {
+      color: var(--color-olive-400);
+      font-size: 1.25rem;
+      font-family: 'Playfair Display', Georgia, serif;
     }
 
     /* CTA Card */
     .cta-card {
-      background: linear-gradient(135deg, #3d4a2c, #5a6b47);
-      border-radius: 1.5rem;
-      padding: 2rem;
+      background: linear-gradient(135deg, var(--color-olive-700) 0%, var(--color-olive-800) 50%, var(--color-olive-900) 100%);
+      border-radius: var(--radius-xl);
+      padding: 3rem;
       text-align: center;
       color: white;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
     }
 
     .cta-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
     }
 
     .cta-description {
-      color: #b8c4a8;
-      margin-bottom: 1rem;
+      color: var(--color-olive-200);
+      margin-bottom: 1.5rem;
+      font-size: 1.0625rem;
     }
 
     .cta-button {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
       background: white;
-      color: #3d4a2c;
-      padding: 0.75rem 1.5rem;
-      border-radius: 9999px;
+      color: var(--color-olive-800);
+      padding: 1rem 2rem;
+      border-radius: var(--radius-full);
       font-weight: 700;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-md);
+      font-size: 0.9375rem;
     }
 
     .cta-button:hover {
-      background: #f5f3ef;
+      background: var(--color-cream-100);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .cta-button svg {
+      width: 1.25rem;
+      height: 1.25rem;
     }
 
     /* Tab content */
@@ -738,23 +1157,42 @@
 
     .tab-content.active {
       display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* Link styles */
     .external-link {
-      color: #3d4a2c;
-      font-weight: 500;
+      color: var(--color-olive-700);
+      font-weight: 600;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 0.25rem;
+      gap: 0.375rem;
+      font-size: 0.875rem;
+      transition: all 0.2s ease;
     }
 
     .external-link:hover {
-      text-decoration: underline;
+      color: var(--color-olive-900);
+    }
+
+    .external-link svg {
+      width: 1rem;
+      height: 1rem;
     }
 
     /* Responsive */
+    @media (max-width: 1200px) {
+      .checklist-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     @media (max-width: 1024px) {
       .sidebar {
         display: none;
@@ -766,11 +1204,11 @@
       .protocols-grid {
         grid-template-columns: 1fr;
       }
-      .checklist-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
       .hero-stats {
         grid-template-columns: repeat(2, 1fr);
+      }
+      .content {
+        padding: 1.5rem;
       }
     }
 
@@ -778,8 +1216,18 @@
       .hero-content {
         flex-direction: column;
       }
+      .hero-counter {
+        align-self: flex-start;
+      }
       .checklist-grid {
         grid-template-columns: 1fr;
+      }
+      .tabs {
+        width: 100%;
+        overflow-x: auto;
+      }
+      .hero-title {
+        font-size: 1.75rem;
       }
     }
   </style>
@@ -789,10 +1237,10 @@
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-logo">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path d="M16 4C12 4 8 8 8 12C8 16 12 20 16 28C20 20 24 16 24 12C24 8 20 4 16 4Z" fill="#8fa876"/>
-          <path d="M12 8C10 10 10 14 14 18" stroke="#c4d98e" stroke-width="2" stroke-linecap="round"/>
-          <path d="M20 8C22 10 22 14 18 18" stroke="#c4d98e" stroke-width="2" stroke-linecap="round"/>
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <path d="M18 4C13 4 8 9 8 14C8 19 13 24 18 32C23 24 28 19 28 14C28 9 23 4 18 4Z" fill="#8fa876"/>
+          <path d="M13 9C10 12 10 17 15 22" stroke="#c4d98e" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M23 9C26 12 26 17 21 22" stroke="#c4d98e" stroke-width="2.5" stroke-linecap="round"/>
         </svg>
         <span>Vibrantly</span>
       </div>
@@ -855,13 +1303,13 @@
         </div>
         <div class="header-right">
           <button class="header-btn">
-            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
             </svg>
             <span class="notification-badge">3</span>
           </button>
           <button class="header-btn">
-            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
           </button>
@@ -873,36 +1321,42 @@
       <div class="content">
         <!-- Hero -->
         <div class="hero">
-          <div class="hero-circle-1"></div>
-          <div class="hero-circle-2"></div>
+          <div class="hero-glow hero-glow-1"></div>
+          <div class="hero-glow hero-glow-2"></div>
 
           <div class="hero-content">
-            <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/687000b7c6bae5fc0475247f_Gary-Brecka-Biography.avif" alt="Gary Brecka" class="hero-image">
+            <div class="hero-image-wrapper">
+              <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/687000b7c6bae5fc0475247f_Gary-Brecka-Biography.avif" alt="Gary Brecka" class="hero-image">
+              <div class="hero-image-badge">🧬</div>
+            </div>
             <div class="hero-text">
-              <p class="hero-eyebrow">EXPERT PROTOCOLS</p>
+              <div class="hero-eyebrow">
+                <span class="hero-eyebrow-dot"></span>
+                Expert Protocols
+              </div>
               <h1 class="hero-title">Gary Brecka's 84-Day Cellular Reset</h1>
               <p class="hero-description">Personalized recommendations based on your health data, powered by Gary's root cause philosophy and neurotransmitter optimization protocols.</p>
             </div>
             <div class="hero-counter">
-              <p class="hero-counter-label">YOUR RESET</p>
+              <p class="hero-counter-label">Your Reset</p>
               <div class="hero-counter-value">Day 1<span>/84</span></div>
             </div>
           </div>
 
           <div class="hero-stats">
-            <div>
+            <div class="hero-stat">
               <p class="hero-stat-value">300B</p>
               <p class="hero-stat-label">Cells die daily</p>
             </div>
-            <div>
+            <div class="hero-stat">
               <p class="hero-stat-value">84</p>
               <p class="hero-stat-label">Days to regenerate</p>
             </div>
-            <div>
+            <div class="hero-stat">
               <p class="hero-stat-value">70%</p>
               <p class="hero-stat-label">Microvascular</p>
             </div>
-            <div>
+            <div class="hero-stat">
               <p class="hero-stat-value">1</p>
               <p class="hero-stat-label">Root cause</p>
             </div>
@@ -926,7 +1380,7 @@
                 <h3 class="card-title">Root Cause Philosophy</h3>
                 <p class="card-description">"One thing causes everything. It's not an explosion — it's a domino effect. You don't have 17 things wrong with you; you have ONE thing causing 17 symptoms."</p>
                 <div class="highlight-box">
-                  <p class="highlight-box-title">The Tree Analogy</p>
+                  <p class="highlight-box-title">💡 The Tree Analogy</p>
                   <p class="highlight-box-text">If you had a leaf rotting on a tree, a true arborist wouldn't touch the leaf. They'd test the soil. Find nitrogen is missing → add nitrogen → leaf heals.</p>
                 </div>
               </div>
@@ -936,12 +1390,12 @@
           <!-- Neurotransmitter Pathways -->
           <div class="pathways-grid">
             <!-- Serotonin -->
-            <div class="card">
-              <div class="card-header">
-                <div class="card-icon blue">😊</div>
+            <div class="pathway-card">
+              <div class="pathway-header">
+                <div class="pathway-icon blue">😊</div>
                 <div>
-                  <h3 class="card-title">Serotonin Pathway</h3>
-                  <p class="card-subtitle">Foundation of mood & emotion</p>
+                  <h4 class="pathway-title">Serotonin Pathway</h4>
+                  <p class="pathway-subtitle">Foundation of mood & emotion</p>
                 </div>
               </div>
 
@@ -952,7 +1406,7 @@
               </div>
 
               <div class="tag-group">
-                <p class="tag-label">COFACTORS NEEDED</p>
+                <p class="tag-label">Cofactors Needed</p>
                 <div class="tags">
                   <span class="tag gray">B vitamins</span>
                   <span class="tag gray">Zinc</span>
@@ -961,7 +1415,7 @@
               </div>
 
               <div class="tag-group">
-                <p class="tag-label">WHEN DEFICIENT</p>
+                <p class="tag-label">When Deficient</p>
                 <div class="tags">
                   <span class="tag red">Depression</span>
                   <span class="tag red">Low motivation</span>
@@ -971,23 +1425,23 @@
             </div>
 
             <!-- Dopamine -->
-            <div class="card">
-              <div class="card-header">
-                <div class="card-icon yellow">🚀</div>
+            <div class="pathway-card">
+              <div class="pathway-header">
+                <div class="pathway-icon gold">🚀</div>
                 <div>
-                  <h3 class="card-title">Dopamine Pathway</h3>
-                  <p class="card-subtitle">Driver of behavior & reward</p>
+                  <h4 class="pathway-title">Dopamine Pathway</h4>
+                  <p class="pathway-subtitle">Driver of behavior & reward</p>
                 </div>
               </div>
 
               <div class="pathway-flow">
-                <span class="pathway-item yellow">Tyrosine</span>
+                <span class="pathway-item gold">Tyrosine</span>
                 <span class="pathway-arrow">→</span>
-                <span class="pathway-item yellow">Dopamine</span>
+                <span class="pathway-item gold">Dopamine</span>
               </div>
 
               <div class="tag-group">
-                <p class="tag-label">COFACTORS NEEDED</p>
+                <p class="tag-label">Cofactors Needed</p>
                 <div class="tags">
                   <span class="tag gray">B vitamins</span>
                   <span class="tag gray">Iron</span>
@@ -996,7 +1450,7 @@
               </div>
 
               <div class="tag-group">
-                <p class="tag-label">WHEN DEFICIENT</p>
+                <p class="tag-label">When Deficient</p>
                 <div class="tags">
                   <span class="tag red">Addiction</span>
                   <span class="tag red">Lack of motivation</span>
@@ -1009,10 +1463,13 @@
           <!-- Quote -->
           <div class="quote-card">
             <div class="quote-content">
-              <span class="quote-mark">"</span>
-              <div>
-                <p class="quote-text">The absence of dopamine is the presence of addiction. No addict ever woke up and said 'I want to get high.' They woke up saying 'I want to feel normal.' It was the search for normalcy that developed the addiction.</p>
-                <p class="quote-author">— Gary Brecka</p>
+              <p class="quote-text">The absence of dopamine is the presence of addiction. No addict ever woke up and said 'I want to get high.' They woke up saying 'I want to feel normal.' It was the search for normalcy that developed the addiction.</p>
+              <div class="quote-author">
+                <img src="https://cdn.prod.website-files.com/67e2dec19214c77719a54adb/687000b7c6bae5fc0475247f_Gary-Brecka-Biography.avif" alt="Gary Brecka" class="quote-author-image">
+                <div>
+                  <p class="quote-author-name">Gary Brecka</p>
+                  <p class="quote-author-title">Human Biologist & Longevity Expert</p>
+                </div>
               </div>
             </div>
           </div>
@@ -1021,7 +1478,7 @@
         <!-- Protocols Tab -->
         <div id="protocols" class="tab-content">
           <div class="card">
-            <h3 class="card-title">Gary's Daily Protocols</h3>
+            <h3 class="card-title" style="margin-bottom: 1.5rem;">Gary's Daily Protocols</h3>
 
             <div class="protocols-grid">
               <div class="protocol-card">
@@ -1100,11 +1557,11 @@
 
           <!-- 84-Day Checklist -->
           <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <div class="checklist-header">
               <h3 class="card-title">84-Day Implementation Checklist</h3>
               <a href="https://vishenl.github.io/workspace/gary-brecka-guide.html" target="_blank" class="external-link">
                 View Full Guide
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                 </svg>
               </a>
@@ -1159,14 +1616,14 @@
           <!-- Header -->
           <div class="card">
             <div class="card-header">
-              <div class="card-icon" style="background: linear-gradient(135deg, #8fa876, #3d4a2c);">🎯</div>
+              <div class="card-icon olive">🎯</div>
               <div>
                 <h3 class="card-title">Your Personalized Recommendations</h3>
                 <p class="card-subtitle">Based on your health data and Gary's protocols</p>
+                <div class="highlight-box">
+                  <p class="highlight-box-text">We've analyzed your Vibrantly health scores and cross-referenced them with Gary Brecka's root cause protocols. Here are your priority recommendations for the next 84 days.</p>
+                </div>
               </div>
-            </div>
-            <div class="highlight-box" style="margin-top: 1rem;">
-              <p class="highlight-box-text">We've analyzed your Vibrantly health scores and cross-referenced them with Gary Brecka's root cause protocols. Here are your priority recommendations for the next 84 days.</p>
             </div>
           </div>
 
@@ -1175,7 +1632,7 @@
             <div class="recommendation-header">
               <div class="card-icon red">🧠</div>
               <div style="flex: 1;">
-                <div>
+                <div class="recommendation-meta">
                   <span class="priority-badge high">High Priority</span>
                   <span class="recommendation-category">Neurotransmitter Support</span>
                 </div>
@@ -1183,7 +1640,7 @@
                 <p class="recommendation-description">Your nutrition score suggests you may benefit from serotonin precursor support. Gary recommends supplementing with Tryptophan on an empty stomach.</p>
 
                 <div class="action-box">
-                  <p class="action-box-title">Action Steps:</p>
+                  <p class="action-box-title">Action Steps</p>
                   <ul class="action-list">
                     <li><span class="action-check">✓</span> Take L-Tryptophan (500-1000mg) first thing in the morning</li>
                     <li><span class="action-check">✓</span> Ensure adequate B6, Zinc, and Magnesium intake</li>
@@ -1204,7 +1661,7 @@
             <div class="recommendation-header">
               <div class="card-icon yellow">🧘</div>
               <div style="flex: 1;">
-                <div>
+                <div class="recommendation-meta">
                   <span class="priority-badge medium">Medium Priority</span>
                   <span class="recommendation-category">Anxiety & Stress Management</span>
                 </div>
@@ -1212,7 +1669,7 @@
                 <p class="recommendation-description">Your mental health score indicates room for optimization. Gary's approach focuses on balancing norepinephrine, epinephrine, and dopamine naturally.</p>
 
                 <div class="action-box">
-                  <p class="action-box-title">Action Steps:</p>
+                  <p class="action-box-title">Action Steps</p>
                   <ul class="action-list">
                     <li><span class="action-check">✓</span> Practice morning breathwork (box breathing: 4-4-4-4)</li>
                     <li><span class="action-check">✓</span> Get 10 minutes of morning sunlight within 30 min of waking</li>
@@ -1234,7 +1691,7 @@
             <div class="recommendation-header">
               <div class="card-icon yellow">❤️</div>
               <div style="flex: 1;">
-                <div>
+                <div class="recommendation-meta">
                   <span class="priority-badge medium">Medium Priority</span>
                   <span class="recommendation-category">Cardiovascular Optimization</span>
                 </div>
@@ -1242,7 +1699,7 @@
                 <p class="recommendation-description">70% of your circulation is microvascular, controlled by neurotransmitters. Gary recommends checking homocysteine levels and supporting methylation.</p>
 
                 <div class="action-box">
-                  <p class="action-box-title">Action Steps:</p>
+                  <p class="action-box-title">Action Steps</p>
                   <ul class="action-list">
                     <li><span class="action-check">✓</span> Get your homocysteine levels tested</li>
                     <li><span class="action-check">✓</span> If MTHFR variant present, use methylated B vitamins</li>
@@ -1264,7 +1721,7 @@
             <div class="recommendation-header">
               <div class="card-icon green">😴</div>
               <div style="flex: 1;">
-                <div>
+                <div class="recommendation-meta">
                   <span class="priority-badge maintain">Maintain</span>
                   <span class="recommendation-category">Sleep Optimization</span>
                 </div>
@@ -1272,7 +1729,7 @@
                 <p class="recommendation-description">Your sleep score is strong! Gary emphasizes that deep sleep drains your brain while REM saves your memories. Keep up these habits.</p>
 
                 <div class="action-box">
-                  <p class="action-box-title">Action Steps:</p>
+                  <p class="action-box-title">Action Steps</p>
                   <ul class="action-list">
                     <li><span class="action-check">✓</span> Maintain bedroom temperature at 65-68°F</li>
                     <li><span class="action-check">✓</span> Keep consistent sleep/wake times</li>
@@ -1292,9 +1749,9 @@
           <!-- Recommendation 5 -->
           <div class="recommendation">
             <div class="recommendation-header">
-              <div class="card-icon" style="background: #f0f9ff;">🫧</div>
+              <div class="card-icon blue">🫧</div>
               <div style="flex: 1;">
-                <div>
+                <div class="recommendation-meta">
                   <span class="priority-badge enhancement">Enhancement</span>
                   <span class="recommendation-category">Advanced Protocol</span>
                 </div>
@@ -1302,7 +1759,7 @@
                 <p class="recommendation-description">Gary considers hydrogen therapy one of the biggest discoveries of our millennium. It's a selective antioxidant that works through the NRF2 pathway.</p>
 
                 <div class="action-box">
-                  <p class="action-box-title">Action Steps:</p>
+                  <p class="action-box-title">Action Steps</p>
                   <ul class="action-list">
                     <li><span class="action-check">✓</span> Start with hydrogen water (12 PPM in 6-8oz portions)</li>
                     <li><span class="action-check">✓</span> Consider hydrogen bathing for recovery</li>
@@ -1320,9 +1777,16 @@
 
           <!-- CTA -->
           <div class="cta-card">
-            <h3 class="cta-title">Ready to Start Your 84-Day Reset?</h3>
-            <p class="cta-description">Track your progress and get daily reminders</p>
-            <a href="https://vishenl.github.io/workspace/gary-brecka-guide.html" class="cta-button">Begin My Reset Journey</a>
+            <div class="cta-content">
+              <h3 class="cta-title">Ready to Start Your 84-Day Reset?</h3>
+              <p class="cta-description">Track your progress and transform your health with Gary's protocols</p>
+              <a href="https://vishenl.github.io/workspace/gary-brecka-guide.html" class="cta-button">
+                Begin My Reset Journey
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
