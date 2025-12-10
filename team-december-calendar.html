@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Team Availability Calendar — December 2024</title>
+  <meta name="description" content="Executive team availability calendar for December 2024 - January 2025" />
+  <link rel="stylesheet" href="mindvalley-core.css" />
+  <style>
+    :root {
+      /* Person colors - bright versions */
+      --vishen-bright: #a855f7;
+      --dario-bright: #3b82f6;
+      --alex-bright: #14b8a6;
+      --ei-bright: #22c55e;
+      --connie-bright: #f97316;
+      --jenny-bright: #ec4899;
+      --norman-bright: #818cf8;
+
+      /* Person colors - dull versions (off days) */
+      --vishen-dull: #581c87;
+      --dario-dull: #1e3a5f;
+      --alex-dull: #134e4a;
+      --ei-dull: #14532d;
+      --connie-dull: #7c2d12;
+      --jenny-dull: #831843;
+      --norman-dull: #312e81;
+
+      /* Dark mode colors */
+      --bg-primary: #0f0f1a;
+      --bg-secondary: #1a1a2e;
+      --bg-card: #16213e;
+      --bg-table: #1a1a2e;
+      --border-color: #2d2d44;
+      --text-primary: #ffffff;
+      --text-secondary: #a0aec0;
+      --text-muted: #718096;
+
+      /* Weekend and UI colors */
+      --weekend-bg: #1f1f35;
+      --weekend-text: #4a5568;
+      --today-highlight: #fbbf24;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg-primary);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      color: var(--text-primary);
+    }
+
+    .calendar-wrapper {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    /* Header Section with Weather */
+    .header-section {
+      position: relative;
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      color: white;
+      overflow: hidden;
+      min-height: 320px;
+    }
+
+    /* Weather backgrounds */
+    .weather-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      transition: opacity 1s ease;
+    }
+
+    /* Sunny - Dubai, warm locations */
+    .weather-sunny {
+      background: linear-gradient(135deg, #f97316 0%, #fbbf24 50%, #fef3c7 100%);
+    }
+
+    .weather-sunny::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      right: 60px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, #fef08a 0%, #fbbf24 40%, transparent 70%);
+      border-radius: 50%;
+      box-shadow: 0 0 80px 40px rgba(251, 191, 36, 0.4);
+      animation: sunPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes sunPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.9; }
+    }
+
+    /* Cloudy - London */
+    .weather-cloudy {
+      background: linear-gradient(180deg, #4b5563 0%, #6b7280 50%, #9ca3af 100%);
+    }
+
+    .weather-cloudy::before,
+    .weather-cloudy::after {
+      content: '';
+      position: absolute;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+    }
+
+    .weather-cloudy::before {
+      top: 30px;
+      right: 80px;
+      width: 200px;
+      height: 80px;
+      animation: cloudFloat 8s ease-in-out infinite;
+    }
+
+    .weather-cloudy::after {
+      top: 60px;
+      right: 180px;
+      width: 150px;
+      height: 60px;
+      animation: cloudFloat 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes cloudFloat {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(20px); }
+    }
+
+    /* Rainy - London alternative */
+    .weather-rainy {
+      background: linear-gradient(180deg, #374151 0%, #4b5563 50%, #6b7280 100%);
+    }
+
+    .weather-rainy::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        linear-gradient(transparent 0%, transparent 50%, rgba(255,255,255,0.1) 50%, transparent 100%);
+      background-size: 3px 20px;
+      animation: rain 0.5s linear infinite;
+    }
+
+    @keyframes rain {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 20px; }
+    }
+
+    /* Snowy - Estonia */
+    .weather-snowy {
+      background: linear-gradient(180deg, #1e3a5f 0%, #334155 50%, #64748b 100%);
+    }
+
+    .weather-snowy::before {
+      content: '❄';
+      position: absolute;
+      font-size: 2rem;
+      top: 20px;
+      right: 100px;
+      animation: snowfall 3s ease-in-out infinite;
+      opacity: 0.6;
+    }
+
+    .weather-snowy::after {
+      content: '❄ ❄ ❄';
+      position: absolute;
+      font-size: 1.5rem;
+      top: 40px;
+      right: 40px;
+      animation: snowfall 4s ease-in-out infinite 1s;
+      opacity: 0.4;
+      letter-spacing: 20px;
+    }
+
+    @keyframes snowfall {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+      50% { transform: translateY(30px) rotate(180deg); opacity: 0.3; }
+    }
+
+    /* Tropical - Kuala Lumpur */
+    .weather-tropical {
+      background: linear-gradient(135deg, #059669 0%, #10b981 30%, #34d399 60%, #6ee7b7 100%);
+    }
+
+    .weather-tropical::before {
+      content: '🌴';
+      position: absolute;
+      font-size: 4rem;
+      bottom: 20px;
+      right: 40px;
+      opacity: 0.3;
+    }
+
+    .weather-tropical::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      right: 80px;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    /* Clear Night - Palo Alto evening */
+    .weather-clear-night {
+      background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+    }
+
+    .weather-clear-night::before {
+      content: '';
+      position: absolute;
+      top: 30px;
+      right: 80px;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, #fef9c3 0%, #fef08a 40%, transparent 70%);
+      border-radius: 50%;
+      box-shadow: 0 0 40px 20px rgba(254, 249, 195, 0.2);
+    }
+
+    .weather-clear-night::after {
+      content: '✦ ✦ ✦ ✦ ✦';
+      position: absolute;
+      top: 20px;
+      right: 160px;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 15px;
+      animation: twinkle 2s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* Default gradient fallback */
+    .weather-default {
+      background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 50%, #a78bfa 100%);
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .weather-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+      font-family: Grotesk-Medium, sans-serif;
+      font-size: 0.875rem;
+      opacity: 0.9;
+    }
+
+    .weather-icon {
+      font-size: 1.5rem;
+    }
+
+    .weather-temp {
+      font-family: Grotesk-Bold, sans-serif;
+      font-size: 1rem;
+    }
+
+    .weather-location {
+      opacity: 0.8;
+    }
+
+    .current-date {
+      font-family: Grotesk-Bold-16, Grotesk-Bold, sans-serif;
+      font-size: 3rem;
+      margin-bottom: 0.25rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .current-time-local {
+      font-family: Grotesk-Medium, sans-serif;
+      font-size: 1.5rem;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+
+    /* World Clocks */
+    .world-clocks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .clock-card {
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      padding: 1rem 1.25rem;
+      min-width: 130px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .clock-card.current-location {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255,255,255,0.4);
+    }
+
+    .clock-city {
+      font-family: Grotesk-Medium, sans-serif;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.8;
+      margin-bottom: 0.25rem;
+    }
+
+    .clock-time {
+      font-family: Grotesk-Bold, sans-serif;
+      font-size: 1.25rem;
+    }
+
+    .clock-date {
+      font-family: Grotesk-Regular, sans-serif;
+      font-size: 0.7rem;
+      opacity: 0.7;
+      margin-top: 0.25rem;
+    }
+
+    /* Who's Working Today */
+    .working-today {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .working-today-title {
+      font-family: Grotesk-Bold, sans-serif;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .working-today-title::before {
+      content: "●";
+      color: #22c55e;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .working-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .working-badge {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-family: Grotesk-Medium, sans-serif;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .working-badge .color-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .not-working-badge {
+      background: rgba(0, 0, 0, 0.3);
+      color: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Calendar Section - Dark Mode */
+    .calendar-section {
+      background: var(--bg-secondary);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+    }
+
+    .calendar-title {
+      font-family: Grotesk-Bold, sans-serif;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Gantt Chart - Dark Mode */
+    .gantt-container {
+      overflow-x: auto;
+      padding-bottom: 1rem;
+    }
+
+    .gantt-table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 1200px;
+    }
+
+    .gantt-table th,
+    .gantt-table td {
+      border: 1px solid var(--border-color);
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .gantt-table th {
+      background: var(--bg-card);
+      font-family: Grotesk-Medium, sans-serif;
+      font-size: 0.7rem;
+      padding: 0.5rem 0.25rem;
+      color: var(--text-secondary);
+    }
+
+    .gantt-table th.month-header {
+      background: #7c3aed;
+      color: white;
+      font-size: 0.875rem;
+      padding: 0.75rem;
+    }
+
+    .gantt-table th.weekend {
+      background: var(--weekend-bg);
+      color: var(--weekend-text);
+    }
+
+    .gantt-table th.today {
+      background: #fbbf24 !important;
+      color: #1f2937 !important;
+      font-family: Grotesk-Bold, sans-serif;
+      border-left: 4px solid #dc2626 !important;
+      border-right: 4px solid #dc2626 !important;
+      border-top: 4px solid #dc2626 !important;
+      font-size: 0.85rem !important;
+      min-width: 45px !important;
+    }
+
+    .gantt-table td.name-cell {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-family: Grotesk-Bold, sans-serif;
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+      min-width: 100px;
+      position: sticky;
+      left: 0;
+      z-index: 10;
+      border-right: 2px solid var(--border-color);
+    }
+
+    .gantt-table td.day-cell {
+      padding: 0;
+      height: 40px;
+      min-width: 28px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .gantt-table td.day-cell.off::before {
+      content: '✕';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1rem;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .gantt-table td.day-cell.weekend {
+      background: var(--weekend-bg) !important;
+    }
+
+    .gantt-table td.day-cell.today {
+      background: #fbbf24 !important;
+      border-left: 4px solid #dc2626 !important;
+      border-right: 4px solid #dc2626 !important;
+      position: relative;
+      min-width: 45px !important;
+    }
+
+    .gantt-table tr:last-child td.day-cell.today {
+      border-bottom: 4px solid #dc2626 !important;
+    }
+
+    /* Today column indicator arrow */
+    .today-indicator {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #dc2626;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-family: Grotesk-Bold, sans-serif;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      z-index: 100;
+    }
+
+    .today-indicator::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #dc2626;
+    }
+
+    /* Person-specific colors - Dark Mode */
+    .gantt-table td.vishen-working { background: var(--vishen-bright); }
+    .gantt-table td.vishen-off { background: var(--vishen-dull); }
+    .gantt-table td.dario-working { background: var(--dario-bright); }
+    .gantt-table td.dario-off { background: var(--dario-dull); }
+    .gantt-table td.alex-working { background: var(--alex-bright); }
+    .gantt-table td.alex-off { background: var(--alex-dull); }
+    .gantt-table td.ei-working { background: var(--ei-bright); }
+    .gantt-table td.ei-off { background: var(--ei-dull); }
+    .gantt-table td.connie-working { background: var(--connie-bright); }
+    .gantt-table td.connie-off { background: var(--connie-dull); }
+    .gantt-table td.jenny-working { background: var(--jenny-bright); }
+    .gantt-table td.jenny-off { background: var(--jenny-dull); }
+    .gantt-table td.norman-working { background: var(--norman-bright); }
+    .gantt-table td.norman-off { background: var(--norman-dull); }
+
+    /* Legend - Dark Mode */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: Grotesk-Regular, sans-serif;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .legend-color {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+    }
+
+    .legend-color.working { background: linear-gradient(135deg, #a855f7, #3b82f6); }
+    .legend-color.off { background: linear-gradient(135deg, #581c87, #1e3a5f); }
+    .legend-color.weekend { background: var(--weekend-bg); border: 1px solid var(--border-color); }
+    .legend-color.today { background: #fbbf24; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .calendar-wrapper {
+        padding: 1rem 0.5rem;
+      }
+
+      .header-section {
+        padding: 1.5rem 1rem;
+      }
+
+      .current-date {
+        font-size: 1.75rem;
+      }
+
+      .world-clocks {
+        gap: 0.5rem;
+      }
+
+      .clock-card {
+        min-width: 100px;
+        padding: 0.75rem;
+      }
+
+      .clock-time {
+        font-size: 1rem;
+      }
+
+      .calendar-section {
+        padding: 1rem;
+        border-radius: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="calendar-wrapper">
+    <!-- Header with Date, Weather, Clocks, and Who's Working -->
+    <div class="header-section" id="headerSection">
+      <div class="weather-bg weather-default" id="weatherBg"></div>
+
+      <div class="header-content">
+        <div class="weather-info" id="weatherInfo">
+          <span class="weather-icon" id="weatherIcon">🌤</span>
+          <span class="weather-temp" id="weatherTemp">--°C</span>
+          <span class="weather-location" id="weatherLocation">Detecting location...</span>
+        </div>
+
+        <div class="current-date" id="currentDate">Loading...</div>
+        <div class="current-time-local" id="localTime">--:-- --</div>
+
+        <div class="world-clocks">
+          <div class="clock-card" id="card-paloalto">
+            <div class="clock-city">Palo Alto</div>
+            <div class="clock-time" id="clock-paloalto">--:--</div>
+            <div class="clock-date" id="date-paloalto">--</div>
+          </div>
+          <div class="clock-card" id="card-london">
+            <div class="clock-city">London</div>
+            <div class="clock-time" id="clock-london">--:--</div>
+            <div class="clock-date" id="date-london">--</div>
+          </div>
+          <div class="clock-card" id="card-dubai">
+            <div class="clock-city">Dubai</div>
+            <div class="clock-time" id="clock-dubai">--:--</div>
+            <div class="clock-date" id="date-dubai">--</div>
+          </div>
+          <div class="clock-card" id="card-estonia">
+            <div class="clock-city">Estonia</div>
+            <div class="clock-time" id="clock-estonia">--:--</div>
+            <div class="clock-date" id="date-estonia">--</div>
+          </div>
+          <div class="clock-card" id="card-kl">
+            <div class="clock-city">Kuala Lumpur</div>
+            <div class="clock-time" id="clock-kl">--:--</div>
+            <div class="clock-date" id="date-kl">--</div>
+          </div>
+        </div>
+
+        <div class="working-today">
+          <div class="working-today-title">Who's Working Today</div>
+          <div class="working-list" id="workingList">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calendar Gantt Chart -->
+    <div class="calendar-section">
+      <div class="calendar-title">Team Availability — December 2024 to January 5, 2025</div>
+
+      <div class="gantt-container">
+        <table class="gantt-table" id="ganttTable">
+          <!-- Generated by JavaScript -->
+        </table>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color working"></div>
+          <span>Working (bright color)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color off"></div>
+          <span>Off (dull color)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color weekend"></div>
+          <span>Weekend</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color today"></div>
+          <span>Today</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Location data with weather info
+    const locationData = {
+      paloalto: {
+        name: 'Palo Alto',
+        timezone: 'America/Los_Angeles',
+        lat: 37.4419,
+        lon: -122.143,
+        defaultWeather: 'clear-night', // Often clear evenings
+        defaultTemp: 12
+      },
+      london: {
+        name: 'London',
+        timezone: 'Europe/London',
+        lat: 51.5074,
+        lon: -0.1278,
+        defaultWeather: 'cloudy', // Typical London
+        defaultTemp: 8
+      },
+      dubai: {
+        name: 'Dubai',
+        timezone: 'Asia/Dubai',
+        lat: 25.2048,
+        lon: 55.2708,
+        defaultWeather: 'sunny', // Usually sunny
+        defaultTemp: 28
+      },
+      estonia: {
+        name: 'Estonia',
+        timezone: 'Europe/Tallinn',
+        lat: 59.437,
+        lon: 24.7536,
+        defaultWeather: 'snowy', // December snow
+        defaultTemp: -2
+      },
+      kl: {
+        name: 'Kuala Lumpur',
+        timezone: 'Asia/Kuala_Lumpur',
+        lat: 3.139,
+        lon: 101.6869,
+        defaultWeather: 'tropical', // Tropical climate
+        defaultTemp: 32
+      }
+    };
+
+    // Weather icons
+    const weatherIcons = {
+      'sunny': '☀️',
+      'cloudy': '☁️',
+      'rainy': '🌧️',
+      'snowy': '❄️',
+      'tropical': '🌴',
+      'clear-night': '🌙',
+      'default': '🌤️'
+    };
+
+    let userLocation = null;
+
+    // Detect user's location and set weather
+    async function detectLocationAndWeather() {
+      const weatherBg = document.getElementById('weatherBg');
+      const weatherIcon = document.getElementById('weatherIcon');
+      const weatherTemp = document.getElementById('weatherTemp');
+      const weatherLocation = document.getElementById('weatherLocation');
+
+      try {
+        // Try to get user's timezone to match to a location
+        const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+        // Match timezone to our locations
+        let matchedLocation = null;
+        for (const [key, loc] of Object.entries(locationData)) {
+          if (userTimezone === loc.timezone || userTimezone.includes(loc.name.split(' ')[0])) {
+            matchedLocation = { key, ...loc };
+            break;
+          }
+        }
+
+        // Fallback matching based on timezone region
+        if (!matchedLocation) {
+          if (userTimezone.includes('America/Los_Angeles') || userTimezone.includes('Pacific')) {
+            matchedLocation = { key: 'paloalto', ...locationData.paloalto };
+          } else if (userTimezone.includes('Europe/London') || userTimezone.includes('GMT')) {
+            matchedLocation = { key: 'london', ...locationData.london };
+          } else if (userTimezone.includes('Dubai') || userTimezone.includes('Gulf')) {
+            matchedLocation = { key: 'dubai', ...locationData.dubai };
+          } else if (userTimezone.includes('Tallinn') || userTimezone.includes('Helsinki')) {
+            matchedLocation = { key: 'estonia', ...locationData.estonia };
+          } else if (userTimezone.includes('Kuala_Lumpur') || userTimezone.includes('Singapore')) {
+            matchedLocation = { key: 'kl', ...locationData.kl };
+          }
+        }
+
+        // If still no match, use geolocation API
+        if (!matchedLocation && navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const { latitude, longitude } = position.coords;
+              // Find closest location
+              let closest = null;
+              let minDistance = Infinity;
+
+              for (const [key, loc] of Object.entries(locationData)) {
+                const distance = Math.sqrt(
+                  Math.pow(latitude - loc.lat, 2) +
+                  Math.pow(longitude - loc.lon, 2)
+                );
+                if (distance < minDistance) {
+                  minDistance = distance;
+                  closest = { key, ...loc };
+                }
+              }
+
+              if (closest) {
+                setWeatherDisplay(closest);
+              }
+            },
+            () => {
+              // Geolocation failed, use default
+              setWeatherDisplay({ key: 'default', name: 'Your Location', defaultWeather: 'default', defaultTemp: 20 });
+            }
+          );
+        } else if (matchedLocation) {
+          setWeatherDisplay(matchedLocation);
+        } else {
+          // Default fallback
+          setWeatherDisplay({ key: 'default', name: 'Your Location', defaultWeather: 'default', defaultTemp: 20 });
+        }
+
+      } catch (error) {
+        console.log('Location detection error:', error);
+        setWeatherDisplay({ key: 'default', name: 'Your Location', defaultWeather: 'default', defaultTemp: 20 });
+      }
+    }
+
+    function setWeatherDisplay(location) {
+      userLocation = location;
+
+      const weatherBg = document.getElementById('weatherBg');
+      const weatherIcon = document.getElementById('weatherIcon');
+      const weatherTemp = document.getElementById('weatherTemp');
+      const weatherLocation = document.getElementById('weatherLocation');
+
+      // Set weather background
+      weatherBg.className = `weather-bg weather-${location.defaultWeather}`;
+
+      // Set weather info
+      weatherIcon.textContent = weatherIcons[location.defaultWeather] || weatherIcons.default;
+      weatherTemp.textContent = `${location.defaultTemp}°C`;
+      weatherLocation.textContent = location.name;
+
+      // Highlight the matching clock card
+      if (location.key && document.getElementById(`card-${location.key}`)) {
+        document.getElementById(`card-${location.key}`).classList.add('current-location');
+      }
+    }
+
+    // Team data with off dates
+    const teamSchedule = {
+      vishen: {
+        name: 'Vishen',
+        color: '#a855f7',
+        offDates: [
+          // Dec 13-16
+          ...getDatesInRange(2024, 12, 13, 16),
+          // Jan 5+ (showing Jan 5 as off since calendar ends there)
+          { year: 2025, month: 1, day: 5 }
+        ]
+      },
+      dario: {
+        name: 'Dario',
+        color: '#3b82f6',
+        offDates: [
+          // Dec 15-19
+          ...getDatesInRange(2024, 12, 15, 19),
+          // Dec 23 - Jan 2
+          ...getDatesInRange(2024, 12, 23, 31),
+          ...getDatesInRange(2025, 1, 1, 2)
+        ]
+      },
+      alex: {
+        name: 'Alex',
+        color: '#14b8a6',
+        offDates: [
+          // Dec 22 - Jan 1
+          ...getDatesInRange(2024, 12, 22, 31),
+          { year: 2025, month: 1, day: 1 }
+        ]
+      },
+      ei: {
+        name: 'Ei',
+        color: '#22c55e',
+        offDates: [
+          // Dec 22 - Jan 5
+          ...getDatesInRange(2024, 12, 22, 31),
+          ...getDatesInRange(2025, 1, 1, 5)
+        ]
+      },
+      connie: {
+        name: 'Connie',
+        color: '#f97316',
+        offDates: [] // Available entire time
+      },
+      jenny: {
+        name: 'Jenny',
+        color: '#ec4899',
+        offDates: [
+          // Dec 25 only
+          { year: 2024, month: 12, day: 25 }
+        ]
+      },
+      norman: {
+        name: 'Norman',
+        color: '#818cf8',
+        offDates: [
+          // Dec 22 - Jan 4
+          ...getDatesInRange(2024, 12, 22, 31),
+          ...getDatesInRange(2025, 1, 1, 4)
+        ]
+      }
+    };
+
+    // Helper function to generate date ranges
+    function getDatesInRange(year, month, startDay, endDay) {
+      const dates = [];
+      for (let day = startDay; day <= endDay; day++) {
+        dates.push({ year, month, day });
+      }
+      return dates;
+    }
+
+    // Check if a date is an off day for a person
+    function isOffDay(personKey, year, month, day) {
+      const person = teamSchedule[personKey];
+      return person.offDates.some(d => d.year === year && d.month === month && d.day === day);
+    }
+
+    // Check if date is a weekend
+    function isWeekend(year, month, day) {
+      const date = new Date(year, month - 1, day);
+      const dayOfWeek = date.getDay();
+      return dayOfWeek === 0 || dayOfWeek === 6;
+    }
+
+    // Check if date is today
+    function isToday(year, month, day) {
+      const today = new Date();
+      return today.getFullYear() === year &&
+             (today.getMonth() + 1) === month &&
+             today.getDate() === day;
+    }
+
+    // Get day of week abbreviation
+    function getDayAbbrev(year, month, day) {
+      const date = new Date(year, month - 1, day);
+      return ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'][date.getDay()];
+    }
+
+    // Generate the calendar days (Dec 1 - Jan 5)
+    function getCalendarDays() {
+      const days = [];
+      // December 1-31
+      for (let d = 1; d <= 31; d++) {
+        days.push({ year: 2024, month: 12, day: d });
+      }
+      // January 1-5
+      for (let d = 1; d <= 5; d++) {
+        days.push({ year: 2025, month: 1, day: d });
+      }
+      return days;
+    }
+
+    // Build the Gantt table
+    function buildGanttTable() {
+      const table = document.getElementById('ganttTable');
+      const days = getCalendarDays();
+
+      // Header row with month spans
+      let headerRow1 = '<tr><th class="month-header" rowspan="2" style="min-width: 100px;">Team</th>';
+      headerRow1 += '<th class="month-header" colspan="31">December 2024</th>';
+      headerRow1 += '<th class="month-header" colspan="5">January 2025</th></tr>';
+
+      // Header row with day numbers
+      let headerRow2 = '<tr>';
+      days.forEach((d, index) => {
+        const weekend = isWeekend(d.year, d.month, d.day);
+        const today = isToday(d.year, d.month, d.day);
+        let classes = [];
+        if (weekend) classes.push('weekend');
+        if (today) classes.push('today');
+        const dayAbbrev = getDayAbbrev(d.year, d.month, d.day);
+        const todayLabel = today ? '<div class="today-indicator">TODAY</div>' : '';
+        const dataAttr = today ? 'id="today-column"' : '';
+        headerRow2 += `<th class="${classes.join(' ')}" ${dataAttr} style="position: relative;">${todayLabel}${d.day}<br><span style="font-size: 0.6rem;">${dayAbbrev}</span></th>`;
+      });
+      headerRow2 += '</tr>';
+
+      // Build rows for each team member
+      let bodyRows = '';
+      Object.keys(teamSchedule).forEach(personKey => {
+        const person = teamSchedule[personKey];
+        bodyRows += `<tr><td class="name-cell"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: ${person.color}; margin-right: 8px;"></span>${person.name}</td>`;
+
+        days.forEach(d => {
+          const weekend = isWeekend(d.year, d.month, d.day);
+          const today = isToday(d.year, d.month, d.day);
+          const off = isOffDay(personKey, d.year, d.month, d.day);
+
+          let classes = ['day-cell'];
+          if (weekend) {
+            classes.push('weekend');
+          } else {
+            classes.push(off ? `${personKey}-off` : `${personKey}-working`);
+            if (off) classes.push('off');
+          }
+          if (today) classes.push('today');
+
+          bodyRows += `<td class="${classes.join(' ')}"></td>`;
+        });
+
+        bodyRows += '</tr>';
+      });
+
+      table.innerHTML = headerRow1 + headerRow2 + bodyRows;
+    }
+
+    // Update clocks
+    function updateClocks() {
+      const now = new Date();
+
+      // Local time display
+      document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      document.getElementById('localTime').textContent = now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+
+      // World clocks
+      const timezones = {
+        'paloalto': 'America/Los_Angeles',
+        'london': 'Europe/London',
+        'dubai': 'Asia/Dubai',
+        'estonia': 'Europe/Tallinn',
+        'kl': 'Asia/Kuala_Lumpur'
+      };
+
+      Object.keys(timezones).forEach(key => {
+        const tz = timezones[key];
+        const timeStr = now.toLocaleTimeString('en-US', {
+          timeZone: tz,
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        });
+        const dateStr = now.toLocaleDateString('en-US', {
+          timeZone: tz,
+          month: 'short',
+          day: 'numeric'
+        });
+
+        document.getElementById(`clock-${key}`).textContent = timeStr;
+        document.getElementById(`date-${key}`).textContent = dateStr;
+      });
+    }
+
+    // Update who's working today
+    function updateWorkingToday() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth() + 1;
+      const day = today.getDate();
+      const weekend = isWeekend(year, month, day);
+
+      const workingList = document.getElementById('workingList');
+      let html = '';
+
+      Object.keys(teamSchedule).forEach(personKey => {
+        const person = teamSchedule[personKey];
+        const off = isOffDay(personKey, year, month, day);
+        const working = !off && !weekend;
+
+        if (working) {
+          html += `<div class="working-badge">
+            <span class="color-dot" style="background: ${person.color};"></span>
+            ${person.name}
+          </div>`;
+        }
+      });
+
+      if (weekend) {
+        html = '<div class="working-badge not-working-badge">Weekend — Office Closed</div>';
+      } else if (html === '') {
+        html = '<div class="working-badge not-working-badge">No one available today</div>';
+      }
+
+      workingList.innerHTML = html;
+    }
+
+    // Scroll to today's column
+    function scrollToToday() {
+      const todayColumn = document.getElementById('today-column');
+      const ganttContainer = document.querySelector('.gantt-container');
+      if (todayColumn && ganttContainer) {
+        // Calculate scroll position to center the today column
+        const containerWidth = ganttContainer.offsetWidth;
+        const columnLeft = todayColumn.offsetLeft;
+        const columnWidth = todayColumn.offsetWidth;
+        const scrollPos = columnLeft - (containerWidth / 2) + (columnWidth / 2);
+        ganttContainer.scrollLeft = Math.max(0, scrollPos);
+      }
+    }
+
+    // Initialize
+    function init() {
+      detectLocationAndWeather();
+      buildGanttTable();
+      updateClocks();
+      updateWorkingToday();
+
+      // Scroll to today after a brief delay to ensure rendering
+      setTimeout(scrollToToday, 100);
+
+      // Update clocks every second
+      setInterval(updateClocks, 1000);
+
+      // Rebuild table at midnight to update "today" highlight
+      setInterval(() => {
+        const now = new Date();
+        if (now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() < 2) {
+          buildGanttTable();
+          updateWorkingToday();
+          scrollToToday();
+        }
+      }, 1000);
+    }
+
+    // Run on load
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
