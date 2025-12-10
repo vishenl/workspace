@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Masterclass Script DNA — Teaching Slides</title>
+  <meta name="theme-color" content="#7a12d4" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+
+  <!-- SEO -->
+  <meta name="description" content="40-slide presentation for teaching Mindvalley's masterclass script framework. Covers the 7-part structure, psychology, and conversion techniques.">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Masterclass Script DNA — Teaching Slides">
+  <meta property="og:description" content="40-slide presentation for teaching Mindvalley's masterclass script framework. Covers the 7-part structure, psychology, and conversion techniques.">
+  <meta property="og:image" content="https://vishen.github.io/workspace/entrepreneurship-mastery/webinars/og-masterclass-slides.png">
+  <meta property="og:url" content="https://vishen.github.io/workspace/entrepreneurship-mastery/webinars/masterclass-script-slides.html">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Masterclass Script DNA — Teaching Slides">
+  <meta name="twitter:description" content="40-slide presentation for teaching Mindvalley's masterclass script framework. Covers the 7-part structure, psychology, and conversion techniques.">
+  <meta name="twitter:image" content="https://vishen.github.io/workspace/entrepreneurship-mastery/webinars/og-masterclass-slides.png">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    :root {
+      --mv-purple: #7a12d4;
+      --mv-purple-dark: #5a0cb0;
+      --mv-purple-light: #f5f0fa;
+      --mv-text: #0f131a;
+      --mv-muted: #4b5563;
+      --mv-success: #10b981;
+      --mv-warning: #f59e0b;
+      --mv-danger: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* Slide Container */
+    .slides-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      padding: 60px 80px;
+      background: white;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Slide Types */
+    .slide.title-slide {
+      background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-purple-dark) 100%);
+      color: white;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .slide.section-slide {
+      background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+      color: white;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .slide.content-slide {
+      background: white;
+      color: var(--mv-text);
+    }
+
+    .slide.purple-slide {
+      background: var(--mv-purple-light);
+      color: var(--mv-text);
+    }
+
+    /* Typography */
+    .slide h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .slide h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .slide h3 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--mv-purple);
+    }
+
+    .slide h4 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .slide p {
+      font-size: 1.5rem;
+      line-height: 1.6;
+      color: inherit;
+      opacity: 0.9;
+    }
+
+    .slide .subtitle {
+      font-size: 1.75rem;
+      font-weight: 400;
+      opacity: 0.85;
+      max-width: 800px;
+    }
+
+    .slide .eyebrow {
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+      opacity: 0.7;
+    }
+
+    /* Lists */
+    .slide ul, .slide ol {
+      font-size: 1.4rem;
+      line-height: 1.8;
+      padding-left: 1.5rem;
+    }
+
+    .slide li {
+      margin-bottom: 0.75rem;
+    }
+
+    .slide li strong {
+      color: var(--mv-purple);
+    }
+
+    /* Two Column Layout */
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      flex: 1;
+      align-items: start;
+    }
+
+    .two-column.centered {
+      align-items: center;
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .card.purple {
+      background: var(--mv-purple);
+      color: white;
+    }
+
+    .card.dark {
+      background: #1f2937;
+      color: white;
+    }
+
+    .card .number {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: var(--mv-purple);
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .card.purple .number,
+    .card.dark .number {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .card h4 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    /* Framework Boxes */
+    .framework-row {
+      display: flex;
+      gap: 20px;
+      margin: 2rem 0;
+    }
+
+    .framework-box {
+      flex: 1;
+      background: var(--mv-purple);
+      color: white;
+      padding: 24px;
+      border-radius: 16px;
+      text-align: center;
+      position: relative;
+    }
+
+    .framework-box::after {
+      content: '→';
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      color: var(--mv-purple);
+    }
+
+    .framework-box:last-child::after {
+      display: none;
+    }
+
+    .framework-box h4 {
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .framework-box p {
+      font-size: 0.95rem;
+    }
+
+    /* Quote Box */
+    .quote-box {
+      background: #fef3c7;
+      border-left: 6px solid var(--mv-warning);
+      padding: 30px;
+      border-radius: 0 16px 16px 0;
+      margin: 2rem 0;
+    }
+
+    .quote-box p {
+      font-size: 1.5rem;
+      font-style: italic;
+      color: #92400e;
+    }
+
+    .quote-box .attribution {
+      font-style: normal;
+      font-weight: 600;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+    }
+
+    /* Psychology Box */
+    .psychology-box {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-radius: 16px;
+      padding: 30px;
+      margin: 2rem 0;
+    }
+
+    .psychology-box h4 {
+      color: #92400e;
+      margin-bottom: 1rem;
+    }
+
+    .psychology-box p {
+      color: #78350f;
+      font-size: 1.25rem;
+    }
+
+    /* Big Number */
+    .big-number {
+      font-size: 8rem;
+      font-weight: 900;
+      color: var(--mv-purple);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .section-slide .big-number {
+      color: white;
+      opacity: 0.3;
+      font-size: 12rem;
+      position: absolute;
+      right: 60px;
+      bottom: 60px;
+    }
+
+    /* Timeline */
+    .timeline {
+      display: flex;
+      gap: 0;
+      margin: 2rem 0;
+      align-items: stretch;
+    }
+
+    .timeline-item {
+      flex: 1;
+      padding: 20px;
+      background: var(--mv-purple-light);
+      border-right: 3px solid var(--mv-purple);
+      text-align: center;
+    }
+
+    .timeline-item:last-child {
+      border-right: none;
+    }
+
+    .timeline-item .time {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--mv-purple);
+    }
+
+    .timeline-item .label {
+      font-size: 0.9rem;
+      color: var(--mv-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* Comparison */
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin: 2rem 0;
+    }
+
+    .comparison-side {
+      padding: 30px;
+      border-radius: 16px;
+    }
+
+    .comparison-side.bad {
+      background: #fef2f2;
+      border: 2px solid #fecaca;
+    }
+
+    .comparison-side.good {
+      background: #f0fdf4;
+      border: 2px solid #bbf7d0;
+    }
+
+    .comparison-side h4 {
+      color: inherit;
+      margin-bottom: 1rem;
+    }
+
+    .comparison-side.bad h4 {
+      color: #dc2626;
+    }
+
+    .comparison-side.good h4 {
+      color: #16a34a;
+    }
+
+    /* Step List */
+    .step-list {
+      counter-reset: step-counter;
+      list-style: none;
+      padding: 0;
+    }
+
+    .step-list li {
+      counter-increment: step-counter;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+    }
+
+    .step-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: var(--mv-purple);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    /* Slide Header */
+    .slide-header {
+      margin-bottom: 2rem;
+    }
+
+    .slide-header .part-badge {
+      display: inline-block;
+      background: var(--mv-purple);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    /* Navigation */
+    .nav-controls {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      background: rgba(0,0,0,0.7);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--mv-purple);
+    }
+
+    .slide-counter {
+      position: fixed;
+      bottom: 30px;
+      right: 40px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      z-index: 100;
+    }
+
+    /* Mindvalley Logo */
+    .mv-logo {
+      position: fixed;
+      top: 30px;
+      left: 40px;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      z-index: 100;
+    }
+
+    .title-slide .mv-logo,
+    .section-slide .mv-logo {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .content-slide .mv-logo,
+    .purple-slide .mv-logo {
+      color: var(--mv-purple);
+    }
+
+    /* Highlight */
+    .highlight {
+      background: linear-gradient(transparent 60%, #fde68a 60%);
+    }
+
+    /* Flex utilities */
+    .flex-1 { flex: 1; }
+    .mt-2 { margin-top: 2rem; }
+    .mb-2 { margin-bottom: 2rem; }
+
+    /* Print / Export */
+    @media print {
+      .nav-controls, .slide-counter, .mv-logo {
+        display: none;
+      }
+      .slide {
+        page-break-after: always;
+        position: relative;
+        display: block !important;
+        height: auto;
+        min-height: 100vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mv-logo">MINDVALLEY</div>
+
+  <div class="slides-container">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide title-slide active" data-slide="1">
+      <div class="eyebrow">Mindvalley Academy Training</div>
+      <h1>Masterclass Script DNA</h1>
+      <p class="subtitle">The Complete Framework for High-Converting Masterclass Scripts</p>
+    </div>
+
+    <!-- SLIDE 2: What You'll Learn -->
+    <div class="slide content-slide" data-slide="2">
+      <div class="slide-header">
+        <h2>What You'll Learn Today</h2>
+      </div>
+      <div class="two-column">
+        <div>
+          <ul>
+            <li>The <strong>7-Part Framework</strong> structure</li>
+            <li>The <strong>6 Core Principles</strong> that drive conversion</li>
+            <li>The <strong>psychology behind each section</strong></li>
+            <li>How to create <strong>emotional states</strong> that lead to buying</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>The <strong>CVSC method</strong> for teaching content</li>
+            <li>How to <strong>handle objections</strong> before they arise</li>
+            <li>The <strong>price drop ladder</strong> technique</li>
+            <li><strong>Word patterns</strong> and trial closes that work</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: The Big Picture -->
+    <div class="slide purple-slide" data-slide="3">
+      <div class="slide-header">
+        <h2>The Big Picture</h2>
+      </div>
+      <div class="psychology-box">
+        <h4>The Core Insight</h4>
+        <p>A masterclass is NOT a sales pitch—it's a <span class="highlight">carefully orchestrated transformation journey.</span> Each part builds upon the previous, moving the viewer from curiosity → belief → desire → action.</p>
+      </div>
+      <p style="font-size: 1.3rem; margin-top: 2rem;">The structure mirrors how humans naturally make decisions:</p>
+      <div class="framework-row">
+        <div class="framework-box">
+          <h4>Understand</h4>
+          <p>The Problem</p>
+        </div>
+        <div class="framework-box">
+          <h4>See</h4>
+          <p>New Possibility</p>
+        </div>
+        <div class="framework-box">
+          <h4>Experience</h4>
+          <p>Real Value</p>
+        </div>
+        <div class="framework-box">
+          <h4>Commit</h4>
+          <p>To Action</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: The 7 Parts Overview -->
+    <div class="slide content-slide" data-slide="4">
+      <div class="slide-header">
+        <h2>The 7-Part Framework</h2>
+      </div>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="number">1</div>
+          <h4>Intro (Host)</h4>
+          <p>Hook, credibility, commitment</p>
+        </div>
+        <div class="card">
+          <div class="number">2</div>
+          <h4>Trainer & Problem</h4>
+          <p>Author story, problem agitation</p>
+        </div>
+        <div class="card">
+          <div class="number">3</div>
+          <h4>Paradigm Shift</h4>
+          <p>Break old beliefs, new thinking</p>
+        </div>
+        <div class="card">
+          <div class="number">4</div>
+          <h4>Content Delivery</h4>
+          <p>Real teaching, exercises</p>
+        </div>
+        <div class="card">
+          <div class="number">5</div>
+          <h4>Recap & Transition</h4>
+          <p>Summary, yes momentum</p>
+        </div>
+        <div class="card">
+          <div class="number">6</div>
+          <h4>The Close</h4>
+          <p>Offer, price, bonuses, CTA</p>
+        </div>
+        <div class="card">
+          <div class="number">7</div>
+          <h4>Crush Objections</h4>
+          <p>Handle resistance, scarcity</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Timing -->
+    <div class="slide content-slide" data-slide="5">
+      <div class="slide-header">
+        <h2>Timing Quick Reference</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="time">15</div>
+          <div class="label">mins to first HOW</div>
+        </div>
+        <div class="timeline-item">
+          <div class="time">35</div>
+          <div class="label">mins to trial close</div>
+        </div>
+        <div class="timeline-item">
+          <div class="time">45</div>
+          <div class="label">mins to Part 5</div>
+        </div>
+        <div class="timeline-item">
+          <div class="time">55+</div>
+          <div class="label">mins for close</div>
+        </div>
+      </div>
+      <div class="quote-box">
+        <p>"Get to the first HOW in 15 minutes. Cover it for 15 minutes. Gloss over the rest with case studies and trial closes."</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: 6 Principles Section -->
+    <div class="slide section-slide" data-slide="6">
+      <div class="eyebrow">Foundation</div>
+      <h1>The 6 Core Principles</h1>
+      <p class="subtitle">Master these before writing a single word</p>
+      <div class="big-number">6</div>
+    </div>
+
+    <!-- SLIDE 7: Principle 1 -->
+    <div class="slide content-slide" data-slide="7">
+      <div class="slide-header">
+        <div class="part-badge">Principle 1</div>
+        <h2>Keep it Tight but Leave Them Hungry</h2>
+      </div>
+      <div class="two-column centered">
+        <div>
+          <div class="psychology-box">
+            <h4>The Problem</h4>
+            <p>People often feel masterclass content is enough to practice without purchasing the course.</p>
+          </div>
+        </div>
+        <div>
+          <div class="card purple">
+            <h4>The Solution</h4>
+            <p>Give real value, but create strategic incompleteness. They should think "I need more of this" not "I've got enough."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Principle 2 -->
+    <div class="slide content-slide" data-slide="8">
+      <div class="slide-header">
+        <div class="part-badge">Principle 2</div>
+        <h2>Let Them Experience a Breakthrough Immediately</h2>
+      </div>
+      <div class="psychology-box">
+        <h4>Key Insight</h4>
+        <p>"Result in Advance" isn't advance enough if it takes days or weeks to see results. Design exercises that create <span class="highlight">direct, immediate results</span>—something they feel RIGHT NOW in the masterclass.</p>
+      </div>
+      <p style="font-size: 1.3rem; margin-top: 2rem;"><strong>Ask yourself:</strong> What shift or result can they experience in the next 10 minutes?</p>
+    </div>
+
+    <!-- SLIDE 9: Principle 3 -->
+    <div class="slide content-slide" data-slide="9">
+      <div class="slide-header">
+        <div class="part-badge">Principle 3</div>
+        <h2>Explain the Cost of NOT Buying</h2>
+      </div>
+      <div class="quote-box">
+        <p>"How much does it cost—how much is it worth—to let your life stay the same?"</p>
+        <div class="attribution">— Christie Marie Sheldon (Love or Above)</div>
+      </div>
+      <p style="font-size: 1.3rem; margin-top: 2rem;">Be honest, sharp, and direct—but not salesy. Make inaction feel expensive.</p>
+    </div>
+
+    <!-- SLIDE 10: Principles 4-6 -->
+    <div class="slide content-slide" data-slide="10">
+      <div class="slide-header">
+        <h2>Principles 4, 5, and 6</h2>
+      </div>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="number">4</div>
+          <h4>Objection-Case Study Pattern</h4>
+          <p>Pair objections with case studies of people who had the SAME objection and overcame it. Proof that the objection doesn't have to stop them.</p>
+        </div>
+        <div class="card">
+          <div class="number">5</div>
+          <h4>Sprinkle Social Proof Throughout</h4>
+          <p>Don't save all testimonials for one section. Scatter short success stories throughout the entire masterclass. Constant validation builds cumulative belief.</p>
+        </div>
+        <div class="card">
+          <div class="number">6</div>
+          <h4>Story-Content Looping</h4>
+          <p>From Lisa Nichols: Tell engaging stories that grip the audience, then lead to a lesson. Use "The Valley" (the dip before the rise) to create emotional investment.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: Part 1 Section -->
+    <div class="slide section-slide" data-slide="11">
+      <div class="eyebrow">Part 1</div>
+      <h1>Intro (Host)</h1>
+      <p class="subtitle">7 minutes to hook, establish credibility, and get commitment</p>
+      <div class="big-number">1</div>
+    </div>
+
+    <!-- SLIDE 12: Part 1 Psychology -->
+    <div class="slide purple-slide" data-slide="12">
+      <div class="slide-header">
+        <div class="part-badge">Part 1</div>
+        <h2>The Psychology of the Opening</h2>
+      </div>
+      <div class="psychology-box">
+        <h4>Why This Matters</h4>
+        <p>The first 7 minutes determine whether someone stays or leaves. You're competing against Netflix, social media, and a million distractions. Your job is to create an emotional hook that makes them feel <span class="highlight">"I'm in the right place"</span> while building enough credibility and curiosity to keep them watching.</p>
+      </div>
+      <p style="font-size: 1.5rem; margin-top: 2rem; font-weight: 600;">Energy is contagious—if you're excited, they'll feel it.</p>
+    </div>
+
+    <!-- SLIDE 13: Opening Balance -->
+    <div class="slide content-slide" data-slide="13">
+      <div class="slide-header">
+        <h2>The Balance: Excitement + Authenticity</h2>
+      </div>
+      <div class="comparison">
+        <div class="comparison-side bad">
+          <h4>Excitement Without Authenticity</h4>
+          <p style="font-size: 1.2rem;">= Salesy, fake, off-putting</p>
+        </div>
+        <div class="comparison-side bad">
+          <h4>Authenticity Without Excitement</h4>
+          <p style="font-size: 1.2rem;">= Boring, low energy, no hook</p>
+        </div>
+      </div>
+      <div class="card purple" style="margin-top: 2rem;">
+        <h4>You Need BOTH</h4>
+        <p>Share the actual honest story of WHY you chose this author. Be vulnerable about your struggles. But also bring the excitement of what they're about to experience.</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 14: Opening Pattern -->
+    <div class="slide content-slide" data-slide="14">
+      <div class="slide-header">
+        <h2>The Opening Pattern</h2>
+      </div>
+      <div class="quote-box">
+        <p>"I don't know how you got here... but I know you're here to [TITLE] and [SUBTITLE]"</p>
+      </div>
+      <p style="font-size: 1.3rem; margin-top: 2rem;">What you're doing is <strong>getting them back in the state that got them to register.</strong></p>
+      <p style="font-size: 1.1rem; color: var(--mv-muted); margin-top: 1rem;">People register days or weeks in advance. By the time they show up, they may have forgotten WHY they were excited. This re-activates that original desire.</p>
+    </div>
+
+    <!-- SLIDE 15: Credibility Stack -->
+    <div class="slide content-slide" data-slide="15">
+      <div class="slide-header">
+        <h2>The Credibility Stack</h2>
+      </div>
+      <div class="cards-grid">
+        <div class="card">
+          <h4>Personal Results</h4>
+          <p>Visual proof that backs up your claims—statistics, awards, results, recognition</p>
+        </div>
+        <div class="card">
+          <h4>Positioning</h4>
+          <p>Books, associations, companies, experience linked to something they know and respect</p>
+        </div>
+        <div class="card">
+          <h4>Celebrity</h4>
+          <p>Famous people with visual proof? Niche heroes you can link yourself to?</p>
+        </div>
+        <div class="card">
+          <h4>Testimonials</h4>
+          <p>They may believe YOU can do it, but can THEY? Show people like them who succeeded</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 16: P.A.R. Formula -->
+    <div class="slide content-slide" data-slide="16">
+      <div class="slide-header">
+        <h2>Social Proof: The P.A.R. Formula</h2>
+        <p>Hit them with 5 case studies in the first 90 seconds</p>
+      </div>
+      <div class="framework-row">
+        <div class="framework-box">
+          <h4>P - Problem</h4>
+          <p>What was their situation before?</p>
+        </div>
+        <div class="framework-box">
+          <h4>A - Application</h4>
+          <p>What did they do/learn?</p>
+        </div>
+        <div class="framework-box">
+          <h4>R - Result</h4>
+          <p>What happened after?</p>
+        </div>
+      </div>
+      <div class="quote-box" style="margin-top: 2rem;">
+        <p>"How did this pharmacist from Adelaide change her life after just 3 days? And how did this single mom from Ohio..."</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 17: Commitment -->
+    <div class="slide content-slide" data-slide="17">
+      <div class="slide-header">
+        <h2>Get Them to Commit</h2>
+      </div>
+      <div class="psychology-box">
+        <h4>The Commitment & Consistency Principle (Cialdini)</h4>
+        <p>Once people make a small commitment, they're more likely to follow through on larger ones. Getting them to say "yes" to paying attention makes them more likely to say "yes" to buying later.</p>
+      </div>
+      <ol class="step-list" style="margin-top: 2rem;">
+        <li>Ask them to commit to paying attention ("Showing up vs Playing Full Out")</li>
+        <li>Tell them to eliminate distractions—close Skype, FB, Instagram</li>
+        <li>Get them saying "Yes" in their head. Make it fun: "Hell yeah!", "Count me in!", "Woo Hoo!"</li>
+      </ol>
+    </div>
+
+    <!-- SLIDE 18: Part 2 Section -->
+    <div class="slide section-slide" data-slide="18">
+      <div class="eyebrow">Part 2</div>
+      <h1>Trainer & Problem</h1>
+      <p class="subtitle">Author's story, problem agitation, and objection handling</p>
+      <div class="big-number">2</div>
+    </div>
+
+    <!-- SLIDE 19: Valley Model -->
+    <div class="slide content-slide" data-slide="19">
+      <div class="slide-header">
+        <div class="part-badge">Part 2</div>
+        <h2>The Valley Model (Lisa Nichols)</h2>
+      </div>
+      <div class="quote-box">
+        <p>"Before I became who I am, you should know that..."</p>
+      </div>
+      <div class="psychology-box" style="margin-top: 2rem;">
+        <h4>Why This Works</h4>
+        <p>Before people will buy a solution, they need to feel the WEIGHT of the problem. The author's vulnerability creates trust and relatability. Their "valley" moment shows they understand the struggle.</p>
+      </div>
+      <p style="font-size: 1.3rem; margin-top: 1.5rem;"><strong>Always include:</strong> The author's BIG WHY—their mission and why they do what they do.</p>
+    </div>
+
+    <!-- SLIDE 20: 8 Objection Categories -->
+    <div class="slide content-slide" data-slide="20">
+      <div class="slide-header">
+        <h2>The 8 Categories of Objections</h2>
+        <p>Choose 3-5 that apply to your product</p>
+      </div>
+      <div class="cards-grid" style="grid-template-columns: repeat(4, 1fr); gap: 16px;">
+        <div class="card" style="padding: 16px;">
+          <h4 style="font-size: 1rem; color: var(--mv-purple);">Belief</h4>
+          <p style="font-size: 0.85rem;">Why should this time be different?</p>
+        </div>
+        <div class="card" style="padding: 16px;">
+          <h4 style="font-size: 1rem; color: var(--mv-purple);">Ability</h4>
+          <p style="font-size: 0.85rem;">Could I even learn this?</p>
+        </div>
+        <div class="card" style="padding: 16px;">
+          <h4 style="font-size: 1rem; color: var(--mv-purple);">Trust</h4>
+          <p style="font-size: 0.85rem;">Too good to be true?</p>
+        </div>
+        <div class="card" style="padding: 16px;">
+          <h4 style="font-size: 1rem; color: var(--mv-purple);">Fear</h4>
+          <p style="font-size: 0.85rem;">Fear of change, failure, unknown</p>
+        </div>
+        <div class="card" style="padding: 16px;">
+          <h4 style="font-size: 1rem; color: var(--mv-purple);">Conflict</h4>
+          <p style="font-size: 0.85rem;">Betraying who I am?</p>
+        </div>
+        <div class="card" style="padding: 16px;">
+          <h4 style="font-size: 1rem; color: var(--mv-purple);">Confusion</h4>
+          <p style="font-size: 0.85rem;">Where do I even start?</p>
+        </div>
+        <div class="card" style="padding: 16px;">
+          <h4 style="font-size: 1rem; color: var(--mv-purple);">Timing</h4>
+          <p style="font-size: 0.85rem;">Is now the right time?</p>
+        </div>
+        <div class="card" style="padding: 16px;">
+          <h4 style="font-size: 1rem; color: var(--mv-purple);">Length</h4>
+          <p style="font-size: 0.85rem;">How long will this take?</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 21: 3-Step Reframe -->
+    <div class="slide content-slide" data-slide="21">
+      <div class="slide-header">
+        <h2>The 3-Step Objection Reframe</h2>
+      </div>
+      <ol class="step-list">
+        <li><strong>Acknowledge & Soften:</strong> "You may be wondering if you can or can't do what I'm going to share with you today."</li>
+        <li><strong>Validate & Reframe:</strong> "That is a valid concern because what you really want to know is... will this time be different?"</li>
+        <li><strong>Present a Target:</strong> "I believe you can, and as we go through, I'm going to show you how this works for people from all backgrounds with their own unique challenges."</li>
+      </ol>
+    </div>
+
+    <!-- SLIDE 22: Give Hope -->
+    <div class="slide purple-slide" data-slide="22">
+      <div class="slide-header">
+        <h2>Give Hope: Speak to the Little Voice</h2>
+      </div>
+      <div class="psychology-box">
+        <h4>Key Technique</h4>
+        <p>You never speak to them directly. You speak to the little voice in them. "Now you may be saying to yourself..." <span class="highlight">Nothing is as powerful as their self-talk.</span></p>
+      </div>
+      <div class="quote-box" style="margin-top: 2rem;">
+        <p>"Imagine if you mastered this skill, where could you be 3 years from now? 3 months?"</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 23: Part 3 Section -->
+    <div class="slide section-slide" data-slide="23">
+      <div class="eyebrow">Part 3</div>
+      <h1>What You Know is Incomplete</h1>
+      <p class="subtitle">Break the old paradigm and shift their thinking</p>
+      <div class="big-number">3</div>
+    </div>
+
+    <!-- SLIDE 24: BRULE -->
+    <div class="slide content-slide" data-slide="24">
+      <div class="slide-header">
+        <div class="part-badge">Part 3</div>
+        <h2>Present the BRULE (Bullshit Rule)</h2>
+      </div>
+      <div class="psychology-box">
+        <h4>Pattern Interrupt</h4>
+        <p>Before people can accept a new solution, they need to reject the old one. Identify a common belief that's been holding them back. When the old paradigm crumbles, they're ready to embrace something new.</p>
+      </div>
+      <div class="two-column" style="margin-top: 2rem;">
+        <div>
+          <h4>What is the Common Belief?</h4>
+          <p>What does everyone think is the solution that isn't actually working?</p>
+        </div>
+        <div>
+          <h4>What is the Common Enemy?</h4>
+          <p>What external force keeps this false belief alive?</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 25: Part 4 Section -->
+    <div class="slide section-slide" data-slide="25">
+      <div class="eyebrow">Part 4</div>
+      <h1>Straight Up Content</h1>
+      <p class="subtitle">20-40 minutes of real value with exercises</p>
+      <div class="big-number">4</div>
+    </div>
+
+    <!-- SLIDE 26: Emotional States -->
+    <div class="slide content-slide" data-slide="26">
+      <div class="slide-header">
+        <div class="part-badge">Part 4</div>
+        <h2>Choose the Right Emotional States</h2>
+      </div>
+      <p style="font-size: 1.3rem; margin-bottom: 2rem;">The emotional state someone is in determines whether they'll buy. Ask: "What sections will keep people in the BEST emotional states to buy later?"</p>
+      <div class="comparison">
+        <div class="comparison-side bad">
+          <h4>States That Kill Conversion</h4>
+          <ul>
+            <li><strong>Fear:</strong> If scared, they won't buy</li>
+            <li><strong>Confusion:</strong> Confused minds don't buy</li>
+          </ul>
+        </div>
+        <div class="comparison-side good">
+          <h4>States That Drive Conversion</h4>
+          <ul>
+            <li><strong>Enthusiasm:</strong> Act on this TONIGHT</li>
+            <li><strong>Safety:</strong> Trust creates safety</li>
+            <li><strong>Anger (Channeled):</strong> At the common enemy</li>
+            <li><strong>Connection:</strong> You're not alone</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 27: CVSC Framework -->
+    <div class="slide content-slide" data-slide="27">
+      <div class="slide-header">
+        <h2>The CVSC Framework</h2>
+        <p>Use this for teaching each step</p>
+      </div>
+      <div class="framework-row">
+        <div class="framework-box">
+          <h4>Context</h4>
+          <p>WHY is this step important?</p>
+        </div>
+        <div class="framework-box">
+          <h4>Vision</h4>
+          <p>"Picture this..." Make them see it</p>
+        </div>
+        <div class="framework-box">
+          <h4>Strategy</h4>
+          <p>The actual HOW (30-35%)</p>
+        </div>
+        <div class="framework-box">
+          <h4>Commitment</h4>
+          <p>"Can you do this? Agreed?"</p>
+        </div>
+      </div>
+      <div class="quote-box" style="margin-top: 2rem;">
+        <p>"Until you SEE the promise, you won't endure the PAIN."</p>
+        <div class="attribution">— Jim Rohn</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 28: Go Deep on One -->
+    <div class="slide purple-slide" data-slide="28">
+      <div class="slide-header">
+        <h2>Go DEEP on Step 1</h2>
+      </div>
+      <p style="font-size: 1.5rem; margin-bottom: 2rem;">Teach the <strong>most important item first</strong> (even if it's out of order)</p>
+      <ol class="step-list">
+        <li>Explain the concept</li>
+        <li>Give an exercise</li>
+        <li>Share a case study of client success</li>
+        <li>Share another case study</li>
+        <li>Recap the step</li>
+      </ol>
+      <p style="font-size: 1.2rem; margin-top: 2rem; color: var(--mv-purple); font-weight: 600;">Then gloss over Steps 2-5 with case studies and trial closes.</p>
+    </div>
+
+    <!-- SLIDE 29: Part 5 Section -->
+    <div class="slide section-slide" data-slide="29">
+      <div class="eyebrow">Part 5</div>
+      <h1>Recap & Transition</h1>
+      <p class="subtitle">Summary, two paths, and yes momentum</p>
+      <div class="big-number">5</div>
+    </div>
+
+    <!-- SLIDE 30: Two Paths -->
+    <div class="slide content-slide" data-slide="30">
+      <div class="slide-header">
+        <div class="part-badge">Part 5</div>
+        <h2>The Two Paths</h2>
+      </div>
+      <div class="psychology-box">
+        <h4>Reduce Complexity to a Binary Choice</h4>
+        <p>The biggest mistake they can make is ignoring the information and NOT applying it. That's the real danger. By framing two clear paths, you make the decision simple.</p>
+      </div>
+      <div class="comparison" style="margin-top: 2rem;">
+        <div class="comparison-side bad">
+          <h4>Path 1: Do Nothing</h4>
+          <p style="font-size: 1.2rem;">Everything stays the same. Continue the struggle.</p>
+        </div>
+        <div class="comparison-side good">
+          <h4>Path 2: Take Action</h4>
+          <p style="font-size: 1.2rem;">Live in alignment with this knowledge. Experience true [BENEFITS].</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 31: Yes Momentum -->
+    <div class="slide content-slide" data-slide="31">
+      <div class="slide-header">
+        <h2>The Yes Momentum</h2>
+        <p>Ask 6 questions to get 6 yesses</p>
+      </div>
+      <div class="psychology-box">
+        <h4>Commitment & Consistency</h4>
+        <p>When you can't see their face, use this phrase: "I want to ask you a couple of questions and all I want to know is: Does the word 'YES' pop into your mind?"</p>
+      </div>
+      <ul style="margin-top: 2rem; font-size: 1.2rem;">
+        <li>"Do you feel confident harnessing the power of X?"</li>
+        <li>"Were you happy you came for the webinar today?"</li>
+        <li>"Can you see yourself coming back to these lessons?"</li>
+        <li>"Would you say this time was well spent?"</li>
+        <li>"The power of this technique is in its simplicity. Agree?"</li>
+      </ul>
+    </div>
+
+    <!-- SLIDE 32: Part 6 Section -->
+    <div class="slide section-slide" data-slide="32">
+      <div class="eyebrow">Part 6</div>
+      <h1>The Close</h1>
+      <p class="subtitle">Offer, price drop, bonuses, guarantee, and CTA</p>
+      <div class="big-number">6</div>
+    </div>
+
+    <!-- SLIDE 33: Close Summary -->
+    <div class="slide purple-slide" data-slide="33">
+      <div class="slide-header">
+        <div class="part-badge">Part 6</div>
+        <h2>The Close Checklist</h2>
+      </div>
+      <div class="cards-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="card">
+          <h4>Offer</h4>
+          <p>Product name, tagline, benefit statement</p>
+        </div>
+        <div class="card">
+          <h4>Prices</h4>
+          <p>High anchor → drop → drop → reveal → CTA</p>
+        </div>
+        <div class="card">
+          <h4>Bonuses</h4>
+          <p>Headline, 3 benefits, future pace</p>
+        </div>
+        <div class="card">
+          <h4>Guarantee</h4>
+          <p>Reverse risk or turn it into benefit</p>
+        </div>
+        <div class="card">
+          <h4>Objections</h4>
+          <p>Validate, reframe, shatter, re-engage</p>
+        </div>
+        <div class="card">
+          <h4>Scarcity</h4>
+          <p>The penalty for waiting</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 34: Price Drop -->
+    <div class="slide content-slide" data-slide="34">
+      <div class="slide-header">
+        <h2>The Price Drop Ladder</h2>
+        <p>Don't go from $4,000 to $399. Step down gradually.</p>
+      </div>
+      <ol class="step-list">
+        <li><strong>Anchor with high comparison</strong> ($8,000 live event)</li>
+        <li><strong>First drop</strong> (Regular price: $1,500)</li>
+        <li><strong>Second drop</strong> (Special price: $995)</li>
+        <li><strong>Webinar Unlock Price</strong> (Today only: $495)</li>
+      </ol>
+      <div class="quote-box" style="margin-top: 2rem;">
+        <p>"Never say SAVE. Say 'You should be LUCKY to get this at this price. I negotiated a special deal.'"</p>
+        <div class="attribution">— Jason Fladlien</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 35: CTA -->
+    <div class="slide content-slide" data-slide="35">
+      <div class="slide-header">
+        <h2>The Call to Action is a COMMAND</h2>
+      </div>
+      <div class="psychology-box">
+        <h4>Why People Don't Buy</h4>
+        <p>Most people who don't buy at this point don't buy because <span class="highlight">they don't know what you want them to do next.</span> Be VERY specific.</p>
+      </div>
+      <p style="font-size: 1.3rem; margin: 2rem 0;"><strong>The Tone:</strong> Like a good friend helping someone make an important decision—gentle but firm.</p>
+      <div class="quote-box">
+        <p>"Listen, I'm not going to let you go back and regret this later. You're going to come with me..."</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 36: Part 7 Section -->
+    <div class="slide section-slide" data-slide="36">
+      <div class="eyebrow">Part 7</div>
+      <h1>Crush Objections</h1>
+      <p class="subtitle">Pattern interrupts, scarcity, and final thoughts</p>
+      <div class="big-number">7</div>
+    </div>
+
+    <!-- SLIDE 37: Pattern Interrupt -->
+    <div class="slide content-slide" data-slide="37">
+      <div class="slide-header">
+        <div class="part-badge">Part 7</div>
+        <h2>The Pattern Interrupt Formula</h2>
+      </div>
+      <ol class="step-list">
+        <li>Approach the objection head-on BEFORE they bring it up: "You might be thinking this is too expensive..."</li>
+        <li>Redirect with something UNEXPECTED: "...but not more expensive than [X]"</li>
+        <li>Tie it back to your solution</li>
+      </ol>
+      <div class="card dark" style="margin-top: 2rem;">
+        <h4>Golden Rule</h4>
+        <p>NEVER argue or pressure your prospect. This causes them to reject you out of their reality bubble. Instead, respect their reality, enter it, and do a subtle shift.</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 38: Scarcity -->
+    <div class="slide content-slide" data-slide="38">
+      <div class="slide-header">
+        <h2>Engineer Real Scarcity</h2>
+      </div>
+      <div class="psychology-box">
+        <h4>The Rule</h4>
+        <p>Don't FAKE scarcity—ENGINEER it into your business model. Offers without scarcity don't sell as well. <span class="highlight">The fear of loss is always greater than the desire to succeed.</span></p>
+      </div>
+      <div class="cards-grid" style="margin-top: 2rem;">
+        <div class="card">
+          <h4>What They've Lost</h4>
+          <p>"Every day you're not sleeping, you're cutting performance by 40%"</p>
+        </div>
+        <div class="card">
+          <h4>Take Away Bonuses</h4>
+          <p>"Past tomorrow at 2pm, you will no longer get the bonuses"</p>
+        </div>
+        <div class="card">
+          <h4>Take Away Opportunity</h4>
+          <p>Create genuine urgency with deadlines</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 39: Key Takeaways -->
+    <div class="slide purple-slide" data-slide="39">
+      <div class="slide-header">
+        <h2>Key Takeaways</h2>
+      </div>
+      <ul style="font-size: 1.4rem;">
+        <li><strong>Structure matters:</strong> The 7 parts mirror natural decision-making</li>
+        <li><strong>Psychology drives everything:</strong> Understand WHY each section works</li>
+        <li><strong>Leave them hungry:</strong> Value + strategic incompleteness</li>
+        <li><strong>Handle objections upfront:</strong> Name them before they do</li>
+        <li><strong>Go deep on one thing:</strong> Then gloss over the rest</li>
+        <li><strong>Build yes momentum:</strong> Small commitments lead to big ones</li>
+        <li><strong>CTA is a command:</strong> Be specific, be a friend, be firm</li>
+      </ul>
+    </div>
+
+    <!-- SLIDE 40: Final -->
+    <div class="slide title-slide" data-slide="40">
+      <div class="eyebrow">Now It's Your Turn</div>
+      <h1>Build Your Masterclass</h1>
+      <p class="subtitle">Use the Masterclass Script Guide to fill in each section.<br>Remember: The framework works. Trust the process.</p>
+    </div>
+
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-controls">
+    <button class="nav-btn" id="prev-btn">← Previous</button>
+    <button class="nav-btn" id="next-btn">Next →</button>
+  </div>
+
+  <div class="slide-counter">
+    <span id="current-slide">1</span> / <span id="total-slides">40</span>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 1;
+
+    document.getElementById('total-slides').textContent = totalSlides;
+
+    function showSlide(n) {
+      if (n < 1) n = 1;
+      if (n > totalSlides) n = totalSlides;
+
+      slides.forEach(slide => slide.classList.remove('active'));
+      slides[n - 1].classList.add('active');
+      currentSlide = n;
+      document.getElementById('current-slide').textContent = n;
+    }
+
+    document.getElementById('prev-btn').addEventListener('click', () => {
+      showSlide(currentSlide - 1);
+    });
+
+    document.getElementById('next-btn').addEventListener('click', () => {
+      showSlide(currentSlide + 1);
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        showSlide(currentSlide + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
+        e.preventDefault();
+        showSlide(currentSlide - 1);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        showSlide(1);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        showSlide(totalSlides);
+      }
+    });
+
+    // Touch support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) {
+        showSlide(currentSlide + 1);
+      } else if (touchEndX > touchStartX + 50) {
+        showSlide(currentSlide - 1);
+      }
+    });
+  </script>
+
+</body>
+</html>
