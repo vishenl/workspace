@@ -544,21 +544,33 @@
       border-top: 6px solid #dc2626;
     }
 
-    /* Person-specific colors - Dark Mode */
+    /* Person-specific colors - Executive Team */
     .gantt-table td.vishen-working { background: var(--vishen-bright); }
     .gantt-table td.vishen-off { background: var(--vishen-dull); }
     .gantt-table td.dario-working { background: var(--dario-bright); }
     .gantt-table td.dario-off { background: var(--dario-dull); }
     .gantt-table td.alex-working { background: var(--alex-bright); }
     .gantt-table td.alex-off { background: var(--alex-dull); }
-    .gantt-table td.ei-working { background: var(--ei-bright); }
-    .gantt-table td.ei-off { background: var(--ei-dull); }
+    .gantt-table td.eni-working { background: var(--ei-bright); }
+    .gantt-table td.eni-off { background: var(--ei-dull); }
     .gantt-table td.connie-working { background: var(--connie-bright); }
     .gantt-table td.connie-off { background: var(--connie-dull); }
     .gantt-table td.jenny-working { background: var(--jenny-bright); }
     .gantt-table td.jenny-off { background: var(--jenny-dull); }
     .gantt-table td.norman-working { background: var(--norman-bright); }
     .gantt-table td.norman-off { background: var(--norman-dull); }
+
+    /* Person-specific colors - Six Team */
+    .gantt-table td.shaf-working { background: #f43f5e; }
+    .gantt-table td.shaf-off { background: #881337; }
+    .gantt-table td.euston-working { background: #06b6d4; }
+    .gantt-table td.euston-off { background: #164e63; }
+    .gantt-table td.justine-working { background: #8b5cf6; }
+    .gantt-table td.justine-off { background: #4c1d95; }
+    .gantt-table td.ruben-working { background: #10b981; }
+    .gantt-table td.ruben-off { background: #064e3b; }
+    .gantt-table td.bruno-working { background: #f59e0b; }
+    .gantt-table td.bruno-off { background: #78350f; }
 
     /* Legend - Dark Mode */
     .legend {
@@ -865,7 +877,7 @@
       }
     }
 
-    // Team data with off dates
+    // Executive Team data with off dates
     const teamSchedule = {
       vishen: {
         name: 'Vishen',
@@ -873,6 +885,8 @@
         offDates: [
           // Dec 13-17
           ...getDatesInRange(2025, 12, 13, 17),
+          // Dec 24
+          { year: 2025, month: 12, day: 24 },
           // Jan 5+ (showing Jan 5 as off since calendar ends there)
           { year: 2026, month: 1, day: 5 }
         ]
@@ -930,6 +944,51 @@
       }
     };
 
+    // Six Team data with off dates
+    const sixTeamSchedule = {
+      shaf: {
+        name: 'Shaf',
+        color: '#f43f5e',
+        offDates: [
+          // Dec 25 only (Christmas)
+          { year: 2025, month: 12, day: 25 }
+        ]
+      },
+      euston: {
+        name: 'Euston',
+        color: '#06b6d4',
+        offDates: [
+          // Dec 29-31
+          ...getDatesInRange(2025, 12, 29, 31)
+        ]
+      },
+      justine: {
+        name: 'Justine',
+        color: '#8b5cf6',
+        offDates: [
+          // Dec 24 - Jan 2
+          ...getDatesInRange(2025, 12, 24, 31),
+          ...getDatesInRange(2026, 1, 1, 2)
+        ]
+      },
+      ruben: {
+        name: 'Ruben',
+        color: '#10b981',
+        offDates: [
+          // Dec 26 only
+          { year: 2025, month: 12, day: 26 }
+        ]
+      },
+      bruno: {
+        name: 'Bruno',
+        color: '#f59e0b',
+        offDates: [
+          // Dec 9-21
+          ...getDatesInRange(2025, 12, 9, 21)
+        ]
+      }
+    };
+
     // Helper function to generate date ranges
     function getDatesInRange(year, month, startDay, endDay) {
       const dates = [];
@@ -940,8 +999,8 @@
     }
 
     // Check if a date is an off day for a person
-    function isOffDay(personKey, year, month, day) {
-      const person = teamSchedule[personKey];
+    function isOffDay(personKey, year, month, day, schedule = teamSchedule) {
+      const person = schedule[personKey];
       return person.offDates.some(d => d.year === year && d.month === month && d.day === day);
     }
 
@@ -1005,8 +1064,12 @@
       });
       headerRow2 += '</tr>';
 
-      // Build rows for each team member
+      // Build rows for Executive Team
       let bodyRows = '';
+
+      // Executive Team header row
+      bodyRows += `<tr><td class="name-cell group-header" colspan="37" style="background: #7c3aed; color: white; text-align: left; font-size: 0.8rem; padding: 0.5rem 1rem;">EXECUTIVE TEAM</td></tr>`;
+
       Object.keys(teamSchedule).forEach(personKey => {
         const person = teamSchedule[personKey];
         bodyRows += `<tr><td class="name-cell"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: ${person.color}; margin-right: 8px;"></span>${person.name}</td>`;
@@ -1014,7 +1077,34 @@
         days.forEach(d => {
           const weekend = isWeekend(d.year, d.month, d.day);
           const today = isToday(d.year, d.month, d.day);
-          const off = isOffDay(personKey, d.year, d.month, d.day);
+          const off = isOffDay(personKey, d.year, d.month, d.day, teamSchedule);
+
+          let classes = ['day-cell'];
+          if (weekend) {
+            classes.push('weekend');
+          } else {
+            classes.push(off ? `${personKey}-off` : `${personKey}-working`);
+            if (off) classes.push('off');
+          }
+          if (today) classes.push('today');
+
+          bodyRows += `<td class="${classes.join(' ')}"></td>`;
+        });
+
+        bodyRows += '</tr>';
+      });
+
+      // Six Team header row
+      bodyRows += `<tr><td class="name-cell group-header" colspan="37" style="background: #06b6d4; color: white; text-align: left; font-size: 0.8rem; padding: 0.5rem 1rem;">SIX TEAM</td></tr>`;
+
+      Object.keys(sixTeamSchedule).forEach(personKey => {
+        const person = sixTeamSchedule[personKey];
+        bodyRows += `<tr><td class="name-cell"><span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: ${person.color}; margin-right: 8px;"></span>${person.name}</td>`;
+
+        days.forEach(d => {
+          const weekend = isWeekend(d.year, d.month, d.day);
+          const today = isToday(d.year, d.month, d.day);
+          const off = isOffDay(personKey, d.year, d.month, d.day, sixTeamSchedule);
 
           let classes = ['day-cell'];
           if (weekend) {
@@ -1091,9 +1181,24 @@
       const workingList = document.getElementById('workingList');
       let html = '';
 
+      // Executive Team
       Object.keys(teamSchedule).forEach(personKey => {
         const person = teamSchedule[personKey];
-        const off = isOffDay(personKey, year, month, day);
+        const off = isOffDay(personKey, year, month, day, teamSchedule);
+        const working = !off && !weekend;
+
+        if (working) {
+          html += `<div class="working-badge">
+            <span class="color-dot" style="background: ${person.color};"></span>
+            ${person.name}
+          </div>`;
+        }
+      });
+
+      // Six Team
+      Object.keys(sixTeamSchedule).forEach(personKey => {
+        const person = sixTeamSchedule[personKey];
+        const off = isOffDay(personKey, year, month, day, sixTeamSchedule);
         const working = !off && !weekend;
 
         if (working) {
