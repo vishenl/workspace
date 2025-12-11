@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lead Magnets Deep Dive — Slide Deck</title>
+    <meta name="description" content="Slide deck for the Lead Magnets Deep Dive session - Entrepreneurship Mastery" />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#7a12d4" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧲</text></svg>">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../../mindvalley-core.css" />
+
+    <style>
+        :root {
+            --mv-brand-purple: #7a12d4;
+            --mv-brand-purple-light: #ba62fd;
+            --mv-gradient: linear-gradient(135deg, #7a12d4 0%, #fb00ff 100%);
+            --mv-success: #10b981;
+            --mv-warning: #f59e0b;
+            --mv-danger: #ef4444;
+            --mv-dark: #0f131a;
+            --mv-gray: #6b7280;
+            --mv-light: #f9fafb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: var(--mv-dark);
+        }
+
+        /* Slide Container */
+        .slides-container {
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Individual Slide */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            text-align: center;
+            background: white;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Slide Themes */
+        .slide--title {
+            background: var(--mv-gradient);
+            color: white;
+        }
+
+        .slide--dark {
+            background: var(--mv-dark);
+            color: white;
+        }
+
+        .slide--section {
+            background: var(--mv-gradient);
+            color: white;
+        }
+
+        .slide--light {
+            background: white;
+            color: var(--mv-dark);
+        }
+
+        .slide--purple-light {
+            background: linear-gradient(180deg, #f5f0fa 0%, #ebe0f5 100%);
+            color: var(--mv-dark);
+        }
+
+        /* Typography */
+        .slide h1 {
+            font-family: Grotesk-Bold-16, sans-serif;
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+        }
+
+        .slide h2 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+        }
+
+        .slide h3 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2rem;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        .slide p {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 1.5rem;
+            line-height: 1.6;
+            max-width: 800px;
+            opacity: 0.9;
+        }
+
+        .slide--title p,
+        .slide--section p,
+        .slide--dark p {
+            opacity: 0.85;
+        }
+
+        /* Eyebrow */
+        .eyebrow {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .slide--light .eyebrow {
+            color: var(--mv-brand-purple);
+        }
+
+        /* Big Number */
+        .big-number {
+            font-family: Grotesk-Bold-16, sans-serif;
+            font-size: 8rem;
+            line-height: 1;
+            background: var(--mv-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slide--dark .big-number,
+        .slide--title .big-number,
+        .slide--section .big-number {
+            background: white;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        /* Lists */
+        .slide ul, .slide ol {
+            text-align: left;
+            font-size: 1.4rem;
+            line-height: 2;
+            max-width: 800px;
+            margin: 1.5rem 0;
+        }
+
+        .slide li {
+            margin-bottom: 0.75rem;
+        }
+
+        .slide li strong {
+            color: var(--mv-brand-purple);
+        }
+
+        .slide--dark li strong,
+        .slide--title li strong,
+        .slide--section li strong {
+            color: #f0d0ff;
+        }
+
+        /* Framework Grid */
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+            max-width: 1000px;
+        }
+
+        .framework-item {
+            background: rgba(255,255,255,0.15);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .framework-letter {
+            font-family: Grotesk-Bold-16, sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .framework-text {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1rem;
+        }
+
+        /* Two Column */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            text-align: left;
+            max-width: 1000px;
+            margin-top: 2rem;
+        }
+
+        .two-col h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--mv-brand-purple);
+        }
+
+        .slide--dark .two-col h4 {
+            color: var(--mv-brand-purple-light);
+        }
+
+        /* Cards */
+        .card-row {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            max-width: 1100px;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            flex: 1;
+            text-align: left;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .slide--dark .card {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* Funnel */
+        .funnel {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .funnel-step {
+            background: rgba(255,255,255,0.2);
+            padding: 1.5rem 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .funnel-step h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .funnel-step p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .funnel-arrow {
+            font-size: 2rem;
+            opacity: 0.6;
+        }
+
+        /* Quote */
+        .quote {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 2.2rem;
+            font-style: italic;
+            max-width: 800px;
+            line-height: 1.5;
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .quote::before {
+            content: '"';
+            position: absolute;
+            left: -1rem;
+            top: -1rem;
+            font-size: 5rem;
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+
+        /* Highlight Box */
+        .highlight {
+            background: var(--mv-gradient);
+            color: white;
+            padding: 2rem 3rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            max-width: 800px;
+        }
+
+        .highlight p {
+            font-size: 1.4rem;
+            margin: 0;
+        }
+
+        .slide--dark .highlight {
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Stat Grid */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            max-width: 900px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: Grotesk-Bold-16, sans-serif;
+            font-size: 4rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            opacity: 0.8;
+        }
+
+        /* Anatomy */
+        .anatomy {
+            text-align: left;
+            max-width: 900px;
+            margin-top: 1.5rem;
+        }
+
+        .anatomy-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem 1.5rem;
+            background: rgba(122, 18, 212, 0.08);
+            border-radius: 12px;
+        }
+
+        .anatomy-number {
+            background: var(--mv-brand-purple);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Grotesk-Bold, sans-serif;
+            flex-shrink: 0;
+        }
+
+        .anatomy-content h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.2rem;
+            color: var(--mv-brand-purple);
+            margin-bottom: 0.25rem;
+        }
+
+        .anatomy-content p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Prompt Box */
+        .prompt-box {
+            background: var(--mv-dark);
+            color: #e5e7eb;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: left;
+            max-width: 900px;
+            margin-top: 1.5rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(0,0,0,0.8);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .nav-btn:hover {
+            opacity: 1;
+        }
+
+        .nav-counter {
+            font-family: Grotesk-Medium, sans-serif;
+            color: white;
+            font-size: 0.9rem;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* Progress Bar */
+        .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--mv-gradient);
+            z-index: 100;
+            transition: width 0.3s ease;
+        }
+
+        /* Keyboard hint */
+        .keyboard-hint {
+            position: fixed;
+            bottom: 6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .slide {
+                padding: 2rem;
+            }
+
+            .slide h1 {
+                font-size: 2.5rem;
+            }
+
+            .slide h2 {
+                font-size: 2rem;
+            }
+
+            .slide p {
+                font-size: 1.2rem;
+            }
+
+            .big-number {
+                font-size: 5rem;
+            }
+
+            .framework-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+
+            .card-row {
+                flex-direction: column;
+            }
+
+            .funnel {
+                flex-direction: column;
+            }
+
+            .funnel-arrow {
+                transform: rotate(90deg);
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress" id="progress"></div>
+
+    <!-- Slides Container -->
+    <div class="slides-container" id="slides">
+
+        <!-- SLIDE 1: Title -->
+        <div class="slide slide--title active">
+            <div class="eyebrow">Entrepreneurship Mastery</div>
+            <h1>Lead Magnets Deep Dive</h1>
+            <p>Turn casual visitors into loyal customers with irresistible lead magnets and high-converting funnels</p>
+        </div>
+
+        <!-- SLIDE 2: Agenda -->
+        <div class="slide slide--dark">
+            <h2>Today's Journey</h2>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-value">60</div>
+                    <div class="stat-label">Minutes Core Session</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">20</div>
+                    <div class="stat-label">Minutes Q&A</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Templates Included</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: The Framework -->
+        <div class="slide slide--title">
+            <h2>The Complete Funnel Framework</h2>
+            <div class="funnel">
+                <div class="funnel-step">
+                    <h4>Lead Magnet</h4>
+                    <p>The irresistible offer</p>
+                </div>
+                <span class="funnel-arrow">→</span>
+                <div class="funnel-step">
+                    <h4>Email Sequence</h4>
+                    <p>Build trust in 7 days</p>
+                </div>
+                <span class="funnel-arrow">→</span>
+                <div class="funnel-step">
+                    <h4>Offer</h4>
+                    <p>The elegant invitation</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Today's Focus -->
+        <div class="slide slide--dark">
+            <h2>Today's Focus</h2>
+            <p class="quote">The lead magnet is not about getting emails. It's about starting a relationship.</p>
+            <div class="highlight">
+                <p>A weak lead magnet means your entire funnel is fighting uphill. A strong one? The rest flows naturally.</p>
+            </div>
+        </div>
+
+        <!-- SECTION: AUDIENCE RESEARCH -->
+        <div class="slide slide--section">
+            <div class="eyebrow">Part 1</div>
+            <h1>Audience Research</h1>
+            <p>Know your audience so well they think you're reading their mind</p>
+        </div>
+
+        <!-- SLIDE 6: Why Research Matters -->
+        <div class="slide slide--light">
+            <h2>Why Research Matters</h2>
+            <p>Skip this step and your lead magnet will feel generic.<br>Do it right and your copy practically writes itself.</p>
+            <div class="highlight">
+                <p>The goal: When they read your landing page, they think "This was written for ME."</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: What to Discover -->
+        <div class="slide slide--purple-light">
+            <h2>What You Need to Discover</h2>
+            <ul>
+                <li><strong>Pain Points:</strong> What keeps them awake at night?</li>
+                <li><strong>Desires:</strong> What transformation do they dream about?</li>
+                <li><strong>Objections:</strong> Why haven't they solved this yet?</li>
+                <li><strong>Language:</strong> What exact words do they use?</li>
+                <li><strong>Failed Solutions:</strong> What have they already tried?</li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 8: 4 Research Methods -->
+        <div class="slide slide--dark">
+            <h2>4 Research Methods</h2>
+            <div class="card-row">
+                <div class="card">
+                    <div class="card-icon">1</div>
+                    <h4>Direct Research</h4>
+                    <p>Talk to real customers. Even 5-10 conversations transform your understanding.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">2</div>
+                    <h4>Review Mining</h4>
+                    <p>Amazon, Udemy, Reddit. Your competitors' customers already told you what they want.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">3</div>
+                    <h4>AI-Assisted</h4>
+                    <p>Use AI to synthesize and expand. Works best when you feed it real data first.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">4</div>
+                    <h4>Competitive Analysis</h4>
+                    <p>See what's working for others. Not to copy—to understand what resonates.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Customer Interview Questions -->
+        <div class="slide slide--light">
+            <h2>Customer Interview Questions</h2>
+            <ul>
+                <li><strong>Before:</strong> "What was happening when you decided to seek help?"</li>
+                <li><strong>Trigger:</strong> "What was the final straw?"</li>
+                <li><strong>Failed attempts:</strong> "What had you already tried?"</li>
+                <li><strong>The search:</strong> "How did you look for solutions?"</li>
+                <li><strong>Hesitations:</strong> "What almost stopped you?"</li>
+                <li><strong>In their words:</strong> "How would you describe this to a friend?"</li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 10: Pro Tip -->
+        <div class="slide slide--title">
+            <div class="eyebrow">Pro Tip</div>
+            <h2>Record these conversations</h2>
+            <p>The exact phrases they use become your copy.</p>
+        </div>
+
+        <!-- SLIDE 11: Review Mining -->
+        <div class="slide slide--purple-light">
+            <h2>Where to Mine Reviews</h2>
+            <div class="card-row">
+                <div class="card">
+                    <h4>Amazon Reviews</h4>
+                    <p>Books in your niche. Read 3-star and 5-star reviews.</p>
+                </div>
+                <div class="card">
+                    <h4>Course Platforms</h4>
+                    <p>Udemy, Skillshare. What do students praise and complain about?</p>
+                </div>
+                <div class="card">
+                    <h4>Reddit & Forums</h4>
+                    <p>Look for "help me" and "finally figured out" posts.</p>
+                </div>
+                <div class="card">
+                    <h4>YouTube Comments</h4>
+                    <p>Questions, frustrations, and "aha" moments.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: Language Patterns -->
+        <div class="slide slide--dark">
+            <h2>Language Patterns to Find</h2>
+            <div class="two-col">
+                <div>
+                    <h4>Pain Language</h4>
+                    <p>"I was struggling with..."<br>"I couldn't figure out..."<br>"I was frustrated by..."</p>
+                </div>
+                <div>
+                    <h4>Desire Language</h4>
+                    <p>"I wanted to..."<br>"I wished I could..."<br>"My dream was..."</p>
+                </div>
+            </div>
+            <div class="two-col" style="margin-top: 1rem;">
+                <div>
+                    <h4>Objection Language</h4>
+                    <p>"I was worried that..."<br>"I almost didn't because..."</p>
+                </div>
+                <div>
+                    <h4>Transformation Language</h4>
+                    <p>"Now I..."<br>"Finally I..."<br>"This changed..."</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: AI Prompt -->
+        <div class="slide slide--light">
+            <h2>AI Audience Research Prompt</h2>
+            <div class="prompt-box">
+I need to deeply understand my target audience.
+
+MY BUSINESS: [Your business]
+MY NICHE: [Your niche]
+MY IDEAL CUSTOMER: [Demographics]
+
+Help me understand:
+1. Top 5 daily frustrations
+2. What transformation they dream about
+3. Why they haven't solved this yet
+4. Phrases they use to describe the problem
+5. What would make them say "I need this NOW"
+
+Be specific. Give me real thoughts in first person.
+            </div>
+        </div>
+
+        <!-- SECTION: LEAD MAGNET PLANNING -->
+        <div class="slide slide--section">
+            <div class="eyebrow">Part 2</div>
+            <h1>Lead Magnet Planning</h1>
+            <p>Choose the right type and create something irresistible</p>
+        </div>
+
+        <!-- SLIDE 15: The Psychology -->
+        <div class="slide slide--dark">
+            <h2>The Value Equation</h2>
+            <p>People give you their email when:</p>
+            <div class="highlight" style="text-align: center;">
+                <p style="font-size: 2rem; font-family: Grotesk-Bold, sans-serif;">Perceived Value > Perceived Cost</p>
+            </div>
+            <p style="margin-top: 2rem;">Your job: Maximize perceived value. Minimize perceived cost.</p>
+        </div>
+
+        <!-- SLIDE 16: 3 Triggers -->
+        <div class="slide slide--purple-light">
+            <h2>The 3 Psychological Triggers</h2>
+            <div class="card-row">
+                <div class="card">
+                    <div class="card-icon">1</div>
+                    <h4>Curiosity</h4>
+                    <p>"I need to know..."<br>Quizzes excel here</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">2</div>
+                    <h4>Quick Win</h4>
+                    <p>"I can solve this today"<br>Templates, checklists</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">3</div>
+                    <h4>Transformation</h4>
+                    <p>"This will change my life"<br>Guides, courses</p>
+                </div>
+            </div>
+            <div class="highlight">
+                <p>The best lead magnets trigger all three. The minimum? At least one.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 17: S.P.E.C.I.F.I.C. Framework -->
+        <div class="slide slide--title">
+            <h2>The S.P.E.C.I.F.I.C. Framework</h2>
+            <div class="framework-grid">
+                <div class="framework-item">
+                    <div class="framework-letter">S</div>
+                    <div class="framework-text">Solves one problem</div>
+                </div>
+                <div class="framework-item">
+                    <div class="framework-letter">P</div>
+                    <div class="framework-text">Provides immediate value</div>
+                </div>
+                <div class="framework-item">
+                    <div class="framework-letter">E</div>
+                    <div class="framework-text">Easy to consume</div>
+                </div>
+                <div class="framework-item">
+                    <div class="framework-letter">C</div>
+                    <div class="framework-text">Connects to offer</div>
+                </div>
+                <div class="framework-item">
+                    <div class="framework-letter">I</div>
+                    <div class="framework-text">Instantly deliverable</div>
+                </div>
+                <div class="framework-item">
+                    <div class="framework-letter">F</div>
+                    <div class="framework-text">Feels premium</div>
+                </div>
+                <div class="framework-item">
+                    <div class="framework-letter">I</div>
+                    <div class="framework-text">Inspires action</div>
+                </div>
+                <div class="framework-item">
+                    <div class="framework-letter">C</div>
+                    <div class="framework-text">Clear outcome</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 18: Lead Magnet Types -->
+        <div class="slide slide--dark">
+            <h2>Lead Magnet Types</h2>
+            <div class="card-row">
+                <div class="card">
+                    <div class="card-icon">📚</div>
+                    <h4>eBooks & Guides</h4>
+                    <p>Best for educational content. 10-20 pages max.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h4>Quizzes</h4>
+                    <p>2-3x higher conversion. Instant personalization.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📧</div>
+                    <h4>Mini-Courses</h4>
+                    <p>Dripped over time. Multiple touchpoints.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎥</div>
+                    <h4>Webinars</h4>
+                    <p>High-ticket offers. Build trust fast.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 19: Quiz Stats -->
+        <div class="slide slide--title">
+            <div class="eyebrow">The Power of Quizzes</div>
+            <div class="big-number">2-3x</div>
+            <h3>Higher conversion than static lead magnets</h3>
+            <p>Curiosity gap + personalization + micro-commitments + instant gratification</p>
+        </div>
+
+        <!-- SLIDE 20: Quiz Structure -->
+        <div class="slide slide--purple-light">
+            <h2>Ideal Quiz Structure</h2>
+            <div class="stat-grid" style="max-width: 600px;">
+                <div class="stat-item">
+                    <div class="stat-value" style="color: var(--mv-brand-purple);">10</div>
+                    <div class="stat-label">Problem Questions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" style="color: var(--mv-brand-purple);">5</div>
+                    <div class="stat-label">Demographic Questions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" style="color: var(--mv-brand-purple);">15</div>
+                    <div class="stat-label">Total Questions</div>
+                </div>
+            </div>
+            <p style="margin-top: 2rem;">Problem questions = their challenges, goals, situation<br>Demographics = lead scoring and segmentation</p>
+        </div>
+
+        <!-- SLIDE 21: eBook Formula -->
+        <div class="slide slide--light">
+            <h2>The Perfect eBook Formula</h2>
+            <div class="anatomy">
+                <div class="anatomy-item">
+                    <div class="anatomy-number">1</div>
+                    <div class="anatomy-content">
+                        <h4>Hook (1 page)</h4>
+                        <p>Why they need this NOW</p>
+                    </div>
+                </div>
+                <div class="anatomy-item">
+                    <div class="anatomy-number">2</div>
+                    <div class="anatomy-content">
+                        <h4>The Problem (1-2 pages)</h4>
+                        <p>What's really holding them back</p>
+                    </div>
+                </div>
+                <div class="anatomy-item">
+                    <div class="anatomy-number">3</div>
+                    <div class="anatomy-content">
+                        <h4>The Framework (1-2 pages)</h4>
+                        <p>Your methodology overview</p>
+                    </div>
+                </div>
+                <div class="anatomy-item">
+                    <div class="anatomy-number">4</div>
+                    <div class="anatomy-content">
+                        <h4>Step-by-Step (5-8 pages)</h4>
+                        <p>How to implement</p>
+                    </div>
+                </div>
+                <div class="anatomy-item">
+                    <div class="anatomy-number">5</div>
+                    <div class="anatomy-content">
+                        <h4>Quick Win + CTA (1-2 pages)</h4>
+                        <p>One thing they can do today + next step</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 22: Title Formula -->
+        <div class="slide slide--dark">
+            <h2>The Title Formula</h2>
+            <div class="highlight" style="background: rgba(255,255,255,0.15); max-width: 900px;">
+                <p style="font-size: 1.8rem; font-family: Grotesk-Bold, sans-serif;">
+                    "The [X]-Step System to [Desired Outcome] Without [Pain Point]"
+                </p>
+            </div>
+            <p style="margin-top: 2rem; opacity: 0.8;">
+                Example: "The 5-Step System to Double Your Productivity Without Working Longer Hours"
+            </p>
+        </div>
+
+        <!-- SLIDE 23: Connect to Offer -->
+        <div class="slide slide--purple-light">
+            <h2>Connect to Your Offer</h2>
+            <p>Your lead magnet should solve PART of the problem.<br>Your paid offer solves the REST.</p>
+            <div class="two-col" style="margin-top: 2rem;">
+                <div>
+                    <h4>Lead Magnet</h4>
+                    <p>Shows them WHERE they're stuck</p>
+                </div>
+                <div>
+                    <h4>Paid Offer</h4>
+                    <p>Shows them HOW to fix it</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: LANDING PAGES -->
+        <div class="slide slide--section">
+            <div class="eyebrow">Part 3</div>
+            <h1>Landing Page Design</h1>
+            <p>The anatomy of a high-converting opt-in page</p>
+        </div>
+
+        <!-- SLIDE 25: Landing Page Anatomy -->
+        <div class="slide slide--light">
+            <h2>Landing Page Anatomy</h2>
+            <div class="anatomy">
+                <div class="anatomy-item">
+                    <div class="anatomy-number">1</div>
+                    <div class="anatomy-content">
+                        <h4>Headline</h4>
+                        <p>Clear, specific, outcome-focused. Not clever—clear.</p>
+                    </div>
+                </div>
+                <div class="anatomy-item">
+                    <div class="anatomy-number">2</div>
+                    <div class="anatomy-content">
+                        <h4>Subheadline</h4>
+                        <p>Expands on headline. Adds credibility.</p>
+                    </div>
+                </div>
+                <div class="anatomy-item">
+                    <div class="anatomy-number">3</div>
+                    <div class="anatomy-content">
+                        <h4>Visual</h4>
+                        <p>Mockup of lead magnet or transformation imagery</p>
+                    </div>
+                </div>
+                <div class="anatomy-item">
+                    <div class="anatomy-number">4</div>
+                    <div class="anatomy-content">
+                        <h4>Bullet Points</h4>
+                        <p>3-5 specific benefits (not features)</p>
+                    </div>
+                </div>
+                <div class="anatomy-item">
+                    <div class="anatomy-number">5</div>
+                    <div class="anatomy-content">
+                        <h4>Form + CTA</h4>
+                        <p>Minimal friction. Every extra field = -10% conversion</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 26: 5 Second Test -->
+        <div class="slide slide--title">
+            <h2>The 5-Second Test</h2>
+            <p style="font-size: 1.8rem;">Can visitors answer these in 5 seconds?</p>
+            <ul style="text-align: left; margin-top: 2rem;">
+                <li>What is this?</li>
+                <li>What do I get?</li>
+                <li>Why should I care?</li>
+                <li>What do I do next?</li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 27: Conversion Benchmarks -->
+        <div class="slide slide--dark">
+            <h2>Conversion Benchmarks</h2>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-value">25%+</div>
+                    <div class="stat-label">Cold Traffic</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">40%+</div>
+                    <div class="stat-label">Warm Traffic</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">60%+</div>
+                    <div class="stat-label">Hot Traffic</div>
+                </div>
+            </div>
+            <p style="margin-top: 2rem;">Below these? Optimize headline, value prop, or reduce form friction.</p>
+        </div>
+
+        <!-- SECTION: ELEGANT CTA -->
+        <div class="slide slide--section">
+            <div class="eyebrow">Part 4</div>
+            <h1>The Elegant CTA</h1>
+            <p>Build relationships, not just email lists</p>
+        </div>
+
+        <!-- SLIDE 29: Pushy vs Elegant -->
+        <div class="slide slide--purple-light">
+            <h2>Pushy vs. Elegant</h2>
+            <div class="two-col">
+                <div>
+                    <h4 style="color: var(--mv-danger);">Don't Do This</h4>
+                    <ul>
+                        <li>"Get my FREE guide NOW!"</li>
+                        <li>"Limited time! Act fast!"</li>
+                        <li>Pop-ups in 2 seconds</li>
+                        <li>Fake countdown timers</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--mv-success);">Do This</h4>
+                    <ul>
+                        <li>"Join 50,000+ who..."</li>
+                        <li>"Get the guide that helped..."</li>
+                        <li>Value-first, CTA at natural pauses</li>
+                        <li>Authentic scarcity only</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 30: Trust-First Formula -->
+        <div class="slide slide--dark">
+            <h2>Trust-First CTA Formula</h2>
+            <ol style="font-size: 1.5rem;">
+                <li><strong>Lead with value</strong> — Give something useful before asking</li>
+                <li><strong>Be specific</strong> — "Get the 5-step guide" beats "Download now"</li>
+                <li><strong>Add social proof</strong> — "Join 50,000+ entrepreneurs"</li>
+                <li><strong>Reduce risk</strong> — "No spam. Unsubscribe anytime."</li>
+            </ol>
+        </div>
+
+        <!-- SLIDE 31: CTA Examples -->
+        <div class="slide slide--light">
+            <h2>CTA Button Copy</h2>
+            <ul>
+                <li><strong>Quiz:</strong> "Discover Your [Result]" / "Take the 2-Minute Assessment"</li>
+                <li><strong>eBook:</strong> "Get the Free Guide" / "Send Me the eBook"</li>
+                <li><strong>Mini-Course:</strong> "Start Free Course" / "Begin Day 1"</li>
+                <li><strong>Webinar:</strong> "Save My Seat" / "Register Free"</li>
+            </ul>
+            <div class="highlight" style="background: rgba(239, 68, 68, 0.1); border-left: 4px solid var(--mv-danger);">
+                <p style="color: var(--mv-dark);"><strong>Avoid:</strong> "Submit" (homework), "Sign Up" (generic), "Click Here" (no value)</p>
+            </div>
+        </div>
+
+        <!-- SECTION: ACTION PLAN -->
+        <div class="slide slide--section">
+            <div class="eyebrow">Part 5</div>
+            <h1>Your Action Plan</h1>
+            <p>What to do this week</p>
+        </div>
+
+        <!-- SLIDE 33: Action Steps -->
+        <div class="slide slide--dark">
+            <h2>This Week</h2>
+            <ol style="font-size: 1.4rem;">
+                <li><strong>Today:</strong> Complete the Audience Research Framework</li>
+                <li><strong>Today:</strong> Decide your lead magnet type</li>
+                <li><strong>This Week:</strong> Create your lead magnet with AI</li>
+                <li><strong>This Week:</strong> Build your landing page</li>
+                <li><strong>This Week:</strong> Connect to your email sequence</li>
+                <li><strong>Next Week:</strong> Drive traffic and test</li>
+            </ol>
+        </div>
+
+        <!-- SLIDE 34: Templates -->
+        <div class="slide slide--purple-light">
+            <h2>Your Templates</h2>
+            <div class="card-row">
+                <div class="card">
+                    <div class="card-icon">📋</div>
+                    <h4>Planning Template</h4>
+                    <p>Plan your lead magnet from scratch</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📄</div>
+                    <h4>Swipe File</h4>
+                    <p>Copy templates and examples</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔍</div>
+                    <h4>Research Framework</h4>
+                    <p>Questions and AI prompts</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🛠️</div>
+                    <h4>Tool Guide</h4>
+                    <p>Compare all the tools</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 35: Final Quote -->
+        <div class="slide slide--title">
+            <p class="quote">Done is better than perfect. Launch your first lead magnet this week. The only lead magnet that doesn't convert is the one you never publish.</p>
+        </div>
+
+        <!-- SLIDE 36: Q&A -->
+        <div class="slide slide--dark">
+            <h1>Q&A Time</h1>
+            <p>20 minutes for your questions</p>
+            <div class="card-row" style="margin-top: 2rem;">
+                <div class="card">
+                    <h4>Lead Magnet Selection</h4>
+                    <p>Which type to choose?<br>Multiple lead magnets?</p>
+                </div>
+                <div class="card">
+                    <h4>Technical Questions</h4>
+                    <p>Integrations?<br>GDPR compliance?</p>
+                </div>
+                <div class="card">
+                    <h4>Optimization</h4>
+                    <p>Low conversion rates?<br>When to A/B test?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 37: Thank You -->
+        <div class="slide slide--title">
+            <div class="eyebrow">Entrepreneurship Mastery</div>
+            <h1>Thank You!</h1>
+            <p>Access all templates at:</p>
+            <p style="font-family: Grotesk-Bold, sans-serif; font-size: 1.3rem; margin-top: 1rem;">vishenl.github.io/workspace/lessons/lead-magnets-deep-dive/</p>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <button class="nav-btn" id="prevBtn">←</button>
+        <span class="nav-counter" id="counter">1 / 37</span>
+        <button class="nav-btn" id="nextBtn">→</button>
+    </nav>
+
+    <!-- Keyboard Hint -->
+    <div class="keyboard-hint">Use ← → arrow keys or click to navigate</div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const progress = document.getElementById('progress');
+        const counter = document.getElementById('counter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            // Bounds check
+            if (index < 0) index = 0;
+            if (index >= slides.length) index = slides.length - 1;
+
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            // Show current slide
+            slides[index].classList.add('active');
+            currentSlide = index;
+
+            // Update progress bar
+            const progressWidth = ((index + 1) / slides.length) * 100;
+            progress.style.width = progressWidth + '%';
+
+            // Update counter
+            counter.textContent = (index + 1) + ' / ' + slides.length;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Button navigation
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                showSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                showSlide(slides.length - 1);
+            }
+        });
+
+        // Click navigation (click right side = next, left side = prev)
+        document.querySelector('.slides-container').addEventListener('click', (e) => {
+            // Don't navigate if clicking on buttons
+            if (e.target.closest('.nav')) return;
+
+            const clickX = e.clientX;
+            const windowWidth = window.innerWidth;
+
+            if (clickX > windowWidth / 2) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        });
+
+        // Touch/swipe navigation
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    nextSlide(); // Swipe left = next
+                } else {
+                    prevSlide(); // Swipe right = prev
+                }
+            }
+        }
+
+        // Hide keyboard hint after first navigation
+        let hintHidden = false;
+        function hideHint() {
+            if (!hintHidden) {
+                document.querySelector('.keyboard-hint').style.opacity = '0';
+                setTimeout(() => {
+                    document.querySelector('.keyboard-hint').style.display = 'none';
+                }, 300);
+                hintHidden = true;
+            }
+        }
+
+        prevBtn.addEventListener('click', hideHint);
+        nextBtn.addEventListener('click', hideHint);
+        document.addEventListener('keydown', hideHint);
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
