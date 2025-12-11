@@ -4,1358 +4,1131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Guide to BLISS — The Science of Social Euphoria | Mindvalley States</title>
-    <meta name="description" content="Discover the science behind BLISS: a social euphoric neurostack that lifts mood, enhances connection, and creates calm confidence. Learn how 6 clinically-validated ingredients work together." />
+    <meta name="description" content="Discover the science behind BLISS: a social euphoric neurostack that lifts mood, enhances connection, and creates calm confidence." />
     <link rel="stylesheet" href="../mv-selfreset-base.css">
     <style>
         :root {
+            --purple: #7a12d4;
+            --purple-dark: #6a0dad;
+            --purple-light: #c4b5fd;
             --bliss-color: #f59e0b;
-            --bliss-dark: #d97706;
             --bliss-light: #fef3c7;
-            --bliss-glow: rgba(245, 158, 11, 0.15);
-            --text-primary: #1a1a2e;
-            --text-secondary: #4b5563;
-            --text-muted: #6b7280;
-            --bg-cream: #fefcf8;
-            --bg-warm: #fffbf5;
+            --bliss-dark: #d97706;
+            --green: #10b981;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; color: var(--gray-800); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        body {
-            font-family: Grotesk, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: var(--text-primary);
-            line-height: 1.7;
-            background: var(--bg-cream);
-        }
+        /* Header - Matches main site */
+        header { background: white; border-bottom: 1px solid var(--gray-200); position: fixed; width: 100%; top: 0; z-index: 100; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; max-width: 1200px; margin: 0 auto; }
+        .logo { font-weight: 700; font-size: 20px; color: var(--gray-900); text-decoration: none; }
+        .logo span { color: var(--purple); }
+        nav { display: flex; gap: 32px; align-items: center; }
+        nav a { color: var(--gray-600); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+        nav a:hover { color: var(--purple); }
+        .nav-cta { background: var(--bliss-color); color: white; padding: 10px 24px; border-radius: 100px; font-weight: 600; }
+        .nav-cta:hover { background: var(--bliss-dark); color: white; }
+        @media (max-width: 768px) { nav { display: none; } }
 
-        /* Typography */
-        .article-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: Grotesk-Bold, Grotesk, -apple-system, sans-serif;
-            line-height: 1.3;
-        }
-
-        /* Navigation */
-        .article-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            z-index: 100;
-            padding: 16px 24px;
-        }
-
-        .article-nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .article-nav .logo {
-            font-weight: 700;
-            font-size: 18px;
-            color: var(--text-primary);
-            text-decoration: none;
-        }
-
-        .article-nav .logo span {
-            color: var(--bliss-color);
-        }
-
-        .nav-cta {
-            background: var(--bliss-color);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 100px;
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .nav-cta:hover {
-            background: var(--bliss-dark);
-            transform: translateY(-1px);
-        }
+        /* Reading Progress */
+        .reading-progress { position: fixed; top: 60px; left: 0; width: 0%; height: 4px; background: linear-gradient(90deg, var(--bliss-color), var(--bliss-dark)); z-index: 101; }
 
         /* Hero */
-        .article-hero {
-            padding: 140px 24px 80px;
-            background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg-cream) 100%);
-            text-align: center;
+        .guide-hero {
+            padding: 120px 20px 80px;
+            background: linear-gradient(135deg, #1f1f1f 0%, #0f0f0f 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
         }
-
-        .article-hero-inner {
-            max-width: 720px;
+        .guide-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(245, 158, 11, 0.15) 0%, transparent 50%);
+        }
+        .guide-hero-inner {
+            max-width: 900px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 60px;
+            align-items: center;
         }
-
-        .article-category {
+        @media (max-width: 800px) {
+            .guide-hero-inner { grid-template-columns: 1fr; text-align: center; }
+            .hero-image { order: -1; margin: 0 auto; }
+        }
+        .guide-hero-eyebrow {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: var(--bliss-glow);
-            color: var(--bliss-dark);
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--bliss-color);
             padding: 8px 16px;
             border-radius: 100px;
             font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
-
-        .article-hero h1 {
-            font-size: clamp(36px, 6vw, 56px);
-            margin-bottom: 24px;
-            color: var(--text-primary);
+        .guide-hero h1 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: clamp(36px, 5vw, 52px);
+            line-height: 1.1;
+            margin-bottom: 20px;
         }
-
-        .article-hero h1 span {
+        .guide-hero h1 em {
             color: var(--bliss-color);
+            font-style: normal;
         }
-
-        .article-hero .subtitle {
-            font-size: 20px;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 32px;
+        .guide-hero p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 24px;
         }
-
-        .article-meta {
+        .hero-meta {
             display: flex;
-            justify-content: center;
-            align-items: center;
             gap: 24px;
-            flex-wrap: wrap;
             font-size: 14px;
-            color: var(--text-muted);
+            color: rgba(255,255,255,0.6);
+            flex-wrap: wrap;
         }
-
-        .article-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        @media (max-width: 800px) { .hero-meta { justify-content: center; } }
+        .hero-meta-item { display: flex; align-items: center; gap: 8px; }
+        .hero-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            animation: float 6s ease-in-out infinite;
         }
-
-        .author-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        /* Reading Progress */
-        .reading-progress {
-            position: fixed;
-            top: 60px;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--bliss-color), var(--bliss-dark));
-            z-index: 101;
-            transition: width 0.1s;
+        .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         /* Article Content */
-        .article-content {
-            padding: 60px 24px;
-        }
+        .article-section { padding: 80px 20px; }
+        .article-section.alt { background: var(--gray-50); }
+        .article-section.dark { background: var(--gray-900); color: white; }
+        .article-section.bliss-bg { background: linear-gradient(135deg, var(--bliss-light) 0%, #fff7e6 100%); }
 
-        .article-content p {
-            font-size: 18px;
-            margin-bottom: 28px;
-            color: var(--text-secondary);
-        }
+        .section-inner { max-width: 900px; margin: 0 auto; }
 
-        .article-content p.lead {
-            font-size: 22px;
-            color: var(--text-primary);
+        .section-header { text-align: center; margin-bottom: 48px; }
+        .section-header h2 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: clamp(28px, 4vw, 40px);
+            margin-bottom: 16px;
+        }
+        .section-header h2 em { color: var(--bliss-color); font-style: normal; }
+        .section-header p { font-size: 18px; color: var(--gray-600); max-width: 600px; margin: 0 auto; }
+        .dark .section-header p { color: rgba(255,255,255,0.7); }
+
+        /* Intro Text */
+        .intro-text {
+            font-size: 20px;
+            line-height: 1.8;
+            color: var(--gray-700);
+        }
+        .intro-text p { margin-bottom: 24px; }
+        .intro-text .lead {
+            font-size: 24px;
+            color: var(--gray-900);
             font-weight: 500;
         }
-
-        .article-content h2 {
-            font-size: 32px;
-            margin: 64px 0 24px;
-            color: var(--text-primary);
-        }
-
-        .article-content h3 {
-            font-size: 24px;
-            margin: 48px 0 20px;
-            color: var(--text-primary);
-        }
-
-        /* Drop Cap */
-        .drop-cap::first-letter {
+        .intro-text .lead::first-letter {
             float: left;
             font-size: 72px;
             line-height: 0.8;
             padding-right: 12px;
-            padding-top: 4px;
             color: var(--bliss-color);
             font-family: Grotesk-Bold, serif;
         }
 
-        /* Pull Quotes */
-        .pull-quote {
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 16px;
             margin: 48px 0;
-            padding: 32px 40px;
-            background: var(--bliss-glow);
-            border-left: 4px solid var(--bliss-color);
-            border-radius: 0 16px 16px 0;
+            border-radius: 24px;
+            overflow: hidden;
         }
+        @media (max-width: 600px) { .image-gallery { grid-template-columns: 1fr; } }
+        .image-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gallery-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .gallery-stack img { flex: 1; }
 
+        /* Pull Quote */
+        .pull-quote {
+            background: linear-gradient(135deg, var(--bliss-light) 0%, #fff7e6 100%);
+            border-radius: 24px;
+            padding: 40px;
+            margin: 48px 0;
+            position: relative;
+        }
+        .pull-quote::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 120px;
+            color: var(--bliss-color);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
         .pull-quote p {
             font-size: 24px;
             font-style: italic;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-            line-height: 1.5;
+            color: var(--gray-800);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
         }
-
-        .pull-quote cite {
-            font-size: 14px;
-            color: var(--bliss-dark);
-            font-style: normal;
-            font-weight: 600;
+        .pull-quote-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
+        .pull-quote-author img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .pull-quote-author strong { display: block; color: var(--gray-900); }
+        .pull-quote-author span { font-size: 14px; color: var(--gray-500); }
 
-        /* Highlight Box */
-        .highlight-box {
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin: 48px 0;
+        }
+        @media (max-width: 700px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+        .stat-card {
             background: white;
             border-radius: 20px;
-            padding: 32px;
-            margin: 40px 0;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-            border: 1px solid rgba(0,0,0,0.04);
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+        .dark .stat-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+        .stat-card .icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        .stat-card .value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--bliss-color);
+            margin-bottom: 4px;
+        }
+        .stat-card .label {
+            font-size: 14px;
+            color: var(--gray-500);
+        }
+        .dark .stat-card .label { color: rgba(255,255,255,0.6); }
 
-        .highlight-box.gold {
+        /* Comparison Visual */
+        .comparison-visual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin: 48px 0;
+        }
+        @media (max-width: 700px) { .comparison-visual { grid-template-columns: 1fr; } }
+        .comparison-card {
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .comparison-card.bad {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 2px solid #fca5a5;
+        }
+        .comparison-card.good {
             background: linear-gradient(135deg, var(--bliss-light) 0%, #fff7e6 100%);
-            border: 1px solid rgba(245, 158, 11, 0.2);
+            border: 2px solid var(--bliss-color);
         }
-
-        .highlight-box h4 {
-            font-size: 18px;
-            margin-bottom: 16px;
+        .comparison-card h3 {
+            font-size: 24px;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
-        .highlight-box h4 .icon {
-            width: 32px;
-            height: 32px;
-            background: var(--bliss-color);
-            border-radius: 8px;
+        .comparison-card.bad h3 { color: #dc2626; }
+        .comparison-card.good h3 { color: var(--bliss-dark); }
+        .comparison-card ul {
+            list-style: none;
+        }
+        .comparison-card li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 12px;
             font-size: 16px;
         }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin: 40px 0;
-        }
-
-        @media (max-width: 600px) {
-            .stats-grid { grid-template-columns: 1fr; }
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 16px;
-            padding: 28px;
-            text-align: center;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-        }
-
-        .stat-card .value {
-            font-size: 42px;
-            font-weight: 800;
-            color: var(--bliss-color);
-            margin-bottom: 8px;
-        }
-
-        .stat-card .label {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
+        .comparison-card li:last-child { border-bottom: none; }
+        .comparison-card.bad li::before { content: '✗'; color: #dc2626; font-weight: bold; }
+        .comparison-card.good li::before { content: '✓'; color: var(--green); font-weight: bold; }
 
         /* Ingredient Cards */
-        .ingredient-deep-dive {
-            background: var(--text-primary);
-            color: white;
-            margin: 60px -24px;
-            padding: 80px 24px;
+        .ingredient-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
         }
-
-        @media (min-width: 900px) {
-            .ingredient-deep-dive {
-                margin: 60px calc(-50vw + 400px);
-                padding: 80px calc(50vw - 400px);
-            }
-        }
-
-        .ingredient-card-large {
+        @media (max-width: 700px) { .ingredient-grid { grid-template-columns: 1fr; } }
+        .ingredient-card {
             background: rgba(255,255,255,0.05);
             border-radius: 24px;
-            padding: 40px;
-            margin-bottom: 32px;
+            padding: 32px;
             border: 1px solid rgba(255,255,255,0.1);
-            position: relative;
-            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s;
         }
-
-        .ingredient-card-large.hero-ingredient {
+        .ingredient-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--bliss-color);
+        }
+        .ingredient-card.hero {
+            grid-column: span 2;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(255,255,255,0.05) 100%);
             border: 2px solid var(--bliss-color);
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(255,255,255,0.05) 100%);
         }
-
-        .ingredient-card-large .hero-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--bliss-color);
-            color: white;
-            padding: 6px 14px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .ingredient-header-large {
+        @media (max-width: 700px) { .ingredient-card.hero { grid-column: span 1; } }
+        .ingredient-card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 12px;
         }
-
-        .ingredient-name-large {
-            font-size: 28px;
+        .ingredient-name {
+            font-size: 22px;
             font-weight: 700;
         }
-
-        .ingredient-name-large .subtitle {
-            font-size: 14px;
+        .ingredient-role {
+            font-size: 13px;
             color: var(--bliss-color);
-            font-weight: 500;
             margin-top: 4px;
         }
-
-        .ingredient-dose-large {
+        .ingredient-dose {
             background: var(--bliss-color);
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .ingredient-description {
-            font-size: 16px;
-            color: rgba(255,255,255,0.8);
-            line-height: 1.8;
-            margin-bottom: 24px;
-        }
-
-        .ingredient-stats-row {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-        }
-
-        .ingredient-stat-pill {
-            background: rgba(255,255,255,0.1);
-            padding: 10px 18px;
+            padding: 8px 16px;
             border-radius: 10px;
+            font-weight: 700;
             font-size: 14px;
         }
-
-        .ingredient-stat-pill strong {
-            color: var(--bliss-color);
+        .ingredient-desc {
+            font-size: 15px;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.7;
+            margin-bottom: 20px;
         }
-
-        .feels-like-box {
-            background: rgba(245, 158, 11, 0.15);
-            border-radius: 12px;
-            padding: 20px;
-            border-left: 4px solid var(--bliss-color);
+        .ingredient-stats {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
         }
-
-        .feels-like-box .label {
-            font-size: 12px;
+        .ingredient-stat {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        .ingredient-stat strong { color: var(--bliss-color); }
+        .feels-like {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 3px solid var(--bliss-color);
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+        }
+        .feels-like-label {
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--bliss-color);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 600;
         }
-
-        .feels-like-box p {
-            font-size: 15px;
-            color: rgba(255,255,255,0.9);
+        .feels-like p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
             margin: 0;
             line-height: 1.6;
         }
 
-        /* Synergy Diagram */
-        .synergy-section {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: white;
-            margin: 60px -24px;
-            padding: 80px 24px;
+        /* Synergy Section */
+        .synergy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
         }
-
-        @media (min-width: 900px) {
-            .synergy-section {
-                margin: 60px calc(-50vw + 400px);
-                padding: 80px calc(50vw - 400px);
-            }
-        }
-
+        @media (max-width: 800px) { .synergy-grid { grid-template-columns: 1fr; } }
         .synergy-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
+            background: white;
+            border-radius: 24px;
             padding: 32px;
-            margin-bottom: 24px;
-            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s;
         }
-
-        .synergy-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        .synergy-number {
-            width: 40px;
-            height: 40px;
-            background: var(--bliss-color);
-            border-radius: 10px;
+        .synergy-card:hover { transform: translateY(-4px); }
+        .synergy-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--bliss-light);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
+            font-size: 28px;
+            margin: 0 auto 20px;
+        }
+        .synergy-card h4 {
             font-size: 18px;
+            margin-bottom: 12px;
+            color: var(--gray-900);
         }
-
-        .synergy-title {
-            font-size: 20px;
-            font-weight: 700;
-        }
-
         .synergy-formula {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 16px;
-            margin: 24px 0;
+            gap: 8px;
+            margin-bottom: 16px;
+            font-size: 13px;
             flex-wrap: wrap;
         }
-
-        .synergy-ingredient {
-            background: rgba(255,255,255,0.1);
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-weight: 600;
+        .synergy-pill {
+            background: var(--gray-100);
+            padding: 6px 12px;
+            border-radius: 100px;
+            font-weight: 500;
+        }
+        .synergy-plus { color: var(--bliss-color); font-weight: bold; }
+        .synergy-card p {
+            font-size: 14px;
+            color: var(--gray-600);
         }
 
-        .synergy-plus {
-            font-size: 24px;
-            color: var(--bliss-color);
-        }
-
-        .synergy-equals {
-            font-size: 24px;
-            color: var(--bliss-color);
-        }
-
-        .synergy-result {
-            background: var(--bliss-color);
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-weight: 700;
-        }
-
-        /* Protocol Section */
-        .protocol-section {
-            background: var(--bliss-light);
-            margin: 60px -24px;
-            padding: 80px 24px;
-        }
-
-        @media (min-width: 900px) {
-            .protocol-section {
-                margin: 60px calc(-50vw + 400px);
-                padding: 80px calc(50vw - 400px);
-            }
-        }
-
+        /* Protocol Cards */
         .protocol-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin-top: 32px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin: 48px 0;
         }
-
-        @media (max-width: 600px) {
-            .protocol-grid { grid-template-columns: 1fr; }
-        }
-
+        @media (max-width: 600px) { .protocol-grid { grid-template-columns: 1fr; } }
         .protocol-card {
             background: white;
-            border-radius: 20px;
-            padding: 32px;
+            border-radius: 24px;
+            padding: 40px;
             text-align: center;
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-        }
-
-        .protocol-card.recommended {
-            border: 2px solid var(--bliss-color);
             position: relative;
         }
-
-        .protocol-card.recommended::before {
-            content: 'POPULAR';
+        .protocol-card.featured {
+            border: 3px solid var(--bliss-color);
+        }
+        .protocol-card.featured::before {
+            content: 'MOST POPULAR';
             position: absolute;
-            top: -12px;
+            top: -14px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--bliss-color);
             color: white;
-            padding: 4px 16px;
+            padding: 6px 20px;
             border-radius: 100px;
             font-size: 11px;
             font-weight: 700;
+            letter-spacing: 0.5px;
         }
-
         .protocol-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-        }
-
-        .protocol-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .protocol-desc {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        /* Comparison Table */
-        .comparison-visual {
-            margin: 48px 0;
-        }
-
-        .comparison-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 2px;
-            margin-bottom: 2px;
-        }
-
-        @media (max-width: 600px) {
-            .comparison-row { grid-template-columns: 1fr; gap: 8px; margin-bottom: 16px; }
-        }
-
-        .comparison-cell {
-            padding: 20px;
-            background: white;
-            font-size: 15px;
-        }
-
-        .comparison-cell.header {
-            background: var(--text-primary);
-            color: white;
-            font-weight: 700;
-            text-align: center;
-        }
-
-        .comparison-cell.feature {
-            background: #f8f9fa;
-            font-weight: 600;
-        }
-
-        .comparison-cell.bad {
-            color: #ef4444;
-        }
-
-        .comparison-cell.good {
-            color: #10b981;
-        }
-
-        /* CTA Sections */
-        .inline-cta {
-            background: linear-gradient(135deg, var(--bliss-color) 0%, var(--bliss-dark) 100%);
-            color: white;
-            border-radius: 24px;
-            padding: 48px;
-            margin: 60px 0;
-            text-align: center;
-        }
-
-        .inline-cta h3 {
-            font-size: 28px;
-            margin-bottom: 16px;
-        }
-
-        .inline-cta p {
-            font-size: 16px;
-            opacity: 0.9;
-            margin-bottom: 24px;
-            color: white;
-        }
-
-        .inline-cta .cta-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: white;
-            color: var(--bliss-dark);
-            padding: 16px 32px;
-            border-radius: 100px;
-            font-weight: 700;
-            font-size: 16px;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .inline-cta .cta-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        /* Final CTA */
-        .final-cta {
-            background: var(--text-primary);
-            color: white;
-            margin: 0 -24px;
-            padding: 100px 24px;
-            text-align: center;
-        }
-
-        @media (min-width: 900px) {
-            .final-cta {
-                margin: 0 calc(-50vw + 400px);
-                padding: 100px calc(50vw - 400px);
-            }
-        }
-
-        .final-cta h2 {
-            font-size: 42px;
+            font-size: 56px;
             margin-bottom: 20px;
         }
-
-        .final-cta h2 span {
-            color: var(--bliss-color);
+        .protocol-card h4 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+        .protocol-card p {
+            font-size: 15px;
+            color: var(--gray-600);
         }
 
-        .final-cta p {
-            font-size: 18px;
-            color: rgba(255,255,255,0.8);
-            max-width: 500px;
-            margin: 0 auto 32px;
+        /* Fun Fact */
+        .fun-fact {
+            background: linear-gradient(135deg, #fef3c7 0%, #fff7e6 100%);
+            border-radius: 20px;
+            padding: 28px 32px;
+            margin: 40px 0;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            border: 2px solid rgba(245, 158, 11, 0.3);
         }
-
-        .final-cta .price {
-            font-size: 48px;
-            font-weight: 800;
+        .fun-fact-icon {
+            font-size: 36px;
+            flex-shrink: 0;
+        }
+        .fun-fact-content h4 {
+            font-size: 16px;
+            color: var(--bliss-dark);
             margin-bottom: 8px;
         }
-
-        .final-cta .price-note {
-            font-size: 14px;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 32px;
+        .fun-fact-content p {
+            font-size: 15px;
+            color: var(--gray-700);
+            margin: 0;
         }
 
-        .final-cta .cta-btn-large {
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--bliss-color) 0%, var(--bliss-dark) 100%);
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+        .cta-section h2 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: clamp(28px, 4vw, 42px);
+            margin-bottom: 16px;
+        }
+        .cta-section p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-btn {
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            background: var(--bliss-color);
-            color: white;
-            padding: 20px 48px;
+            background: white;
+            color: var(--bliss-dark);
+            padding: 18px 40px;
             border-radius: 100px;
             font-weight: 700;
             font-size: 18px;
             text-decoration: none;
-            transition: all 0.2s;
+            transition: all 0.3s;
         }
-
-        .final-cta .cta-btn-large:hover {
-            background: var(--bliss-dark);
+        .cta-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         }
-
-        .guarantee-badges {
+        .cta-guarantees {
             display: flex;
             justify-content: center;
             gap: 32px;
             margin-top: 32px;
             flex-wrap: wrap;
         }
-
-        .guarantee-badge {
+        .cta-guarantee {
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 14px;
-            color: rgba(255,255,255,0.7);
-        }
-
-        .guarantee-badge svg {
-            color: #10b981;
+            opacity: 0.9;
         }
 
         /* Footer */
-        .article-footer {
-            background: #0f0f0f;
+        footer { background: var(--gray-900); color: white; padding: 60px 20px 24px; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; text-align: center; }
+        .footer-logo { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+        .footer-logo span { color: var(--bliss-color); }
+        .footer-links { display: flex; justify-content: center; gap: 32px; margin-bottom: 24px; flex-wrap: wrap; }
+        .footer-links a { color: var(--gray-400); text-decoration: none; font-size: 14px; }
+        .footer-links a:hover { color: var(--bliss-color); }
+        .footer-copy { color: var(--gray-500); font-size: 13px; }
+
+        /* Inline CTA Box */
+        .inline-cta {
+            background: linear-gradient(135deg, var(--gray-900) 0%, #1e1e3f 100%);
+            border-radius: 24px;
+            padding: 48px;
+            margin: 48px 0;
+            text-align: center;
             color: white;
-            padding: 60px 24px;
-            text-align: center;
         }
-
-        .article-footer .logo {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .article-footer .logo span {
-            color: var(--bliss-color);
-        }
-
-        .article-footer p {
-            color: rgba(255,255,255,0.5);
-            font-size: 14px;
-        }
-
-        .article-footer a {
-            color: var(--bliss-color);
-            text-decoration: none;
-        }
-
-        /* Table of Contents */
-        .toc {
-            background: white;
-            border-radius: 16px;
-            padding: 28px;
-            margin: 40px 0;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-        }
-
-        .toc h4 {
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
-
-        .toc-list {
-            list-style: none;
-        }
-
-        .toc-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .toc-list li:last-child {
-            border-bottom: none;
-        }
-
-        .toc-list a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .toc-list a:hover {
-            color: var(--bliss-color);
-        }
-
-        /* Fun Fact */
-        .fun-fact {
-            background: linear-gradient(135deg, #fef3c7 0%, #fff7e6 100%);
-            border-radius: 16px;
-            padding: 24px 28px;
-            margin: 32px 0;
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-        }
-
-        .fun-fact-icon {
+        .inline-cta h3 {
             font-size: 28px;
-            flex-shrink: 0;
-        }
-
-        .fun-fact-content {
-            flex: 1;
-        }
-
-        .fun-fact-content strong {
-            color: var(--bliss-dark);
-        }
-
-        .fun-fact-content p {
-            margin: 0;
-            font-size: 16px;
-        }
-
-        /* Responsive images */
-        .article-image {
-            width: 100%;
-            border-radius: 16px;
-            margin: 32px 0;
-        }
-
-        .image-caption {
-            text-align: center;
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-top: -20px;
-            margin-bottom: 32px;
-        }
-
-        /* List styling */
-        .article-content ul {
-            margin: 24px 0;
-            padding-left: 24px;
-        }
-
-        .article-content li {
-            font-size: 18px;
-            color: var(--text-secondary);
             margin-bottom: 12px;
         }
+        .inline-cta p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 24px;
+        }
+        .inline-cta .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bliss-color);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 100px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .inline-cta .btn:hover {
+            background: var(--bliss-dark);
+            transform: translateY(-2px);
+        }
 
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
+        /* Image with caption */
+        .image-feature {
+            margin: 48px 0;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        .image-feature img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Animated Icons */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+            50% { box-shadow: 0 0 20px 10px rgba(245, 158, 11, 0); }
+        }
+        .pulse-icon {
+            animation: pulse-glow 2s infinite;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="article-nav">
-        <div class="article-nav-inner">
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
             <a href="mockup.html" class="logo">Mindvalley<span>States</span></a>
-            <a href="bliss.html" class="nav-cta">Try BLISS</a>
+            <nav>
+                <a href="mockup.html#products">Products</a>
+                <a href="bliss.html">BLISS</a>
+                <a href="stacks.html">Stacks</a>
+                <a href="testimonials.html">Reviews</a>
+                <a href="bliss.html" class="nav-cta">Try BLISS →</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <!-- Reading Progress -->
     <div class="reading-progress" id="reading-progress"></div>
 
     <!-- Hero -->
-    <header class="article-hero">
-        <div class="article-hero-inner">
-            <div class="article-category">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
-                The Complete Guide
-            </div>
-            <h1>A Guide to <span>BLISS</span></h1>
-            <p class="subtitle">The science of social euphoria: how a carefully crafted neurostack helps you become the best version of yourself—turned up.</p>
-            <div class="article-meta">
-                <div class="article-meta-item">
-                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-10-21_at_3.50.13_PM.png?v=1761033028&width=96" alt="Shawn Wells" class="author-avatar">
-                    <span>Based on research by <strong>Shawn Wells, MPH, RD</strong></span>
+    <section class="guide-hero">
+        <div class="guide-hero-inner">
+            <div class="hero-content">
+                <div class="guide-hero-eyebrow">
+                    📖 The Complete Guide
                 </div>
-                <div class="article-meta-item">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/></svg>
-                    <span>12 min read</span>
+                <h1>A Guide to <em>BLISS</em></h1>
+                <p>The science of social euphoria: how a carefully crafted neurostack helps you become the best version of yourself—turned up.</p>
+                <div class="hero-meta">
+                    <div class="hero-meta-item">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/></svg>
+                        12 min read
+                    </div>
+                    <div class="hero-meta-item">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
+                        Based on Shawn Wells research
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="images/Bliss/Bliss_Image 1.jpg" alt="BLISS">
+            </div>
+        </div>
+    </section>
+
+    <!-- Intro Section -->
+    <section class="article-section">
+        <div class="section-inner">
+            <div class="intro-text">
+                <p class="lead">There's a moment at every social gathering—a party, a dinner, a networking event—where you feel it. That slight hesitation before speaking. The mental search for the right words. The subtle barrier between you and the people around you.</p>
+
+                <p>For most of human history, we've had one solution: alcohol. A glass of wine to "take the edge off." A cocktail to "loosen up."</p>
+
+                <p>And it works. Temporarily. Until the sloppiness sets in. Until the hangover arrives. Until you realize you've been slowly poisoning your liver and depleting your serotonin.</p>
+
+                <p><strong>But what if there was another way?</strong></p>
+            </div>
+
+            <div class="image-gallery">
+                <img src="images/Bliss/Bliss_Image 5.jpg" alt="Social connection">
+                <div class="gallery-stack">
+                    <img src="images/Bliss/Bliss_Image 3.jpg" alt="BLISS pills">
+                    <img src="images/Bliss/Bliss_Image 2.jpg" alt="BLISS bottle">
+                </div>
+            </div>
+
+            <div class="intro-text">
+                <p>What if you could feel open, connected, and socially confident—while actually <em>enhancing</em> your brain function instead of impairing it?</p>
+
+                <p>What if you could have all the warmth and connection of a great night out, and wake up the next morning feeling <strong>better</strong> than when you started?</p>
+
+                <p>This is why BLISS was created. And this guide will show you exactly how it works.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Is BLISS Section -->
+    <section class="article-section alt">
+        <div class="section-inner">
+            <div class="section-header">
+                <h2>What Is <em>BLISS</em>?</h2>
+                <p>Hint: It's not what you think</p>
+            </div>
+
+            <div class="intro-text">
+                <p>Let's be clear about something: <strong>BLISS is not a generic mood supplement.</strong></p>
+
+                <p>It's what Shawn Wells—the world's leading nutritional biochemist with over 1,000 formulations and 40+ patents—calls a <em>"social euphoric neurostack."</em></p>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="icon">🧠</div>
+                    <div class="value">Social</div>
+                    <div class="label">Designed for connection</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">✨</div>
+                    <div class="value">Euphoric</div>
+                    <div class="label">Real warmth & wellbeing</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">🔬</div>
+                    <div class="value">Neuro</div>
+                    <div class="label">Works on your brain</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">⚡</div>
+                    <div class="value">Stack</div>
+                    <div class="label">Multiple ingredients in harmony</div>
+                </div>
+            </div>
+
+            <div class="pull-quote">
+                <p>The whole idea of this formula is that the world feels lighter, people feel closer, and you feel more like yourself—just turned up.</p>
+                <div class="pull-quote-author">
+                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-10-21_at_3.50.13_PM.png?v=1761033028&width=96" alt="Shawn Wells">
+                    <div>
+                        <strong>Shawn Wells, MPH, RD</strong>
+                        <span>World's leading nutritional biochemist</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </header>
+    </section>
 
-    <!-- Article Content -->
-    <article class="article-content">
-        <div class="article-container">
-
-            <!-- Opening Hook - The Slippery Slope Begins -->
-            <p class="lead drop-cap">There's a moment at every social gathering—a party, a dinner, a networking event—where you feel it. That slight hesitation before speaking. The mental search for the right words. The subtle barrier between you and the people around you.</p>
-
-            <p>For most of human history, we've had one solution: alcohol. A glass of wine to "take the edge off." A cocktail to "loosen up." A beer to "be more social."</p>
-
-            <p>And it works. Temporarily. Until the sloppiness sets in. Until the hangover arrives. Until you realize you've been slowly poisoning your liver, depleting your serotonin, and creating a crutch you need more of as the night goes on.</p>
-
-            <p><strong>But what if there was another way?</strong></p>
-
-            <p>What if you could feel open, connected, and socially confident—while actually enhancing your brain function instead of impairing it? What if you could have all the warmth and connection of a great night out, and wake up the next morning feeling <em>better</em> than when you started?</p>
-
-            <p>This is why BLISS was created.</p>
-
-            <!-- Table of Contents -->
-            <div class="toc">
-                <h4>In This Guide</h4>
-                <ul class="toc-list">
-                    <li><a href="#what-is-bliss">What Is BLISS? (Not What You Think)</a></li>
-                    <li><a href="#the-problem">The Alcohol Problem No One Talks About</a></li>
-                    <li><a href="#the-science">The Science of Social Euphoria</a></li>
-                    <li><a href="#ingredients">The 6 Ingredients (And What Each One Does)</a></li>
-                    <li><a href="#synergy">How They Work Together</a></li>
-                    <li><a href="#protocol">The BLISS Protocol: How to Use It</a></li>
-                    <li><a href="#who-its-for">Is BLISS Right For You?</a></li>
-                </ul>
+    <!-- The Alcohol Problem -->
+    <section class="article-section">
+        <div class="section-inner">
+            <div class="section-header">
+                <h2>The <em>Alcohol Problem</em> No One Talks About</h2>
+                <p>Here's something most people don't realize</p>
             </div>
 
-            <!-- Section 1: What Is BLISS -->
-            <h2 id="what-is-bliss">What Is BLISS? (It's Not What You Think)</h2>
-
-            <p>Let's be clear about something from the start: <strong>BLISS is not a generic mood supplement.</strong></p>
-
-            <p>It's what Shawn Wells—the world's leading nutritional biochemist with over 1,000 formulations and 40+ patents—calls a <em>"social euphoric neurostack."</em></p>
-
-            <p>That's a mouthful. Let's break it down:</p>
-
-            <div class="highlight-box">
-                <h4><span class="icon">🧠</span> What "Social Euphoric Neurostack" Actually Means</h4>
-                <p style="font-size: 16px; color: var(--text-secondary); margin-bottom: 16px;"><strong>Social:</strong> Designed specifically for social situations—connection, conversation, bonding.</p>
-                <p style="font-size: 16px; color: var(--text-secondary); margin-bottom: 16px;"><strong>Euphoric:</strong> Creates a genuine sense of wellbeing, warmth, and emotional openness.</p>
-                <p style="font-size: 16px; color: var(--text-secondary); margin-bottom: 0;"><strong>Neurostack:</strong> Multiple compounds working together on your brain's neurotransmitter systems—not just one pathway, but several, in harmony.</p>
+            <div class="fun-fact">
+                <div class="fun-fact-icon">⚠️</div>
+                <div class="fun-fact-content">
+                    <h4>Alcohol is a neurotoxin. And it doesn't actually increase serotonin.</h4>
+                    <p>That warm, social feeling you get from a drink? It's not because alcohol is making you happier. It's because alcohol is a depressant that reduces inhibitions through mild dissociation—essentially disconnecting you slightly from your social anxiety.</p>
+                </div>
             </div>
-
-            <p>The goal isn't to make you "high" or disconnected from reality. It's the opposite: to help you become <strong>more present, more connected, more yourself</strong>—just with the volume turned up.</p>
-
-            <div class="pull-quote">
-                <p>"The whole idea of this formula is that the world feels lighter, people feel closer, and you feel more like yourself—just turned up."</p>
-                <cite>— Shawn Wells, MPH, RD, Formulator</cite>
-            </div>
-
-            <!-- Section 2: The Problem -->
-            <h2 id="the-problem">The Alcohol Problem No One Talks About</h2>
-
-            <p>Here's something most people don't realize about alcohol:</p>
-
-            <p><strong>Alcohol is a neurotoxin. And it doesn't actually increase serotonin.</strong></p>
-
-            <p>That warm, social feeling you get from a drink? It's not because alcohol is making you happier. It's because alcohol is a <em>depressant</em> that reduces your inhibitions through mild dissociation—essentially disconnecting you slightly from your social anxiety.</p>
-
-            <p>The problem is the dose-response curve:</p>
-
-            <ul>
-                <li>A little alcohol: slight reduction in inhibition</li>
-                <li>More alcohol: impaired judgment, slurred speech, sloppy behavior</li>
-                <li>The next day: depleted serotonin, anxiety, low mood, hangover</li>
-            </ul>
-
-            <p>And there's another problem: alcohol creates a crutch. As the night goes on, you need more and more to maintain the effect. Your compulsion to drink increases throughout the evening.</p>
 
             <div class="comparison-visual">
-                <div class="comparison-row">
-                    <div class="comparison-cell header"></div>
-                    <div class="comparison-cell header">Alcohol</div>
-                    <div class="comparison-cell header">BLISS</div>
+                <div class="comparison-card bad">
+                    <h3>🍷 Alcohol</h3>
+                    <ul>
+                        <li>Works via dissociation (disconnection)</li>
+                        <li>More = sloppy version of you</li>
+                        <li>Depletes serotonin</li>
+                        <li>Next day: anxious, low mood</li>
+                        <li>Creates increasing cravings</li>
+                        <li>Neurotoxic damage to liver</li>
+                    </ul>
                 </div>
-                <div class="comparison-row">
-                    <div class="comparison-cell feature">Mechanism</div>
-                    <div class="comparison-cell bad">Dissociation (disconnection)</div>
-                    <div class="comparison-cell good">Serotonin modulation</div>
+                <div class="comparison-card good">
+                    <h3>✨ BLISS</h3>
+                    <ul>
+                        <li>Works via serotonin modulation</li>
+                        <li>More = enhanced version of you</li>
+                        <li>Supports serotonin naturally</li>
+                        <li>Next day: clarity, no crash</li>
+                        <li>No compulsion to redose</li>
+                        <li>Zero toxicity</li>
+                    </ul>
                 </div>
-                <div class="comparison-row">
-                    <div class="comparison-cell feature">More = ?</div>
-                    <div class="comparison-cell bad">Sloppy version of you</div>
-                    <div class="comparison-cell good">Enhanced version of you</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Science -->
+    <section class="article-section bliss-bg">
+        <div class="section-inner">
+            <div class="section-header">
+                <h2>The Science of <em>Social Euphoria</em></h2>
+                <p>How BLISS actually works in your brain</p>
+            </div>
+
+            <div class="image-feature">
+                <img src="images/Bliss/Bliss_Image 4.jpg" alt="BLISS Science">
+            </div>
+
+            <div class="intro-text">
+                <p>BLISS focuses on <strong>two primary neurotransmitter systems</strong> that genuinely create the feeling of social connection:</p>
+            </div>
+
+            <div class="stats-row" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="stat-card">
+                    <div class="icon">😊</div>
+                    <div class="value">Serotonin</div>
+                    <div class="label">The "feel good" neurotransmitter. Makes you feel content, connected, emotionally open.</div>
                 </div>
-                <div class="comparison-row">
-                    <div class="comparison-cell feature">Next Day</div>
-                    <div class="comparison-cell bad">Depleted, anxious, low</div>
-                    <div class="comparison-cell good">Better clarity, no crash</div>
-                </div>
-                <div class="comparison-row">
-                    <div class="comparison-cell feature">Crutch Factor</div>
-                    <div class="comparison-cell bad">Need more as night goes</div>
-                    <div class="comparison-cell good">No compulsion to redose</div>
+                <div class="stat-card">
+                    <div class="icon">🚀</div>
+                    <div class="value">Dopamine</div>
+                    <div class="label">The "reward" neurotransmitter. Makes you feel motivated, engaged, rewarded.</div>
                 </div>
             </div>
 
-            <!-- Section 3: The Science -->
-            <h2 id="the-science">The Science of Social Euphoria</h2>
-
-            <p>So if alcohol doesn't actually boost serotonin, what does?</p>
-
-            <p>The BLISS formula focuses on <strong>two primary neurotransmitter systems</strong> that genuinely create the feeling of social connection and wellbeing:</p>
-
-            <h3>1. Serotonin: The "Feel Good" Neurotransmitter</h3>
-
-            <p>Serotonin is what makes you feel content, connected, and emotionally open. When serotonin is properly modulated:</p>
-
-            <ul>
-                <li>You feel a warm sense of wellbeing</li>
-                <li>Social connection comes easier</li>
-                <li>You communicate more fluidly</li>
-                <li>Agitation and frustration decrease</li>
-            </ul>
-
-            <p>The two star ingredients for serotonin modulation in BLISS are <strong>Saffron (Affron®)</strong> and <strong>Kanna (Zembrin®)</strong>. Together, Shawn Wells calls them "truly the serotonin boosters" that "get you into a happy state, a safer state."</p>
-
-            <h3>2. Dopamine: The "Reward" Neurotransmitter</h3>
-
-            <p>Dopamine is what makes you feel motivated, engaged, and rewarded. It's the "get up out of your seat" neurotransmitter. In social situations, healthy dopamine means:</p>
-
-            <ul>
-                <li>Motivation to engage and participate</li>
-                <li>Feeling rewarded by connection</li>
-                <li>Drive without anxiety</li>
-            </ul>
-
-            <h3>The Secret: Relaxed Alertness</h3>
-
-            <p>Here's what makes BLISS different from stimulants or depressants:</p>
-
-            <p>EEG studies on the Zembrin® ingredient show increased <strong>alpha-2 brain waves</strong>. This is the signature of what neuroscientists call "relaxed alertness"—the flow state where you're simultaneously:</p>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="value">↑</div>
-                    <div class="label">Stimulated & Alert</div>
-                </div>
-                <div class="stat-card">
-                    <div class="value">↑</div>
-                    <div class="label">Relaxed & Calm</div>
-                </div>
-                <div class="stat-card">
-                    <div class="value">=</div>
-                    <div class="label">Flow State</div>
+            <div class="fun-fact">
+                <div class="fun-fact-icon">🧘</div>
+                <div class="fun-fact-content">
+                    <h4>The Secret: Relaxed Alertness</h4>
+                    <p>EEG studies on Zembrin® (a key ingredient) show increased <strong>alpha-2 brain waves</strong>—the signature of the flow state where you're simultaneously stimulated AND relaxed. Present and energized, but not anxious or overstimulated.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <p>This is the ideal state for social situations: you're present and energized, but not anxious or overstimulated. Your brain thinks faster, moves faster, connects better—but in a safe, sustainable way.</p>
-
-            <!-- Inline CTA -->
+    <!-- Inline CTA -->
+    <section class="article-section" style="padding: 0;">
+        <div class="section-inner">
             <div class="inline-cta">
-                <h3>Ready to experience it yourself?</h3>
-                <p>Most people feel the effects within 1-2 hours. No prescription needed.</p>
-                <a href="bliss.html" class="cta-btn">
-                    <span>Try BLISS Today</span>
+                <h3>Ready to feel the difference?</h3>
+                <p>Most people notice effects within 1-2 hours. No prescription needed.</p>
+                <a href="bliss.html" class="btn">
+                    Try BLISS Today
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </a>
             </div>
-
         </div>
-    </article>
+    </section>
 
-    <!-- Ingredients Deep Dive (Full Width Dark Section) -->
-    <section class="ingredient-deep-dive" id="ingredients">
-        <div class="article-container">
-            <h2 style="font-size: 36px; text-align: center; margin-bottom: 16px;">The 6 Ingredients</h2>
-            <p style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 48px; font-size: 18px;">5 branded, clinically-validated compounds + 1 premium extract.<br>Every ingredient at clinical doses with individual validation and collective synergy.</p>
+    <!-- Ingredients Section -->
+    <section class="article-section dark">
+        <div class="section-inner">
+            <div class="section-header">
+                <h2>The 6 <em>Ingredients</em></h2>
+                <p>5 branded, clinically-validated compounds + 1 premium extract</p>
+            </div>
 
-            <!-- Affron -->
-            <div class="ingredient-card-large">
-                <div class="ingredient-header-large">
-                    <div class="ingredient-name-large">
-                        Affron® Saffron Extract
-                        <div class="subtitle">Your Emotional Glow</div>
+            <div class="ingredient-grid">
+                <!-- Affron -->
+                <div class="ingredient-card">
+                    <div class="ingredient-card-header">
+                        <div>
+                            <div class="ingredient-name">Affron® Saffron</div>
+                            <div class="ingredient-role">Your Emotional Glow ✨</div>
+                        </div>
+                        <div class="ingredient-dose">28mg</div>
                     </div>
-                    <div class="ingredient-dose-large">28mg</div>
-                </div>
-                <p class="ingredient-description">Saffron has been revered for thousands of years for its ability to give people an emotional glow—a heart-opening warmth that enhances special moments and deepens connections.</p>
-
-                <div class="fun-fact" style="background: rgba(245, 158, 11, 0.1); margin: 24px 0;">
-                    <div class="fun-fact-icon">💰</div>
-                    <div class="fun-fact-content">
-                        <p><strong>Fun fact:</strong> Saffron is actually more valuable than gold, pound for pound. It's one of the most expensive herbs in the world—yet incredibly powerful even at tiny doses.</p>
+                    <p class="ingredient-desc">Known for thousands of years to give people an emotional glow—a heart-opening warmth that enhances special moments.</p>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>72%</strong> mood improvement</div>
+                        <div class="ingredient-stat"><strong>53%</strong> low mood reduction</div>
+                    </div>
+                    <div class="feels-like">
+                        <div class="feels-like-label">Feels Like</div>
+                        <p>A warm internal "yes." Emotional openness, bonding, affection. Like your heart is more open.</p>
                     </div>
                 </div>
 
-                <div class="ingredient-stats-row">
-                    <div class="ingredient-stat-pill"><strong>72%</strong> experience mood improvement</div>
-                    <div class="ingredient-stat-pill"><strong>53%</strong> reduction in low mood symptoms</div>
+                <!-- Zembrin (Hero) -->
+                <div class="ingredient-card hero">
+                    <div class="ingredient-card-header">
+                        <div>
+                            <div class="ingredient-name">Zembrin® Kanna ⭐</div>
+                            <div class="ingredient-role">Your Calm Confidence (Hero Ingredient)</div>
+                        </div>
+                        <div class="ingredient-dose">25mg</div>
+                    </div>
+                    <p class="ingredient-desc">The calm confidence and social ease factor. EEG studies show increased alpha-2 waves—the signature of "relaxed alertness." You're stimulated AND relaxed simultaneously.</p>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>24-25%</strong> executive function↑</div>
+                        <div class="ingredient-stat"><strong>24-25%</strong> cognitive flexibility↑</div>
+                        <div class="ingredient-stat"><strong>α2</strong> brain waves (flow state)</div>
+                    </div>
+                    <div class="feels-like">
+                        <div class="feels-like-label">Feels Like</div>
+                        <p>Lower social inhibition—easier to connect. Mental adaptability. Follow conversations, switch topics, be witty. More approachable. Less overthinking.</p>
+                    </div>
                 </div>
-                <div class="feels-like-box">
-                    <div class="label">What It Feels Like</div>
-                    <p>A warm internal "yes." Emotional openness, a sense of bonding and affection. An increased ability to appreciate special moments. Like your heart is more open.</p>
+
+                <!-- Paraxanthine -->
+                <div class="ingredient-card">
+                    <div class="ingredient-card-header">
+                        <div>
+                            <div class="ingredient-name">enfinity® Paraxanthine</div>
+                            <div class="ingredient-role">Your Bright Social Energy ⚡</div>
+                        </div>
+                        <div class="ingredient-dose">100mg</div>
+                    </div>
+                    <p class="ingredient-desc">Caffeine's active metabolite without the downsides. Increases both serotonin AND dopamine. Key fact: caffeine increases mental errors; paraxanthine decreases them.</p>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>Dopamine</strong> + Serotonin↑</div>
+                        <div class="ingredient-stat"><strong>Zero</strong> crash</div>
+                    </div>
+                    <div class="feels-like">
+                        <div class="feels-like-label">Feels Like</div>
+                        <p>Clean social energy. Motivation to talk, laugh, engage. Faster mental processing. Elevated mood without feeling wired.</p>
+                    </div>
+                </div>
+
+                <!-- Synapsa -->
+                <div class="ingredient-card">
+                    <div class="ingredient-card-header">
+                        <div>
+                            <div class="ingredient-name">Synapsa® Bacopa</div>
+                            <div class="ingredient-role">Your Conversational Flow 💬</div>
+                        </div>
+                        <div class="ingredient-dose">320mg</div>
+                    </div>
+                    <p class="ingredient-desc">Mental fluidity and verbal fluency—being the best version of yourself. Improved working memory, processing speed, recall.</p>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>Memory</strong> retrieval↑</div>
+                        <div class="ingredient-stat"><strong>Processing</strong> speed↑</div>
+                    </div>
+                    <div class="feels-like">
+                        <div class="feels-like-label">Feels Like</div>
+                        <p>Easier conversation flow. Better recall of names, stories, jokes. Not searching for words. Mentally "on point."</p>
+                    </div>
+                </div>
+
+                <!-- CurcuPrime -->
+                <div class="ingredient-card">
+                    <div class="ingredient-card-header">
+                        <div>
+                            <div class="ingredient-name">CurcuPrime®</div>
+                            <div class="ingredient-role">Your Emotional Smoother 🛡️</div>
+                        </div>
+                        <div class="ingredient-dose">250mg</div>
+                    </div>
+                    <p class="ingredient-desc">The stabilizer that makes BLISS feel smoother. Reduces neuroinflammation, increases BDNF for neuroplasticity.</p>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>↓</strong> Neuroinflammation</div>
+                        <div class="ingredient-stat"><strong>↑</strong> BDNF</div>
+                    </div>
+                    <div class="feels-like">
+                        <div class="feels-like-label">Feels Like</div>
+                        <p>Reduced emotional friction. Cleaner headspace. Less barrier between you and others.</p>
+                    </div>
+                </div>
+
+                <!-- Nobiletin -->
+                <div class="ingredient-card">
+                    <div class="ingredient-card-header">
+                        <div>
+                            <div class="ingredient-name">Nobiletin</div>
+                            <div class="ingredient-role">Your Cognitive Clarity 🔮</div>
+                        </div>
+                        <div class="ingredient-dose">50mg</div>
+                    </div>
+                    <p class="ingredient-desc">The "brain buffer" protecting cognitive clarity. Improves recognition, supports circadian rhythms and dopamine balance.</p>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>Recognition</strong> improved</div>
+                        <div class="ingredient-stat"><strong>Circadian</strong> support</div>
+                    </div>
+                    <div class="feels-like">
+                        <div class="feels-like-label">Feels Like</div>
+                        <p>Better next-day clarity. Less mental fatigue. More consistent mood.</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Zembrin (Hero) -->
-            <div class="ingredient-card-large hero-ingredient">
-                <div class="hero-badge">⭐ Hero Ingredient</div>
-                <div class="ingredient-header-large">
-                    <div class="ingredient-name-large">
-                        Zembrin® Kanna Extract
-                        <div class="subtitle">Your Calm Confidence</div>
-                    </div>
-                    <div class="ingredient-dose-large">25mg</div>
-                </div>
-                <p class="ingredient-description">Zembrin is what Shawn Wells calls "maybe the most important ingredient" in the formula. It's the calm confidence and social ease factor—reducing social agitation while enhancing cognitive flexibility.</p>
-                <p class="ingredient-description">EEG studies show Zembrin increases alpha-2 brain waves—the signature of "relaxed alertness." You're stimulated AND relaxed simultaneously. This is the flow state.</p>
-                <div class="ingredient-stats-row">
-                    <div class="ingredient-stat-pill"><strong>24-25%</strong> increase in executive function</div>
-                    <div class="ingredient-stat-pill"><strong>24-25%</strong> increase in cognitive flexibility</div>
-                    <div class="ingredient-stat-pill"><strong>α2</strong> brain wave increase (flow state)</div>
-                </div>
-                <div class="feels-like-box">
-                    <div class="label">What It Feels Like</div>
-                    <p>Lower social inhibition—it's easier to connect. Mental adaptability—you can follow conversations, switch topics, be witty. Reduced overthinking. You're more approachable and open. Like the barrier between you and others has dissolved.</p>
-                </div>
-            </div>
-
-            <!-- Paraxanthine -->
-            <div class="ingredient-card-large">
-                <div class="ingredient-header-large">
-                    <div class="ingredient-name-large">
-                        enfinity® Paraxanthine
-                        <div class="subtitle">Your Bright Social Energy</div>
-                    </div>
-                    <div class="ingredient-dose-large">100mg</div>
-                </div>
-                <p class="ingredient-description">Paraxanthine is caffeine's active metabolite—but without the downsides. It improves working memory, reaction time, and sustained attention. Importantly, it increases both serotonin AND dopamine.</p>
-                <p class="ingredient-description">Here's a key difference: <strong>caffeine increases mental errors. Paraxanthine decreases them.</strong> You get clean energy and motivation without jitters or crash.</p>
-                <div class="ingredient-stats-row">
-                    <div class="ingredient-stat-pill"><strong>Dopamine</strong> + Serotonin increase</div>
-                    <div class="ingredient-stat-pill"><strong>Zero</strong> crash or jitters</div>
-                    <div class="ingredient-stat-pill"><strong>↓</strong> Mental errors (vs caffeine ↑)</div>
-                </div>
-                <div class="feels-like-box">
-                    <div class="label">What It Feels Like</div>
-                    <p>Clean, social energy. Motivation to talk, laugh, and engage. Faster mental processing for quick conversation. Elevated mood and approachability—without feeling wired or anxious.</p>
-                </div>
-            </div>
-
-            <!-- Synapsa -->
-            <div class="ingredient-card-large">
-                <div class="ingredient-header-large">
-                    <div class="ingredient-name-large">
-                        Synapsa® Bacopa
-                        <div class="subtitle">Your Conversational Flow</div>
-                    </div>
-                    <div class="ingredient-dose-large">320mg</div>
-                </div>
-                <p class="ingredient-description">Synapsa is about mental fluidity and verbal fluency—being the best version of yourself when you show up with friends. It's been shown to improve working memory, processing speed, learning rate, and recall while reducing cognitive fatigue.</p>
-                <div class="ingredient-stats-row">
-                    <div class="ingredient-stat-pill"><strong>Memory</strong> retrieval improved</div>
-                    <div class="ingredient-stat-pill"><strong>Processing</strong> speed increased</div>
-                    <div class="ingredient-stat-pill"><strong>↓</strong> Cognitive fatigue</div>
-                </div>
-                <div class="feels-like-box">
-                    <div class="label">What It Feels Like</div>
-                    <p>Easier conversation flow. Better recall of names, stories, and jokes. Smoother transitions in conversation—you're not searching for words or ideas. You just feel mentally "on point."</p>
-                </div>
-            </div>
-
-            <!-- CurcuPrime -->
-            <div class="ingredient-card-large">
-                <div class="ingredient-header-large">
-                    <div class="ingredient-name-large">
-                        CurcuPrime® Tetrahydrocurcumin
-                        <div class="subtitle">Your Emotional Smoother</div>
-                    </div>
-                    <div class="ingredient-dose-large">250mg</div>
-                </div>
-                <p class="ingredient-description">CurcuPrime isn't meant to be the star—it's the stabilizer. It makes the BLISS experience feel smoother, richer, and more grounded by reducing neuroinflammation (which most people have from stress, poor sleep, or alcohol exposure).</p>
-                <p class="ingredient-description">It also inhibits acetylcholinesterase (allowing better attention flow) and increases BDNF for enhanced neuroplasticity.</p>
-                <div class="ingredient-stats-row">
-                    <div class="ingredient-stat-pill"><strong>↓</strong> Neuroinflammation</div>
-                    <div class="ingredient-stat-pill"><strong>↑</strong> BDNF (neuroplasticity)</div>
-                    <div class="ingredient-stat-pill"><strong>↑</strong> Acetylcholine</div>
-                </div>
-                <div class="feels-like-box">
-                    <div class="label">What It Feels Like</div>
-                    <p>Reduced emotional friction. A cleaner headspace. More consistent positivity. Enhanced receptivity to social connection—like there's less of a barrier between you and others.</p>
-                </div>
-            </div>
-
-            <!-- Nobiletin -->
-            <div class="ingredient-card-large">
-                <div class="ingredient-header-large">
-                    <div class="ingredient-name-large">
-                        Nobiletin
-                        <div class="subtitle">Your Cognitive Clarity</div>
-                    </div>
-                    <div class="ingredient-dose-large">50mg</div>
-                </div>
-                <p class="ingredient-description">Nobiletin is the "brain buffer" protecting cognitive clarity. It's a citrus flavonoid that improves working memory, recognition (of people, places, things), and overall cognitive function while supporting healthy circadian rhythms.</p>
-                <div class="ingredient-stats-row">
-                    <div class="ingredient-stat-pill"><strong>Recognition</strong> improved</div>
-                    <div class="ingredient-stat-pill"><strong>Circadian</strong> rhythm support</div>
-                    <div class="ingredient-stat-pill"><strong>Dopamine</strong> balance</div>
-                </div>
-                <div class="feels-like-box">
-                    <div class="label">What It Feels Like</div>
-                    <p>Better next-day clarity. Less mental fatigue. More consistent mood throughout the evening and the following morning. A sense of cognitive protection.</p>
+            <div class="fun-fact" style="background: rgba(245, 158, 11, 0.1); border-color: var(--bliss-color); margin-top: 48px;">
+                <div class="fun-fact-icon">💰</div>
+                <div class="fun-fact-content">
+                    <h4 style="color: var(--bliss-color);">Fun Fact About Saffron</h4>
+                    <p style="color: rgba(255,255,255,0.8);">Saffron is actually more valuable than gold, pound for pound. It's one of the most expensive herbs in the world—yet incredibly powerful even at tiny doses.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Synergy Section -->
-    <section class="synergy-section" id="synergy">
-        <div class="article-container">
-            <h2 style="font-size: 36px; text-align: center; margin-bottom: 16px;">How They Work <span style="color: var(--bliss-color);">Together</span></h2>
-            <p style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 48px; font-size: 18px;">The magic isn't just in the individual ingredients—it's in how they synergize.</p>
-
-            <div class="synergy-card">
-                <div class="synergy-header">
-                    <div class="synergy-number">1</div>
-                    <div class="synergy-title">Enthusiastic Happy Energy</div>
-                </div>
-                <div class="synergy-formula">
-                    <div class="synergy-ingredient">Paraxanthine</div>
-                    <div class="synergy-plus">+</div>
-                    <div class="synergy-ingredient">Saffron</div>
-                    <div class="synergy-equals">=</div>
-                    <div class="synergy-result">Social Enthusiasm</div>
-                </div>
-                <p style="color: rgba(255,255,255,0.8); text-align: center;">Paraxanthine increases motivation and alertness. Saffron increases emotional positivity. Together, they create enthusiastic, happy energy—ideal for socializing.</p>
+    <section class="article-section alt">
+        <div class="section-inner">
+            <div class="section-header">
+                <h2>How They <em>Synergize</em></h2>
+                <p>The magic is in how these ingredients work together</p>
             </div>
 
-            <div class="synergy-card">
-                <div class="synergy-header">
-                    <div class="synergy-number">2</div>
-                    <div class="synergy-title">Confident Drive Without Anxiety</div>
+            <div class="synergy-grid">
+                <div class="synergy-card">
+                    <div class="synergy-icon pulse-icon">🔥</div>
+                    <h4>Enthusiastic Happy Energy</h4>
+                    <div class="synergy-formula">
+                        <span class="synergy-pill">Paraxanthine</span>
+                        <span class="synergy-plus">+</span>
+                        <span class="synergy-pill">Saffron</span>
+                    </div>
+                    <p>Motivation meets emotional positivity. Creates enthusiastic, happy energy—ideal for socializing.</p>
                 </div>
-                <div class="synergy-formula">
-                    <div class="synergy-ingredient">Zembrin</div>
-                    <div class="synergy-plus">+</div>
-                    <div class="synergy-ingredient">Paraxanthine</div>
-                    <div class="synergy-equals">=</div>
-                    <div class="synergy-result">Calm Confidence</div>
+                <div class="synergy-card">
+                    <div class="synergy-icon pulse-icon">💪</div>
+                    <h4>Confident Drive</h4>
+                    <div class="synergy-formula">
+                        <span class="synergy-pill">Zembrin</span>
+                        <span class="synergy-plus">+</span>
+                        <span class="synergy-pill">Paraxanthine</span>
+                    </div>
+                    <p>Prevents overstimulation while giving you that uplift. Confidence without the edge.</p>
                 </div>
-                <p style="color: rgba(255,255,255,0.8); text-align: center;">Zembrin prevents overstimulation and reduces social agitation. Paraxanthine gives you that uplift—increased dopamine, serotonin, acetylcholine. Together: confident drive without the edge.</p>
-            </div>
-
-            <div class="synergy-card">
-                <div class="synergy-header">
-                    <div class="synergy-number">3</div>
-                    <div class="synergy-title">Dissolved Internal Tension</div>
+                <div class="synergy-card">
+                    <div class="synergy-icon pulse-icon">🤝</div>
+                    <h4>Easy Connection</h4>
+                    <div class="synergy-formula">
+                        <span class="synergy-pill">Zembrin</span>
+                        <span class="synergy-plus">+</span>
+                        <span class="synergy-pill">CurcuPrime</span>
+                    </div>
+                    <p>Dramatic reduction in internal tension. Easier laughter and deeper connection.</p>
                 </div>
-                <div class="synergy-formula">
-                    <div class="synergy-ingredient">Zembrin</div>
-                    <div class="synergy-plus">+</div>
-                    <div class="synergy-ingredient">CurcuPrime</div>
-                    <div class="synergy-equals">=</div>
-                    <div class="synergy-result">Easy Connection</div>
-                </div>
-                <p style="color: rgba(255,255,255,0.8); text-align: center;">Zembrin reduces agitation via PDE4 and serotonin mechanisms. CurcuPrime reduces neuroinflammatory threat signaling. Together: a dramatic reduction in internal tension, resulting in easier laughter and connection.</p>
             </div>
         </div>
     </section>
 
     <!-- Protocol Section -->
-    <section class="protocol-section" id="protocol">
-        <div class="article-container">
-            <h2 style="font-size: 36px; text-align: center; margin-bottom: 16px; color: var(--text-primary);">The BLISS Protocol</h2>
-            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 16px; font-size: 18px;">How to use BLISS for maximum benefit</p>
-
-            <div class="highlight-box gold" style="max-width: 600px; margin: 0 auto 40px;">
-                <h4 style="margin-bottom: 12px;"><span class="icon">💡</span> Pro Tip from Shawn Wells</h4>
-                <p style="font-size: 16px; color: var(--text-secondary); margin: 0;">The 100mg paraxanthine dose was intentionally set lower to allow for double-dosing. <strong>Double the dose doubles the effect</strong>—even more warmth, connection, and cognitive flexibility. Unlike alcohol where more = sloppy, with BLISS more = enhanced.</p>
+    <section class="article-section">
+        <div class="section-inner">
+            <div class="section-header">
+                <h2>The BLISS <em>Protocol</em></h2>
+                <p>How to use BLISS for maximum benefit</p>
             </div>
 
             <div class="protocol-grid">
                 <div class="protocol-card">
                     <div class="protocol-icon">💊</div>
-                    <div class="protocol-title">Standard Dose</div>
-                    <div class="protocol-desc">1 serving for everyday mood lift, casual socializing, or brightening a regular day.</div>
+                    <h4>Standard Dose</h4>
+                    <p>1 serving for everyday mood lift, casual socializing, or brightening a regular day.</p>
                 </div>
-                <div class="protocol-card recommended">
+                <div class="protocol-card featured">
                     <div class="protocol-icon">💊💊</div>
-                    <div class="protocol-title">Double Dose</div>
-                    <div class="protocol-desc">2 servings for parties, dates, special events, or whenever you want maximum social effect.</div>
+                    <h4>Double Dose</h4>
+                    <p>2 servings for parties, dates, special events, or whenever you want maximum social effect.</p>
                 </div>
             </div>
 
-            <div class="highlight-box" style="margin-top: 40px;">
-                <h4><span class="icon">⏱️</span> Timing</h4>
-                <p style="font-size: 16px; color: var(--text-secondary); margin-bottom: 0;">Take BLISS <strong>1-2 hours before</strong> your social event. The Zembrin is clinically shown to begin working within 2 hours, producing relaxed alertness. Effects last several hours without a crash.</p>
+            <div class="fun-fact">
+                <div class="fun-fact-icon">💡</div>
+                <div class="fun-fact-content">
+                    <h4>Pro Tip from Shawn Wells</h4>
+                    <p>The 100mg paraxanthine dose was intentionally set lower to allow for double-dosing. <strong>Double the dose doubles the effect</strong>—even more warmth, connection, and cognitive flexibility. Unlike alcohol where more = sloppy, with BLISS more = enhanced.</p>
+                </div>
             </div>
 
-            <div class="highlight-box" style="margin-top: 24px;">
-                <h4><span class="icon">🍷</span> Can I Still Drink?</h4>
-                <p style="font-size: 16px; color: var(--text-secondary); margin-bottom: 0;">There's no conflict if you want to have a drink or two. But here's what most users find: <strong>the need to drink as a crutch simply isn't there anymore.</strong> Your compulsion to drink, even if alcohol has been your go-to social lubricant, is greatly reduced. Most people who use BLISS don't feel the need to have drinks at all.</p>
+            <div class="pull-quote">
+                <p>I used to have a bar in my home. I'd mix cocktails for friends when they came over. Now with BLISS, we take BLISS pills, so we are joyful, we are connected... and then I make tea for them. It's changed culturally how I interact with friends.</p>
+                <div class="pull-quote-author">
+                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-10-21_at_3.49.01_PM.png?v=1761032958&width=96" alt="Vishen Lakhiani">
+                    <div>
+                        <strong>Vishen Lakhiani</strong>
+                        <span>Mindvalley Founder</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Back to article content -->
-    <article class="article-content">
-        <div class="article-container">
-
-            <h2 id="who-its-for">Is BLISS Right For You?</h2>
-
-            <p>BLISS was designed for a specific kind of person—someone who wants to show up as the best version of themselves in social situations, without relying on substances that harm their health or impair their judgment.</p>
-
-            <p><strong>BLISS might be right for you if:</strong></p>
-
-            <ul>
-                <li>You want the social benefits of alcohol without the health costs</li>
-                <li>You sometimes feel a slight barrier between yourself and others in social situations</li>
-                <li>You want to be more present, witty, and connected in conversations</li>
-                <li>You're tired of hangovers, brain fog, and next-day regret</li>
-                <li>You value your health and cognitive performance</li>
-                <li>You want to host gatherings differently—connection over intoxication</li>
-            </ul>
-
-            <div class="pull-quote">
-                <p>"I used to have a bar in my home. I'd mix cocktails for my friends when they came over. Now with BLISS, when I have friends over, we take BLISS pills, so we are joyful, we are connected... and then I make tea for them. It's changed culturally how I interact with friends."</p>
-                <cite>— Vishen Lakhiani, Mindvalley Founder</cite>
+    <!-- Final Section -->
+    <section class="article-section alt">
+        <div class="section-inner">
+            <div class="section-header">
+                <h2>The <em>Bottom Line</em></h2>
             </div>
 
-            <h3>The Bottom Line</h3>
+            <div class="intro-text" style="text-align: center; max-width: 700px; margin: 0 auto;">
+                <p>BLISS isn't about escaping reality or numbing yourself. It's the opposite—it's about being <em>more</em> present, <em>more</em> connected, <em>more</em> yourself.</p>
 
-            <p>BLISS isn't about escaping reality or numbing yourself. It's the opposite—it's about being <em>more</em> present, <em>more</em> connected, <em>more</em> yourself.</p>
+                <p style="font-size: 28px; font-weight: 700; color: var(--bliss-dark);">It's you, but turned up.</p>
 
-            <p>It's you, but turned up.</p>
+                <p>The world feels lighter. People feel closer. And you wake up the next day not just fine, but potentially better than before.</p>
+            </div>
 
-            <p>The world feels lighter. People feel closer. And you wake up the next day not just fine, but potentially better than before.</p>
-
-            <p>That's the promise of a social euphoric neurostack built on real science, clinical doses, and ingredients that work with your brain instead of against it.</p>
-
+            <div class="image-feature" style="margin-top: 48px;">
+                <img src="images/Bliss/Bliss_Image 6.jpg" alt="BLISS Experience">
+            </div>
         </div>
-    </article>
+    </section>
 
-    <!-- Final CTA -->
-    <section class="final-cta">
-        <div class="article-container">
-            <h2>Ready to Try <span>BLISS</span>?</h2>
-            <p>Experience social euphoria backed by science. 60-day money-back guarantee—if you don't love it, you pay nothing.</p>
-            <div class="price">$49</div>
-            <div class="price-note">30 servings · $1.63 per experience</div>
-            <a href="bliss.html" class="cta-btn-large">
-                <span>Get BLISS Now</span>
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Try BLISS?</h2>
+            <p>Experience social euphoria backed by science. 60-day money-back guarantee.</p>
+            <a href="bliss.html" class="cta-btn">
+                Get BLISS Now — $49
                 <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
-            <div class="guarantee-badges">
-                <div class="guarantee-badge">
+            <div class="cta-guarantees">
+                <div class="cta-guarantee">
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
                     60-Day Money Back
                 </div>
-                <div class="guarantee-badge">
+                <div class="cta-guarantee">
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
                     Free US Shipping
                 </div>
-                <div class="guarantee-badge">
+                <div class="cta-guarantee">
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
                     5 Branded Ingredients
                 </div>
@@ -1364,10 +1137,18 @@
     </section>
 
     <!-- Footer -->
-    <footer class="article-footer">
-        <div class="logo">Mindvalley<span>States</span></div>
-        <p>&copy; 2025 Mindvalley States. All rights reserved.</p>
-        <p style="margin-top: 8px;"><a href="bliss.html">BLISS Product Page</a> · <a href="mockup.html">All Products</a></p>
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-logo">Mindvalley<span>States</span></div>
+            <div class="footer-links">
+                <a href="mockup.html">All Products</a>
+                <a href="bliss.html">BLISS</a>
+                <a href="focus.html">FOCUS</a>
+                <a href="zen.html">ZEN</a>
+                <a href="testimonials.html">Reviews</a>
+            </div>
+            <p class="footer-copy">&copy; 2025 Mindvalley States. All rights reserved.</p>
+        </div>
     </footer>
 
     <!-- Reading Progress Script -->
