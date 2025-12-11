@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audience Research Framework | Mindvalley Entrepreneurship Mastery</title>
+    <meta name="description" content="Questions, interview guides, and AI prompts to deeply understand your audience before creating your lead magnet.">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+
+    <!-- Mindvalley Fonts -->
+    <link rel="preconnect" href="https://storyblok-assets.mindvalley.com">
+    <style>
+        @font-face {
+            font-display: swap;
+            font-family: 'Grotesk-Regular';
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBook-19.ed0b68c.woff2) format("woff2");
+        }
+        @font-face {
+            font-display: swap;
+            font-family: 'Grotesk-Medium';
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrMedium-20.36349e7.woff2) format("woff2");
+        }
+        @font-face {
+            font-display: swap;
+            font-family: 'Grotesk-Bold';
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrSmBold-21.2e6314a.woff2) format("woff2");
+        }
+        @font-face {
+            font-display: swap;
+            font-family: 'Grotesk-Bold-16';
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBold-16.d5a4b9e.woff2) format("woff2");
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --mv-brand-purple: #7a12d4;
+            --mv-brand-purple-light: #ba62fd;
+            --mv-success: #10b981;
+            --mv-warning: #f59e0b;
+            --mv-dark: #0f131a;
+            --mv-gray: #6b7280;
+            --mv-light-bg: #f9fafb;
+            --mv-border: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Grotesk-Regular', -apple-system, sans-serif;
+            line-height: 1.7;
+            color: var(--mv-dark);
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--mv-brand-purple) 0%, #fb00ff 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-family: 'Grotesk-Bold-16', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Back Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--mv-brand-purple);
+            text-decoration: none;
+            font-family: 'Grotesk-Medium', sans-serif;
+            margin-bottom: 2rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Section */
+        .section {
+            background: white;
+            border: 1px solid var(--mv-border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-number {
+            background: var(--mv-brand-purple);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 1rem;
+            margin-right: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 1.5rem;
+            color: var(--mv-dark);
+            display: inline;
+            vertical-align: middle;
+        }
+
+        .section-desc {
+            color: var(--mv-gray);
+            margin: 1rem 0 1.5rem 0;
+        }
+
+        h3 {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 1.2rem;
+            color: var(--mv-dark);
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        /* Question List */
+        .question-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .question-list li {
+            padding: 0.875rem 1rem;
+            margin: 0.5rem 0;
+            background: var(--mv-light-bg);
+            border-radius: 8px;
+            border-left: 3px solid var(--mv-brand-purple);
+        }
+
+        .question-list li strong {
+            color: var(--mv-brand-purple);
+        }
+
+        /* Prompt Block */
+        .prompt-block {
+            background: var(--mv-dark);
+            color: #e5e7eb;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .prompt-label {
+            display: inline-block;
+            background: var(--mv-brand-purple);
+            color: white;
+            padding: 0.3rem 0.75rem;
+            border-radius: 6px;
+            font-family: 'Grotesk-Medium', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(122, 18, 212, 0.08) 0%, rgba(251, 0, 255, 0.08) 100%);
+            border-left: 4px solid var(--mv-brand-purple);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box.success {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border-left-color: var(--mv-success);
+        }
+
+        .highlight-box.warning {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border-left-color: var(--mv-warning);
+        }
+
+        /* Form Input */
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--mv-border);
+            border-radius: 8px;
+            font-family: 'Grotesk-Regular', sans-serif;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--mv-brand-purple);
+        }
+
+        textarea.form-input {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Two Column */
+        .two-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Card */
+        .card {
+            background: var(--mv-light-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-family: 'Grotesk-Bold', sans-serif;
+            font-size: 1rem;
+            color: var(--mv-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        /* Print Button */
+        .print-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--mv-brand-purple);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Grotesk-Medium', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        .print-button:hover {
+            background: #6a0fc0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--mv-dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            color: var(--mv-gray);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--mv-brand-purple-light);
+            text-decoration: none;
+        }
+
+        /* Print Styles */
+        @media print {
+            .header {
+                background: var(--mv-brand-purple) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .back-link, .print-button, footer {
+                display: none;
+            }
+
+            .section {
+                break-inside: avoid;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>Audience Research Framework</h1>
+        <p>Understand your audience deeply before creating anything</p>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Session Guide</a>
+
+        <!-- Why Research Matters -->
+        <div class="section">
+            <span class="section-number">1</span>
+            <h2 class="section-title">Why Research Matters</h2>
+            <p class="section-desc">Skip this step and your lead magnet will feel generic. Do it right and your copy practically writes itself.</p>
+
+            <div class="highlight-box success">
+                <p style="margin: 0;"><strong>The goal:</strong> Know your audience so well that when they read your landing page, they think "This was written for ME."</p>
+            </div>
+
+            <h3>What You Need to Discover:</h3>
+            <ul class="question-list">
+                <li><strong>Pain Points:</strong> What problems keep them awake at night?</li>
+                <li><strong>Desires:</strong> What transformation do they dream about?</li>
+                <li><strong>Objections:</strong> Why haven't they solved this problem yet?</li>
+                <li><strong>Language:</strong> What exact words and phrases do they use?</li>
+                <li><strong>Failed Solutions:</strong> What have they already tried that didn't work?</li>
+            </ul>
+        </div>
+
+        <!-- Method 1: Direct Research -->
+        <div class="section">
+            <span class="section-number">2</span>
+            <h2 class="section-title">Method 1: Direct Research</h2>
+            <p class="section-desc">Nothing beats talking to real people. Even 5-10 conversations can transform your understanding.</p>
+
+            <h3>Customer Interview Questions:</h3>
+            <ul class="question-list">
+                <li><strong>Before working with you:</strong> "What was happening in your life when you decided to seek help with [topic]?"</li>
+                <li><strong>The trigger:</strong> "What was the final straw that made you take action?"</li>
+                <li><strong>Failed attempts:</strong> "What had you already tried before that didn't work?"</li>
+                <li><strong>The search:</strong> "How did you look for solutions? What did you search for?"</li>
+                <li><strong>Hesitations:</strong> "What almost stopped you from [signing up/buying]?"</li>
+                <li><strong>The outcome:</strong> "How would you describe the transformation you experienced?"</li>
+                <li><strong>In their words:</strong> "If you were recommending this to a friend, how would you describe it?"</li>
+            </ul>
+
+            <div class="highlight-box warning">
+                <p style="margin: 0;"><strong>Pro tip:</strong> Record these conversations (with permission). The exact phrases they use become your copy.</p>
+            </div>
+
+            <h3>Write Down Key Phrases:</h3>
+            <textarea class="form-input" placeholder="Copy exact quotes from customer conversations here. These become your headline and bullet point copy."></textarea>
+        </div>
+
+        <!-- Method 2: Review Mining -->
+        <div class="section">
+            <span class="section-number">3</span>
+            <h2 class="section-title">Method 2: Review Mining</h2>
+            <p class="section-desc">Your competitors' customers have already told you what they want. You just need to find it.</p>
+
+            <h3>Where to Find Reviews:</h3>
+            <div class="two-col">
+                <div class="card">
+                    <div class="card-title">Amazon Reviews</div>
+                    <p>Search for books in your niche. Read 3-star reviews (balanced feedback) and 5-star reviews (what they loved).</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Course Platforms</div>
+                    <p>Udemy, Skillshare, Coursera. See what students praise and complain about in similar courses.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Reddit & Forums</div>
+                    <p>Find subreddits about your topic. Look for "help me" and "finally figured out" posts.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">YouTube Comments</div>
+                    <p>Popular videos in your niche. Comments reveal questions, frustrations, and "aha" moments.</p>
+                </div>
+            </div>
+
+            <h3>What to Look For:</h3>
+            <ul class="question-list">
+                <li><strong>Pain language:</strong> "I was struggling with...", "I couldn't figure out...", "I was frustrated by..."</li>
+                <li><strong>Desire language:</strong> "I wanted to...", "I wished I could...", "My dream was..."</li>
+                <li><strong>Objection language:</strong> "I was worried that...", "I almost didn't because...", "I hesitated because..."</li>
+                <li><strong>Transformation language:</strong> "Now I...", "Finally I...", "This changed..."</li>
+            </ul>
+
+            <div class="prompt-label">AI Prompt: Analyze Reviews</div>
+            <div class="prompt-block">I'm going to paste reviews from [PRODUCT/BOOK] in my niche: [YOUR NICHE].
+
+Analyze these reviews and extract:
+1. Top 5 pain points mentioned (with exact quotes)
+2. Top 5 desired outcomes (with exact quotes)
+3. Common objections or hesitations
+4. Language patterns and phrases they use repeatedly
+5. What they wish was different or better
+
+Here are the reviews:
+[PASTE REVIEWS HERE]</div>
+        </div>
+
+        <!-- Method 3: AI Research -->
+        <div class="section">
+            <span class="section-number">4</span>
+            <h2 class="section-title">Method 3: AI-Assisted Research</h2>
+            <p class="section-desc">Use AI to synthesize and expand your research. But remember: AI works best when you feed it real data first.</p>
+
+            <div class="prompt-label">Deep Audience Analysis Prompt</div>
+            <div class="prompt-block">I need to deeply understand my target audience for my lead magnet.
+
+MY BUSINESS: [Describe your business/offer]
+MY NICHE: [Your specific niche]
+MY IDEAL CUSTOMER: [Basic demographics and situation]
+
+Help me understand this audience by answering:
+
+1. PAIN POINTS
+- What are the top 5 daily frustrations they experience?
+- What keeps them awake at 3am?
+- What do they complain about to friends?
+
+2. DESIRES
+- What does their ideal life look like?
+- What transformation do they dream about?
+- What would they pay almost anything to achieve?
+
+3. OBJECTIONS
+- Why haven't they solved this problem yet?
+- What have they tried that didn't work?
+- What are they afraid of?
+
+4. LANGUAGE
+- What phrases do they use to describe their problem?
+- What words resonate with them?
+- What do they call themselves?
+
+5. BUYING TRIGGERS
+- What would make them say "I need this NOW"?
+- What external events might trigger them to seek help?
+- What proof would convince them to trust me?
+
+Be specific. Give me real examples of thoughts that go through their head, written in first person as if they're speaking.</div>
+
+            <div class="prompt-label">Validate Your Assumptions Prompt</div>
+            <div class="prompt-block">I've made some assumptions about my target audience. Help me validate or challenge these.
+
+MY ASSUMPTIONS:
+- Pain point: [What you think their main problem is]
+- Desire: [What you think they want]
+- Objection: [What you think holds them back]
+- Failed solutions: [What you think they've already tried]
+
+Questions:
+1. Are these assumptions accurate for this audience?
+2. What am I missing or getting wrong?
+3. What nuances should I consider?
+4. Are there segments within this audience I should target differently?
+
+Audience: [Describe your audience]
+Niche: [Your niche]</div>
+        </div>
+
+        <!-- Method 4: Competitive Analysis -->
+        <div class="section">
+            <span class="section-number">5</span>
+            <h2 class="section-title">Method 4: Competitive Analysis</h2>
+            <p class="section-desc">See what's working for others in your space. Not to copy—to understand what resonates.</p>
+
+            <h3>Analyze Competitor Lead Magnets:</h3>
+            <ul class="question-list">
+                <li><strong>Headline:</strong> What promise are they making?</li>
+                <li><strong>Format:</strong> What type of lead magnet (quiz, eBook, webinar)?</li>
+                <li><strong>Value proposition:</strong> What specific outcome do they promise?</li>
+                <li><strong>Social proof:</strong> What credibility indicators do they use?</li>
+                <li><strong>CTA:</strong> What language do they use on buttons?</li>
+            </ul>
+
+            <div class="prompt-label">Competitive Analysis Prompt</div>
+            <div class="prompt-block">I want to analyze competitor lead magnets in my niche.
+
+Here are 3 competitor landing pages I've found:
+1. [PASTE URL OR DESCRIBE PAGE 1]
+2. [PASTE URL OR DESCRIBE PAGE 2]
+3. [PASTE URL OR DESCRIBE PAGE 3]
+
+Analyze each one and tell me:
+1. What promise/transformation are they offering?
+2. What pain points are they addressing?
+3. What makes their offer compelling (or not)?
+4. What social proof do they use?
+5. What can I do BETTER or DIFFERENTLY?
+
+My unique angle is: [Your unique approach or methodology]</div>
+        </div>
+
+        <!-- Synthesis -->
+        <div class="section">
+            <span class="section-number">6</span>
+            <h2 class="section-title">Synthesize Your Research</h2>
+            <p class="section-desc">Combine all your findings into a clear audience profile.</p>
+
+            <h3>Your Audience Avatar:</h3>
+
+            <p><strong>Demographics:</strong></p>
+            <textarea class="form-input" placeholder="Age, gender, location, job title, income level, family situation..."></textarea>
+
+            <p style="margin-top: 1rem;"><strong>Psychographics:</strong></p>
+            <textarea class="form-input" placeholder="Values, beliefs, personality traits, lifestyle, interests..."></textarea>
+
+            <p style="margin-top: 1rem;"><strong>Top 3 Pain Points (in their words):</strong></p>
+            <textarea class="form-input" placeholder="1.
+2.
+3. "></textarea>
+
+            <p style="margin-top: 1rem;"><strong>Top 3 Desires (in their words):</strong></p>
+            <textarea class="form-input" placeholder="1.
+2.
+3. "></textarea>
+
+            <p style="margin-top: 1rem;"><strong>Top 3 Objections:</strong></p>
+            <textarea class="form-input" placeholder="1.
+2.
+3. "></textarea>
+
+            <p style="margin-top: 1rem;"><strong>Language/Phrases They Use:</strong></p>
+            <textarea class="form-input" placeholder="Copy exact phrases from your research..."></textarea>
+
+            <p style="margin-top: 1rem;"><strong>What They've Already Tried:</strong></p>
+            <textarea class="form-input" placeholder="Failed solutions, competitors they've used, books they've read..."></textarea>
+
+            <div class="highlight-box success" style="margin-top: 1.5rem;">
+                <p style="margin: 0;"><strong>Done right?</strong> You should now be able to write headlines and bullet points that feel like you're reading their mind. If not, do more research.</p>
+            </div>
+        </div>
+
+        <!-- Print Button -->
+        <div style="text-align: center; margin: 2rem 0;">
+            <button class="print-button" onclick="window.print()">
+                🖨️ Print This Framework
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Audience Research Framework | Entrepreneurship Mastery</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Powered by <a href="https://mindvalley.com">Mindvalley</a></p>
+    </footer>
+</body>
+</html>
