@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Checklist | Founder Apprenticeship | Mindvalley</title>
+    <meta name="description" content="One-page printable interview checklist for the Founder Apprenticeship role.">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>">
+
+    <!-- Mindvalley Design System -->
+    <link rel="stylesheet" href="../styles/mv-selfreset-base.css">
+
+    <style>
+        :root {
+            --mv-purple: #7a12d4;
+            --mv-purple-light: #f3e8ff;
+            --mv-dark: #0f131a;
+            --mv-gray: #6b7280;
+            --mv-green: #10b981;
+            --mv-red: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f9fafb;
+            padding: 2rem;
+        }
+
+        .checklist-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .checklist-header {
+            background: linear-gradient(135deg, var(--mv-purple) 0%, #a855f7 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .checklist-header h1 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .checklist-header p {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.9375rem;
+            opacity: 0.9;
+        }
+
+        .candidate-fields {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .candidate-fields input {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.625rem 1rem;
+            border-radius: 8px;
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.875rem;
+            width: 200px;
+        }
+
+        .candidate-fields input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .checklist-body {
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            color: var(--mv-dark);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--mv-purple-light);
+        }
+
+        /* Checkbox list */
+        .check-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .check-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .check-list li:last-child {
+            border-bottom: none;
+        }
+
+        .check-list input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--mv-purple);
+            cursor: pointer;
+        }
+
+        .check-list label {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.9375rem;
+            color: var(--mv-dark);
+            cursor: pointer;
+        }
+
+        /* Score Grid */
+        .score-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .score-section h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.875rem;
+            color: var(--mv-purple);
+            margin-bottom: 0.75rem;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: 1fr repeat(5, 36px);
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .score-grid .criterion {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.8125rem;
+            color: var(--mv-dark);
+        }
+
+        .score-grid .score-num {
+            width: 36px;
+            height: 36px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.875rem;
+            color: var(--mv-gray);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .score-grid .score-num:hover {
+            border-color: var(--mv-purple);
+            color: var(--mv-purple);
+        }
+
+        .score-grid .score-num.selected {
+            background: var(--mv-purple);
+            border-color: var(--mv-purple);
+            color: white;
+        }
+
+        .score-header {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.6875rem;
+            color: var(--mv-gray);
+            text-align: center;
+        }
+
+        .notes-line {
+            margin-top: 0.5rem;
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.8125rem;
+            color: var(--mv-gray);
+        }
+
+        .notes-line input {
+            border: none;
+            border-bottom: 1px solid #e5e7eb;
+            width: calc(100% - 50px);
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.8125rem;
+            padding: 0.25rem 0;
+            margin-left: 0.5rem;
+        }
+
+        .notes-line input:focus {
+            outline: none;
+            border-bottom-color: var(--mv-purple);
+        }
+
+        /* Red Flags */
+        .red-flags {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .red-flags .section-title {
+            color: var(--mv-red);
+            border-bottom-color: #fecaca;
+        }
+
+        .red-flags .check-list label {
+            color: #991b1b;
+        }
+
+        .red-flags input[type="checkbox"] {
+            accent-color: var(--mv-red);
+        }
+
+        /* Gut Check */
+        .gut-check {
+            background: var(--mv-purple-light);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .gut-check .section-title {
+            color: var(--mv-purple);
+            border-bottom-color: rgba(122, 18, 212, 0.2);
+        }
+
+        /* Key Question */
+        .key-question {
+            background: var(--mv-dark);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .key-question-label {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--mv-purple);
+            margin-bottom: 0.75rem;
+        }
+
+        .key-question p {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .yes-no {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .yes-no button {
+            padding: 0.5rem 2rem;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .yes-no button:hover {
+            background: white;
+            color: var(--mv-dark);
+        }
+
+        .yes-no button.selected.yes {
+            background: var(--mv-green);
+            border-color: var(--mv-green);
+        }
+
+        .yes-no button.selected.no {
+            background: var(--mv-red);
+            border-color: var(--mv-red);
+        }
+
+        /* Final Decision */
+        .decision-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+
+        .decision-btn {
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .decision-btn:hover {
+            border-color: var(--mv-purple);
+        }
+
+        .decision-btn .label {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.8125rem;
+            display: block;
+        }
+
+        .decision-btn .desc {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.6875rem;
+            color: var(--mv-gray);
+            margin-top: 0.25rem;
+        }
+
+        .decision-btn.selected.strong-yes {
+            background: var(--mv-green);
+            border-color: var(--mv-green);
+            color: white;
+        }
+
+        .decision-btn.selected.strong-yes .desc {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .decision-btn.selected.yes {
+            background: #34d399;
+            border-color: #34d399;
+            color: white;
+        }
+
+        .decision-btn.selected.yes .desc {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .decision-btn.selected.maybe {
+            background: #f59e0b;
+            border-color: #f59e0b;
+            color: white;
+        }
+
+        .decision-btn.selected.maybe .desc {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .decision-btn.selected.no {
+            background: var(--mv-red);
+            border-color: var(--mv-red);
+            color: white;
+        }
+
+        .decision-btn.selected.no .desc {
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Key Reason */
+        .key-reason {
+            margin-top: 1rem;
+        }
+
+        .key-reason label {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.8125rem;
+            color: var(--mv-dark);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .key-reason textarea {
+            width: 100%;
+            height: 60px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.875rem;
+            resize: none;
+        }
+
+        .key-reason textarea:focus {
+            outline: none;
+            border-color: var(--mv-purple);
+        }
+
+        /* Follow-up */
+        .follow-up {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .next-step {
+            margin-top: 1rem;
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.875rem;
+            color: var(--mv-dark);
+        }
+
+        .next-step input {
+            border: none;
+            border-bottom: 1px solid #e5e7eb;
+            background: transparent;
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 0.875rem;
+            padding: 0.25rem 0;
+            width: 150px;
+            margin-left: 0.5rem;
+        }
+
+        /* Print */
+        .print-btn {
+            display: block;
+            margin: 2rem auto 0;
+            background: var(--mv-dark);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            border: none;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.9375rem;
+            cursor: pointer;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            .checklist-container {
+                box-shadow: none;
+            }
+            .print-btn {
+                display: none;
+            }
+            .checklist-header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+            .candidate-fields {
+                flex-direction: column;
+            }
+            .candidate-fields input {
+                width: 100%;
+            }
+            .decision-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .score-grid {
+                grid-template-columns: 1fr repeat(5, 28px);
+            }
+            .score-grid .score-num {
+                width: 28px;
+                height: 28px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="checklist-container">
+
+        <header class="checklist-header">
+            <h1>Founder Apprenticeship</h1>
+            <p>Interview Checklist</p>
+            <div class="candidate-fields">
+                <input type="text" placeholder="Candidate name...">
+                <input type="date">
+            </div>
+        </header>
+
+        <div class="checklist-body">
+
+            <!-- Pre-Interview -->
+            <div class="section">
+                <div class="section-title">Pre-Interview Verification</div>
+                <ul class="check-list">
+                    <li><input type="checkbox" id="c1"><label for="c1">Loom video watched</label></li>
+                    <li><input type="checkbox" id="c2"><label for="c2">Portfolio reviewed</label></li>
+                    <li><input type="checkbox" id="c3"><label for="c3">Written answers read</label></li>
+                    <li><input type="checkbox" id="c4"><label for="c4">London-based confirmed</label></li>
+                </ul>
+            </div>
+
+            <!-- Vibe Coding Scores -->
+            <div class="section score-section">
+                <h4>Vibe Coding</h4>
+                <div class="score-grid">
+                    <div></div>
+                    <div class="score-header">1</div>
+                    <div class="score-header">2</div>
+                    <div class="score-header">3</div>
+                    <div class="score-header">4</div>
+                    <div class="score-header">5</div>
+
+                    <div class="criterion">AI tool fluency</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+
+                    <div class="criterion">Shipping speed</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+
+                    <div class="criterion">Quality of work</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+
+                    <div class="criterion">Problem-solving</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+                </div>
+                <div class="notes-line">Notes:<input type="text"></div>
+            </div>
+
+            <!-- Marketing Scores -->
+            <div class="section score-section">
+                <h4>Marketing</h4>
+                <div class="score-grid">
+                    <div></div>
+                    <div class="score-header">1</div>
+                    <div class="score-header">2</div>
+                    <div class="score-header">3</div>
+                    <div class="score-header">4</div>
+                    <div class="score-header">5</div>
+
+                    <div class="criterion">Strategic thinking</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+
+                    <div class="criterion">Creative instinct</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+
+                    <div class="criterion">Speed of ideation</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+
+                    <div class="criterion">Results awareness</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+                </div>
+                <div class="notes-line">Notes:<input type="text"></div>
+            </div>
+
+            <!-- Execution Scores -->
+            <div class="section score-section">
+                <h4>Execution Style</h4>
+                <div class="score-grid">
+                    <div></div>
+                    <div class="score-header">1</div>
+                    <div class="score-header">2</div>
+                    <div class="score-header">3</div>
+                    <div class="score-header">4</div>
+                    <div class="score-header">5</div>
+
+                    <div class="criterion">Bias to action</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+
+                    <div class="criterion">Ships imperfect</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+
+                    <div class="criterion">Self-directed</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+
+                    <div class="criterion">Takes feedback</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+                </div>
+                <div class="notes-line">Notes:<input type="text"></div>
+            </div>
+
+            <!-- Culture Scores -->
+            <div class="section score-section">
+                <h4>Culture Fit</h4>
+                <div class="score-grid">
+                    <div></div>
+                    <div class="score-header">1</div>
+                    <div class="score-header">2</div>
+                    <div class="score-header">3</div>
+                    <div class="score-header">4</div>
+                    <div class="score-header">5</div>
+
+                    <div class="criterion">Growth mindset</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+
+                    <div class="criterion">Intensity tolerance</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+
+                    <div class="criterion">Coachability</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+
+                    <div class="criterion">Ambition aligned</div>
+                    <div class="score-num" onclick="selectScore(this)">1</div>
+                    <div class="score-num" onclick="selectScore(this)">2</div>
+                    <div class="score-num" onclick="selectScore(this)">3</div>
+                    <div class="score-num" onclick="selectScore(this)">4</div>
+                    <div class="score-num" onclick="selectScore(this)">5</div>
+                </div>
+                <div class="notes-line">Notes:<input type="text"></div>
+            </div>
+
+            <!-- Red Flags -->
+            <div class="section red-flags">
+                <div class="section-title">Red Flags Spotted</div>
+                <ul class="check-list">
+                    <li><input type="checkbox" id="rf1"><label for="rf1">Can't demo AI-built work</label></li>
+                    <li><input type="checkbox" id="rf2"><label for="rf2">Projects took months</label></li>
+                    <li><input type="checkbox" id="rf3"><label for="rf3">Needs lots of structure</label></li>
+                    <li><input type="checkbox" id="rf4"><label for="rf4">Defensive to feedback</label></li>
+                    <li><input type="checkbox" id="rf5"><label for="rf5">Only talks, no shipped products</label></li>
+                    <li><input type="checkbox" id="rf6"><label for="rf6">Perfectionism signals</label></li>
+                    <li><input type="checkbox" id="rf7"><label for="rf7">Wrong questions (only comp/benefits)</label></li>
+                </ul>
+            </div>
+
+            <!-- Gut Check -->
+            <div class="section gut-check">
+                <div class="section-title">Gut Check</div>
+                <ul class="check-list">
+                    <li><input type="checkbox" id="g1"><label for="g1">Excited to get a Slack from them?</label></li>
+                    <li><input type="checkbox" id="g2"><label for="g2">Can see them shipping in 5 days?</label></li>
+                    <li><input type="checkbox" id="g3"><label for="g3">Have the hunger?</label></li>
+                    <li><input type="checkbox" id="g4"><label for="g4">Would I bet on them?</label></li>
+                </ul>
+            </div>
+
+            <!-- Key Question -->
+            <div class="key-question">
+                <div class="key-question-label">The One Question</div>
+                <p>"Can this person sit with me for 2 hours, understand the vision, and return with something real before the momentum fades?"</p>
+                <div class="yes-no">
+                    <button onclick="selectYesNo(this, 'yes')">YES</button>
+                    <button onclick="selectYesNo(this, 'no')">NO</button>
+                </div>
+            </div>
+
+            <!-- Final Decision -->
+            <div class="section">
+                <div class="section-title">Final Decision</div>
+                <div class="decision-grid">
+                    <button class="decision-btn" data-decision="strong-yes" onclick="selectDecision(this)">
+                        <span class="label">STRONG YES</span>
+                        <span class="desc">Offer</span>
+                    </button>
+                    <button class="decision-btn" data-decision="yes" onclick="selectDecision(this)">
+                        <span class="label">YES</span>
+                        <span class="desc">Move forward</span>
+                    </button>
+                    <button class="decision-btn" data-decision="maybe" onclick="selectDecision(this)">
+                        <span class="label">MAYBE</span>
+                        <span class="desc">Second opinion</span>
+                    </button>
+                    <button class="decision-btn" data-decision="no" onclick="selectDecision(this)">
+                        <span class="label">NO</span>
+                        <span class="desc">Pass</span>
+                    </button>
+                </div>
+
+                <div class="key-reason">
+                    <label>Key Reason:</label>
+                    <textarea placeholder="Why this decision?"></textarea>
+                </div>
+            </div>
+
+            <!-- Follow-up -->
+            <div class="section follow-up">
+                <div class="section-title">Follow-up Actions</div>
+                <ul class="check-list">
+                    <li><input type="checkbox" id="f1"><label for="f1">Send thank you / next steps</label></li>
+                    <li><input type="checkbox" id="f2"><label for="f2">Schedule second round (if applicable)</label></li>
+                    <li><input type="checkbox" id="f3"><label for="f3">Reference check</label></li>
+                    <li><input type="checkbox" id="f4"><label for="f4">Prepare offer</label></li>
+                </ul>
+                <div class="next-step">
+                    <strong>Next step by:</strong><input type="date">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">Print Checklist</button>
+
+    <script>
+        function selectScore(el) {
+            // Get all score nums in the same row
+            const row = el.parentElement;
+            const scoreNums = row.querySelectorAll('.score-num');
+            const criterion = el.previousElementSibling;
+
+            // Find which row this is in
+            let currentEl = el;
+            let rowScores = [];
+            while (currentEl && !currentEl.classList.contains('criterion')) {
+                if (currentEl.classList.contains('score-num')) {
+                    rowScores.unshift(currentEl);
+                }
+                currentEl = currentEl.previousElementSibling;
+            }
+
+            // Get all 5 scores for this criterion
+            let nextEl = el.nextElementSibling;
+            while (nextEl && nextEl.classList.contains('score-num')) {
+                rowScores.push(nextEl);
+                nextEl = nextEl.nextElementSibling;
+            }
+
+            // Clear all and select this one
+            rowScores.forEach(s => s.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function selectYesNo(btn, type) {
+            const buttons = btn.parentElement.querySelectorAll('button');
+            buttons.forEach(b => b.classList.remove('selected', 'yes', 'no'));
+            btn.classList.add('selected', type);
+        }
+
+        function selectDecision(btn) {
+            document.querySelectorAll('.decision-btn').forEach(b => {
+                b.classList.remove('selected', 'strong-yes', 'yes', 'maybe', 'no');
+            });
+            btn.classList.add('selected', btn.dataset.decision);
+        }
+    </script>
+
+</body>
+</html>
