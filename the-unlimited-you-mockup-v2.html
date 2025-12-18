@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Unlimited You - Mockup V2 with Implementation Notes</title>
+    <meta name="description" content="Landing page mockup for The Unlimited You - 9-lesson Silva Method program by Jose Silva and Vishen Lakhiani. Includes implementation notes for designers.">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="The Unlimited You - Landing Page Mockup">
+    <meta property="og:description" content="Landing page mockup for The Unlimited You - 9-lesson Silva Method program by Jose Silva and Vishen Lakhiani.">
+    <meta property="og:image" content="https://res.cloudinary.com/mindvalley/image/upload/v1/production/course/images/MASTER-CARD-IMAGES-3_pqzoxc.png">
+    <meta property="og:url" content="https://vishen.github.io/workspace/the-unlimited-you-mockup-v2.html">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Unlimited You - Landing Page Mockup">
+    <meta name="twitter:description" content="Landing page mockup for The Unlimited You - 9-lesson Silva Method program by Jose Silva and Vishen Lakhiani.">
+    <meta name="twitter:image" content="https://res.cloudinary.com/mindvalley/image/upload/v1/production/course/images/MASTER-CARD-IMAGES-3_pqzoxc.png">
+
+    <!-- Mindvalley Fonts -->
+    <style>
+        @font-face {
+            font-display: swap;
+            font-family: Grotesk-Regular;
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBook-19.ed0b68c.woff2) format("woff2");
+        }
+        @font-face {
+            font-display: swap;
+            font-family: Grotesk-Medium;
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrMedium-20.36349e7.woff2) format("woff2");
+        }
+        @font-face {
+            font-display: swap;
+            font-family: Grotesk-Bold;
+            src: url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrSmBold-21.2e6314a.woff2) format("woff2");
+        }
+
+        :root {
+            --mv-dark: #061e27;
+            --mv-lime: #dafd71;
+            --mv-teal: #3e6769;
+            --mv-grey-100: #f9f9f9;
+            --mv-grey-200: #ebedef;
+            --mv-grey-500: #595e67;
+            --mv-grey-700: #0f131a;
+            --mv-purple: #7a12d4;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html {
+            -webkit-font-smoothing: antialiased;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: Grotesk-Regular, sans-serif;
+            color: var(--mv-grey-700);
+            background: #fff;
+            line-height: 1.6;
+        }
+
+        /* Implementation Note Styles */
+        .impl-note {
+            background: #fffde7;
+            border-left: 4px solid #ffc107;
+            padding: 12px 16px;
+            margin: 16px 0;
+            font-size: 14px;
+            color: #5d4037;
+        }
+        .impl-note strong { color: #e65100; }
+        .impl-note code {
+            background: #fff8e1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .section-label {
+            background: var(--mv-purple);
+            color: white;
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 6px 12px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        /* Layout */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .container-narrow { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+        section {
+            padding: 80px 0;
+            position: relative;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        /* Typography */
+        h1 { font-family: Grotesk-Bold, sans-serif; font-size: 3.5rem; line-height: 1.1; }
+        h2 { font-family: Grotesk-Bold, sans-serif; font-size: 2.5rem; line-height: 1.2; }
+        h3 { font-family: Grotesk-Bold, sans-serif; font-size: 1.5rem; line-height: 1.3; }
+        h4 { font-family: Grotesk-Bold, sans-serif; font-size: 1.25rem; line-height: 1.4; }
+
+        .overline {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .text-center { text-align: center; }
+        .text-white { color: #fff; }
+        .text-lime { color: var(--mv-lime); }
+        .text-teal { color: var(--mv-teal); }
+        .text-grey { color: var(--mv-grey-500); }
+
+        .mb-2 { margin-bottom: 8px; }
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .mb-8 { margin-bottom: 32px; }
+        .mb-12 { margin-bottom: 48px; }
+
+        /* =====================================================
+           SECTION 1: HERO (ABOVE THE FOLD)
+           ===================================================== */
+        .hero {
+            background: var(--mv-dark);
+            background-image:
+                radial-gradient(ellipse 60% 40% at 20% 40%, rgba(218, 253, 113, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 50% 30% at 80% 60%, rgba(62, 103, 105, 0.12) 0%, transparent 50%);
+            color: #fff;
+            padding: 60px 0 80px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-left h1 { margin-bottom: 20px; }
+        .hero-left p { font-size: 1.125rem; opacity: 0.9; margin-bottom: 32px; max-width: 500px; }
+
+        /* NEW: Inline Email Capture in Hero */
+        .hero-form {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 440px;
+        }
+        .hero-form input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.95);
+            margin-bottom: 12px;
+            font-family: Grotesk-Regular, sans-serif;
+        }
+        .hero-form button {
+            width: 100%;
+            padding: 16px;
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 16px;
+            background: var(--mv-lime);
+            color: var(--mv-dark);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .hero-form-trust {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        /* Video Thumbnail */
+        .hero-video {
+            background: linear-gradient(135deg, #1a3a4a, #0d2530);
+            border-radius: 16px;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-video-placeholder {
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            text-align: center;
+        }
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        /* =====================================================
+           SECTION 2: TRUST STATS BAR
+           ===================================================== */
+        .stats-bar {
+            background: linear-gradient(180deg, var(--mv-grey-100), #fff);
+            padding: 48px 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            text-align: center;
+        }
+        .stat-number {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 3rem;
+            color: var(--mv-teal);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 15px;
+            color: var(--mv-grey-500);
+            margin-top: 8px;
+        }
+
+        /* =====================================================
+           SECTION 3: WHAT YOU'LL EXPERIENCE
+           ===================================================== */
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .experience-card {
+            background: #fff;
+            border: 1px solid var(--mv-grey-200);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+        }
+        .experience-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--mv-grey-100);
+            border-radius: 16px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* =====================================================
+           SECTION 4: YOUR TEACHERS (NEW - JOSE + VISHEN)
+           ===================================================== */
+        .teachers-section {
+            background: var(--mv-grey-100);
+        }
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .teacher-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .teacher-image {
+            height: 280px;
+            background: linear-gradient(135deg, #2a4a5a, #1a3040);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.5);
+        }
+        .teacher-content {
+            padding: 32px;
+        }
+        .teacher-role {
+            color: var(--mv-teal);
+            margin-bottom: 16px;
+        }
+        .teacher-legacy-badge {
+            display: inline-block;
+            background: var(--mv-lime);
+            color: var(--mv-dark);
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 6px 12px;
+            border-radius: 100px;
+            margin-bottom: 16px;
+        }
+
+        /* =====================================================
+           SECTION 5: 9 TRANSFORMATIVE LESSONS (NUMBERED)
+           ===================================================== */
+        .lessons-section {
+            background: linear-gradient(180deg, #fff, var(--mv-grey-100));
+        }
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .lesson-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--mv-grey-200);
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        .lesson-card:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+        .lesson-thumbnail {
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #3a5a6a, #2a4050);
+            position: relative;
+        }
+        /* NEW: Lesson Number Badge */
+        .lesson-number {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 36px;
+            height: 36px;
+            background: var(--mv-lime);
+            color: var(--mv-dark);
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 14px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lesson-content {
+            padding: 20px;
+        }
+        .lesson-content h4 { margin-bottom: 8px; }
+        .lesson-content p { font-size: 14px; color: var(--mv-grey-500); }
+
+        /* =====================================================
+           SECTION 6: WHO THIS IS FOR (NEW)
+           ===================================================== */
+        .who-section {
+            background: #fff;
+        }
+        .who-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .who-list {
+            list-style: none;
+        }
+        .who-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+            font-size: 17px;
+        }
+        .who-check {
+            width: 28px;
+            height: 28px;
+            background: var(--mv-lime);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--mv-dark);
+            font-weight: bold;
+        }
+        .who-image {
+            background: linear-gradient(135deg, var(--mv-grey-200), var(--mv-grey-100));
+            border-radius: 20px;
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--mv-grey-500);
+        }
+
+        /* =====================================================
+           SECTION 7: TESTIMONIALS (NEW)
+           ===================================================== */
+        .testimonials-section {
+            background: var(--mv-dark);
+            color: #fff;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .testimonial-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 32px;
+        }
+        .testimonial-stars {
+            color: var(--mv-lime);
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+        .testimonial-quote {
+            font-size: 15px;
+            line-height: 1.7;
+            opacity: 0.9;
+            margin-bottom: 24px;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        .testimonial-name {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 14px;
+        }
+        .testimonial-title {
+            font-size: 13px;
+            opacity: 0.6;
+        }
+
+        /* =====================================================
+           SECTION 8: FAQ
+           ===================================================== */
+        .faq-section {
+            background: #fff;
+        }
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--mv-grey-200);
+            padding: 24px 0;
+        }
+        .faq-question {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--mv-grey-200);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .faq-answer {
+            color: var(--mv-grey-500);
+            padding-left: 36px;
+        }
+
+        /* =====================================================
+           SECTION 9: FINAL CTA
+           ===================================================== */
+        .final-cta {
+            background: var(--mv-dark);
+            background-image:
+                radial-gradient(ellipse 80% 50% at 50% 100%, rgba(218, 253, 113, 0.1) 0%, transparent 50%);
+            color: #fff;
+            text-align: center;
+            padding: 100px 0;
+        }
+        .final-cta h2 { max-width: 700px; margin: 0 auto 16px; }
+        .final-cta p { opacity: 0.8; margin-bottom: 40px; }
+
+        .final-form {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+        .final-form input {
+            flex: 1;
+            padding: 16px 20px;
+            font-size: 16px;
+            border: 2px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.95);
+            font-family: Grotesk-Regular, sans-serif;
+        }
+        .final-form button {
+            padding: 16px 32px;
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 16px;
+            background: var(--mv-lime);
+            color: var(--mv-dark);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .final-trust {
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+        footer {
+            background: var(--mv-dark);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            padding: 32px;
+            font-size: 14px;
+        }
+        footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 12px; }
+    </style>
+</head>
+<body>
+
+<!-- =========================================================
+     SECTION 1: HERO (ABOVE THE FOLD)
+     ========================================================= -->
+<section class="hero">
+    <span class="section-label">Section 1: Hero</span>
+    <div class="container">
+
+        <div class="impl-note">
+            <strong>IMPLEMENTATION NOTE:</strong> The hero must contain the email signup form ABOVE THE FOLD.
+            This is critical for conversions. The video can be secondary.
+            <br><br>
+            <strong>Key changes:</strong>
+            <ul>
+                <li>Email form moved from bottom of page to hero</li>
+                <li>Two-column layout: Left = copy + form, Right = video</li>
+                <li>Trust signals directly under form</li>
+            </ul>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-left">
+                <p class="overline text-lime mb-4">FREE 9-LESSON COURSE FROM MINDVALLEY</p>
+                <h1>The Unlimited You</h1>
+                <p>Unlock your mind's hidden potential with the Silva UltraMind System. Access Alpha brainwave states for enhanced creativity, sharper intuition, and life transformation.</p>
+
+                <!-- NEW: Email form in hero -->
+                <div class="hero-form">
+                    <input type="text" placeholder="First name">
+                    <input type="email" placeholder="Email address">
+                    <button>GET FREE INSTANT ACCESS</button>
+                    <div class="hero-form-trust">
+                        <span>No credit card required</span>
+                        <span>Instant email delivery</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-video">
+                <div class="hero-video-placeholder">
+                    <div class="play-button">Play</div>
+                    Video Thumbnail<br>
+                    <small>Silva UltraMind System</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     SECTION 2: TRUST STATS BAR
+     ========================================================= -->
+<section class="stats-bar" style="padding: 48px 0;">
+    <span class="section-label">Section 2: Stats</span>
+    <div class="container">
+
+        <div class="impl-note">
+            <strong>IMPLEMENTATION NOTE:</strong> Keep stats concise. These reinforce credibility immediately after hero.
+        </div>
+
+        <div class="stats-grid">
+            <div>
+                <div class="stat-number">6M+</div>
+                <div class="stat-label">Graduates Worldwide</div>
+            </div>
+            <div>
+                <div class="stat-number">110+</div>
+                <div class="stat-label">Countries</div>
+            </div>
+            <div>
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Years Proven</div>
+            </div>
+            <div>
+                <div class="stat-number">#1</div>
+                <div class="stat-label">Mind Training Method</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     SECTION 3: WHAT YOU'LL EXPERIENCE
+     ========================================================= -->
+<section>
+    <span class="section-label">Section 3: Experience</span>
+    <div class="container">
+
+        <div class="impl-note">
+            <strong>IMPLEMENTATION NOTE:</strong> These 3 cards describe the TRANSFORMATION, not features.
+            Use emotional language. Icons should be custom illustrations, not generic icons.
+        </div>
+
+        <div class="text-center mb-12">
+            <p class="overline text-teal mb-2">Your Transformation</p>
+            <h2 class="mb-4">What You'll Experience</h2>
+            <p class="text-grey" style="max-width: 560px; margin: 0 auto;">
+                This isn't just information—it's a guided journey into the extraordinary capabilities of your mind.
+            </p>
+        </div>
+
+        <div class="experience-grid">
+            <div class="experience-card">
+                <div class="experience-icon">[Icon]</div>
+                <h4 class="mb-2">Deep Inner Calm</h4>
+                <p class="text-grey">Feel stress dissolve as you learn to enter the Alpha state on command. Most people report feeling profoundly relaxed after their first session.</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">[Icon]</div>
+                <h4 class="mb-2">Mental Clarity</h4>
+                <p class="text-grey">Watch as mental fog lifts and creative solutions appear effortlessly. Access the same brainwave state where inventors do their best thinking.</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">[Icon]</div>
+                <h4 class="mb-2">Intuitive Guidance</h4>
+                <p class="text-grey">Develop your natural intuition to make better decisions in business, relationships, and life. Tap into inner knowing.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     SECTION 4: YOUR TEACHERS (JOSE + VISHEN)
+     ========================================================= -->
+<section class="teachers-section">
+    <span class="section-label">Section 4: Teachers (NEW)</span>
+    <div class="container">
+
+        <div class="impl-note">
+            <strong>IMPLEMENTATION NOTE - CRITICAL:</strong>
+            The current design only shows Vishen. <strong>Jose Silva MUST be included</strong> as he is the creator of the method.
+            <br><br>
+            <strong>Layout:</strong> Side-by-side cards with equal prominence. Jose has "legacy" badge, Vishen has "modern teacher" angle.
+            <br><br>
+            <strong>Photography:</strong> Use the classic Jose Silva portrait (black & white acceptable for legacy feel).
+        </div>
+
+        <div class="text-center mb-12">
+            <p class="overline text-teal mb-2">Your Teachers</p>
+            <h2>Learn from the Pioneers</h2>
+        </div>
+
+        <div class="teachers-grid">
+            <!-- JOSE SILVA -->
+            <div class="teacher-card">
+                <div class="teacher-image">
+                    [Jose Silva Photo]<br>
+                    <small>Classic portrait, B&W okay</small>
+                </div>
+                <div class="teacher-content">
+                    <span class="teacher-legacy-badge">The Original Creator</span>
+                    <h3 class="mb-2">Jose Silva</h3>
+                    <p class="overline teacher-role">Founder, Silva Method (1914-1999)</p>
+                    <p class="text-grey">
+                        A self-educated electronics repairman from Laredo, Texas, Jose spent 22 years researching the human mind before teaching his first class in 1966. His discovery—that we can consciously access Alpha brainwave states—sparked a global movement that trained over 6 million people across 110 countries.
+                    </p>
+                </div>
+            </div>
+
+            <!-- VISHEN -->
+            <div class="teacher-card">
+                <div class="teacher-image">
+                    [Vishen Photo]<br>
+                    <small>Modern, professional shot</small>
+                </div>
+                <div class="teacher-content">
+                    <span class="teacher-legacy-badge">Your Guide</span>
+                    <h3 class="mb-2">Vishen Lakhiani</h3>
+                    <p class="overline teacher-role">Founder, Mindvalley</p>
+                    <p class="text-grey">
+                        Vishen discovered Silva as a struggling 26-year-old in New York. Within weeks, his life transformed—"coincidences that were too perfect to be random." He launched Mindvalley and has spent 20 years modernizing Silva's techniques, teaching millions to design extraordinary lives.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     SECTION 5: 9 TRANSFORMATIVE LESSONS (NUMBERED)
+     ========================================================= -->
+<section class="lessons-section">
+    <span class="section-label">Section 5: Lessons</span>
+    <div class="container">
+
+        <div class="impl-note">
+            <strong>IMPLEMENTATION NOTE:</strong>
+            Add visible <strong>LESSON NUMBERS (1-9)</strong> as badges on each card. This creates a sense of progression and curriculum structure.
+            <br><br>
+            <strong>Badge style:</strong> Lime circle with dark number, positioned top-left of thumbnail.
+        </div>
+
+        <div class="text-center mb-12">
+            <p class="overline text-teal mb-2">The Curriculum</p>
+            <h2 class="mb-4">9 Transformative Lessons</h2>
+            <p class="text-grey" style="max-width: 560px; margin: 0 auto;">
+                Each lesson builds on the last, taking you from curious beginner to confident practitioner.
+            </p>
+        </div>
+
+        <div class="lessons-grid">
+            <!-- Lesson 1 -->
+            <div class="lesson-card">
+                <div class="lesson-thumbnail">
+                    <span class="lesson-number">1</span>
+                </div>
+                <div class="lesson-content">
+                    <h4>Your True Potential</h4>
+                    <p>Discover the science behind your subconscious through extraordinary case studies.</p>
+                </div>
+            </div>
+
+            <!-- Lesson 2 -->
+            <div class="lesson-card">
+                <div class="lesson-thumbnail">
+                    <span class="lesson-number">2</span>
+                </div>
+                <div class="lesson-content">
+                    <h4>The Centering Exercise</h4>
+                    <p>Learn to enter the Alpha brainwave state on command with guided audio.</p>
+                </div>
+            </div>
+
+            <!-- Lesson 3 -->
+            <div class="lesson-card">
+                <div class="lesson-thumbnail">
+                    <span class="lesson-number">3</span>
+                </div>
+                <div class="lesson-content">
+                    <h4>Enhancing Creativity</h4>
+                    <p>Access creative insight on demand. Master the Basic Inspiration Technique.</p>
+                </div>
+            </div>
+
+            <!-- Lesson 4 -->
+            <div class="lesson-card">
+                <div class="lesson-thumbnail">
+                    <span class="lesson-number">4</span>
+                </div>
+                <div class="lesson-content">
+                    <h4>Creative Visualization</h4>
+                    <p>Reprogram subconscious beliefs with the Mental Screen Technique.</p>
+                </div>
+            </div>
+
+            <!-- Lesson 5 -->
+            <div class="lesson-card">
+                <div class="lesson-thumbnail">
+                    <span class="lesson-number">5</span>
+                </div>
+                <div class="lesson-content">
+                    <h4>Mind-Body Connection</h4>
+                    <p>Learn the Self-Healing Technique to support your body's recovery.</p>
+                </div>
+            </div>
+
+            <!-- Lesson 6 -->
+            <div class="lesson-card">
+                <div class="lesson-thumbnail">
+                    <span class="lesson-number">6</span>
+                </div>
+                <div class="lesson-content">
+                    <h4>The Jose Silva Story</h4>
+                    <p>Understand the origins through Jose's remarkable journey.</p>
+                </div>
+            </div>
+
+            <!-- Lesson 7 -->
+            <div class="lesson-card">
+                <div class="lesson-thumbnail">
+                    <span class="lesson-number">7</span>
+                </div>
+                <div class="lesson-content">
+                    <h4>Harnessing Intuition</h4>
+                    <p>Develop natural ESP ability. Master the Alpha Questioning Method.</p>
+                </div>
+            </div>
+
+            <!-- Lesson 8 -->
+            <div class="lesson-card">
+                <div class="lesson-thumbnail">
+                    <span class="lesson-number">8</span>
+                </div>
+                <div class="lesson-content">
+                    <h4>Goal Setting</h4>
+                    <p>Learn Silva's Desire-Belief-Expectancy Framework.</p>
+                </div>
+            </div>
+
+            <!-- Lesson 9 -->
+            <div class="lesson-card">
+                <div class="lesson-thumbnail">
+                    <span class="lesson-number">9</span>
+                </div>
+                <div class="lesson-content">
+                    <h4>Your Life Purpose</h4>
+                    <p>Discover the "Greater Question" Technique for what truly matters.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     SECTION 6: WHO THIS IS FOR (NEW)
+     ========================================================= -->
+<section class="who-section">
+    <span class="section-label">Section 6: Who This Is For (NEW)</span>
+    <div class="container">
+
+        <div class="impl-note">
+            <strong>IMPLEMENTATION NOTE:</strong>
+            This section helps visitors self-qualify. If they see themselves in the list, they're more likely to convert.
+            <br><br>
+            <strong>Visual:</strong> Checkmark list on left, lifestyle image on right (person meditating, professional in calm state, etc.)
+        </div>
+
+        <div class="who-grid">
+            <div>
+                <p class="overline text-teal mb-2">Is This For You?</p>
+                <h2 class="mb-8">The Unlimited You Is For...</h2>
+
+                <ul class="who-list">
+                    <li>
+                        <span class="who-check">✓</span>
+                        <span><strong>Busy professionals</strong> who want mental clarity without hours of meditation</span>
+                    </li>
+                    <li>
+                        <span class="who-check">✓</span>
+                        <span><strong>Entrepreneurs</strong> seeking better intuition for decisions</span>
+                    </li>
+                    <li>
+                        <span class="who-check">✓</span>
+                        <span><strong>Anyone who's tried meditation</strong> but couldn't "quiet the mind"</span>
+                    </li>
+                    <li>
+                        <span class="who-check">✓</span>
+                        <span><strong>Goal-setters</strong> who want to finally follow through</span>
+                    </li>
+                    <li>
+                        <span class="who-check">✓</span>
+                        <span><strong>Curious minds</strong> ready to explore their untapped potential</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="who-image">
+                [Lifestyle Image]<br>
+                <small>Person in calm, focused state</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     SECTION 7: TESTIMONIALS (NEW)
+     ========================================================= -->
+<section class="testimonials-section">
+    <span class="section-label">Section 7: Testimonials (NEW)</span>
+    <div class="container">
+
+        <div class="impl-note" style="background: rgba(255,255,255,0.1); border-left-color: var(--mv-lime); color: rgba(255,255,255,0.9);">
+            <strong style="color: var(--mv-lime);">IMPLEMENTATION NOTE:</strong>
+            Social proof is critical for free courses. Include 3 testimonials minimum.
+            <br><br>
+            <strong style="color: var(--mv-lime);">Best testimonials mention:</strong>
+            <ul>
+                <li>Specific results ("I got promoted", "My anxiety reduced")</li>
+                <li>Skepticism overcome ("I didn't believe it would work...")</li>
+                <li>Time to results ("Within 2 weeks...")</li>
+            </ul>
+        </div>
+
+        <div class="text-center mb-12">
+            <p class="overline text-lime mb-2">Success Stories</p>
+            <h2>What Students Are Saying</h2>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-quote">
+                    "I was skeptical—I'd tried meditation apps and nothing worked. But the Silva Centering Exercise was different. Within a week, I was sleeping better and making decisions with a clarity I hadn't felt in years."
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar"></div>
+                    <div>
+                        <div class="testimonial-name">Sarah M.</div>
+                        <div class="testimonial-title">Marketing Director</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-quote">
+                    "The visualization techniques helped me land my dream job. I practiced the Mental Screen Technique for 3 weeks, and opportunities started appearing that I couldn't explain."
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar"></div>
+                    <div>
+                        <div class="testimonial-name">James K.</div>
+                        <div class="testimonial-title">Software Engineer</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-quote">
+                    "I've been in personal development for 20 years. Silva is different—it's practical, not woo-woo. The Alpha state is real, and once you feel it, everything changes."
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar"></div>
+                    <div>
+                        <div class="testimonial-name">Dr. Lisa R.</div>
+                        <div class="testimonial-title">Psychologist</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     SECTION 8: FAQ
+     ========================================================= -->
+<section class="faq-section">
+    <span class="section-label">Section 8: FAQ</span>
+    <div class="container">
+
+        <div class="impl-note">
+            <strong>IMPLEMENTATION NOTE:</strong>
+            FAQ should address objections. These 5 questions cover the main concerns for free courses.
+            <br><br>
+            <strong>Accordion behavior:</strong> First question expanded by default. Others collapsed.
+        </div>
+
+        <div class="text-center mb-12">
+            <p class="overline text-teal mb-2">Questions</p>
+            <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-icon">−</span>
+                    Is this really free? What's the catch?
+                </div>
+                <div class="faq-answer">
+                    Yes, it's genuinely free—no credit card required. We offer this because once people experience these techniques, some choose to deepen their practice through our paid programs. But this course stands completely on its own with no obligation.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-icon">+</span>
+                    I've tried meditation before and couldn't quiet my mind. Will this work?
+                </div>
+                <div class="faq-answer">
+                    Yes—because Silva is active meditation. The guided audio uses Alpha-frequency tones that help your brain shift states naturally. You're doing mental exercises, not just sitting there. Many who struggled with traditional meditation find this approach much more engaging.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-icon">+</span>
+                    How long until I see results?
+                </div>
+                <div class="faq-answer">
+                    Many people feel noticeably calmer after their first Centering Exercise. Visualization methods often produce shifts within days to weeks. Like any skill, more practice means stronger results.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-icon">+</span>
+                    How much time do I need to invest?
+                </div>
+                <div class="faq-answer">
+                    The Centering Exercise takes 15-20 minutes daily. Each lesson takes 15-30 minutes to read. Total: about 2-3 hours per week initially, dropping to 15-20 minutes daily once you've learned the techniques.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-icon">+</span>
+                    Is this scientific or "woo-woo"?
+                </div>
+                <div class="faq-answer">
+                    Jose Silva was an electronics repairman who applied scientific thinking to the mind. The Alpha brainwave state is measurable with EEG. Studies at Duke University and research by Dr. J.B. Rhine have validated many of these principles. This is practical, not mystical.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     SECTION 9: FINAL CTA
+     ========================================================= -->
+<section class="final-cta">
+    <span class="section-label">Section 9: Final CTA</span>
+    <div class="container">
+
+        <div class="impl-note" style="background: rgba(255,255,255,0.1); border-left-color: var(--mv-lime); color: rgba(255,255,255,0.9);">
+            <strong style="color: var(--mv-lime);">IMPLEMENTATION NOTE:</strong>
+            Final CTA should mirror the hero form but with stronger urgency copy.
+            <br><br>
+            <strong style="color: var(--mv-lime);">Key elements:</strong>
+            <ul>
+                <li>Headline restates transformation</li>
+                <li>Inline form (not button to another page)</li>
+                <li>Trust signals repeated</li>
+            </ul>
+        </div>
+
+        <h2 class="mb-4">Begin Your Journey to<br>The Unlimited You</h2>
+        <p>Enter your email and discover why 6 million people credit these techniques with transforming their lives.</p>
+
+        <div class="final-form">
+            <input type="text" placeholder="First name">
+            <input type="email" placeholder="Email address">
+            <button>GET FREE ACCESS</button>
+        </div>
+
+        <p class="final-trust">No credit card required · Instant delivery · Unsubscribe anytime</p>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+<footer>
+    <p>© 2024 Mindvalley. All rights reserved.</p>
+    <div style="margin-top: 12px;">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Contact</a>
+    </div>
+</footer>
+
+
+</body>
+</html>
