@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Soul Pillar Page — Conversion Optimization Report | Mindvalley</title>
+  <meta name="description" content="Comprehensive conversion optimization analysis and recommendations for the Mindvalley Soul Pillar landing page." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Soul Pillar — Conversion Optimization Report" />
+  <meta property="og:description" content="Comprehensive analysis with actionable recommendations to improve conversion rates." />
+  <meta property="og:image" content="https://placehold.co/1200x630/7a12d4/ffffff?text=Soul+Pillar+Analysis" />
+  <meta property="og:url" content="https://vishen.github.io/workspace/soul-pillar-analysis/soul-pillar-conversion-report.html" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Soul Pillar — Conversion Optimization Report" />
+  <meta name="twitter:description" content="Comprehensive analysis with actionable recommendations to improve conversion rates." />
+  <meta name="twitter:image" content="https://placehold.co/1200x630/7a12d4/ffffff?text=Soul+Pillar+Analysis" />
+
+  <link rel="stylesheet" href="../mindvalley-core.css" />
+
+  <style>
+    /* Additional styles for report components */
+    :root {
+      --mv-purple: #7a12d4;
+      --mv-purple-light: #f5f0fa;
+      --mv-text: #0f131a;
+      --mv-muted: #4b5563;
+      --mv-light: #6b7280;
+      --mv-green: #10b981;
+      --mv-green-light: #d1fae5;
+      --mv-red: #ef4444;
+      --mv-red-light: #fee2e2;
+      --mv-yellow: #f59e0b;
+      --mv-yellow-light: #fef3c7;
+      --mv-border: #e5e7eb;
+      --mv-bg-alt: #f9fafb;
+    }
+
+    body {
+      background: #ffffff;
+    }
+
+    /* Report Header */
+    .report-header {
+      background: linear-gradient(135deg, var(--mv-purple) 0%, #5b0ea1 100%);
+      padding: 5rem 0 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .report-header .eyebrow {
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+      color: rgba(255,255,255,0.8);
+      font-family: Grotesk-Medium, sans-serif;
+    }
+
+    .report-header h1 {
+      color: white;
+      margin: 0 0 1rem 0;
+    }
+
+    .report-header .subtitle {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.25rem;
+      max-width: 600px;
+    }
+
+    .report-meta {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .report-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.85);
+      font-size: 0.9rem;
+    }
+
+    /* Score Cards */
+    .score-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .score-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      border: 1px solid var(--mv-border);
+    }
+
+    .score-card .score {
+      font-family: Grotesk-Bold, sans-serif;
+      font-size: 3rem;
+      line-height: 1;
+    }
+
+    .score-card.good .score { color: var(--mv-green); }
+    .score-card.warning .score { color: var(--mv-yellow); }
+    .score-card.critical .score { color: var(--mv-red); }
+
+    .score-card .label {
+      font-size: 0.9rem;
+      color: var(--mv-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* Section Card */
+    .section-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      border: 1px solid var(--mv-border);
+    }
+
+    .section-card h2 {
+      margin: 0 0 1.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-card h2 .icon {
+      font-size: 1.5rem;
+    }
+
+    .section-card h3 {
+      margin: 2rem 0 1rem 0;
+      font-family: Grotesk-Bold, sans-serif;
+      font-size: 1.125rem;
+      color: var(--mv-text);
+    }
+
+    .section-card h3:first-of-type {
+      margin-top: 0.5rem;
+    }
+
+    /* Issue List */
+    .issue-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .issue-list li {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--mv-border);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .issue-list li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .issue-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-family: Grotesk-Bold, sans-serif;
+    }
+
+    .issue-icon.critical {
+      background: var(--mv-red-light);
+      color: var(--mv-red);
+    }
+
+    .issue-icon.warning {
+      background: var(--mv-yellow-light);
+      color: var(--mv-yellow);
+    }
+
+    .issue-icon.good {
+      background: var(--mv-green-light);
+      color: var(--mv-green);
+    }
+
+    .issue-content strong {
+      font-family: Grotesk-Bold, sans-serif;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .issue-content span {
+      color: var(--mv-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Recommendation Cards */
+    .rec-card {
+      background: var(--mv-bg-alt);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--mv-purple);
+    }
+
+    .rec-card h4 {
+      font-family: Grotesk-Bold, sans-serif;
+      font-size: 1rem;
+      margin: 0 0 0.5rem 0;
+      color: var(--mv-text);
+    }
+
+    .rec-card p {
+      font-size: 0.95rem;
+      color: var(--mv-muted);
+      margin: 0;
+    }
+
+    .rec-card .impact {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      background: var(--mv-purple-light);
+      color: var(--mv-purple);
+      font-family: Grotesk-Medium, sans-serif;
+    }
+
+    /* Quick Wins Section */
+    .quick-wins {
+      background: linear-gradient(135deg, var(--mv-green-light) 0%, #a7f3d0 100%);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .quick-wins h2 {
+      color: #065f46;
+      margin: 0 0 1.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .quick-wins ol {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+
+    .quick-wins li {
+      padding: 0.5rem 0;
+      color: #065f46;
+    }
+
+    .quick-wins li strong {
+      font-family: Grotesk-Bold, sans-serif;
+    }
+
+    /* Page Structure Diagram */
+    .page-structure {
+      background: var(--mv-bg-alt);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .structure-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      background: white;
+      border-radius: 0.75rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .structure-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .structure-item .height {
+      font-size: 0.8rem;
+      color: var(--mv-light);
+      min-width: 80px;
+      font-family: Grotesk-Medium, sans-serif;
+    }
+
+    .structure-item .bar {
+      height: 8px;
+      background: var(--mv-purple);
+      border-radius: 4px;
+      opacity: 0.6;
+    }
+
+    .structure-item .name {
+      flex: 1;
+    }
+
+    .structure-item.problem .bar {
+      background: var(--mv-red);
+    }
+
+    .structure-item.problem .name {
+      color: var(--mv-red);
+    }
+
+    /* Tables */
+    .mv-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    .mv-table th {
+      text-align: left;
+      padding: 1rem;
+      background: var(--mv-bg-alt);
+      font-family: Grotesk-Bold, sans-serif;
+      font-size: 0.85rem;
+      border-bottom: 2px solid var(--mv-border);
+    }
+
+    .mv-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--mv-border);
+    }
+
+    .mv-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .mv-table .current {
+      color: var(--mv-red);
+    }
+
+    .mv-table .recommended {
+      color: var(--mv-green);
+    }
+
+    .mv-table .total-row {
+      background: var(--mv-bg-alt);
+      font-family: Grotesk-Bold, sans-serif;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-family: Grotesk-Medium, sans-serif;
+    }
+
+    .badge.high { background: var(--mv-red-light); color: var(--mv-red); }
+    .badge.medium { background: var(--mv-yellow-light); color: var(--mv-yellow); }
+    .badge.low { background: var(--mv-green-light); color: var(--mv-green); }
+
+    /* Executive Summary */
+    .exec-summary {
+      background: var(--mv-purple-light);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .exec-summary p {
+      margin: 0;
+      color: var(--mv-text);
+    }
+
+    /* Footer */
+    .report-footer {
+      text-align: center;
+      padding: 3rem 0;
+      color: var(--mv-light);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--mv-border);
+      margin-top: 3rem;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--mv-border);
+      margin: 2rem 0;
+    }
+
+    /* Two column layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .score-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .report-meta {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      .report-header {
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+      }
+
+      .section-card {
+        box-shadow: none;
+        border: 1px solid var(--mv-border);
+        break-inside: avoid;
+      }
+
+      .quick-wins {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Report Header -->
+  <header class="report-header">
+    <div class="mv-container">
+      <div class="eyebrow">Conversion Optimization Report</div>
+      <h1 class="mv-type--headline2">Soul Pillar Page Analysis</h1>
+      <p class="subtitle">Comprehensive analysis with actionable recommendations to improve conversion rates for the Soul category pillar landing page.</p>
+
+      <div class="report-meta">
+        <div class="report-meta-item">
+          <span>📅</span> December 2024
+        </div>
+        <div class="report-meta-item">
+          <span>📄</span> Category Pillar Sales Page
+        </div>
+        <div class="report-meta-item">
+          <span>🎯</span> Goal: Subscription Conversions
+        </div>
+        <div class="report-meta-item">
+          <span>📐</span> Current Page: 16,340px
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="mv-container">
+
+    <!-- Executive Summary -->
+    <section class="section-card">
+      <h2 class="mv-type--headline5"><span class="icon">📋</span> Executive Summary</h2>
+
+      <div class="exec-summary">
+        <p>The Soul Pillar page effectively communicates value through strong pricing psychology ($6,629 → $299) and clear transformation outcomes. However, <strong>critical conversion opportunities are being missed</strong> due to excessive page length, missing trust signals, and overwhelming content structure.</p>
+      </div>
+
+      <div class="score-cards">
+        <div class="score-card warning">
+          <div class="score">6.2</div>
+          <div class="label">Overall Score /10</div>
+        </div>
+        <div class="score-card good">
+          <div class="score">8.5</div>
+          <div class="label">Value Proposition</div>
+        </div>
+        <div class="score-card critical">
+          <div class="score">4.0</div>
+          <div class="label">Page Structure</div>
+        </div>
+        <div class="score-card warning">
+          <div class="score">5.5</div>
+          <div class="label">Trust Signals</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page Structure Analysis -->
+    <section class="section-card">
+      <h2 class="mv-type--headline5"><span class="icon">📐</span> Current Page Structure</h2>
+
+      <p>Total page height: <strong>16,340px</strong> — This is 2-3x longer than optimal for conversion. Users experience scroll fatigue before reaching key decision points.</p>
+
+      <div class="page-structure">
+        <div class="structure-item">
+          <span class="height">736px</span>
+          <span class="bar" style="width: 45px;"></span>
+          <span class="name">Hero Section (with pricing)</span>
+        </div>
+        <div class="structure-item problem">
+          <span class="height">653px</span>
+          <span class="bar" style="width: 40px;"></span>
+          <span class="name">Photo Collage (low conversion value)</span>
+        </div>
+        <div class="structure-item">
+          <span class="height">853px</span>
+          <span class="bar" style="width: 52px;"></span>
+          <span class="name">Transformation Benefits (6 cards)</span>
+        </div>
+        <div class="structure-item">
+          <span class="height">586px</span>
+          <span class="bar" style="width: 36px;"></span>
+          <span class="name">Featured Program (Silva Ultramind)</span>
+        </div>
+        <div class="structure-item problem">
+          <span class="height">6,306px</span>
+          <span class="bar" style="width: 380px;"></span>
+          <span class="name">21 Program Cards (overwhelming — needs collapse)</span>
+        </div>
+        <div class="structure-item">
+          <span class="height">1,040px</span>
+          <span class="bar" style="width: 63px;"></span>
+          <span class="name">Teacher Profiles</span>
+        </div>
+        <div class="structure-item problem">
+          <span class="height">~6,000px</span>
+          <span class="bar" style="width: 360px;"></span>
+          <span class="name">Remaining sections...</span>
+        </div>
+      </div>
+
+      <p style="color: var(--mv-muted); font-size: 0.9rem;">
+        <strong>Key insight:</strong> The program listing section alone (6,306px) is longer than many entire high-converting landing pages. Consider collapsing to "Top 5" with expandable view.
+      </p>
+    </section>
+
+    <!-- Quick Wins -->
+    <section class="quick-wins">
+      <h2 class="mv-type--headline5"><span class="icon">⚡</span> Quick Wins — Implement First</h2>
+      <ol>
+        <li><strong>Add sticky CTA bar</strong> — Shows on scroll: "$299/year • Start Your Transformation"</li>
+        <li><strong>Add money-back guarantee badge</strong> — Place directly below pricing in hero</li>
+        <li><strong>Collapse program list</strong> — Show "Top 6 Programs" with "View all 21" toggle</li>
+        <li><strong>Add FAQ section</strong> — 5-6 common questions with expandable answers</li>
+        <li><strong>Shorten hero headline</strong> — From 3 lines to 1-2 impactful lines</li>
+        <li><strong>Replace photo collage</strong> — Use video testimonial carousel instead</li>
+      </ol>
+    </section>
+
+    <!-- Critical Issues -->
+    <section class="section-card">
+      <h2 class="mv-type--headline5"><span class="icon">🚨</span> Critical Issues</h2>
+
+      <ul class="issue-list">
+        <li>
+          <span class="issue-icon critical">!</span>
+          <div class="issue-content">
+            <strong>No sticky CTA or navigation</strong>
+            <span>Users must scroll 16,000+ pixels with no persistent way to convert. Add a sticky bottom bar with price + CTA.</span>
+          </div>
+        </li>
+        <li>
+          <span class="issue-icon critical">!</span>
+          <div class="issue-content">
+            <strong>21 identical program cards create decision paralysis</strong>
+            <span>Too many options with no categorization or hierarchy. Collapse to "Top 5" with "View all" toggle.</span>
+          </div>
+        </li>
+        <li>
+          <span class="issue-icon critical">!</span>
+          <div class="issue-content">
+            <strong>No money-back guarantee visible</strong>
+            <span>Risk reversal is the #1 conversion lever for high-ticket offers. Add guarantee badge near pricing.</span>
+          </div>
+        </li>
+        <li>
+          <span class="issue-icon warning">⚠</span>
+          <div class="issue-content">
+            <strong>Social proof below the fold</strong>
+            <span>Stats (21 programs, teachers, hours) are at the bottom of hero. Move above or integrate into headline.</span>
+          </div>
+        </li>
+        <li>
+          <span class="issue-icon warning">⚠</span>
+          <div class="issue-content">
+            <strong>Photo collage adds no conversion value</strong>
+            <span>653px of images with no context, captions, or testimonials. Replace with video testimonials or reduce size.</span>
+          </div>
+        </li>
+        <li>
+          <span class="issue-icon warning">⚠</span>
+          <div class="issue-content">
+            <strong>Missing FAQ section</strong>
+            <span>Common objections go unanswered. Add FAQ to address "Is this for beginners?", "Can I cancel?", etc.</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- What's Working Well -->
+    <section class="section-card">
+      <h2 class="mv-type--headline5"><span class="icon">✅</span> What's Working Well</h2>
+
+      <ul class="issue-list">
+        <li>
+          <span class="issue-icon good">✓</span>
+          <div class="issue-content">
+            <strong>Strong price anchoring</strong>
+            <span>$6,629 → $299 (95% savings) creates powerful perceived value. "Less than $1/day" reinforces affordability.</span>
+          </div>
+        </li>
+        <li>
+          <span class="issue-icon good">✓</span>
+          <div class="issue-content">
+            <strong>Clear transformation outcomes</strong>
+            <span>6 benefit cards (Deep inner peace, Heightened intuition, etc.) communicate tangible results.</span>
+          </div>
+        </li>
+        <li>
+          <span class="issue-icon good">✓</span>
+          <div class="issue-content">
+            <strong>Featured program highlight</strong>
+            <span>Silva Ultramind as the lead program provides an entry point and reduces overwhelm.</span>
+          </div>
+        </li>
+        <li>
+          <span class="issue-icon good">✓</span>
+          <div class="issue-content">
+            <strong>Author credibility signals</strong>
+            <span>Each program card includes author name and rating (4.9 stars) which builds trust.</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Detailed Recommendations -->
+    <section class="section-card">
+      <h2 class="mv-type--headline5"><span class="icon">📝</span> Detailed Recommendations</h2>
+
+      <h3>Hero Section</h3>
+
+      <div class="rec-card">
+        <h4>Shorten and strengthen the headline</h4>
+        <p><strong>Current:</strong> "21 of the world's top spiritual programs in one transformative collection" (14 words)<br>
+        <strong>Recommended:</strong> "Master Your Inner World" or "21 World-Class Spiritual Programs. One Collection."</p>
+        <span class="impact">High Impact</span>
+      </div>
+
+      <div class="rec-card">
+        <h4>Consolidate to single primary CTA</h4>
+        <p><strong>Current:</strong> Two buttons side-by-side (Join Soul + Learn More) creates decision friction.<br>
+        <strong>Recommended:</strong> Single bold CTA "Start Your Transformation" with text link "See what's included" below.</p>
+        <span class="impact">Medium Impact</span>
+      </div>
+
+      <div class="rec-card">
+        <h4>Add urgency element</h4>
+        <p>Add countdown timer or "Limited time pricing" badge near the $299 price to create urgency without being pushy.</p>
+        <span class="impact">High Impact</span>
+      </div>
+
+      <h3>Program Listing</h3>
+
+      <div class="rec-card">
+        <h4>Implement progressive disclosure</h4>
+        <p><strong>Current:</strong> All 21 programs displayed in one massive list (6,306px).<br>
+        <strong>Recommended:</strong> Show 5-6 "Most Popular" programs prominently, with category filters and "View all" expansion.</p>
+        <span class="impact">Critical Impact</span>
+      </div>
+
+      <div class="rec-card">
+        <h4>Add category filtering</h4>
+        <p>Group programs by outcome: Meditation, Intuition, Energy Work, Manifestation, Spiritual Growth. Let users self-select their interest area.</p>
+        <span class="impact">High Impact</span>
+      </div>
+
+      <h3>Missing Elements to Add</h3>
+
+      <div class="rec-card">
+        <h4>Social proof bar (near top)</h4>
+        <p>Add: "Join 15M+ Mindvalley members" • "4.9★ from 50,000+ reviews" • Media logos (Forbes, Inc, etc.)</p>
+        <span class="impact">High Impact</span>
+      </div>
+
+      <div class="rec-card">
+        <h4>Video testimonials</h4>
+        <p>Replace static photo collage with 3-4 short video testimonials from real members. Video testimonials convert 2-3x better than text.</p>
+        <span class="impact">High Impact</span>
+      </div>
+
+      <div class="rec-card">
+        <h4>Comparison table</h4>
+        <p>Show: Soul Collection vs. buying programs individually vs. competitors (Calm, Headspace). Highlight value advantage.</p>
+        <span class="impact">Medium Impact</span>
+      </div>
+
+      <div class="rec-card">
+        <h4>Exit intent popup</h4>
+        <p>When user moves to leave, offer free masterclass preview or extended trial to capture leads who aren't ready to buy.</p>
+        <span class="impact">Medium Impact</span>
+      </div>
+    </section>
+
+    <!-- Headline Alternatives -->
+    <section class="section-card">
+      <h2 class="mv-type--headline5"><span class="icon">💡</span> Headline Alternatives to Test</h2>
+
+      <table class="mv-table">
+        <thead>
+          <tr>
+            <th style="width: 100px;">Option</th>
+            <th>Headline</th>
+            <th style="width: 150px;">Angle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="current">Current</td>
+            <td>"21 of the world's top spiritual programs in one transformative collection"</td>
+            <td>Feature-focused</td>
+          </tr>
+          <tr>
+            <td class="recommended">A</td>
+            <td>"Master Your Inner World"</td>
+            <td>Outcome-focused</td>
+          </tr>
+          <tr>
+            <td class="recommended">B</td>
+            <td>"Find Peace. Trust Your Intuition. Transform Your Life."</td>
+            <td>Benefit stack</td>
+          </tr>
+          <tr>
+            <td class="recommended">C</td>
+            <td>"The Complete Spiritual Mastery Collection"</td>
+            <td>Premium positioning</td>
+          </tr>
+          <tr>
+            <td class="recommended">D</td>
+            <td>"What 15 Million People Know About Inner Peace"</td>
+            <td>Social proof lead</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Page Length Comparison -->
+    <section class="section-card">
+      <h2 class="mv-type--headline5"><span class="icon">📏</span> Recommended Page Structure</h2>
+
+      <table class="mv-table">
+        <thead>
+          <tr>
+            <th>Section</th>
+            <th class="current">Current Height</th>
+            <th class="recommended">Target Height</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hero + Pricing</td>
+            <td>736px</td>
+            <td>650px</td>
+          </tr>
+          <tr>
+            <td>Social Proof Bar</td>
+            <td>—</td>
+            <td class="recommended">80px (NEW)</td>
+          </tr>
+          <tr>
+            <td>Photo Collage → Video Testimonials</td>
+            <td>653px</td>
+            <td>400px</td>
+          </tr>
+          <tr>
+            <td>Transformation Benefits</td>
+            <td>853px</td>
+            <td>600px</td>
+          </tr>
+          <tr>
+            <td>Featured Programs (Top 5)</td>
+            <td class="current">6,306px</td>
+            <td class="recommended">800px</td>
+          </tr>
+          <tr>
+            <td>Comparison Table</td>
+            <td>—</td>
+            <td class="recommended">400px (NEW)</td>
+          </tr>
+          <tr>
+            <td>Teacher Highlights</td>
+            <td>1,040px</td>
+            <td>500px</td>
+          </tr>
+          <tr>
+            <td>FAQ</td>
+            <td>—</td>
+            <td class="recommended">500px (NEW)</td>
+          </tr>
+          <tr>
+            <td>Final CTA</td>
+            <td>varies</td>
+            <td>400px</td>
+          </tr>
+          <tr class="total-row">
+            <td><strong>TOTAL</strong></td>
+            <td class="current"><strong>~16,340px</strong></td>
+            <td class="recommended"><strong>~4,330px</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top: 1.5rem; color: var(--mv-muted); font-size: 0.95rem;">
+        <strong>Result:</strong> 73% reduction in page length while adding key conversion elements. Users reach the final CTA in ~3 scroll sessions instead of 10+.
+      </p>
+    </section>
+
+    <!-- Mobile Considerations -->
+    <section class="section-card">
+      <h2 class="mv-type--headline5"><span class="icon">📱</span> Mobile Optimization Notes</h2>
+
+      <ul class="issue-list">
+        <li>
+          <span class="issue-icon critical">!</span>
+          <div class="issue-content">
+            <strong>Program cards will create extreme scroll depth</strong>
+            <span>21 stacked cards on mobile = 50+ screen heights. Use horizontal scroll carousel instead.</span>
+          </div>
+        </li>
+        <li>
+          <span class="issue-icon warning">⚠</span>
+          <div class="issue-content">
+            <strong>Hero headline will wrap poorly</strong>
+            <span>14-word headline becomes 4-5 lines on mobile. Use shorter mobile-specific headline.</span>
+          </div>
+        </li>
+        <li>
+          <span class="issue-icon warning">⚠</span>
+          <div class="issue-content">
+            <strong>Photo collage loses impact</strong>
+            <span>5-column collage will compress or stack awkwardly. Replace with swipeable testimonial cards.</span>
+          </div>
+        </li>
+        <li>
+          <span class="issue-icon good">✓</span>
+          <div class="issue-content">
+            <strong>Sticky CTA bar works well on mobile</strong>
+            <span>Fixed bottom bar with thumb-friendly CTA button is a mobile conversion best practice.</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Implementation Priority -->
+    <section class="section-card">
+      <h2 class="mv-type--headline5"><span class="icon">🎯</span> Implementation Priority</h2>
+
+      <table class="mv-table">
+        <thead>
+          <tr>
+            <th style="width: 80px;">Priority</th>
+            <th>Change</th>
+            <th style="width: 100px;">Impact</th>
+            <th style="width: 100px;">Effort</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge high">P1</span></td>
+            <td>Add sticky CTA bar</td>
+            <td>High</td>
+            <td>Low</td>
+          </tr>
+          <tr>
+            <td><span class="badge high">P1</span></td>
+            <td>Add money-back guarantee</td>
+            <td>High</td>
+            <td>Low</td>
+          </tr>
+          <tr>
+            <td><span class="badge high">P1</span></td>
+            <td>Collapse program list to Top 6</td>
+            <td>Critical</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td><span class="badge medium">P2</span></td>
+            <td>Add FAQ section</td>
+            <td>High</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td><span class="badge medium">P2</span></td>
+            <td>Shorten hero headline</td>
+            <td>Medium</td>
+            <td>Low</td>
+          </tr>
+          <tr>
+            <td><span class="badge medium">P2</span></td>
+            <td>Add social proof bar</td>
+            <td>High</td>
+            <td>Low</td>
+          </tr>
+          <tr>
+            <td><span class="badge low">P3</span></td>
+            <td>Replace collage with video testimonials</td>
+            <td>High</td>
+            <td>High</td>
+          </tr>
+          <tr>
+            <td><span class="badge low">P3</span></td>
+            <td>Add comparison table</td>
+            <td>Medium</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td><span class="badge low">P3</span></td>
+            <td>Exit intent popup</td>
+            <td>Medium</td>
+            <td>Medium</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Next Steps -->
+    <section class="section-card">
+      <h2 class="mv-type--headline5"><span class="icon">🚀</span> Next Steps</h2>
+
+      <div class="two-col">
+        <div class="rec-card">
+          <h4>1. Review the Redesigned Mockup</h4>
+          <p>Open <strong>soul-pillar-redesigned.html</strong> to see all recommendations visualized with annotations showing each change.</p>
+        </div>
+        <div class="rec-card">
+          <h4>2. Prioritize Quick Wins</h4>
+          <p>Start with sticky CTA bar, guarantee badge, and program collapse — these deliver the highest impact with lowest effort.</p>
+        </div>
+        <div class="rec-card">
+          <h4>3. Set Up A/B Tests</h4>
+          <p>Test the shortened headlines (options A-D) against the current headline to validate which resonates best.</p>
+        </div>
+        <div class="rec-card">
+          <h4>4. Gather Video Testimonials</h4>
+          <p>Begin collecting 3-4 member video testimonials for the collage replacement — this takes time but has high impact.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="report-footer mv-container">
+    <p style="margin-bottom: 0.5rem;"><strong>Soul Pillar Conversion Optimization Report</strong></p>
+    <p>Prepared for Mindvalley Product & Marketing Teams</p>
+    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--mv-purple);">
+      See the redesigned mockup: <strong>soul-pillar-redesigned.html</strong>
+    </p>
+  </footer>
+
+</body>
+</html>
