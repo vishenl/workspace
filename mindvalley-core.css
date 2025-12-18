@@ -1,352 +1,815 @@
 /* =========================================
-   Mindvalley / Core CSS (simplified)
-   Extracted from app.css (fonts + type + layout)
+   Mindvalley Core CSS
+   Typography based on Supernova design tokens
+   Font: Google Sans Flex
    ========================================= */
 
-/* -------- Fonts (Sharp Grotesk / Grotesk) -------- */
+/* Google Sans Flex Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap');
 
-@font-face {
-    font-display: swap;
-    font-family: Grotesk-Regular;
-    src:
-      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBook-19.ed0b68c.woff2) format("woff2"),
-      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBook-19.cfae424.woff) format("woff");
-  }
-  
-  @font-face {
-    font-display: swap;
-    font-family: Grotesk-Medium;
-    src:
-      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrMedium-20.36349e7.woff2) format("woff2"),
-      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrMedium-20.f7afa74.woff) format("woff");
-  }
-  
-  @font-face {
-    font-display: swap;
-    font-family: Grotesk-Bold-16;
-    src:
-      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBold-16.d5a4b9e.woff2) format("woff2"),
-      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBold-16.0396c00.woff) format("woff");
-  }
-  
-  /* Optional "sleek" headline variants use this too */
-  @font-face {
-    font-display: swap;
-    font-family: Grotesk-Bold;
-    src:
-      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrSmBold-21.2e6314a.woff2) format("woff2"),
-      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrSmBold-21.4b5d971.woff) format("woff");
-  }
-  
-  /* -------- Global base -------- */
-  
-  html {
-    -webkit-font-smoothing: antialiased;
-    color: #0f131a;
-    font-size: 16px;
-    text-rendering: optimizeLegibility;
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: Grotesk-Regular, sans-serif;
-    font-weight: 400;
-  }
-  
-  /* Links (purple, same as MV) */
-  
-  h1 a,
-  h2 a,
-  h3 a,
-  h4 a,
-  h5 a,
-  h6 a,
-  p a {
-    color: #7a12d4;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  
-  h1 a:hover,
-  h2 a:hover,
-  h3 a:hover,
-  h4 a:hover,
-  h5 a:hover,
-  h6 a:hover,
-  p a:hover {
-    text-decoration-color: #7a12d4;
-    text-decoration-line: underline;
-  }
-  
-  p {
-    font-family: Grotesk-Regular, sans-serif;
-    margin: 0 0 1.25rem;
-  }
-  
-  p:last-child {
-    margin-bottom: 0;
-  }
-  
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
-    font-family: inherit;
-    font-weight: inherit;
-  }
-  
-  /* -------- Core layout container (mv-container) -------- */
-  
+/* ==========================================================================
+   CSS Variables - Design Tokens
+   ========================================================================== */
+
+:root {
+  /* --------------------------------------------------------------------------
+     Font Families
+     Google Sans Flex with Verdana fallback (per brand guidelines)
+     -------------------------------------------------------------------------- */
+  --font-brand: "Google Sans Flex", Verdana, sans-serif;
+
+  /* --------------------------------------------------------------------------
+     Font Sizes
+     -------------------------------------------------------------------------- */
+  --font-size-200: 0.5rem;      /* 8px */
+  --font-size-250: 0.625rem;    /* 10px */
+  --font-size-300: 0.75rem;     /* 12px */
+  --font-size-350: 0.875rem;    /* 14px */
+  --font-size-400: 1rem;        /* 16px */
+  --font-size-450: 1.125rem;    /* 18px */
+  --font-size-500: 1.25rem;     /* 20px */
+  --font-size-550: 1.375rem;    /* 22px */
+  --font-size-600: 1.5rem;      /* 24px */
+  --font-size-700: 1.75rem;     /* 28px */
+  --font-size-750: 1.875rem;    /* 30px */
+  --font-size-800: 2rem;        /* 32px */
+  --font-size-900: 2.25rem;     /* 36px */
+  --font-size-1100: 2.75rem;    /* 44px */
+  --font-size-1200: 3rem;       /* 48px */
+  --font-size-1500: 3.75rem;    /* 60px */
+  --font-size-1600: 4rem;       /* 64px */
+  --font-size-1800: 4.5rem;     /* 72px */
+  --font-size-2000: 5rem;       /* 80px */
+  --font-size-2400: 6rem;       /* 96px */
+  --font-size-2500: 6.25rem;    /* 100px */
+
+  /* --------------------------------------------------------------------------
+     Font Weights
+     -------------------------------------------------------------------------- */
+  --font-weight-bold: 700;
+  --font-weight-light: 300;
+  --font-weight-medium: 500;
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+
+  /* --------------------------------------------------------------------------
+     Letter Spacing
+     -------------------------------------------------------------------------- */
+  --letter-spacing-20: 0.0125rem;     /* 0.2px */
+  --letter-spacing-25: 0.015625rem;   /* 0.25px */
+  --letter-spacing-35: 0.021875rem;   /* 0.35px */
+  --letter-spacing-40: 0.025rem;      /* 0.4px */
+  --letter-spacing-50: 0.03125rem;    /* 0.5px */
+  --letter-spacing-75: 0.046875rem;   /* 0.75px */
+  --letter-spacing-100: 0.0625rem;    /* 1px */
+
+  /* Semantic letter spacing */
+  --letter-spacing-medium: var(--letter-spacing-35);
+  --letter-spacing-normal: var(--letter-spacing-25);
+  --letter-spacing-wide: var(--letter-spacing-50);
+
+  /* --------------------------------------------------------------------------
+     Line Heights
+     -------------------------------------------------------------------------- */
+  --line-height-12: 0.75rem;    /* 12px */
+  --line-height-14: 0.875rem;   /* 14px */
+  --line-height-15: 0.9375rem;  /* 15px */
+  --line-height-16: 1rem;       /* 16px */
+  --line-height-18: 1.125rem;   /* 18px */
+  --line-height-20: 1.25rem;    /* 20px */
+  --line-height-22: 1.375rem;   /* 22px */
+  --line-height-24: 1.5rem;     /* 24px */
+  --line-height-28: 1.75rem;    /* 28px */
+  --line-height-30: 1.875rem;   /* 30px */
+  --line-height-34: 2.125rem;   /* 34px */
+  --line-height-36: 2.25rem;    /* 36px */
+  --line-height-40: 2.5rem;     /* 40px */
+  --line-height-44: 2.75rem;    /* 44px */
+  --line-height-48: 3rem;       /* 48px */
+  --line-height-52: 3.25rem;    /* 52px */
+  --line-height-56: 3.5rem;     /* 56px */
+  --line-height-60: 3.75rem;    /* 60px */
+  --line-height-64: 4rem;       /* 64px */
+  --line-height-68: 4.25rem;    /* 68px */
+  --line-height-72: 4.5rem;     /* 72px */
+  --line-height-80: 5rem;       /* 80px */
+  --line-height-96: 6rem;       /* 96px */
+  --line-height-115: 7.1875rem; /* 115px */
+}
+
+/* -------- Global base -------- */
+
+html {
+  -webkit-font-smoothing: antialiased;
+  color: #0f131a;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Links (purple, same as MV) */
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a,
+p a {
+  color: #7a12d4;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+h1 a:hover,
+h2 a:hover,
+h3 a:hover,
+h4 a:hover,
+h5 a:hover,
+h6 a:hover,
+p a:hover {
+  text-decoration-color: #7a12d4;
+  text-decoration-line: underline;
+}
+
+p {
+  font-family: var(--font-brand);
+  margin: 0 0 1.25rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: inherit;
+  font-weight: inherit;
+}
+
+/* -------- Core layout container (mv-container) -------- */
+
+.mv-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1200px) {
   .mv-container {
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    width: 100%;
+    max-width: 1200px;
+    padding-left: 0;
+    padding-right: 0;
   }
-  
-  @media (min-width: 1200px) {
-    .mv-container {
-      max-width: 1200px;
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-  
-  @media (min-width: 1600px) {
-    .mv-container {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-  
-  /* You can still use the "--full" modifiers if you want, but this
-     single base is enough for most Self Reset style pages. */
-  
-  /* -------- Typography scale (headlines / titles) -------- */
-  /* Use these utility classes on wrappers or on headings directly.
-     They are exactly what app.css defines, just grouped here. */
-  
-  /* Display 1 – biggest (hero on some pages) */
-  .mv-type--display1 {
-    font-family: Grotesk-Bold-16, Verdana, "sans-serif";
-    font-size: 3.75rem;
-    font-weight: 700;
-    letter-spacing: 0.25px;
-    line-height: 3.75rem;
-  }
-  
-  @media (min-width: 992px) {
-    .mv-type--display1 {
-      font-size: 7.5rem;
-      line-height: 7.5rem;
-    }
-  }
-  
-  /* Display 2 */
-  .mv-type--display2 {
-    font-family: Grotesk-Bold-16, Verdana, "sans-serif";
-    font-size: 3.125rem;
-    font-weight: 700;
-    letter-spacing: 0.25px;
-    line-height: 3.125rem;
-  }
-  
-  @media (min-width: 992px) {
-    .mv-type--display2 {
-      font-size: 5.625rem;
-      line-height: 5.625rem;
-    }
-  }
-  
-  /* Display 3 */
-  .mv-type--display3 {
-    font-family: Grotesk-Bold-16, Verdana, "sans-serif";
-    font-size: 2.5rem;
-    font-weight: 700;
-    letter-spacing: 0.25px;
-    line-height: 2.5rem;
-  }
-  
-  @media (min-width: 992px) {
-    .mv-type--display3 {
-      font-size: 3.75rem;
-      line-height: 3.75rem;
-    }
-  }
-  
-  /* Headline 1 / titlebold1 – typical hero H1 on MV pages */
-  .mv-type--headline1,
-  .mv-type--titlebold1 {
-    font-family: Grotesk-Bold, Verdana, "sans-serif";
-    font-size: 3rem;
-    font-weight: 700;
-    letter-spacing: 0.0052083333em;
-    line-height: 3.5rem;
-  }
-  
-  @media (min-width: 992px) {
-    .mv-type--headline1,
-    .mv-type--titlebold1 {
-      font-size: 4.5rem;
-      letter-spacing: 0.0034722222em;
-      line-height: 5rem;
-    }
-  }
-  
-  /* Headline 2 */
-  .mv-type--headline2,
-  .mv-type--titlebold2 {
-    font-family: Grotesk-Bold, Verdana, "sans-serif";
-    font-size: 2.25rem;
-    font-weight: 700;
-    letter-spacing: 0.0069444444em;
-    line-height: 2.75rem;
-  }
-  
-  @media (min-width: 992px) {
-    .mv-type--headline2,
-    .mv-type--titlebold2 {
-      font-size: 3.75rem;
-      letter-spacing: 0.0041666667em;
-      line-height: 4.25rem;
-    }
-  }
-  
-  /* Headline 3 */
-  .mv-type--headline3,
-  .mv-type--titlebold3 {
-    font-family: Grotesk-Bold, Verdana, "sans-serif";
-    font-size: 1.875rem;
-    font-weight: 700;
-    letter-spacing: 0.0083333333em;
-    line-height: 2.25rem;
-  }
-  
-  @media (min-width: 992px) {
-    .mv-type--headline3,
-    .mv-type--titlebold3 {
-      font-size: 3rem;
-      letter-spacing: 0.0052083333em;
-      line-height: 3.5rem;
-    }
-  }
-  
-  /* Headline 4 */
-  .mv-type--headline4,
-  .mv-type--titlebold4 {
-    font-family: Grotesk-Bold, Verdana, "sans-serif";
-    font-size: 1.75rem;
-    font-weight: 700;
-    letter-spacing: 0.0089285714em;
-    line-height: 2.125rem;
-  }
-  
-  @media (min-width: 992px) {
-    .mv-type--headline4,
-    .mv-type--titlebold4 {
-      font-size: 2.25rem;
-      letter-spacing: 0.0069444444em;
-      line-height: 2.75rem;
-    }
-  }
-  
-  /* Headline 5 */
-  .mv-type--headline5,
-  .mv-type--titlebold5 {
-    font-family: Grotesk-Bold, Verdana, "sans-serif";
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0.0104166667em;
-    line-height: 1.875rem;
-  }
-  
-  @media (min-width: 992px) {
-    .mv-type--headline5,
-    .mv-type--titlebold5 {
-      font-size: 1.75rem;
-      letter-spacing: 0.0089285714em;
-      line-height: 2.125rem;
-    }
-  }
-  
-  /* Headline 6 */
-  .mv-type--headline6,
-  .mv-type--titlebold6 {
-    font-family: Grotesk-Bold, Verdana, "sans-serif";
-    font-size: 1.375rem;
-    font-weight: 700;
-    letter-spacing: 0.0113636364em;
-    line-height: 1.625rem;
-  }
-  
-  @media (min-width: 992px) {
-    .mv-type--headline6,
-    .mv-type--titlebold6 {
-      font-size: 1.5rem;
-      letter-spacing: 0.0104166667em;
-      line-height: 1.875rem;
-    }
-  }
-  
-  /* Headline 7 */
-  .mv-type--headline7,
-  .mv-type--titlebold7 {
-    font-family: Grotesk-Bold, Verdana, "sans-serif";
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: 0.0125em;
-    line-height: 1.5rem;
-  }
-  
-  @media (min-width: 992px) {
-    .mv-type--headline7,
-    .mv-type--titlebold7 {
-      font-size: 1.375rem;
-      letter-spacing: 0.0113636364em;
-      line-height: 1.625rem;
-    }
-  }
-  
-  /* Headline 8 */
-  .mv-type--headline8,
-  .mv-type--titlebold8 {
-    font-family: Grotesk-Bold, Verdana, "sans-serif";
-    font-size: 1.125rem;
-    font-weight: 700;
-    letter-spacing: 0.0138888889em;
-    line-height: 1.375rem;
-  }
-  
-  @media (min-width: 992px) {
-    .mv-type--headline8,
-    .mv-type--titlebold8 {
-      font-size: 1.25rem;
-      letter-spacing: 0.0125em;
-      line-height: 1.5rem;
-    }
-  }
-  
-  /* Headline 9 */
-  .mv-type--headline9,
-  .mv-type--titlebold9 {
-    font-family: Grotesk-Bold, Verdana, "sans-serif";
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.015625em;
-    line-height: 1.25rem;
-  }
-  
-  @media (min-width: 992px) {
-    .mv-type--headline9,
-    .mv-type--titlebold9 {
-      font-size: 1.125rem;
-      letter-spacing: 0.0138888889em;
-      line-height: 1.375rem;
-    }
-  }
+}
 
+@media (min-width: 1600px) {
+  .mv-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* ==========================================================================
+   Typography Classes - Based on Supernova Design Tokens
+   ========================================================================== */
+
+/* ==========================================================================
+   Body - NON-RESPONSIVE (fixed values per Supernova)
+   ========================================================================== */
+
+.body {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-400);
+  line-height: var(--line-height-24);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-bold {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-400);
+  line-height: var(--line-height-24);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-bold-italic {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-bold);
+  font-style: italic;
+  font-size: var(--font-size-400);
+  line-height: var(--line-height-24);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-italic {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+  font-style: italic;
+  font-size: var(--font-size-400);
+  line-height: var(--line-height-24);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-lg {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-500);
+  line-height: var(--line-height-30);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-lg-bold {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-500);
+  line-height: var(--line-height-30);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-lg-bold-italic {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-bold);
+  font-style: italic;
+  font-size: var(--font-size-500);
+  line-height: var(--line-height-30);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-lg-italic {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+  font-style: italic;
+  font-size: var(--font-size-500);
+  line-height: var(--line-height-30);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-sm {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-350);
+  line-height: var(--line-height-20);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-sm-bold {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-350);
+  line-height: var(--line-height-20);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-sm-bold-italic {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-bold);
+  font-style: italic;
+  font-size: var(--font-size-350);
+  line-height: var(--line-height-20);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-sm-italic {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+  font-style: italic;
+  font-size: var(--font-size-350);
+  line-height: var(--line-height-20);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-xs {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-300);
+  line-height: var(--line-height-16);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-xs-italic {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+  font-style: italic;
+  font-size: var(--font-size-300);
+  line-height: var(--line-height-16);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-2xs {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-250);
+  line-height: var(--line-height-15);
+  letter-spacing: var(--letter-spacing-wide);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.body-3xs {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-200);
+  line-height: var(--line-height-12);
+  letter-spacing: var(--letter-spacing-wide);
+  text-decoration: none;
+  text-transform: none;
+}
+
+/* ==========================================================================
+   Button - NON-RESPONSIVE (fixed values per Supernova)
+   ========================================================================== */
+
+.button {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-400);
+  line-height: var(--line-height-20);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.button-md {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-350);
+  line-height: var(--line-height-18);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.button-sm {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-300);
+  line-height: var(--line-height-16);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+/* ==========================================================================
+   UI Elements - NON-RESPONSIVE (fixed values per Supernova)
+   ========================================================================== */
+
+.caption-disclaimer {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-300);
+  line-height: var(--line-height-16);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.overline-text {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-350);
+  line-height: var(--line-height-20);
+  letter-spacing: var(--letter-spacing-wide);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Timer - NON-RESPONSIVE (fixed values per Supernova)
+   ========================================================================== */
+
+.timer-text {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-1100);
+  line-height: var(--line-height-52);
+  letter-spacing: var(--letter-spacing-normal);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.timer-text-medium {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-900);
+  line-height: var(--line-height-44);
+  letter-spacing: var(--letter-spacing-normal);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.timer-text-small {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-700);
+  line-height: var(--line-height-34);
+  letter-spacing: var(--letter-spacing-normal);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  text-transform: none;
+}
+
+/* ==========================================================================
+   Title (1-6) - RESPONSIVE (mobile-first with 768px breakpoint)
+   ========================================================================== */
+
+.title-1 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-900);
+  line-height: var(--line-height-44);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-1 {
+    font-size: var(--font-size-1500);
+    line-height: var(--line-height-68);
+  }
+}
+
+.title-2 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-800);
+  line-height: var(--line-height-40);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-2 {
+    font-size: var(--font-size-1200);
+    line-height: var(--line-height-56);
+  }
+}
+
+.title-3 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-700);
+  line-height: var(--line-height-36);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-3 {
+    font-size: var(--font-size-900);
+    line-height: var(--line-height-44);
+  }
+}
+
+.title-4 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-600);
+  line-height: var(--line-height-30);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-4 {
+    font-size: var(--font-size-700);
+    line-height: var(--line-height-36);
+  }
+}
+
+.title-5 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-500);
+  line-height: var(--line-height-24);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-5 {
+    font-size: var(--font-size-600);
+    line-height: var(--line-height-30);
+  }
+}
+
+.title-6 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-450);
+  line-height: var(--line-height-22);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-6 {
+    font-size: var(--font-size-500);
+    line-height: var(--line-height-24);
+  }
+}
+
+/* ==========================================================================
+   Title (7-11) - NON-RESPONSIVE (fixed values per Supernova)
+   ========================================================================== */
+
+.title-7 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-400);
+  line-height: var(--line-height-20);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.title-8 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-350);
+  line-height: var(--line-height-18);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.title-9 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-300);
+  line-height: var(--line-height-16);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.title-10 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-250);
+  line-height: var(--line-height-14);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+.title-11 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-200);
+  line-height: var(--line-height-12);
+  letter-spacing: var(--letter-spacing-medium);
+  text-decoration: none;
+  text-transform: none;
+}
+
+/* ==========================================================================
+   Title Bold (1-11) - RESPONSIVE (mobile-first with 768px breakpoint)
+   ========================================================================== */
+
+.title-bold-1 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-1200);
+  line-height: var(--line-height-56);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-bold-1 {
+    font-size: var(--font-size-1800);
+    line-height: var(--line-height-80);
+  }
+}
+
+.title-bold-2 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-900);
+  line-height: var(--line-height-44);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-bold-2 {
+    font-size: var(--font-size-1500);
+    line-height: var(--line-height-68);
+  }
+}
+
+.title-bold-3 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-750);
+  line-height: var(--line-height-36);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-bold-3 {
+    font-size: var(--font-size-1200);
+    line-height: var(--line-height-56);
+  }
+}
+
+.title-bold-4 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-700);
+  line-height: var(--line-height-34);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-bold-4 {
+    font-size: var(--font-size-900);
+    line-height: var(--line-height-44);
+  }
+}
+
+.title-bold-5 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-600);
+  line-height: var(--line-height-30);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-bold-5 {
+    font-size: var(--font-size-700);
+    line-height: var(--line-height-34);
+  }
+}
+
+.title-bold-6 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-550);
+  line-height: var(--line-height-22);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-bold-6 {
+    font-size: var(--font-size-600);
+  }
+}
+
+.title-bold-7 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-500);
+  line-height: var(--line-height-20);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-bold-7 {
+    font-size: var(--font-size-550);
+  }
+}
+
+.title-bold-8 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-450);
+  line-height: var(--line-height-18);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-bold-8 {
+    font-size: var(--font-size-500);
+  }
+}
+
+.title-bold-9 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-400);
+  line-height: var(--line-height-16);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-bold-9 {
+    font-size: var(--font-size-450);
+  }
+}
+
+.title-bold-10 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-350);
+  line-height: var(--line-height-14);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-bold-10 {
+    font-size: var(--font-size-400);
+  }
+}
+
+.title-bold-11 {
+  font-family: var(--font-brand);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-300);
+  line-height: var(--line-height-12);
+  letter-spacing: var(--letter-spacing-normal);
+  text-decoration: none;
+  text-transform: none;
+}
+
+@media (min-width: 768px) {
+  .title-bold-11 {
+    font-size: var(--font-size-350);
+  }
+}
+
+/* ==========================================================================
+   Text Styles - Italic & Emphasis Utilities
+   ========================================================================== */
+
+.mv-italic,
+em,
+i {
+  font-style: italic;
+}
+
+.mv-emphasis {
+  font-weight: var(--font-weight-medium);
+  font-style: italic;
+}
