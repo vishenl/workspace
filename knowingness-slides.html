@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Knowingness — 7 Sacred States Day 1 | Slides</title>
+  <meta name="description" content="Presentation slides for Knowingness, Day 1 of the 7 Sacred States training." />
+  <meta name="theme-color" content="#7a12d4" />
+  <link rel="stylesheet" href="mindvalley-core.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Google Sans Flex', Verdana, sans-serif;
+      background: #0f131a;
+      color: white;
+      overflow: hidden;
+    }
+
+    /* Slide Container */
+    .slides-container {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    /* Backgrounds */
+    .bg-dark {
+      background: linear-gradient(135deg, #0f131a 0%, #1a1f2e 100%);
+    }
+
+    .bg-purple {
+      background: linear-gradient(135deg, #7a12d4 0%, #9333ea 50%, #7a12d4 100%);
+    }
+
+    .bg-deep-purple {
+      background: linear-gradient(135deg, #2d1b4e 0%, #1a0a2e 100%);
+    }
+
+    .bg-light {
+      background: linear-gradient(135deg, #f9f7fc 0%, #f5f0fa 100%);
+      color: #0f131a;
+    }
+
+    .bg-white {
+      background: white;
+      color: #0f131a;
+    }
+
+    /* Decorative Elements */
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .glow-orb-1 {
+      width: 400px;
+      height: 400px;
+      background: #7a12d4;
+      top: -100px;
+      right: -100px;
+    }
+
+    .glow-orb-2 {
+      width: 300px;
+      height: 300px;
+      background: #9333ea;
+      bottom: -50px;
+      left: -50px;
+    }
+
+    .glow-orb-3 {
+      width: 200px;
+      height: 200px;
+      background: #c084fc;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Typography */
+    .slide-eyebrow {
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #c084fc;
+      margin-bottom: 1.5rem;
+    }
+
+    .bg-light .slide-eyebrow,
+    .bg-white .slide-eyebrow {
+      color: #7a12d4;
+    }
+
+    .slide-title {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 600;
+      line-height: 1.1;
+      text-align: center;
+      max-width: 1000px;
+      margin-bottom: 1.5rem;
+    }
+
+    .slide-title-large {
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight: 600;
+      line-height: 1;
+      text-align: center;
+      background: linear-gradient(135deg, #ffffff 0%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .bg-purple .slide-title-large {
+      background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .slide-subtitle {
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-weight: 400;
+      text-align: center;
+      max-width: 700px;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    .slide-quote {
+      font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+      font-weight: 400;
+      font-style: italic;
+      text-align: center;
+      max-width: 900px;
+      line-height: 1.4;
+      position: relative;
+      padding: 0 2rem;
+    }
+
+    .slide-quote::before {
+      content: '"';
+      font-size: 6rem;
+      position: absolute;
+      top: -2rem;
+      left: -1rem;
+      opacity: 0.2;
+      font-style: normal;
+    }
+
+    .quote-author {
+      margin-top: 2rem;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    /* Content Layouts */
+    .content-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .content-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      width: 100%;
+      max-width: 1200px;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .content-split {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    .content-left {
+      text-align: left;
+    }
+
+    /* Lists */
+    .slide-list {
+      list-style: none;
+      text-align: left;
+      font-size: clamp(1.125rem, 2vw, 1.5rem);
+    }
+
+    .slide-list li {
+      padding: 0.75rem 0;
+      padding-left: 2.5rem;
+      position: relative;
+      opacity: 0.9;
+    }
+
+    .slide-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      background: #7a12d4;
+      border-radius: 50%;
+    }
+
+    .bg-purple .slide-list li::before,
+    .bg-deep-purple .slide-list li::before {
+      background: white;
+    }
+
+    .slide-list.check-list li::before {
+      content: '✓';
+      background: none;
+      color: #10b981;
+      font-size: 1.25rem;
+      font-weight: 700;
+      width: auto;
+      height: auto;
+    }
+
+    .slide-list.x-list li::before {
+      content: '✗';
+      background: none;
+      color: #ef4444;
+      font-size: 1.25rem;
+      font-weight: 700;
+      width: auto;
+      height: auto;
+    }
+
+    /* Cards */
+    .slide-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 1100px;
+      z-index: 1;
+    }
+
+    .slide-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      text-align: left;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .bg-light .slide-card,
+    .bg-white .slide-card {
+      background: white;
+      border: 1px solid rgba(122, 18, 212, 0.1);
+      box-shadow: 0 10px 40px rgba(122, 18, 212, 0.1);
+    }
+
+    .slide-card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: #c084fc;
+    }
+
+    .bg-light .slide-card-title,
+    .bg-white .slide-card-title {
+      color: #7a12d4;
+    }
+
+    .slide-card-text {
+      font-size: 1rem;
+      opacity: 0.85;
+      line-height: 1.6;
+    }
+
+    /* Comparison Table */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      width: 100%;
+      max-width: 900px;
+      z-index: 1;
+    }
+
+    .comparison-column {
+      text-align: center;
+    }
+
+    .comparison-header {
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding: 1.5rem;
+      border-radius: 1rem 1rem 0 0;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .comparison-header.highlight {
+      background: #7a12d4;
+    }
+
+    .comparison-items {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 0 0 1rem 1rem;
+      padding: 1.5rem;
+    }
+
+    .comparison-item {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 1.125rem;
+    }
+
+    .comparison-item:last-child {
+      border-bottom: none;
+    }
+
+    /* Numbered Items */
+    .numbered-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      max-width: 700px;
+      z-index: 1;
+    }
+
+    .numbered-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      text-align: left;
+    }
+
+    .numbered-item .number {
+      width: 48px;
+      height: 48px;
+      background: #7a12d4;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .bg-purple .numbered-item .number {
+      background: white;
+      color: #7a12d4;
+    }
+
+    .numbered-item-text {
+      font-size: clamp(1.125rem, 2vw, 1.375rem);
+      padding-top: 0.5rem;
+    }
+
+    /* Big Number */
+    .big-number {
+      font-size: clamp(8rem, 20vw, 16rem);
+      font-weight: 700;
+      line-height: 1;
+      opacity: 0.1;
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    /* Navigation */
+    .nav-controls {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      z-index: 100;
+      background: rgba(15, 19, 26, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: #7a12d4;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .slide-counter {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: #7a12d4;
+      transition: width 0.3s ease;
+      z-index: 100;
+    }
+
+    /* Keyboard hint */
+    .keyboard-hint {
+      position: fixed;
+      bottom: 6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.4);
+      z-index: 99;
+    }
+
+    /* Story Card */
+    .story-card-large {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 2rem;
+      padding: 3rem;
+      max-width: 800px;
+      text-align: left;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 1;
+    }
+
+    .story-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #c084fc;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Mantra Box */
+    .mantra-box {
+      background: linear-gradient(135deg, #7a12d4 0%, #9333ea 100%);
+      padding: 3rem 4rem;
+      border-radius: 2rem;
+      text-align: center;
+      z-index: 1;
+      box-shadow: 0 20px 60px rgba(122, 18, 212, 0.4);
+    }
+
+    .mantra-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 1rem;
+    }
+
+    .mantra-text {
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 600;
+    }
+
+    /* Day Badge */
+    .day-badge {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      z-index: 10;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide.active .slide-eyebrow,
+    .slide.active .slide-title,
+    .slide.active .slide-title-large,
+    .slide.active .slide-subtitle,
+    .slide.active .slide-quote,
+    .slide.active .slide-list,
+    .slide.active .slide-cards,
+    .slide.active .numbered-list,
+    .slide.active .comparison-grid,
+    .slide.active .story-card-large,
+    .slide.active .mantra-box {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .slide.active .slide-title { animation-delay: 0.1s; }
+    .slide.active .slide-subtitle { animation-delay: 0.2s; }
+    .slide.active .slide-list { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="slides-container" id="slidesContainer">
+
+    <!-- Slide 1: Title -->
+    <div class="slide bg-dark active">
+      <div class="glow-orb glow-orb-1"></div>
+      <div class="glow-orb glow-orb-2"></div>
+      <div class="day-badge">7 Sacred States</div>
+      <div class="content-center">
+        <p class="slide-eyebrow">Day 1</p>
+        <h1 class="slide-title-large">Knowingness</h1>
+        <p class="slide-subtitle" style="margin-top: 2rem;">
+          A calm, unshakable inner certainty that transforms your identity and bends reality.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 2: What This Is -->
+    <div class="slide bg-deep-purple">
+      <div class="glow-orb glow-orb-3"></div>
+      <div class="content-center">
+        <p class="slide-eyebrow">Frame the Journey</p>
+        <h2 class="slide-title">This Is Not What You Think</h2>
+        <ul class="slide-list" style="margin-top: 2rem;">
+          <li>This is not a motivation series</li>
+          <li>This is not goal-setting</li>
+          <li>This is <strong>identity training</strong></li>
+          <li>States of being, not emotions or hacks</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 3: Core Premise Quote -->
+    <div class="slide bg-purple">
+      <div class="content-center">
+        <p class="slide-eyebrow">The Core Premise</p>
+        <p class="slide-quote">
+          The universe does not give you what you want. It reflects back to you who you are.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 4: Effort Quote -->
+    <div class="slide bg-dark">
+      <div class="glow-orb glow-orb-1"></div>
+      <div class="content-center">
+        <p class="slide-quote">
+          If the universe worked on effort, the most exhausted people would be the most successful.
+        </p>
+        <p class="slide-subtitle" style="margin-top: 2rem; opacity: 0.6;">
+          That's... not what we see.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 5: Mirror Not Vending Machine -->
+    <div class="slide bg-light">
+      <div class="content-center">
+        <p class="slide-eyebrow">Visual Metaphor</p>
+        <h2 class="slide-title">The Universe Is a Mirror</h2>
+        <p class="slide-subtitle" style="margin-top: 1.5rem;">
+          Not a vending machine.<br/>
+          You don't convince reality. You <strong>broadcast</strong> to it.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 6: Why Methods Fail -->
+    <div class="slide bg-dark">
+      <div class="glow-orb glow-orb-2"></div>
+      <div class="content-center">
+        <p class="slide-eyebrow">Why Traditional Methods Fail</p>
+        <div class="slide-cards">
+          <div class="slide-card">
+            <p class="slide-card-title">Hustle Fails</p>
+            <p class="slide-card-text">Because effort alone doesn't create results.</p>
+          </div>
+          <div class="slide-card">
+            <p class="slide-card-title">Vision Boards Stall</p>
+            <p class="slide-card-text">Because wanting is not being.</p>
+          </div>
+          <div class="slide-card">
+            <p class="slide-card-title">Manifestation Feels Random</p>
+            <p class="slide-card-text">When you're broadcasting the wrong signal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: States vs Goals -->
+    <div class="slide bg-deep-purple">
+      <div class="content-center">
+        <p class="slide-eyebrow">Reframe Success</p>
+        <h2 class="slide-title">States > Goals</h2>
+        <div class="comparison-grid" style="margin-top: 2.5rem;">
+          <div class="comparison-column">
+            <div class="comparison-header">Goals</div>
+            <div class="comparison-items">
+              <div class="comparison-item">Live in the future</div>
+              <div class="comparison-item">Require achievement</div>
+              <div class="comparison-item">External markers</div>
+            </div>
+          </div>
+          <div class="comparison-column">
+            <div class="comparison-header highlight">States</div>
+            <div class="comparison-items">
+              <div class="comparison-item">Live in the nervous system NOW</div>
+              <div class="comparison-item">Require embodiment</div>
+              <div class="comparison-item">Internal operating system</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 8: Future Quote -->
+    <div class="slide bg-purple">
+      <div class="content-center">
+        <p class="slide-quote">
+          The future is created by the state you repeatedly occupy.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 9: Knowingness Is NOT -->
+    <div class="slide bg-dark">
+      <div class="glow-orb glow-orb-1"></div>
+      <div class="content-center">
+        <p class="slide-eyebrow">Precise Definition</p>
+        <h2 class="slide-title">Knowingness Is NOT</h2>
+        <ul class="slide-list x-list" style="margin-top: 2rem;">
+          <li>Hope</li>
+          <li>Positive thinking</li>
+          <li>Belief</li>
+          <li>Visualization</li>
+          <li>Motivation</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 10: Knowingness IS -->
+    <div class="slide bg-purple">
+      <div class="content-center">
+        <p class="slide-eyebrow">Precise Definition</p>
+        <h2 class="slide-title">Knowingness IS</h2>
+        <ul class="slide-list check-list" style="margin-top: 2rem;">
+          <li>A calm, unshakable inner certainty</li>
+          <li>Identity-level truth</li>
+          <li>"This is who I am" energy</li>
+          <li>Zero emotional charge, zero desperation</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 11: Knowingness Quote -->
+    <div class="slide bg-dark">
+      <div class="glow-orb glow-orb-2"></div>
+      <div class="glow-orb glow-orb-3"></div>
+      <div class="content-center">
+        <p class="slide-quote">
+          Knowingness doesn't ask. It doesn't explain. It doesn't negotiate. It simply stands.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 12: Julius Caesar -->
+    <div class="slide bg-deep-purple">
+      <div class="big-number">I</div>
+      <div class="content-center">
+        <p class="slide-eyebrow">Story: The Archetype</p>
+        <h2 class="slide-title">Julius Caesar & the Pirates</h2>
+        <ul class="slide-list" style="margin-top: 2rem;">
+          <li>He didn't negotiate his worth</li>
+          <li>He didn't wait to "earn" authority</li>
+          <li>He behaved as if it was already settled</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 13: Caesar Quote -->
+    <div class="slide bg-purple">
+      <div class="content-center">
+        <p class="slide-quote">
+          The pirates didn't decide Caesar's fate. Caesar decided it—and reality complied.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 14: Bruce Lee -->
+    <div class="slide bg-dark">
+      <div class="glow-orb glow-orb-1"></div>
+      <div class="big-number">II</div>
+      <div class="content-center">
+        <p class="slide-eyebrow">Story: Pure Knowingness</p>
+        <h2 class="slide-title">The Bruce Lee Principle</h2>
+        <p class="slide-quote" style="margin-top: 2rem; font-size: clamp(1.25rem, 2.5vw, 1.75rem);">
+          Absorb what is useful, discard what is not, add what is uniquely your own.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 15: Bruce Lee Insight -->
+    <div class="slide bg-deep-purple">
+      <div class="content-center">
+        <ul class="slide-list" style="margin-bottom: 2rem;">
+          <li>He didn't copy martial arts systems</li>
+          <li>He stood in his own knowing</li>
+          <li>Jeet Kune Do wasn't rebellion—it was identity</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 16: My Way Quote -->
+    <div class="slide bg-purple">
+      <div class="content-center">
+        <p class="slide-quote">
+          Knowingness is when you stop asking, "What's the right way?" and start asking, "What's my way?"
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 17: Microsoft Story -->
+    <div class="slide bg-dark">
+      <div class="glow-orb glow-orb-2"></div>
+      <div class="big-number">III</div>
+      <div class="content-center">
+        <p class="slide-eyebrow">Story: Identity vs Achievement</p>
+        <h2 class="slide-title">The Microsoft Moment</h2>
+        <p class="slide-quote" style="margin-top: 2rem; font-size: clamp(1.25rem, 2.5vw, 1.75rem);">
+          I had already won by society's rules. But my body knew I was lying.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 18: Microsoft Insight -->
+    <div class="slide bg-deep-purple">
+      <div class="content-center">
+        <ul class="slide-list">
+          <li>You didn't fail at Microsoft</li>
+          <li>You refused to borrow an identity that wasn't yours</li>
+          <li>The shame wasn't incompetence—it was misalignment</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 19: Quiet Discomfort Quote -->
+    <div class="slide bg-purple">
+      <div class="content-center">
+        <p class="slide-quote">
+          Knowingness isn't loud. It's the quiet discomfort that refuses to shut up.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 20: Science -->
+    <div class="slide bg-dark">
+      <div class="glow-orb glow-orb-1"></div>
+      <div class="glow-orb glow-orb-3"></div>
+      <div class="content-center">
+        <p class="slide-eyebrow">The Research</p>
+        <h2 class="slide-title">Identity Shapes Reality</h2>
+        <div class="slide-cards" style="margin-top: 2rem;">
+          <div class="slide-card">
+            <p class="slide-card-title">Self-Concept</p>
+            <p class="slide-card-text">James Clear & Psycho-Cybernetics</p>
+          </div>
+          <div class="slide-card">
+            <p class="slide-card-title">Pygmalion Effect</p>
+            <p class="slide-card-text">Expectations shape outcomes</p>
+          </div>
+          <div class="slide-card">
+            <p class="slide-card-title">Expectancy Effects</p>
+            <p class="slide-card-text">What you expect influences what occurs</p>
+          </div>
+          <div class="slide-card">
+            <p class="slide-card-title">Nervous System</p>
+            <p class="slide-card-text">Your body broadcasts your identity</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 21: Identity Changes -->
+    <div class="slide bg-light">
+      <div class="content-center">
+        <p class="slide-eyebrow">Your Identity Changes</p>
+        <h2 class="slide-title" style="font-size: clamp(2rem, 4vw, 3rem);">How You Speak. How You Decide.<br/>How Others Respond. How Opportunities Find You.</h2>
+      </div>
+    </div>
+
+    <!-- Slide 22: Baseline Signal -->
+    <div class="slide bg-purple">
+      <div class="content-center">
+        <p class="slide-quote">
+          Reality isn't responding to your affirmations. It's responding to your baseline signal.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 23: Know Thyself -->
+    <div class="slide bg-dark">
+      <div class="glow-orb glow-orb-2"></div>
+      <div class="content-center">
+        <p class="slide-eyebrow">Philosophical Anchor</p>
+        <h2 class="slide-title-large" style="font-size: clamp(3rem, 8vw, 6rem);">Know Thyself</h2>
+        <p class="quote-author" style="margin-top: 2rem;">— Temple of Apollo</p>
+      </div>
+    </div>
+
+    <!-- Slide 24: Journal Prompt 1 -->
+    <div class="slide bg-deep-purple">
+      <div class="content-center">
+        <p class="slide-eyebrow">Journal Prompt</p>
+        <p class="slide-quote">
+          What do I know to be true about me—without needing validation?
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 25: Journal Prompt 2 -->
+    <div class="slide bg-dark">
+      <div class="glow-orb glow-orb-1"></div>
+      <div class="content-center">
+        <p class="slide-eyebrow">Journal Prompt</p>
+        <p class="slide-quote">
+          What identities am I still asking permission to own?
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 26: If I Knew Exercise -->
+    <div class="slide bg-purple">
+      <div class="content-center">
+        <p class="slide-eyebrow">"If I Knew" Exercise</p>
+        <h2 class="slide-title" style="font-size: clamp(1.75rem, 3.5vw, 2.5rem);">If you knew this was inevitable—</h2>
+        <ul class="slide-list" style="margin-top: 2rem; text-align: left;">
+          <li>How would you walk into the room?</li>
+          <li>How would you speak?</li>
+          <li>What would you stop explaining?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 27: Monday Practice Title -->
+    <div class="slide bg-dark">
+      <div class="glow-orb glow-orb-2"></div>
+      <div class="glow-orb glow-orb-3"></div>
+      <div class="content-center">
+        <p class="slide-eyebrow">24-Hour Challenge</p>
+        <h2 class="slide-title-large">Monday Practice</h2>
+      </div>
+    </div>
+
+    <!-- Slide 28: Practice Items -->
+    <div class="slide bg-deep-purple">
+      <div class="content-center">
+        <div class="numbered-list">
+          <div class="numbered-item">
+            <div class="number">1</div>
+            <p class="numbered-item-text">Speak without over-explaining</p>
+          </div>
+          <div class="numbered-item">
+            <div class="number">2</div>
+            <p class="numbered-item-text">Make one decision quickly</p>
+          </div>
+          <div class="numbered-item">
+            <div class="number">3</div>
+            <p class="numbered-item-text">Introduce yourself without minimizing</p>
+          </div>
+          <div class="numbered-item">
+            <div class="number">4</div>
+            <p class="numbered-item-text">Dress as the version of you who already knows</p>
+          </div>
+          <div class="numbered-item">
+            <div class="number">5</div>
+            <p class="numbered-item-text">Keep your word—especially when inconvenient</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 29: Mantra -->
+    <div class="slide bg-dark">
+      <div class="glow-orb glow-orb-1"></div>
+      <div class="content-center">
+        <div class="mantra-box">
+          <p class="mantra-label">Daily Mantra</p>
+          <p class="mantra-text">"I don't chase. I show up as who I am."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 30: Remembrance -->
+    <div class="slide bg-purple">
+      <div class="content-center">
+        <p class="slide-quote">
+          Knowingness is not arrogance. It's remembrance.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 31: The Ones Who Knew -->
+    <div class="slide bg-dark">
+      <div class="glow-orb glow-orb-2"></div>
+      <div class="glow-orb glow-orb-3"></div>
+      <div class="content-center">
+        <p class="slide-quote">
+          The most dangerous people in history weren't the loudest. They were the ones who knew.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 32: Integration -->
+    <div class="slide bg-light">
+      <div class="content-center">
+        <p class="slide-eyebrow">Remember</p>
+        <h2 class="slide-title">This is not about becoming someone new.</h2>
+        <p class="slide-subtitle" style="margin-top: 1.5rem;">
+          It's about <strong>remembering who you are</strong>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 33: Day 2 Teaser -->
+    <div class="slide bg-deep-purple">
+      <div class="content-center">
+        <p class="slide-eyebrow">Coming Tomorrow</p>
+        <h2 class="slide-title">Day 2: Faith</h2>
+        <div class="comparison-grid" style="margin-top: 2.5rem; max-width: 700px;">
+          <div class="comparison-column">
+            <div class="comparison-header">Knowingness</div>
+            <div class="comparison-items">
+              <div class="comparison-item">What you <strong>are</strong></div>
+              <div class="comparison-item" style="font-size: 1.5rem; font-weight: 600;">"I am"</div>
+            </div>
+          </div>
+          <div class="comparison-column">
+            <div class="comparison-header highlight">Faith</div>
+            <div class="comparison-items">
+              <div class="comparison-item">Trust in how life <strong>unfolds</strong></div>
+              <div class="comparison-item" style="font-size: 1.5rem; font-weight: 600;">"I trust"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 34: Bend Reality Quote -->
+    <div class="slide bg-purple">
+      <div class="content-center">
+        <p class="slide-quote">
+          Knowingness says I am. Faith says I trust. Together, they bend reality.
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 35: End -->
+    <div class="slide bg-dark">
+      <div class="glow-orb glow-orb-1"></div>
+      <div class="glow-orb glow-orb-2"></div>
+      <div class="glow-orb glow-orb-3"></div>
+      <div class="content-center">
+        <p class="slide-eyebrow">7 Sacred States • Day 1</p>
+        <h1 class="slide-title-large">Knowingness</h1>
+        <p class="slide-subtitle" style="margin-top: 2rem; opacity: 0.6;">
+          I don't chase. I show up as who I am.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-controls">
+    <button class="nav-btn" id="prevBtn" aria-label="Previous slide">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+    <span class="slide-counter" id="slideCounter">1 / 35</span>
+    <button class="nav-btn" id="nextBtn" aria-label="Next slide">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </div>
+
+  <p class="keyboard-hint">Use arrow keys or click to navigate</p>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressBar = document.getElementById('progressBar');
+    let currentSlide = 0;
+
+    function updateSlide() {
+      slides.forEach((slide, index) => {
+        slide.classList.remove('active');
+        if (index === currentSlide) {
+          slide.classList.add('active');
+        }
+      });
+
+      slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === slides.length - 1;
+
+      const progress = ((currentSlide + 1) / slides.length) * 100;
+      progressBar.style.width = `${progress}%`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevSlide();
+      }
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+    }
+
+    // Click to advance (except on nav controls)
+    document.querySelector('.slides-container').addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-controls')) {
+        const clickX = e.clientX;
+        const windowWidth = window.innerWidth;
+
+        if (clickX > windowWidth / 2) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+    });
+
+    updateSlide();
+  </script>
+
+</body>
+</html>
