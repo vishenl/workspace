@@ -14,72 +14,57 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Lifebook Masterclass Class Notes" />
   <meta name="twitter:description" content="Complete notes from the Dec 28 masterclass: 12 Categories, Perfect Day Visualization, Three Critical Distinctions" />
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Google+Sans+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../mindvalley-core.css" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --primary: #7a12d4;
-      --primary-light: #9b4ddb;
-      --primary-dark: #5a0ea0;
-      --dark: #0f131a;
-      --gray: #4b5563;
-      --light-gray: #6b7280;
-      --light: #f9f7fc;
-      --lighter: #f5f0fa;
-      --white: #ffffff;
-      --gold: #d4a012;
-      --green: #10b981;
-      --red: #ef4444;
-    }
-
+    /* Page-specific enhancements */
     body {
-      font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--white);
-      color: var(--dark);
-      line-height: 1.7;
+      background: #ffffff;
     }
 
-    /* Header */
-    .header {
+    /* Hero Section */
+    .hero {
       background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #4a1c6b 100%);
       color: white;
-      padding: 4rem 2rem;
+      padding: 5rem 1.5rem 4rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .header-content {
-      max-width: 800px;
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://storyblok-cdn.mindvalley.com/f/60579/605x422/2fceb20042/lb-brand-home-12-vision.jpg') center/cover;
+      opacity: 0.08;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 700px;
       margin: 0 auto;
     }
 
-    .header .eyebrow {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      color: var(--primary-light);
+    .hero .eyebrow {
+      color: rgba(255, 255, 255, 0.7);
       margin-bottom: 1rem;
     }
 
-    .header h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
+    .hero h1 {
+      color: white;
       margin-bottom: 1rem;
-      line-height: 1.2;
     }
 
-    .header .subtitle {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 1.5rem;
+    .hero .subtitle {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
     }
 
-    .header .meta {
+    .hero-meta {
       display: flex;
       justify-content: center;
       gap: 2rem;
@@ -88,233 +73,249 @@
       color: rgba(255, 255, 255, 0.6);
     }
 
-    .header .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
     /* Navigation */
-    .nav {
-      background: var(--white);
+    .nav-sticky {
+      background: white;
       border-bottom: 1px solid rgba(122, 18, 212, 0.1);
-      padding: 1rem 2rem;
+      padding: 0.75rem 1.5rem;
       position: sticky;
       top: 0;
       z-index: 100;
+      overflow-x: auto;
     }
 
-    .nav-content {
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
       max-width: 900px;
       margin: 0 auto;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
     }
 
-    .nav a {
-      color: var(--gray);
+    .nav-links a {
+      color: #4b5563;
       text-decoration: none;
       font-size: 0.8rem;
       font-weight: 500;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 0.875rem;
       border-radius: 999px;
+      white-space: nowrap;
       transition: all 0.2s;
     }
 
-    .nav a:hover {
-      background: var(--lighter);
-      color: var(--primary);
+    .nav-links a:hover {
+      background: #f5f0fa;
+      color: #7a12d4;
     }
 
-    /* Main Content */
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem;
-    }
-
-    /* Sections */
+    /* Section styling */
     .section {
-      margin-bottom: 4rem;
+      padding: 4rem 1.5rem;
       scroll-margin-top: 4rem;
     }
 
-    .section-header {
-      margin-bottom: 2rem;
+    .section:nth-child(even) {
+      background: #f9f7fc;
     }
 
-    .section-number {
-      font-size: 0.75rem;
+    .section-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 0.7rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 2px;
-      color: var(--primary);
-      margin-bottom: 0.5rem;
+      color: #7a12d4;
+      margin-bottom: 0.75rem;
     }
 
     .section h2 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
     }
 
-    .section-intro {
-      color: var(--gray);
-      font-size: 1rem;
-    }
-
-    /* Content Elements */
-    p {
-      margin-bottom: 1.25rem;
-      color: var(--dark);
-    }
-
-    h3 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--dark);
-      margin: 2rem 0 1rem 0;
-    }
-
-    h4 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--dark);
-      margin: 1.5rem 0 0.75rem 0;
-    }
-
-    /* Quote Blocks */
+    /* Quote blocks */
     .quote-block {
-      background: linear-gradient(135deg, var(--light) 0%, var(--lighter) 100%);
-      border-left: 4px solid var(--primary);
+      background: linear-gradient(135deg, #f9f7fc 0%, #f5f0fa 100%);
+      border-left: 4px solid #7a12d4;
       padding: 1.5rem 2rem;
-      margin: 1.5rem 0;
+      margin: 2rem 0;
       border-radius: 0 1rem 1rem 0;
     }
 
     .quote-block p {
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       font-style: italic;
-      color: var(--dark);
+      color: #0f131a;
       margin-bottom: 0.5rem;
+      line-height: 1.5;
     }
 
     .quote-block .attribution {
       font-size: 0.875rem;
-      color: var(--gray);
+      color: #6b7280;
       font-style: normal;
     }
 
-    /* Key Insight Boxes */
+    /* Feature quote (large) */
+    .feature-quote {
+      background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 100%);
+      color: white;
+      padding: 3rem 2rem;
+      border-radius: 1.5rem;
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .feature-quote p {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .feature-quote .highlight {
+      color: #c084fc;
+    }
+
+    /* Insight boxes */
     .insight-box {
-      background: var(--lighter);
-      border: 1px solid rgba(122, 18, 212, 0.15);
+      background: #f5f0fa;
+      border: 1px solid rgba(122, 18, 212, 0.2);
       border-radius: 1rem;
       padding: 1.5rem;
       margin: 1.5rem 0;
     }
 
     .insight-box .label {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 2px;
-      color: var(--primary);
+      color: #7a12d4;
       margin-bottom: 0.5rem;
     }
 
     .insight-box p {
-      margin-bottom: 0;
       font-weight: 500;
-    }
-
-    /* Lists */
-    ul, ol {
-      margin: 1rem 0 1.5rem 1.5rem;
-    }
-
-    li {
-      margin-bottom: 0.75rem;
-      color: var(--dark);
-    }
-
-    li strong {
-      color: var(--primary-dark);
-    }
-
-    /* Category Cards */
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-
-    .category-card {
-      background: var(--white);
-      border: 1px solid rgba(122, 18, 212, 0.1);
-      border-radius: 1rem;
-      padding: 1.25rem;
-      text-align: center;
-      transition: all 0.2s;
-    }
-
-    .category-card:hover {
-      border-color: var(--primary);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(122, 18, 212, 0.1);
-    }
-
-    .category-card .number {
-      width: 2rem;
-      height: 2rem;
-      background: var(--primary);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.875rem;
-      font-weight: 600;
-      margin: 0 auto 0.75rem;
-    }
-
-    .category-card h4 {
-      font-size: 0.95rem;
-      margin: 0 0 0.25rem 0;
-    }
-
-    .category-card p {
-      font-size: 0.8rem;
-      color: var(--gray);
       margin: 0;
     }
 
-    /* Domain Groups */
-    .domain-group {
+    /* Bruce Lee section */
+    .bruce-lee-section {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .bruce-lee-section img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: grayscale(40%);
+      border: 4px solid #7a12d4;
+    }
+
+    .bruce-lee-section .content {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    /* 12 Categories Grid with Images */
+    .categories-visual {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
       margin: 2rem 0;
     }
 
-    .domain-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--light-gray);
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
+    @media (max-width: 768px) {
+      .categories-visual {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
-    /* Questions Framework */
+    @media (max-width: 500px) {
+      .categories-visual {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .category-tile {
+      position: relative;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      aspect-ratio: 1.4;
+    }
+
+    .category-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .category-tile:hover img {
+      transform: scale(1.05);
+    }
+
+    .category-tile .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      padding: 0.75rem 0.5rem 0.5rem;
+      color: white;
+    }
+
+    .category-tile .number {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #c084fc;
+    }
+
+    .category-tile .name {
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .category-tile.personal { border: 3px solid #4ade80; }
+    .category-tile.relationships { border: 3px solid #f472b6; }
+    .category-tile.contribution { border: 3px solid #60a5fa; }
+    .category-tile.integration { border: 3px solid #fbbf24; }
+
+    .category-legend {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+    }
+
+    .category-legend span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .category-legend .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    /* Four Questions */
     .questions-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
-      margin: 1.5rem 0;
+      margin: 2rem 0;
     }
 
     @media (max-width: 600px) {
@@ -324,16 +325,17 @@
     }
 
     .question-card {
-      background: linear-gradient(135deg, var(--light) 0%, var(--lighter) 100%);
+      background: linear-gradient(135deg, #f9f7fc 0%, #f5f0fa 100%);
       border-radius: 1rem;
       padding: 1.5rem;
       text-align: center;
+      border: 1px solid rgba(122, 18, 212, 0.1);
     }
 
     .question-card .num {
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: 700;
-      color: var(--primary);
+      color: #7a12d4;
       margin-bottom: 0.5rem;
     }
 
@@ -342,23 +344,78 @@
       margin: 0;
     }
 
-    /* Visualization Prompts */
+    /* Three Distinctions */
+    .distinction-card {
+      background: white;
+      border: 2px solid #7a12d4;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 1.25rem 0;
+    }
+
+    .distinction-card h4 {
+      color: #7a12d4;
+      margin: 0 0 1rem 0;
+      font-size: 1.1rem;
+    }
+
+    .vs-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .vs-item {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      font-weight: 500;
+    }
+
+    .vs-item.good {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #059669;
+    }
+
+    .vs-item.bad {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #dc2626;
+    }
+
+    .vs-divider {
+      font-weight: 700;
+      color: #6b7280;
+    }
+
+    .distinction-card .desc {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    /* Visualization Section */
     .visualization-section {
       background: linear-gradient(180deg, #0f0018 0%, #1a0a2e 50%, #2d1b4e 100%);
       color: white;
       border-radius: 1.5rem;
-      padding: 2.5rem;
+      padding: 2.5rem 2rem;
       margin: 2rem 0;
     }
 
     .visualization-section h3 {
       color: white;
       font-size: 1.5rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.5rem;
     }
 
-    .visualization-section p {
-      color: rgba(255, 255, 255, 0.85);
+    .visualization-section .intro {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 2rem;
     }
 
     .prompt-group {
@@ -370,8 +427,8 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 2px;
-      color: var(--primary-light);
-      margin-bottom: 1rem;
+      color: #c084fc;
+      margin-bottom: 0.75rem;
     }
 
     .prompt-list {
@@ -382,95 +439,79 @@
 
     .prompt-list li {
       color: rgba(255, 255, 255, 0.9);
-      padding: 0.75rem 0;
+      padding: 0.6rem 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 1rem;
+      font-size: 0.95rem;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .prompt-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #c084fc;
     }
 
     .prompt-list li:last-child {
       border-bottom: none;
     }
 
-    /* Distinction Cards */
-    .distinction-card {
-      background: var(--white);
-      border: 2px solid var(--primary);
-      border-radius: 1rem;
-      padding: 1.5rem;
-      margin: 1rem 0;
-    }
-
-    .distinction-card h4 {
-      color: var(--primary);
-      margin: 0 0 0.75rem 0;
-      font-size: 1.1rem;
-    }
-
-    .distinction-card .vs {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .distinction-card .vs-item {
-      flex: 1;
-      min-width: 150px;
-      text-align: center;
-      padding: 1rem;
-      border-radius: 0.75rem;
-    }
-
-    .distinction-card .vs-item.good {
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-
-    .distinction-card .vs-item.bad {
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-
-    .distinction-card .vs-divider {
-      font-weight: 700;
-      color: var(--gray);
-    }
-
-    /* Testimonial Cards */
+    /* Testimonials */
     .testimonial-card {
-      background: var(--lighter);
+      background: #f5f0fa;
       border-radius: 1rem;
       padding: 1.5rem;
       margin: 1.5rem 0;
     }
 
-    .testimonial-card .name {
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 0.25rem;
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
     }
 
-    .testimonial-card .location {
-      font-size: 0.875rem;
-      color: var(--gray);
-      margin-bottom: 1rem;
+    .testimonial-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7a12d4, #c084fc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    .testimonial-name {
+      font-weight: 700;
+      color: #7a12d4;
+    }
+
+    .testimonial-location {
+      font-size: 0.8rem;
+      color: #6b7280;
     }
 
     .testimonial-card blockquote {
       font-style: italic;
-      color: var(--dark);
+      color: #0f131a;
       margin-bottom: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
     }
 
-    .testimonial-card .results {
+    .testimonial-results {
       list-style: none;
       margin: 0;
       padding: 0;
     }
 
-    .testimonial-card .results li {
-      font-size: 0.9rem;
-      color: var(--dark);
+    .testimonial-results li {
+      font-size: 0.875rem;
+      color: #0f131a;
       padding: 0.5rem 0;
       border-top: 1px solid rgba(122, 18, 212, 0.1);
       display: flex;
@@ -478,28 +519,41 @@
       gap: 0.5rem;
     }
 
-    .testimonial-card .results li::before {
+    .testimonial-results li::before {
       content: "✓";
-      color: var(--green);
+      color: #10b981;
       font-weight: 700;
     }
 
-    /* Highlight Text */
-    .highlight {
-      background: linear-gradient(120deg, rgba(122, 18, 212, 0.15) 0%, rgba(155, 77, 219, 0.15) 100%);
-      padding: 0.1rem 0.3rem;
-      border-radius: 0.25rem;
+    /* Jon & Missy Section */
+    .founders-section {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      margin: 2rem 0;
+      flex-wrap: wrap;
     }
 
-    /* Stats Box */
-    .stats-box {
+    .founders-section img {
+      width: 200px;
+      border-radius: 1rem;
+      box-shadow: 0 10px 40px rgba(122, 18, 212, 0.2);
+    }
+
+    .founders-section .content {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    /* Stats */
+    .stats-row {
       display: flex;
       justify-content: center;
       gap: 3rem;
       flex-wrap: wrap;
       margin: 2rem 0;
       padding: 1.5rem;
-      background: var(--lighter);
+      background: #f5f0fa;
       border-radius: 1rem;
     }
 
@@ -510,636 +564,618 @@
     .stat .number {
       font-size: 2.5rem;
       font-weight: 700;
-      color: var(--primary);
+      color: #7a12d4;
     }
 
     .stat .label {
       font-size: 0.8rem;
-      color: var(--gray);
+      color: #6b7280;
     }
 
-    /* Separator */
-    .separator {
-      border: none;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(122, 18, 212, 0.2), transparent);
-      margin: 3rem 0;
+    /* Key Takeaways */
+    .takeaway-list {
+      list-style: none;
+      margin: 1.5rem 0;
+      padding: 0;
+    }
+
+    .takeaway-list li {
+      background: white;
+      border-left: 4px solid #7a12d4;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .takeaway-list li strong {
+      color: #7a12d4;
     }
 
     /* Footer */
     .footer {
-      background: var(--light);
-      padding: 3rem 2rem;
+      background: #f9f7fc;
+      padding: 3rem 1.5rem;
       text-align: center;
-      color: var(--gray);
+    }
+
+    .footer-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .footer p {
+      color: #6b7280;
       font-size: 0.875rem;
+      margin-bottom: 0.5rem;
     }
 
     .footer a {
-      color: var(--primary);
+      color: #7a12d4;
       text-decoration: none;
+      font-weight: 500;
     }
 
-    /* Print Styles */
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Print */
     @media print {
-      .nav { display: none; }
-      .visualization-section { background: #f0f0f0 !important; color: black !important; }
-      .visualization-section h3, .visualization-section p { color: black !important; }
-      .header { background: var(--light) !important; color: black !important; }
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .header h1 { font-size: 2rem; }
-      .header { padding: 3rem 1.5rem; }
-      .container { padding: 2rem 1rem; }
-      .section h2 { font-size: 1.5rem; }
-      .visualization-section { padding: 1.5rem; }
-      .category-grid { grid-template-columns: 1fr 1fr; }
+      .nav-sticky { display: none; }
+      .hero { padding: 2rem 1rem; }
+      .visualization-section { background: #f0f0f0 !important; }
+      .visualization-section, .visualization-section h3, .visualization-section p { color: black !important; }
+      .feature-quote { background: #f0f0f0 !important; color: black !important; }
     }
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="header-content">
-      <div class="eyebrow">Lifebook Masterclass</div>
-      <h1>Complete Class Notes</h1>
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="overline-text eyebrow">Lifebook Masterclass</div>
+      <h1 class="title-bold-2">Complete Class Notes</h1>
       <p class="subtitle">The Clarity System for Designing Your Extraordinary Life</p>
-      <div class="meta">
-        <span class="meta-item">📅 December 28, 2024</span>
-        <span class="meta-item">👤 Vishen Lakhiani</span>
-        <span class="meta-item">🕐 ~90 minutes</span>
+      <div class="hero-meta">
+        <span>December 28, 2024</span>
+        <span>Vishen Lakhiani</span>
+        <span>~90 minutes</span>
       </div>
     </div>
   </header>
 
-  <nav class="nav">
-    <div class="nav-content">
+  <!-- Sticky Navigation -->
+  <nav class="nav-sticky">
+    <div class="nav-links">
       <a href="#origin">Origin Story</a>
-      <a href="#pillar1">Pillar 1: Clarity</a>
+      <a href="#clarity">Clarity</a>
       <a href="#culturescape">Culturescape</a>
-      <a href="#pillar2">Pillar 2: 12 Categories</a>
-      <a href="#pillar3">Pillar 3: Nervous System</a>
+      <a href="#categories">12 Categories</a>
+      <a href="#nervous-system">Nervous System</a>
       <a href="#distinctions">3 Distinctions</a>
       <a href="#visualization">Perfect Day</a>
       <a href="#testimonials">Testimonials</a>
     </div>
   </nav>
 
-  <main class="container">
-    <!-- Introduction -->
-    <section class="section" id="intro">
-      <div class="section-header">
-        <div class="section-number">Welcome</div>
-        <h2>The Void Week</h2>
-      </div>
-
-      <p>Vishen opened the masterclass from his family's farm in Estonia, describing this week between Christmas and New Year as <span class="highlight">"the void week"</span> — a powerful period for reflection before the New Year begins.</p>
-
-      <div class="quote-block">
-        <p>"This is that window... you're about to enter a new year. It's the perfect time to get clear on what you really want."</p>
-        <div class="attribution">— Vishen Lakhiani</div>
-      </div>
-
-      <p>The core premise: <strong>Most people will set resolutions in January. 94% will fail.</strong> Not because they lack motivation — but because they lack <em>clarity</em>.</p>
-    </section>
-
-    <hr class="separator">
-
+  <main>
     <!-- Origin Story -->
     <section class="section" id="origin">
-      <div class="section-header">
-        <div class="section-number">The Origin</div>
-        <h2>How Lifebook Changed Everything</h2>
-      </div>
+      <div class="section-inner">
+        <div class="section-eyebrow">The Origin</div>
+        <h2 class="title-bold-4">How Lifebook Changed Everything</h2>
 
-      <p>In 2010, Vishen paid $5,000 to attend a 4-day program in Chicago called Lifebook, led by John Butcher — a billionaire entrepreneur whose company Precious Moments has done over $10 billion in sales.</p>
+        <div class="founders-section">
+          <img src="https://storyblok-cdn.mindvalley.com/f/60579/700x760/80687dca3d/lbo_sp_author-m_2x.jpg" alt="Jon & Missy Butcher" />
+          <div class="content">
+            <p class="body">In 2010, Vishen paid <strong>$5,000</strong> to attend a 4-day program in Chicago called Lifebook, led by Jon Butcher — a billionaire entrepreneur whose company Precious Moments has done over <strong>$10 billion in sales</strong>.</p>
+            <p class="body">That investment changed the trajectory of his entire life.</p>
+          </div>
+        </div>
 
-      <h3>What Vishen Wrote in His Lifebook (2010)</h3>
-      <p>In the "Quality of Life" category, Vishen wrote seven specific visions. Here's what happened:</p>
+        <h3 class="title-bold-6">What Vishen Wrote in His 2010 Lifebook</h3>
+        <p class="body">In the "Quality of Life" category, Vishen wrote seven specific visions. Here's what manifested:</p>
 
-      <ul>
-        <li><strong>A documentary film that wins an award</strong> → Emmy Award for "Consciousness Engineering"</li>
-        <li><strong>Mindvalley team grows to a respected size</strong> → Grew from 40 to 100+ employees</li>
-        <li><strong>A bestselling book on the New York Times list</strong> → "The Code of the Extraordinary Mind" hit #2</li>
-        <li><strong>Mindvalley valued at $25-50 million</strong> → Exceeded $100M valuation</li>
-        <li><strong>Annual conference for the world's best minds</strong> → Created A-Fest</li>
-        <li><strong>Honorary PhD</strong> → Received from University of Estonia</li>
-        <li><strong>Fluency in Spanish</strong> → Became conversational</li>
-      </ul>
+        <ul class="takeaway-list">
+          <li><strong>Documentary film wins an award</strong> → Emmy Award for "Consciousness Engineering"</li>
+          <li><strong>Team grows to respected size</strong> → Grew from 40 to 100+ employees</li>
+          <li><strong>Bestselling book on NYT list</strong> → "The Code of the Extraordinary Mind" hit #2</li>
+          <li><strong>Company valued at $25-50M</strong> → Exceeded $100M valuation</li>
+          <li><strong>Annual conference for world's best minds</strong> → Created A-Fest</li>
+          <li><strong>Honorary PhD</strong> → Received from University of Estonia</li>
+          <li><strong>Spanish fluency</strong> → Became conversational</li>
+        </ul>
 
-      <div class="insight-box">
-        <div class="label">Key Insight</div>
-        <p>These weren't "goals" in the traditional sense. They were visions written with deep specificity after going through Lifebook's 12-category framework.</p>
+        <div class="insight-box">
+          <div class="label">Key Insight</div>
+          <p>These weren't "goals" in the traditional sense. They were visions written with deep specificity after going through Lifebook's 12-category framework.</p>
+        </div>
       </div>
     </section>
 
-    <hr class="separator">
+    <!-- Clarity -->
+    <section class="section" id="clarity">
+      <div class="section-inner">
+        <div class="section-eyebrow">Core Pillar 1</div>
+        <h2 class="title-bold-4">The Hidden Cost of Being Unclear</h2>
 
-    <!-- Core Pillar 1: Clarity -->
-    <section class="section" id="pillar1">
-      <div class="section-header">
-        <div class="section-number">Core Pillar 1</div>
-        <h2>Clarity: The Hidden Cost of Being Unclear</h2>
+        <div class="feature-quote">
+          <p>"If you don't know exactly what you're chasing...<br><span class="highlight">how much time are you going to waste?</span>"</p>
+        </div>
+
+        <h3 class="title-bold-6">The Real Problem</h3>
+        <p class="body">Unclear people aren't lazy. They're not unmotivated. They work hard. They have good intentions.</p>
+        <p class="body"><strong>But without clarity, they are <em>random</em>.</strong></p>
+
+        <p class="body">They end up chasing goals that were never really theirs — borrowed from:</p>
+        <ul>
+          <li>Instagram</li>
+          <li>LinkedIn</li>
+          <li>Family expectations</li>
+          <li>Cultural programming</li>
+        </ul>
+
+        <div class="insight-box">
+          <div class="label">The Tragedy of Borrowed Dreams</div>
+          <p>They "arrive" at success — and feel empty. Because they achieved someone else's definition of success.</p>
+        </div>
       </div>
-
-      <div class="quote-block">
-        <p>"If you don't know exactly what you're chasing... how much time are you going to waste?"</p>
-        <div class="attribution">— Vishen Lakhiani</div>
-      </div>
-
-      <h3>The Real Problem</h3>
-      <p>Unclear people aren't lazy. They're not unmotivated. They work hard. They have good intentions.</p>
-
-      <p><strong>But without clarity, they are <em>random</em>.</strong></p>
-
-      <p>They end up chasing goals that were never really theirs — borrowed from:</p>
-      <ul>
-        <li>Instagram</li>
-        <li>LinkedIn</li>
-        <li>Family expectations</li>
-        <li>Cultural programming</li>
-      </ul>
-
-      <div class="insight-box">
-        <div class="label">The Tragedy of Borrowed Dreams</div>
-        <p>They "arrive" at success — and feel empty. Because they achieved someone else's definition of success.</p>
-      </div>
-
-      <h3>The Cost of Unclarity</h3>
-      <ul>
-        <li><strong>Time wasted</strong> pursuing the wrong things</li>
-        <li><strong>Energy scattered</strong> across too many directions</li>
-        <li><strong>Relationships neglected</strong> while chasing borrowed dreams</li>
-        <li><strong>Purpose unfulfilled</strong> despite external achievement</li>
-      </ul>
     </section>
 
-    <hr class="separator">
-
-    <!-- The Culturescape -->
+    <!-- Culturescape -->
     <section class="section" id="culturescape">
-      <div class="section-header">
-        <div class="section-number">Key Concept</div>
-        <h2>The Culturescape</h2>
-      </div>
+      <div class="section-inner">
+        <div class="section-eyebrow">Key Concept</div>
+        <h2 class="title-bold-4">The Culturescape</h2>
 
-      <p>We all live within what Vishen calls the <span class="highlight">"culturescape"</span> — an invisible field of cultural expectations, traditions, rules, and beliefs that shape our goals.</p>
+        <p class="body">We all live within what Vishen calls the <strong>"culturescape"</strong> — an invisible field of cultural expectations, traditions, rules, and beliefs that shape our goals.</p>
 
-      <div class="quote-block">
-        <p>"We're walking around in an invisible, intangible haze of human-created rules... Most of these rules are there for maintaining social cohesion. But some of them are absolute garbage."</p>
-        <div class="attribution">— Vishen Lakhiani</div>
-      </div>
+        <div class="quote-block">
+          <p>"We're walking around in an invisible, intangible haze of human-created rules... Most of these rules are there for maintaining social cohesion. But some of them are absolute garbage."</p>
+          <div class="attribution">— Vishen Lakhiani</div>
+        </div>
 
-      <p>The culturescape includes:</p>
-      <ul>
-        <li>Ideas about what career success looks like</li>
-        <li>Beliefs about when/how to marry</li>
-        <li>Definitions of "the good life"</li>
-        <li>Standards for parenting</li>
-        <li>Concepts of retirement</li>
-      </ul>
+        <h3 class="title-bold-6">The Bruce Lee Philosophy</h3>
 
-      <h3>The Bruce Lee Philosophy</h3>
-      <p>Lifebook teaches a principle from Bruce Lee's martial arts philosophy:</p>
+        <div class="bruce-lee-section">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Bruce_Lee_1973.jpg" alt="Bruce Lee" />
+          <div class="content">
+            <div class="quote-block" style="border-color: #d4a012;">
+              <p>"Absorb what is useful. Discard what is not. Add what is uniquely yours."</p>
+              <div class="attribution">— Bruce Lee</div>
+            </div>
+          </div>
+        </div>
 
-      <div class="quote-block">
-        <p>"Absorb what is useful. Discard what is not. Add what is uniquely yours."</p>
-        <div class="attribution">— Bruce Lee</div>
-      </div>
+        <p class="body">Applied to life design, this means:</p>
+        <ol>
+          <li><strong>Examine</strong> every belief, goal, and expectation</li>
+          <li><strong>Keep</strong> what serves your authentic vision</li>
+          <li><strong>Discard</strong> what doesn't (even if everyone else follows it)</li>
+          <li><strong>Create</strong> your own unique path</li>
+        </ol>
 
-      <p>Applied to life design, this means:</p>
-      <ol>
-        <li><strong>Examine</strong> every belief, goal, and expectation</li>
-        <li><strong>Keep</strong> what serves your authentic vision</li>
-        <li><strong>Discard</strong> what doesn't (even if everyone else follows it)</li>
-        <li><strong>Create</strong> your own unique path</li>
-      </ol>
-
-      <h3>Sovereignty</h3>
-      <p>The goal is <span class="highlight">sovereignty</span> — true authorship of your own life. Not living by default, but by design.</p>
-
-      <div class="insight-box">
-        <div class="label">The Sovereignty Question</div>
-        <p>Are you the author of your life? Or are you following a script someone else wrote?</p>
+        <div class="feature-quote">
+          <p><span class="highlight">Sovereignty</span> means authorship.<br>Your life. Your standards. Your design.</p>
+        </div>
       </div>
     </section>
 
-    <hr class="separator">
+    <!-- 12 Categories -->
+    <section class="section" id="categories">
+      <div class="section-inner">
+        <div class="section-eyebrow">Core Pillar 2</div>
+        <h2 class="title-bold-4">The 12 Categories of Life</h2>
 
-    <!-- Core Pillar 2: 12 Categories -->
-    <section class="section" id="pillar2">
-      <div class="section-header">
-        <div class="section-number">Core Pillar 2</div>
-        <h2>The 12 Categories of Life</h2>
-      </div>
+        <p class="body">Lifebook provides a complete architecture for life design across 12 interconnected categories.</p>
 
-      <h3>Why Vision Boards Fail</h3>
-      <p>Most vision boards are scattered collections of "things I want" — a car, a house, a relationship. They lack <em>structure</em> and <em>depth</em>.</p>
-
-      <p>Lifebook provides a complete architecture for life design across 12 interconnected categories, organized into 4 domains:</p>
-
-      <div class="domain-group">
-        <div class="domain-label">Personal Foundation (Categories 1-5)</div>
-        <div class="category-grid">
-          <div class="category-card">
-            <div class="number">1</div>
-            <h4>Health & Fitness</h4>
-            <p>Your physical body and energy</p>
+        <div class="categories-visual">
+          <div class="category-tile personal">
+            <img src="https://storyblok-cdn.mindvalley.com/f/60579/605x422/d03543b9e4/lb-brand-home-12-health.jpg" alt="Health & Fitness" />
+            <div class="overlay">
+              <div class="number">1</div>
+              <div class="name">Health & Fitness</div>
+            </div>
           </div>
-          <div class="category-card">
-            <div class="number">2</div>
-            <h4>Intellectual</h4>
-            <p>Your mind and learning</p>
+          <div class="category-tile personal">
+            <img src="https://storyblok-cdn.mindvalley.com/f/60579/605x422/bc3d454e4e/lb-brand-home-12-intell.jpg" alt="Intellectual" />
+            <div class="overlay">
+              <div class="number">2</div>
+              <div class="name">Intellectual</div>
+            </div>
           </div>
-          <div class="category-card">
-            <div class="number">3</div>
-            <h4>Emotional</h4>
-            <p>Your inner world and feelings</p>
+          <div class="category-tile personal">
+            <img src="https://storyblok-cdn.mindvalley.com/f/60579/605x422/7b6f102498/lb-brand-home-12-emo.jpg" alt="Emotional" />
+            <div class="overlay">
+              <div class="number">3</div>
+              <div class="name">Emotional</div>
+            </div>
           </div>
-          <div class="category-card">
-            <div class="number">4</div>
-            <h4>Character</h4>
-            <p>Who you are as a person</p>
+          <div class="category-tile personal">
+            <img src="https://storyblok-cdn.mindvalley.com/f/60579/605x422/61244fbd24/lb-brand-home-12-char.jpg" alt="Character" />
+            <div class="overlay">
+              <div class="number">4</div>
+              <div class="name">Character</div>
+            </div>
           </div>
-          <div class="category-card">
-            <div class="number">5</div>
-            <h4>Spiritual</h4>
-            <p>Your connection to something greater</p>
+          <div class="category-tile personal">
+            <img src="https://storyblok-cdn.mindvalley.com/f/60579/605x422/23850a17f6/lb-brand-home-12-spir.jpg" alt="Spiritual" />
+            <div class="overlay">
+              <div class="number">5</div>
+              <div class="name">Spiritual</div>
+            </div>
+          </div>
+          <div class="category-tile relationships">
+            <img src="https://storyblok-cdn.mindvalley.com/f/60579/605x422/23f5897c5f/lb-brand-home-12-love.jpg" alt="Love" />
+            <div class="overlay">
+              <div class="number">6</div>
+              <div class="name">Love</div>
+            </div>
+          </div>
+          <div class="category-tile relationships">
+            <img src="https://storyblok-cdn.mindvalley.com/f/60579/605x422/54b58b8b54/lb-brand-home-12-parent.jpg" alt="Parenting" />
+            <div class="overlay">
+              <div class="number">7</div>
+              <div class="name">Parenting</div>
+            </div>
+          </div>
+          <div class="category-tile relationships">
+            <img src="https://storyblok-cdn.mindvalley.com/f/60579/605x422/79d83aba73/lb-brand-home-12-social.jpg" alt="Social" />
+            <div class="overlay">
+              <div class="number">8</div>
+              <div class="name">Social</div>
+            </div>
+          </div>
+          <div class="category-tile contribution">
+            <img src="https://storyblok-cdn.mindvalley.com/f/60579/605x422/199caf74a9/lb-brand-home-12-car.jpg" alt="Career" />
+            <div class="overlay">
+              <div class="number">9</div>
+              <div class="name">Career</div>
+            </div>
+          </div>
+          <div class="category-tile contribution">
+            <img src="https://storyblok-cdn.mindvalley.com/f/60579/605x422/d9605c212b/lb-brand-home-12-fin.jpg" alt="Financial" />
+            <div class="overlay">
+              <div class="number">10</div>
+              <div class="name">Financial</div>
+            </div>
+          </div>
+          <div class="category-tile integration">
+            <img src="https://storyblok-cdn.mindvalley.com/f/60579/605x422/c8ed0bcf0e/lb-brand-home-12-quality.jpg" alt="Quality of Life" />
+            <div class="overlay">
+              <div class="number">11</div>
+              <div class="name">Quality of Life</div>
+            </div>
+          </div>
+          <div class="category-tile integration">
+            <img src="https://storyblok-cdn.mindvalley.com/f/60579/605x422/2fceb20042/lb-brand-home-12-vision.jpg" alt="Life Vision" />
+            <div class="overlay">
+              <div class="number">12</div>
+              <div class="name">Life Vision</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="domain-group">
-        <div class="domain-label">Relationships (Categories 6-8)</div>
-        <div class="category-grid">
-          <div class="category-card">
-            <div class="number">6</div>
-            <h4>Love</h4>
-            <p>Your romantic partnership</p>
-          </div>
-          <div class="category-card">
-            <div class="number">7</div>
-            <h4>Parenting</h4>
-            <p>Your role with children</p>
-          </div>
-          <div class="category-card">
-            <div class="number">8</div>
-            <h4>Social</h4>
-            <p>Friends and community</p>
-          </div>
+        <div class="category-legend">
+          <span><span class="dot" style="background: #4ade80;"></span> Personal (1-5)</span>
+          <span><span class="dot" style="background: #f472b6;"></span> Relationships (6-8)</span>
+          <span><span class="dot" style="background: #60a5fa;"></span> Contribution (9-10)</span>
+          <span><span class="dot" style="background: #fbbf24;"></span> Integration (11-12)</span>
         </div>
-      </div>
 
-      <div class="domain-group">
-        <div class="domain-label">Contribution (Categories 9-10)</div>
-        <div class="category-grid">
-          <div class="category-card">
-            <div class="number">9</div>
-            <h4>Career</h4>
-            <p>Your work and calling</p>
-          </div>
-          <div class="category-card">
-            <div class="number">10</div>
-            <h4>Financial</h4>
-            <p>Your money and resources</p>
-          </div>
-        </div>
-      </div>
+        <h3 class="title-bold-6">The Four Questions Framework</h3>
+        <p class="body">For <em>each</em> of the 12 categories, Lifebook asks four fundamental questions:</p>
 
-      <div class="domain-group">
-        <div class="domain-label">Integration (Categories 11-12)</div>
-        <div class="category-grid">
-          <div class="category-card">
-            <div class="number">11</div>
-            <h4>Quality of Life</h4>
-            <p>How you live day-to-day</p>
+        <div class="questions-grid">
+          <div class="question-card">
+            <div class="num">1</div>
+            <h4>What do I believe?</h4>
           </div>
-          <div class="category-card">
-            <div class="number">12</div>
-            <h4>Life Vision</h4>
-            <p>Your ultimate purpose</p>
+          <div class="question-card">
+            <div class="num">2</div>
+            <h4>What do I want?</h4>
+          </div>
+          <div class="question-card">
+            <div class="num">3</div>
+            <h4>Why does it matter?</h4>
+          </div>
+          <div class="question-card">
+            <div class="num">4</div>
+            <h4>What will I do?</h4>
           </div>
         </div>
-      </div>
 
-      <h3>The Four Questions Framework</h3>
-      <p>For <em>each</em> of the 12 categories, Lifebook asks four fundamental questions:</p>
-
-      <div class="questions-grid">
-        <div class="question-card">
-          <div class="num">1</div>
-          <h4>What do I believe?</h4>
+        <div class="insight-box">
+          <div class="label">Why This Matters</div>
+          <p>Most goal-setting skips to "What do I want?" without examining beliefs or connecting to purpose. Lifebook ensures every vision is grounded in beliefs, connected to meaning, and linked to action.</p>
         </div>
-        <div class="question-card">
-          <div class="num">2</div>
-          <h4>What do I want?</h4>
-        </div>
-        <div class="question-card">
-          <div class="num">3</div>
-          <h4>Why does it matter?</h4>
-        </div>
-        <div class="question-card">
-          <div class="num">4</div>
-          <h4>What will I do?</h4>
-        </div>
-      </div>
-
-      <div class="insight-box">
-        <div class="label">Why This Matters</div>
-        <p>Most goal-setting skips to "What do I want?" without examining underlying beliefs or connecting to purpose. Lifebook's structure ensures every vision is grounded in beliefs, connected to meaning, and linked to action.</p>
       </div>
     </section>
 
-    <hr class="separator">
+    <!-- Nervous System -->
+    <section class="section" id="nervous-system">
+      <div class="section-inner">
+        <div class="section-eyebrow">Core Pillar 3</div>
+        <h2 class="title-bold-4">The Fear of Becoming</h2>
 
-    <!-- Core Pillar 3: Nervous System -->
-    <section class="section" id="pillar3">
-      <div class="section-header">
-        <div class="section-number">Core Pillar 3</div>
-        <h2>The Fear of Becoming</h2>
+        <p class="body">Even with perfect clarity, many people don't achieve their goals. Why?</p>
+
+        <div class="feature-quote">
+          <p>Your nervous system is designed to keep you <span class="highlight">safe</span> — not to help you <span class="highlight">grow</span>.</p>
+        </div>
+
+        <p class="body">When you envision a bigger life, your nervous system perceives it as <em>danger</em>. The unfamiliar feels threatening, even if it's objectively better.</p>
+
+        <div class="quote-block">
+          <p>"Your goals won't manifest if you're afraid of who you'll have to become to achieve them."</p>
+          <div class="attribution">— Vishen Lakhiani</div>
+        </div>
+
+        <h3 class="title-bold-6">How Lifebook Creates Safety</h3>
+        <p class="body">Lifebook's structure helps your nervous system feel <em>safe</em> with your vision:</p>
+
+        <ul class="takeaway-list">
+          <li><strong>Incremental expansion</strong> — Category by category, not all at once</li>
+          <li><strong>Identity integration</strong> — Goals become part of who you are</li>
+          <li><strong>Belief-action alignment</strong> — No conflict between beliefs and desires</li>
+          <li><strong>Emotional grounding</strong> — The "why" creates safety through meaning</li>
+        </ul>
+
+        <div class="insight-box">
+          <div class="label">The Key</div>
+          <p>When all 12 categories are addressed, your nervous system relaxes. No hidden trade-offs. No subconscious fear. No "success at the cost of everything else."</p>
+        </div>
       </div>
-
-      <p>Even with perfect clarity, many people don't achieve their goals. Why?</p>
-
-      <p><strong>Your nervous system is designed to keep you safe — not to help you grow.</strong></p>
-
-      <p>When you envision a bigger life, your nervous system perceives it as <em>danger</em>. The unfamiliar feels threatening, even if it's objectively better.</p>
-
-      <h3>What Happens</h3>
-      <ul>
-        <li>You set a bold vision</li>
-        <li>Part of you gets excited</li>
-        <li>Another part of you quietly panics</li>
-        <li>Self-sabotage begins</li>
-        <li>You stay "safe" in the familiar</li>
-      </ul>
-
-      <div class="quote-block">
-        <p>"This is why many people, even when they're unhappy in their current state, won't take steps to get out of it. The body doesn't know if what you're heading toward is good or bad. It just knows it's different — and different feels dangerous."</p>
-        <div class="attribution">— Vishen Lakhiani</div>
-      </div>
-
-      <h3>How Lifebook Addresses This</h3>
-      <p>Lifebook's structure helps your nervous system feel <em>safe</em> with your vision:</p>
-      <ol>
-        <li><strong>Incremental expansion</strong> — Category by category, not all at once</li>
-        <li><strong>Identity integration</strong> — Goals become part of who you are, not distant targets</li>
-        <li><strong>Belief-action alignment</strong> — No conflict between what you believe and what you want</li>
-        <li><strong>Emotional grounding</strong> — The "why" creates safety through meaning</li>
-      </ol>
     </section>
 
-    <hr class="separator">
-
-    <!-- Three Critical Distinctions -->
+    <!-- Three Distinctions -->
     <section class="section" id="distinctions">
-      <div class="section-header">
-        <div class="section-number">Essential Framework</div>
-        <h2>Three Critical Distinctions</h2>
-      </div>
+      <div class="section-inner">
+        <div class="section-eyebrow">Essential Framework</div>
+        <h2 class="title-bold-4">Three Critical Distinctions</h2>
 
-      <p>Vishen shared three mindset shifts that make Lifebook work where other systems fail:</p>
+        <p class="body">Three mindset shifts that make Lifebook work where other systems fail:</p>
 
-      <div class="distinction-card">
-        <h4>Distinction #1: Baseline vs. Peak</h4>
-        <p>Don't aim for your "best day" — aim for your <em>baseline</em>.</p>
-        <div class="vs">
-          <div class="vs-item bad">
-            <strong>Peak Thinking</strong><br>
-            "On my best day, I meditate"
+        <div class="distinction-card">
+          <h4>Distinction #1: Baseline vs. Peak</h4>
+          <p class="body">Don't aim for your "best day" — aim for your <em>baseline</em>.</p>
+          <div class="vs-row">
+            <div class="vs-item good">
+              <strong>Baseline</strong><br>
+              Your sustainable default
+            </div>
+            <div class="vs-divider">vs</div>
+            <div class="vs-item bad">
+              <strong>Peak</strong><br>
+              Temporary intensity
+            </div>
           </div>
-          <div class="vs-divider">vs</div>
-          <div class="vs-item good">
-            <strong>Baseline Thinking</strong><br>
-            "Even on my worst day, I meditate"
-          </div>
+          <p class="desc">"A great life is built on baseline excellence, not constant peaks."</p>
         </div>
-        <p style="margin-top: 1rem; font-size: 0.95rem;">Your baseline is who you are when life gets hard. That's where transformation lives.</p>
-      </div>
 
-      <div class="distinction-card">
-        <h4>Distinction #2: Direction vs. Perfection</h4>
-        <p>You don't need to know the exact destination — just the direction.</p>
-        <div class="vs">
-          <div class="vs-item bad">
-            <strong>Perfection Thinking</strong><br>
-            "I need to know exactly how"
+        <div class="distinction-card">
+          <h4>Distinction #2: Direction vs. Perfection</h4>
+          <p class="body">You don't need to know the exact destination — just the direction.</p>
+          <div class="vs-row">
+            <div class="vs-item good">
+              <strong>Direction</strong><br>
+              Gives calm
+            </div>
+            <div class="vs-divider">vs</div>
+            <div class="vs-item bad">
+              <strong>Perfection</strong><br>
+              Creates paralysis
+            </div>
           </div>
-          <div class="vs-divider">vs</div>
-          <div class="vs-item good">
-            <strong>Direction Thinking</strong><br>
-            "I know which way I'm heading"
-          </div>
+          <p class="desc">"You don't need certainty. You need a direction your body agrees with."</p>
         </div>
-        <p style="margin-top: 1rem; font-size: 0.95rem;">The path reveals itself as you walk it. Trust the direction, not the map.</p>
-      </div>
 
-      <div class="distinction-card">
-        <h4>Distinction #3: Correction vs. Self-Judgment</h4>
-        <p>When you fall short, it's data — not verdict.</p>
-        <div class="vs">
-          <div class="vs-item bad">
-            <strong>Self-Judgment</strong><br>
-            "I failed. I'm not good enough."
+        <div class="distinction-card">
+          <h4>Distinction #3: Correction vs. Self-Judgment</h4>
+          <p class="body">When you fall short, it's data — not verdict.</p>
+          <div class="vs-row">
+            <div class="vs-item good">
+              <strong>Correction</strong><br>
+              Adjust & continue
+            </div>
+            <div class="vs-divider">vs</div>
+            <div class="vs-item bad">
+              <strong>Judgment</strong><br>
+              "I'm not good enough"
+            </div>
           </div>
-          <div class="vs-divider">vs</div>
-          <div class="vs-item good">
-            <strong>Correction</strong><br>
-            "That didn't work. Adjust and continue."
-          </div>
+          <p class="desc">"Mastery is how quickly you correct — not how perfectly you perform."</p>
         </div>
-        <p style="margin-top: 1rem; font-size: 0.95rem;">Your Lifebook isn't a test to pass. It's a compass. When you veer off, you simply course-correct.</p>
       </div>
     </section>
-
-    <hr class="separator">
 
     <!-- Perfect Day Visualization -->
     <section class="section" id="visualization">
-      <div class="section-header">
-        <div class="section-number">Guided Exercise</div>
-        <h2>The Perfect Day Visualization</h2>
-      </div>
+      <div class="section-inner">
+        <div class="section-eyebrow">Guided Exercise</div>
+        <h2 class="title-bold-4">The Perfect Day Visualization</h2>
 
-      <p>Vishen led a powerful visualization exercise, inviting participants to step into January 2029 — three years from now.</p>
+        <p class="body">Vishen led a powerful visualization exercise, inviting participants to step into <strong>January 2029</strong> — three years from now.</p>
 
-      <div class="quote-block">
-        <p>"Let yourself imagine not just what you want... but who you've become. The person who naturally lives this life."</p>
-        <div class="attribution">— Vishen Lakhiani</div>
-      </div>
+        <div class="visualization-section">
+          <h3>January 2029: Your Perfect Day</h3>
+          <p class="intro">"This is not fantasy. This is not manifestation. This is design."</p>
 
-      <div class="visualization-section">
-        <h3>January 2029: Your Perfect Day</h3>
+          <div class="prompt-group">
+            <div class="prompt-label">Morning</div>
+            <ul class="prompt-list">
+              <li>Where are you waking up? What country, city, or environment?</li>
+              <li>What does the room feel like? Light or dark? Minimal or warm?</li>
+              <li>Who is next to you? What is that relationship like?</li>
+              <li>How does your body feel when you wake up?</li>
+              <li>What are the first thoughts in your mind?</li>
+            </ul>
+          </div>
 
-        <div class="prompt-group">
-          <div class="prompt-label">Morning</div>
-          <ul class="prompt-list">
-            <li>Where are you waking up? What does this place look like?</li>
-            <li>What does the room feel like? The air? The light?</li>
-            <li>Who is next to you? What is that relationship like?</li>
-            <li>How does your body feel? What shape are you in?</li>
-            <li>What are the first thoughts in your mind?</li>
-          </ul>
+          <div class="prompt-group">
+            <div class="prompt-label">Your Day</div>
+            <ul class="prompt-list">
+              <li>What kind of work are you doing? Creating? Leading? Teaching?</li>
+              <li>Who are the people around you? Energizing or draining?</li>
+              <li>How does money feel — tight or spacious? Stressful or neutral?</li>
+              <li>How are you contributing beyond yourself?</li>
+            </ul>
+          </div>
+
+          <div class="prompt-group">
+            <div class="prompt-label">Evening</div>
+            <ul class="prompt-list">
+              <li>How do you disengage from work? Is there a clean boundary?</li>
+              <li>Who do you spend your evening with?</li>
+              <li>What brings you joy and relaxation?</li>
+            </ul>
+          </div>
+
+          <div class="prompt-group">
+            <div class="prompt-label">Night</div>
+            <ul class="prompt-list">
+              <li>As you lie down, what are you grateful for?</li>
+              <li>What feels peaceful in this life?</li>
+              <li>What do you feel proud of becoming?</li>
+            </ul>
+          </div>
         </div>
 
-        <div class="prompt-group">
-          <div class="prompt-label">Your Day</div>
-          <ul class="prompt-list">
-            <li>What does breakfast look like? Who are you with?</li>
-            <li>What work are you doing? What does it feel like to do it?</li>
-            <li>Who are the people around you?</li>
-            <li>What is your relationship with money like now?</li>
-            <li>How are you contributing to others?</li>
-          </ul>
+        <div class="quote-block">
+          <p>"Notice the absence of urgency. You're not escaping your life — you're resting inside it."</p>
         </div>
-
-        <div class="prompt-group">
-          <div class="prompt-label">Evening</div>
-          <ul class="prompt-list">
-            <li>How do you disengage from work?</li>
-            <li>What do your evenings look like?</li>
-            <li>What brings you joy and relaxation?</li>
-            <li>Who do you spend this time with?</li>
-          </ul>
-        </div>
-
-        <div class="prompt-group">
-          <div class="prompt-label">Night</div>
-          <ul class="prompt-list">
-            <li>As you lie down, what are you grateful for?</li>
-            <li>What feels peaceful in this life?</li>
-            <li>What do you feel proud of becoming?</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="insight-box">
-        <div class="label">Why 3 Years?</div>
-        <p>Three years is far enough to create significant change, but close enough to feel real. It allows for bold vision while remaining connected to your present identity.</p>
       </div>
     </section>
-
-    <hr class="separator">
 
     <!-- Testimonials -->
     <section class="section" id="testimonials">
-      <div class="section-header">
-        <div class="section-number">Real Results</div>
-        <h2>Student Testimonials</h2>
-      </div>
+      <div class="section-inner">
+        <div class="section-eyebrow">Real Results</div>
+        <h2 class="title-bold-4">Student Testimonials</h2>
 
-      <div class="stats-box">
-        <div class="stat">
-          <div class="number">2,472</div>
-          <div class="label">Case studies collected</div>
+        <div class="stats-row">
+          <div class="stat">
+            <div class="number">2,472</div>
+            <div class="label">Case studies</div>
+          </div>
+          <div class="stat">
+            <div class="number">7</div>
+            <div class="label">Languages</div>
+          </div>
+          <div class="stat">
+            <div class="number">90%</div>
+            <div class="label">Price reduction</div>
+          </div>
         </div>
-        <div class="stat">
-          <div class="number">7</div>
-          <div class="label">Languages available</div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">T</div>
+            <div>
+              <div class="testimonial-name">Tri Nuraini</div>
+              <div class="testimonial-location">Indonesia</div>
+            </div>
+          </div>
+          <blockquote>"My dream was to be an inspirational speaker at Mindvalley. I didn't know how. Then I ended up being at A-Fest and got to share my story on stage."</blockquote>
+          <ul class="testimonial-results">
+            <li>First Indonesian to speak at A-Fest</li>
+            <li>Tripled her income</li>
+            <li>Transformed relationship with her children</li>
+          </ul>
         </div>
-        <div class="stat">
-          <div class="number">90%</div>
-          <div class="label">Price reduction from original</div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">Y</div>
+            <div>
+              <div class="testimonial-name">Yuri Minski</div>
+              <div class="testimonial-location">Global</div>
+            </div>
+          </div>
+          <blockquote>"I was sitting next to my father, taking his last breath, and I promised him and myself that I would do something great. I went back to my Lifebook vision — and half of it had already begun to materialize."</blockquote>
+          <ul class="testimonial-results">
+            <li>Lost 50 pounds, became 6 years younger biologically</li>
+            <li>Met the love of his life at a Mindvalley event</li>
+            <li>Got hired by Mindvalley (wrote this in his vision first)</li>
+            <li>Created a global coaching marketplace</li>
+          </ul>
         </div>
-      </div>
 
-      <div class="testimonial-card">
-        <div class="name">Tri Nuraini</div>
-        <div class="location">Indonesia</div>
-        <blockquote>"My dream when I did Lifebook was to be an inspirational speaker at Mindvalley. I didn't know how. I thought, maybe one day I will write for Mindvalley, post content for Mindvalley. But then I ended up being at A-Fest and got to share my story on stage."</blockquote>
-        <ul class="results">
-          <li>Became the first Indonesian to speak at A-Fest</li>
-          <li>Tripled her income</li>
-          <li>Transformed her relationship with her children</li>
-        </ul>
-      </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">M</div>
+            <div>
+              <div class="testimonial-name">Masha Drake</div>
+              <div class="testimonial-location">USA — High Achiever & Polymath</div>
+            </div>
+          </div>
+          <blockquote>"If you're a high achiever already, you haven't seen nothing yet. I call Lifebook my basket — it gave me a framework to process and put things into action."</blockquote>
+          <ul class="testimonial-results">
+            <li>Learned tango, bachata, salsa, and ballet</li>
+            <li>Read 100+ books and learned 5 languages</li>
+            <li>Became Chief Data Officer leading 30 data scientists</li>
+            <li>Now launching an AI business for climate adaptation</li>
+          </ul>
+        </div>
 
-      <div class="testimonial-card">
-        <div class="name">Yuri Minski</div>
-        <div class="location">Global (from family of physicists)</div>
-        <blockquote>"I was sitting next to my father, taking his last breath, and I promised him and myself that I would do something great with my life. I went back to my Lifebook vision — and half of it had already begun to materialize."</blockquote>
-        <ul class="results">
-          <li>Lost 50 pounds and became 6 years younger biologically</li>
-          <li>Met the love of his life at a Mindvalley event</li>
-          <li>Got hired by Mindvalley (wrote this vision before it happened)</li>
-          <li>Created a global coaching marketplace platform</li>
-        </ul>
-      </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">K</div>
+            <div>
+              <div class="testimonial-name">Kris Konsap</div>
+              <div class="testimonial-location">Public Speaking Transformation</div>
+            </div>
+          </div>
+          <blockquote>"30 years of doing nothing in public speaking. 3 years after Lifebook, massive change. I was too terrified to speak — I labeled myself an introvert."</blockquote>
+          <ul class="testimonial-results">
+            <li>Went from zero to delivering dozens of speeches</li>
+            <li>Became team lead at Mindvalley's Speaking Academy</li>
+            <li>Transformed relationships with spouse and children</li>
+          </ul>
+        </div>
 
-      <div class="testimonial-card">
-        <div class="name">Masha Drake</div>
-        <div class="location">USA — High Achiever & Polymath</div>
-        <blockquote>"If you're a high achiever already, you haven't seen nothing yet. I call Lifebook my basket — it gave me a framework to process and put things into action in ways I didn't have the tools to do before."</blockquote>
-        <ul class="results">
-          <li>Learned tango, bachata, salsa, and ballet</li>
-          <li>Read 100+ books and learned 5 languages</li>
-          <li>Became Chief Data Officer leading 30 data scientists</li>
-          <li>Now launching an AI and tech business for climate adaptation</li>
-          <li>Planning goals for her 90s</li>
-        </ul>
-      </div>
-
-      <div class="testimonial-card">
-        <div class="name">Kris Konsap</div>
-        <div class="location">Public Speaking Transformation</div>
-        <blockquote>"30 years of doing nothing in public speaking. 3 years after Lifebook, massive change. I was too terrified to speak — I labeled myself an introvert. But I realized without public speaking, my life vision would be compromised."</blockquote>
-        <ul class="results">
-          <li>Went from zero public speaking to delivering dozens of speeches</li>
-          <li>Became team lead at Mindvalley's Speaking Academy</li>
-          <li>Transformed relationships with spouse and children</li>
-          <li>Keeps distilled Lifebook manifesto on desk daily</li>
-        </ul>
-      </div>
-
-      <div class="insight-box">
-        <div class="label">Unexpected Pattern</div>
-        <p>When Mindvalley had AI analyze 2,472+ case studies, one of the most common results was <strong>massive weight loss</strong> — even though Lifebook isn't a weight loss program. When people's lives come together, their bodies often shift to support the life they've declared.</p>
+        <div class="insight-box">
+          <div class="label">Unexpected Pattern</div>
+          <p>When AI analyzed 2,472+ case studies, one of the most common results was <strong>massive weight loss</strong> — even though Lifebook isn't a weight loss program. When people's lives come together, their bodies shift to support the life they've declared.</p>
+        </div>
       </div>
     </section>
 
-    <hr class="separator">
-
     <!-- Key Takeaways -->
     <section class="section" id="takeaways">
-      <div class="section-header">
-        <div class="section-number">Summary</div>
-        <h2>Key Takeaways</h2>
-      </div>
+      <div class="section-inner">
+        <div class="section-eyebrow">Summary</div>
+        <h2 class="title-bold-4">Key Takeaways</h2>
 
-      <h3>The Three Core Pillars</h3>
-      <ol>
-        <li><strong>Clarity</strong> — Know exactly what you want across all areas of life (not borrowed dreams)</li>
-        <li><strong>Structure</strong> — Use the 12 Categories to create comprehensive, balanced vision</li>
-        <li><strong>Nervous System Safety</strong> — Make your vision feel achievable to the part of you that fears change</li>
-      </ol>
+        <h3 class="title-bold-6">The Three Core Pillars</h3>
+        <ul class="takeaway-list">
+          <li><strong>Clarity</strong> — Know exactly what you want across all areas (not borrowed dreams)</li>
+          <li><strong>Structure</strong> — Use the 12 Categories for comprehensive, balanced vision</li>
+          <li><strong>Nervous System Safety</strong> — Make your vision feel achievable to the part that fears change</li>
+        </ul>
 
-      <h3>The Lifebook Process</h3>
-      <ul>
-        <li>12 Categories covering every aspect of life</li>
-        <li>4 Questions per category (Believe → Want → Why → Action)</li>
-        <li>Written with deep specificity and emotional connection</li>
-        <li>Reviewed and updated annually</li>
-      </ul>
+        <h3 class="title-bold-6">The Three Distinctions</h3>
+        <ul class="takeaway-list">
+          <li><strong>Baseline over Peak</strong> — Build your minimum standard, not your best day</li>
+          <li><strong>Direction over Perfection</strong> — Know the way, not every step</li>
+          <li><strong>Correction over Self-Judgment</strong> — Adjust without shame</li>
+        </ul>
 
-      <h3>The Three Distinctions</h3>
-      <ol>
-        <li><strong>Baseline over Peak</strong> — Build your minimum standard, not your best day</li>
-        <li><strong>Direction over Perfection</strong> — Know the way, not every step</li>
-        <li><strong>Correction over Self-Judgment</strong> — Adjust without shame</li>
-      </ol>
-
-      <div class="quote-block">
-        <p>"A year from now, you'll be somewhere. The question is — where? The answer is Lifebook."</p>
-        <div class="attribution">— Vishen Lakhiani</div>
+        <div class="feature-quote">
+          <p>"A year from now, you'll be somewhere.<br>The question is — <span class="highlight">where?</span>"</p>
+        </div>
       </div>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
-    <p>Class notes from the Lifebook Masterclass — December 28, 2024</p>
-    <p>Hosted by Vishen Lakhiani</p>
-    <p style="margin-top: 1rem;"><a href="index.html">← Back to Webinar Resources</a></p>
+    <div class="footer-inner">
+      <p>Class notes from the Lifebook Masterclass — December 28, 2024</p>
+      <p>Hosted by Vishen Lakhiani</p>
+      <p style="margin-top: 1.5rem;"><a href="index.html">← Back to Webinar Resources</a></p>
+    </div>
   </footer>
 </body>
 </html>
