@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Daily Creator — Slide Deck</title>
+  <meta name="description" content="22-slide presentation deck for The Daily Creator talk. How pit stop thinking transformed content creation from dreading it to doing it daily in 17 minutes." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎤</text></svg>">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="The Daily Creator — Slide Deck" />
+  <meta property="og:description" content="22-slide presentation for an 18-minute talk on optimizing content creation through pit stop thinking." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1764664035187-e89b27d54c7b?w=1200&h=630&fit=crop&auto=format&q=60" />
+  <meta property="og:url" content="https://vishenl.github.io/workspace/1bfs/daily-creator-slides.html" />
+  <meta property="og:site_name" content="Mindvalley" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Daily Creator — Slide Deck" />
+  <meta name="twitter:description" content="22-slide presentation on pit stop thinking for content creation." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1764664035187-e89b27d54c7b?w=1200&h=630&fit=crop&auto=format&q=60" />
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#7a12d4" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Google+Sans+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --purple: #7a12d4;
+      --purple-light: #9333ea;
+      --purple-dark: #5b0da0;
+      --text-dark: #0f131a;
+      --text-muted: #4b5563;
+      --bg-light: #f9f7fc;
+      --bg-lighter: #f5f0fa;
+      --white: #ffffff;
+      --gold: #f59e0b;
+      --green: #22c55e;
+    }
+
+    body {
+      font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #000;
+      color: var(--text-dark);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Slide Container */
+    .slides-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+      text-align: center;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Slide Themes */
+    .slide--white {
+      background: var(--white);
+      color: var(--text-dark);
+    }
+
+    .slide--light {
+      background: var(--bg-light);
+      color: var(--text-dark);
+    }
+
+    .slide--purple {
+      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-light) 100%);
+      color: var(--white);
+    }
+
+    .slide--dark {
+      background: var(--text-dark);
+      color: var(--white);
+    }
+
+    .slide--black {
+      background: #000;
+      color: var(--white);
+    }
+
+    .slide--gradient {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: var(--white);
+    }
+
+    /* Typography */
+    .slide-eyebrow {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0.7;
+    }
+
+    .slide--purple .slide-eyebrow,
+    .slide--dark .slide-eyebrow,
+    .slide--black .slide-eyebrow {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .slide--white .slide-eyebrow,
+    .slide--light .slide-eyebrow {
+      color: var(--purple);
+    }
+
+    .slide-title {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 600;
+      line-height: 1.1;
+      max-width: 1000px;
+      margin-bottom: 1.5rem;
+    }
+
+    .slide-title--large {
+      font-size: clamp(4rem, 15vw, 10rem);
+      font-weight: 700;
+    }
+
+    .slide-title--medium {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+    }
+
+    .slide-subtitle {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      font-weight: 400;
+      max-width: 700px;
+      line-height: 1.5;
+      opacity: 0.85;
+    }
+
+    .slide--white .slide-subtitle,
+    .slide--light .slide-subtitle {
+      color: var(--text-muted);
+    }
+
+    /* Quote styling */
+    .slide-quote {
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      font-style: italic;
+      font-weight: 400;
+      max-width: 900px;
+      line-height: 1.5;
+      margin-bottom: 2rem;
+    }
+
+    .slide-quote cite {
+      display: block;
+      font-size: 1.25rem;
+      font-style: normal;
+      margin-top: 1.5rem;
+      opacity: 0.7;
+    }
+
+    /* Numbers */
+    .big-number {
+      font-size: clamp(6rem, 20vw, 14rem);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--purple);
+    }
+
+    .slide--purple .big-number,
+    .slide--dark .big-number {
+      color: var(--white);
+    }
+
+    .number-comparison {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+    }
+
+    .number-block {
+      text-align: center;
+    }
+
+    .number-block .number {
+      font-size: clamp(4rem, 12vw, 8rem);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .number-block .label {
+      font-size: 1.25rem;
+      margin-top: 0.5rem;
+      opacity: 0.7;
+    }
+
+    .number-block--muted .number {
+      color: var(--text-muted);
+    }
+
+    .number-block--highlight .number {
+      color: var(--purple);
+    }
+
+    .vs-divider {
+      font-size: 2rem;
+      font-weight: 600;
+      opacity: 0.3;
+    }
+
+    /* Lists */
+    .slide-list {
+      list-style: none;
+      text-align: left;
+      font-size: clamp(1.25rem, 3vw, 2rem);
+      line-height: 2;
+    }
+
+    .slide-list li {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .slide-list .check {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .slide-list .cross {
+      color: #ef4444;
+      font-weight: 700;
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
+
+    .slide-list .strikethrough {
+      text-decoration: line-through;
+      opacity: 0.4;
+    }
+
+    /* Equation */
+    .equation {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .equation-part {
+      padding: 0.75rem 1.5rem;
+      background: var(--bg-lighter);
+      border-radius: 0.5rem;
+    }
+
+    .slide--dark .equation-part {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .equation-symbol {
+      font-weight: 700;
+      opacity: 0.5;
+    }
+
+    /* Identity cards */
+    .identity-cards {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .identity-card {
+      background: var(--white);
+      padding: 2rem 3rem;
+      border-radius: 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--purple);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+
+    /* Three questions */
+    .questions-list {
+      text-align: left;
+      max-width: 800px;
+    }
+
+    .questions-list li {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .questions-list .q-mark {
+      color: var(--purple);
+      font-weight: 700;
+      font-size: 1.5em;
+      line-height: 1;
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: var(--purple);
+      transition: width 0.3s ease;
+      z-index: 100;
+    }
+
+    /* Slide counter */
+    .slide-counter {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 2rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      opacity: 0.5;
+      z-index: 100;
+    }
+
+    .slide--dark .slide-counter,
+    .slide--black .slide-counter,
+    .slide--purple .slide-counter,
+    .slide--gradient .slide-counter {
+      color: white;
+    }
+
+    /* Navigation hints */
+    .nav-hint {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 2rem;
+      font-size: 0.75rem;
+      opacity: 0.4;
+      z-index: 100;
+    }
+
+    .slide--dark .nav-hint,
+    .slide--black .nav-hint,
+    .slide--purple .nav-hint,
+    .slide--gradient .nav-hint {
+      color: white;
+    }
+
+    /* Image placeholder */
+    .image-placeholder {
+      width: 100%;
+      max-width: 800px;
+      height: 400px;
+      background: linear-gradient(135deg, #e8e0f0 0%, #d4c4e8 100%);
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--purple);
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 2rem;
+    }
+
+    /* Highlight text */
+    .highlight {
+      color: var(--purple);
+    }
+
+    .slide--purple .highlight,
+    .slide--dark .highlight {
+      color: var(--gold);
+    }
+
+    /* Fade in animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide.active .slide-eyebrow {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .slide.active .slide-title {
+      animation: fadeInUp 0.6s ease 0.1s forwards;
+    }
+
+    .slide.active .slide-subtitle {
+      animation: fadeInUp 0.6s ease 0.2s forwards;
+    }
+
+    .slide.active .slide-quote {
+      animation: fadeInUp 0.6s ease 0.1s forwards;
+    }
+
+    /* Presenter mode toggle */
+    .presenter-notes {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.95);
+      color: white;
+      padding: 1.5rem 2rem;
+      font-size: 1rem;
+      line-height: 1.6;
+      max-height: 30vh;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      z-index: 200;
+    }
+
+    .presenter-notes.visible {
+      transform: translateY(0);
+    }
+
+    .presenter-notes h4 {
+      color: var(--purple);
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Fullscreen button */
+    .fullscreen-btn {
+      position: fixed;
+      top: 1.5rem;
+      right: 2rem;
+      background: rgba(0,0,0,0.2);
+      border: none;
+      color: inherit;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 0.875rem;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+      z-index: 100;
+    }
+
+    .fullscreen-btn:hover {
+      opacity: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .slide {
+        padding: 2rem;
+      }
+
+      .number-comparison {
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .vs-divider {
+        transform: rotate(90deg);
+      }
+
+      .identity-cards {
+        flex-direction: column;
+      }
+
+      .equation {
+        flex-direction: column;
+      }
+    }
+
+    /* Print/Export styles */
+    @media print {
+      .slide {
+        page-break-after: always;
+        position: relative;
+        opacity: 1;
+        visibility: visible;
+        height: 100vh;
+      }
+
+      .progress-bar,
+      .slide-counter,
+      .nav-hint,
+      .fullscreen-btn,
+      .presenter-notes {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slides-container">
+
+    <!-- Slide 1: Title -->
+    <section class="slide slide--purple active" data-notes="Welcome the audience. Set up the theme of optimization and efficiency.">
+      <p class="slide-eyebrow">18-Minute Talk</p>
+      <h1 class="slide-title">The Daily Creator</h1>
+      <p class="slide-subtitle">How Pit Stop Thinking Transformed My Content Creation</p>
+    </section>
+
+    <!-- Slide 2: F1 Hook -->
+    <section class="slide slide--dark" data-notes="In 1950, an F1 pit stop took 67 seconds. Today? Under two seconds. They didn't get faster by working harder. They got faster by engineering every single friction point out of existence.">
+      <p class="slide-eyebrow">1950 vs Today</p>
+      <div class="number-comparison">
+        <div class="number-block number-block--muted">
+          <div class="number" style="color: #6b7280;">67s</div>
+          <div class="label">1950</div>
+        </div>
+        <div class="vs-divider">→</div>
+        <div class="number-block number-block--highlight">
+          <div class="number" style="color: var(--gold);">&lt;2s</div>
+          <div class="label">Today</div>
+        </div>
+      </div>
+      <p class="slide-subtitle" style="margin-top: 2rem;">The F1 Pit Stop</p>
+    </section>
+
+    <!-- Slide 3: The Question -->
+    <section class="slide slide--black" data-notes="They asked a question most of us never ask: What can we remove?">
+      <h1 class="slide-title">What can we <span class="highlight" style="color: var(--gold);">remove</span>?</h1>
+    </section>
+
+    <!-- Slide 4: 17 Minutes -->
+    <section class="slide slide--white" data-notes="Today I want to talk about how I applied pit stop thinking to content creation—and went from dreading it... to doing it daily in 17 minutes.">
+      <div class="big-number">17</div>
+      <p class="slide-subtitle">minutes to create a 3-minute video</p>
+    </section>
+
+    <!-- Slide 5: The Dilemma -->
+    <section class="slide slide--light" data-notes="Here's what I knew as a founder: I HAD to build an audience. Here's what I DID: I found excuses.">
+      <p class="slide-eyebrow">Act 2</p>
+      <h1 class="slide-title slide-title--medium">The Content Creator's Dilemma</h1>
+      <p class="slide-subtitle">"I'm a CEO, not a creator. This isn't my job."</p>
+    </section>
+
+    <!-- Slide 6: The Numbers -->
+    <section class="slide slide--white" data-notes="When I wasn't creating content, our webinars got 6,000 registrations. When I was active? 10,000. Same product. Same ads. Same team.">
+      <p class="slide-eyebrow">Webinar Registrations</p>
+      <div class="number-comparison">
+        <div class="number-block number-block--muted">
+          <div class="number">6,000</div>
+          <div class="label">Not creating</div>
+        </div>
+        <div class="vs-divider">vs</div>
+        <div class="number-block number-block--highlight">
+          <div class="number">10,000</div>
+          <div class="label">Creating daily</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 7: Tax on Invisibility -->
+    <section class="slide slide--dark" data-notes="I realized I was paying a tax on invisibility. And it was expensive.">
+      <h1 class="slide-title">The tax on <span class="highlight" style="color: #ef4444;">invisibility</span></h1>
+    </section>
+
+    <!-- Slide 8: The Wrong Approach -->
+    <section class="slide slide--light" data-notes="I rented a studio. I hired a team. Someone on camera, someone on audio, someone controlling the teleprompter, someone doing makeup and lighting. And someone taping a mic to my chest.">
+      <p class="slide-eyebrow">The Wrong Approach</p>
+      <h1 class="slide-title slide-title--medium">I threw resources at it</h1>
+      <p class="slide-subtitle">Studio. Team. Equipment. Processes.</p>
+    </section>
+
+    <!-- Slide 9: More Process -->
+    <section class="slide slide--white" data-notes="I had built a system optimized for quality. But I had accidentally optimized against consistency.">
+      <h1 class="slide-title">More process<br/>≠<br/>More content</h1>
+    </section>
+
+    <!-- Slide 10: The Question Again -->
+    <section class="slide slide--purple" data-notes="So I asked the pit stop question: What can we SUBTRACT to make this POSSIBLE?">
+      <p class="slide-eyebrow">The Pit Stop Question</p>
+      <h1 class="slide-title">What can we remove?</h1>
+    </section>
+
+    <!-- Slide 11: The Audit -->
+    <section class="slide slide--white" data-notes="Walk through each removal: teleprompter operator, makeup artist, lighting rig, lavalier mic, studio, team.">
+      <p class="slide-eyebrow">The Audit</p>
+      <ul class="slide-list" style="font-size: 1.5rem;">
+        <li><span class="cross">✗</span> <span class="strikethrough">Teleprompter operator</span> → App + foot pedal</li>
+        <li><span class="cross">✗</span> <span class="strikethrough">Makeup artist</span> → AI skin filter</li>
+        <li><span class="cross">✗</span> <span class="strikethrough">Lighting rig</span> → $150 ring light</li>
+        <li><span class="cross">✗</span> <span class="strikethrough">Lavalier mic</span> → Camera-mounted mic</li>
+        <li><span class="cross">✗</span> <span class="strikethrough">$20K/year studio</span> → Extra bedroom</li>
+      </ul>
+    </section>
+
+    <!-- Slide 12: From 5 to 0 -->
+    <section class="slide slide--dark" data-notes="The entire team? Gone. Not fired—freed. I can create content at 6 AM in my pajamas.">
+      <p class="slide-eyebrow">Team Size</p>
+      <div class="number-comparison">
+        <div class="number-block">
+          <div class="number" style="color: #6b7280;">5</div>
+          <div class="label">Before</div>
+        </div>
+        <div class="vs-divider">→</div>
+        <div class="number-block">
+          <div class="number" style="color: var(--gold);">0</div>
+          <div class="label">After</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 13: Imperfect > Invisible -->
+    <section class="slide slide--purple" data-notes="I learned that the entire thing could be done imperfectly. We were chasing parameters we didn't need.">
+      <h1 class="slide-title">Imperfect<br/>&gt;<br/>Invisible</h1>
+    </section>
+
+    <!-- Slide 14: Consistent > Perfect -->
+    <section class="slide slide--black" data-notes="I was optimizing for impressive. I should have been optimizing for sustainable.">
+      <h1 class="slide-title slide-title--medium">"Done is better than perfect.</h1>
+      <h1 class="slide-title slide-title--medium" style="margin-top: 1rem;">But <span class="highlight" style="color: var(--gold);">consistent</span> is better than both."</h1>
+    </section>
+
+    <!-- Slide 15: James Clear Quote -->
+    <section class="slide slide--light" data-notes="James Clear talks about identity-based habits. You don't DO something because you're motivated. You do it because it's WHO YOU ARE.">
+      <p class="slide-eyebrow">James Clear</p>
+      <blockquote class="slide-quote">
+        "Every action is a vote for the type of person you wish to become."
+      </blockquote>
+    </section>
+
+    <!-- Slide 16: Identity Statements -->
+    <section class="slide slide--white" data-notes="I'm a creator. I'm an educator. I'm a teacher. Not 'I create content sometimes.' It's not what I do. It's what I AM.">
+      <p class="slide-eyebrow">Identity Shift</p>
+      <div class="identity-cards">
+        <div class="identity-card">I'm a creator.</div>
+        <div class="identity-card">I'm an educator.</div>
+        <div class="identity-card">I'm a teacher.</div>
+      </div>
+    </section>
+
+    <!-- Slide 17: BJ Fogg Equation -->
+    <section class="slide slide--light" data-notes="BJ Fogg's equation. Most people try to increase motivation. I increased ABILITY by removing friction, and created a PROMPT.">
+      <p class="slide-eyebrow">BJ Fogg — Tiny Habits</p>
+      <div class="equation">
+        <span class="equation-part">Behavior</span>
+        <span class="equation-symbol">=</span>
+        <span class="equation-part">Motivation</span>
+        <span class="equation-symbol">×</span>
+        <span class="equation-part" style="background: var(--purple); color: white;">Ability</span>
+        <span class="equation-symbol">×</span>
+        <span class="equation-part" style="background: var(--purple); color: white;">Prompt</span>
+      </div>
+    </section>
+
+    <!-- Slide 18: Who Are You Serving -->
+    <section class="slide slide--purple" data-notes="Connect your goal to something bigger. The entrepreneur in Lagos. The single mom in Manila. The version of me fifteen years ago.">
+      <p class="slide-eyebrow">Lifebook</p>
+      <h1 class="slide-title">Who are you serving?</h1>
+    </section>
+
+    <!-- Slide 19: Daily Creation Audit -->
+    <section class="slide slide--white" data-notes="Audit your process. Tonight. Write down every step between 'I should create content' and 'I published content.'">
+      <p class="slide-eyebrow">Call to Action</p>
+      <h1 class="slide-title slide-title--medium" style="margin-bottom: 2rem;">Your Daily Creation Audit</h1>
+      <ul class="questions-list">
+        <li><span class="q-mark">?</span> What would this look like if it were <strong>easy</strong>?</li>
+        <li><span class="q-mark">?</span> What would this look like if it took <strong>17 minutes</strong>?</li>
+        <li><span class="q-mark">?</span> What would this look like if I could do it <strong>every day</strong>?</li>
+      </ul>
+    </section>
+
+    <!-- Slide 20: Rumi Quote -->
+    <section class="slide slide--gradient" data-notes="Pause. Let this breathe. You don't need to see the whole path. You just need to start walking.">
+      <blockquote class="slide-quote">
+        "As you start to walk on the way,<br/>the way appears."
+        <cite>— Rumi</cite>
+      </blockquote>
+    </section>
+
+    <!-- Slide 21: Start Walking -->
+    <section class="slide slide--black" data-notes="Seventeen minutes. One video. Today. The way will appear. Thank you.">
+      <h1 class="slide-title slide-title--large" style="color: var(--white);">Start walking.</h1>
+    </section>
+
+    <!-- Slide 22: Thank You -->
+    <section class="slide slide--purple" data-notes="Thank you.">
+      <h1 class="slide-title">Thank you.</h1>
+      <p class="slide-subtitle" style="margin-top: 2rem;">17 minutes. One video. Today.</p>
+    </section>
+
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Slide Counter -->
+  <div class="slide-counter" id="slideCounter">1 / 22</div>
+
+  <!-- Navigation Hint -->
+  <div class="nav-hint">← → or Space to navigate · P for presenter notes · F for fullscreen</div>
+
+  <!-- Fullscreen Button -->
+  <button class="fullscreen-btn" onclick="toggleFullscreen()">Fullscreen</button>
+
+  <!-- Presenter Notes Panel -->
+  <div class="presenter-notes" id="presenterNotes">
+    <h4>Presenter Notes</h4>
+    <p id="notesContent"></p>
+  </div>
+
+  <script>
+    // Slide navigation
+    const slides = document.querySelectorAll('.slide');
+    const progressBar = document.getElementById('progressBar');
+    const slideCounter = document.getElementById('slideCounter');
+    const presenterNotes = document.getElementById('presenterNotes');
+    const notesContent = document.getElementById('notesContent');
+    let currentSlide = 0;
+    let notesVisible = false;
+
+    function showSlide(index) {
+      // Clamp index
+      if (index < 0) index = 0;
+      if (index >= slides.length) index = slides.length - 1;
+
+      // Update slides
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+
+      currentSlide = index;
+
+      // Update progress bar
+      const progress = ((index + 1) / slides.length) * 100;
+      progressBar.style.width = progress + '%';
+
+      // Update counter
+      slideCounter.textContent = `${index + 1} / ${slides.length}`;
+
+      // Update presenter notes
+      const notes = slides[index].getAttribute('data-notes') || 'No notes for this slide.';
+      notesContent.textContent = notes;
+
+      // Update counter color based on slide theme
+      const slideTheme = slides[index].className;
+      if (slideTheme.includes('dark') || slideTheme.includes('black') || slideTheme.includes('purple') || slideTheme.includes('gradient')) {
+        slideCounter.style.color = 'white';
+        document.querySelector('.nav-hint').style.color = 'white';
+      } else {
+        slideCounter.style.color = '#0f131a';
+        document.querySelector('.nav-hint').style.color = '#0f131a';
+      }
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    function toggleNotes() {
+      notesVisible = !notesVisible;
+      presenterNotes.classList.toggle('visible', notesVisible);
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      switch(e.key) {
+        case 'ArrowRight':
+        case 'ArrowDown':
+        case ' ':
+        case 'PageDown':
+          e.preventDefault();
+          nextSlide();
+          break;
+        case 'ArrowLeft':
+        case 'ArrowUp':
+        case 'PageUp':
+          e.preventDefault();
+          prevSlide();
+          break;
+        case 'Home':
+          e.preventDefault();
+          showSlide(0);
+          break;
+        case 'End':
+          e.preventDefault();
+          showSlide(slides.length - 1);
+          break;
+        case 'p':
+        case 'P':
+          toggleNotes();
+          break;
+        case 'f':
+        case 'F':
+          toggleFullscreen();
+          break;
+        case 'Escape':
+          if (notesVisible) {
+            toggleNotes();
+          }
+          break;
+      }
+    });
+
+    // Click/tap navigation
+    document.addEventListener('click', (e) => {
+      // Don't navigate if clicking on buttons or notes
+      if (e.target.closest('.fullscreen-btn') || e.target.closest('.presenter-notes')) {
+        return;
+      }
+
+      const x = e.clientX;
+      const width = window.innerWidth;
+
+      if (x < width / 3) {
+        prevSlide();
+      } else {
+        nextSlide();
+      }
+    });
+
+    // Touch swipe navigation
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+    }
+
+    // Initialize
+    showSlide(0);
+  </script>
+
+</body>
+</html>
