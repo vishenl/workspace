@@ -6,81 +6,98 @@
   <title>Founder's Content System | YouTube Script + Editor Notes</title>
   <meta name="description" content="YouTube-optimized script for Founder's Content System with dual-column layout for teleprompter and editor notes" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Flex:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="mindvalley-core.css" />
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'Google Sans Flex', 'Google Sans', -apple-system, sans-serif;
-      background: #0f0f0f;
-      color: #e8e8e8;
-      line-height: 1.6;
-      font-size: 20px;
+      background: #f9f7fc;
     }
 
     /* Header */
-    .header {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      padding: 2rem;
-      border-bottom: 3px solid #ff0000;
+    .script-header {
+      background: linear-gradient(135deg, #7a12d4 0%, #5a0fb0 100%);
+      padding: 2.5rem 2rem;
+      color: white;
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 4px 20px rgba(122, 18, 212, 0.3);
     }
 
-    .header h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 0.5rem;
+    .script-header h1 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
     }
 
     .header-meta {
       display: flex;
-      gap: 2rem;
+      gap: 1.5rem;
       flex-wrap: wrap;
-      font-size: 0.95rem;
-      color: #aaa;
+      font-size: 0.9rem;
+      opacity: 0.9;
     }
 
     .header-meta span {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
     }
 
     .yt-badge {
       background: #ff0000;
       color: white;
-      padding: 0.25rem 0.75rem;
+      padding: 0.25rem 0.6rem;
       border-radius: 4px;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
 
-    /* Main Layout */
+    /* Main Container */
     .main-container {
-      max-width: 1600px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 2rem;
+    }
+
+    /* Video Title Box */
+    .video-title-box {
+      background: white;
+      border: 2px solid #7a12d4;
+      border-radius: 1rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .video-title-box h3 {
+      color: #7a12d4;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    .video-title-box p {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: #0f131a;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-title-box p:last-child {
+      margin-bottom: 0;
     }
 
     /* Two Column Grid */
     .dual-column {
       display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 2rem;
-      margin-bottom: 3rem;
+      grid-template-columns: 1fr 340px;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
     }
 
-    @media (max-width: 1100px) {
+    @media (max-width: 1024px) {
       .dual-column {
         grid-template-columns: 1fr;
       }
@@ -91,28 +108,28 @@
 
     /* Script Column */
     .script-column {
-      background: #1a1a1a;
-      border-radius: 12px;
+      background: white;
+      border-radius: 1rem;
       padding: 2rem;
-      border-left: 4px solid #ff0000;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     }
 
     /* Editor Column */
     .editor-column {
-      background: #1e2a38;
-      border-radius: 12px;
+      background: #f0e6f7;
+      border-radius: 1rem;
       padding: 1.5rem;
-      border-left: 4px solid #00d4ff;
+      border-left: 4px solid #7a12d4;
       position: sticky;
-      top: 120px;
+      top: 140px;
       height: fit-content;
-      max-height: calc(100vh - 150px);
+      max-height: calc(100vh - 160px);
       overflow-y: auto;
     }
 
     .editor-column h3 {
-      color: #00d4ff;
-      font-size: 1rem;
+      color: #7a12d4;
+      font-size: 0.9rem;
       font-weight: 600;
       margin-bottom: 1rem;
       text-transform: uppercase;
@@ -121,11 +138,11 @@
 
     /* Section Headers */
     .section-header {
-      background: linear-gradient(90deg, #ff0000 0%, #cc0000 100%);
+      background: linear-gradient(90deg, #7a12d4 0%, #9b30ff 100%);
       color: white;
       padding: 1rem 1.5rem;
-      border-radius: 8px;
-      margin: 3rem 0 1.5rem 0;
+      border-radius: 0.75rem;
+      margin: 2.5rem 0 1.5rem 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -136,173 +153,182 @@
     }
 
     .section-header h2 {
-      font-size: 1.4rem;
-      font-weight: 700;
+      font-size: 1.2rem;
+      font-weight: 600;
     }
 
     .section-time {
-      background: rgba(0,0,0,0.3);
+      background: rgba(255,255,255,0.2);
       padding: 0.35rem 0.75rem;
       border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: 0.85rem;
+      font-weight: 500;
     }
 
     /* Talking Points */
     .talk-point {
-      background: #252525;
-      padding: 1.5rem;
-      border-radius: 8px;
+      background: #f9f7fc;
+      padding: 1.25rem 1.5rem;
+      border-radius: 0.75rem;
       margin-bottom: 1rem;
-      border-left: 3px solid #666;
+      border-left: 3px solid #ccc;
     }
 
     .talk-point.hook {
       border-left-color: #ff0000;
-      background: linear-gradient(90deg, rgba(255,0,0,0.1) 0%, #252525 100%);
+      background: linear-gradient(90deg, rgba(255,0,0,0.05) 0%, #f9f7fc 100%);
     }
 
     .talk-point.story {
       border-left-color: #00aaff;
-      background: linear-gradient(90deg, rgba(0,170,255,0.1) 0%, #252525 100%);
+      background: linear-gradient(90deg, rgba(0,170,255,0.05) 0%, #f9f7fc 100%);
     }
 
     .talk-point.cta {
-      border-left-color: #00ff88;
-      background: linear-gradient(90deg, rgba(0,255,136,0.1) 0%, #252525 100%);
+      border-left-color: #00aa66;
+      background: linear-gradient(90deg, rgba(0,170,102,0.05) 0%, #f9f7fc 100%);
     }
 
     .talk-label {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 0.5rem;
-      color: #888;
+      color: #666;
     }
 
     .talk-point.hook .talk-label { color: #ff0000; }
     .talk-point.story .talk-label { color: #00aaff; }
-    .talk-point.cta .talk-label { color: #00ff88; }
+    .talk-point.cta .talk-label { color: #00aa66; }
 
     /* Script Text */
     .script-text {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       line-height: 1.7;
-      color: #fff;
+      color: #0f131a;
     }
 
     .script-text em {
-      color: #ffcc00;
-      font-style: normal;
-      font-weight: 500;
+      color: #7a12d4;
+      font-style: italic;
     }
 
     .script-text strong {
-      color: #00d4ff;
+      color: #5a0fb0;
       font-weight: 700;
     }
 
     /* Humor Beats */
     .humor-beat {
-      background: linear-gradient(90deg, rgba(255,204,0,0.15) 0%, #252525 100%);
-      border-left: 3px solid #ffcc00;
+      background: linear-gradient(90deg, rgba(255,204,0,0.12) 0%, white 100%);
+      border-left: 4px solid #ffcc00;
       padding: 1.25rem 1.5rem;
-      border-radius: 8px;
+      border-radius: 0.75rem;
       margin: 1rem 0;
     }
 
-    .humor-beat::before {
-      content: "😄 HUMOR BEAT";
-      display: block;
-      font-size: 0.75rem;
+    .humor-label {
+      font-size: 0.7rem;
       font-weight: 700;
-      color: #ffcc00;
+      color: #b38f00;
       margin-bottom: 0.5rem;
       letter-spacing: 1px;
     }
 
     .humor-setup {
       font-size: 1.1rem;
-      color: #ccc;
+      color: #4b5563;
       margin-bottom: 0.5rem;
     }
 
     .humor-punchline {
-      font-size: 1.25rem;
-      color: #ffcc00;
+      font-size: 1.2rem;
+      color: #0f131a;
       font-weight: 600;
     }
 
     .humor-delivery {
       font-size: 0.9rem;
-      color: #888;
+      color: #6b7280;
       margin-top: 0.75rem;
       font-style: italic;
     }
 
     /* Delivery Notes */
     .delivery-note {
-      background: rgba(138, 43, 226, 0.15);
-      border-left: 3px solid #8a2be2;
-      padding: 1rem;
-      border-radius: 6px;
+      background: linear-gradient(90deg, rgba(122, 18, 212, 0.08) 0%, white 100%);
+      border-left: 3px solid #7a12d4;
+      padding: 1rem 1.25rem;
+      border-radius: 0.5rem;
       margin: 1rem 0;
       font-size: 0.95rem;
-      color: #d8b4fe;
+      color: #5a0fb0;
     }
 
     .delivery-note::before {
       content: "🎬 DELIVERY";
       display: block;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 700;
-      color: #8a2be2;
+      color: #7a12d4;
       margin-bottom: 0.35rem;
       letter-spacing: 1px;
     }
 
     /* Editor Notes */
     .editor-note {
-      background: #253545;
-      padding: 1rem;
-      border-radius: 6px;
-      margin-bottom: 0.75rem;
-      font-size: 0.9rem;
+      background: white;
+      padding: 0.9rem 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.85rem;
+      border-left: 3px solid #ccc;
     }
 
     .editor-note-label {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.3rem;
     }
 
-    .editor-note.broll .editor-note-label { color: #00ff88; }
+    .editor-note.broll { border-left-color: #00aa66; }
+    .editor-note.broll .editor-note-label { color: #00aa66; }
+
+    .editor-note.graphic { border-left-color: #ff6b6b; }
     .editor-note.graphic .editor-note-label { color: #ff6b6b; }
-    .editor-note.text .editor-note-label { color: #ffd93d; }
-    .editor-note.music .editor-note-label { color: #c084fc; }
-    .editor-note.transition .editor-note-label { color: #22d3ee; }
-    .editor-note.highlight .editor-note-label { color: #fb923c; }
+
+    .editor-note.text { border-left-color: #ffaa00; }
+    .editor-note.text .editor-note-label { color: #cc8800; }
+
+    .editor-note.music { border-left-color: #9b59b6; }
+    .editor-note.music .editor-note-label { color: #9b59b6; }
+
+    .editor-note.transition { border-left-color: #00aaff; }
+    .editor-note.transition .editor-note-label { color: #00aaff; }
+
+    .editor-note.highlight { border-left-color: #ff6600; }
+    .editor-note.highlight .editor-note-label { color: #ff6600; }
 
     .editor-note p {
-      color: #ccc;
+      color: #4b5563;
       line-height: 1.5;
     }
 
     /* Framework Boxes */
     .framework-box {
-      background: #1a2a3a;
-      border: 2px solid #00d4ff;
-      border-radius: 10px;
+      background: white;
+      border: 2px solid #7a12d4;
+      border-radius: 0.75rem;
       padding: 1.5rem;
       margin: 1.5rem 0;
     }
 
     .framework-box h4 {
-      color: #00d4ff;
-      font-size: 1.1rem;
+      color: #7a12d4;
+      font-size: 1rem;
       font-weight: 700;
       margin-bottom: 1rem;
     }
@@ -313,9 +339,10 @@
 
     .framework-list li {
       padding: 0.75rem 0;
-      border-bottom: 1px solid #2a3a4a;
+      border-bottom: 1px solid #f0e6f7;
       display: flex;
       gap: 1rem;
+      align-items: flex-start;
     }
 
     .framework-list li:last-child {
@@ -323,29 +350,33 @@
     }
 
     .framework-number {
-      background: #00d4ff;
-      color: #0f0f0f;
-      width: 28px;
-      height: 28px;
+      background: #7a12d4;
+      color: white;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       flex-shrink: 0;
     }
 
+    .framework-content {
+      color: #0f131a;
+    }
+
     .framework-content strong {
-      color: #00d4ff;
+      color: #7a12d4;
     }
 
     /* Pattern Interrupt */
     .pattern-interrupt {
-      background: linear-gradient(90deg, #ff0000 0%, #ff6b00 100%);
+      background: linear-gradient(90deg, #7a12d4 0%, #9b30ff 100%);
       color: white;
       padding: 1rem 1.5rem;
-      border-radius: 8px;
+      border-radius: 0.75rem;
       margin: 1.5rem 0;
       font-weight: 600;
       text-align: center;
@@ -354,9 +385,9 @@
 
     /* Stat Callout */
     .stat-callout {
-      background: linear-gradient(135deg, #1a2a3a 0%, #0a1a2a 100%);
-      border: 1px solid #00d4ff;
-      border-radius: 10px;
+      background: linear-gradient(135deg, #f5f0fa 0%, #e8dff5 100%);
+      border: 2px solid #7a12d4;
+      border-radius: 0.75rem;
       padding: 1.5rem;
       margin: 1.5rem 0;
       text-align: center;
@@ -365,31 +396,67 @@
     .stat-number {
       font-size: 2.5rem;
       font-weight: 700;
-      color: #00d4ff;
+      color: #7a12d4;
       display: block;
     }
 
     .stat-label {
-      color: #888;
-      font-size: 1rem;
+      color: #4b5563;
+      font-size: 0.95rem;
     }
 
-    /* Timestamps */
-    .timestamp {
-      background: #333;
-      color: #00ff88;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      font-family: monospace;
-      font-size: 0.85rem;
-      margin-right: 0.5rem;
+    /* Humor Reference Table */
+    .humor-table {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin: 3rem auto;
+      max-width: 900px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .humor-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .humor-table tr {
+      border-bottom: 1px solid #f0e6f7;
+    }
+
+    .humor-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .humor-table td {
+      padding: 1rem;
+      vertical-align: top;
+    }
+
+    .humor-table td:first-child {
+      font-weight: 700;
+      color: #7a12d4;
+      width: 50px;
+    }
+
+    .humor-table td:last-child {
+      color: #0f131a;
+    }
+
+    .humor-table strong {
+      color: #5a0fb0;
+    }
+
+    /* Footer */
+    .script-footer {
+      text-align: center;
+      padding: 3rem 0;
+      color: #6b7280;
+      font-size: 0.9rem;
     }
 
     /* Mobile Optimization */
     @media (max-width: 768px) {
-      body {
-        font-size: 18px;
-      }
       .main-container {
         padding: 1rem;
       }
@@ -397,25 +464,17 @@
         padding: 1.25rem;
       }
       .script-text {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
+      }
+      .section-header h2 {
+        font-size: 1rem;
       }
     }
 
-    /* Print Styles */
-    @media print {
-      .header {
-        position: static;
-      }
-      .editor-column {
-        position: static;
-        max-height: none;
-      }
-    }
-
-    /* Progress Indicator */
+    /* Progress Bar */
     .progress-bar {
       height: 4px;
-      background: #333;
+      background: #e8dff5;
       position: fixed;
       bottom: 0;
       left: 0;
@@ -425,36 +484,15 @@
 
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, #ff0000, #ff6b00);
+      background: linear-gradient(90deg, #7a12d4, #9b30ff);
       width: 0%;
       transition: width 0.1s;
-    }
-
-    /* Video Title Suggestion */
-    .video-title {
-      background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
-      color: white;
-      padding: 1.5rem;
-      border-radius: 10px;
-      margin-bottom: 2rem;
-    }
-
-    .video-title h3 {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      opacity: 0.8;
-      margin-bottom: 0.5rem;
-    }
-
-    .video-title p {
-      font-size: 1.4rem;
-      font-weight: 700;
     }
   </style>
 </head>
 <body>
-  <header class="header">
+
+  <header class="script-header">
     <h1>The Founder's Content System</h1>
     <div class="header-meta">
       <span><span class="yt-badge">YOUTUBE</span></span>
@@ -467,11 +505,11 @@
   <div class="main-container">
 
     <!-- Video Title Suggestions -->
-    <div class="video-title">
+    <div class="video-title-box">
       <h3>Suggested Titles (Pick One)</h3>
       <p>1. The Content System That Turned My Newsletter Into $2.5M/Year</p>
-      <p style="margin-top:0.5rem; opacity:0.9;">2. Why Most Founders Fail at Content (And How to Fix It in 7 Days)</p>
-      <p style="margin-top:0.5rem; opacity:0.9;">3. I Built a $100M Company. Here's the Content System I Wish I Had Earlier.</p>
+      <p>2. Why Most Founders Fail at Content (And How to Fix It in 7 Days)</p>
+      <p>3. I Built a $100M Company. Here's the Content System I Wish I Had Earlier.</p>
     </div>
 
     <!-- ============================================ -->
@@ -499,6 +537,7 @@
         </div>
 
         <div class="humor-beat">
+          <div class="humor-label">😄 HUMOR BEAT</div>
           <p class="humor-setup">Pause, point to self:</p>
           <p class="humor-punchline">"Even weird ones. Especially weird ones, apparently."</p>
           <p class="humor-delivery">Self-deprecating smile. Let audience register it.</p>
@@ -596,6 +635,7 @@
         </div>
 
         <div class="humor-beat">
+          <div class="humor-label">😄 HUMOR BEAT</div>
           <p class="humor-setup">Pause. Deadpan delivery:</p>
           <p class="humor-punchline">"So her company analyzes children's poop. And she just won Female Founder of the Year in Europe. Goes to show — there's gold in them hills."</p>
           <p class="humor-delivery">Deadpan first line. Raised eyebrows on "gold in them hills." Let it land.</p>
@@ -744,6 +784,7 @@
         </div>
 
         <div class="humor-beat">
+          <div class="humor-label">😄 HUMOR BEAT</div>
           <p class="humor-setup">I used to share posts like:</p>
           <p class="humor-punchline">"'Just hit $100 million in revenue! Here's what I learned!' Those got like 47 likes. From my mom. And employees who were afraid of getting fired."</p>
           <p class="humor-delivery">Fake enthusiasm on first line. Then deflate completely on "47 likes."</p>
@@ -768,6 +809,7 @@
         </div>
 
         <div class="humor-beat">
+          <div class="humor-label">😄 HUMOR BEAT</div>
           <p class="humor-setup">One recording. Two pieces of content.</p>
           <p class="humor-punchline">"That's not lazy — that's leverage."</p>
           <p class="humor-delivery">Wink on "That's not lazy" — make it clear you're being playful.</p>
@@ -886,6 +928,7 @@
         </div>
 
         <div class="humor-beat">
+          <div class="humor-label">😄 HUMOR BEAT</div>
           <p class="humor-setup">It got my birthday wrong, said I founded Mindvalley in the wrong year, and mentioned a book I never wrote.</p>
           <p class="humor-punchline">"But hey — at least it knew I existed."</p>
           <p class="humor-delivery">Build frustration listing the errors. Throw hands up on punchline. Self-deprecating smile.</p>
@@ -977,6 +1020,7 @@
         </div>
 
         <div class="humor-beat">
+          <div class="humor-label">😄 HUMOR BEAT</div>
           <p class="humor-setup">And it comes back sounding like...</p>
           <p class="humor-punchline">"...a motivational poster had a baby with a corporate memo? And you close the tab in disgust?"</p>
           <p class="humor-delivery">Make a disgusted face. Mime closing a laptop aggressively.</p>
@@ -1058,6 +1102,7 @@
         </div>
 
         <div class="humor-beat">
+          <div class="humor-label">😄 HUMOR BEAT</div>
           <p class="humor-setup">Now when it suggests content ideas, it never suggests 'Post a cute photo of your kids!'</p>
           <p class="humor-punchline">"Because it knows I'll throw my laptop across the room."</p>
           <p class="humor-delivery">Start serious, then exaggerate "throw my laptop" with comedic physical gesture.</p>
@@ -1154,6 +1199,7 @@
         </div>
 
         <div class="humor-beat">
+          <div class="humor-label">😄 HUMOR BEAT</div>
           <p class="humor-setup">Want to guess how it did on YouTube?</p>
           <p class="humor-punchline">"4,200 views. Same video. Same content. Different platform."</p>
           <p class="humor-delivery">Let audience mentally guess. Then deliver "4,200" with deadpan disappointment.</p>
@@ -1200,7 +1246,7 @@
 
         <div class="framework-box">
           <h4>The Likability Principle (Cialdini)</h4>
-          <p style="color: #ccc; margin-top: 0.5rem;">People buy from people they like. And people like you because of:</p>
+          <p style="color: #4b5563; margin-top: 0.5rem;">People buy from people they like. And people like you because of:</p>
           <ul class="framework-list">
             <li><span class="framework-number">1</span><span class="framework-content"><strong>Vulnerability</strong></span></li>
             <li><span class="framework-number">2</span><span class="framework-content"><strong>Authenticity</strong></span></li>
@@ -1348,6 +1394,7 @@
         </div>
 
         <div class="humor-beat">
+          <div class="humor-label">😄 HUMOR BEAT</div>
           <p class="humor-setup">Some people call this "repurposing." I call it...</p>
           <p class="humor-punchline">"...working smarter while everyone else is burning out creating 47 pieces of original content a week."</p>
           <p class="humor-delivery">Pause like you're searching for a profound word. Then deliver the long punchline with mock seriousness.</p>
@@ -1509,7 +1556,7 @@
         </div>
 
         <!-- CTA Section -->
-        <div class="section-header" style="background: linear-gradient(90deg, #00aa00 0%, #008800 100%); margin-top: 3rem;">
+        <div class="section-header" style="background: linear-gradient(90deg, #00aa66 0%, #008855 100%); margin-top: 2.5rem;">
           <h2>CTA — END SCREEN</h2>
           <span class="section-time">21:00 - 21:30</span>
         </div>
@@ -1586,62 +1633,63 @@
     <!-- HUMOR BEAT QUICK REFERENCE -->
     <!-- ============================================ -->
 
-    <div style="max-width: 900px; margin: 4rem auto;">
-      <div class="section-header" style="background: linear-gradient(90deg, #ffcc00 0%, #ff9900 100%); color: #000;">
+    <div class="humor-table">
+      <div class="section-header" style="background: linear-gradient(90deg, #ffaa00 0%, #ff8800 100%); color: #000;">
         <h2>HUMOR BEAT QUICK REFERENCE</h2>
-        <span class="section-time" style="color: #000;">All Jokes</span>
+        <span class="section-time" style="color: #000;">All 9 Jokes</span>
       </div>
 
-      <div style="background: #1a1a1a; padding: 2rem; border-radius: 12px; margin-top: 1rem;">
-        <table style="width: 100%; border-collapse: collapse; color: #e8e8e8;">
-          <tr style="border-bottom: 1px solid #333;">
-            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#1</td>
-            <td style="padding: 1rem;"><strong>Weird ones</strong> — "People want to follow humans. Even weird ones. Especially weird ones, apparently."</td>
-          </tr>
-          <tr style="border-bottom: 1px solid #333;">
-            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#2</td>
-            <td style="padding: 1rem;"><strong>Nora's company</strong> — "Gold in them hills." (re: poop analysis)</td>
-          </tr>
-          <tr style="border-bottom: 1px solid #333;">
-            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#3</td>
-            <td style="padding: 1rem;"><strong>47 likes from mom</strong> — "And employees afraid of getting fired."</td>
-          </tr>
-          <tr style="border-bottom: 1px solid #333;">
-            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#4</td>
-            <td style="padding: 1rem;"><strong>Two cameras</strong> — "That's not lazy — that's leverage."</td>
-          </tr>
-          <tr style="border-bottom: 1px solid #333;">
-            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#5</td>
-            <td style="padding: 1rem;"><strong>ChatGPT identity</strong> — "At least it knew I existed."</td>
-          </tr>
-          <tr style="border-bottom: 1px solid #333;">
-            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#6</td>
-            <td style="padding: 1rem;"><strong>AI LinkedIn post</strong> — "Motivational poster had a baby with a corporate memo."</td>
-          </tr>
-          <tr style="border-bottom: 1px solid #333;">
-            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#7</td>
-            <td style="padding: 1rem;"><strong>Laptop across room</strong> — Re: kids photos boundary</td>
-          </tr>
-          <tr style="border-bottom: 1px solid #333;">
-            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#8</td>
-            <td style="padding: 1rem;"><strong>700K vs 4.2K</strong> — Same video, different platforms</td>
-          </tr>
-          <tr>
-            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#9</td>
-            <td style="padding: 1rem;"><strong>Repurposing</strong> — "Working smarter while everyone burns out creating 47 pieces."</td>
-          </tr>
-        </table>
-      </div>
+      <table style="margin-top: 1.5rem;">
+        <tr>
+          <td>#1</td>
+          <td><strong>Weird ones</strong> — "People want to follow humans. Even weird ones. Especially weird ones, apparently."</td>
+        </tr>
+        <tr>
+          <td>#2</td>
+          <td><strong>Nora's company</strong> — "Gold in them hills." (re: poop analysis)</td>
+        </tr>
+        <tr>
+          <td>#3</td>
+          <td><strong>47 likes from mom</strong> — "And employees afraid of getting fired."</td>
+        </tr>
+        <tr>
+          <td>#4</td>
+          <td><strong>Two cameras</strong> — "That's not lazy — that's leverage."</td>
+        </tr>
+        <tr>
+          <td>#5</td>
+          <td><strong>ChatGPT identity</strong> — "At least it knew I existed."</td>
+        </tr>
+        <tr>
+          <td>#6</td>
+          <td><strong>AI LinkedIn post</strong> — "Motivational poster had a baby with a corporate memo."</td>
+        </tr>
+        <tr>
+          <td>#7</td>
+          <td><strong>Laptop across room</strong> — Re: kids photos boundary</td>
+        </tr>
+        <tr>
+          <td>#8</td>
+          <td><strong>700K vs 4.2K</strong> — Same video, different platforms</td>
+        </tr>
+        <tr>
+          <td>#9</td>
+          <td><strong>Repurposing</strong> — "Working smarter while everyone burns out creating 47 pieces."</td>
+        </tr>
+      </table>
     </div>
 
   </div>
+
+  <footer class="script-footer">
+    © Mindvalley • Founder's Content System YouTube Script
+  </footer>
 
   <div class="progress-bar">
     <div class="progress-fill" id="progressFill"></div>
   </div>
 
   <script>
-    // Progress bar
     window.addEventListener('scroll', () => {
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight - windowHeight;
