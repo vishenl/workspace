@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Founder's Content System | YouTube Script + Editor Notes</title>
+  <meta name="description" content="YouTube-optimized script for Founder's Content System with dual-column layout for teleprompter and editor notes" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Flex:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Google Sans Flex', 'Google Sans', -apple-system, sans-serif;
+      background: #0f0f0f;
+      color: #e8e8e8;
+      line-height: 1.6;
+      font-size: 20px;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      padding: 2rem;
+      border-bottom: 3px solid #ff0000;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+      color: #aaa;
+    }
+
+    .header-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .yt-badge {
+      background: #ff0000;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    /* Main Layout */
+    .main-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Two Column Grid */
+    .dual-column {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 1100px) {
+      .dual-column {
+        grid-template-columns: 1fr;
+      }
+      .editor-column {
+        order: -1;
+      }
+    }
+
+    /* Script Column */
+    .script-column {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 2rem;
+      border-left: 4px solid #ff0000;
+    }
+
+    /* Editor Column */
+    .editor-column {
+      background: #1e2a38;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border-left: 4px solid #00d4ff;
+      position: sticky;
+      top: 120px;
+      height: fit-content;
+      max-height: calc(100vh - 150px);
+      overflow-y: auto;
+    }
+
+    .editor-column h3 {
+      color: #00d4ff;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Section Headers */
+    .section-header {
+      background: linear-gradient(90deg, #ff0000 0%, #cc0000 100%);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      margin: 3rem 0 1.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-header:first-child {
+      margin-top: 0;
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .section-time {
+      background: rgba(0,0,0,0.3);
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Talking Points */
+    .talk-point {
+      background: #252525;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border-left: 3px solid #666;
+    }
+
+    .talk-point.hook {
+      border-left-color: #ff0000;
+      background: linear-gradient(90deg, rgba(255,0,0,0.1) 0%, #252525 100%);
+    }
+
+    .talk-point.story {
+      border-left-color: #00aaff;
+      background: linear-gradient(90deg, rgba(0,170,255,0.1) 0%, #252525 100%);
+    }
+
+    .talk-point.cta {
+      border-left-color: #00ff88;
+      background: linear-gradient(90deg, rgba(0,255,136,0.1) 0%, #252525 100%);
+    }
+
+    .talk-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      color: #888;
+    }
+
+    .talk-point.hook .talk-label { color: #ff0000; }
+    .talk-point.story .talk-label { color: #00aaff; }
+    .talk-point.cta .talk-label { color: #00ff88; }
+
+    /* Script Text */
+    .script-text {
+      font-size: 1.3rem;
+      line-height: 1.7;
+      color: #fff;
+    }
+
+    .script-text em {
+      color: #ffcc00;
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .script-text strong {
+      color: #00d4ff;
+      font-weight: 700;
+    }
+
+    /* Humor Beats */
+    .humor-beat {
+      background: linear-gradient(90deg, rgba(255,204,0,0.15) 0%, #252525 100%);
+      border-left: 3px solid #ffcc00;
+      padding: 1.25rem 1.5rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+
+    .humor-beat::before {
+      content: "😄 HUMOR BEAT";
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #ffcc00;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+
+    .humor-setup {
+      font-size: 1.1rem;
+      color: #ccc;
+      margin-bottom: 0.5rem;
+    }
+
+    .humor-punchline {
+      font-size: 1.25rem;
+      color: #ffcc00;
+      font-weight: 600;
+    }
+
+    .humor-delivery {
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 0.75rem;
+      font-style: italic;
+    }
+
+    /* Delivery Notes */
+    .delivery-note {
+      background: rgba(138, 43, 226, 0.15);
+      border-left: 3px solid #8a2be2;
+      padding: 1rem;
+      border-radius: 6px;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+      color: #d8b4fe;
+    }
+
+    .delivery-note::before {
+      content: "🎬 DELIVERY";
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #8a2be2;
+      margin-bottom: 0.35rem;
+      letter-spacing: 1px;
+    }
+
+    /* Editor Notes */
+    .editor-note {
+      background: #253545;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .editor-note-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.35rem;
+    }
+
+    .editor-note.broll .editor-note-label { color: #00ff88; }
+    .editor-note.graphic .editor-note-label { color: #ff6b6b; }
+    .editor-note.text .editor-note-label { color: #ffd93d; }
+    .editor-note.music .editor-note-label { color: #c084fc; }
+    .editor-note.transition .editor-note-label { color: #22d3ee; }
+    .editor-note.highlight .editor-note-label { color: #fb923c; }
+
+    .editor-note p {
+      color: #ccc;
+      line-height: 1.5;
+    }
+
+    /* Framework Boxes */
+    .framework-box {
+      background: #1a2a3a;
+      border: 2px solid #00d4ff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .framework-box h4 {
+      color: #00d4ff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .framework-list {
+      list-style: none;
+    }
+
+    .framework-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #2a3a4a;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .framework-list li:last-child {
+      border-bottom: none;
+    }
+
+    .framework-number {
+      background: #00d4ff;
+      color: #0f0f0f;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .framework-content strong {
+      color: #00d4ff;
+    }
+
+    /* Pattern Interrupt */
+    .pattern-interrupt {
+      background: linear-gradient(90deg, #ff0000 0%, #ff6b00 100%);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+      font-weight: 600;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    /* Stat Callout */
+    .stat-callout {
+      background: linear-gradient(135deg, #1a2a3a 0%, #0a1a2a 100%);
+      border: 1px solid #00d4ff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #00d4ff;
+      display: block;
+    }
+
+    .stat-label {
+      color: #888;
+      font-size: 1rem;
+    }
+
+    /* Timestamps */
+    .timestamp {
+      background: #333;
+      color: #00ff88;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-right: 0.5rem;
+    }
+
+    /* Mobile Optimization */
+    @media (max-width: 768px) {
+      body {
+        font-size: 18px;
+      }
+      .main-container {
+        padding: 1rem;
+      }
+      .script-column {
+        padding: 1.25rem;
+      }
+      .script-text {
+        font-size: 1.15rem;
+      }
+    }
+
+    /* Print Styles */
+    @media print {
+      .header {
+        position: static;
+      }
+      .editor-column {
+        position: static;
+        max-height: none;
+      }
+    }
+
+    /* Progress Indicator */
+    .progress-bar {
+      height: 4px;
+      background: #333;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ff0000, #ff6b00);
+      width: 0%;
+      transition: width 0.1s;
+    }
+
+    /* Video Title Suggestion */
+    .video-title {
+      background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+
+    .video-title h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-title p {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>The Founder's Content System</h1>
+    <div class="header-meta">
+      <span><span class="yt-badge">YOUTUBE</span></span>
+      <span>📱 Style: Ali Abdaal / Daniel Priestley / Iman Gadzhi</span>
+      <span>⏱️ Target: 18-22 min</span>
+      <span>🎯 Goal: Authority + Newsletter CTA</span>
+    </div>
+  </header>
+
+  <div class="main-container">
+
+    <!-- Video Title Suggestions -->
+    <div class="video-title">
+      <h3>Suggested Titles (Pick One)</h3>
+      <p>1. The Content System That Turned My Newsletter Into $2.5M/Year</p>
+      <p style="margin-top:0.5rem; opacity:0.9;">2. Why Most Founders Fail at Content (And How to Fix It in 7 Days)</p>
+      <p style="margin-top:0.5rem; opacity:0.9;">3. I Built a $100M Company. Here's the Content System I Wish I Had Earlier.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 0: HOOK -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>0. THE HOOK</h2>
+          <span class="section-time">0:00 - 0:30</span>
+        </div>
+
+        <div class="talk-point hook">
+          <div class="talk-label">COLD OPEN — First 5 Seconds</div>
+          <p class="script-text">
+            "My personal Instagram gets <strong>three times</strong> the engagement of my company's account. And we have an entire social team running that account."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "People don't want to follow companies. They want to follow <em>humans</em>."
+          </p>
+        </div>
+
+        <div class="humor-beat">
+          <p class="humor-setup">Pause, point to self:</p>
+          <p class="humor-punchline">"Even weird ones. Especially weird ones, apparently."</p>
+          <p class="humor-delivery">Self-deprecating smile. Let audience register it.</p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "The problem is, most founders have <em>no system</em> for content. They post randomly. They burn out. And eventually... they stop."
+          </p>
+        </div>
+
+        <div class="talk-point cta">
+          <div class="talk-label">Promise</div>
+          <p class="script-text">
+            "Today I'm going to show you the exact content system I use to reach millions of people — without a content team, without spending hours every day, and without becoming a slave to the algorithm."
+          </p>
+        </div>
+
+        <div class="delivery-note">
+          Energy: High but controlled. This is the promise. Speak with conviction. Don't rush — let the stakes sink in.
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — Hook</h3>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Open with Vishen scrolling Instagram. Show Mindvalley company page vs personal page side-by-side split screen.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>Big text: "3X MORE ENGAGEMENT" when he says the stat.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Animated comparison: Company account followers vs Personal account engagement rates.</p>
+        </div>
+
+        <div class="editor-note music">
+          <div class="editor-note-label">Music</div>
+          <p>Upbeat, techy intro music. Cut music when he starts speaking. Light ambient underneath.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Retention Moment</div>
+          <p>Quick zoom on "weird ones" punchline. Add subtle sound effect (record scratch or ding).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 1: THE NEW FOUNDER ERA -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>1. THE NEW FOUNDER ERA</h2>
+          <span class="section-time">0:30 - 3:30</span>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Here's what's changed. The game has completely shifted in the last 3 years."
+          </p>
+        </div>
+
+        <div class="framework-box">
+          <h4>The Three Truths of the New Era</h4>
+          <ul class="framework-list">
+            <li>
+              <span class="framework-number">1</span>
+              <span class="framework-content"><strong>People buy what you stand for</strong>, not what you sell</span>
+            </li>
+            <li>
+              <span class="framework-number">2</span>
+              <span class="framework-content"><strong>Your company's brand grows</strong> only as far as your own evolution</span>
+            </li>
+            <li>
+              <span class="framework-number">3</span>
+              <span class="framework-content"><strong>You are your company's greatest marketing weapon</strong></span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="talk-point story">
+          <div class="talk-label">Story: Nora Cavani</div>
+          <p class="script-text">
+            "Let me tell you about Nora Cavani. She runs Alba Health — a gut microbiome testing company for kids. Basically, parents send in a swab of their kid's poop, and she tells them what's going on in their child's health."
+          </p>
+        </div>
+
+        <div class="humor-beat">
+          <p class="humor-setup">Pause. Deadpan delivery:</p>
+          <p class="humor-punchline">"So her company analyzes children's poop. And she just won Female Founder of the Year in Europe. Goes to show — there's gold in them hills."</p>
+          <p class="humor-delivery">Deadpan first line. Raised eyebrows on "gold in them hills." Let it land.</p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Nora was about to pitch at a major conference. She had her deck ready — all about the technology, the science, the testing process. Fifteen minutes before she went on... she threw it all out."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Instead of pitching <em>technology</em>, she pitched a <strong>movement</strong>."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "'I'm not just selling gut tests. I'm building a movement for children's health. Big pharma keeps our kids sick with prescriptions when the real problem might just be fiber.'"
+          </p>
+        </div>
+
+        <div class="stat-callout">
+          <span class="stat-number">3X</span>
+          <span class="stat-label">Sales increase after shifting to movement positioning</span>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Her website got more traffic in one week than the previous three months combined. Her team was packing orders until 11pm."
+          </p>
+        </div>
+
+        <div class="pattern-interrupt">
+          Don't build a product. Build a movement.
+        </div>
+
+        <div class="delivery-note">
+          Slow down on "movement." This is the key insight. Let it breathe.
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — New Founder Era</h3>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Show "The Three Truths" as animated list. Each point appears with subtle animation.</p>
+        </div>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Cut to photo/video of Nora Cavani if available. If not, show Alba Health website or generic female founder imagery.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>"NORA CAVANI — Alba Health" lower third when introduced.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Key Moment</div>
+          <p>Zoom in + dramatic pause on "threw it all out." Add tension sound.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Animated stat: 3X sales increase with upward arrow animation.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>Full screen text: "DON'T BUILD A PRODUCT. BUILD A MOVEMENT." — hold 2 seconds.</p>
+        </div>
+
+        <div class="editor-note transition">
+          <div class="editor-note-label">Transition</div>
+          <p>Smooth transition to next section. Quick beat of music.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 2: FOUNDER MEDIA ECOSYSTEM -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>2. THE FOUNDER MEDIA ECOSYSTEM</h2>
+          <span class="section-time">3:30 - 7:00</span>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "I brought in an advisor named Sabrina Stocker. She's 29, was on The Apprentice UK, and she completely rewired how I think about platforms."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "She taught me that <strong>each platform is a different room</strong> — with different rules."
+          </p>
+        </div>
+
+        <div class="framework-box">
+          <h4>The Four Rooms</h4>
+          <ul class="framework-list">
+            <li>
+              <span class="framework-number">1</span>
+              <span class="framework-content"><strong>YouTube = The Classroom</strong> — Educate and inspire. Coffee conversation energy. Talk straight to camera like we're having a chat.</span>
+            </li>
+            <li>
+              <span class="framework-number">2</span>
+              <span class="framework-content"><strong>LinkedIn = The Boardroom</strong> — Lead with vulnerability. Here's the weird thing: text beats video. People are browsing at work.</span>
+            </li>
+            <li>
+              <span class="framework-number">3</span>
+              <span class="framework-content"><strong>Instagram = The Cafe</strong> — Entertainment first. Camera to the side — like you're being interviewed on a talk show.</span>
+            </li>
+            <li>
+              <span class="framework-number">4</span>
+              <span class="framework-content"><strong>Newsletter = The Sanctuary</strong> — You OWN this list. No algorithm can throttle you.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "On YouTube, you talk straight to camera — like we're having coffee. You're the teacher, they're the student."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "On LinkedIn, something weird happens: <em>text beats video</em>. Why? People are browsing at work. They can't watch a video with their boss walking by. So you write."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "And the winners on LinkedIn? They don't share their wins. They share <strong>what went wrong</strong>."
+          </p>
+        </div>
+
+        <div class="humor-beat">
+          <p class="humor-setup">I used to share posts like:</p>
+          <p class="humor-punchline">"'Just hit $100 million in revenue! Here's what I learned!' Those got like 47 likes. From my mom. And employees who were afraid of getting fired."</p>
+          <p class="humor-delivery">Fake enthusiasm on first line. Then deflate completely on "47 likes."</p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "On Instagram, it's entertainment. Camera to the side — like you're being interviewed. People are scrolling for dopamine, so you give them <em>emotion</em>."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "And newsletter — this is your sanctuary. Unlike every other platform, you <strong>OWN</strong> this list. Instagram can throttle you. YouTube can demonetize you. But your email list? That's yours forever."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Here's a pro tip: Record with <strong>two cameras</strong> at once. Front camera for YouTube. Side camera for Instagram."
+          </p>
+        </div>
+
+        <div class="humor-beat">
+          <p class="humor-setup">One recording. Two pieces of content.</p>
+          <p class="humor-punchline">"That's not lazy — that's leverage."</p>
+          <p class="humor-delivery">Wink on "That's not lazy" — make it clear you're being playful.</p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Now, which platform should you choose?"
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "<strong>The one you'll actually use.</strong> That's it. Most of us know what we should do. The question is whether we'll do it."
+          </p>
+        </div>
+
+        <div class="delivery-note">
+          This section should feel like rapid-fire value. Keep energy up. The frameworks give structure — don't let it get boring.
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — Media Ecosystem</h3>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Show Sabrina Stocker photo/clip if available. Otherwise, Apprentice UK logo briefly.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Animated "Four Rooms" graphic. Show each platform with room icon (classroom, boardroom, cafe, sanctuary).</p>
+        </div>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll Sequence</div>
+          <p>Quick cuts: YouTube interface, LinkedIn feed, Instagram reels, email inbox. Match to each platform mention.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>"TEXT BEATS VIDEO" pop up when mentioned for LinkedIn.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Retention Moment</div>
+          <p>Quick zoom + sound effect on "47 likes" punchline.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Two-camera setup diagram when he mentions the technique. Show front camera = YouTube, side camera = Instagram.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>"THAT'S NOT LAZY — THAT'S LEVERAGE" as quotable text.</p>
+        </div>
+
+        <div class="editor-note transition">
+          <div class="editor-note-label">Transition</div>
+          <p>Pattern interrupt: Quick title card "Now here's what's about to change EVERYTHING..."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 3: VECTOR SCIENCE / AEO -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>3. VECTOR SCIENCE & AEO</h2>
+          <span class="section-time">7:00 - 9:30</span>
+        </div>
+
+        <div class="talk-point hook">
+          <div class="talk-label">Pattern Interrupt</div>
+          <p class="script-text">
+            "Now let me tell you about something that's going to change everything in the next 12 months. And most people don't even know it exists."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "It's called <strong>AI Engine Optimization</strong> — or AEO. And it's about how AI decides <em>who gets found</em>."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Here's how it works. AI doesn't just search for keywords. It creates <em>associations</em>. It builds what's called <strong>vectors</strong> — invisible lines connecting you to concepts."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "When someone asks ChatGPT: 'Who are the best speakers on personal growth?' — your name either appears... or it doesn't."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "And that depends entirely on the <strong>associations</strong> you've built online."
+          </p>
+        </div>
+
+        <div class="talk-point story">
+          <div class="talk-label">Personal Story</div>
+          <p class="script-text">
+            "I asked ChatGPT who I was."
+          </p>
+        </div>
+
+        <div class="humor-beat">
+          <p class="humor-setup">It got my birthday wrong, said I founded Mindvalley in the wrong year, and mentioned a book I never wrote.</p>
+          <p class="humor-punchline">"But hey — at least it knew I existed."</p>
+          <p class="humor-delivery">Build frustration listing the errors. Throw hands up on punchline. Self-deprecating smile.</p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Here's the critical window: <strong>6 to 12 months</strong>."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Those who understand vector science now will be <em>exponentially</em> ahead. And once that gap opens up... it will be very hard to catch up."
+          </p>
+        </div>
+
+        <div class="delivery-note">
+          Lean in with urgency here. This should feel like sharing insider information. Lower your voice slightly — make it feel confidential.
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "But here's the thing — AI can only help you if it <em>knows who you are</em>."
+          </p>
+        </div>
+
+        <div class="pattern-interrupt">
+          Which brings me to the most important part...
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — Vector Science</h3>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Animation</div>
+          <p>Animated vector lines connecting Vishen's name to concepts: "personal growth," "meditation," "education." Like a mind map coming to life.</p>
+        </div>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Show ChatGPT interface. Type "Who are the best speakers on personal growth?" Live or screen recording.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>"AI ENGINE OPTIMIZATION (AEO)" — define the term on screen.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Key Moment</div>
+          <p>Zoom + sound effect on "at least it knew I existed" punchline.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Countdown timer graphic: "6-12 MONTH WINDOW" with urgency styling.</p>
+        </div>
+
+        <div class="editor-note music">
+          <div class="editor-note-label">Music</div>
+          <p>Add subtle tension music underneath this section. Build toward the next section.</p>
+        </div>
+
+        <div class="editor-note transition">
+          <div class="editor-note-label">Transition</div>
+          <p>Quick cut to black, then "THE PERSONAL BRAND OPERATING SYSTEM" title card.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 4: PERSONAL BRAND OS -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>4. PERSONAL BRAND OPERATING SYSTEM</h2>
+          <span class="section-time">9:30 - 13:00</span>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Have you ever typed a prompt into ChatGPT asking it to write a LinkedIn post for you?"
+          </p>
+        </div>
+
+        <div class="humor-beat">
+          <p class="humor-setup">And it comes back sounding like...</p>
+          <p class="humor-punchline">"...a motivational poster had a baby with a corporate memo? And you close the tab in disgust?"</p>
+          <p class="humor-delivery">Make a disgusted face. Mime closing a laptop aggressively.</p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "The problem isn't AI. The problem is <strong>AI doesn't know you yet</strong>."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "You need to build your <strong>Personal Brand Operating System</strong> first."
+          </p>
+        </div>
+
+        <div class="framework-box">
+          <h4>The 5-Step Personal Brand OS</h4>
+          <ul class="framework-list">
+            <li>
+              <span class="framework-number">1</span>
+              <span class="framework-content"><strong>Your Story</strong> — Go for a coffee walk. Record your life story with Otter AI or voice memo.</span>
+            </li>
+            <li>
+              <span class="framework-number">2</span>
+              <span class="framework-content"><strong>Online Identity</strong> — Feed AI your existing content so it knows your voice.</span>
+            </li>
+            <li>
+              <span class="framework-number">3</span>
+              <span class="framework-content"><strong>Role Models</strong> — Who do you want to be like online? Your top 5-10.</span>
+            </li>
+            <li>
+              <span class="framework-number">4</span>
+              <span class="framework-content"><strong>Boundaries</strong> — What do you NOT want to share?</span>
+            </li>
+            <li>
+              <span class="framework-number">5</span>
+              <span class="framework-content"><strong>Vision & Goals</strong> — What are you actually trying to achieve?</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="talk-point story">
+          <div class="talk-label">Story: The Coffee Walk</div>
+          <p class="script-text">
+            "Step one: Go for a coffee walk. Use Otter AI or just the voice memo on your phone. Tell your life story. Childhood. What made you angry. What excited you. How you ended up here."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "The first time I did this, I walked for 45 minutes around my neighborhood. I talked about growing up in Malaysia. I talked about my dad's philosophy. I talked about the exact moment I decided to leave my job at Microsoft."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "By the end, I had forgotten I was recording."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "<em>That's when the gold comes out</em> — when you forget you're performing."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Step four is <strong>boundaries</strong>. What do you NOT want to share?"
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "For me, it's pictures of my kids. I don't share them. And I made that very clear to my AI."
+          </p>
+        </div>
+
+        <div class="humor-beat">
+          <p class="humor-setup">Now when it suggests content ideas, it never suggests 'Post a cute photo of your kids!'</p>
+          <p class="humor-punchline">"Because it knows I'll throw my laptop across the room."</p>
+          <p class="humor-delivery">Start serious, then exaggerate "throw my laptop" with comedic physical gesture.</p>
+        </div>
+
+        <div class="delivery-note">
+          This is the tactical section. Slow down. Make sure each step is clear. This is the stuff people will screenshot.
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — Personal Brand OS</h3>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Show ChatGPT generating a generic, corporate-sounding LinkedIn post. Make it obviously bad.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Retention Moment</div>
+          <p>Zoom + sound on "motivational poster had a baby with a corporate memo." This is quotable.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Animated 5-step framework. Each step appears one by one. Use brand colors.</p>
+        </div>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Show someone walking with coffee, phone recording. Otter AI interface. Voice memo app.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>"THE COFFEE WALK" as section title.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Quotable</div>
+          <p>"THAT'S WHEN THE GOLD COMES OUT — WHEN YOU FORGET YOU'RE PERFORMING" — full screen quote.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Retention Moment</div>
+          <p>Zoom + sound on laptop throwing joke. Quick cut.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 5: PLATFORM STRATEGIES -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>5. PLATFORM STRATEGIES (TACTICAL)</h2>
+          <span class="section-time">13:00 - 16:30</span>
+        </div>
+
+        <!-- YouTube Strategy -->
+        <div class="talk-point">
+          <div class="talk-label">YouTube Strategy</div>
+          <p class="script-text">
+            "Let's get tactical. Platform by platform."
+          </p>
+        </div>
+
+        <div class="talk-point story">
+          <div class="talk-label">Case Study: Daniel Priestley</div>
+          <p class="script-text">
+            "Daniel Priestley has built $700 million in companies. His YouTube strategy? He sits in front of a camera and teaches. That's it. No fancy production. No B-roll of him walking on a beach. Just Daniel, talking to camera, like you're across the table."
+          </p>
+        </div>
+
+        <div class="stat-callout">
+          <span class="stat-number">84,000</span>
+          <span class="stat-label">views on videos with only 61,000 subscribers</span>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "That ratio is insane. And he does it with zero production."
+          </p>
+        </div>
+
+        <div class="talk-point story">
+          <div class="talk-label">Personal Example</div>
+          <p class="script-text">
+            "I made a video about ChatGPT. It got 700,000 views on Instagram."
+          </p>
+        </div>
+
+        <div class="humor-beat">
+          <p class="humor-setup">Want to guess how it did on YouTube?</p>
+          <p class="humor-punchline">"4,200 views. Same video. Same content. Different platform."</p>
+          <p class="humor-delivery">Let audience mentally guess. Then deliver "4,200" with deadpan disappointment.</p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "The problem was the <em>title</em>. I called it 'The Rise of ChatGPT.' That's a <strong>documentary title</strong>, not a YouTube title."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "A better title? <strong>'The #1 Reason You'll Be Left Behind by AI in 2026.'</strong> Now THAT makes you click."
+          </p>
+        </div>
+
+        <!-- LinkedIn Strategy -->
+        <div class="talk-point">
+          <div class="talk-label">LinkedIn Strategy</div>
+          <p class="script-text">
+            "On LinkedIn, the biggest winners aren't sharing their wins. They're sharing <strong>what went wrong</strong>."
+          </p>
+        </div>
+
+        <div class="talk-point story">
+          <div class="talk-label">Story: The Fake Name</div>
+          <p class="script-text">
+            "When I first started selling meditation CDs online, I was so embarrassed that I used a fake name. My friends from Michigan were becoming lawyers and consultants. I was selling MP3s about breathing."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "I literally <em>hid behind a pseudonym</em> because I was afraid my friends would find out."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "<strong>THAT story?</strong> That gets engagement. Because it's vulnerable. It's real. It's messy."
+          </p>
+        </div>
+
+        <div class="framework-box">
+          <h4>The Likability Principle (Cialdini)</h4>
+          <p style="color: #ccc; margin-top: 0.5rem;">People buy from people they like. And people like you because of:</p>
+          <ul class="framework-list">
+            <li><span class="framework-number">1</span><span class="framework-content"><strong>Vulnerability</strong></span></li>
+            <li><span class="framework-number">2</span><span class="framework-content"><strong>Authenticity</strong></span></li>
+            <li><span class="framework-number">3</span><span class="framework-content"><strong>Humor</strong></span></li>
+          </ul>
+        </div>
+
+        <div class="delivery-note">
+          The fake name story is powerful. Don't rush it. Let the vulnerability land.
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — Platform Strategies</h3>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Show Daniel Priestley's YouTube channel. Scroll through thumbnails. Simple talking head videos.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Stats comparison: 84K views / 61K subs. Show the ratio is exceptional.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Split Screen</div>
+          <p>Show same video, two platforms: Instagram (700K) vs YouTube (4.2K). Make the contrast stark.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>Show bad title: "The Rise of ChatGPT" (crossed out). Then good title: "The #1 Reason You'll Be Left Behind by AI in 2026" (checkmark).</p>
+        </div>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>For fake name story: Stock footage of early 2000s internet, CD burning, PayPal checkout. Nostalgic vibes.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Cialdini's Likability Principle with 3 pillars animated.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Key Quote</div>
+          <p>"THAT STORY GETS ENGAGEMENT. BECAUSE IT'S VULNERABLE. IT'S REAL. IT'S MESSY."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 6: NEWSLETTER + CONTENT FLYWHEEL -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>6. THE $2.5M NEWSLETTER + CONTENT FLYWHEEL</h2>
+          <span class="section-time">16:30 - 19:00</span>
+        </div>
+
+        <div class="talk-point story">
+          <div class="talk-label">Story: The Newsletter Experiment</div>
+          <p class="script-text">
+            "In December, I started writing a weekly newsletter. Real stories. A dinner conversation with Paul McKenna. A photo my son took. Super personal stuff."
+          </p>
+        </div>
+
+        <div class="stat-callout">
+          <span class="stat-number">$2.5M</span>
+          <span class="stat-label">additional revenue from 45 newsletters</span>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "The year before I started: email revenue <strong>down 38%</strong>. After I started: email revenue <strong>up 44%</strong>."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "I did the math. I wrote 45 newsletters. We made an extra $2.5 million. That's <strong>$56,000 per newsletter</strong>."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "And here's the crazy part:"
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "<strong>The newsletter doesn't sell anything.</strong>"
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "There's no pitch. No 'click here to buy.' It just builds trust. And when I eventually do offer something... <em>they're ready</em>."
+          </p>
+        </div>
+
+        <div class="pattern-interrupt">
+          An email subscriber is worth more than a follower. You OWN that list.
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Now, how do you turn one piece of content into a whole system?"
+          </p>
+        </div>
+
+        <div class="framework-box">
+          <h4>The Content Flywheel</h4>
+          <ul class="framework-list">
+            <li>
+              <span class="framework-number">1</span>
+              <span class="framework-content"><strong>Write your newsletter</strong> (core content)</span>
+            </li>
+            <li>
+              <span class="framework-number">2</span>
+              <span class="framework-content"><strong>Extract LinkedIn posts</strong> (each lesson = one post)</span>
+            </li>
+            <li>
+              <span class="framework-number">3</span>
+              <span class="framework-content"><strong>Turn it into a video script</strong> with AI</span>
+            </li>
+            <li>
+              <span class="framework-number">4</span>
+              <span class="framework-content"><strong>Record from two angles</strong> (front for YouTube, side for Instagram)</span>
+            </li>
+            <li>
+              <span class="framework-number">5</span>
+              <span class="framework-content"><strong>Create clips</strong> for TikTok/Instagram Reels</span>
+            </li>
+            <li>
+              <span class="framework-number">6</span>
+              <span class="framework-content"><strong>Send reflection email</strong> to continue the conversation</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="humor-beat">
+          <p class="humor-setup">Some people call this "repurposing." I call it...</p>
+          <p class="humor-punchline">"...working smarter while everyone else is burning out creating 47 pieces of original content a week."</p>
+          <p class="humor-delivery">Pause like you're searching for a profound word. Then deliver the long punchline with mock seriousness.</p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Start with email. It's the least sexy. But it's the most valuable. Then let the flywheel do the rest."
+          </p>
+        </div>
+
+        <div class="delivery-note">
+          The $56K per newsletter stat is the money shot. Let it land. Pause after you say it.
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — Newsletter + Flywheel</h3>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Show Vishen's newsletter examples. Scroll through email interface. Personal photos, stories.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Animated stats: Revenue chart showing -38% → +44% turnaround. Make it dramatic.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>"$56,000 PER NEWSLETTER" — big, bold, centered.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Key Moment</div>
+          <p>Dramatic pause + zoom on "The newsletter doesn't sell anything."</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Animation</div>
+          <p>Animated flywheel diagram. Show content flowing from newsletter → all platforms. Circular motion.</p>
+        </div>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Quick montage: Writing newsletter, LinkedIn post going live, recording video, editing clips.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Retention Moment</div>
+          <p>Zoom + sound on "47 pieces of original content" for comedic effect.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 7: MODERN FOUNDER ARCHETYPE + CLOSE -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>7. THE MODERN FOUNDER ARCHETYPE + CLOSE</h2>
+          <span class="section-time">19:00 - 21:00</span>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "One more thing before we close."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "You're not just a founder anymore. You are <strong>four archetypes</strong> in one."
+          </p>
+        </div>
+
+        <div class="framework-box">
+          <h4>The Four Archetypes</h4>
+          <ul class="framework-list">
+            <li>
+              <span class="framework-number">1</span>
+              <span class="framework-content"><strong>The Teacher</strong> — Share wisdom freely. Teach what you're learning in real time.</span>
+            </li>
+            <li>
+              <span class="framework-number">2</span>
+              <span class="framework-content"><strong>The Philosopher</strong> — Question norms. Share the deeper why.</span>
+            </li>
+            <li>
+              <span class="framework-number">3</span>
+              <span class="framework-content"><strong>The Storyteller</strong> — Turn experience into narrative.</span>
+            </li>
+            <li>
+              <span class="framework-number">4</span>
+              <span class="framework-content"><strong>The Rebel</strong> — Challenge the rules. Break what needs breaking.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "People don't follow products. They follow <em>energy</em>."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "You don't have to shout louder. You just have to speak more <strong>authentically</strong>."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Here's your playbook:"
+          </p>
+        </div>
+
+        <div class="framework-box">
+          <h4>Your Action Plan</h4>
+          <ul class="framework-list">
+            <li><span class="framework-number">1</span><span class="framework-content">Pick <strong>one platform</strong> — I recommend email</span></li>
+            <li><span class="framework-number">2</span><span class="framework-content">Publish <strong>one long-form piece</strong> weekly</span></li>
+            <li><span class="framework-number">3</span><span class="framework-content"><strong>Repurpose</strong> across the ecosystem</span></li>
+            <li><span class="framework-number">4</span><span class="framework-content">Be <strong>transparent</strong> — share wins AND failures</span></li>
+            <li><span class="framework-number">5</span><span class="framework-content">Build your <strong>Personal Brand OS</strong></span></li>
+          </ul>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "<strong>This weekend.</strong> Not next month. Not when you 'have more time.' This weekend."
+          </p>
+        </div>
+
+        <div class="talk-point story">
+          <div class="talk-label">Closing Story: Jay Shetty</div>
+          <p class="script-text">
+            "I was 44 years old when I finally started. Jay Shetty looked at me and said: 'V, it's all bullshit excuses. Just start.'"
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "He was right. Every excuse I had was just <em>fear wearing a costume</em>."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "It's time to be seen."
+          </p>
+        </div>
+
+        <div class="delivery-note">
+          Slow down on the close. Let "fear wearing a costume" land. Hold 3 seconds of silence after "It's time to be seen."
+        </div>
+
+        <!-- CTA Section -->
+        <div class="section-header" style="background: linear-gradient(90deg, #00aa00 0%, #008800 100%); margin-top: 3rem;">
+          <h2>CTA — END SCREEN</h2>
+          <span class="section-time">21:00 - 21:30</span>
+        </div>
+
+        <div class="talk-point cta">
+          <div class="talk-label">Subscribe CTA</div>
+          <p class="script-text">
+            "If this video helped you, hit subscribe. I'm dropping a new video every week on how to build your personal brand as a founder."
+          </p>
+        </div>
+
+        <div class="talk-point cta">
+          <div class="talk-label">Next Video CTA</div>
+          <p class="script-text">
+            "And if you want to go deeper on this — I made a video about the <strong>exact AI prompts</strong> I use to create content. Click right here."
+          </p>
+        </div>
+
+        <div class="talk-point cta">
+          <div class="talk-label">Newsletter CTA</div>
+          <p class="script-text">
+            "Or — sign up for my newsletter. Link in the description. It's where I share the stuff that's too personal for YouTube."
+          </p>
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — Close + CTA</h3>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Four Archetypes as animated icons: Teacher (book), Philosopher (lightbulb), Storyteller (microphone), Rebel (flame).</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>"PEOPLE DON'T FOLLOW PRODUCTS. THEY FOLLOW ENERGY." — quotable full screen.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Action Plan checklist — animated checkboxes.</p>
+        </div>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Show photo of Jay Shetty + Vishen if available.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Quotable</div>
+          <p>"EVERY EXCUSE I HAD WAS JUST FEAR WEARING A COSTUME."</p>
+        </div>
+
+        <div class="editor-note music">
+          <div class="editor-note-label">Music</div>
+          <p>Bring in uplifting outro music as he delivers the close. Swell on "It's time to be seen."</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">End Screen</div>
+          <p>YouTube end screen with subscribe button, next video thumbnail, newsletter link.</p>
+        </div>
+
+        <div class="editor-note transition">
+          <div class="editor-note-label">End Card</div>
+          <p>Hold end screen for 20 seconds. Add animated subscribe button. Link to AI prompts video.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- HUMOR BEAT QUICK REFERENCE -->
+    <!-- ============================================ -->
+
+    <div style="max-width: 900px; margin: 4rem auto;">
+      <div class="section-header" style="background: linear-gradient(90deg, #ffcc00 0%, #ff9900 100%); color: #000;">
+        <h2>HUMOR BEAT QUICK REFERENCE</h2>
+        <span class="section-time" style="color: #000;">All Jokes</span>
+      </div>
+
+      <div style="background: #1a1a1a; padding: 2rem; border-radius: 12px; margin-top: 1rem;">
+        <table style="width: 100%; border-collapse: collapse; color: #e8e8e8;">
+          <tr style="border-bottom: 1px solid #333;">
+            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#1</td>
+            <td style="padding: 1rem;"><strong>Weird ones</strong> — "People want to follow humans. Even weird ones. Especially weird ones, apparently."</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #333;">
+            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#2</td>
+            <td style="padding: 1rem;"><strong>Nora's company</strong> — "Gold in them hills." (re: poop analysis)</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #333;">
+            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#3</td>
+            <td style="padding: 1rem;"><strong>47 likes from mom</strong> — "And employees afraid of getting fired."</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #333;">
+            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#4</td>
+            <td style="padding: 1rem;"><strong>Two cameras</strong> — "That's not lazy — that's leverage."</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #333;">
+            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#5</td>
+            <td style="padding: 1rem;"><strong>ChatGPT identity</strong> — "At least it knew I existed."</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #333;">
+            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#6</td>
+            <td style="padding: 1rem;"><strong>AI LinkedIn post</strong> — "Motivational poster had a baby with a corporate memo."</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #333;">
+            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#7</td>
+            <td style="padding: 1rem;"><strong>Laptop across room</strong> — Re: kids photos boundary</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #333;">
+            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#8</td>
+            <td style="padding: 1rem;"><strong>700K vs 4.2K</strong> — Same video, different platforms</td>
+          </tr>
+          <tr>
+            <td style="padding: 1rem; font-weight: 700; color: #ffcc00;">#9</td>
+            <td style="padding: 1rem;"><strong>Repurposing</strong> — "Working smarter while everyone burns out creating 47 pieces."</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <script>
+    // Progress bar
+    window.addEventListener('scroll', () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight - windowHeight;
+      const scrollTop = window.scrollY;
+      const progress = (scrollTop / documentHeight) * 100;
+      document.getElementById('progressFill').style.width = progress + '%';
+    });
+  </script>
+
+</body>
+</html>
