@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Visibility Wound | YouTube Script + Editor Notes</title>
+  <meta name="description" content="YouTube script for The Visibility Wound - why successful founders hide and how to overcome the fear of being seen" />
+
+  <link rel="stylesheet" href="mindvalley-core.css" />
+
+  <style>
+    body {
+      background: #f9f7fc;
+    }
+
+    .script-header {
+      background: linear-gradient(135deg, #7a12d4 0%, #5a0fb0 100%);
+      padding: 2.5rem 2rem;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(122, 18, 212, 0.3);
+    }
+
+    .script-header h1 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .header-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .yt-badge {
+      background: #ff0000;
+      color: white;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .main-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .video-title-box {
+      background: white;
+      border: 2px solid #7a12d4;
+      border-radius: 1rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .video-title-box h3 {
+      color: #7a12d4;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    .video-title-box p {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: #0f131a;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-title-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .dual-column {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 1024px) {
+      .dual-column {
+        grid-template-columns: 1fr;
+      }
+      .editor-column {
+        order: -1;
+      }
+    }
+
+    .script-column {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .editor-column {
+      background: #f0e6f7;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      border-left: 4px solid #7a12d4;
+      position: sticky;
+      top: 140px;
+      height: fit-content;
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+    }
+
+    .editor-column h3 {
+      color: #7a12d4;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .section-header {
+      background: linear-gradient(90deg, #7a12d4 0%, #9b30ff 100%);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 0.75rem;
+      margin: 2.5rem 0 1.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-header:first-child {
+      margin-top: 0;
+    }
+
+    .section-header h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .section-time {
+      background: rgba(255,255,255,0.2);
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .talk-point {
+      background: #f9f7fc;
+      padding: 1.25rem 1.5rem;
+      border-radius: 0.75rem;
+      margin-bottom: 1rem;
+      border-left: 3px solid #ccc;
+    }
+
+    .talk-point.hook {
+      border-left-color: #ff0000;
+      background: linear-gradient(90deg, rgba(255,0,0,0.05) 0%, #f9f7fc 100%);
+    }
+
+    .talk-point.story {
+      border-left-color: #00aaff;
+      background: linear-gradient(90deg, rgba(0,170,255,0.05) 0%, #f9f7fc 100%);
+    }
+
+    .talk-point.cta {
+      border-left-color: #00aa66;
+      background: linear-gradient(90deg, rgba(0,170,102,0.05) 0%, #f9f7fc 100%);
+    }
+
+    .talk-point.emotional {
+      border-left-color: #9b59b6;
+      background: linear-gradient(90deg, rgba(155,89,182,0.08) 0%, #f9f7fc 100%);
+    }
+
+    .talk-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      color: #666;
+    }
+
+    .talk-point.hook .talk-label { color: #ff0000; }
+    .talk-point.story .talk-label { color: #00aaff; }
+    .talk-point.cta .talk-label { color: #00aa66; }
+    .talk-point.emotional .talk-label { color: #9b59b6; }
+
+    .script-text {
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: #0f131a;
+    }
+
+    .script-text em {
+      color: #7a12d4;
+      font-style: italic;
+    }
+
+    .script-text strong {
+      color: #5a0fb0;
+      font-weight: 700;
+    }
+
+    .humor-beat {
+      background: linear-gradient(90deg, rgba(255,204,0,0.12) 0%, white 100%);
+      border-left: 4px solid #ffcc00;
+      padding: 1.25rem 1.5rem;
+      border-radius: 0.75rem;
+      margin: 1rem 0;
+    }
+
+    .humor-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #b38f00;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+
+    .humor-setup {
+      font-size: 1.1rem;
+      color: #4b5563;
+      margin-bottom: 0.5rem;
+    }
+
+    .humor-punchline {
+      font-size: 1.2rem;
+      color: #0f131a;
+      font-weight: 600;
+    }
+
+    .humor-delivery {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-top: 0.75rem;
+      font-style: italic;
+    }
+
+    .delivery-note {
+      background: linear-gradient(90deg, rgba(122, 18, 212, 0.08) 0%, white 100%);
+      border-left: 3px solid #7a12d4;
+      padding: 1rem 1.25rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+      color: #5a0fb0;
+    }
+
+    .delivery-note::before {
+      content: "🎬 DELIVERY";
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #7a12d4;
+      margin-bottom: 0.35rem;
+      letter-spacing: 1px;
+    }
+
+    .editor-note {
+      background: white;
+      padding: 0.9rem 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.85rem;
+      border-left: 3px solid #ccc;
+    }
+
+    .editor-note-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.3rem;
+    }
+
+    .editor-note.broll { border-left-color: #00aa66; }
+    .editor-note.broll .editor-note-label { color: #00aa66; }
+
+    .editor-note.graphic { border-left-color: #ff6b6b; }
+    .editor-note.graphic .editor-note-label { color: #ff6b6b; }
+
+    .editor-note.text { border-left-color: #ffaa00; }
+    .editor-note.text .editor-note-label { color: #cc8800; }
+
+    .editor-note.music { border-left-color: #9b59b6; }
+    .editor-note.music .editor-note-label { color: #9b59b6; }
+
+    .editor-note.transition { border-left-color: #00aaff; }
+    .editor-note.transition .editor-note-label { color: #00aaff; }
+
+    .editor-note.highlight { border-left-color: #ff6600; }
+    .editor-note.highlight .editor-note-label { color: #ff6600; }
+
+    .editor-note p {
+      color: #4b5563;
+      line-height: 1.5;
+    }
+
+    .framework-box {
+      background: white;
+      border: 2px solid #7a12d4;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .framework-box h4 {
+      color: #7a12d4;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .framework-list {
+      list-style: none;
+    }
+
+    .framework-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #f0e6f7;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .framework-list li:last-child {
+      border-bottom: none;
+    }
+
+    .framework-number {
+      background: #7a12d4;
+      color: white;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .framework-content {
+      color: #0f131a;
+    }
+
+    .framework-content strong {
+      color: #7a12d4;
+    }
+
+    .pattern-interrupt {
+      background: linear-gradient(90deg, #7a12d4 0%, #9b30ff 100%);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 0.75rem;
+      margin: 1.5rem 0;
+      font-weight: 600;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    .stat-callout {
+      background: linear-gradient(135deg, #f5f0fa 0%, #e8dff5 100%);
+      border: 2px solid #7a12d4;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #7a12d4;
+      display: block;
+    }
+
+    .stat-label {
+      color: #4b5563;
+      font-size: 0.95rem;
+    }
+
+    .emotional-moment {
+      background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+      border: 2px solid #ec4899;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+
+    .emotional-moment p {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #9d174d;
+      font-style: italic;
+    }
+
+    .script-footer {
+      text-align: center;
+      padding: 3rem 0;
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        padding: 1rem;
+      }
+      .script-column {
+        padding: 1.25rem;
+      }
+      .script-text {
+        font-size: 1.1rem;
+      }
+      .section-header h2 {
+        font-size: 1rem;
+      }
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: #e8dff5;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #7a12d4, #9b30ff);
+      width: 0%;
+      transition: width 0.1s;
+    }
+
+    .hook-options {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .hook-options h3 {
+      color: #7a12d4;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .hook-option {
+      background: #f9f7fc;
+      border: 2px solid #e8dff5;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hook-option:last-child {
+      margin-bottom: 0;
+    }
+
+    .hook-option h4 {
+      color: #5a0fb0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .hook-option p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #0f131a;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="script-header">
+    <h1>The Visibility Wound</h1>
+    <div class="header-meta">
+      <span><span class="yt-badge">YOUTUBE</span></span>
+      <span>📱 Style: Vulnerable / Storytelling / Transformation</span>
+      <span>⏱️ Target: 12-15 min</span>
+      <span>🎯 Goal: Deep Connection + Newsletter CTA</span>
+    </div>
+  </header>
+
+  <div class="main-container">
+
+    <!-- Video Title Suggestions -->
+    <div class="video-title-box">
+      <h3>Suggested Titles (Pick One)</h3>
+      <p>1. Why Successful Founders Hide (And How to Stop)</p>
+      <p>2. The Fear That's Costing You Millions (I Had It Too)</p>
+      <p>3. I Hid Behind My 6-Year-Old Son for Years. Here's Why.</p>
+    </div>
+
+    <!-- Hook Options -->
+    <div class="hook-options">
+      <h3>Choose Your Hook</h3>
+
+      <div class="hook-option">
+        <h4>HOOK A: The Confession (Recommended)</h4>
+        <p>"I was running a $40 million company. I was putting authors on stages around the world. And I was so terrified of posting on social media... that I pretended I was talking to my six-year-old son. For years."</p>
+      </div>
+
+      <div class="hook-option">
+        <h4>HOOK B: The Question</h4>
+        <p>"Have you ever had something important to say... but couldn't bring yourself to say it? Have you watched less qualified people get the spotlight while you stayed silent? There's a name for what's holding you back. And once you understand it, everything changes."</p>
+      </div>
+
+      <div class="hook-option">
+        <h4>HOOK C: The Stat + Story</h4>
+        <p>"I grew from 30,000 followers to 1.1 million. But here's what nobody knows: for the first ten years of building my company, I couldn't post a single video without a psychological trick so embarrassing I've never told anyone about it. Until now."</p>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 0: HOOK + SETUP -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>0. THE HOOK</h2>
+          <span class="section-time">0:00 - 0:45</span>
+        </div>
+
+        <div class="talk-point hook">
+          <div class="talk-label">Cold Open — First 10 Seconds</div>
+          <p class="script-text">
+            "I was running a <strong>$40 million company</strong>. I was putting authors on stages around the world. And I was so terrified of posting on social media..."
+          </p>
+        </div>
+
+        <div class="talk-point hook">
+          <p class="script-text">
+            "...that I pretended I was talking to my <strong>six-year-old son</strong>. For years."
+          </p>
+        </div>
+
+        <div class="delivery-note">
+          Pause after "six-year-old son." Let the absurdity land. This is your hook — the contrast between success and fear.
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "There's a name for what I had. It's called the <strong>Visibility Wound</strong>. And it's shockingly common among high achievers."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "When I wrote about it in my newsletter, it got more reads than anything I'd written in six months. Thousands of founders, executives, and creators wrote back saying: <em>'I have this too.'</em>"
+          </p>
+        </div>
+
+        <div class="talk-point cta">
+          <div class="talk-label">Promise</div>
+          <p class="script-text">
+            "Today I'm going to tell you the full story of how I hid for a decade, what finally broke me out of it, and the exact mindset shift that took me from 30,000 followers to <strong>1.1 million</strong>."
+          </p>
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — Hook</h3>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Open with Vishen looking contemplative. Maybe looking at phone, hesitating. Then cut to talking head.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>"$40 MILLION COMPANY" when he says it. Then "TERRIFIED OF SOCIAL MEDIA" — create contrast.</p>
+        </div>
+
+        <div class="editor-note music">
+          <div class="editor-note-label">Music</div>
+          <p>Subtle, emotional piano underneath. This is a vulnerable video — keep music soft and supportive.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Title card: "THE VISIBILITY WOUND" with definition appearing.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Retention</div>
+          <p>Quick zoom on "six-year-old son" — the unexpected twist.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 1: THE HEY HAYDEN STORY -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>1. THE "HEY HAYDEN" STORY</h2>
+          <span class="section-time">0:45 - 4:00</span>
+        </div>
+
+        <div class="talk-point story">
+          <div class="talk-label">Setting the Scene</div>
+          <p class="script-text">
+            "It was 2015. I was standing outside Steve Jobs' house in Silicon Valley."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "I'd been running Mindvalley for 10 years at that point. $30-40 million in revenue. No venture capital. By any measure, I was a successful founder."
+          </p>
+        </div>
+
+        <div class="talk-point emotional">
+          <div class="talk-label">The Core Fear</div>
+          <p class="script-text">
+            "But I couldn't bring myself to share on social media. The voice in my head kept saying: <em>'Who the fuck cares about you?'</em>"
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "My authors were famous. Jim Kwik. Lisa Nichols. Marisa Peer. They were the stars. I was just the guy behind the curtain. The one who built the stage for other people to stand on."
+          </p>
+        </div>
+
+        <div class="delivery-note">
+          This is vulnerable. Slow down. Let the audience feel the weight of hiding for a decade.
+        </div>
+
+        <div class="talk-point story">
+          <div class="talk-label">The Hack</div>
+          <p class="script-text">
+            "So I came up with a hack. I would record videos for an audience of one: my six-year-old son Hayden."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "I'd start every video the same way: <strong>'Hey Hayden, check it out...'</strong>"
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "And I'd end every video with: <strong>'Miss you, Hayden. See you soon.'</strong>"
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "That way, if anyone criticized me, I could say: 'Hey, I wasn't talking to YOU. I was just being a good dad, talking to my kid.'"
+          </p>
+        </div>
+
+        <div class="humor-beat">
+          <div class="humor-label">😄 HUMOR BEAT</div>
+          <p class="humor-setup">There was just one problem...</p>
+          <p class="humor-punchline">"My son was six. He didn't give a shit."</p>
+          <p class="humor-delivery">Pause after "one problem." Deliver punchline with a slight head shake and self-deprecating smile.</p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "But it didn't matter. Because nobody could judge me. It was armor disguised as affection."
+          </p>
+        </div>
+
+        <div class="emotional-moment">
+          <p>"It was armor disguised as affection."</p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "I did this for <em>years</em>. Successful founder by day. Hiding behind a six-year-old by night."
+          </p>
+        </div>
+
+        <div class="delivery-note">
+          "Armor disguised as affection" is the quotable moment. Slow down. Let it land. This is the emotional peak of this section.
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — Hey Hayden</h3>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Show Steve Jobs' house if possible (stock or public photo). Or Silicon Valley establishing shots.</p>
+        </div>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Show old Mindvalley photos from 2015 era. Authors on stage. Vishen in background.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>"HEY HAYDEN, CHECK IT OUT..." — show this as if it's appearing on a phone screen.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Visual</div>
+          <p>Maybe show a mock-up of an old video with "Hey Hayden" title.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Key Moment</div>
+          <p>Zoom + slight sound effect on "he didn't give a shit" punchline.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Quotable</div>
+          <p>"ARMOR DISGUISED AS AFFECTION" — full screen quote. Hold 2 seconds.</p>
+        </div>
+
+        <div class="editor-note music">
+          <div class="editor-note-label">Music</div>
+          <p>Slight swell on the emotional moment. Keep it subtle — don't overdo it.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 2: WHAT IS THE VISIBILITY WOUND -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>2. WHAT IS THE VISIBILITY WOUND?</h2>
+          <span class="section-time">4:00 - 6:00</span>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "So what exactly is the visibility wound?"
+          </p>
+        </div>
+
+        <div class="framework-box">
+          <h4>The Visibility Wound</h4>
+          <p style="color: #4b5563; font-size: 1.1rem; line-height: 1.6;">
+            A deep-seated fear of being truly seen. The belief that if people really knew you — your ideas, your face, your voice — they would reject you. So you hide. Even when you're successful. <em>Especially</em> when you're successful.
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "It shows up in different ways:"
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "You have something important to say... but you don't say it."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "You watch less qualified people get the spotlight... and you stay silent."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "You build something amazing... but you let others take the credit."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "You have a win... but you can't bring yourself to share it."
+          </p>
+        </div>
+
+        <div class="talk-point emotional">
+          <div class="talk-label">The Irony</div>
+          <p class="script-text">
+            "Here's the cruel irony: the visibility wound often hits <em>successful</em> people the hardest. Because the more you have to lose, the more terrifying it is to be seen."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "I've met billionaires who can't post on LinkedIn. CEOs who hide behind their company accounts. Founders who've built empires... but can't show their face."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "And every single one of them is leaving <strong>millions of dollars</strong> on the table. Because in the new economy, attention is the asset. And they're invisible."
+          </p>
+        </div>
+
+        <div class="delivery-note">
+          This section is educational. Slower pace. Help them recognize themselves in what you're describing.
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — Definition</h3>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Animated definition box for "Visibility Wound" — appears as he explains it.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlays</div>
+          <p>Show each symptom as bullet points appearing on screen:</p>
+          <p>• "You have something important to say..."</p>
+          <p>• "You watch less qualified people..."</p>
+          <p>• "You build something amazing..."</p>
+        </div>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Abstract shots: Person hesitating at keyboard. Someone looking at phone, putting it down. Silhouette behind glass.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Key Stat</div>
+          <p>"MILLIONS OF DOLLARS ON THE TABLE" — emphasize this. Quick zoom.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 3: THE JAY SHETTY MOMENT -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>3. THE JAY SHETTY MOMENT</h2>
+          <span class="section-time">6:00 - 8:30</span>
+        </div>
+
+        <div class="talk-point story">
+          <div class="talk-label">The Turning Point</div>
+          <p class="script-text">
+            "The turning point came in 2017."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "I was at a Mindvalley event in Sardinia, Italy. Beautiful setting. And I was interviewing Jay Shetty on stage."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "After the interview, we were talking backstage. And I said something to Jay that I'd been telling myself for years:"
+          </p>
+        </div>
+
+        <div class="talk-point emotional">
+          <p class="script-text">
+            "'Jay, I'm 44 years old. I'm too old for this. I don't have your hair. I don't know how to dress like you. I don't have your charisma. This whole personal brand thing... it's not for me.'"
+          </p>
+        </div>
+
+        <div class="delivery-note">
+          List the excuses with increasing defeat in your voice. These are the lies we tell ourselves.
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Jay looked at me. And he said five words that changed everything:"
+          </p>
+        </div>
+
+        <div class="emotional-moment">
+          <p>"V, it's all bullshit excuses. Just start."</p>
+        </div>
+
+        <div class="humor-beat">
+          <div class="humor-label">😄 HUMOR BEAT</div>
+          <p class="humor-setup">That week, I posted my first real Instagram post. A joke about a bad haircut.</p>
+          <p class="humor-punchline">"My dad thought I'd joined a football league."</p>
+          <p class="humor-delivery">Light, self-deprecating. Show that the first attempt was messy — and that's okay.</p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "It wasn't good. It wasn't polished. But it was <em>me</em>. For the first time, I wasn't hiding behind Hayden. I wasn't hiding behind my authors. I was just... showing up."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "And here's what Jay understood that I didn't:"
+          </p>
+        </div>
+
+        <div class="pattern-interrupt">
+          Every excuse you have is just fear wearing a costume.
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "'I'm too old' — fear. 'I don't look right' — fear. 'I'm not charismatic enough' — fear. 'People will judge me' — <strong>fear</strong>."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "The visibility wound isn't about capability. It's about protection. It's your brain trying to keep you safe from rejection. But in doing so, it keeps you invisible."
+          </p>
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — Jay Shetty</h3>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Show Sardinia scenery. Mindvalley event footage if available. Photo of Jay Shetty.</p>
+        </div>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Photo of Jay Shetty + Vishen together if available.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Quotable</div>
+          <p>"V, IT'S ALL BULLSHIT EXCUSES. JUST START." — full screen. This is the key moment.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Key Moment</div>
+          <p>Dramatic pause before the quote. Maybe even brief silence. Then deliver.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>"FEAR WEARING A COSTUME" — show each excuse with "= FEAR" next to it.</p>
+        </div>
+
+        <div class="editor-note music">
+          <div class="editor-note-label">Music</div>
+          <p>Build slightly during this section. This is the emotional turning point.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 4: THE TRANSFORMATION -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>4. THE TRANSFORMATION</h2>
+          <span class="section-time">8:30 - 10:30</span>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "So what happened after I stopped hiding?"
+          </p>
+        </div>
+
+        <div class="stat-callout">
+          <span class="stat-number">30K → 1.1M</span>
+          <span class="stat-label">followers in 5 years</span>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "I went from 30,000 followers to <strong>1.1 million</strong>."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "But here's what really surprised me:"
+          </p>
+        </div>
+
+        <div class="stat-callout">
+          <span class="stat-number">3X</span>
+          <span class="stat-label">more engagement than Mindvalley's company account</span>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "My <em>personal</em> Instagram now gets <strong>three times</strong> the engagement of Mindvalley's company account. And we have an entire social team running that one."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "People don't want to follow companies. They want to follow <em>humans</em>."
+          </p>
+        </div>
+
+        <div class="humor-beat">
+          <div class="humor-label">😄 HUMOR BEAT</div>
+          <p class="humor-setup">They want to follow humans.</p>
+          <p class="humor-punchline">"Even weird ones. Especially weird ones, apparently."</p>
+          <p class="humor-delivery">Point to self. Self-deprecating smile.</p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "And here's the business impact:"
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "When I started a weekly newsletter — just me, telling stories — email revenue went up <strong>44%</strong>. The year before, it was <em>down</em> 38%."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "That's an extra <strong>$2.5 million</strong> in revenue. From showing up. From being visible. From doing the thing I was terrified to do."
+          </p>
+        </div>
+
+        <div class="talk-point emotional">
+          <div class="talk-label">The Lesson</div>
+          <p class="script-text">
+            "Every year I hid, I left money on the table. Every post I didn't make, every video I didn't record, every thought I didn't share — it cost me."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "But more than money... it cost me <em>impact</em>. The people I could have helped. The ideas I could have spread. The movement I could have built."
+          </p>
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — Transformation</h3>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Animated counter: 30,000 → 1,100,000. Make it feel like growth.</p>
+        </div>
+
+        <div class="editor-note broll">
+          <div class="editor-note-label">B-Roll</div>
+          <p>Show Vishen's Instagram today. Scroll through posts. Show engagement numbers.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Split Screen</div>
+          <p>Personal account vs Company account engagement comparison.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>"$2.5 MILLION" — big, bold. Let the number land.</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>Revenue chart: Show -38% → +44% turnaround.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Emotional Moment</div>
+          <p>Slow down on "it cost me impact." This lands harder than money.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 5: HOW TO HEAL -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>5. HOW TO HEAL THE VISIBILITY WOUND</h2>
+          <span class="section-time">10:30 - 13:00</span>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "So how do you actually heal this?"
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "I'm not going to pretend I'm fully healed. The visibility wound doesn't disappear — it comes back. It came back for me just this March. I had wins I couldn't share. Opportunities I was afraid to talk about."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "But I've learned to work with it. Here's what helps:"
+          </p>
+        </div>
+
+        <div class="framework-box">
+          <h4>5 Steps to Heal the Visibility Wound</h4>
+          <ul class="framework-list">
+            <li>
+              <span class="framework-number">1</span>
+              <span class="framework-content"><strong>Name it</strong> — You can't fight what you can't see. Call it what it is: a wound, not a weakness.</span>
+            </li>
+            <li>
+              <span class="framework-number">2</span>
+              <span class="framework-content"><strong>Start with an audience of one</strong> — Like I did with Hayden. Write for one person. Talk to one person. Make it small.</span>
+            </li>
+            <li>
+              <span class="framework-number">3</span>
+              <span class="framework-content"><strong>Share the messy</strong> — Vulnerability creates connection. Your failures are more interesting than your wins.</span>
+            </li>
+            <li>
+              <span class="framework-number">4</span>
+              <span class="framework-content"><strong>Separate identity from content</strong> — A post that doesn't land isn't a reflection of your worth. It's just a post.</span>
+            </li>
+            <li>
+              <span class="framework-number">5</span>
+              <span class="framework-content"><strong>Remember the cost of silence</strong> — Every day you hide is a day someone who needed your message didn't hear it.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Here's the reframe that helped me most:"
+          </p>
+        </div>
+
+        <div class="emotional-moment">
+          <p>"Staying invisible isn't humble. It's selfish."</p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "You have ideas that could help people. Experiences that could inspire them. A perspective that could change how they see the world."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "And you're keeping it to yourself... because you're afraid of what strangers on the internet might think?"
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "That's not protecting yourself. That's depriving others of what you have to give."
+          </p>
+        </div>
+
+        <div class="delivery-note">
+          "Staying invisible isn't humble — it's selfish" is a pattern interrupt. It reframes everything. Deliver with conviction.
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — How to Heal</h3>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">Graphic</div>
+          <p>5-step framework appearing one by one. Use brand colors. Make it screenshot-worthy.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Text Overlay</div>
+          <p>Each step title appears as he says it.</p>
+        </div>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Quotable</div>
+          <p>"STAYING INVISIBLE ISN'T HUMBLE. IT'S SELFISH." — Full screen. This is the perspective shift.</p>
+        </div>
+
+        <div class="editor-note highlight">
+          <div class="editor-note-label">Key Moment</div>
+          <p>Pause before "that's selfish." Let the audience process. This might challenge them.</p>
+        </div>
+
+        <div class="editor-note music">
+          <div class="editor-note-label">Music</div>
+          <p>Uplifting swell during the reframe. Moving toward resolution.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 6: CLOSE + CTA -->
+    <!-- ============================================ -->
+
+    <div class="dual-column">
+      <div class="script-column">
+        <div class="section-header">
+          <h2>6. CLOSING + CTA</h2>
+          <span class="section-time">13:00 - 14:30</span>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "Look, I know how hard this is."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "I hid behind my son for years. I let my authors take the spotlight. I told myself every excuse in the book."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "But every excuse was just fear wearing a costume."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "And on the other side of that fear is <em>everything</em>. The impact. The connection. The business growth. The people you'll help."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "You don't have to be perfect. You don't have to have it figured out. You just have to <strong>start</strong>."
+          </p>
+        </div>
+
+        <div class="talk-point emotional">
+          <p class="script-text">
+            "So here's my challenge to you:"
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "This week — not next month, not when you're ready — <strong>this week</strong>... share something. One post. One video. One thought. Just one."
+          </p>
+        </div>
+
+        <div class="talk-point">
+          <p class="script-text">
+            "It doesn't have to be good. It just has to be <em>you</em>."
+          </p>
+        </div>
+
+        <div class="emotional-moment">
+          <p>"It's time to be seen."</p>
+        </div>
+
+        <div class="delivery-note">
+          Hold 3 seconds of silence after "It's time to be seen." This is the emotional close. Let it breathe.
+        </div>
+
+        <!-- CTA Section -->
+        <div class="section-header" style="background: linear-gradient(90deg, #00aa66 0%, #008855 100%); margin-top: 2.5rem;">
+          <h2>CTA — END SCREEN</h2>
+          <span class="section-time">14:30 - 15:00</span>
+        </div>
+
+        <div class="talk-point cta">
+          <div class="talk-label">Subscribe CTA</div>
+          <p class="script-text">
+            "If this resonated with you, hit subscribe. I'm going deeper on founder branding, content systems, and how to actually show up in the age of AI."
+          </p>
+        </div>
+
+        <div class="talk-point cta">
+          <div class="talk-label">Next Video CTA</div>
+          <p class="script-text">
+            "And if you want to see the <strong>content system</strong> I built after overcoming this — how I create videos in 30 minutes, how I turned my newsletter into $2.5 million — watch this video next."
+          </p>
+        </div>
+
+        <div class="talk-point cta">
+          <div class="talk-label">Comment CTA</div>
+          <p class="script-text">
+            "Drop a comment and tell me: Do you have a visibility wound? What's the excuse you've been telling yourself? I read every comment."
+          </p>
+        </div>
+
+      </div>
+
+      <div class="editor-column">
+        <h3>Editor Notes — Close + CTA</h3>
+
+        <div class="editor-note text">
+          <div class="editor-note-label">Quotable</div>
+          <p>"IT'S TIME TO BE SEEN." — Full screen. Hold 3 seconds. This is the closing line.</p>
+        </div>
+
+        <div class="editor-note music">
+          <div class="editor-note-label">Music</div>
+          <p>Uplifting swell to close. Music peaks on "It's time to be seen."</p>
+        </div>
+
+        <div class="editor-note graphic">
+          <div class="editor-note-label">End Screen</div>
+          <p>YouTube end screen elements:</p>
+          <p>• Subscribe button (animated)</p>
+          <p>• Next video thumbnail (Content System video)</p>
+          <p>• "Comment below" text</p>
+        </div>
+
+        <div class="editor-note transition">
+          <div class="editor-note-label">End Card</div>
+          <p>Hold end screen for 20 seconds. Suggested next video: "The Founder's Content System"</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- HUMOR BEATS REFERENCE -->
+    <!-- ============================================ -->
+
+    <div style="background: white; border-radius: 1rem; padding: 2rem; margin: 3rem auto; max-width: 900px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
+      <div class="section-header" style="background: linear-gradient(90deg, #ffaa00 0%, #ff8800 100%); color: #000;">
+        <h2>HUMOR BEATS</h2>
+        <span class="section-time" style="color: #000;">All 3 Jokes</span>
+      </div>
+
+      <table style="width: 100%; border-collapse: collapse; margin-top: 1.5rem;">
+        <tr style="border-bottom: 1px solid #f0e6f7;">
+          <td style="padding: 1rem; font-weight: 700; color: #7a12d4; width: 50px;">#1</td>
+          <td style="padding: 1rem; color: #0f131a;"><strong>"He didn't give a shit"</strong> — My son was six. He didn't care about my videos.</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f0e6f7;">
+          <td style="padding: 1rem; font-weight: 700; color: #7a12d4;">#2</td>
+          <td style="padding: 1rem; color: #0f131a;"><strong>"Football league"</strong> — My dad thought I'd joined a football league from my first post.</td>
+        </tr>
+        <tr>
+          <td style="padding: 1rem; font-weight: 700; color: #7a12d4;">#3</td>
+          <td style="padding: 1rem; color: #0f131a;"><strong>"Weird ones"</strong> — People want to follow humans. Even weird ones. Especially weird ones, apparently.</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- KEY QUOTES REFERENCE -->
+    <div style="background: white; border-radius: 1rem; padding: 2rem; margin: 3rem auto; max-width: 900px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
+      <div class="section-header" style="background: linear-gradient(90deg, #ec4899 0%, #db2777 100%);">
+        <h2>KEY QUOTABLES</h2>
+        <span class="section-time">For Clips / Thumbnails</span>
+      </div>
+
+      <ul style="margin-top: 1.5rem; padding-left: 1.5rem;">
+        <li style="padding: 0.75rem 0; border-bottom: 1px solid #f0e6f7; font-size: 1.1rem; color: #0f131a;">"It was armor disguised as affection."</li>
+        <li style="padding: 0.75rem 0; border-bottom: 1px solid #f0e6f7; font-size: 1.1rem; color: #0f131a;">"V, it's all bullshit excuses. Just start."</li>
+        <li style="padding: 0.75rem 0; border-bottom: 1px solid #f0e6f7; font-size: 1.1rem; color: #0f131a;">"Every excuse is just fear wearing a costume."</li>
+        <li style="padding: 0.75rem 0; border-bottom: 1px solid #f0e6f7; font-size: 1.1rem; color: #0f131a;">"Staying invisible isn't humble. It's selfish."</li>
+        <li style="padding: 0.75rem 0; font-size: 1.1rem; color: #0f131a;">"It's time to be seen."</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <footer class="script-footer">
+    © Mindvalley • The Visibility Wound YouTube Script
+  </footer>
+
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight - windowHeight;
+      const scrollTop = window.scrollY;
+      const progress = (scrollTop / documentHeight) * 100;
+      document.getElementById('progressFill').style.width = progress + '%';
+    });
+  </script>
+
+</body>
+</html>
