@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Founder's Content System | Slides</title>
+  <link rel="stylesheet" href="mindvalley-core.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Google Sans Flex', system-ui, sans-serif;
+      background: #0f131a;
+      color: white;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .slide {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      padding: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Slide Themes */
+    .slide-dark {
+      background: linear-gradient(135deg, #0f131a 0%, #1a1f2e 100%);
+    }
+
+    .slide-purple {
+      background: linear-gradient(135deg, #7a12d4 0%, #9333ea 100%);
+    }
+
+    .slide-light {
+      background: linear-gradient(135deg, #f9f7fc 0%, #ffffff 100%);
+      color: #0f131a;
+    }
+
+    .slide-gradient {
+      background: linear-gradient(135deg, #1a1f2e 0%, #2d1f4e 50%, #1a1f2e 100%);
+    }
+
+    .slide-success {
+      background: linear-gradient(135deg, #065f46 0%, #047857 100%);
+    }
+
+    .slide-gold {
+      background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+    }
+
+    /* Typography */
+    .slide-eyebrow {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #a78bfa;
+      margin-bottom: 1.5rem;
+    }
+
+    .slide-light .slide-eyebrow {
+      color: #7a12d4;
+    }
+
+    .slide-title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      max-width: 80%;
+    }
+
+    .slide-subtitle {
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-weight: 400;
+      color: rgba(255,255,255,0.8);
+      max-width: 60%;
+      line-height: 1.5;
+    }
+
+    .slide-light .slide-subtitle {
+      color: #4b5563;
+    }
+
+    .slide-huge {
+      font-size: clamp(4rem, 12vw, 10rem);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .slide-quote {
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      font-style: italic;
+      line-height: 1.4;
+      max-width: 70%;
+      position: relative;
+      padding-left: 2rem;
+      border-left: 4px solid #a78bfa;
+    }
+
+    .slide-attribution {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 2rem;
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .grid-5 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 1024px) {
+      .grid-4, .grid-5 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Cards */
+    .platform-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .platform-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .platform-role {
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #a78bfa;
+      margin-bottom: 0.5rem;
+    }
+
+    .platform-name {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .step-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      background: #7a12d4;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 auto 1rem;
+    }
+
+    .step-title {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    /* Stats */
+    .stat-block {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      color: #a78bfa;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 0.5rem;
+    }
+
+    /* Lists */
+    .slide-list {
+      list-style: none;
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      line-height: 2;
+    }
+
+    .slide-list li {
+      padding-left: 2rem;
+      position: relative;
+    }
+
+    .slide-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #a78bfa;
+    }
+
+    /* Flywheel */
+    .flywheel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .flywheel-step {
+      background: rgba(255,255,255,0.15);
+      padding: 1rem 1.5rem;
+      border-radius: 999px;
+      font-weight: 500;
+      font-size: 1.125rem;
+    }
+
+    .flywheel-arrow {
+      font-size: 1.5rem;
+      color: #a78bfa;
+    }
+
+    /* Humor Slide */
+    .humor-text {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      text-align: center;
+      max-width: 70%;
+      margin: 0 auto;
+      line-height: 1.4;
+    }
+
+    /* Archetype Cards */
+    .archetype-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 1rem;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .archetype-emoji {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .archetype-name {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #a78bfa;
+      margin-bottom: 0.5rem;
+    }
+
+    .archetype-desc {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Centered Content */
+    .slide-centered {
+      text-align: center;
+      align-items: center;
+    }
+
+    .slide-centered .slide-title,
+    .slide-centered .slide-subtitle {
+      max-width: 80%;
+    }
+
+    /* Navigation */
+    .nav-hint {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .slide-counter {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Special Slides */
+    .case-study-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .case-study-number {
+      font-size: 4rem;
+      font-weight: 700;
+      color: #34d399;
+    }
+
+    .case-study-label {
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* Comparison */
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    .comparison-vs {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #a78bfa;
+    }
+
+    .comparison-item {
+      text-align: center;
+    }
+
+    .comparison-number {
+      font-size: 4rem;
+      font-weight: 700;
+    }
+
+    .comparison-bad {
+      color: #ef4444;
+    }
+
+    .comparison-good {
+      color: #34d399;
+    }
+
+    /* Two Column */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: rgba(122, 18, 212, 0.3);
+      border: 2px solid #a78bfa;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    /* Progress Bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: #7a12d4;
+      transition: width 0.3s ease;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Slide 1: Title -->
+  <div class="slide slide-dark active" id="slide-1">
+    <div class="slide-eyebrow">Social Media Summit 2026 | Lesson 2</div>
+    <h1 class="slide-title">The Founder's Content System</h1>
+    <p class="slide-subtitle">Build your personal brand. Master the media ecosystem. Turn one piece of content into a marketing machine.</p>
+  </div>
+
+  <!-- Slide 2: Bridge -->
+  <div class="slide slide-purple slide-centered" id="slide-2">
+    <div class="slide-eyebrow">Building on What We Learned</div>
+    <h2 class="slide-title">You've done the inner work.</h2>
+    <p class="slide-subtitle">Now let's build the outer system.</p>
+  </div>
+
+  <!-- Slide 3: Humor - The Old Me -->
+  <div class="slide slide-dark slide-centered" id="slide-3">
+    <p class="humor-text">"Hey Hayden, check it out..."</p>
+    <p class="slide-subtitle" style="margin-top: 2rem; max-width: 50%;">How I started my social media career: making videos for my 6-year-old son who didn't care.</p>
+  </div>
+
+  <!-- Slide 4: The Visibility Problem -->
+  <div class="slide slide-dark" id="slide-4">
+    <div class="slide-eyebrow">The Real Problem</div>
+    <h2 class="slide-title">I was running a $40M company.</h2>
+    <p class="slide-subtitle">And I was too embarrassed to post on Facebook.</p>
+  </div>
+
+  <!-- Slide 5: The Shift -->
+  <div class="slide slide-gradient slide-centered" id="slide-5">
+    <h2 class="slide-title">From 30K followers to 1.1 million.</h2>
+    <p class="slide-subtitle">Here's what changed everything.</p>
+  </div>
+
+  <!-- Slide 6: Part 1 Title -->
+  <div class="slide slide-purple slide-centered" id="slide-6">
+    <div class="slide-eyebrow">Part 1</div>
+    <h2 class="slide-huge">The New Founder Era</h2>
+  </div>
+
+  <!-- Slide 7: Three Truths -->
+  <div class="slide slide-dark" id="slide-7">
+    <div class="slide-eyebrow">The Three Truths</div>
+    <h2 class="slide-title">Founders don't build companies anymore.</h2>
+    <ul class="slide-list" style="margin-top: 2rem;">
+      <li>People buy what you stand for, not what you sell</li>
+      <li>Your company's brand grows as far as your own evolution</li>
+      <li>You are your company's greatest marketing weapon</li>
+    </ul>
+  </div>
+
+  <!-- Slide 8: Engagement Stat -->
+  <div class="slide slide-dark slide-centered" id="slide-8">
+    <div class="stat-block">
+      <div class="stat-number">3X</div>
+      <div class="stat-label">My personal Instagram engagement vs. Mindvalley's company account</div>
+    </div>
+  </div>
+
+  <!-- Slide 9: Humor - Following -->
+  <div class="slide slide-dark slide-centered" id="slide-9">
+    <p class="humor-text">People don't want to follow companies.</p>
+    <p class="slide-subtitle" style="margin-top: 2rem;">They want to follow humans. Even weird ones.</p>
+  </div>
+
+  <!-- Slide 10: Case Study Title -->
+  <div class="slide slide-success slide-centered" id="slide-10">
+    <div class="slide-eyebrow">Case Study</div>
+    <h2 class="slide-title">Nora Banani</h2>
+    <p class="slide-subtitle">Female Founder of the Year, Europe</p>
+  </div>
+
+  <!-- Slide 11: Nora's Pivot -->
+  <div class="slide slide-dark" id="slide-11">
+    <div class="slide-eyebrow">15 Minutes Before Going on Stage</div>
+    <h2 class="slide-title">She threw out her pitch deck.</h2>
+    <p class="slide-subtitle">Instead of pitching technology, she spoke about her movement.</p>
+  </div>
+
+  <!-- Slide 12: Nora's Results -->
+  <div class="slide slide-dark" id="slide-12">
+    <div class="slide-eyebrow">The Results</div>
+    <div class="case-study-stat">
+      <div class="case-study-number">3X</div>
+      <div class="case-study-label">sales increase</div>
+    </div>
+    <div class="case-study-stat">
+      <div class="case-study-number">3 months</div>
+      <div class="case-study-label">of website traffic in one week</div>
+    </div>
+    <div class="case-study-stat">
+      <div class="case-study-number">11pm</div>
+      <div class="case-study-label">team packing orders</div>
+    </div>
+  </div>
+
+  <!-- Slide 13: Movement Quote -->
+  <div class="slide slide-purple slide-centered" id="slide-13">
+    <p class="slide-quote" style="border-left: none; padding-left: 0; text-align: center;">"Don't build a product.<br>Build a movement."</p>
+  </div>
+
+  <!-- Slide 14: Part 2 Title -->
+  <div class="slide slide-dark slide-centered" id="slide-14">
+    <div class="slide-eyebrow">Part 2</div>
+    <h2 class="slide-huge">The Founder Media Ecosystem</h2>
+  </div>
+
+  <!-- Slide 15: Four Platforms -->
+  <div class="slide slide-dark" id="slide-15">
+    <div class="slide-eyebrow">Each Platform Serves a Different Purpose</div>
+    <h2 class="slide-title" style="font-size: 2.5rem;">The Founder Media Ecosystem</h2>
+    <div class="grid-4">
+      <div class="platform-card">
+        <div class="platform-icon">🎓</div>
+        <div class="platform-role">The Classroom</div>
+        <div class="platform-name">YouTube</div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon">🏛️</div>
+        <div class="platform-role">The Boardroom</div>
+        <div class="platform-name">LinkedIn</div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon">☕</div>
+        <div class="platform-role">The Cafe</div>
+        <div class="platform-name">Instagram</div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon">🏠</div>
+        <div class="platform-role">The Sanctuary</div>
+        <div class="platform-name">Newsletter</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 16: YouTube Deep Dive -->
+  <div class="slide slide-dark" id="slide-16">
+    <div class="slide-eyebrow">YouTube: The Classroom</div>
+    <h2 class="slide-title">Educate and inspire.</h2>
+    <p class="slide-subtitle">Talk straight to camera. Coffee conversation energy. Build authority through teaching.</p>
+  </div>
+
+  <!-- Slide 17: LinkedIn Deep Dive -->
+  <div class="slide slide-dark" id="slide-17">
+    <div class="slide-eyebrow">LinkedIn: The Boardroom</div>
+    <h2 class="slide-title">Text beats video.</h2>
+    <p class="slide-subtitle">Share what went wrong. Be authentically messy. Vulnerability > polish.</p>
+  </div>
+
+  <!-- Slide 18: Instagram Deep Dive -->
+  <div class="slide slide-dark" id="slide-18">
+    <div class="slide-eyebrow">Instagram: The Cafe</div>
+    <h2 class="slide-title">Entertainment first.</h2>
+    <p class="slide-subtitle">Side-angle camera. "Being interviewed" energy. Emotion and virality.</p>
+  </div>
+
+  <!-- Slide 19: Newsletter Deep Dive -->
+  <div class="slide slide-dark" id="slide-19">
+    <div class="slide-eyebrow">Newsletter: The Sanctuary</div>
+    <h2 class="slide-title">You own this list.</h2>
+    <p class="slide-subtitle">No algorithm can throttle you. Nurture trust. Deepen relationships.</p>
+  </div>
+
+  <!-- Slide 20: Two Camera Setup -->
+  <div class="slide slide-gradient slide-centered" id="slide-20">
+    <div class="slide-eyebrow">Pro Tip</div>
+    <h2 class="slide-title">Two cameras. One recording.</h2>
+    <p class="slide-subtitle">Front = YouTube. Side = Instagram.</p>
+  </div>
+
+  <!-- Slide 21: Humor - Platform Choice -->
+  <div class="slide slide-dark slide-centered" id="slide-21">
+    <p class="humor-text">"Which platform should I choose?"</p>
+    <p class="slide-subtitle" style="margin-top: 2rem;">The one you'll actually use.</p>
+  </div>
+
+  <!-- Slide 22: Part 3 Title -->
+  <div class="slide slide-purple slide-centered" id="slide-22">
+    <div class="slide-eyebrow">Part 3</div>
+    <h2 class="slide-huge">Vector Science & AEO</h2>
+  </div>
+
+  <!-- Slide 23: AI is Deciding -->
+  <div class="slide slide-dark" id="slide-23">
+    <div class="slide-eyebrow">The Game Has Changed</div>
+    <h2 class="slide-title">AI is now deciding who gets found.</h2>
+    <p class="slide-subtitle">It's not just keywords anymore. It's associations.</p>
+  </div>
+
+  <!-- Slide 24: Vector Science Explained -->
+  <div class="slide slide-dark" id="slide-24">
+    <div class="slide-eyebrow">Vector Science</div>
+    <h2 class="slide-title">How AI connects you to concepts.</h2>
+    <p class="slide-subtitle" style="margin-bottom: 2rem;">When someone asks AI "Who are the best speakers on personal growth?" — will your name appear?</p>
+  </div>
+
+  <!-- Slide 25: The Window -->
+  <div class="slide slide-gold slide-centered" id="slide-25">
+    <div class="slide-eyebrow">Critical Window</div>
+    <h2 class="slide-title">6-12 months.</h2>
+    <p class="slide-subtitle">Those who understand this now will be exponentially ahead. It will be very hard to catch up.</p>
+  </div>
+
+  <!-- Slide 26: Part 4 Title -->
+  <div class="slide slide-purple slide-centered" id="slide-26">
+    <div class="slide-eyebrow">Part 4</div>
+    <h2 class="slide-huge">Personal Brand OS</h2>
+  </div>
+
+  <!-- Slide 27: The Problem -->
+  <div class="slide slide-dark slide-centered" id="slide-27">
+    <p class="humor-text">You type a prompt into ChatGPT...</p>
+    <p class="slide-subtitle" style="margin-top: 2rem;">It sounds nothing like you. You close the tab in frustration.</p>
+  </div>
+
+  <!-- Slide 28: The Solution -->
+  <div class="slide slide-dark" id="slide-28">
+    <div class="slide-eyebrow">The Solution</div>
+    <h2 class="slide-title">AI doesn't know you yet.</h2>
+    <p class="slide-subtitle">You need to build your Personal Brand Operating System first.</p>
+  </div>
+
+  <!-- Slide 29: 5 Steps -->
+  <div class="slide slide-dark" id="slide-29">
+    <div class="slide-eyebrow">The 5-Step Formula</div>
+    <h2 class="slide-title" style="font-size: 2rem; margin-bottom: 1.5rem;">Personal Brand OS</h2>
+    <div class="grid-5">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-title">Your Story</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-title">Online Identity</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-title">Role Models</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-title">Boundaries</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <div class="step-title">Vision & Goals</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 30: Step 1 Detail -->
+  <div class="slide slide-dark" id="slide-30">
+    <div class="slide-eyebrow">Step 1: Your Story</div>
+    <h2 class="slide-title">Go for a coffee walk.</h2>
+    <p class="slide-subtitle">Record yourself telling your life story. Childhood. Teenage years. What made you angry. What excited you. How you started.</p>
+  </div>
+
+  <!-- Slide 31: Humor - Boundaries -->
+  <div class="slide slide-dark slide-centered" id="slide-31">
+    <div class="slide-eyebrow">Step 4: Boundaries</div>
+    <p class="humor-text">"I don't share pictures of my kids."</p>
+    <p class="slide-subtitle" style="margin-top: 2rem;">Know your no's. AI respects them if you're clear.</p>
+  </div>
+
+  <!-- Slide 32: Part 5 Title -->
+  <div class="slide slide-purple slide-centered" id="slide-32">
+    <div class="slide-eyebrow">Part 5</div>
+    <h2 class="slide-huge">Platform Strategies</h2>
+  </div>
+
+  <!-- Slide 33: YouTube Strategy Title -->
+  <div class="slide slide-dark" id="slide-33">
+    <div class="slide-eyebrow">YouTube Strategy</div>
+    <h2 class="slide-title">The Daniel Priestly Model</h2>
+    <p class="slide-subtitle">$700M in companies built. His YouTube? He just sits down and teaches.</p>
+  </div>
+
+  <!-- Slide 34: YouTube Stats -->
+  <div class="slide slide-dark slide-centered" id="slide-34">
+    <div class="stat-block">
+      <div class="stat-number">84K</div>
+      <div class="stat-label">views on videos with only 61K subscribers</div>
+    </div>
+    <p class="slide-subtitle" style="margin-top: 2rem;">No fancy production. Just value.</p>
+  </div>
+
+  <!-- Slide 35: Title Fail -->
+  <div class="slide slide-dark" id="slide-35">
+    <div class="slide-eyebrow">The Title is Everything</div>
+    <div class="comparison">
+      <div class="comparison-item">
+        <div class="comparison-number comparison-bad">4.2K</div>
+        <p>"The Rise of ChatGPT"</p>
+      </div>
+      <div class="comparison-vs">vs</div>
+      <div class="comparison-item">
+        <div class="comparison-number comparison-good">700K</div>
+        <p>Same video on Instagram</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 36: Better Title -->
+  <div class="slide slide-gradient slide-centered" id="slide-36">
+    <div class="slide-eyebrow">Better Title</div>
+    <h2 class="slide-title">"The #1 Reason You'll Be Left Behind by AI in 2026"</h2>
+  </div>
+
+  <!-- Slide 37: YouTube to Money -->
+  <div class="slide slide-dark" id="slide-37">
+    <div class="slide-eyebrow">The Iman Gadzhi Model</div>
+    <h2 class="slide-title">Content → Offer</h2>
+    <p class="slide-subtitle">Educational video leads to 30-minute deep-dive. The deep-dive is your sales presentation.</p>
+  </div>
+
+  <!-- Slide 38: LinkedIn Strategy -->
+  <div class="slide slide-dark" id="slide-38">
+    <div class="slide-eyebrow">LinkedIn Strategy</div>
+    <h2 class="slide-title">Winners share what went wrong.</h2>
+    <p class="slide-subtitle">Not their wins. Their lessons. Their process. Their mess.</p>
+  </div>
+
+  <!-- Slide 39: Likability -->
+  <div class="slide slide-dark" id="slide-39">
+    <div class="slide-eyebrow">The Likability Principle (Cialdini)</div>
+    <h2 class="slide-title">People buy from people they like.</h2>
+    <ul class="slide-list" style="margin-top: 2rem;">
+      <li>Vulnerability</li>
+      <li>Authenticity</li>
+      <li>Humor</li>
+    </ul>
+  </div>
+
+  <!-- Slide 40: Newsletter Case Study -->
+  <div class="slide slide-success" id="slide-40">
+    <div class="slide-eyebrow">Newsletter Results</div>
+    <h2 class="slide-title">I started a weekly newsletter in December.</h2>
+    <p class="slide-subtitle">Real stories. Conversations with mentors. Photos my son took. Super personal.</p>
+  </div>
+
+  <!-- Slide 41: Newsletter Stats -->
+  <div class="slide slide-dark" id="slide-41">
+    <div class="slide-eyebrow">The Numbers</div>
+    <div class="comparison">
+      <div class="comparison-item">
+        <div class="comparison-number comparison-bad">-38%</div>
+        <p>Email revenue (prior year)</p>
+      </div>
+      <div class="comparison-vs">→</div>
+      <div class="comparison-item">
+        <div class="comparison-number comparison-good">+44%</div>
+        <p>After newsletter started</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 42: Revenue Per Newsletter -->
+  <div class="slide slide-dark slide-centered" id="slide-42">
+    <div class="stat-block">
+      <div class="stat-number">$56K</div>
+      <div class="stat-label">revenue per newsletter</div>
+    </div>
+    <p class="slide-subtitle" style="margin-top: 2rem;">The newsletter doesn't sell anything. It builds trust.</p>
+  </div>
+
+  <!-- Slide 43: Own Your List -->
+  <div class="slide slide-purple slide-centered" id="slide-43">
+    <h2 class="slide-title">An email is worth more than a follower.</h2>
+    <p class="slide-subtitle">No algorithm can throttle your list. You own it.</p>
+  </div>
+
+  <!-- Slide 44: Part 6 Title -->
+  <div class="slide slide-dark slide-centered" id="slide-44">
+    <div class="slide-eyebrow">Part 6</div>
+    <h2 class="slide-huge">The Content Flywheel</h2>
+  </div>
+
+  <!-- Slide 45: Flywheel Visual -->
+  <div class="slide slide-dark slide-centered" id="slide-45">
+    <div class="slide-eyebrow">One Piece of Content. Multiple Platforms.</div>
+    <div class="flywheel">
+      <span class="flywheel-step">📧 Newsletter</span>
+      <span class="flywheel-arrow">→</span>
+      <span class="flywheel-step">💼 LinkedIn</span>
+      <span class="flywheel-arrow">→</span>
+      <span class="flywheel-step">🎬 YouTube</span>
+      <span class="flywheel-arrow">→</span>
+      <span class="flywheel-step">✂️ Clips</span>
+      <span class="flywheel-arrow">→</span>
+      <span class="flywheel-step">📱 TikTok/IG</span>
+    </div>
+  </div>
+
+  <!-- Slide 46: Flywheel Explained -->
+  <div class="slide slide-dark" id="slide-46">
+    <div class="slide-eyebrow">How It Works</div>
+    <ul class="slide-list">
+      <li>Write your newsletter (core content)</li>
+      <li>Extract LinkedIn posts (each lesson = one post)</li>
+      <li>Turn it into a video script with AI</li>
+      <li>Record from two angles</li>
+      <li>Create clips for TikTok/Instagram</li>
+      <li>Send reflection email to continue conversation</li>
+    </ul>
+  </div>
+
+  <!-- Slide 47: Part 7 Title -->
+  <div class="slide slide-purple slide-centered" id="slide-47">
+    <div class="slide-eyebrow">Part 7</div>
+    <h2 class="slide-huge">The Modern Founder</h2>
+  </div>
+
+  <!-- Slide 48: Four Archetypes -->
+  <div class="slide slide-dark" id="slide-48">
+    <div class="slide-eyebrow">You Are More Than a Founder</div>
+    <div class="grid-4">
+      <div class="archetype-card">
+        <div class="archetype-emoji">📚</div>
+        <div class="archetype-name">Teacher</div>
+        <div class="archetype-desc">Share wisdom freely</div>
+      </div>
+      <div class="archetype-card">
+        <div class="archetype-emoji">🤔</div>
+        <div class="archetype-name">Philosopher</div>
+        <div class="archetype-desc">Question norms</div>
+      </div>
+      <div class="archetype-card">
+        <div class="archetype-emoji">📖</div>
+        <div class="archetype-name">Storyteller</div>
+        <div class="archetype-desc">Turn experience into narrative</div>
+      </div>
+      <div class="archetype-card">
+        <div class="archetype-emoji">⚡</div>
+        <div class="archetype-name">Rebel</div>
+        <div class="archetype-desc">Challenge the brules</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 49: Closing Quote -->
+  <div class="slide slide-gradient slide-centered" id="slide-49">
+    <p class="slide-quote" style="border-left: none; padding-left: 0; text-align: center;">"People don't follow products.<br>They follow energy."</p>
+  </div>
+
+  <!-- Slide 50: The Truth -->
+  <div class="slide slide-dark slide-centered" id="slide-50">
+    <h2 class="slide-title">You don't have to shout louder.</h2>
+    <p class="slide-subtitle">You just have to speak more authentically.</p>
+  </div>
+
+  <!-- Slide 51: Your Playbook -->
+  <div class="slide slide-dark" id="slide-51">
+    <div class="slide-eyebrow">Your Playbook</div>
+    <ul class="slide-list">
+      <li>Pick one platform to master (start with email)</li>
+      <li>Publish one long-form piece weekly</li>
+      <li>Repurpose across the ecosystem</li>
+      <li>Be transparent — teach what you're learning</li>
+      <li>Build your Personal Brand OS</li>
+    </ul>
+  </div>
+
+  <!-- Slide 52: This Weekend -->
+  <div class="slide slide-purple slide-centered" id="slide-52">
+    <div class="slide-eyebrow">Action Step</div>
+    <h2 class="slide-title">This weekend.</h2>
+    <p class="slide-subtitle">Create your first piece of content using the flywheel. Don't wait.</p>
+  </div>
+
+  <!-- Slide 53: Final Slide -->
+  <div class="slide slide-dark slide-centered" id="slide-53">
+    <p class="slide-subtitle" style="max-width: 50%;">The visibility wound may have held you back before.</p>
+    <h2 class="slide-title" style="margin-top: 2rem;">You've done the inner work.<br>Now you have the outer system.</h2>
+    <p class="slide-subtitle" style="margin-top: 2rem; color: #a78bfa; font-weight: 500;">It's time to be seen.</p>
+  </div>
+
+  <div class="slide-counter" id="slideCounter">1 / 53</div>
+  <div class="nav-hint">← → or swipe to navigate</div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 53;
+
+    function showSlide(n) {
+      // Wrap around
+      if (n > totalSlides) currentSlide = 1;
+      if (n < 1) currentSlide = totalSlides;
+
+      // Hide all slides
+      document.querySelectorAll('.slide').forEach(slide => {
+        slide.classList.remove('active');
+      });
+
+      // Show current slide
+      document.getElementById(`slide-${currentSlide}`).classList.add('active');
+
+      // Update counter
+      document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
+
+      // Update progress bar
+      const progress = (currentSlide / totalSlides) * 100;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+    }
+
+    function nextSlide() {
+      currentSlide++;
+      showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide--;
+      showSlide(currentSlide);
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        currentSlide = 1;
+        showSlide(currentSlide);
+      } else if (e.key === 'End') {
+        currentSlide = totalSlides;
+        showSlide(currentSlide);
+      }
+    });
+
+    // Touch navigation
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) {
+        nextSlide();
+      } else if (touchEndX - touchStartX > 50) {
+        prevSlide();
+      }
+    });
+
+    // Click navigation
+    document.addEventListener('click', (e) => {
+      const x = e.clientX;
+      const width = window.innerWidth;
+      if (x > width * 0.7) {
+        nextSlide();
+      } else if (x < width * 0.3) {
+        prevSlide();
+      }
+    });
+
+    // Initialize
+    showSlide(currentSlide);
+  </script>
+
+</body>
+</html>

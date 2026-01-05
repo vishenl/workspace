@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Founder's Content System | Instructor Notes & Humor Beats</title>
+  <link rel="stylesheet" href="mindvalley-core.css">
+  <style>
+    body {
+      background: #ffffff;
+      line-height: 1.7;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #0f131a 0%, #1a1f2e 100%);
+      color: white;
+      padding: 4rem 0;
+    }
+
+    .meta-info {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .section-block {
+      border-left: 4px solid #7a12d4;
+      padding-left: 2rem;
+      margin: 3rem 0;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-number {
+      background: #7a12d4;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    .timing-badge {
+      background: #f5f0fa;
+      color: #7a12d4;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .slide-ref {
+      background: #e8e0f0;
+      color: #7a12d4;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-left: 0.5rem;
+    }
+
+    /* Humor Beat */
+    .humor-beat {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 2px solid #f59e0b;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .humor-beat::before {
+      content: "😄 HUMOR BEAT";
+      display: block;
+      font-weight: 700;
+      color: #92400e;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    .humor-beat .setup {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .humor-beat .punchline {
+      font-style: italic;
+      color: #78350f;
+    }
+
+    .humor-beat .delivery {
+      font-size: 0.875rem;
+      color: #92400e;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    /* Story Box */
+    .story-box {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 2px solid #3b82f6;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .story-box::before {
+      content: "📖 STORY";
+      display: block;
+      font-weight: 700;
+      color: #1e40af;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    .story-box .story-title {
+      font-weight: 600;
+      color: #1e40af;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Audience Moment */
+    .audience-moment {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border: 2px solid #22c55e;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .audience-moment::before {
+      content: "🙋 AUDIENCE ENGAGEMENT";
+      display: block;
+      font-weight: 700;
+      color: #166534;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Key Point */
+    .key-point {
+      background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+      border: 2px solid #a855f7;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .key-point::before {
+      content: "💎 KEY TEACHING POINT";
+      display: block;
+      font-weight: 700;
+      color: #7e22ce;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Delivery Note */
+    .delivery-note {
+      background: #f9fafb;
+      border: 1px dashed #9ca3af;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+      color: #4b5563;
+    }
+
+    .delivery-note::before {
+      content: "🎭 Delivery: ";
+      font-weight: 600;
+    }
+
+    /* Transition */
+    .transition {
+      background: #0f131a;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 0.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+    }
+
+    .transition::before {
+      content: "→ ";
+      color: #a78bfa;
+    }
+
+    /* Script Line */
+    .script-line {
+      font-size: 1.125rem;
+      margin: 1rem 0;
+      padding: 1rem;
+      background: #fafafa;
+      border-radius: 0.5rem;
+    }
+
+    .script-line strong {
+      color: #7a12d4;
+    }
+
+    /* Visual Cue */
+    .visual-cue {
+      display: inline-block;
+      background: #7a12d4;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-right: 0.5rem;
+    }
+
+    /* Section Divider */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #e8e0f0, transparent);
+      margin: 4rem 0;
+    }
+
+    /* Print styles */
+    @media print {
+      .header {
+        background: white;
+        color: black;
+        border-bottom: 2px solid black;
+      }
+
+      .humor-beat, .story-box, .audience-moment, .key-point {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="mv-container">
+      <div class="overline-text" style="color: #a78bfa; margin-bottom: 1rem;">INSTRUCTOR NOTES</div>
+      <h1 class="title-bold-2">The Founder's Content System</h1>
+      <p class="body-lg" style="opacity: 0.8; margin-top: 1rem;">Speech outline with humor beats, stories, and delivery cues</p>
+      <div class="meta-info">
+        <span>Total Duration: 45 minutes</span>
+        <span>53 Slides</span>
+        <span>12 Humor Beats</span>
+        <span>6 Stories</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="mv-container" style="padding: 3rem 0;">
+
+    <!-- OPENING -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="section-number">0</span>
+        <h2 class="title-bold-5">Opening</h2>
+        <span class="timing-badge">3 min</span>
+        <span class="slide-ref">Slides 1-2</span>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 1</span>
+        "Welcome to The Founder's Content System. In our opening keynote, we did the inner work - we explored the visibility wound and began healing it. Now we do the outer work."
+      </div>
+
+      <div class="delivery-note">
+        Calm, grounded energy. This is the practical follow-up to emotional work.
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 2</span>
+        "You've done the inner work. Now let's build the outer system."
+      </div>
+
+      <div class="transition">
+        "But first, I need to confess something embarrassing..."
+      </div>
+    </div>
+
+    <!-- PART 1: THE HAYDEN STORY -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="section-number">1</span>
+        <h2 class="title-bold-5">The Hayden Story</h2>
+        <span class="timing-badge">4 min</span>
+        <span class="slide-ref">Slides 3-5</span>
+      </div>
+
+      <div class="story-box">
+        <div class="story-title">Vishen's First Social Media Video</div>
+        <p>
+          "Ten years ago, I was already running a $40 million company. I was putting authors in front of cameras. I was building Mindvalley into something real. And I was <em>terrified</em> of posting on Facebook."
+        </p>
+        <p style="margin-top: 1rem;">
+          "So I came up with a hack. Instead of posting for the world - because who the fuck cares about me, right? - I would make videos for my son Hayden. That way, if anyone criticized me, I could say: 'Hey, I wasn't talking to YOU. I was talking to my six-year-old.'"
+        </p>
+      </div>
+
+      <div class="humor-beat">
+        <div class="setup">
+          "There was just one problem..."
+        </div>
+        <div class="punchline">
+          "My son was six. He didn't give a shit either."
+        </div>
+        <div class="delivery">
+          <strong>Timing:</strong> Pause after "one problem" - let anticipation build. Deliver punchline with a slight head shake and self-deprecating smile.
+        </div>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 3</span>
+        "This is literally how my videos started: 'Hey Hayden, check it out...'"
+      </div>
+
+      <div class="humor-beat">
+        <div class="setup">
+          "I'd start every video with 'Hey Hayden' - and I'd end every video with 'Miss you, Hayden. See you soon.'"
+        </div>
+        <div class="punchline">
+          "That way, nobody could tell me I sucked. Because technically, I wasn't talking to them."
+        </div>
+        <div class="delivery">
+          <strong>Timing:</strong> Lean in like sharing a secret. Make air quotes around "technically."
+        </div>
+      </div>
+
+      <div class="delivery-note">
+        Show vulnerability here. This isn't bragging about growth - it's admitting how scared you were.
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 4-5</span>
+        "I went from 30,000 followers to 1.1 million. And it didn't happen because I got less scared. It happened because I built a system."
+      </div>
+
+      <div class="transition">
+        "Let me show you what changed everything."
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- PART 2: THE NEW FOUNDER ERA -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="section-number">2</span>
+        <h2 class="title-bold-5">The New Founder Era</h2>
+        <span class="timing-badge">5 min</span>
+        <span class="slide-ref">Slides 6-13</span>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 6</span>
+        "Part One: The New Founder Era."
+      </div>
+
+      <div class="key-point">
+        <p><strong>The Three Truths:</strong></p>
+        <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+          <li>People buy what you stand for, not what you sell</li>
+          <li>Your company's brand grows only as far as your own evolution</li>
+          <li>You are your company's greatest marketing weapon</li>
+        </ol>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 8</span>
+        "Here's a stat that blew my mind. My personal Instagram gets <strong>three times</strong> the engagement of Mindvalley's company account. Three times. And we have a professional social team running that account."
+      </div>
+
+      <div class="humor-beat">
+        <div class="setup">
+          "People don't want to follow companies."
+        </div>
+        <div class="punchline">
+          "They want to follow humans. Even weird ones."
+          <br><br>
+          <em>(point to self)</em> "Especially weird ones, apparently."
+        </div>
+        <div class="delivery">
+          <strong>Timing:</strong> Pause after "humans." Then add "Even weird ones" with a slight smile. The self-point comes after audience laugh.
+        </div>
+      </div>
+
+      <div class="audience-moment">
+        <p><strong>Ask:</strong> "How many of you have a company social account that gets more engagement than your personal one?"</p>
+        <p style="margin-top: 0.5rem;"><em>Wait for hands - usually very few</em></p>
+        <p style="margin-top: 0.5rem;">"Exactly. The world has shifted. We just haven't shifted with it."</p>
+      </div>
+
+      <!-- Nora Story -->
+      <div class="story-box">
+        <div class="story-title">Nora Banani - Female Founder of the Year</div>
+        <p>
+          "Let me tell you about Nora. She runs Alba Health - it's a gut microbiome testing company for kids. Basically, parents send in a swab of their kid's poop, and she tells them what's actually going on in their child's health."
+        </p>
+      </div>
+
+      <div class="humor-beat">
+        <div class="setup">
+          "So her company analyzes children's poop."
+        </div>
+        <div class="punchline">
+          "And she just won Female Founder of the Year in Europe. Goes to show - there's gold in them hills."
+        </div>
+        <div class="delivery">
+          <strong>Timing:</strong> Deadpan the first line. Pause. Then deliver "gold in them hills" with raised eyebrows.
+        </div>
+      </div>
+
+      <div class="script-line">
+        "Nora was about to go on stage at a major conference. She had her pitch deck ready - all about the technology, the science, the testing process. Fifteen minutes before she went on, she threw it all out."
+      </div>
+
+      <div class="script-line">
+        "Instead of pitching technology, she pitched a <strong>movement</strong>. 'I'm not just selling gut tests. I'm building a movement for children's health. Big pharma keeps our kids sick with prescriptions when the real problem might just be fiber.'"
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 12</span>
+        "The results: Sales tripled. Her website got more traffic in one week than the previous three months combined. Her team was packing orders until 11pm."
+      </div>
+
+      <div class="key-point">
+        <p><strong>Don't build a product. Build a movement.</strong></p>
+        <p style="margin-top: 0.5rem;">Before you think about tactics, ask: What movement am I building? What do I stand for that's bigger than my product?</p>
+      </div>
+
+      <div class="transition">
+        "Now let's talk about where you build that movement."
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- PART 3: FOUNDER MEDIA ECOSYSTEM -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="section-number">3</span>
+        <h2 class="title-bold-5">The Founder Media Ecosystem</h2>
+        <span class="timing-badge">5 min</span>
+        <span class="slide-ref">Slides 14-21</span>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 14-15</span>
+        "I brought in an advisor named Sabrina Stocker. She's 29, was on The Apprentice UK, and she completely rewired how I think about platforms. She taught me that each platform is a different room with different rules."
+      </div>
+
+      <div class="key-point">
+        <p><strong>The Four Rooms:</strong></p>
+        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+          <li><strong>YouTube = The Classroom</strong> — Educate and inspire. Coffee conversation energy.</li>
+          <li><strong>LinkedIn = The Boardroom</strong> — Lead with vulnerability. Text beats video.</li>
+          <li><strong>Instagram = The Cafe</strong> — Entertainment first. Side-angle camera.</li>
+          <li><strong>Newsletter = The Sanctuary</strong> — You OWN this list. No algorithm can throttle you.</li>
+        </ul>
+      </div>
+
+      <div class="delivery-note">
+        Walk through each platform with hand gestures - physically point to different parts of the room as if placing each platform there.
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 16</span>
+        "On YouTube, you talk straight to camera. Like we're having coffee. You're the teacher, they're the student."
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 17</span>
+        "On LinkedIn, something weird happens: text beats video. People are browsing at work. They can't watch a video with their boss walking by. So you write. And the winners? They don't share their wins - they share what went wrong."
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 18</span>
+        "On Instagram, it's entertainment. The camera is to the side - like you're being interviewed on a talk show. People are scrolling for dopamine, so you give them emotion."
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 19</span>
+        "And newsletter - this is your sanctuary. Unlike every other platform, you OWN this list. Instagram can throttle you. YouTube can demonetize you. But your email list? That's yours forever."
+      </div>
+
+      <div class="humor-beat">
+        <div class="setup">
+          <span class="visual-cue">SLIDE 20</span>
+          "Here's a pro tip. Record with two cameras at once. Front camera for YouTube. Side camera for Instagram."
+        </div>
+        <div class="punchline">
+          "One recording. Two pieces of content. That's not lazy - that's leverage."
+        </div>
+        <div class="delivery">
+          <strong>Timing:</strong> Wink on "That's not lazy" - make it clear you're being playful.
+        </div>
+      </div>
+
+      <div class="audience-moment">
+        <p><strong>Ask:</strong> "Which platform should you choose?"</p>
+        <p style="margin-top: 0.5rem;"><em>Pause for audience to think</em></p>
+        <p style="margin-top: 0.5rem;"><span class="visual-cue">SLIDE 21</span> "The one you'll actually use. That's it. Most of us know what we should do. The question is whether we'll do it."</p>
+      </div>
+
+      <div class="transition">
+        "Now let's talk about something that's going to change everything in the next 12 months."
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- PART 4: VECTOR SCIENCE -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="section-number">4</span>
+        <h2 class="title-bold-5">Vector Science & AEO</h2>
+        <span class="timing-badge">4 min</span>
+        <span class="slide-ref">Slides 22-25</span>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 22-23</span>
+        "There's a new game being played, and most people don't even know it exists. It's called AI Engine Optimization - or AEO. And it's about how AI decides who gets found."
+      </div>
+
+      <div class="key-point">
+        <p><strong>Vector Science:</strong> AI doesn't just search for keywords. It creates associations. It builds vectors - invisible lines connecting you to concepts.</p>
+        <p style="margin-top: 0.5rem;">When someone asks AI "Who are the best speakers on personal growth?" - your name either appears... or it doesn't. And that depends on the associations you've built.</p>
+      </div>
+
+      <div class="humor-beat">
+        <div class="setup">
+          "I asked ChatGPT who I was."
+        </div>
+        <div class="punchline">
+          "It got my birthday wrong, said I founded Mindvalley in the wrong year, and mentioned a book I never wrote. But hey - at least it knew I existed."
+        </div>
+        <div class="delivery">
+          <strong>Timing:</strong> Build frustration with the list of errors. Throw hands up on "at least it knew I existed."
+        </div>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 25</span>
+        "Here's the critical window: 6 to 12 months. Those who understand vector science now will be exponentially ahead. And once that gap opens up... it will be <em>very</em> hard to catch up."
+      </div>
+
+      <div class="delivery-note">
+        Lean in with urgency here. This should feel like sharing insider information.
+      </div>
+
+      <div class="transition">
+        "But here's the thing - AI can only help you if it knows who you are."
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- PART 5: PERSONAL BRAND OS -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="section-number">5</span>
+        <h2 class="title-bold-5">Personal Brand Operating System</h2>
+        <span class="timing-badge">6 min</span>
+        <span class="slide-ref">Slides 26-31</span>
+      </div>
+
+      <div class="humor-beat">
+        <div class="setup">
+          <span class="visual-cue">SLIDE 27</span>
+          "Have you ever typed a prompt into ChatGPT asking it to write a LinkedIn post for you?"
+        </div>
+        <div class="punchline">
+          "And it comes back sounding like a motivational poster had a baby with a corporate memo? And you close the tab in disgust?"
+        </div>
+        <div class="delivery">
+          <strong>Timing:</strong> Make a disgusted face. Mime closing a laptop aggressively.
+        </div>
+      </div>
+
+      <div class="script-line">
+        "The problem isn't AI. The problem is AI doesn't know you yet. You need to build your Personal Brand Operating System first."
+      </div>
+
+      <div class="key-point">
+        <p><strong>The 5-Step Personal Brand OS:</strong></p>
+        <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+          <li><strong>Your Story</strong> — Go for a coffee walk. Record your life story with Otter AI.</li>
+          <li><strong>Online Identity</strong> — Feed AI your existing content so it knows your voice.</li>
+          <li><strong>Role Models</strong> — Who do you want to be like online? Your top 5-10.</li>
+          <li><strong>Boundaries</strong> — What do you NOT want to share?</li>
+          <li><strong>Vision & Goals</strong> — What are you actually trying to achieve?</li>
+        </ol>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 30</span>
+        "Step one: Go for a coffee walk. Use Otter AI or just the voice memo on your phone. Tell your life story. Childhood. What made you angry. What excited you. How you ended up here."
+      </div>
+
+      <div class="story-box">
+        <div class="story-title">The Coffee Walk</div>
+        <p>
+          "The first time I did this, I walked for 45 minutes around my neighborhood. I talked about growing up in Malaysia. I talked about my dad's philosophy. I talked about the exact moment I decided to leave my job at Microsoft. By the end, I had forgotten I was recording."
+        </p>
+        <p style="margin-top: 1rem;">
+          "That's when the gold comes out - when you forget you're performing."
+        </p>
+      </div>
+
+      <div class="humor-beat">
+        <div class="setup">
+          <span class="visual-cue">SLIDE 31</span>
+          "Step four is boundaries. What do you NOT want to share?"
+        </div>
+        <div class="punchline">
+          "For me, it's pictures of my kids. I don't share them. And I made that very clear to my AI. Now when it suggests content ideas, it never suggests 'Post a cute photo of your kids!' Because it knows I'll throw my laptop across the room."
+        </div>
+        <div class="delivery">
+          <strong>Timing:</strong> Start serious, then exaggerate the "throw my laptop" for comedic effect.
+        </div>
+      </div>
+
+      <div class="transition">
+        "Now let's get tactical. Platform by platform."
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- PART 6: PLATFORM STRATEGIES -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="section-number">6</span>
+        <h2 class="title-bold-5">Platform Strategies</h2>
+        <span class="timing-badge">10 min</span>
+        <span class="slide-ref">Slides 32-43</span>
+      </div>
+
+      <!-- YOUTUBE -->
+      <h3 class="title-bold-6" style="margin-top: 2rem; color: #7a12d4;">YouTube Strategy</h3>
+
+      <div class="story-box">
+        <div class="story-title">The Daniel Priestly Model</div>
+        <p>
+          "Daniel Priestly has built $700 million in companies. His YouTube strategy? He sits in front of a camera and teaches. That's it. No fancy production. No B-roll of him walking on a beach. Just Daniel, talking to camera, like you're across the table."
+        </p>
+        <p style="margin-top: 1rem;">
+          <span class="visual-cue">SLIDE 34</span> "Result: 84,000 views on videos with only 61,000 subscribers. That ratio is insane."
+        </p>
+      </div>
+
+      <div class="humor-beat">
+        <div class="setup">
+          <span class="visual-cue">SLIDE 35</span>
+          "I made a video about ChatGPT. It got 700,000 views on Instagram. Want to guess how it did on YouTube?"
+        </div>
+        <div class="punchline">
+          "4,200 views. Same video. Same content. Different platform."
+        </div>
+        <div class="delivery">
+          <strong>Timing:</strong> Let audience guess. Then deliver "4,200" with deadpan disappointment.
+        </div>
+      </div>
+
+      <div class="script-line">
+        "The problem was the title. I called it 'The Rise of ChatGPT.' That's a documentary title, not a YouTube title."
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 36</span>
+        "A better title? 'The #1 Reason You'll Be Left Behind by AI in 2026.' Now THAT makes you click."
+      </div>
+
+      <div class="key-point">
+        <p><strong>The Iman Gadzhi Model:</strong> Your educational video naturally leads to your offer. At the end, invite them to watch a "30-minute deep dive" - which is actually your sales presentation.</p>
+        <p style="margin-top: 0.5rem;">First video = Content. End CTA = Offer.</p>
+      </div>
+
+      <!-- LINKEDIN -->
+      <h3 class="title-bold-6" style="margin-top: 2rem; color: #7a12d4;">LinkedIn Strategy</h3>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 38</span>
+        "On LinkedIn, the biggest winners aren't sharing their wins. They're sharing what went wrong."
+      </div>
+
+      <div class="humor-beat">
+        <div class="setup">
+          "I used to share posts like: 'Just hit $100 million in revenue! Here's what I learned!'"
+        </div>
+        <div class="punchline">
+          "Those got like 47 likes. From my mom. And employees who were afraid of getting fired."
+        </div>
+        <div class="delivery">
+          <strong>Timing:</strong> Fake enthusiasm on the first line. Then deflate completely on "47 likes."
+        </div>
+      </div>
+
+      <div class="story-box">
+        <div class="story-title">The Fake Name Story</div>
+        <p>
+          "When I first started selling meditation CDs online, I was so embarrassed that I used a fake name. My friends from Michigan were becoming lawyers and consultants. I was selling MP3s about breathing. I literally hid behind a pseudonym because I was afraid my friends would find out."
+        </p>
+        <p style="margin-top: 1rem;">
+          "THAT story? That gets engagement. Because it's vulnerable. It's real. It's messy."
+        </p>
+      </div>
+
+      <div class="key-point">
+        <p><strong>The Likability Principle (Cialdini):</strong> People buy from people they like. And people like you because of:</p>
+        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+          <li>Vulnerability</li>
+          <li>Authenticity</li>
+          <li>Humor</li>
+        </ul>
+      </div>
+
+      <!-- NEWSLETTER -->
+      <h3 class="title-bold-6" style="margin-top: 2rem; color: #7a12d4;">Newsletter Strategy</h3>
+
+      <div class="story-box">
+        <div class="story-title">The $2.5 Million Newsletter</div>
+        <p>
+          <span class="visual-cue">SLIDE 40</span> "In December, I started writing a weekly newsletter. Real stories. A dinner conversation with Paul McKenna. A photo my son took. Super personal stuff."
+        </p>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 41</span>
+        "The year before I started: email revenue down 38%. After I started: email revenue UP 44%."
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 42</span>
+        "I did the math. I wrote 45 newsletters. We made an extra $2.5 million. That's $56,000 per newsletter."
+      </div>
+
+      <div class="humor-beat">
+        <div class="setup">
+          "And here's the crazy part: the newsletter doesn't sell anything."
+        </div>
+        <div class="punchline">
+          "There's no pitch. No 'click here to buy.' It just builds trust. And when I eventually do offer something... they're ready."
+        </div>
+        <div class="delivery">
+          <strong>Timing:</strong> Let "doesn't sell anything" land with surprise. Then explain the mechanism.
+        </div>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 43</span>
+        "An email subscriber is worth more than a follower. Because no algorithm can throttle your list. You own it."
+      </div>
+
+      <div class="transition">
+        "Now let me show you how all of this connects."
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- PART 7: CONTENT FLYWHEEL -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="section-number">7</span>
+        <h2 class="title-bold-5">The Content Flywheel</h2>
+        <span class="timing-badge">4 min</span>
+        <span class="slide-ref">Slides 44-46</span>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 45</span>
+        "One piece of content. Multiple platforms. Maximum leverage."
+      </div>
+
+      <div class="key-point">
+        <p><strong>The Flywheel:</strong></p>
+        <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+          <li>Write your newsletter (core content)</li>
+          <li>Extract LinkedIn posts (each lesson = one post)</li>
+          <li>Turn it into a video script with AI</li>
+          <li>Record from two angles (front for YouTube, side for Instagram)</li>
+          <li>Create clips for TikTok/Instagram Reels</li>
+          <li>Send reflection email to continue the conversation</li>
+        </ol>
+      </div>
+
+      <div class="humor-beat">
+        <div class="setup">
+          "Some people call this 'repurposing.' I call it..."
+        </div>
+        <div class="punchline">
+          "...working smarter while everyone else is burning out creating 47 pieces of original content a week."
+        </div>
+        <div class="delivery">
+          <strong>Timing:</strong> Pause like you're searching for a profound word. Then deliver the long punchline with mock seriousness.
+        </div>
+      </div>
+
+      <div class="script-line">
+        "Start with email. It's the least sexy. But it's the most valuable. Then let the flywheel do the rest."
+      </div>
+
+      <div class="transition">
+        "One more thing before we close."
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- PART 8: THE MODERN FOUNDER -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="section-number">8</span>
+        <h2 class="title-bold-5">The Modern Founder Archetype</h2>
+        <span class="timing-badge">3 min</span>
+        <span class="slide-ref">Slides 47-50</span>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 48</span>
+        "You're not just a founder anymore. You are four archetypes in one."
+      </div>
+
+      <div class="key-point">
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>The Teacher</strong> — Share wisdom freely. Teach what you're learning in real time.</li>
+          <li><strong>The Philosopher</strong> — Question norms. Share the deeper why.</li>
+          <li><strong>The Storyteller</strong> — Turn experience into narrative.</li>
+          <li><strong>The Rebel</strong> — Challenge the brules. Break what needs breaking.</li>
+        </ul>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 49</span>
+        "People don't follow products. They follow energy."
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 50</span>
+        "You don't have to shout louder. You just have to speak more authentically."
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- CLOSING -->
+    <div class="section-block">
+      <div class="section-title">
+        <span class="section-number">9</span>
+        <h2 class="title-bold-5">Closing & Call to Action</h2>
+        <span class="timing-badge">3 min</span>
+        <span class="slide-ref">Slides 51-53</span>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 51</span>
+        "Here's your playbook. Pick one platform - I recommend email. Publish one long-form piece weekly. Repurpose across the ecosystem. Be transparent. Build your Personal Brand OS."
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 52</span>
+        "This weekend. Not next month. Not when you 'have more time.' This weekend."
+      </div>
+
+      <div class="audience-moment">
+        <p><strong>Ask:</strong> "Who's going to create their first piece of content this weekend?"</p>
+        <p style="margin-top: 0.5rem;"><em>Get hands raised. Make eye contact with people.</em></p>
+        <p style="margin-top: 0.5rem;">"I'm holding you to it."</p>
+      </div>
+
+      <div class="story-box">
+        <div class="story-title">The Jay Shetty Moment</div>
+        <p>
+          "I was 44 years old when I finally started. Jay Shetty looked at me and said: 'V, it's all bullshit excuses. Just start.' He was right. Every excuse I had was just fear wearing a costume."
+        </p>
+      </div>
+
+      <div class="script-line">
+        <span class="visual-cue">SLIDE 53</span>
+        "The visibility wound may have held you back before. But you've done the inner work. Now you have the outer system."
+      </div>
+
+      <div class="delivery-note">
+        Slow down here. Let the words land. This is the emotional close.
+      </div>
+
+      <div class="script-line" style="font-size: 1.25rem; font-weight: 600; color: #7a12d4;">
+        "It's time to be seen."
+      </div>
+
+      <div class="delivery-note">
+        Hold silence for 3 full seconds after this line. Then: "Thank you."
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- HUMOR BEAT SUMMARY -->
+    <div style="background: #fef3c7; border-radius: 1rem; padding: 2rem; margin-top: 3rem;">
+      <h2 class="title-bold-5" style="margin-bottom: 1.5rem;">Humor Beat Quick Reference</h2>
+      <ol style="margin-left: 1.5rem;">
+        <li style="margin-bottom: 0.75rem;"><strong>"Hey Hayden"</strong> — My son was 6. He didn't give a shit either.</li>
+        <li style="margin-bottom: 0.75rem;"><strong>Miss you Hayden</strong> — That way nobody could tell me I sucked.</li>
+        <li style="margin-bottom: 0.75rem;"><strong>Following humans</strong> — Even weird ones. Especially weird ones.</li>
+        <li style="margin-bottom: 0.75rem;"><strong>Nora's company</strong> — Gold in them hills. (re: poop)</li>
+        <li style="margin-bottom: 0.75rem;"><strong>Platform choice</strong> — The one you'll actually use.</li>
+        <li style="margin-bottom: 0.75rem;"><strong>Two cameras</strong> — That's not lazy, that's leverage.</li>
+        <li style="margin-bottom: 0.75rem;"><strong>ChatGPT identity</strong> — At least it knew I existed.</li>
+        <li style="margin-bottom: 0.75rem;"><strong>AI LinkedIn post</strong> — Motivational poster had a baby with corporate memo.</li>
+        <li style="margin-bottom: 0.75rem;"><strong>Laptop across room</strong> — Re: kids photos boundary.</li>
+        <li style="margin-bottom: 0.75rem;"><strong>YouTube vs Instagram</strong> — Same video. 700K vs 4.2K.</li>
+        <li style="margin-bottom: 0.75rem;"><strong>47 likes from mom</strong> — And employees afraid of getting fired.</li>
+        <li style="margin-bottom: 0.75rem;"><strong>Repurposing</strong> — Working smarter while everyone burns out.</li>
+      </ol>
+    </div>
+
+  </main>
+
+  <footer class="mv-container" style="padding: 3rem 0; border-top: 1px solid #e8e0f0; margin-top: 3rem; color: #6b7280; text-align: center;">
+    <p class="body-sm">The Founder's Content System | Instructor Notes</p>
+    <p class="body-sm" style="margin-top: 0.5rem;">Social Media Summit 2026</p>
+  </footer>
+
+</body>
+</html>
