@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary SEO -->
+  <title>Cross-Project Analysis — Mindvalley Application Ecosystem</title>
+  <meta name="description" content="Comprehensive analysis of four Mindvalley applications: MV Peers, Life Manager, Program Manager, and SpeechOS. Patterns, innovations, and integration strategies." />
+  <meta name="keywords" content="Mindvalley, MV Peers, Life Manager, Program Manager, SpeechOS, AI, architecture analysis" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Cross-Project Analysis — Mindvalley Application Ecosystem" />
+  <meta property="og:description" content="Deep dive into patterns, innovations, and synergies across four AI-powered applications." />
+  <meta property="og:site_name" content="Mindvalley" />
+
+  <!-- Open Graph URL -->
+  <meta property="og:url" content="https://vishenl.github.io/workspace/cross-project-analysis.html" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cross-Project Analysis — Mindvalley Application Ecosystem" />
+  <meta name="twitter:description" content="Deep dive into patterns, innovations, and synergies across four AI-powered applications." />
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#7a12d4" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔬</text></svg>">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="mindvalley-core.css" />
+
+  <style>
+    /* Custom styles for this document */
+    .analysis-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+    .analysis-table th,
+    .analysis-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .analysis-table th {
+      background-color: #f9f7fc;
+      font-weight: 600;
+      color: #0f131a;
+    }
+    .analysis-table tr:hover {
+      background-color: #faf9fc;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .badge-critical { background-color: #fee2e2; color: #dc2626; }
+    .badge-high { background-color: #ffedd5; color: #ea580c; }
+    .badge-medium { background-color: #fef3c7; color: #d97706; }
+    .badge-low { background-color: #dbeafe; color: #2563eb; }
+    .badge-success { background-color: #d1fae5; color: #059669; }
+    .badge-purple { background-color: #f3e8ff; color: #7a12d4; }
+
+    .card {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .card-lavender {
+      background: #f9f7fc;
+    }
+
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      background: #f3e8ff;
+    }
+
+    .stars {
+      color: #7a12d4;
+      letter-spacing: 2px;
+    }
+
+    .code-block {
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .code-block .comment { color: #6b7280; }
+    .code-block .keyword { color: #c084fc; }
+    .code-block .string { color: #86efac; }
+    .code-block .function { color: #60a5fa; }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #e5e7eb 20%, #e5e7eb 80%, transparent);
+      margin: 3rem 0;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid #e5e7eb;
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #7a12d4;
+    }
+    .stat-label {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    .architecture-diagram {
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      font-family: 'SF Mono', 'Monaco', monospace;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .toc {
+      background: #f9f7fc;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      columns: 2;
+      column-gap: 2rem;
+    }
+    .toc-list li {
+      margin-bottom: 0.5rem;
+    }
+    .toc-list a {
+      color: #7a12d4;
+      text-decoration: none;
+    }
+    .toc-list a:hover {
+      text-decoration: underline;
+    }
+
+    .philosophy-card {
+      background: linear-gradient(135deg, #f9f7fc 0%, #f3e8ff 100%);
+      border-left: 4px solid #7a12d4;
+      padding: 1.5rem;
+      border-radius: 0 1rem 1rem 0;
+      margin: 1rem 0;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .flow-number {
+      width: 28px;
+      height: 28px;
+      background: #7a12d4;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .project-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .toc-list {
+        columns: 1;
+      }
+      .grid-2, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body style="background-color: #ffffff;">
+
+  <!-- Hero Section -->
+  <section class="mv-container" style="padding: 5rem 0 3rem 0;">
+    <div class="overline-text" style="margin-bottom: 1rem; color: #7a12d4;">
+      TECHNICAL ANALYSIS REPORT
+    </div>
+    <h1 class="title-bold-1" style="max-width: 48rem; margin: 0 0 1.25rem 0;">
+      Cross-Project Analysis
+    </h1>
+    <p class="body-lg" style="max-width: 40rem; color: #4b5563; margin-bottom: 2rem;">
+      A comprehensive analysis of patterns, innovations, and synergies across four AI-powered Mindvalley applications.
+    </p>
+
+    <!-- Quick Stats -->
+    <div class="grid-4" style="margin-top: 2.5rem;">
+      <div class="stat-card">
+        <div class="stat-number">4</div>
+        <div class="stat-label">Applications Analyzed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">50K+</div>
+        <div class="stat-label">Lines of Code</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Reusable Philosophies</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">8</div>
+        <div class="stat-label">Shared Components</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="mv-container" style="padding: 0 0 3rem 0;">
+    <div class="toc">
+      <h2 class="title-bold-6" style="margin-bottom: 1.25rem;">Contents</h2>
+      <ul class="toc-list">
+        <li><a href="#overview">1. Project Overview</a></li>
+        <li><a href="#doing-right">2. What We're Doing Right</a></li>
+        <li><a href="#doing-wrong">3. What We're Doing Wrong</a></li>
+        <li><a href="#innovation">4. Innovation Assessment</a></li>
+        <li><a href="#reusable">5. Reusable Components</a></li>
+        <li><a href="#philosophies">6. Reusable Philosophies</a></li>
+        <li><a href="#integration">7. Integration Architecture</a></li>
+        <li><a href="#recommendations">8. Strategic Recommendations</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section 1: Overview -->
+  <section id="overview" class="mv-container" style="padding: 3rem 0;">
+    <div class="overline-text" style="margin-bottom: 1rem; color: #7a12d4;">SECTION 1</div>
+    <h2 class="title-bold-3" style="margin-bottom: 2rem;">Project Overview</h2>
+
+    <div class="grid-2">
+      <!-- MV Peers -->
+      <div class="card">
+        <div class="project-header">
+          <div class="icon-box">🤝</div>
+          <div>
+            <h3 class="title-bold-6" style="margin: 0;">MV Peers</h3>
+            <span class="badge badge-purple">Knowledge Sharing</span>
+          </div>
+        </div>
+        <p class="body" style="color: #4b5563; margin-bottom: 1rem;">
+          Collaborative knowledge-sharing platform with hierarchical networks and groups. Enables teams to share curated resources with sophisticated tagging and discovery.
+        </p>
+        <p class="body-sm" style="color: #6b7280;">
+          <strong>Core Innovation:</strong> Auto-tagging via AI, three-tier permission hierarchy
+        </p>
+      </div>
+
+      <!-- Life Manager -->
+      <div class="card">
+        <div class="project-header">
+          <div class="icon-box">🧠</div>
+          <div>
+            <h3 class="title-bold-6" style="margin: 0;">Life Manager</h3>
+            <span class="badge badge-purple">Personal Execution</span>
+          </div>
+        </div>
+        <p class="body" style="color: #4b5563; margin-bottom: 1rem;">
+          AI-powered personal productivity system for executives managing complex, multi-dimensional lives across 13 life areas. Features TIE (The Intelligence Engine).
+        </p>
+        <p class="body-sm" style="color: #6b7280;">
+          <strong>Core Innovation:</strong> AI intent parsing, Propose-Confirm-Commit pattern
+        </p>
+      </div>
+
+      <!-- Program Manager -->
+      <div class="card">
+        <div class="project-header">
+          <div class="icon-box">📚</div>
+          <div>
+            <h3 class="title-bold-6" style="margin: 0;">Program Manager</h3>
+            <span class="badge badge-purple">Course Learning</span>
+          </div>
+        </div>
+        <p class="body" style="color: #4b5563; margin-bottom: 1rem;">
+          AI-powered education platform for Mindvalley courses with grounded Q&A, Study Buddy, and an Intelligence Router supporting 25+ content generation types.
+        </p>
+        <p class="body-sm" style="color: #6b7280;">
+          <strong>Core Innovation:</strong> Grounded AI (zero hallucination), Workspace Intelligence
+        </p>
+      </div>
+
+      <!-- SpeechOS -->
+      <div class="card">
+        <div class="project-header">
+          <div class="icon-box">🎤</div>
+          <div>
+            <h3 class="title-bold-6" style="margin: 0;">SpeechOS</h3>
+            <span class="badge badge-purple">Speaking Content</span>
+          </div>
+        </div>
+        <p class="body" style="color: #4b5563; margin-bottom: 1rem;">
+          Personal brand content management for speakers and thought leaders. ATOMizes content into reusable units with Voice Profile for authentic AI outputs.
+        </p>
+        <p class="body-sm" style="color: #6b7280;">
+          <strong>Core Innovation:</strong> Voice Profile system, hierarchical content extraction
+        </p>
+      </div>
+    </div>
+
+    <!-- Tech Stack -->
+    <div class="card card-lavender" style="margin-top: 2rem;">
+      <h3 class="title-bold-6" style="margin-bottom: 1rem;">Shared Tech Stack</h3>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+        <span class="badge badge-purple">React 18</span>
+        <span class="badge badge-purple">Vite 5</span>
+        <span class="badge badge-purple">Supabase</span>
+        <span class="badge badge-purple">TailwindCSS</span>
+        <span class="badge badge-purple">Mindvalley Design System</span>
+        <span class="badge badge-purple">OpenAI GPT-4</span>
+        <span class="badge badge-purple">Anthropic Claude</span>
+        <span class="badge badge-purple">Auth0 / Supabase Auth</span>
+        <span class="badge badge-purple">Google Cloud Run</span>
+        <span class="badge badge-purple">Docker</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="mv-container"><div class="section-divider"></div></div>
+
+  <!-- Section 2: What We're Doing Right -->
+  <section id="doing-right" class="mv-container" style="padding: 3rem 0;">
+    <div class="overline-text" style="margin-bottom: 1rem; color: #7a12d4;">SECTION 2</div>
+    <h2 class="title-bold-3" style="margin-bottom: 2rem;">What We're Doing Right ✅</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 class="title-bold-6" style="margin-bottom: 0.75rem;">1. Consistent Tech Stack</h3>
+        <p class="body" style="color: #4b5563;">
+          All four projects share React 18, Vite, Supabase, and TailwindCSS. This reduces cognitive load when switching projects and enables code sharing.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="title-bold-6" style="margin-bottom: 0.75rem;">2. AI as First-Class Citizen</h3>
+        <p class="body" style="color: #4b5563;">
+          Every project treats AI as core functionality, not an afterthought. Deep integrations with Claude and GPT-4 power intelligent features throughout.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="title-bold-6" style="margin-bottom: 0.75rem;">3. Propose-Confirm-Commit Pattern</h3>
+        <p class="body" style="color: #4b5563;">
+          Life Manager's innovative pattern: AI generates proposal → User reviews → Confirm/Reject → Execute. Prevents accidents and provides audit trail.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="title-bold-6" style="margin-bottom: 0.75rem;">4. Grounded AI Principle</h3>
+        <p class="body" style="color: #4b5563;">
+          Program Manager enforces that AI answers ONLY come from actual content. Citation extraction, source linking, and validation layer prevent hallucination.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="title-bold-6" style="margin-bottom: 0.75rem;">5. Voice Profile Innovation</h3>
+        <p class="body" style="color: #4b5563;">
+          SpeechOS analyzes writing samples to create reusable "voice prompts" that maintain authentic style across all AI-generated content.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="title-bold-6" style="margin-bottom: 0.75rem;">6. Platform Prompts System</h3>
+        <p class="body" style="color: #4b5563;">
+          Database-driven prompt management lets super admins customize ANY AI prompt without code changes. Enables A/B testing and rapid iteration.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="title-bold-6" style="margin-bottom: 0.75rem;">7. Role-Based Access Control</h3>
+        <p class="body" style="color: #4b5563;">
+          Well-implemented RBAC in all projects with hierarchical permissions. Super Admin → Admin → User with proper inheritance.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 class="title-bold-6" style="margin-bottom: 0.75rem;">8. Row-Level Security (RLS)</h3>
+        <p class="body" style="color: #4b5563;">
+          All projects use Supabase RLS for database-level security. Defense in depth that prevents data leakage even if frontend is compromised.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="mv-container"><div class="section-divider"></div></div>
+
+  <!-- Section 3: What We're Doing Wrong -->
+  <section id="doing-wrong" class="mv-container" style="padding: 3rem 0;">
+    <div class="overline-text" style="margin-bottom: 1rem; color: #7a12d4;">SECTION 3</div>
+    <h2 class="title-bold-3" style="margin-bottom: 2rem;">What We're Doing Wrong ❌</h2>
+
+    <!-- Critical Security Issues -->
+    <div class="card" style="border-left: 4px solid #dc2626;">
+      <h3 class="title-bold-6" style="margin-bottom: 1rem; color: #dc2626;">🚨 Critical Security Issues</h3>
+      <table class="analysis-table">
+        <thead>
+          <tr>
+            <th>Issue</th>
+            <th>Projects Affected</th>
+            <th>Risk Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Browser-exposed API keys</td>
+            <td>SpeechOS, Life Manager</td>
+            <td><span class="badge badge-critical">CRITICAL</span></td>
+          </tr>
+          <tr>
+            <td><code>dangerouslyAllowBrowser: true</code></td>
+            <td>SpeechOS</td>
+            <td><span class="badge badge-critical">CRITICAL</span></td>
+          </tr>
+          <tr>
+            <td>Debug logging to localhost</td>
+            <td>Life Manager</td>
+            <td><span class="badge badge-high">HIGH</span></td>
+          </tr>
+          <tr>
+            <td>RLS disabled on some tables</td>
+            <td>SpeechOS, Program Manager</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+          </tr>
+          <tr>
+            <td>Email-based admin detection</td>
+            <td>SpeechOS</td>
+            <td><span class="badge badge-medium">MEDIUM</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="code-block" style="margin-top: 1rem;">
+<span class="comment">// ❌ Current (insecure)</span>
+<span class="keyword">const</span> openai = <span class="keyword">new</span> <span class="function">OpenAI</span>({
+  apiKey: VITE_OPENAI_KEY,
+  dangerouslyAllowBrowser: <span class="keyword">true</span>
+})
+
+<span class="comment">// ✅ Recommended - Route through Edge Functions</span>
+<span class="keyword">const</span> { data } = <span class="keyword">await</span> supabase.functions.<span class="function">invoke</span>(<span class="string">'openai-proxy'</span>, {
+  body: { prompt }
+})</div>
+    </div>
+
+    <!-- Technical Debt -->
+    <h3 class="title-bold-5" style="margin: 2rem 0 1rem 0;">Technical Debt Across Projects</h3>
+
+    <div class="grid-2">
+      <div class="card">
+        <h4 class="title-bold-7" style="margin-bottom: 0.5rem;">No TypeScript</h4>
+        <p class="body-sm" style="color: #4b5563;">
+          All four projects use plain JavaScript. Runtime errors that could be caught at compile time. No autocomplete/IntelliSense benefits.
+        </p>
+      </div>
+
+      <div class="card">
+        <h4 class="title-bold-7" style="margin-bottom: 0.5rem;">No Automated Tests</h4>
+        <p class="body-sm" style="color: #4b5563;">
+          Zero test coverage visible in any project. Manual QA only means regression risk on every change.
+        </p>
+      </div>
+
+      <div class="card">
+        <h4 class="title-bold-7" style="margin-bottom: 0.5rem;">Inconsistent Error Handling</h4>
+        <p class="body-sm" style="color: #4b5563;">
+          Generic "Failed to load" messages. No structured logging (Sentry, DataDog). Silent <code>.catch(() => {})</code> patterns.
+        </p>
+      </div>
+
+      <div class="card">
+        <h4 class="title-bold-7" style="margin-bottom: 0.5rem;">N+1 Query Problems</h4>
+        <p class="body-sm" style="color: #4b5563;">
+          Multiple sequential database calls instead of batching. Should use <code>Promise.all()</code> or GraphQL.
+        </p>
+      </div>
+
+      <div class="card">
+        <h4 class="title-bold-7" style="margin-bottom: 0.5rem;">Large Monolithic Files</h4>
+        <p class="body-sm" style="color: #4b5563;">
+          SpeechOS has 84KB and 70KB files. Should be code-split for better maintainability and bundle size.
+        </p>
+      </div>
+
+      <div class="card">
+        <h4 class="title-bold-7" style="margin-bottom: 0.5rem;">No Real-Time Updates</h4>
+        <p class="body-sm" style="color: #4b5563;">
+          All projects use polling, not Supabase Realtime. Missed opportunity for collaborative features.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="mv-container"><div class="section-divider"></div></div>
+
+  <!-- Section 4: Innovation Assessment -->
+  <section id="innovation" class="mv-container" style="padding: 3rem 0;">
+    <div class="overline-text" style="margin-bottom: 1rem; color: #7a12d4;">SECTION 4</div>
+    <h2 class="title-bold-3" style="margin-bottom: 2rem;">Innovation Level Assessment 🚀</h2>
+
+    <table class="analysis-table">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Innovation Score</th>
+          <th>Key Innovation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Life Manager</strong></td>
+          <td><span class="stars">⭐⭐⭐⭐⭐</span> 95/100</td>
+          <td>TIE separates AI reasoning from UI. Propose-Confirm-Commit is genuinely novel.</td>
+        </tr>
+        <tr>
+          <td><strong>SpeechOS</strong></td>
+          <td><span class="stars">⭐⭐⭐⭐⭐</span> 90/100</td>
+          <td>Voice Profile + ATOMize extraction. No competitor offers this combination.</td>
+        </tr>
+        <tr>
+          <td><strong>Program Manager</strong></td>
+          <td><span class="stars">⭐⭐⭐⭐</span> 85/100</td>
+          <td>Grounded AI with zero hallucination. Intelligence Router for 25+ content types.</td>
+        </tr>
+        <tr>
+          <td><strong>MV Peers</strong></td>
+          <td><span class="stars">⭐⭐⭐⭐</span> 75/100</td>
+          <td>Solid implementation. Auto-tagging is useful but less groundbreaking.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="grid-2" style="margin-top: 2rem;">
+      <div class="card card-lavender">
+        <h3 class="title-bold-6" style="margin-bottom: 1rem;">Life Manager's TIE</h3>
+        <ul class="body" style="color: #4b5563; padding-left: 1.25rem;">
+          <li>Separates presentation (ELIZA) from reasoning (TIE)</li>
+          <li>ELIZA never makes decisions—only renders TIE's output</li>
+          <li>Cross-life-area prioritization (P1 Health vs P1 Work)</li>
+          <li>Dynamic scoring with 6+ weighted factors</li>
+          <li>Natural language bulk operations</li>
+        </ul>
+      </div>
+
+      <div class="card card-lavender">
+        <h3 class="title-bold-6" style="margin-bottom: 1rem;">SpeechOS's Content Philosophy</h3>
+        <ul class="body" style="color: #4b5563; padding-left: 1.25rem;">
+          <li>"ATOMize" - break content into atomic reusable units</li>
+          <li>Stories, Quotes, Data Points as first-class citizens</li>
+          <li>Hierarchical speech outline with drag-drop</li>
+          <li>Delivery mode with live timer and cues</li>
+          <li>Voice Profile for authentic AI outputs</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="mv-container"><div class="section-divider"></div></div>
+
+  <!-- Section 5: Reusable Components -->
+  <section id="reusable" class="mv-container" style="padding: 3rem 0;">
+    <div class="overline-text" style="margin-bottom: 1rem; color: #7a12d4;">SECTION 5</div>
+    <h2 class="title-bold-3" style="margin-bottom: 2rem;">Reusable Components 🔄</h2>
+
+    <table class="analysis-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Source Project</th>
+          <th>Can Reuse In</th>
+          <th>Lines of Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>TIE Core</strong> (intent parsing)</td>
+          <td>Life Manager</td>
+          <td>All projects</td>
+          <td>~1,500</td>
+        </tr>
+        <tr>
+          <td><strong>Platform Prompts System</strong></td>
+          <td>Program Manager</td>
+          <td>All projects</td>
+          <td>~300</td>
+        </tr>
+        <tr>
+          <td><strong>Voice Profile Analyzer</strong></td>
+          <td>SpeechOS</td>
+          <td>Life Manager, Program Manager</td>
+          <td>~200</td>
+        </tr>
+        <tr>
+          <td><strong>Grounded Q&A Engine</strong></td>
+          <td>Program Manager</td>
+          <td>MV Peers, SpeechOS</td>
+          <td>~500</td>
+        </tr>
+        <tr>
+          <td><strong>Bulk Operations Engine</strong></td>
+          <td>Life Manager</td>
+          <td>All projects</td>
+          <td>~1,000</td>
+        </tr>
+        <tr>
+          <td><strong>Intelligence Router</strong></td>
+          <td>Program Manager</td>
+          <td>All projects</td>
+          <td>~800</td>
+        </tr>
+        <tr>
+          <td><strong>RBAC System</strong></td>
+          <td>Life Manager</td>
+          <td>All projects</td>
+          <td>~150</td>
+        </tr>
+        <tr>
+          <td><strong>Propose-Confirm-Commit</strong></td>
+          <td>Life Manager</td>
+          <td>All projects</td>
+          <td>~600</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="mv-container"><div class="section-divider"></div></div>
+
+  <!-- Section 6: Reusable Philosophies -->
+  <section id="philosophies" class="mv-container" style="padding: 3rem 0;">
+    <div class="overline-text" style="margin-bottom: 1rem; color: #7a12d4;">SECTION 6</div>
+    <h2 class="title-bold-3" style="margin-bottom: 2rem;">Reusable Philosophies 💡</h2>
+
+    <div class="philosophy-card">
+      <h3 class="title-bold-6" style="margin-bottom: 0.75rem;">1. "AI as Chief of Staff" Philosophy</h3>
+      <p class="body" style="color: #4b5563; margin-bottom: 0.5rem;"><em>Source: Life Manager</em></p>
+      <p class="body" style="color: #4b5563;">
+        AI handles routine decisions; humans approve significant actions.
+      </p>
+      <div class="code-block" style="margin-top: 1rem;">
+✅ AI suggests: "Based on deadlines, here are your top 3 priorities"
+✅ Human confirms or overrides
+❌ AI auto-executes without user awareness</div>
+    </div>
+
+    <div class="philosophy-card">
+      <h3 class="title-bold-6" style="margin-bottom: 0.75rem;">2. "Grounded Only" Philosophy</h3>
+      <p class="body" style="color: #4b5563; margin-bottom: 0.5rem;"><em>Source: Program Manager</em></p>
+      <p class="body" style="color: #4b5563;">
+        AI answers must trace to source material. No hallucination allowed.
+      </p>
+      <div class="code-block" style="margin-top: 1rem;">
+✅ "According to Chapter 3 of The Code, meditation..."
+❌ "Meditation is generally considered beneficial because..."</div>
+    </div>
+
+    <div class="philosophy-card">
+      <h3 class="title-bold-6" style="margin-bottom: 0.75rem;">3. "ATOMize" Philosophy</h3>
+      <p class="body" style="color: #4b5563; margin-bottom: 0.5rem;"><em>Source: SpeechOS</em></p>
+      <p class="body" style="color: #4b5563;">
+        Break complex content into atomic, reusable units. Each atom can be tagged, linked, converted, and reused.
+      </p>
+      <div class="code-block" style="margin-top: 1rem;">
+Speech → Stories + Quotes + Data Points + Analogies
+
+Each atom can be:
+  • Tagged for discovery
+  • Linked to core ideas
+  • Converted to multiple formats
+  • Reused across speeches</div>
+    </div>
+
+    <div class="philosophy-card">
+      <h3 class="title-bold-6" style="margin-bottom: 0.75rem;">4. "Life Areas" Philosophy</h3>
+      <p class="body" style="color: #4b5563; margin-bottom: 0.5rem;"><em>Source: Life Manager</em></p>
+      <p class="body" style="color: #4b5563;">
+        Don't just manage work—manage your whole life. 13 distinct areas prevent work from dominating everything.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+        <span class="badge badge-purple">🚀 Mindvalley</span>
+        <span class="badge badge-purple">👨‍👧‍👦 Family</span>
+        <span class="badge badge-purple">🏃 Health</span>
+        <span class="badge badge-purple">🎓 Mastery</span>
+        <span class="badge badge-purple">🗺 Adventure</span>
+        <span class="badge badge-purple">📈 Investments</span>
+        <span class="badge badge-purple">💰 Wealth</span>
+        <span class="badge badge-purple">🏡 Homes</span>
+        <span class="badge badge-purple">🌱 Vibrantly</span>
+        <span class="badge badge-purple">💊 States</span>
+        <span class="badge badge-purple">🧠 Learning</span>
+        <span class="badge badge-purple">📖 BookWriting</span>
+        <span class="badge badge-purple">🎤 Speaking</span>
+      </div>
+    </div>
+
+    <div class="philosophy-card">
+      <h3 class="title-bold-6" style="margin-bottom: 0.75rem;">5. "Workspace Intelligence" Philosophy</h3>
+      <p class="body" style="color: #4b5563; margin-bottom: 0.5rem;"><em>Source: Program Manager</em></p>
+      <p class="body" style="color: #4b5563;">
+        Accumulate understanding across content sources. Workspace combines transcripts, FAQs, key ideas, author notes, and external materials.
+      </p>
+    </div>
+
+    <div class="philosophy-card">
+      <h3 class="title-bold-6" style="margin-bottom: 0.75rem;">6. "Hierarchical Permissions" Philosophy</h3>
+      <p class="body" style="color: #4b5563; margin-bottom: 0.5rem;"><em>Source: All Projects</em></p>
+      <p class="body" style="color: #4b5563;">
+        Three-tier access with inheritance: Super Admin → Admin → User. Each level inherits permissions from below.
+      </p>
+    </div>
+  </section>
+
+  <div class="mv-container"><div class="section-divider"></div></div>
+
+  <!-- Section 7: Integration Architecture -->
+  <section id="integration" class="mv-container" style="padding: 3rem 0;">
+    <div class="overline-text" style="margin-bottom: 1rem; color: #7a12d4;">SECTION 7</div>
+    <h2 class="title-bold-3" style="margin-bottom: 2rem;">Inter-Project Integration Architecture 🔗</h2>
+
+    <div class="architecture-diagram">
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        UNIFIED MINDVALLEY PLATFORM                           │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐  │
+│  │  MV Peers   │←──→│Life Manager │←──→│Program Mgr  │←──→│  SpeechOS   │  │
+│  │(Knowledge)  │    │(Execution)  │    │(Learning)   │    │(Speaking)   │  │
+│  └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘  │
+│        ↓                  ↓                  ↓                  ↓          │
+│  ┌────────────────────────────────────────────────────────────────────┐    │
+│  │              SHARED SERVICES LAYER                                   │   │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐  │   │
+│  │  │   TIE    │ │ Platform │ │ Voice    │ │ Grounded │ │  RBAC    │  │   │
+│  │  │  Engine  │ │ Prompts  │ │ Profile  │ │   Q&A    │ │  System  │  │   │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘  │   │
+│  └────────────────────────────────────────────────────────────────────┘    │
+│                                    ↓                                        │
+│  ┌────────────────────────────────────────────────────────────────────┐    │
+│  │              UNIFIED DATA LAYER (Supabase)                          │   │
+│  │  Users | Content | Tasks | Programs | Speeches | Shares | Tags      │   │
+│  └────────────────────────────────────────────────────────────────────┘    │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘</div>
+
+    <h3 class="title-bold-5" style="margin: 2.5rem 0 1.5rem 0;">Integration Scenarios</h3>
+
+    <div class="grid-2">
+      <!-- Scenario 1 -->
+      <div class="card">
+        <h4 class="title-bold-6" style="margin-bottom: 1rem;">1. Learning → Execution Pipeline</h4>
+        <p class="body-sm" style="color: #7a12d4; margin-bottom: 1rem;">Program Manager → Life Manager</p>
+        <div class="flow-step">
+          <div class="flow-number">1</div>
+          <p class="body-sm" style="margin: 0;">User completes a Mindvalley Quest chapter</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">2</div>
+          <p class="body-sm" style="margin: 0;">Study Buddy identifies action items</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">3</div>
+          <p class="body-sm" style="margin: 0;">TIE auto-creates tasks in Life Manager</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">4</div>
+          <p class="body-sm" style="margin: 0;">Tasks tagged with source program</p>
+        </div>
+      </div>
+
+      <!-- Scenario 2 -->
+      <div class="card">
+        <h4 class="title-bold-6" style="margin-bottom: 1rem;">2. Speaking → Content Pipeline</h4>
+        <p class="body-sm" style="color: #7a12d4; margin-bottom: 1rem;">SpeechOS → MV Peers</p>
+        <div class="flow-step">
+          <div class="flow-number">1</div>
+          <p class="body-sm" style="margin: 0;">User creates a speech in SpeechOS</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">2</div>
+          <p class="body-sm" style="margin: 0;">ATOMize extracts Stories, Quotes, Data Points</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">3</div>
+          <p class="body-sm" style="margin: 0;">User selects "Share to MV Peers"</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">4</div>
+          <p class="body-sm" style="margin: 0;">Content auto-populates as Shares with tags</p>
+        </div>
+      </div>
+
+      <!-- Scenario 3 -->
+      <div class="card">
+        <h4 class="title-bold-6" style="margin-bottom: 1rem;">3. Knowledge → Learning Pipeline</h4>
+        <p class="body-sm" style="color: #7a12d4; margin-bottom: 1rem;">MV Peers → Program Manager</p>
+        <div class="flow-step">
+          <div class="flow-number">1</div>
+          <p class="body-sm" style="margin: 0;">Team shares research articles in MV Peers</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">2</div>
+          <p class="body-sm" style="margin: 0;">Articles tagged by topic</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">3</div>
+          <p class="body-sm" style="margin: 0;">Recommendation engine sees user interest</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">4</div>
+          <p class="body-sm" style="margin: 0;">Suggests matching Mindvalley courses</p>
+        </div>
+      </div>
+
+      <!-- Scenario 4 -->
+      <div class="card">
+        <h4 class="title-bold-6" style="margin-bottom: 1rem;">4. Execution → Speaking Pipeline</h4>
+        <p class="body-sm" style="color: #7a12d4; margin-bottom: 1rem;">Life Manager → SpeechOS</p>
+        <div class="flow-step">
+          <div class="flow-number">1</div>
+          <p class="body-sm" style="margin: 0;">User completes tasks in "BookWriting"</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">2</div>
+          <p class="body-sm" style="margin: 0;">Life Manager tracks key accomplishments</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">3</div>
+          <p class="body-sm" style="margin: 0;">SpeechOS queries recent wins</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number">4</div>
+          <p class="body-sm" style="margin: 0;">Auto-generates speaking points</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Voice Consistency -->
+    <div class="card card-lavender" style="margin-top: 2rem;">
+      <h4 class="title-bold-6" style="margin-bottom: 1rem;">5. Voice Consistency Across All Projects</h4>
+      <p class="body" style="color: #4b5563;">
+        Voice Profile created in SpeechOS is stored in shared user profile. All projects use it for AI outputs—Life Manager for briefings, Program Manager for Q&A, MV Peers for descriptions. Every AI output sounds authentically like the user.
+      </p>
+    </div>
+  </section>
+
+  <div class="mv-container"><div class="section-divider"></div></div>
+
+  <!-- Section 8: Recommendations -->
+  <section id="recommendations" class="mv-container" style="padding: 3rem 0;">
+    <div class="overline-text" style="margin-bottom: 1rem; color: #7a12d4;">SECTION 8</div>
+    <h2 class="title-bold-3" style="margin-bottom: 2rem;">Strategic Recommendations 🎯</h2>
+
+    <div class="grid-2">
+      <!-- Immediate -->
+      <div class="card" style="border-left: 4px solid #dc2626;">
+        <h3 class="title-bold-6" style="margin-bottom: 1rem;">Immediate (This Week)</h3>
+        <ul class="body" style="color: #4b5563; padding-left: 1.25rem;">
+          <li><strong class="badge badge-critical">P0</strong> Fix browser API key exposure</li>
+          <li><strong class="badge badge-critical">P0</strong> Remove debug logging (Life Manager)</li>
+          <li><strong class="badge badge-high">P1</strong> Add Sentry/error tracking</li>
+        </ul>
+      </div>
+
+      <!-- Short-Term -->
+      <div class="card" style="border-left: 4px solid #ea580c;">
+        <h3 class="title-bold-6" style="margin-bottom: 1rem;">Short-Term (1 Month)</h3>
+        <ul class="body" style="color: #4b5563; padding-left: 1.25rem;">
+          <li>Extract TIE as shared library</li>
+          <li>Unify Platform Prompts system</li>
+          <li>Add TypeScript (new files first)</li>
+          <li>Add basic tests for critical paths</li>
+        </ul>
+      </div>
+
+      <!-- Medium-Term -->
+      <div class="card" style="border-left: 4px solid #d97706;">
+        <h3 class="title-bold-6" style="margin-bottom: 1rem;">Medium-Term (3 Months)</h3>
+        <ul class="body" style="color: #4b5563; padding-left: 1.25rem;">
+          <li>Build shared services layer</li>
+          <li>Implement cross-project links</li>
+          <li>Voice Profile everywhere</li>
+          <li>Unified activity feed</li>
+        </ul>
+      </div>
+
+      <!-- Long-Term -->
+      <div class="card" style="border-left: 4px solid #7a12d4;">
+        <h3 class="title-bold-6" style="margin-bottom: 1rem;">Long-Term Vision</h3>
+        <ul class="body" style="color: #4b5563; padding-left: 1.25rem;">
+          <li>One dashboard to rule them all</li>
+          <li>AI assistant that knows everything</li>
+          <li>Unified mobile app</li>
+          <li>Real-time collaboration</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="mv-container"><div class="section-divider"></div></div>
+
+  <!-- Summary Table -->
+  <section class="mv-container" style="padding: 3rem 0;">
+    <h2 class="title-bold-3" style="margin-bottom: 2rem;">Summary Scorecard 📊</h2>
+
+    <table class="analysis-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>MV Peers</th>
+          <th>Life Manager</th>
+          <th>Program Manager</th>
+          <th>SpeechOS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Primary Use</strong></td>
+          <td>Team Knowledge</td>
+          <td>Personal Execution</td>
+          <td>Course Learning</td>
+          <td>Speaking Content</td>
+        </tr>
+        <tr>
+          <td><strong>AI Depth</strong></td>
+          <td><span class="stars">⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐⭐⭐</span></td>
+        </tr>
+        <tr>
+          <td><strong>Innovation</strong></td>
+          <td><span class="stars">⭐⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐⭐⭐</span></td>
+        </tr>
+        <tr>
+          <td><strong>Security</strong></td>
+          <td><span class="stars">⭐⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐</span></td>
+        </tr>
+        <tr>
+          <td><strong>Code Quality</strong></td>
+          <td><span class="stars">⭐⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐⭐</span></td>
+        </tr>
+        <tr>
+          <td><strong>Test Coverage</strong></td>
+          <td><span class="stars">⭐</span></td>
+          <td><span class="stars">⭐</span></td>
+          <td><span class="stars">⭐</span></td>
+          <td><span class="stars">⭐</span></td>
+        </tr>
+        <tr>
+          <td><strong>Integration Potential</strong></td>
+          <td><span class="stars">⭐⭐⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐⭐⭐</span></td>
+          <td><span class="stars">⭐⭐⭐⭐⭐</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="mv-container"><div class="section-divider"></div></div>
+
+  <!-- Big Picture -->
+  <section class="mv-container" style="padding: 3rem 0;">
+    <div class="card card-lavender" style="text-align: center; padding: 3rem;">
+      <h2 class="title-bold-3" style="margin-bottom: 1.5rem;">🏆 The Big Picture</h2>
+      <p class="body-lg" style="max-width: 48rem; margin: 0 auto 1.5rem auto; color: #4b5563;">
+        You're building something unique: <strong>an AI-native personal operating system for high-performers</strong>.
+      </p>
+      <p class="body" style="max-width: 40rem; margin: 0 auto 1.5rem auto; color: #4b5563;">
+        Each project handles a different domain of life/work, but together they form a powerful integrated platform where:
+      </p>
+      <div style="text-align: left; max-width: 36rem; margin: 0 auto;">
+        <p class="body" style="color: #4b5563; margin-bottom: 0.5rem;">
+          • <strong>Knowledge flows</strong> from learning → action → sharing → speaking
+        </p>
+        <p class="body" style="color: #4b5563; margin-bottom: 0.5rem;">
+          • <strong>AI maintains your voice</strong> across all platforms
+        </p>
+        <p class="body" style="color: #4b5563; margin-bottom: 0.5rem;">
+          • <strong>Nothing falls through the cracks</strong> because TIE sees everything
+        </p>
+        <p class="body" style="color: #4b5563; margin-bottom: 0;">
+          • <strong>Your intellectual capital grows</strong> as content is atomized and reused
+        </p>
+      </div>
+      <p class="body" style="max-width: 40rem; margin: 2rem auto 0 auto; color: #7a12d4; font-weight: 500;">
+        The key missing piece is the connective tissue—a shared services layer that lets these applications talk to each other while maintaining their individual strengths.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mv-container" style="padding: 4rem 0; margin-top: 2rem; color: #6b7280; font-size: 0.9rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        © Mindvalley • Cross-Project Analysis Report
+      </div>
+      <div>
+        Generated: January 2026
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
