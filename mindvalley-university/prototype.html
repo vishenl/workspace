@@ -1,0 +1,2506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mindvalley University — Prototype</title>
+  <meta name="description" content="Interactive prototype for Mindvalley University - The Life Operating Layer" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --mv-purple: #7c3aed;
+      --mv-purple-light: #ede9fe;
+      --mv-purple-dark: #5b21b6;
+      --vibe-green: #059669;
+      --vibe-green-light: #d1fae5;
+      --six-blue: #0ea5e9;
+      --six-blue-light: #e0f2fe;
+      --learn-orange: #f59e0b;
+      --learn-orange-light: #fef3c7;
+      --plan-indigo: #6366f1;
+      --plan-indigo-light: #e0e7ff;
+      --miq-rose: #f43f5e;
+      --miq-rose-light: #ffe4e6;
+      --text-primary: #1f2937;
+      --text-secondary: #6b7280;
+      --text-muted: #9ca3af;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f9fafb;
+      --bg-tertiary: #f3f4f6;
+      --border: #e5e7eb;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+      --radius-sm: 0.5rem;
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* App Shell */
+    .app-shell {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: 260px;
+      background: var(--bg-primary);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      height: 100vh;
+      z-index: 100;
+    }
+
+    .sidebar-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-purple-dark) 100%);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .logo-subtext {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .nav-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-section-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+
+    .nav-item.active {
+      background: var(--mv-purple-light);
+      color: var(--mv-purple);
+    }
+
+    .nav-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--miq-rose);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+    }
+
+    /* User Profile */
+    .sidebar-footer {
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .user-profile:hover {
+      background: var(--bg-tertiary);
+    }
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--mv-purple) 0%, var(--vibe-green) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .user-info {
+      flex: 1;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .user-plan {
+      font-size: 0.7rem;
+      color: var(--vibe-green);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      margin-left: 260px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .page-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .top-bar-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg-tertiary);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-lg);
+      width: 240px;
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.875rem;
+      width: 100%;
+    }
+
+    .eliza-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--mv-purple) 0%, var(--mv-purple-dark) 100%);
+      color: white;
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--radius-lg);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+    }
+
+    .eliza-button:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Page Content */
+    .page-content {
+      padding: 2rem;
+      flex: 1;
+    }
+
+    /* Screen Management */
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Morning Brief Styles */
+    .greeting-section {
+      margin-bottom: 2rem;
+    }
+
+    .greeting {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .greeting-subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .brief-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .priorities-card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-action {
+      font-size: 0.8rem;
+      color: var(--mv-purple);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .priority-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .priority-item:hover {
+      background: var(--bg-tertiary);
+      transform: translateX(4px);
+    }
+
+    .priority-number {
+      width: 28px;
+      height: 28px;
+      background: var(--mv-purple);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .priority-content {
+      flex: 1;
+    }
+
+    .priority-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .priority-meta {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .priority-tag {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+    }
+
+    .tag-work { background: var(--plan-indigo-light); color: var(--plan-indigo); }
+    .tag-learn { background: var(--learn-orange-light); color: var(--learn-orange); }
+    .tag-connect { background: var(--six-blue-light); color: var(--six-blue); }
+    .tag-health { background: var(--vibe-green-light); color: var(--vibe-green); }
+
+    /* Stats Cards */
+    .stats-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .stat-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .stat-icon.health { background: var(--vibe-green-light); }
+    .stat-icon.energy { background: var(--learn-orange-light); }
+    .stat-icon.social { background: var(--six-blue-light); }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .stat-change {
+      font-size: 0.75rem;
+      color: var(--vibe-green);
+      margin-left: 0.5rem;
+    }
+
+    .stat-bar {
+      height: 6px;
+      background: var(--bg-tertiary);
+      border-radius: 999px;
+      margin-top: 0.75rem;
+      overflow: hidden;
+    }
+
+    .stat-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.5s ease;
+    }
+
+    .stat-bar-fill.health { background: var(--vibe-green); }
+    .stat-bar-fill.energy { background: var(--learn-orange); }
+    .stat-bar-fill.social { background: var(--six-blue); }
+
+    /* ELIZA Quick Chat */
+    .eliza-chat-card {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      color: white;
+      margin-top: 1.5rem;
+    }
+
+    .eliza-chat-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .eliza-avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--mv-purple) 0%, #a855f7 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .eliza-name {
+      font-weight: 600;
+    }
+
+    .eliza-status {
+      font-size: 0.75rem;
+      color: #a5b4fc;
+    }
+
+    .eliza-message {
+      background: rgba(255,255,255,0.1);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .eliza-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .eliza-suggestion {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-lg);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .eliza-suggestion:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* Module Cards Grid */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .module-card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+    }
+
+    .module-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .module-card.vibrantly:hover { border-color: var(--vibe-green); }
+    .module-card.six:hover { border-color: var(--six-blue); }
+    .module-card.learning:hover { border-color: var(--learn-orange); }
+    .module-card.planner:hover { border-color: var(--plan-indigo); }
+    .module-card.miq:hover { border-color: var(--miq-rose); }
+
+    .module-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .module-icon.vibrantly { background: var(--vibe-green-light); }
+    .module-icon.six { background: var(--six-blue-light); }
+    .module-icon.learning { background: var(--learn-orange-light); }
+    .module-icon.planner { background: var(--plan-indigo-light); }
+    .module-icon.miq { background: var(--miq-rose-light); }
+
+    .module-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .module-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .module-stats {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+    }
+
+    .module-stat {
+      color: var(--text-muted);
+    }
+
+    .module-stat strong {
+      color: var(--text-primary);
+    }
+
+    /* Vibrantly Health Screen */
+    .health-hero {
+      background: linear-gradient(135deg, #064e3b 0%, #059669 100%);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    .health-score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .health-score-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .health-score-label {
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .biomarkers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .biomarker-card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .biomarker-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .biomarker-name {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .biomarker-status {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .biomarker-status.optimal { background: var(--vibe-green); }
+    .biomarker-status.warning { background: var(--learn-orange); }
+    .biomarker-status.critical { background: var(--miq-rose); }
+
+    .biomarker-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .biomarker-range {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* SIX Relationships Screen */
+    .relationships-hero {
+      background: linear-gradient(135deg, #0c4a6e 0%, #0ea5e9 100%);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    .six-wheel {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .six-segment {
+      background: rgba(255,255,255,0.15);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .six-segment:hover {
+      background: rgba(255,255,255,0.25);
+      transform: scale(1.02);
+    }
+
+    .six-segment-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .six-segment-name {
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .six-segment-score {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-top: 0.25rem;
+    }
+
+    .connection-queue {
+      background: var(--bg-primary);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .connection-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .connection-item:hover {
+      background: var(--bg-tertiary);
+    }
+
+    .connection-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--six-blue) 0%, #38bdf8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+    }
+
+    .connection-info {
+      flex: 1;
+    }
+
+    .connection-name {
+      font-weight: 600;
+    }
+
+    .connection-context {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .connection-action {
+      background: var(--six-blue);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Learning Screen */
+    .learning-hero {
+      background: linear-gradient(135deg, #78350f 0%, #f59e0b 100%);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    .current-quest {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .quest-image {
+      width: 160px;
+      height: 100px;
+      background: rgba(255,255,255,0.2);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+
+    .quest-info {
+      flex: 1;
+    }
+
+    .quest-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .quest-author {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 0.75rem;
+    }
+
+    .quest-progress {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .quest-progress-bar {
+      flex: 1;
+      height: 8px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .quest-progress-fill {
+      height: 100%;
+      background: white;
+      border-radius: 999px;
+    }
+
+    .quest-progress-text {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .continue-button {
+      background: white;
+      color: #78350f;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-lg);
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    .recommended-quests {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .quest-card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .quest-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .quest-card-image {
+      height: 120px;
+      background: var(--learn-orange-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .quest-card-content {
+      padding: 1.25rem;
+    }
+
+    .quest-card-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .quest-card-author {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .quest-card-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Day Planner Screen */
+    .planner-hero {
+      background: linear-gradient(135deg, #312e81 0%, #6366f1 100%);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    .planner-date {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+    }
+
+    .planner-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .energy-forecast {
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-end;
+      height: 60px;
+      margin-top: 1rem;
+    }
+
+    .energy-bar {
+      flex: 1;
+      background: rgba(255,255,255,0.3);
+      border-radius: var(--radius-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+
+    .energy-bar-fill {
+      background: white;
+      border-radius: var(--radius-sm);
+      transition: height 0.3s ease;
+    }
+
+    .energy-label {
+      text-align: center;
+      font-size: 0.65rem;
+      margin-top: 0.25rem;
+      opacity: 0.7;
+    }
+
+    .schedule-timeline {
+      background: var(--bg-primary);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .time-block {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .time-block:last-child {
+      border-bottom: none;
+    }
+
+    .time-label {
+      width: 60px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .time-content {
+      flex: 1;
+    }
+
+    .time-event {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      border-left: 3px solid var(--mv-purple);
+    }
+
+    .time-event.deep-work { border-left-color: var(--plan-indigo); }
+    .time-event.meeting { border-left-color: var(--miq-rose); }
+    .time-event.learning { border-left-color: var(--learn-orange); }
+    .time-event.recovery { border-left-color: var(--vibe-green); }
+
+    .time-event-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .time-event-duration {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* 3 MIQ Screen */
+    .miq-hero {
+      background: linear-gradient(135deg, #881337 0%, #f43f5e 100%);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    .miq-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .miq-card {
+      background: rgba(255,255,255,0.15);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .miq-card:hover {
+      background: rgba(255,255,255,0.25);
+      transform: translateY(-2px);
+    }
+
+    .miq-number {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .miq-category {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .miq-question {
+      font-size: 0.95rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .goals-section {
+      background: var(--bg-primary);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .goal-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.75rem;
+    }
+
+    .goal-checkbox {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .goal-checkbox.checked {
+      background: var(--vibe-green);
+      border-color: var(--vibe-green);
+      color: white;
+    }
+
+    .goal-text {
+      flex: 1;
+    }
+
+    .goal-title {
+      font-weight: 500;
+    }
+
+    .goal-category {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .goal-progress {
+      width: 60px;
+      text-align: right;
+      font-weight: 600;
+      color: var(--vibe-green);
+    }
+
+    /* ELIZA Chat Screen */
+    .chat-container {
+      height: calc(100vh - 140px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 0;
+    }
+
+    .chat-message {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      max-width: 800px;
+    }
+
+    .chat-message.user {
+      flex-direction: row-reverse;
+    }
+
+    .chat-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .chat-avatar.eliza {
+      background: linear-gradient(135deg, var(--mv-purple) 0%, #a855f7 100%);
+      font-size: 1.25rem;
+    }
+
+    .chat-avatar.user {
+      background: var(--bg-tertiary);
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .chat-bubble {
+      background: var(--bg-primary);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+      max-width: 600px;
+    }
+
+    .chat-message.user .chat-bubble {
+      background: var(--mv-purple);
+      color: white;
+    }
+
+    .chat-bubble p {
+      margin-bottom: 0.75rem;
+    }
+
+    .chat-bubble p:last-child {
+      margin-bottom: 0;
+    }
+
+    .chat-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .chat-action-btn {
+      background: var(--mv-purple-light);
+      color: var(--mv-purple);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .chat-action-btn:hover {
+      background: var(--mv-purple);
+      color: white;
+    }
+
+    .chat-input-area {
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border);
+      padding: 1rem;
+    }
+
+    .chat-input-wrapper {
+      display: flex;
+      gap: 0.75rem;
+      max-width: 800px;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 0.875rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .chat-input:focus {
+      border-color: var(--mv-purple);
+    }
+
+    .chat-send-btn {
+      background: var(--mv-purple);
+      color: white;
+      padding: 0.875rem 1.5rem;
+      border-radius: var(--radius-lg);
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .chat-send-btn:hover {
+      background: var(--mv-purple-dark);
+    }
+
+    /* Settings Screen */
+    .settings-section {
+      background: var(--bg-primary);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .settings-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .settings-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .settings-item:last-child {
+      border-bottom: none;
+    }
+
+    .settings-item-info {
+      flex: 1;
+    }
+
+    .settings-item-label {
+      font-weight: 500;
+    }
+
+    .settings-item-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .toggle-switch {
+      width: 48px;
+      height: 28px;
+      background: var(--bg-tertiary);
+      border-radius: 999px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .toggle-switch.active {
+      background: var(--vibe-green);
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      background: white;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toggle-switch.active::after {
+      left: 23px;
+    }
+
+    .connected-apps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .connected-app {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+    }
+
+    .connected-app-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      background: var(--bg-tertiary);
+    }
+
+    .connected-app-info {
+      flex: 1;
+    }
+
+    .connected-app-name {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .connected-app-status {
+      font-size: 0.75rem;
+      color: var(--vibe-green);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .brief-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .miq-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .six-wheel {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .page-content {
+        padding: 1rem;
+      }
+
+      .current-quest {
+        flex-direction: column;
+      }
+
+      .quest-image {
+        width: 100%;
+        height: 150px;
+      }
+    }
+
+    /* Prototype Badge */
+    .prototype-badge {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+      color: white;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-lg);
+      font-size: 0.8rem;
+      font-weight: 500;
+      z-index: 1000;
+      box-shadow: var(--shadow-lg);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="#" class="logo" onclick="showScreen('morning-brief')">
+          <div class="logo-icon">🎓</div>
+          <div>
+            <div class="logo-text">Mindvalley U</div>
+            <div class="logo-subtext">Life Operating Layer</div>
+          </div>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Today</div>
+          <a class="nav-item active" data-screen="morning-brief" onclick="showScreen('morning-brief')">
+            <span class="nav-icon">☀️</span>
+            Morning Brief
+          </a>
+          <a class="nav-item" data-screen="eliza" onclick="showScreen('eliza')">
+            <span class="nav-icon">✨</span>
+            Ask ELIZA
+            <span class="nav-badge">AI</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Life Modules</div>
+          <a class="nav-item" data-screen="vibrantly" onclick="showScreen('vibrantly')">
+            <span class="nav-icon">💚</span>
+            Vibrantly
+          </a>
+          <a class="nav-item" data-screen="six" onclick="showScreen('six')">
+            <span class="nav-icon">💙</span>
+            SIX
+          </a>
+          <a class="nav-item" data-screen="learning" onclick="showScreen('learning')">
+            <span class="nav-icon">📚</span>
+            Learning
+          </a>
+          <a class="nav-item" data-screen="planner" onclick="showScreen('planner')">
+            <span class="nav-icon">📅</span>
+            Day Planner
+          </a>
+          <a class="nav-item" data-screen="miq" onclick="showScreen('miq')">
+            <span class="nav-icon">🎯</span>
+            3 MIQ
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Account</div>
+          <a class="nav-item" data-screen="settings" onclick="showScreen('settings')">
+            <span class="nav-icon">⚙️</span>
+            Settings
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile" onclick="showScreen('settings')">
+          <div class="user-avatar">VL</div>
+          <div class="user-info">
+            <div class="user-name">Vishen Lakhiani</div>
+            <div class="user-plan">Pro Member</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <h1 class="page-title" id="page-title">Morning Brief</h1>
+        <div class="top-bar-actions">
+          <div class="search-box">
+            <span>🔍</span>
+            <input type="text" placeholder="Search anything...">
+          </div>
+          <button class="eliza-button" onclick="showScreen('eliza')">
+            <span>✨</span> Ask ELIZA
+          </button>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content">
+
+        <!-- Morning Brief Screen -->
+        <div class="screen active" id="screen-morning-brief">
+          <div class="greeting-section">
+            <h2 class="greeting">Good morning, Vishen ☀️</h2>
+            <p class="greeting-subtitle">Here's your personalized plan for today, Monday, January 13</p>
+          </div>
+
+          <div class="brief-grid">
+            <div>
+              <!-- Priorities Card -->
+              <div class="priorities-card">
+                <div class="card-header">
+                  <h3 class="card-title">🎯 Today's Focus</h3>
+                  <span class="card-action">Edit priorities</span>
+                </div>
+
+                <div class="priority-item" onclick="showScreen('planner')">
+                  <div class="priority-number">1</div>
+                  <div class="priority-content">
+                    <div class="priority-title">Finalize Vibe Inc investor deck</div>
+                    <div class="priority-meta">
+                      <span class="priority-tag tag-work">Deep Work</span>
+                      <span>9:00 AM - 12:00 PM</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="priority-item" onclick="showScreen('learning')">
+                  <div class="priority-number">2</div>
+                  <div class="priority-content">
+                    <div class="priority-title">Continue Superbrain Quest — Chapter 7</div>
+                    <div class="priority-meta">
+                      <span class="priority-tag tag-learn">Learning</span>
+                      <span>25 minutes</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="priority-item" onclick="showScreen('six')">
+                  <div class="priority-number">3</div>
+                  <div class="priority-content">
+                    <div class="priority-title">Follow up with Jason from A-Fest</div>
+                    <div class="priority-meta">
+                      <span class="priority-tag tag-connect">Connection</span>
+                      <span>Last contact: 32 days ago</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ELIZA Quick Chat -->
+              <div class="eliza-chat-card">
+                <div class="eliza-chat-header">
+                  <div class="eliza-avatar">✨</div>
+                  <div>
+                    <div class="eliza-name">ELIZA</div>
+                    <div class="eliza-status">Your AI life coach</div>
+                  </div>
+                </div>
+                <div class="eliza-message">
+                  Based on your Oura data, you slept 7.2 hours with an 85% sleep score. Your HRV is elevated today — great conditions for creative work. I've scheduled your deep work block during your peak energy window.
+                </div>
+                <div class="eliza-suggestions">
+                  <button class="eliza-suggestion" onclick="showScreen('eliza')">Show my energy forecast</button>
+                  <button class="eliza-suggestion" onclick="showScreen('eliza')">Reschedule afternoon</button>
+                  <button class="eliza-suggestion" onclick="showScreen('eliza')">Quick meditation</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="stats-column">
+              <!-- Health Score -->
+              <div class="stat-card" onclick="showScreen('vibrantly')">
+                <div class="stat-header">
+                  <div class="stat-icon health">💚</div>
+                  <span class="stat-label">Health Score</span>
+                </div>
+                <div>
+                  <span class="stat-value">85</span>
+                  <span class="stat-change">↑ 3 pts</span>
+                </div>
+                <div class="stat-bar">
+                  <div class="stat-bar-fill health" style="width: 85%;"></div>
+                </div>
+              </div>
+
+              <!-- Energy Level -->
+              <div class="stat-card" onclick="showScreen('planner')">
+                <div class="stat-header">
+                  <div class="stat-icon energy">⚡</div>
+                  <span class="stat-label">Energy Today</span>
+                </div>
+                <div>
+                  <span class="stat-value">High</span>
+                  <span class="stat-change">Peak at 10 AM</span>
+                </div>
+                <div class="stat-bar">
+                  <div class="stat-bar-fill energy" style="width: 78%;"></div>
+                </div>
+              </div>
+
+              <!-- Connection Score -->
+              <div class="stat-card" onclick="showScreen('six')">
+                <div class="stat-header">
+                  <div class="stat-icon social">💙</div>
+                  <span class="stat-label">Relationships</span>
+                </div>
+                <div>
+                  <span class="stat-value">72%</span>
+                  <span class="stat-change">3 need attention</span>
+                </div>
+                <div class="stat-bar">
+                  <div class="stat-bar-fill social" style="width: 72%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module Quick Access -->
+          <h3 style="margin-top: 2rem; margin-bottom: 1rem; font-weight: 600;">Quick Access</h3>
+          <div class="modules-grid">
+            <div class="module-card vibrantly" onclick="showScreen('vibrantly')">
+              <div class="module-icon vibrantly">💚</div>
+              <div class="module-title">Vibrantly</div>
+              <div class="module-desc">Your health intelligence dashboard. Track biomarkers, optimize supplements, and monitor recovery.</div>
+              <div class="module-stats">
+                <span class="module-stat"><strong>12</strong> biomarkers tracked</span>
+                <span class="module-stat"><strong>5</strong> supplements</span>
+              </div>
+            </div>
+
+            <div class="module-card six" onclick="showScreen('six')">
+              <div class="module-icon six">💙</div>
+              <div class="module-title">SIX</div>
+              <div class="module-desc">Nurture your key relationships. Stay connected with the people who matter most.</div>
+              <div class="module-stats">
+                <span class="module-stat"><strong>24</strong> connections</span>
+                <span class="module-stat"><strong>3</strong> need attention</span>
+              </div>
+            </div>
+
+            <div class="module-card learning" onclick="showScreen('learning')">
+              <div class="module-icon learning">📚</div>
+              <div class="module-title">Learning</div>
+              <div class="module-desc">Your personalized learning path from Mindvalley's library. What to learn next, curated by AI.</div>
+              <div class="module-stats">
+                <span class="module-stat"><strong>3</strong> active Quests</span>
+                <span class="module-stat"><strong>68%</strong> complete</span>
+              </div>
+            </div>
+
+            <div class="module-card planner" onclick="showScreen('planner')">
+              <div class="module-icon planner">📅</div>
+              <div class="module-title">Day Planner</div>
+              <div class="module-desc">Energy-aware scheduling. Align your tasks with your natural rhythms for peak productivity.</div>
+              <div class="module-stats">
+                <span class="module-stat"><strong>4</strong> tasks today</span>
+                <span class="module-stat"><strong>2</strong> meetings</span>
+              </div>
+            </div>
+
+            <div class="module-card miq" onclick="showScreen('miq')">
+              <div class="module-icon miq">🎯</div>
+              <div class="module-title">3 MIQ</div>
+              <div class="module-desc">Your Three Most Important Questions. Experiences, Growth, and Contribution.</div>
+              <div class="module-stats">
+                <span class="module-stat"><strong>3</strong> active goals</span>
+                <span class="module-stat"><strong>45%</strong> progress</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vibrantly Health Screen -->
+        <div class="screen" id="screen-vibrantly">
+          <div class="health-hero">
+            <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
+              <div class="health-score-circle">
+                <div class="health-score-value">85</div>
+                <div class="health-score-label">Health Score</div>
+              </div>
+              <div>
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">You're doing great, Vishen!</h2>
+                <p style="opacity: 0.9; max-width: 400px;">Your biomarkers are trending positive. Vitamin D is up 40% since starting supplementation. Sleep quality has improved this week.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-header" style="margin-bottom: 1rem;">
+            <h3 class="card-title">📊 Biomarker Dashboard</h3>
+            <span class="card-action">View all labs →</span>
+          </div>
+
+          <div class="biomarkers-grid">
+            <div class="biomarker-card">
+              <div class="biomarker-header">
+                <span class="biomarker-name">Vitamin D</span>
+                <span class="biomarker-status optimal"></span>
+              </div>
+              <div class="biomarker-value">58 ng/mL</div>
+              <div class="biomarker-range">Optimal: 50-80 ng/mL</div>
+            </div>
+
+            <div class="biomarker-card">
+              <div class="biomarker-header">
+                <span class="biomarker-name">HbA1c</span>
+                <span class="biomarker-status optimal"></span>
+              </div>
+              <div class="biomarker-value">5.1%</div>
+              <div class="biomarker-range">Optimal: < 5.4%</div>
+            </div>
+
+            <div class="biomarker-card">
+              <div class="biomarker-header">
+                <span class="biomarker-name">hs-CRP</span>
+                <span class="biomarker-status warning"></span>
+              </div>
+              <div class="biomarker-value">1.8 mg/L</div>
+              <div class="biomarker-range">Optimal: < 1.0 mg/L</div>
+            </div>
+
+            <div class="biomarker-card">
+              <div class="biomarker-header">
+                <span class="biomarker-name">Testosterone</span>
+                <span class="biomarker-status optimal"></span>
+              </div>
+              <div class="biomarker-value">685 ng/dL</div>
+              <div class="biomarker-range">Optimal: 600-900 ng/dL</div>
+            </div>
+
+            <div class="biomarker-card">
+              <div class="biomarker-header">
+                <span class="biomarker-name">Sleep Score</span>
+                <span class="biomarker-status optimal"></span>
+              </div>
+              <div class="biomarker-value">85</div>
+              <div class="biomarker-range">7.2 hrs • 85% efficiency</div>
+            </div>
+
+            <div class="biomarker-card">
+              <div class="biomarker-header">
+                <span class="biomarker-name">HRV</span>
+                <span class="biomarker-status optimal"></span>
+              </div>
+              <div class="biomarker-value">52 ms</div>
+              <div class="biomarker-range">↑ 8% this week</div>
+            </div>
+          </div>
+
+          <div class="card-header" style="margin-top: 2rem; margin-bottom: 1rem;">
+            <h3 class="card-title">💊 Today's Supplements</h3>
+            <span class="card-action">Edit protocol →</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+            <div style="background: var(--bg-primary); padding: 1rem; border-radius: var(--radius-md); text-align: center; box-shadow: var(--shadow-sm);">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">☀️</div>
+              <div style="font-weight: 600; font-size: 0.9rem;">Vitamin D3</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">5,000 IU</div>
+            </div>
+            <div style="background: var(--bg-primary); padding: 1rem; border-radius: var(--radius-md); text-align: center; box-shadow: var(--shadow-sm);">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">🧠</div>
+              <div style="font-weight: 600; font-size: 0.9rem;">Omega-3</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">2,000 mg</div>
+            </div>
+            <div style="background: var(--bg-primary); padding: 1rem; border-radius: var(--radius-md); text-align: center; box-shadow: var(--shadow-sm);">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">💪</div>
+              <div style="font-weight: 600; font-size: 0.9rem;">Magnesium</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">400 mg</div>
+            </div>
+            <div style="background: var(--bg-primary); padding: 1rem; border-radius: var(--radius-md); text-align: center; box-shadow: var(--shadow-sm);">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌿</div>
+              <div style="font-weight: 600; font-size: 0.9rem;">Ashwagandha</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">600 mg</div>
+            </div>
+            <div style="background: var(--bg-primary); padding: 1rem; border-radius: var(--radius-md); text-align: center; box-shadow: var(--shadow-sm);">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔬</div>
+              <div style="font-weight: 600; font-size: 0.9rem;">NMN</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">500 mg</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIX Relationships Screen -->
+        <div class="screen" id="screen-six">
+          <div class="relationships-hero">
+            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Your Relationship Health</h2>
+            <p style="opacity: 0.9;">Nurture the 6 key relationship areas in your life</p>
+
+            <div class="six-wheel">
+              <div class="six-segment">
+                <div class="six-segment-icon">💕</div>
+                <div class="six-segment-name">Romantic</div>
+                <div class="six-segment-score">92%</div>
+              </div>
+              <div class="six-segment">
+                <div class="six-segment-icon">👨‍👩‍👧‍👦</div>
+                <div class="six-segment-name">Family</div>
+                <div class="six-segment-score">78%</div>
+              </div>
+              <div class="six-segment">
+                <div class="six-segment-icon">🤝</div>
+                <div class="six-segment-name">Inner Circle</div>
+                <div class="six-segment-score">65%</div>
+              </div>
+              <div class="six-segment">
+                <div class="six-segment-icon">💼</div>
+                <div class="six-segment-name">Colleagues</div>
+                <div class="six-segment-score">71%</div>
+              </div>
+              <div class="six-segment">
+                <div class="six-segment-icon">🎓</div>
+                <div class="six-segment-name">Mentors</div>
+                <div class="six-segment-score">58%</div>
+              </div>
+              <div class="six-segment">
+                <div class="six-segment-icon">🌍</div>
+                <div class="six-segment-name">Community</div>
+                <div class="six-segment-score">84%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="connection-queue">
+            <div class="card-header">
+              <h3 class="card-title">📬 Connection Queue</h3>
+              <span class="card-action">View all →</span>
+            </div>
+
+            <div class="connection-item">
+              <div class="connection-avatar">JT</div>
+              <div class="connection-info">
+                <div class="connection-name">Jason Torres</div>
+                <div class="connection-context">A-Fest 2024 • Discussed AI startups • 32 days ago</div>
+              </div>
+              <button class="connection-action" onclick="showScreen('eliza')">Draft message</button>
+            </div>
+
+            <div class="connection-item">
+              <div class="connection-avatar">MK</div>
+              <div class="connection-info">
+                <div class="connection-name">Maria Kovacs</div>
+                <div class="connection-context">Mentor • Quarterly check-in due • 45 days ago</div>
+              </div>
+              <button class="connection-action" onclick="showScreen('eliza')">Draft message</button>
+            </div>
+
+            <div class="connection-item">
+              <div class="connection-avatar">AS</div>
+              <div class="connection-info">
+                <div class="connection-name">Alex Shah</div>
+                <div class="connection-context">Inner Circle • Birthday in 3 days • 28 days ago</div>
+              </div>
+              <button class="connection-action" onclick="showScreen('eliza')">Draft message</button>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-primary); border-radius: var(--radius-xl); padding: 1.5rem; margin-top: 1.5rem; box-shadow: var(--shadow-sm);">
+            <div class="card-header">
+              <h3 class="card-title">📅 Upcoming Events</h3>
+              <span class="card-action">Browse events →</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+              <div style="background: var(--six-blue-light); padding: 1.25rem; border-radius: var(--radius-md);">
+                <div style="font-weight: 600; margin-bottom: 0.25rem;">A-Fest Portugal 2026</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary);">June 15-20 • Cascais</div>
+                <div style="font-size: 0.8rem; color: var(--six-blue); margin-top: 0.5rem;">8 connections attending</div>
+              </div>
+              <div style="background: var(--mv-purple-light); padding: 1.25rem; border-radius: var(--radius-md);">
+                <div style="font-weight: 600; margin-bottom: 0.25rem;">Local Chapter Meetup</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary);">Feb 8 • Kuala Lumpur</div>
+                <div style="font-size: 0.8rem; color: var(--mv-purple); margin-top: 0.5rem;">12 members RSVP'd</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Learning Screen -->
+        <div class="screen" id="screen-learning">
+          <div class="learning-hero">
+            <div class="current-quest">
+              <div class="quest-image">🧠</div>
+              <div class="quest-info">
+                <div style="font-size: 0.8rem; opacity: 0.8; margin-bottom: 0.25rem;">CONTINUE LEARNING</div>
+                <div class="quest-title">Superbrain by Jim Kwik</div>
+                <div class="quest-author">Master memory, focus, and speed learning</div>
+                <div class="quest-progress">
+                  <div class="quest-progress-bar">
+                    <div class="quest-progress-fill" style="width: 68%;"></div>
+                  </div>
+                  <span class="quest-progress-text">68%</span>
+                </div>
+                <button class="continue-button">Continue Chapter 7 →</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-header" style="margin-bottom: 1rem;">
+            <h3 class="card-title">✨ Recommended for You</h3>
+            <span class="card-action">Based on your 3 MIQ goals</span>
+          </div>
+
+          <div class="recommended-quests">
+            <div class="quest-card">
+              <div class="quest-card-image">🎤</div>
+              <div class="quest-card-content">
+                <div class="quest-card-title">Speak and Inspire</div>
+                <div class="quest-card-author">Lisa Nichols</div>
+                <div class="quest-card-meta">
+                  <span>30 days</span>
+                  <span>•</span>
+                  <span>15 min/day</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="quest-card">
+              <div class="quest-card-image" style="background: var(--vibe-green-light);">🧘</div>
+              <div class="quest-card-content">
+                <div class="quest-card-title">The Silva Ultramind System</div>
+                <div class="quest-card-author">Vishen Lakhiani</div>
+                <div class="quest-card-meta">
+                  <span>28 days</span>
+                  <span>•</span>
+                  <span>20 min/day</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="quest-card">
+              <div class="quest-card-image" style="background: var(--mv-purple-light);">💡</div>
+              <div class="quest-card-content">
+                <div class="quest-card-title">Ultralearning</div>
+                <div class="quest-card-author">Scott Young</div>
+                <div class="quest-card-meta">
+                  <span>21 days</span>
+                  <span>•</span>
+                  <span>18 min/day</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-primary); border-radius: var(--radius-xl); padding: 1.5rem; margin-top: 1.5rem; box-shadow: var(--shadow-sm);">
+            <div class="card-header">
+              <h3 class="card-title">📈 Learning Stats</h3>
+              <span class="card-action">View history →</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center;">
+              <div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--learn-orange);">127</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary);">Days Learning</div>
+              </div>
+              <div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--vibe-green);">8</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary);">Quests Completed</div>
+              </div>
+              <div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--mv-purple);">42</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary);">Hours Learned</div>
+              </div>
+              <div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--six-blue);">15</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary);">Day Streak 🔥</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day Planner Screen -->
+        <div class="screen" id="screen-planner">
+          <div class="planner-hero">
+            <div class="planner-date">Monday, January 13, 2026</div>
+            <div class="planner-title">Your Energy-Optimized Day</div>
+            <p style="opacity: 0.8; font-size: 0.9rem;">Based on your sleep data and historical patterns, here's your optimal schedule</p>
+
+            <div style="margin-top: 1.5rem;">
+              <div style="font-size: 0.8rem; opacity: 0.7; margin-bottom: 0.5rem;">ENERGY FORECAST</div>
+              <div class="energy-forecast">
+                <div>
+                  <div class="energy-bar"><div class="energy-bar-fill" style="height: 40%;"></div></div>
+                  <div class="energy-label">6am</div>
+                </div>
+                <div>
+                  <div class="energy-bar"><div class="energy-bar-fill" style="height: 60%;"></div></div>
+                  <div class="energy-label">8am</div>
+                </div>
+                <div>
+                  <div class="energy-bar"><div class="energy-bar-fill" style="height: 95%;"></div></div>
+                  <div class="energy-label">10am</div>
+                </div>
+                <div>
+                  <div class="energy-bar"><div class="energy-bar-fill" style="height: 85%;"></div></div>
+                  <div class="energy-label">12pm</div>
+                </div>
+                <div>
+                  <div class="energy-bar"><div class="energy-bar-fill" style="height: 50%;"></div></div>
+                  <div class="energy-label">2pm</div>
+                </div>
+                <div>
+                  <div class="energy-bar"><div class="energy-bar-fill" style="height: 35%;"></div></div>
+                  <div class="energy-label">4pm</div>
+                </div>
+                <div>
+                  <div class="energy-bar"><div class="energy-bar-fill" style="height: 55%;"></div></div>
+                  <div class="energy-label">6pm</div>
+                </div>
+                <div>
+                  <div class="energy-bar"><div class="energy-bar-fill" style="height: 40%;"></div></div>
+                  <div class="energy-label">8pm</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="schedule-timeline">
+            <div class="card-header">
+              <h3 class="card-title">📅 Today's Schedule</h3>
+              <span class="card-action">Edit →</span>
+            </div>
+
+            <div class="time-block">
+              <div class="time-label">6:30 AM</div>
+              <div class="time-content">
+                <div class="time-event recovery">
+                  <div class="time-event-title">Morning Routine</div>
+                  <div class="time-event-duration">Meditation, journaling, movement • 60 min</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="time-block">
+              <div class="time-label">9:00 AM</div>
+              <div class="time-content">
+                <div class="time-event deep-work">
+                  <div class="time-event-title">Deep Work: Vibe Inc Investor Deck</div>
+                  <div class="time-event-duration">Peak energy block • 3 hours</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="time-block">
+              <div class="time-label">12:00 PM</div>
+              <div class="time-content">
+                <div class="time-event recovery">
+                  <div class="time-event-title">Lunch Break</div>
+                  <div class="time-event-duration">Recovery time • 1 hour</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="time-block">
+              <div class="time-label">1:00 PM</div>
+              <div class="time-content">
+                <div class="time-event meeting">
+                  <div class="time-event-title">Team Sync: Product Review</div>
+                  <div class="time-event-duration">With Kshitij, Ezekiel • 45 min</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="time-block">
+              <div class="time-label">2:00 PM</div>
+              <div class="time-content">
+                <div class="time-event learning">
+                  <div class="time-event-title">Learning: Superbrain Chapter 7</div>
+                  <div class="time-event-duration">Jim Kwik • 25 min</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="time-block">
+              <div class="time-label">3:00 PM</div>
+              <div class="time-content">
+                <div class="time-event" style="border-left-color: var(--text-muted);">
+                  <div class="time-event-title">Admin Tasks</div>
+                  <div class="time-event-duration">Low-energy work • 2 hours</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="time-block">
+              <div class="time-label">5:00 PM</div>
+              <div class="time-content">
+                <div class="time-event recovery">
+                  <div class="time-event-title">Evening Transition</div>
+                  <div class="time-event-duration">Shutdown ritual, family time</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 MIQ Screen -->
+        <div class="screen" id="screen-miq">
+          <div class="miq-hero">
+            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Your Three Most Important Questions</h2>
+            <p style="opacity: 0.9;">The compass for your extraordinary life</p>
+
+            <div class="miq-cards">
+              <div class="miq-card">
+                <div class="miq-number">01</div>
+                <div class="miq-category">Experiences</div>
+                <div class="miq-question">What experiences do I want to have?</div>
+              </div>
+              <div class="miq-card">
+                <div class="miq-number">02</div>
+                <div class="miq-category">Growth</div>
+                <div class="miq-question">How do I want to grow and develop?</div>
+              </div>
+              <div class="miq-card">
+                <div class="miq-number">03</div>
+                <div class="miq-category">Contribution</div>
+                <div class="miq-question">How do I want to contribute to the world?</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="goals-section">
+            <div class="card-header">
+              <h3 class="card-title">🎯 Active Goals</h3>
+              <span class="card-action">Add goal +</span>
+            </div>
+
+            <div class="goal-item">
+              <div class="goal-checkbox checked">✓</div>
+              <div class="goal-text">
+                <div class="goal-title">Launch Vibe Inc with $2M seed funding</div>
+                <div class="goal-category">Contribution • Q1 2026</div>
+              </div>
+              <div class="goal-progress">75%</div>
+            </div>
+
+            <div class="goal-item">
+              <div class="goal-checkbox"></div>
+              <div class="goal-text">
+                <div class="goal-title">Master public speaking (keynote at A-Fest)</div>
+                <div class="goal-category">Growth • June 2026</div>
+              </div>
+              <div class="goal-progress">35%</div>
+            </div>
+
+            <div class="goal-item">
+              <div class="goal-checkbox"></div>
+              <div class="goal-text">
+                <div class="goal-title">Family trip to Japan with kids</div>
+                <div class="goal-category">Experience • April 2026</div>
+              </div>
+              <div class="goal-progress">20%</div>
+            </div>
+
+            <div class="goal-item">
+              <div class="goal-checkbox"></div>
+              <div class="goal-text">
+                <div class="goal-title">Achieve optimal health score (90+)</div>
+                <div class="goal-category">Growth • Ongoing</div>
+              </div>
+              <div class="goal-progress">85%</div>
+            </div>
+
+            <div class="goal-item">
+              <div class="goal-checkbox"></div>
+              <div class="goal-text">
+                <div class="goal-title">Mentor 5 entrepreneurs through MV's program</div>
+                <div class="goal-category">Contribution • 2026</div>
+              </div>
+              <div class="goal-progress">40%</div>
+            </div>
+          </div>
+
+          <div style="background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); border-radius: var(--radius-xl); padding: 1.5rem; margin-top: 1.5rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="font-size: 2rem;">📆</div>
+              <div>
+                <div style="font-weight: 600; margin-bottom: 0.25rem;">Quarterly Review Due</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary);">Your next 3 MIQ review is scheduled for March 31. Take 30 minutes to reflect on your progress and adjust your goals.</div>
+              </div>
+              <button style="background: var(--miq-rose); color: white; padding: 0.75rem 1.25rem; border-radius: var(--radius-md); font-weight: 600; border: none; cursor: pointer; white-space: nowrap;">Schedule Review</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ELIZA Chat Screen -->
+        <div class="screen" id="screen-eliza">
+          <div class="chat-container">
+            <div class="chat-messages">
+              <div class="chat-message">
+                <div class="chat-avatar eliza">✨</div>
+                <div class="chat-bubble">
+                  <p>Good morning, Vishen! I've analyzed your day and noticed a few things worth discussing.</p>
+                  <p>Your HRV is elevated today (52ms, up 8% from your baseline), which suggests great conditions for creative and strategic work. I've scheduled your investor deck work during your peak energy window from 9am-12pm.</p>
+                  <p>One thing to consider: You have a meeting at 1pm right after lunch. Based on your patterns, you typically experience an energy dip around that time. Would you like me to:</p>
+                  <div class="chat-actions">
+                    <button class="chat-action-btn">Reschedule meeting to 3pm</button>
+                    <button class="chat-action-btn">Add 15-min energy break before</button>
+                    <button class="chat-action-btn">Keep as is</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="chat-message user">
+                <div class="chat-avatar user">VL</div>
+                <div class="chat-bubble">
+                  <p>Add the energy break. What should I do during those 15 minutes?</p>
+                </div>
+              </div>
+
+              <div class="chat-message">
+                <div class="chat-avatar eliza">✨</div>
+                <div class="chat-bubble">
+                  <p>Great choice! I've added a 15-minute energy break at 12:45pm.</p>
+                  <p>Based on Jim Kwik's Superbrain techniques you've been learning, I recommend the <strong>"Brain Reboot"</strong> sequence:</p>
+                  <p>1. 5 minutes of box breathing (4-4-4-4)<br>
+                  2. 5 minutes of juggling or cross-body movement<br>
+                  3. 5 minutes reviewing your 3 MIQ to center on purpose</p>
+                  <p>This combination activates both hemispheres and typically increases your afternoon focus by 25%. Would you like me to set a reminder with these instructions?</p>
+                  <div class="chat-actions">
+                    <button class="chat-action-btn">Yes, add reminder</button>
+                    <button class="chat-action-btn">Show alternative sequence</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="chat-message user">
+                <div class="chat-avatar user">VL</div>
+                <div class="chat-bubble">
+                  <p>Yes, add the reminder. Also, I need to reach out to Jason from A-Fest. Can you help draft a message?</p>
+                </div>
+              </div>
+
+              <div class="chat-message">
+                <div class="chat-avatar eliza">✨</div>
+                <div class="chat-bubble">
+                  <p>Done! Reminder set for 12:45pm with the Brain Reboot sequence.</p>
+                  <p>For Jason — I see from your SIX module that you met him at A-Fest 2024 in Bali and discussed AI startups. He's a founder working on AI for healthcare. It's been 32 days since your last contact.</p>
+                  <p>Here's a draft:</p>
+                  <div style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md); margin: 1rem 0; font-style: italic;">
+                    "Hey Jason! Been thinking about our conversation in Bali about AI in healthcare. We're making great progress on Vibe Inc — the health intelligence piece is really coming together. Would love to catch up and hear how things are going on your end. Coffee call this week?"
+                  </div>
+                  <div class="chat-actions">
+                    <button class="chat-action-btn">Send as is</button>
+                    <button class="chat-action-btn">Edit message</button>
+                    <button class="chat-action-btn">Make it shorter</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="chat-input-area">
+              <div class="chat-input-wrapper">
+                <input type="text" class="chat-input" placeholder="Ask ELIZA anything...">
+                <button class="chat-send-btn">Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Screen -->
+        <div class="screen" id="screen-settings">
+          <div class="settings-section">
+            <h3 class="settings-title">🔗 Connected Apps</h3>
+            <div class="connected-apps">
+              <div class="connected-app">
+                <div class="connected-app-icon">⭕</div>
+                <div class="connected-app-info">
+                  <div class="connected-app-name">Oura Ring</div>
+                  <div class="connected-app-status">Connected</div>
+                </div>
+              </div>
+              <div class="connected-app">
+                <div class="connected-app-icon">📅</div>
+                <div class="connected-app-info">
+                  <div class="connected-app-name">Google Calendar</div>
+                  <div class="connected-app-status">Connected</div>
+                </div>
+              </div>
+              <div class="connected-app">
+                <div class="connected-app-icon">🍎</div>
+                <div class="connected-app-info">
+                  <div class="connected-app-name">Apple Health</div>
+                  <div class="connected-app-status">Connected</div>
+                </div>
+              </div>
+              <div class="connected-app">
+                <div class="connected-app-icon">🧪</div>
+                <div class="connected-app-info">
+                  <div class="connected-app-name">Function Health</div>
+                  <div class="connected-app-status">Connected</div>
+                </div>
+              </div>
+              <div class="connected-app">
+                <div class="connected-app-icon" style="opacity: 0.5;">✉️</div>
+                <div class="connected-app-info">
+                  <div class="connected-app-name">Gmail</div>
+                  <div class="connected-app-status" style="color: var(--text-muted);">Not connected</div>
+                </div>
+              </div>
+              <div class="connected-app">
+                <div class="connected-app-icon" style="opacity: 0.5;">✅</div>
+                <div class="connected-app-info">
+                  <div class="connected-app-name">Todoist</div>
+                  <div class="connected-app-status" style="color: var(--text-muted);">Not connected</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h3 class="settings-title">🔔 Notifications</h3>
+            <div class="settings-item">
+              <div class="settings-item-info">
+                <div class="settings-item-label">Morning Brief</div>
+                <div class="settings-item-desc">Daily summary at 6:30 AM</div>
+              </div>
+              <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+            </div>
+            <div class="settings-item">
+              <div class="settings-item-info">
+                <div class="settings-item-label">Connection Reminders</div>
+                <div class="settings-item-desc">Nudges to reach out to key relationships</div>
+              </div>
+              <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+            </div>
+            <div class="settings-item">
+              <div class="settings-item-info">
+                <div class="settings-item-label">Learning Reminders</div>
+                <div class="settings-item-desc">Daily Quest notifications</div>
+              </div>
+              <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+            </div>
+            <div class="settings-item">
+              <div class="settings-item-info">
+                <div class="settings-item-label">Health Insights</div>
+                <div class="settings-item-desc">Weekly biomarker summaries</div>
+              </div>
+              <div class="toggle-switch" onclick="this.classList.toggle('active')"></div>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h3 class="settings-title">🤖 ELIZA Preferences</h3>
+            <div class="settings-item">
+              <div class="settings-item-info">
+                <div class="settings-item-label">Proactive Suggestions</div>
+                <div class="settings-item-desc">ELIZA offers recommendations without asking</div>
+              </div>
+              <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+            </div>
+            <div class="settings-item">
+              <div class="settings-item-info">
+                <div class="settings-item-label">Confirm Before Actions</div>
+                <div class="settings-item-desc">Always ask before making changes</div>
+              </div>
+              <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+            </div>
+            <div class="settings-item">
+              <div class="settings-item-info">
+                <div class="settings-item-label">Explain Reasoning</div>
+                <div class="settings-item-desc">Show why behind every recommendation</div>
+              </div>
+              <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h3 class="settings-title">👤 Account</h3>
+            <div class="settings-item">
+              <div class="settings-item-info">
+                <div class="settings-item-label">Vishen Lakhiani</div>
+                <div class="settings-item-desc">vishen@mindvalley.com</div>
+              </div>
+              <span class="card-action">Edit profile</span>
+            </div>
+            <div class="settings-item">
+              <div class="settings-item-info">
+                <div class="settings-item-label">Subscription</div>
+                <div class="settings-item-desc" style="color: var(--vibe-green);">Mindvalley University Pro</div>
+              </div>
+              <span class="card-action">Manage →</span>
+            </div>
+            <div class="settings-item">
+              <div class="settings-item-info">
+                <div class="settings-item-label">Privacy & Data</div>
+                <div class="settings-item-desc">Manage your data and privacy settings</div>
+              </div>
+              <span class="card-action">View →</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Prototype Badge -->
+  <div class="prototype-badge">
+    🎨 Interactive Prototype • Mindvalley University
+  </div>
+
+  <script>
+    // Screen navigation
+    function showScreen(screenId) {
+      // Hide all screens
+      document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+      });
+
+      // Show selected screen
+      document.getElementById('screen-' + screenId).classList.add('active');
+
+      // Update nav items
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+        if (item.dataset.screen === screenId) {
+          item.classList.add('active');
+        }
+      });
+
+      // Update page title
+      const titles = {
+        'morning-brief': 'Morning Brief',
+        'vibrantly': 'Vibrantly — Health Intelligence',
+        'six': 'SIX — Relationship Intelligence',
+        'learning': 'Learning Accelerator',
+        'planner': 'Day Planner',
+        'miq': 'Three Most Important Questions',
+        'eliza': 'Ask ELIZA',
+        'settings': 'Settings'
+      };
+
+      document.getElementById('page-title').textContent = titles[screenId] || 'Mindvalley University';
+    }
+
+    // Add click handlers for checkboxes
+    document.querySelectorAll('.goal-checkbox').forEach(checkbox => {
+      checkbox.addEventListener('click', function() {
+        this.classList.toggle('checked');
+        if (this.classList.contains('checked')) {
+          this.textContent = '✓';
+        } else {
+          this.textContent = '';
+        }
+      });
+    });
+
+    // Chat input handler
+    const chatInput = document.querySelector('.chat-input');
+    const chatSendBtn = document.querySelector('.chat-send-btn');
+
+    if (chatInput && chatSendBtn) {
+      chatSendBtn.addEventListener('click', () => {
+        if (chatInput.value.trim()) {
+          // In a real app, this would send the message
+          alert('Message sent: ' + chatInput.value);
+          chatInput.value = '';
+        }
+      });
+
+      chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          chatSendBtn.click();
+        }
+      });
+    }
+  </script>
+</body>
+</html>
