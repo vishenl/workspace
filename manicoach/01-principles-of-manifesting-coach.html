@@ -14,19 +14,146 @@
     details summary::before { content: '▸ '; }
     details[open] summary::before { content: '▾ '; }
     details > div { padding: 0 1.5rem 1.5rem; }
+
+    /* Download buttons */
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      background: white;
+      border: 2px solid #e8e0f0;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      color: #4b5563;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .download-btn:hover { border-color: #7a12d4; color: #7a12d4; }
+    .download-btn svg { width: 20px; height: 20px; }
+
+    /* Infographic styles */
+    .infographic {
+      background: linear-gradient(135deg, #f9f7fc 0%, #f5f0fa 100%);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+    .infographic-title {
+      text-align: center;
+      color: #7a12d4;
+      margin-bottom: 1.5rem;
+    }
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .flow-step {
+      background: white;
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(122, 18, 212, 0.1);
+      min-width: 120px;
+    }
+    .flow-arrow {
+      color: #7a12d4;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    /* Slide section */
+    .slide-card {
+      background: white;
+      border: 1px solid #e8e0f0;
+      border-radius: 1rem;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    .slide-image {
+      background: #f5f0fa;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+    }
+    .slide-notes {
+      padding: 1.5rem;
+      border-top: 1px solid #e8e0f0;
+    }
+
+    /* Print styles */
+    @media print {
+      body { font-size: 11pt; }
+      .no-print { display: none !important; }
+      .mv-container { padding: 1rem 0 !important; }
+      details { break-inside: avoid; }
+      details[open] { break-inside: auto; }
+      section { break-inside: avoid; page-break-inside: avoid; }
+      h2, h3 { page-break-after: avoid; }
+
+      @page {
+        margin: 2cm;
+        @bottom-center {
+          content: "Page " counter(page) " of " counter(pages);
+        }
+      }
+
+      .print-footer {
+        display: block !important;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 10pt;
+        color: #6b7280;
+        padding: 1rem 0;
+        border-top: 1px solid #e8e0f0;
+      }
+    }
+    .print-footer { display: none; }
   </style>
 </head>
 <body>
 
   <!-- Header -->
-  <section class="mv-container" style="padding: 3rem 0 2rem 0;">
+  <section class="mv-container no-print" style="padding: 3rem 0 2rem 0;">
     <a href="index.html" style="color: #7a12d4; text-decoration: none; font-weight: 500;">← Back to All Sessions</a>
   </section>
 
-  <section class="mv-container" style="padding: 0 0 3rem 0;">
+  <section class="mv-container" style="padding: 0 0 2rem 0;">
     <div class="overline-text" style="margin-bottom: 0.75rem; color: #7a12d4;">SESSION 1 — DAY 1</div>
     <h1 class="title-bold-2" style="max-width: 48rem; margin: 0 0 1rem 0;">The Principles of Manifesting as a Coach</h1>
     <p class="body-lg" style="color: #4b5563;"><strong>Instructor:</strong> Regan Hillyer</p>
+  </section>
+
+  <!-- Downloads Section -->
+  <section class="mv-container no-print" style="padding: 0 0 3rem 0;">
+    <div style="background: #f9f7fc; padding: 1.5rem 2rem; border-radius: 1rem;">
+      <p class="title-bold-7" style="margin-bottom: 1rem;">Downloads & Resources</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        <a href="javascript:window.print()" class="download-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+          Print as PDF
+        </a>
+        <a href="01-principles-of-manifesting-coach.md" download class="download-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+          Markdown (.md)
+        </a>
+        <a href="transcripts/01-regan-principles.txt" class="download-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+          Raw Transcript
+        </a>
+        <a href="audio/01-regan-principles.mp3" class="download-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>
+          Audio Recording
+        </a>
+      </div>
+    </div>
   </section>
 
   <!-- Quick Memory Overview -->
@@ -48,6 +175,132 @@
     </div>
   </section>
 
+  <!-- INFOGRAPHIC: The Shared Field Concept -->
+  <section class="mv-container" style="padding: 3rem 0 0 0;">
+    <div class="infographic">
+      <h3 class="title-bold-5 infographic-title">The Shared Field Concept</h3>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+        <div style="text-align: center;">
+          <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #7a12d4, #9333ea); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem auto;">
+            <span style="color: white; font-weight: 600; font-size: 0.9rem;">YOU</span>
+          </div>
+          <p class="body-sm" style="color: #4b5563;">Coach Field</p>
+        </div>
+        <div style="font-size: 2rem; color: #7a12d4;">+</div>
+        <div style="text-align: center;">
+          <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #9333ea, #c084fc); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem auto;">
+            <span style="color: white; font-weight: 600; font-size: 0.9rem;">CLIENT</span>
+          </div>
+          <p class="body-sm" style="color: #4b5563;">Client Field</p>
+        </div>
+        <div style="font-size: 2rem; color: #7a12d4;">=</div>
+        <div style="text-align: center;">
+          <div style="width: 160px; height: 160px; background: linear-gradient(135deg, #7a12d4 0%, #9333ea 50%, #c084fc 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem auto; box-shadow: 0 0 30px rgba(122, 18, 212, 0.3);">
+            <span style="color: white; font-weight: 600; text-align: center; font-size: 0.85rem; padding: 0.5rem;">SHARED<br>QUANTUM<br>BUBBLE</span>
+          </div>
+          <p class="body-sm" style="color: #4b5563;">Amplified Manifestation Field</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFOGRAPHIC: Judgment Escape Route -->
+  <section class="mv-container" style="padding: 2rem 0 0 0;">
+    <div class="infographic">
+      <h3 class="title-bold-5 infographic-title">The Judgment Escape Route</h3>
+      <div class="flow-diagram">
+        <div class="flow-step" style="border: 2px solid #ef4444;">
+          <p class="body-sm" style="color: #ef4444; margin-bottom: 0.25rem;">JUDGMENT</p>
+          <p class="body-sm" style="color: #4b5563; margin: 0;">"This is wrong"</p>
+          <p class="body-xs" style="color: #9ca3af; margin: 0.25rem 0 0 0;">Body tenses</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="border: 2px solid #f59e0b;">
+          <p class="body-sm" style="color: #f59e0b; margin-bottom: 0.25rem;">CURIOSITY</p>
+          <p class="body-sm" style="color: #4b5563; margin: 0;">"I wonder why..."</p>
+          <p class="body-xs" style="color: #9ca3af; margin: 0.25rem 0 0 0;">Body relaxes</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="border: 2px solid #22c55e;">
+          <p class="body-sm" style="color: #22c55e; margin-bottom: 0.25rem;">APPRECIATION</p>
+          <p class="body-sm" style="color: #4b5563; margin: 0;">"Thank you for sharing"</p>
+          <p class="body-xs" style="color: #9ca3af; margin: 0.25rem 0 0 0;">Warmth & openness</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFOGRAPHIC: 5 Client Stages -->
+  <section class="mv-container" style="padding: 2rem 0 0 0;">
+    <div class="infographic">
+      <h3 class="title-bold-5 infographic-title">The 5 Client Stages</h3>
+      <div style="display: flex; align-items: stretch; justify-content: center; flex-wrap: wrap; gap: 0;">
+        <div style="background: #fee2e2; padding: 1.25rem; border-radius: 1rem 0 0 1rem; text-align: center; min-width: 130px; display: flex; flex-direction: column; justify-content: center;">
+          <div style="width: 40px; height: 40px; background: #ef4444; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 0.5rem auto;">1</div>
+          <p class="body-sm" style="font-weight: 600; color: #ef4444; margin: 0;">Confusion</p>
+          <p class="body-xs" style="color: #7f1d1d; margin: 0.25rem 0 0 0;">"I don't know"</p>
+        </div>
+        <div style="background: #fef3c7; padding: 1.25rem; text-align: center; min-width: 130px; display: flex; flex-direction: column; justify-content: center;">
+          <div style="width: 40px; height: 40px; background: #f59e0b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 0.5rem auto;">2</div>
+          <p class="body-sm" style="font-weight: 600; color: #f59e0b; margin: 0;">Desire</p>
+          <p class="body-xs" style="color: #78350f; margin: 0.25rem 0 0 0;">Unfocused wishes</p>
+        </div>
+        <div style="background: #dbeafe; padding: 1.25rem; text-align: center; min-width: 130px; display: flex; flex-direction: column; justify-content: center;">
+          <div style="width: 40px; height: 40px; background: #3b82f6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 0.5rem auto;">3</div>
+          <p class="body-sm" style="font-weight: 600; color: #3b82f6; margin: 0;">Alignment</p>
+          <p class="body-xs" style="color: #1e3a8a; margin: 0.25rem 0 0 0;">Clarity achieved</p>
+        </div>
+        <div style="background: #ede9fe; padding: 1.25rem; text-align: center; min-width: 130px; display: flex; flex-direction: column; justify-content: center;">
+          <div style="width: 40px; height: 40px; background: #8b5cf6; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 0.5rem auto;">4</div>
+          <p class="body-sm" style="font-weight: 600; color: #8b5cf6; margin: 0;">Embodiment</p>
+          <p class="body-xs" style="color: #4c1d95; margin: 0.25rem 0 0 0;">Integrating identity</p>
+        </div>
+        <div style="background: #dcfce7; padding: 1.25rem; border-radius: 0 1rem 1rem 0; text-align: center; min-width: 130px; display: flex; flex-direction: column; justify-content: center;">
+          <div style="width: 40px; height: 40px; background: #22c55e; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 0.5rem auto;">5</div>
+          <p class="body-sm" style="font-weight: 600; color: #22c55e; margin: 0;">Manifestation</p>
+          <p class="body-xs" style="color: #14532d; margin: 0.25rem 0 0 0;">Results happening!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFOGRAPHIC: Soul vs Ego -->
+  <section class="mv-container" style="padding: 2rem 0 0 0;">
+    <div class="infographic">
+      <h3 class="title-bold-5 infographic-title">Soul-Aligned vs Ego-Driven</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 700px; margin: 0 auto;">
+        <div style="background: white; border-radius: 1rem; padding: 1.5rem; border: 2px solid #22c55e;">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+            <div style="width: 50px; height: 50px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 1.5rem;">✨</span>
+            </div>
+            <p class="title-bold-6" style="color: #22c55e; margin: 0;">Soul-Aligned</p>
+          </div>
+          <ul class="body-sm" style="margin: 0; padding-left: 1.25rem; color: #4b5563;">
+            <li>Feels <strong>expansive</strong></li>
+            <li>Increases options</li>
+            <li>Deep truth & knowing</li>
+            <li>"This is just ME"</li>
+          </ul>
+        </div>
+        <div style="background: white; border-radius: 1rem; padding: 1.5rem; border: 2px solid #ef4444;">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+            <div style="width: 50px; height: 50px; background: #fee2e2; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 1.5rem;">⚡</span>
+            </div>
+            <p class="title-bold-6" style="color: #ef4444; margin: 0;">Ego-Driven</p>
+          </div>
+          <ul class="body-sm" style="margin: 0; padding-left: 1.25rem; color: #4b5563;">
+            <li>Fear-based</li>
+            <li>Comparison-driven</li>
+            <li>Scarcity mindset</li>
+            <li>Seeking validation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Table of Contents -->
   <section class="mv-container" style="padding: 3rem 0;">
     <div style="background: #f9f7fc; padding: 2rem; border-radius: 1rem;">
@@ -60,7 +313,8 @@
         <a href="#ethics" class="body" style="color: #4b5563;">5. The Ethics of Manifesting</a>
         <a href="#stages" class="body" style="color: #4b5563;">6. The 5 Client Stages</a>
         <a href="#soul" class="body" style="color: #4b5563;">7. Soul-Aligned vs Ego-Driven</a>
-        <a href="#takeaways" class="body" style="color: #4b5563;">8. Key Takeaways</a>
+        <a href="#slides" class="body" style="color: #4b5563;">8. Session Slides</a>
+        <a href="#takeaways" class="body" style="color: #4b5563;">9. Key Takeaways</a>
       </div>
     </div>
   </section>
@@ -382,9 +636,34 @@
       </div>
     </section>
 
-    <!-- Section 8 -->
+    <!-- Section 8: Slides -->
+    <section id="slides" style="margin-bottom: 4rem;">
+      <h2 class="title-bold-4" style="margin-bottom: 1.5rem;">8. Session Slides</h2>
+      <p class="body" style="max-width: 40rem; margin-bottom: 2rem;">Presentation slides from Regan Hillyer's session with key concepts and notes.</p>
+
+      <!-- Slide placeholder - will be replaced with actual slides -->
+      <div style="background: #f9f7fc; border: 2px dashed #e8e0f0; border-radius: 1rem; padding: 3rem; text-align: center; margin-bottom: 2rem;">
+        <p class="title-bold-6" style="color: #7a12d4; margin-bottom: 0.75rem;">Slides Coming Soon</p>
+        <p class="body" style="color: #6b7280; margin: 0;">Presentation slides will be embedded here once received from Regan.</p>
+      </div>
+
+      <!-- Example slide card structure (for when slides are added) -->
+      <!--
+      <div class="slide-card">
+        <div class="slide-image">
+          <img src="slides/slide-01.jpg" alt="Slide 1: The Shared Field" style="max-width: 100%; border-radius: 0.5rem;" />
+        </div>
+        <div class="slide-notes">
+          <p class="title-bold-7" style="color: #7a12d4; margin-bottom: 0.5rem;">Slide 1: The Shared Field</p>
+          <p class="body" style="margin: 0; color: #4b5563;">This slide illustrates how the coach and client fields merge to create a shared quantum bubble where manifestation is amplified.</p>
+        </div>
+      </div>
+      -->
+    </section>
+
+    <!-- Section 9 -->
     <section id="takeaways">
-      <h2 class="title-bold-4" style="margin-bottom: 1.5rem;">8. Key Takeaways</h2>
+      <h2 class="title-bold-4" style="margin-bottom: 1.5rem;">9. Key Takeaways</h2>
 
       <div style="background: linear-gradient(135deg, #7a12d4, #9333ea); color: white; padding: 2rem; border-radius: 1rem;">
         <p class="title-bold-6" style="color: white; margin-bottom: 1.5rem;">Before Every Session, Remember:</p>
@@ -406,7 +685,7 @@
   </main>
 
   <!-- Navigation -->
-  <section style="background: #f9f7fc;">
+  <section style="background: #f9f7fc;" class="no-print">
     <div class="mv-container" style="padding: 3rem 0;">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
         <a href="index.html" style="color: #7a12d4; text-decoration: none; font-weight: 500;">← Back to All Sessions</a>
@@ -420,6 +699,11 @@
     <p class="body-sm" style="margin: 0;">© Mindvalley • Manifesting Coach Certification</p>
     <p class="body-sm" style="margin: 0.5rem 0 0 0;">These notes are for certified students only.</p>
   </footer>
+
+  <!-- Print Footer (shows on printed pages) -->
+  <div class="print-footer">
+    © Mindvalley • Manifesting Coach Certification • Session 1: The Principles of Manifesting as a Coach
+  </div>
 
 </body>
 </html>
