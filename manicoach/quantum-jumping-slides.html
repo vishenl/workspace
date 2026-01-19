@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quantum Jumping — Presentation Slides</title>
+  <meta name="description" content="Visual presentation slides explaining the Quantum Jumping model for manifesting coaches." />
+  <meta name="theme-color" content="#7a12d4" />
+  <link rel="stylesheet" href="../mindvalley-core.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #0f131a;
+      overflow: hidden;
+    }
+
+    /* Slide Container */
+    .slides-container {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Individual Slide */
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .slide.active { display: flex; }
+
+    /* Slide Backgrounds */
+    .slide--dark {
+      background: linear-gradient(135deg, #0f131a 0%, #1a1f2e 100%);
+      color: white;
+    }
+    .slide--purple {
+      background: linear-gradient(135deg, #7a12d4 0%, #9333ea 50%, #6b21a8 100%);
+      color: white;
+    }
+    .slide--light {
+      background: linear-gradient(135deg, #f9f7fc 0%, #f5f0fa 100%);
+      color: #0f131a;
+    }
+    .slide--gradient {
+      background: linear-gradient(135deg, #1a1f2e 0%, #2d1f4e 50%, #1a1f2e 100%);
+      color: white;
+    }
+
+    /* Typography for Slides */
+    .slide-title {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 600;
+      text-align: center;
+      margin: 0 0 1.5rem 0;
+      line-height: 1.1;
+      max-width: 900px;
+    }
+    .slide-subtitle {
+      font-size: clamp(1.25rem, 2.5vw, 2rem);
+      font-weight: 400;
+      text-align: center;
+      opacity: 0.9;
+      margin: 0;
+      max-width: 700px;
+    }
+    .slide-eyebrow {
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1.5rem;
+      opacity: 0.7;
+    }
+
+    /* Quote Style */
+    .slide-quote {
+      font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+      font-style: italic;
+      text-align: center;
+      max-width: 800px;
+      line-height: 1.4;
+      margin: 0 0 2rem 0;
+    }
+    .slide-quote-author {
+      font-size: 1.1rem;
+      opacity: 0.8;
+      font-weight: 500;
+    }
+
+    /* Content Layouts */
+    .slide-content {
+      max-width: 1000px;
+      width: 100%;
+    }
+    .slide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .slide-card {
+      background: rgba(255,255,255,0.1);
+      padding: 2rem;
+      border-radius: 1.5rem;
+      backdrop-filter: blur(10px);
+    }
+    .slide--light .slide-card {
+      background: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .slide-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0 0 1rem 0;
+    }
+    .slide--purple .slide-card h3,
+    .slide--dark .slide-card h3 {
+      color: #c4b5fd;
+    }
+    .slide--light .slide-card h3 {
+      color: #7a12d4;
+    }
+    .slide-card p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    /* Step Cards */
+    .step-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    .step-num {
+      width: 56px;
+      height: 56px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .slide--light .step-num {
+      background: #7a12d4;
+      color: white;
+    }
+    .step-content h4 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem 0;
+    }
+    .step-content p {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Visual Elements */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 400px;
+      height: 400px;
+      background: #7a12d4;
+      top: -100px;
+      right: -100px;
+    }
+    .orb-2 {
+      width: 300px;
+      height: 300px;
+      background: #9333ea;
+      bottom: -50px;
+      left: -50px;
+    }
+
+    /* Lineage Visual */
+    .lineage {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 3rem;
+    }
+    .lineage-person {
+      background: rgba(255,255,255,0.15);
+      padding: 1rem 2rem;
+      border-radius: 1rem;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+    .lineage-arrow {
+      font-size: 2rem;
+      opacity: 0.5;
+    }
+
+    /* Big Number */
+    .big-number {
+      font-size: clamp(4rem, 15vw, 12rem);
+      font-weight: 700;
+      opacity: 0.15;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+    }
+    .slide-content { position: relative; z-index: 1; }
+
+    /* Diagram */
+    .multiverse-visual {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+    .reality-bubble {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-align: center;
+      border: 3px solid rgba(255,255,255,0.3);
+    }
+    .reality-bubble.current {
+      background: #7a12d4;
+      border-color: #7a12d4;
+      transform: scale(1.2);
+    }
+    .reality-bubble.near {
+      opacity: 0.8;
+    }
+    .reality-bubble.far {
+      opacity: 0.4;
+    }
+
+    /* Key Insight Box */
+    .insight-box {
+      background: rgba(255,255,255,0.1);
+      border-left: 4px solid #c4b5fd;
+      padding: 1.5rem 2rem;
+      border-radius: 0 1rem 1rem 0;
+      margin: 2rem 0;
+      text-align: left;
+    }
+    .slide--light .insight-box {
+      background: #f5f0fa;
+      border-left-color: #7a12d4;
+    }
+    .insight-box p {
+      font-size: 1.2rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 1rem;
+      z-index: 100;
+    }
+    .nav button {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      background: rgba(0,0,0,0.3);
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      backdrop-filter: blur(10px);
+    }
+    .nav button:hover {
+      background: #7a12d4;
+      border-color: #7a12d4;
+    }
+    .slide-counter {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      color: white;
+      font-size: 0.9rem;
+      opacity: 0.6;
+      z-index: 100;
+    }
+
+    /* Doppelganger Visual */
+    .doppel-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      margin: 2rem 0;
+    }
+    .doppel-figure {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .doppel-you {
+      background: rgba(255,255,255,0.2);
+      border: 3px dashed rgba(255,255,255,0.4);
+    }
+    .doppel-them {
+      background: linear-gradient(135deg, #7a12d4, #9333ea);
+      border: 3px solid #c4b5fd;
+    }
+    .doppel-arrow {
+      font-size: 2rem;
+      opacity: 0.6;
+    }
+
+    /* Alter Ego Examples */
+    .alter-ego-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .alter-ego-card {
+      background: rgba(255,255,255,0.1);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      text-align: center;
+    }
+    .alter-ego-card .name {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+    .alter-ego-card .alter {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #c4b5fd;
+    }
+
+    /* Process Steps Visual */
+    .process-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 600px;
+    }
+    .process-step {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(255,255,255,0.08);
+      padding: 0.75rem 1.25rem;
+      border-radius: 0.75rem;
+    }
+    .process-step.highlight {
+      background: rgba(122, 18, 212, 0.4);
+      border: 2px solid #c4b5fd;
+    }
+    .process-step-num {
+      width: 32px;
+      height: 32px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .process-step.highlight .process-step-num {
+      background: #7a12d4;
+    }
+    .process-step-text {
+      font-size: 1rem;
+    }
+
+    /* Action Cards */
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+      max-width: 800px;
+    }
+    .action-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      text-align: center;
+    }
+    .action-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .action-card h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #7a12d4;
+      margin: 0 0 0.5rem 0;
+    }
+    .action-card p {
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin: 0;
+    }
+
+    /* Final Takeaway */
+    .takeaway-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 2rem;
+      text-align: left;
+    }
+    .takeaway-item h4 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #c4b5fd;
+      margin: 0 0 0.75rem 0;
+    }
+    .takeaway-item p {
+      font-size: 1.05rem;
+      opacity: 0.9;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Print / Export */
+    @media print {
+      .nav, .slide-counter { display: none; }
+      .slide {
+        display: flex !important;
+        page-break-after: always;
+        height: auto;
+        min-height: 100vh;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .slide { padding: 2rem; }
+      .slide-grid { grid-template-columns: 1fr; }
+      .takeaway-grid { grid-template-columns: 1fr; }
+      .action-grid { grid-template-columns: 1fr; }
+      .lineage { flex-direction: column; }
+      .lineage-arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="slides-container">
+
+  <!-- Slide 1: Title -->
+  <div class="slide slide--purple active">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="slide-eyebrow">Manifesting Coach Certification</div>
+    <h1 class="slide-title">Quantum Jumping</h1>
+    <p class="slide-subtitle">Leaping Into Your Highest Timeline</p>
+    <div style="margin-top: 3rem; opacity: 0.8;">
+      <p style="margin: 0;">Vishen Lakhiani</p>
+    </div>
+  </div>
+
+  <!-- Slide 2: Bruce Lee Quote -->
+  <div class="slide slide--dark">
+    <div class="orb orb-1"></div>
+    <p class="slide-quote">"Truth lies outside the circle. Choose what is useful, discard what is not. Add your own unique style."</p>
+    <p class="slide-quote-author">— Bruce Lee</p>
+    <div class="insight-box" style="max-width: 600px; margin-top: 3rem;">
+      <p>Your job isn't to follow any one teacher exactly. Truth comes from the <strong>intersection</strong> of different philosophies.</p>
+    </div>
+  </div>
+
+  <!-- Slide 3: The Lineage -->
+  <div class="slide slide--gradient">
+    <div class="slide-eyebrow">The Lineage</div>
+    <h2 class="slide-title" style="font-size: clamp(2rem, 4vw, 3rem);">Where Quantum Jumping Comes From</h2>
+    <div class="lineage">
+      <div class="lineage-person">Jose Silva</div>
+      <div class="lineage-arrow">→</div>
+      <div class="lineage-person">Bert Goldman</div>
+      <div class="lineage-arrow">→</div>
+      <div class="lineage-person">Vishen Lakhiani</div>
+    </div>
+    <p class="slide-subtitle" style="margin-top: 2rem; font-size: 1.1rem; opacity: 0.7;">
+      Silva Method → Quantum Jumping → Six Phase Meditation<br>
+      Created in 2008. Still one of Mindvalley's top programs.
+    </p>
+  </div>
+
+  <!-- Slide 4: The Multiverse -->
+  <div class="slide slide--dark">
+    <div class="orb orb-2"></div>
+    <h2 class="slide-title" style="font-size: clamp(2rem, 4vw, 3rem);">The Multiverse Perspective</h2>
+    <p class="slide-subtitle" style="margin-bottom: 2rem;">Every possibility already exists in alternate realities.</p>
+    <div class="multiverse-visual">
+      <div class="reality-bubble far">$60M</div>
+      <div class="reality-bubble far">$6M</div>
+      <div class="reality-bubble near">$600K</div>
+      <div class="reality-bubble current">You<br>$300K</div>
+      <div class="reality-bubble near">$600K</div>
+      <div class="reality-bubble far">Soulmate</div>
+      <div class="reality-bubble far">Best<br>Health</div>
+    </div>
+    <div class="insight-box" style="max-width: 500px;">
+      <p>The closest realities are <strong>easiest to slide into</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Slide 5: The Trap -->
+  <div class="slide slide--purple">
+    <div class="big-number">!</div>
+    <div class="slide-content">
+      <h2 class="slide-title" style="font-size: clamp(2rem, 4vw, 3rem);">The Access Potential Trap</h2>
+      <p class="slide-quote" style="font-size: 1.5rem;">"We prevent the sliding when we care too much. The universe balances neediness with obstacles."</p>
+      <p class="slide-quote-author">— Vadim Zealand, Reality Transurfing</p>
+      <div style="margin-top: 2rem;">
+        <p style="font-size: 1.2rem; opacity: 0.9;">When you desperately want something, you push it away.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: No Big Deal -->
+  <div class="slide slide--dark">
+    <div class="orb orb-1"></div>
+    <div class="slide-eyebrow">The Secret</div>
+    <h2 class="slide-title">"No Big Deal"</h2>
+    <p class="slide-subtitle" style="margin-bottom: 3rem;">Zero resistance = Easy manifesting</p>
+    <div class="slide-grid" style="max-width: 900px;">
+      <div class="slide-card">
+        <h3>1. Lower the Importance</h3>
+        <p>Make it a <strong>"nice to have"</strong> not a <strong>"must have."</strong></p>
+      </div>
+      <div class="slide-card">
+        <h3>2. Act As If It's Arranged</h3>
+        <p>Walk with calm confidence. "The check is in the mail."</p>
+      </div>
+      <div class="slide-card">
+        <h3>3. Slide Between Realities</h3>
+        <p>Frequency attracts matching circumstances. Watch for signs.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: Mother Teresa -->
+  <div class="slide slide--gradient">
+    <p class="slide-quote">"I will never march in an anti-war rally. I will only march in a <strong>pro-peace</strong> rally."</p>
+    <p class="slide-quote-author">— Mother Teresa</p>
+    <div class="insight-box" style="max-width: 500px; margin-top: 2rem;">
+      <p>What you resist, persists. Focus on what you want, not what you don't want.</p>
+    </div>
+  </div>
+
+  <!-- Slide 8: The Doppelganger -->
+  <div class="slide slide--purple">
+    <div class="slide-eyebrow">Core Concept</div>
+    <h2 class="slide-title" style="font-size: clamp(2rem, 4vw, 3.5rem);">The Doppelganger</h2>
+    <p class="slide-subtitle">A version of you in an alternate reality who has achieved what you desire.</p>
+    <div class="doppel-visual">
+      <div class="doppel-figure doppel-you">👤</div>
+      <div class="doppel-arrow">→ Observe → Merge →</div>
+      <div class="doppel-figure doppel-them">✨</div>
+    </div>
+    <p style="opacity: 0.8; font-size: 1.1rem;">You observe them, merge with them, and bring back their vibe, energy, and insights.</p>
+  </div>
+
+  <!-- Slide 9: What to Observe -->
+  <div class="slide slide--dark">
+    <h2 class="slide-title" style="font-size: clamp(2rem, 4vw, 3rem);">What to Observe</h2>
+    <p class="slide-subtitle" style="margin-bottom: 2rem;">When you meet your doppelganger, notice everything:</p>
+    <div class="slide-grid" style="max-width: 800px;">
+      <div class="slide-card" style="text-align: center;">
+        <p style="font-size: 2rem; margin-bottom: 0.5rem;">👔</p>
+        <p>How they dress</p>
+      </div>
+      <div class="slide-card" style="text-align: center;">
+        <p style="font-size: 2rem; margin-bottom: 0.5rem;">🏠</p>
+        <p>Where they live</p>
+      </div>
+      <div class="slide-card" style="text-align: center;">
+        <p style="font-size: 2rem; margin-bottom: 0.5rem;">👥</p>
+        <p>Who they're with</p>
+      </div>
+      <div class="slide-card" style="text-align: center;">
+        <p style="font-size: 2rem; margin-bottom: 0.5rem;">🚶</p>
+        <p>How they move</p>
+      </div>
+      <div class="slide-card" style="text-align: center;">
+        <p style="font-size: 2rem; margin-bottom: 0.5rem;">💪</p>
+        <p>Their confidence</p>
+      </div>
+      <div class="slide-card" style="text-align: center;">
+        <p style="font-size: 2rem; margin-bottom: 0.5rem;">☮️</p>
+        <p>Their peace</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 10: Alter Ego -->
+  <div class="slide slide--gradient">
+    <h2 class="slide-title" style="font-size: clamp(2rem, 4vw, 3rem);">Give Them a Name</h2>
+    <p class="slide-subtitle">Your doppelganger becomes your secret alter ego.</p>
+    <div class="alter-ego-grid">
+      <div class="alter-ego-card">
+        <div class="name">Beyoncé →</div>
+        <div class="alter">Sasha Fierce</div>
+      </div>
+      <div class="alter-ego-card">
+        <div class="name">Clark Kent →</div>
+        <div class="alter">Superman</div>
+      </div>
+      <div class="alter-ego-card">
+        <div class="name">Peter Parker →</div>
+        <div class="alter">Spider-Man</div>
+      </div>
+      <div class="alter-ego-card">
+        <div class="name">Bruce Wayne →</div>
+        <div class="alter">Batman</div>
+      </div>
+    </div>
+    <div class="insight-box" style="max-width: 600px; margin-top: 2rem;">
+      <p>Beyoncé's "Sasha Fierce" helped her become the artist with the most Grammy Awards in history (99).</p>
+    </div>
+  </div>
+
+  <!-- Slide 11: The Process Overview -->
+  <div class="slide slide--purple">
+    <div class="big-number">11</div>
+    <div class="slide-content">
+      <div class="slide-eyebrow">The Method</div>
+      <h2 class="slide-title" style="font-size: clamp(2rem, 4vw, 3.5rem);">The Quantum Jumping Process</h2>
+      <p class="slide-subtitle">11 steps to meet and merge with your doppelganger</p>
+    </div>
+  </div>
+
+  <!-- Slide 12: Steps 1-5 -->
+  <div class="slide slide--dark">
+    <h2 class="slide-title" style="font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 2rem;">Steps 1-5: Enter & Journey</h2>
+    <div class="process-timeline">
+      <div class="process-step">
+        <div class="process-step-num">1</div>
+        <div class="process-step-text">Enter relaxed state (3-3-3, 2-2-2, 1-1-1 method)</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">2</div>
+        <div class="process-step-text">Enter the Mothership — see infinite stars (possibilities)</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">3</div>
+        <div class="process-step-text">Set your intention — which reality do you want?</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">4</div>
+        <div class="process-step-text">Walk the corridor toward the metallic door</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">5</div>
+        <div class="process-step-text">Open the door — step into a foggy scene</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 13: Steps 6-8 (Key Steps) -->
+  <div class="slide slide--purple">
+    <h2 class="slide-title" style="font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 2rem;">Steps 6-8: The Core Experience</h2>
+    <div class="process-timeline">
+      <div class="process-step highlight">
+        <div class="process-step-num">6</div>
+        <div class="process-step-text"><strong>Observe your doppelganger</strong> — float above, use all 5 senses</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">7</div>
+        <div class="process-step-text">Let them know you're there — they welcome you</div>
+      </div>
+      <div class="process-step highlight">
+        <div class="process-step-num">8</div>
+        <div class="process-step-text"><strong>Merge with them</strong> — step INTO their body, feel their energy</div>
+      </div>
+    </div>
+    <div class="insight-box" style="max-width: 500px; margin-top: 2rem;">
+      <p>Steps 6 & 8 are where the magic happens. Take your time here.</p>
+    </div>
+  </div>
+
+  <!-- Slide 14: Steps 9-11 -->
+  <div class="slide slide--dark">
+    <h2 class="slide-title" style="font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 2rem;">Steps 9-11: Return & Integrate</h2>
+    <div class="process-timeline">
+      <div class="process-step">
+        <div class="process-step-num">9</div>
+        <div class="process-step-text">Ask questions (optional) — "What made the biggest difference?"</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">10</div>
+        <div class="process-step-text">Step out, say goodbye, float back through the door</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">11</div>
+        <div class="process-step-text">Return to waking state — count 1 to 5, journal immediately</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 15: Post-Jump Actions -->
+  <div class="slide slide--light">
+    <div class="slide-eyebrow" style="color: #7a12d4;">After The Jump</div>
+    <h2 class="slide-title" style="font-size: clamp(2rem, 4vw, 3rem);">Take Physical Action</h2>
+    <p class="slide-subtitle" style="color: #4b5563;">Anchor the experience in reality.</p>
+    <div class="action-grid">
+      <div class="action-card">
+        <div class="icon">🛍️</div>
+        <h4>Buy Something</h4>
+        <p>A shirt, watch, or pendant your doppelganger would wear</p>
+      </div>
+      <div class="action-card">
+        <div class="icon">🔄</div>
+        <h4>Adopt a Behavior</h4>
+        <p>Start your day like they do</p>
+      </div>
+      <div class="action-card">
+        <div class="icon">🏡</div>
+        <h4>Rearrange Your Space</h4>
+        <p>Bring elements of their environment into yours</p>
+      </div>
+      <div class="action-card">
+        <div class="icon">🎭</div>
+        <h4>Step Into the Identity</h4>
+        <p>"What would [Alter Ego Name] do?"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 16: Two Types -->
+  <div class="slide slide--gradient">
+    <h2 class="slide-title" style="font-size: clamp(2rem, 4vw, 3rem);">Two Types of Quantum Jumps</h2>
+    <div class="slide-grid" style="max-width: 800px; margin-top: 2rem;">
+      <div class="slide-card">
+        <h3>Full Jump</h3>
+        <p style="font-size: 2rem; margin-bottom: 1rem;">15-20 min</p>
+        <p>For major life goals: doubling business, finding love, discovering life purpose. Deep observation and merging.</p>
+      </div>
+      <div class="slide-card">
+        <h3>Fast Jump</h3>
+        <p style="font-size: 2rem; margin-bottom: 1rem;">~10 min</p>
+        <p>For skills: staying calm during presentations, time management, becoming a better leader.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 17: Key Takeaways -->
+  <div class="slide slide--dark">
+    <h2 class="slide-title" style="font-size: clamp(2rem, 4vw, 3rem);">Key Takeaways</h2>
+    <div class="takeaway-grid" style="max-width: 900px; margin-top: 2rem;">
+      <div class="takeaway-item">
+        <h4>Every Possibility Exists</h4>
+        <p>The reality you want is already out there. The closest ones are easiest to jump to.</p>
+      </div>
+      <div class="takeaway-item">
+        <h4>Resistance = Caring Too Much</h4>
+        <p>The "No Big Deal" state drops resistance to zero. Nice to have, not must have.</p>
+      </div>
+      <div class="takeaway-item">
+        <h4>Merge With Your Doppelganger</h4>
+        <p>Feel their confidence, wisdom, and vibe. This shifts your own energy.</p>
+      </div>
+      <div class="takeaway-item">
+        <h4>Take Physical Action</h4>
+        <p>Anchor the jump with real-world changes. Buy, behave, rearrange, embody.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 18: Final -->
+  <div class="slide slide--purple">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <p class="slide-quote">"The check is already in the mail."</p>
+    <h2 class="slide-title" style="margin-top: 2rem;">Your highest timeline is waiting.</h2>
+    <p class="slide-subtitle" style="margin-top: 2rem; opacity: 0.8;">Just jump.</p>
+  </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prevSlide()">←</button>
+  <button onclick="nextSlide()">→</button>
+</div>
+<div class="slide-counter">
+  <span id="current">1</span> / <span id="total">18</span>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let currentSlide = 0;
+
+  function showSlide(n) {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (n + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+    document.getElementById('current').textContent = currentSlide + 1;
+  }
+
+  function nextSlide() { showSlide(currentSlide + 1); }
+  function prevSlide() { showSlide(currentSlide - 1); }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+
+  // Touch navigation
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) nextSlide();
+      else prevSlide();
+    }
+  });
+
+  document.getElementById('total').textContent = slides.length;
+</script>
+
+</body>
+</html>
