@@ -739,7 +739,7 @@
         Portfolio Assessment Quiz
       </h2>
       <p class="body-lg" style="color: rgba(255,255,255,0.9); max-width: 36rem; margin: 0 auto;">
-        Answer 5 questions to get personalized portfolio allocation suggestions based on your situation.
+        Answer 7 questions to get personalized portfolio allocation suggestions based on your situation.
       </p>
     </div>
 
@@ -1144,76 +1144,76 @@ new Chart(aiCtx, {
 });
 
 // International Stocks Chart
-const intlCtx = document.getElementById('internationalChart').getContext('2d');
-new Chart(intlCtx, {
-  type: 'bar',
-  data: {
-    labels: ['Europe', 'China', 'Asia ex-Japan', 'S&P 500'],
-    datasets: [
-      {
-        label: 'Local Currency Return',
-        data: [12, 10, 9, 12],
-        backgroundColor: '#e8e0f0',
-        borderRadius: 8,
-        barThickness: 35
-      },
-      {
-        label: 'Currency Gain (Dollar Decline)',
-        data: [10, 9, 9, 0],
-        backgroundColor: '#7a12d4',
-        borderRadius: 8,
-        barThickness: 35
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: {
-          padding: 15,
-          usePointStyle: true,
-          color: '#4b5563'
+const intlCtx = document.getElementById('internationalChart');
+if (intlCtx) {
+  new Chart(intlCtx.getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: ['Europe (STOXX 600)', 'China (CSI 300)', 'Asia ex-Japan', 'S&P 500'],
+      datasets: [
+        {
+          label: 'Stock Price Gain (Local)',
+          data: [12, 11, 10, 12],
+          backgroundColor: '#c4b5fd',
+          borderRadius: 4
+        },
+        {
+          label: 'Currency Boost (Weak Dollar)',
+          data: [10, 8, 8, 0],
+          backgroundColor: '#7a12d4',
+          borderRadius: 4
         }
-      },
-      tooltip: {
-        backgroundColor: '#0f131a',
-        titleColor: '#fff',
-        bodyColor: '#fff',
-        padding: 12,
-        cornerRadius: 8,
-        callbacks: {
-          label: (context) => `${context.dataset.label}: +${context.raw}%`,
-          afterBody: (context) => {
-            const idx = context[0].dataIndex;
-            const local = 12 - (idx === 3 ? 0 : [0, 2, 3][idx] || 0);
-            const currency = idx === 3 ? 0 : [10, 9, 9][idx];
-            return `Total USD Return: +${local + currency}%`;
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            padding: 20,
+            usePointStyle: true,
+            pointStyle: 'rect',
+            color: '#4b5563'
+          }
+        },
+        tooltip: {
+          backgroundColor: '#0f131a',
+          titleColor: '#fff',
+          bodyColor: '#fff',
+          padding: 12,
+          cornerRadius: 8,
+          callbacks: {
+            label: (context) => `${context.dataset.label}: +${context.raw}%`
           }
         }
-      }
-    },
-    scales: {
-      y: {
-        stacked: true,
-        beginAtZero: true,
-        max: 25,
-        grid: { color: '#f3f4f6' },
-        ticks: {
-          color: '#6b7280',
-          callback: (value) => value + '%'
-        }
       },
-      x: {
-        stacked: true,
-        grid: { display: false },
-        ticks: { color: '#4b5563' }
+      scales: {
+        y: {
+          stacked: true,
+          beginAtZero: true,
+          max: 25,
+          grid: { color: '#f3f4f6' },
+          ticks: {
+            color: '#6b7280',
+            callback: (value) => value + '%'
+          },
+          title: {
+            display: true,
+            text: 'Total Return (USD)',
+            color: '#6b7280'
+          }
+        },
+        x: {
+          stacked: true,
+          grid: { display: false },
+          ticks: { color: '#4b5563', font: { size: 11 } }
+        }
       }
     }
-  }
-});
+  });
+}
 
 // Party Performance Chart
 const partyCtx = document.getElementById('partyChart').getContext('2d');
@@ -1303,10 +1303,19 @@ const questions = [
   {
     question: "What percentage of your portfolio is currently in US stocks?",
     options: [
-      { text: "Over 80%", score: { needsDiversification: 3 } },
-      { text: "60-80%", score: { needsDiversification: 2 } },
-      { text: "40-60%", score: { needsDiversification: 1 } },
+      { text: "Over 80%", score: { needsDiversification: 3, needsInternational: 3 } },
+      { text: "60-80%", score: { needsDiversification: 2, needsInternational: 2 } },
+      { text: "40-60%", score: { needsDiversification: 1, needsInternational: 1 } },
       { text: "Less than 40%", score: { alreadyDiversified: 2 } }
+    ]
+  },
+  {
+    question: "Do you have any exposure to international stocks (Europe, Asia, Emerging Markets)?",
+    options: [
+      { text: "None — 100% US", score: { needsInternational: 3 } },
+      { text: "A little (under 10%)", score: { needsInternational: 2 } },
+      { text: "Some (10-25%)", score: { needsInternational: 1 } },
+      { text: "Significant (25%+)", score: { hasInternational: 2 } }
     ]
   },
   {
@@ -1319,12 +1328,21 @@ const questions = [
     ]
   },
   {
-    question: "How do you feel about the current global economic situation?",
+    question: "What's your current exposure to AI/tech stocks (Magnificent 7, AI ETFs)?",
     options: [
-      { text: "Very concerned — want maximum protection", score: { conservative: 2, needsGold: 1 } },
-      { text: "Cautiously optimistic — want balance", score: { moderate: 2 } },
-      { text: "See opportunities in the change", score: { aggressive: 2 } },
-      { text: "Not sure — want to learn more", score: { moderate: 1, conservative: 1 } }
+      { text: "Heavy — over 30% of portfolio", score: { reduceAI: 3 } },
+      { text: "Moderate — 15-30%", score: { reduceAI: 1 } },
+      { text: "Light — under 15%", score: { aiBalanced: 1 } },
+      { text: "None or very little", score: { aiBalanced: 2 } }
+    ]
+  },
+  {
+    question: "How concerned are you about US political and policy uncertainty?",
+    options: [
+      { text: "Very concerned — want to reduce US exposure", score: { needsInternational: 2, needsGold: 1 } },
+      { text: "Somewhat concerned — want some hedges", score: { needsInternational: 1, moderate: 1 } },
+      { text: "Not very concerned — US will recover", score: { moderate: 1 } },
+      { text: "I see opportunity in the volatility", score: { aggressive: 2 } }
     ]
   }
 ];
@@ -1338,7 +1356,11 @@ let scores = {
   needsDiversification: 0,
   alreadyDiversified: 0,
   needsGold: 0,
-  hasGold: 0
+  hasGold: 0,
+  needsInternational: 0,
+  hasInternational: 0,
+  reduceAI: 0,
+  aiBalanced: 0
 };
 
 function renderQuestion() {
@@ -1424,12 +1446,14 @@ function showResults() {
 
   const needsMoreGold = scores.needsGold > scores.hasGold;
   const needsMoreDiversification = scores.needsDiversification > scores.alreadyDiversified;
+  const needsMoreInternational = scores.needsInternational > scores.hasInternational;
+  const shouldReduceAI = scores.reduceAI > scores.aiBalanced;
 
   // Base allocations by risk profile
   const allocations = {
-    conservative: { usStocks: 25, intlStocks: 20, gold: 20, bonds: 25, commodities: 10 },
-    moderate: { usStocks: 35, intlStocks: 25, gold: 15, bonds: 15, commodities: 10 },
-    aggressive: { usStocks: 40, intlStocks: 30, gold: 10, bonds: 10, commodities: 10 }
+    conservative: { usStocks: 20, intlStocks: 20, gold: 20, bonds: 30, commodities: 10 },
+    moderate: { usStocks: 30, intlStocks: 25, gold: 15, bonds: 20, commodities: 10 },
+    aggressive: { usStocks: 35, intlStocks: 30, gold: 10, bonds: 15, commodities: 10 }
   };
 
   let allocation = { ...allocations[riskProfile] };
@@ -1439,10 +1463,19 @@ function showResults() {
     allocation.gold += 5;
     allocation.usStocks -= 5;
   }
-  if (needsMoreDiversification) {
+  if (needsMoreInternational) {
+    allocation.intlStocks += 10;
+    allocation.usStocks -= 10;
+  }
+  if (needsMoreDiversification && !needsMoreInternational) {
     allocation.intlStocks += 5;
     allocation.usStocks -= 5;
   }
+
+  // Ensure no negative allocations
+  Object.keys(allocation).forEach(key => {
+    if (allocation[key] < 0) allocation[key] = 0;
+  });
 
   const colors = {
     usStocks: '#3b82f6',
@@ -1471,7 +1504,7 @@ function showResults() {
   `;
 
   Object.entries(allocation).forEach(([key, value]) => {
-    html += `<div class="allocation-segment" style="width: ${value}%; background: ${colors[key]};" title="${labels[key]}: ${value}%">${value}%</div>`;
+    html += `<div class="allocation-segment" style="width: ${value}%; background: ${colors[key]};" title="${labels[key]}: ${value}%">${value > 5 ? value + '%' : ''}</div>`;
   });
 
   html += `</div>
@@ -1494,18 +1527,24 @@ function showResults() {
       <ul style="margin: 0; padding-left: 1.25rem; color: #4b5563;">
   `;
 
-  if (needsMoreGold) {
-    html += `<li style="margin-bottom: 0.5rem;">Consider increasing gold allocation to hedge against dollar weakness</li>`;
+  if (needsMoreInternational) {
+    html += `<li style="margin-bottom: 0.5rem;"><strong>Add international exposure:</strong> Consider ETFs like VGK (Europe), IEFA (Developed), or VWO (Emerging Markets) to benefit from dollar weakness</li>`;
   }
-  if (needsMoreDiversification) {
-    html += `<li style="margin-bottom: 0.5rem;">Your US exposure may be high — consider more international stocks</li>`;
+  if (needsMoreGold) {
+    html += `<li style="margin-bottom: 0.5rem;"><strong>Increase gold allocation:</strong> Gold is up 55% in 2025 and provides a hedge against dollar decline and policy uncertainty</li>`;
+  }
+  if (shouldReduceAI) {
+    html += `<li style="margin-bottom: 0.5rem;"><strong>Review AI/tech exposure:</strong> If holding Tesla (200x P/E) or Palantir (300x+ P/E), consider trimming. Google (30x P/E) and Microsoft (35x P/E) offer better value</li>`;
+  }
+  if (needsMoreDiversification && !needsMoreInternational) {
+    html += `<li style="margin-bottom: 0.5rem;"><strong>Diversify beyond US:</strong> US underperformed international markets in 2025 — global exposure reduces concentration risk</li>`;
   }
   if (riskProfile === 'conservative') {
-    html += `<li style="margin-bottom: 0.5rem;">Focus on capital preservation with bonds and gold</li>`;
+    html += `<li style="margin-bottom: 0.5rem;"><strong>Preserve capital:</strong> Focus on bonds and gold given your shorter timeline or risk tolerance</li>`;
   } else if (riskProfile === 'aggressive') {
-    html += `<li style="margin-bottom: 0.5rem;">You can handle volatility — consider emerging market exposure</li>`;
+    html += `<li style="margin-bottom: 0.5rem;"><strong>Consider emerging markets:</strong> China and Asia outperformed in 2025 — higher risk but strong growth potential</li>`;
   }
-  html += `<li>Rebalance quarterly and stay informed about global developments</li>`;
+  html += `<li><strong>Rebalance regularly:</strong> Review quarterly and stay informed about dollar trends and global developments</li>`;
 
   html += `
       </ul>
@@ -1529,7 +1568,11 @@ function restartQuiz() {
     needsDiversification: 0,
     alreadyDiversified: 0,
     needsGold: 0,
-    hasGold: 0
+    hasGold: 0,
+    needsInternational: 0,
+    hasInternational: 0,
+    reduceAI: 0,
+    aiBalanced: 0
   };
   document.getElementById('quizContainer').style.display = 'block';
   document.getElementById('resultsContainer').style.display = 'none';
