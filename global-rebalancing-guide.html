@@ -791,12 +791,35 @@
         </div>
       </div>
       <div style="min-width: 0;">
-        <div class="chart-container">
+        <div class="chart-container" style="height: 280px;">
           <canvas id="partyChart"></canvas>
         </div>
         <p class="caption-disclaimer" style="text-align: center; color: #6b7280; margin-top: 0.5rem;">
-          Average annual performance by party (1947-2024)
+          Average annual growth rates by party (1947-2024)
         </p>
+      </div>
+    </div>
+
+    <!-- Additional Charts Row -->
+    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e8e0f0;">
+      <h4 class="title-bold-6" style="margin-bottom: 1.5rem;">Jobs & Recessions: The Full Picture</h4>
+      <div class="grid-2col-sm">
+        <div style="text-align: center;">
+          <div class="chart-container" style="height: 220px;">
+            <canvas id="jobsShareChart"></canvas>
+          </div>
+          <p class="caption-disclaimer" style="color: #6b7280; margin-top: 0.5rem;">
+            Share of jobs created since WWII (115M total)
+          </p>
+        </div>
+        <div style="text-align: center;">
+          <div class="chart-container" style="height: 220px;">
+            <canvas id="recessionChart"></canvas>
+          </div>
+          <p class="caption-disclaimer" style="color: #6b7280; margin-top: 0.5rem;">
+            Quarters spent in recession (1949-2020)
+          </p>
+        </div>
       </div>
     </div>
 
@@ -1730,26 +1753,26 @@ if (reitsCtx) {
   });
 }
 
-// Party Performance Chart
+// Party Performance Chart - Growth Metrics Only
 const partyCtx = document.getElementById('partyChart').getContext('2d');
 new Chart(partyCtx, {
   type: 'bar',
   data: {
-    labels: ['Stock Market', 'Corporate Profits', 'GDP Growth', 'Job Creation', 'Jobs Share'],
+    labels: ['Stock Market', 'Corporate Profits', 'GDP Growth', 'Job Creation'],
     datasets: [
       {
         label: 'Democratic',
-        data: [10.8, 12.8, 4.3, 2.6, 72],
+        data: [10.8, 12.8, 4.3, 2.6],
         backgroundColor: '#2563eb',
         borderRadius: 6,
-        barThickness: 24
+        barThickness: 28
       },
       {
         label: 'Republican',
-        data: [6.9, 1.8, 2.5, 1.0, 28],
+        data: [6.9, 1.8, 2.5, 1.0],
         backgroundColor: '#dc2626',
         borderRadius: 6,
-        barThickness: 24
+        barThickness: 28
       }
     ]
   },
@@ -1764,7 +1787,7 @@ new Chart(partyCtx, {
           padding: 15,
           usePointStyle: true,
           color: '#4b5563',
-          font: { size: 11 }
+          font: { size: 12 }
         }
       },
       tooltip: {
@@ -1774,19 +1797,14 @@ new Chart(partyCtx, {
         padding: 12,
         cornerRadius: 8,
         callbacks: {
-          label: (context) => {
-            const label = context.label;
-            if (label === 'Jobs Share') {
-              return `${context.dataset.label}: ${context.raw}% of all jobs since WWII`;
-            }
-            return `${context.dataset.label}: +${context.raw}% per year`;
-          }
+          label: (context) => `${context.dataset.label}: +${context.raw}% per year`
         }
       }
     },
     scales: {
       x: {
         beginAtZero: true,
+        max: 14,
         grid: { color: '#f3f4f6' },
         ticks: {
           color: '#6b7280',
@@ -1795,11 +1813,93 @@ new Chart(partyCtx, {
       },
       y: {
         grid: { display: false },
-        ticks: { color: '#4b5563', font: { size: 11 } }
+        ticks: { color: '#4b5563', font: { size: 12 } }
       }
     }
   }
 });
+
+// Jobs Share Pie Chart
+const jobsShareCtx = document.getElementById('jobsShareChart');
+if (jobsShareCtx) {
+  new Chart(jobsShareCtx.getContext('2d'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Democratic (83M jobs)', 'Republican (32M jobs)'],
+      datasets: [{
+        data: [72, 28],
+        backgroundColor: ['#2563eb', '#dc2626'],
+        borderWidth: 0,
+        hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '55%',
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            padding: 12,
+            usePointStyle: true,
+            color: '#4b5563',
+            font: { size: 11 }
+          }
+        },
+        tooltip: {
+          backgroundColor: '#0f131a',
+          padding: 12,
+          cornerRadius: 8,
+          callbacks: {
+            label: (context) => `${context.label}: ${context.raw}%`
+          }
+        }
+      }
+    }
+  });
+}
+
+// Recession Time Pie Chart
+const recessionCtx = document.getElementById('recessionChart');
+if (recessionCtx) {
+  new Chart(recessionCtx.getContext('2d'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Under Republicans (42 quarters)', 'Under Democrats (8 quarters)'],
+      datasets: [{
+        data: [84, 16],
+        backgroundColor: ['#dc2626', '#2563eb'],
+        borderWidth: 0,
+        hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '55%',
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            padding: 12,
+            usePointStyle: true,
+            color: '#4b5563',
+            font: { size: 11 }
+          }
+        },
+        tooltip: {
+          backgroundColor: '#0f131a',
+          padding: 12,
+          cornerRadius: 8,
+          callbacks: {
+            label: (context) => `${context.label}: ${context.raw}%`
+          }
+        }
+      }
+    }
+  });
+}
 
 // Quiz Logic
 const questions = [
