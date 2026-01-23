@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Program Manager Strategic Evolution Report — Mindvalley</title>
+  <meta name="description" content="Strategic roadmap for evolving Mindvalley's Program Manager platform to lead in the AI-native learning era." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Program Manager Strategic Evolution Report — Mindvalley">
+  <meta property="og:description" content="Strategic roadmap for evolving Mindvalley's Program Manager platform to lead in the AI-native learning era.">
+  <meta property="og:image" content="https://storyblok-cdn.mindvalley.com/f/60579/1382x706/5c44b37f70/mvcom_device-laptop.jpg?quality=60&auto=webp&dpr=0.8999999761581421&width=690">
+  <meta property="og:url" content="https://vishenl.github.io/workspace/program-manager-evolution-report.html">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Program Manager Strategic Evolution Report — Mindvalley">
+  <meta name="twitter:description" content="Strategic roadmap for evolving Mindvalley's Program Manager platform to lead in the AI-native learning era.">
+  <meta name="twitter:image" content="https://storyblok-cdn.mindvalley.com/f/60579/1382x706/5c44b37f70/mvcom_device-laptop.jpg?quality=60&auto=webp&dpr=0.8999999761581421&width=690">
+
+  <link rel="stylesheet" href="mindvalley-core.css" />
+  <style>
+    .report-section {
+      padding: 4rem 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .report-section:last-of-type {
+      border-bottom: none;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: 0.95rem;
+    }
+    .data-table th,
+    .data-table td {
+      padding: 1rem;
+      text-align: left;
+      border: 1px solid #e5e7eb;
+    }
+    .data-table th {
+      background: #f9f7fc;
+      font-weight: 600;
+      color: #0f131a;
+    }
+    .data-table tr:hover {
+      background: #fafafa;
+    }
+    .gap-critical { background: #fef2f2; color: #991b1b; }
+    .gap-high { background: #fffbeb; color: #92400e; }
+    .gap-medium { background: #f0fdf4; color: #166534; }
+    .status-exists { color: #059669; font-weight: 600; }
+    .status-partial { color: #d97706; font-weight: 600; }
+    .status-missing { color: #dc2626; font-weight: 600; }
+    .feature-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .feature-card.priority-1 {
+      border-left: 4px solid #dc2626;
+    }
+    .feature-card.priority-2 {
+      border-left: 4px solid #f59e0b;
+    }
+    .feature-card.priority-3 {
+      border-left: 4px solid #10b981;
+    }
+    .priority-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .priority-badge.p1 { background: #fef2f2; color: #dc2626; }
+    .priority-badge.p2 { background: #fffbeb; color: #f59e0b; }
+    .priority-badge.p3 { background: #f0fdf4; color: #10b981; }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .metric-card {
+      background: linear-gradient(135deg, #f9f7fc 0%, #f5f0fa 100%);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .metric-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #7a12d4;
+    }
+    .metric-label {
+      font-size: 0.875rem;
+      color: #4b5563;
+      margin-top: 0.5rem;
+    }
+    .architecture-diagram {
+      background: #f9f7fc;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin: 2rem 0;
+      font-family: monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+    .toc-link {
+      color: #7a12d4;
+      text-decoration: none;
+    }
+    .toc-link:hover {
+      text-decoration: underline;
+    }
+    .insight-box {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-left: 4px solid #f59e0b;
+    }
+    .warning-box {
+      background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-left: 4px solid #dc2626;
+    }
+    .opportunity-box {
+      background: linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 100%);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-left: 4px solid #10b981;
+    }
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .phase-number {
+      width: 48px;
+      height: 48px;
+      background: #7a12d4;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    .comparison-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    .comparison-col h4 {
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    @media (max-width: 768px) {
+      .comparison-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<section class="mv-container" style="padding: 5rem 0 3rem 0;">
+  <div class="overline-text" style="margin-bottom: 1rem; color: #7a12d4;">
+    STRATEGIC PRODUCT REPORT — JANUARY 2026
+  </div>
+  <h1 class="title-bold-1" style="max-width: 54rem; margin: 0 0 1.5rem 0;">
+    Program Manager Evolution:<br/>
+    <span style="color: #7a12d4;">From Learning Platform to AI Learning Companion</span>
+  </h1>
+  <p class="body-lg" style="max-width: 44rem; color: #4b5563; margin-bottom: 2rem;">
+    A strategic roadmap for transforming Mindvalley's Program Manager into a category-defining AI-native learning experience that retains engagement and delivers measurable transformation.
+  </p>
+  <div style="display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 2rem;">
+    <div style="background: #f9f7fc; padding: 1rem 1.5rem; border-radius: 0.75rem;">
+      <span class="body-sm" style="color: #4b5563;">Analysis Based On</span><br/>
+      <span class="body-bold">Customer Code Review + AI Disruption Research</span>
+    </div>
+    <div style="background: #f9f7fc; padding: 1rem 1.5rem; border-radius: 0.75rem;">
+      <span class="body-sm" style="color: #4b5563;">Platform Analyzed</span><br/>
+      <span class="body-bold">Program Manager (Customer View)</span>
+    </div>
+  </div>
+</section>
+
+<!-- Table of Contents -->
+<section class="mv-container" style="padding: 2rem 0 4rem 0;">
+  <div style="background: #f9f7fc; border-radius: 1rem; padding: 2rem;">
+    <h2 class="title-bold-6" style="margin-bottom: 1.5rem;">Contents</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+      <div>
+        <p class="body-sm" style="margin: 0.5rem 0;"><a href="#executive-summary" class="toc-link">1. Executive Summary</a></p>
+        <p class="body-sm" style="margin: 0.5rem 0;"><a href="#current-state" class="toc-link">2. Current State Analysis</a></p>
+        <p class="body-sm" style="margin: 0.5rem 0;"><a href="#gap-analysis" class="toc-link">3. Gap Analysis Matrix</a></p>
+        <p class="body-sm" style="margin: 0.5rem 0;"><a href="#competitive-threat" class="toc-link">4. Competitive Threat Assessment</a></p>
+      </div>
+      <div>
+        <p class="body-sm" style="margin: 0.5rem 0;"><a href="#strategic-roadmap" class="toc-link">5. Strategic Feature Roadmap</a></p>
+        <p class="body-sm" style="margin: 0.5rem 0;"><a href="#technical-architecture" class="toc-link">6. Technical Architecture</a></p>
+        <p class="body-sm" style="margin: 0.5rem 0;"><a href="#success-metrics" class="toc-link">7. Success Metrics & KPIs</a></p>
+        <p class="body-sm" style="margin: 0.5rem 0;"><a href="#implementation" class="toc-link">8. Implementation Timeline</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 1: Executive Summary -->
+<section id="executive-summary" class="mv-container report-section">
+  <h2 class="title-bold-3" style="margin-bottom: 2rem;">1. Executive Summary</h2>
+
+  <div class="warning-box">
+    <p class="body-bold" style="margin: 0 0 0.5rem 0;">The Existential Challenge</p>
+    <p class="body" style="margin: 0;">
+      92% of students now use AI tools for learning. Users are increasingly consuming Mindvalley content through external AI tools (NotebookLM, ChatGPT) rather than our platform. Every minute spent in an external AI tool is a minute not spent in our ecosystem — and a data point we never capture.
+    </p>
+  </div>
+
+  <p class="body-lg" style="margin: 2rem 0;">
+    This report analyzes Mindvalley's Program Manager platform against the AI disruption research findings and provides a strategic roadmap for evolution. The current platform has strong foundations — particularly the Study Buddy chat system and 3MIQ goal integration — but critical gaps exist that competitors are aggressively filling.
+  </p>
+
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="metric-value">4</div>
+      <div class="metric-label">Core AI Features Exist</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">8</div>
+      <div class="metric-label">Critical Features Missing</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">70%</div>
+      <div class="metric-label">Completion Lift Possible with AI</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">12-18</div>
+      <div class="metric-label">Months to Category Leadership</div>
+    </div>
+  </div>
+
+  <h3 class="title-bold-5" style="margin: 2rem 0 1rem 0;">Key Findings</h3>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+    <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 1rem;">
+      <p class="body-bold" style="color: #166534; margin: 0 0 0.5rem 0;">Strengths</p>
+      <ul class="body-sm" style="margin: 0; padding-left: 1.25rem; color: #166534;">
+        <li>Study Buddy with chat + quiz modes</li>
+        <li>3MIQ goal framework for personalization</li>
+        <li>Grounded Q&A (answers from transcripts only)</li>
+        <li>AI-powered program recommendations</li>
+      </ul>
+    </div>
+    <div style="background: #fef2f2; padding: 1.5rem; border-radius: 1rem;">
+      <p class="body-bold" style="color: #991b1b; margin: 0 0 0.5rem 0;">Critical Gaps</p>
+      <ul class="body-sm" style="margin: 0; padding-left: 1.25rem; color: #991b1b;">
+        <li>No summarization (users flee to NotebookLM)</li>
+        <li>No Audio Overview / podcast-style content</li>
+        <li>No adaptive learning paths</li>
+        <li>Generic AI, not author personas</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: Current State Analysis -->
+<section id="current-state" class="mv-container report-section">
+  <h2 class="title-bold-3" style="margin-bottom: 2rem;">2. Current State Analysis</h2>
+
+  <p class="body-lg" style="margin-bottom: 2rem;">
+    Analysis of the Program Manager customer-facing codebase reveals a platform with solid AI foundations but significant room for evolution.
+  </p>
+
+  <h3 class="title-bold-5" style="margin: 2rem 0 1rem 0;">2.1 Existing AI Features</h3>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Implementation</th>
+        <th>Strengths</th>
+        <th>Limitations</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Study Buddy Chat</strong></td>
+        <td>
+          <code>StudyBuddy.jsx</code> (1035 lines)<br/>
+          <code>studyBuddy.js</code> backend
+        </td>
+        <td>
+          Full ChatGPT-style interface<br/>
+          Conversation persistence<br/>
+          Goal context integration<br/>
+          Rich text formatting
+        </td>
+        <td>
+          Generic AI persona (not author voice)<br/>
+          No proactive engagement<br/>
+          Limited to Q&A paradigm
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Quiz Generation</strong></td>
+        <td>
+          <code>generateQuiz()</code> in studyBuddy.js<br/>
+          Chapter-specific or full program
+        </td>
+        <td>
+          4 quiz types (knowledge, application, goals, mixed)<br/>
+          Personalized to 3MIQ goals<br/>
+          AI-generated feedback
+        </td>
+        <td>
+          Assessment only, no practice/roleplay<br/>
+          No spaced repetition<br/>
+          No mastery tracking
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Grounded Q&A</strong></td>
+        <td>
+          <code>ProgramDetail.jsx</code><br/>
+          Answers from transcripts only
+        </td>
+        <td>
+          Citations to source material<br/>
+          Pre-generated FAQs<br/>
+          Prevents hallucination
+        </td>
+        <td>
+          Reactive only (user must ask)<br/>
+          No summarization<br/>
+          No proactive insights
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Program Recommendations</strong></td>
+        <td>
+          <code>recommendations.js</code><br/>
+          AI-powered matching
+        </td>
+        <td>
+          Based on 3MIQ goals<br/>
+          Match score + reasoning<br/>
+          Top 5 recommendations
+        </td>
+        <td>
+          Static recommendations<br/>
+          No learning path sequencing<br/>
+          No adaptive suggestions
+        </td>
+      </tr>
+      <tr>
+        <td><strong>3MIQ Goal System</strong></td>
+        <td>
+          <code>SetGoals.jsx</code><br/>
+          <code>useUserGoals</code> hook
+        </td>
+        <td>
+          Three-pillar framework (Experiences, Growth, Contribution)<br/>
+          AI Goal Enhancer<br/>
+          Auto-save
+        </td>
+        <td>
+          Set once, rarely revisited<br/>
+          No goal progress tracking<br/>
+          No goal-to-content mapping
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="title-bold-5" style="margin: 2rem 0 1rem 0;">2.2 Technical Architecture (Current)</h3>
+
+  <div class="architecture-diagram">
+<pre>
+CURRENT PROGRAM MANAGER ARCHITECTURE
+====================================
+
+┌─────────────────────────────────────────────────────────────────┐
+│                        FRONTEND (React 18 + Vite)               │
+├─────────────────────────────────────────────────────────────────┤
+│  MyPrograms.jsx    │  ProgramDetail.jsx  │  StudyBuddy.jsx     │
+│  - Program list    │  - Q&A interface    │  - Chat mode        │
+│  - Search          │  - FAQs             │  - Quiz mode        │
+│  - Notifications   │  - Citations        │  - History          │
+├─────────────────────────────────────────────────────────────────┤
+│                          HOOKS LAYER                            │
+│  useUserGoals │ usePrograms │ useProgramDetail │ useStudyBuddy  │
+├─────────────────────────────────────────────────────────────────┤
+│                         LIB / SERVICES                          │
+│  studyBuddy.js    │  recommendations.js  │  prompts.js         │
+│  - sendChatMessage│  - getRecommended    │  - getEffectivePrompt│
+│  - generateQuiz   │    Programs          │  - incrementUsage   │
+│  - gradeQuiz      │                      │                     │
+├─────────────────────────────────────────────────────────────────┤
+│                      EXTERNAL SERVICES                          │
+├────────────────────────┬────────────────────────────────────────┤
+│      SUPABASE          │           ANTHROPIC (Claude)           │
+│  - program_catalog     │  - claude-sonnet-4-20250514            │
+│  - transcripts         │  - Chat responses                      │
+│  - chapters            │  - Quiz generation                     │
+│  - study_buddy_chats   │  - Recommendations                     │
+│  - study_buddy_quizzes │  - Goal enhancement                    │
+│  - user_goals          │                                        │
+└────────────────────────┴────────────────────────────────────────┘
+</pre>
+  </div>
+
+  <h3 class="title-bold-5" style="margin: 2rem 0 1rem 0;">2.3 User Journey (Current)</h3>
+
+  <div class="comparison-row">
+    <div class="comparison-col">
+      <h4 style="color: #059669;">What Works Well</h4>
+      <ol class="body">
+        <li>User sets 3MIQ goals with AI enhancement</li>
+        <li>Gets personalized program recommendations</li>
+        <li>Accesses programs with chapter navigation</li>
+        <li>Can ask questions grounded in content</li>
+        <li>Study Buddy provides chat assistance</li>
+        <li>Can take quizzes personalized to goals</li>
+      </ol>
+    </div>
+    <div class="comparison-col">
+      <h4 style="color: #dc2626;">Where Users Leave the Platform</h4>
+      <ol class="body">
+        <li><strong>Summarization:</strong> Upload transcript to NotebookLM</li>
+        <li><strong>Audio Overview:</strong> Generate podcast in NotebookLM</li>
+        <li><strong>Practice:</strong> Use ChatGPT for roleplay scenarios</li>
+        <li><strong>Study Aids:</strong> Create flashcards in external tools</li>
+        <li><strong>Multi-format:</strong> Convert to video summaries elsewhere</li>
+        <li><strong>Sharing:</strong> Export insights to Notion/Obsidian</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Gap Analysis Matrix -->
+<section id="gap-analysis" class="mv-container report-section">
+  <h2 class="title-bold-3" style="margin-bottom: 2rem;">3. Gap Analysis Matrix</h2>
+
+  <p class="body-lg" style="margin-bottom: 2rem;">
+    Cross-referencing current capabilities against AI-era learning requirements reveals critical gaps that must be addressed to prevent user migration to external tools.
+  </p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>AI-Era Requirement</th>
+        <th>Current Status</th>
+        <th>Gap Severity</th>
+        <th>User Behavior Impact</th>
+        <th>Competitor Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>AI Summarization</strong><br/>Instant distillation of key concepts</td>
+        <td><span class="status-missing">Missing</span></td>
+        <td class="gap-critical">CRITICAL</td>
+        <td>Users upload to NotebookLM, ChatGPT. We lose engagement data.</td>
+        <td>Coursera: AI summaries<br/>Gaia: AI Guides summary</td>
+      </tr>
+      <tr>
+        <td><strong>Audio Overview / Podcast Mode</strong><br/>AI-generated conversational summaries</td>
+        <td><span class="status-missing">Missing</span></td>
+        <td class="gap-critical">CRITICAL</td>
+        <td>NotebookLM's killer feature. Users export transcripts to generate there.</td>
+        <td>NotebookLM: Audio Overview<br/>Snipd: AI podcast summaries</td>
+      </tr>
+      <tr>
+        <td><strong>Author AI Personas</strong><br/>AI that embodies the teacher's voice/style</td>
+        <td><span class="status-missing">Missing</span></td>
+        <td class="gap-critical">CRITICAL</td>
+        <td>Generic Study Buddy lacks the magic of learning from the actual teacher.</td>
+        <td>MasterClass: On Call feature<br/>Gaia: AI Guides with author voice</td>
+      </tr>
+      <tr>
+        <td><strong>Adaptive Learning Paths</strong><br/>Dynamic pacing based on mastery</td>
+        <td><span class="status-missing">Missing</span></td>
+        <td class="gap-high">HIGH</td>
+        <td>One-size-fits-all content. No acceleration for fast learners.</td>
+        <td>Duolingo: Adaptive difficulty<br/>Coursera: Personalized paths</td>
+      </tr>
+      <tr>
+        <td><strong>Practice & Roleplay</strong><br/>Scenario-based application of concepts</td>
+        <td><span class="status-partial">Partial</span><br/>(Quiz only)</td>
+        <td class="gap-high">HIGH</td>
+        <td>Users go to ChatGPT for roleplay scenarios, coaching practice.</td>
+        <td>Khanmigo: Socratic dialogue<br/>Speak: AI roleplay</td>
+      </tr>
+      <tr>
+        <td><strong>Spaced Repetition</strong><br/>Optimal review scheduling</td>
+        <td><span class="status-missing">Missing</span></td>
+        <td class="gap-high">HIGH</td>
+        <td>No reinforcement = low retention. Users forget 80% in 30 days.</td>
+        <td>Duolingo: Built-in SRS<br/>Anki: Gold standard</td>
+      </tr>
+      <tr>
+        <td><strong>Proactive AI Engagement</strong><br/>AI initiates based on behavior</td>
+        <td><span class="status-missing">Missing</span></td>
+        <td class="gap-high">HIGH</td>
+        <td>Reactive-only AI = low engagement. User must initiate everything.</td>
+        <td>Duolingo: Push + streaks<br/>Coursera Coach: Nudges</td>
+      </tr>
+      <tr>
+        <td><strong>Goal Progress Tracking</strong><br/>3MIQ goals → learning outcomes</td>
+        <td><span class="status-partial">Partial</span><br/>(Goals set, not tracked)</td>
+        <td class="gap-medium">MEDIUM</td>
+        <td>Goals are set and forgotten. No feedback loop on progress.</td>
+        <td>Notion: Goal tracking<br/>Headspace: Journey maps</td>
+      </tr>
+      <tr>
+        <td><strong>Multi-Modal Output</strong><br/>Same content in different formats</td>
+        <td><span class="status-missing">Missing</span></td>
+        <td class="gap-medium">MEDIUM</td>
+        <td>Only video + transcript. No flashcards, infographics, audio summaries.</td>
+        <td>NotebookLM: Multiple outputs<br/>Gamma: AI presentations</td>
+      </tr>
+      <tr>
+        <td><strong>Collaborative Learning</strong><br/>AI-facilitated study groups</td>
+        <td><span class="status-missing">Missing</span></td>
+        <td class="gap-medium">MEDIUM</td>
+        <td>Solo learning only. No connection to other students.</td>
+        <td>Discord: Community learning<br/>Coursera: Peer forums</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight-box">
+    <p class="body-bold" style="margin: 0 0 0.5rem 0;">The Summarization Emergency</p>
+    <p class="body" style="margin: 0;">
+      NotebookLM's free AI summarization and Audio Overview features are the single biggest threat to Mindvalley engagement. When users can get a 10-minute podcast-style summary of an entire Quest, the incentive to watch 20+ hours of video plummets. <strong>This feature must be internalized immediately.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- Section 4: Competitive Threat Assessment -->
+<section id="competitive-threat" class="mv-container report-section">
+  <h2 class="title-bold-3" style="margin-bottom: 2rem;">4. Competitive Threat Assessment</h2>
+
+  <h3 class="title-bold-5" style="margin: 2rem 0 1rem 0;">4.1 Direct Competitors Moving Faster</h3>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Competitor</th>
+        <th>AI Features Launched</th>
+        <th>Threat Level</th>
+        <th>What They Have That We Don't</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>MasterClass</strong></td>
+        <td>
+          <strong>On Call (Jan 2025)</strong><br/>
+          AI chat with celebrity instructors<br/>
+          Personalized conversation
+        </td>
+        <td class="gap-critical">CRITICAL</td>
+        <td>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li>Author AI personas (talk to Gordon Ramsay)</li>
+            <li>Voice-based interaction</li>
+            <li>Premium positioning ($10/mo add-on)</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Coursera</strong></td>
+        <td>
+          <strong>Coursera Coach</strong><br/>
+          AI tutor in 97% of courses<br/>
+          Quiz explanations
+        </td>
+        <td class="gap-high">HIGH</td>
+        <td>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li>Near-universal AI coverage</li>
+            <li>Enterprise partnerships (Google, IBM)</li>
+            <li>Career path optimization</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Gaia</strong></td>
+        <td>
+          <strong>AI Guides</strong><br/>
+          Teacher-specific AI personas<br/>
+          Content summaries
+        </td>
+        <td class="gap-high">HIGH</td>
+        <td>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li>Direct Mindvalley audience overlap</li>
+            <li>Spirituality + wellness niche</li>
+            <li>Author voice preservation</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Duolingo Max</strong></td>
+        <td>
+          <strong>Roleplay + Explain</strong><br/>
+          AI conversation practice<br/>
+          GPT-4 powered explanations
+        </td>
+        <td class="gap-medium">MEDIUM</td>
+        <td>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li>Gamification mastery</li>
+            <li>Daily habit formation</li>
+            <li>70% completion improvement</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="title-bold-5" style="margin: 2rem 0 1rem 0;">4.2 AI-Native Disruptors</h3>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Tool</th>
+        <th>Primary Threat</th>
+        <th>How Users Use It With Mindvalley Content</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>NotebookLM</strong><br/>(Google)</td>
+        <td class="gap-critical">CRITICAL</td>
+        <td>
+          Upload Quest transcripts → Get instant summaries → Generate Audio Overview podcast<br/>
+          <strong>Result:</strong> Users consume Mindvalley content outside our platform
+        </td>
+      </tr>
+      <tr>
+        <td><strong>ChatGPT</strong></td>
+        <td class="gap-high">HIGH</td>
+        <td>
+          Paste content → Ask questions → Get roleplay practice<br/>
+          <strong>Result:</strong> Users process and practice content externally
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Snipd</strong></td>
+        <td class="gap-medium">MEDIUM</td>
+        <td>
+          Podcast AI summaries → Highlights → Export to note apps<br/>
+          <strong>Result:</strong> Audio content summarized and exported
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Perplexity</strong></td>
+        <td class="gap-medium">MEDIUM</td>
+        <td>
+          Research topics from Quests → Get additional context<br/>
+          <strong>Result:</strong> Users supplement with external research
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="warning-box">
+    <p class="body-bold" style="margin: 0 0 0.5rem 0;">The NotebookLM Threat is Real and Immediate</p>
+    <p class="body" style="margin: 0;">
+      A user can upload a Mindvalley Quest transcript to NotebookLM for free and get: instant summarization, an AI chat grounded in the content, and a podcast-style Audio Overview — all features we don't have. Every day we delay, users build habits around external tools.
+    </p>
+  </div>
+</section>
+
+<!-- Section 5: Strategic Feature Roadmap -->
+<section id="strategic-roadmap" class="mv-container report-section">
+  <h2 class="title-bold-3" style="margin-bottom: 2rem;">5. Strategic Feature Roadmap</h2>
+
+  <p class="body-lg" style="margin-bottom: 2rem;">
+    A phased approach to transform Program Manager from a content delivery platform to an AI-native learning companion. Features are prioritized by competitive urgency and user impact.
+  </p>
+
+  <!-- Phase 1 -->
+  <div style="margin-bottom: 3rem;">
+    <div class="phase-header">
+      <div class="phase-number">1</div>
+      <div>
+        <h3 class="title-bold-5" style="margin: 0;">Phase 1: Stop the Bleeding</h3>
+        <p class="body-sm" style="color: #4b5563; margin: 0;">Months 1-3 — Prevent user migration to external AI tools</p>
+      </div>
+    </div>
+
+    <div class="feature-card priority-1">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <h4 class="title-bold-6" style="margin: 0;">1.1 Smart Summaries</h4>
+        <span class="priority-badge p1">P1 — Critical</span>
+      </div>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Problem:</strong> Users upload transcripts to NotebookLM because we don't summarize content.
+      </p>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Solution:</strong> Add a "Summary" tab to every program and chapter that provides:
+      </p>
+      <ul class="body" style="margin-bottom: 1rem;">
+        <li><strong>Executive Summary:</strong> 3-5 bullet points of core concepts</li>
+        <li><strong>Key Insights:</strong> The most transformative ideas</li>
+        <li><strong>Action Items:</strong> Specific things to implement</li>
+        <li><strong>Connections:</strong> How this relates to user's 3MIQ goals</li>
+      </ul>
+      <p class="body-sm" style="color: #4b5563; margin: 0;">
+        <strong>Technical:</strong> Extend <code>studyBuddy.js</code> with <code>generateSummary()</code> function. Cache summaries in new <code>program_summaries</code> table.
+      </p>
+    </div>
+
+    <div class="feature-card priority-1">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <h4 class="title-bold-6" style="margin: 0;">1.2 Audio Overview (Podcast Mode)</h4>
+        <span class="priority-badge p1">P1 — Critical</span>
+      </div>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Problem:</strong> NotebookLM's Audio Overview is the #1 feature driving users away. Two AI hosts discuss content in an engaging podcast format.
+      </p>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Solution:</strong> Generate podcast-style audio summaries for every Quest:
+      </p>
+      <ul class="body" style="margin-bottom: 1rem;">
+        <li><strong>10-15 minute audio summary</strong> of each Quest</li>
+        <li><strong>Conversational format:</strong> Two AI voices discussing key concepts</li>
+        <li><strong>Personalized:</strong> Reference user's goals when relevant</li>
+        <li><strong>Chapter-level:</strong> Generate for individual chapters too</li>
+      </ul>
+      <p class="body-sm" style="color: #4b5563; margin: 0;">
+        <strong>Technical:</strong> Use ElevenLabs or Play.ht for voice synthesis. Pre-generate for popular Quests, on-demand for others.
+      </p>
+    </div>
+
+    <div class="feature-card priority-1">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <h4 class="title-bold-6" style="margin: 0;">1.3 Author AI Personas</h4>
+        <span class="priority-badge p1">P1 — Critical</span>
+      </div>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Problem:</strong> Study Buddy is generic. MasterClass lets you "talk to" Gordon Ramsay. Gaia has teacher-specific AI Guides.
+      </p>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Solution:</strong> Transform Study Buddy into Author AI:
+      </p>
+      <ul class="body" style="margin-bottom: 1rem;">
+        <li><strong>Author voice:</strong> AI responds in the teacher's communication style</li>
+        <li><strong>Author avatar:</strong> Visual representation of the teacher</li>
+        <li><strong>Author wisdom:</strong> Draws on ALL content from that author, not just current program</li>
+        <li><strong>Signature phrases:</strong> Uses the author's terminology and frameworks</li>
+      </ul>
+      <p class="body-sm" style="color: #4b5563; margin: 0;">
+        <strong>Technical:</strong> Create <code>author_personas</code> table with style guides. Modify <code>sendChatMessage()</code> to inject author persona into system prompt.
+      </p>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div style="margin-bottom: 3rem;">
+    <div class="phase-header">
+      <div class="phase-number">2</div>
+      <div>
+        <h3 class="title-bold-5" style="margin: 0;">Phase 2: Deepen Engagement</h3>
+        <p class="body-sm" style="color: #4b5563; margin: 0;">Months 4-8 — Create sticky learning habits</p>
+      </div>
+    </div>
+
+    <div class="feature-card priority-2">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <h4 class="title-bold-6" style="margin: 0;">2.1 Practice Mode (AI Roleplay)</h4>
+        <span class="priority-badge p2">P2 — High</span>
+      </div>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Problem:</strong> Current quizzes assess knowledge but don't build skills. Users go to ChatGPT for practice scenarios.
+      </p>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Solution:</strong> Add Practice Mode alongside Quiz Mode in Study Buddy:
+      </p>
+      <ul class="body" style="margin-bottom: 1rem;">
+        <li><strong>Scenario-based:</strong> "Practice having a difficult conversation using NVC techniques"</li>
+        <li><strong>Real-time feedback:</strong> AI coaching during the roleplay</li>
+        <li><strong>Graduated difficulty:</strong> Start easy, increase challenge</li>
+        <li><strong>Goal-aligned:</strong> Scenarios tailored to user's 3MIQ goals</li>
+      </ul>
+      <p class="body-sm" style="color: #4b5563; margin: 0;">
+        <strong>Technical:</strong> New <code>generatePracticeScenario()</code> function. Multi-turn conversation with evaluation rubric.
+      </p>
+    </div>
+
+    <div class="feature-card priority-2">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <h4 class="title-bold-6" style="margin: 0;">2.2 Proactive AI (Nudges & Check-ins)</h4>
+        <span class="priority-badge p2">P2 — High</span>
+      </div>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Problem:</strong> Current AI is reactive-only. Users must initiate. No re-engagement when they go dormant.
+      </p>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Solution:</strong> AI that reaches out based on behavior:
+      </p>
+      <ul class="body" style="margin-bottom: 1rem;">
+        <li><strong>Completion nudges:</strong> "You're 70% through! Here's what's coming..."</li>
+        <li><strong>Review prompts:</strong> "It's been a week since Chapter 3. Quick refresh?"</li>
+        <li><strong>Goal check-ins:</strong> "How's your progress on [specific goal]?"</li>
+        <li><strong>Insight surfacing:</strong> "Based on what you've learned, have you tried...?"</li>
+      </ul>
+      <p class="body-sm" style="color: #4b5563; margin: 0;">
+        <strong>Technical:</strong> Background job that analyzes engagement patterns. Push notifications + in-app messages.
+      </p>
+    </div>
+
+    <div class="feature-card priority-2">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <h4 class="title-bold-6" style="margin: 0;">2.3 Spaced Repetition Engine</h4>
+        <span class="priority-badge p2">P2 — High</span>
+      </div>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Problem:</strong> Users forget 80% of content within 30 days. No retention system exists.
+      </p>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Solution:</strong> Built-in spaced repetition:
+      </p>
+      <ul class="body" style="margin-bottom: 1rem;">
+        <li><strong>Auto-generated flashcards:</strong> Key concepts from each chapter</li>
+        <li><strong>Optimal review scheduling:</strong> SM-2 algorithm for timing</li>
+        <li><strong>Daily review deck:</strong> "5 concepts to review today"</li>
+        <li><strong>Mastery tracking:</strong> Visual progress on concept retention</li>
+      </ul>
+      <p class="body-sm" style="color: #4b5563; margin: 0;">
+        <strong>Technical:</strong> New <code>flashcards</code> and <code>review_sessions</code> tables. SRS algorithm implementation.
+      </p>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div style="margin-bottom: 3rem;">
+    <div class="phase-header">
+      <div class="phase-number">3</div>
+      <div>
+        <h3 class="title-bold-5" style="margin: 0;">Phase 3: Personalized Mastery</h3>
+        <p class="body-sm" style="color: #4b5563; margin: 0;">Months 9-12 — Adaptive learning that meets users where they are</p>
+      </div>
+    </div>
+
+    <div class="feature-card priority-2">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <h4 class="title-bold-6" style="margin: 0;">3.1 Adaptive Learning Paths</h4>
+        <span class="priority-badge p2">P2 — High</span>
+      </div>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Problem:</strong> One-size-fits-all content pacing. Advanced users are bored; beginners are overwhelmed.
+      </p>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Solution:</strong> Dynamic content sequencing:
+      </p>
+      <ul class="body" style="margin-bottom: 1rem;">
+        <li><strong>Skill assessment:</strong> Pre-test to gauge starting level</li>
+        <li><strong>Adaptive pacing:</strong> Skip/accelerate known concepts</li>
+        <li><strong>Challenge calibration:</strong> Adjust difficulty based on performance</li>
+        <li><strong>Path visualization:</strong> Show personalized journey map</li>
+      </ul>
+    </div>
+
+    <div class="feature-card priority-2">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <h4 class="title-bold-6" style="margin: 0;">3.2 Goal Progress Dashboard</h4>
+        <span class="priority-badge p2">P2 — High</span>
+      </div>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Problem:</strong> 3MIQ goals are set once and forgotten. No feedback loop on progress.
+      </p>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Solution:</strong> Connect learning to life outcomes:
+      </p>
+      <ul class="body" style="margin-bottom: 1rem;">
+        <li><strong>Goal → Program mapping:</strong> Which Quests contribute to which goals</li>
+        <li><strong>Progress indicators:</strong> "68% of relevant content completed"</li>
+        <li><strong>Achievement milestones:</strong> Celebrate progress toward goals</li>
+        <li><strong>AI coaching:</strong> "To advance your [goal], consider [specific action]"</li>
+      </ul>
+    </div>
+
+    <div class="feature-card priority-3">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <h4 class="title-bold-6" style="margin: 0;">3.3 Multi-Modal Content Generation</h4>
+        <span class="priority-badge p3">P3 — Medium</span>
+      </div>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Problem:</strong> Content exists only as video + transcript. No alternative formats for different learning styles.
+      </p>
+      <p class="body" style="margin-bottom: 1rem;">
+        <strong>The Solution:</strong> AI-generated format variations:
+      </p>
+      <ul class="body" style="margin-bottom: 1rem;">
+        <li><strong>Infographic summaries:</strong> Visual concept maps</li>
+        <li><strong>Audio-only versions:</strong> For commute listening</li>
+        <li><strong>Quick reference guides:</strong> Printable one-pagers</li>
+        <li><strong>Social snippets:</strong> Shareable insight cards</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 4 -->
+  <div>
+    <div class="phase-header">
+      <div class="phase-number">4</div>
+      <div>
+        <h3 class="title-bold-5" style="margin: 0;">Phase 4: Community & Collaboration</h3>
+        <p class="body-sm" style="color: #4b5563; margin: 0;">Months 12-18 — Social learning at scale</p>
+      </div>
+    </div>
+
+    <div class="feature-card priority-3">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <h4 class="title-bold-6" style="margin: 0;">4.1 AI-Facilitated Study Groups</h4>
+        <span class="priority-badge p3">P3 — Medium</span>
+      </div>
+      <p class="body" style="margin-bottom: 1rem;">
+        Connect learners working on similar goals with AI facilitation:
+      </p>
+      <ul class="body" style="margin-bottom: 1rem;">
+        <li>AI-matched study partners based on goals + learning stage</li>
+        <li>Discussion prompts generated by AI</li>
+        <li>Accountability check-ins</li>
+        <li>Integration with SIX for deeper connections</li>
+      </ul>
+    </div>
+
+    <div class="feature-card priority-3">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <h4 class="title-bold-6" style="margin: 0;">4.2 Author Live AI Sessions</h4>
+        <span class="priority-badge p3">P3 — Medium</span>
+      </div>
+      <p class="body" style="margin-bottom: 1rem;">
+        Scheduled events where the Author AI takes live questions:
+      </p>
+      <ul class="body" style="margin-bottom: 1rem;">
+        <li>Weekly "Office Hours" with AI author personas</li>
+        <li>Group Q&A sessions</li>
+        <li>Live coaching demonstrations</li>
+        <li>Creates urgency and community moments</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Section 6: Technical Architecture -->
+<section id="technical-architecture" class="mv-container report-section">
+  <h2 class="title-bold-3" style="margin-bottom: 2rem;">6. Technical Architecture</h2>
+
+  <h3 class="title-bold-5" style="margin: 2rem 0 1rem 0;">6.1 Proposed Evolution</h3>
+
+  <div class="architecture-diagram">
+<pre>
+EVOLVED PROGRAM MANAGER ARCHITECTURE
+=====================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        FRONTEND (React 18 + Vite)                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│  MyPrograms.jsx    │  ProgramDetail.jsx  │  StudyBuddy.jsx              │
+│  + Goal Progress   │  + Summary Tab      │  + Author AI Persona         │
+│  + Next Actions    │  + Audio Overview   │  + Practice Mode             │
+│  + Review Due      │  + Flashcards       │  + Spaced Review             │
+├─────────────────────────────────────────────────────────────────────────┤
+│                        NEW COMPONENTS                                   │
+│  SummaryView.jsx  │  AudioOverview.jsx  │  PracticeMode.jsx            │
+│  FlashcardDeck.jsx│  GoalProgress.jsx   │  AuthorPersona.jsx           │
+├─────────────────────────────────────────────────────────────────────────┤
+│                          SERVICES LAYER                                 │
+├─────────────────────────────────────────────────────────────────────────┤
+│  studyBuddy.js     │  summaries.js       │  audioGeneration.js         │
+│  + authorPersona() │  + generateSummary()│  + generateAudioOverview()  │
+│  + practiceMode()  │  + cacheSummary()   │  + voiceSynthesis()         │
+│                    │                     │                              │
+│  spacedRepetition.js │  proactiveAI.js   │  goalProgress.js            │
+│  + generateCards() │  + analyzeEngagement│  + mapGoalsToPrograms()     │
+│  + scheduleReview()│  + sendNudge()      │  + calculateProgress()      │
+├─────────────────────────────────────────────────────────────────────────┤
+│                      EXTERNAL SERVICES                                  │
+├──────────────┬──────────────┬──────────────┬────────────────────────────┤
+│   SUPABASE   │  ANTHROPIC   │  ELEVENLABS  │    BACKGROUND JOBS         │
+│              │   (Claude)   │   (Voice)    │                            │
+│ NEW TABLES:  │              │              │  - Engagement analyzer     │
+│ - summaries  │  - Author    │  - TTS for   │  - SRS scheduler           │
+│ - flashcards │    personas  │    audio     │  - Nudge dispatcher        │
+│ - author_    │  - Practice  │    overview  │  - Summary pre-generator   │
+│   personas   │    grading   │              │                            │
+│ - review_    │              │              │                            │
+│   sessions   │              │              │                            │
+└──────────────┴──────────────┴──────────────┴────────────────────────────┘
+</pre>
+  </div>
+
+  <h3 class="title-bold-5" style="margin: 2rem 0 1rem 0;">6.2 New Database Tables</h3>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Table</th>
+        <th>Purpose</th>
+        <th>Key Fields</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>program_summaries</code></td>
+        <td>Cached AI-generated summaries</td>
+        <td>program_slug, chapter_id, summary_type, content, generated_at</td>
+      </tr>
+      <tr>
+        <td><code>audio_overviews</code></td>
+        <td>Generated audio files</td>
+        <td>program_slug, chapter_id, audio_url, duration, voice_config</td>
+      </tr>
+      <tr>
+        <td><code>author_personas</code></td>
+        <td>AI persona configurations</td>
+        <td>author_id, style_guide, signature_phrases, communication_patterns</td>
+      </tr>
+      <tr>
+        <td><code>flashcards</code></td>
+        <td>Auto-generated flashcards</td>
+        <td>program_slug, chapter_id, front, back, difficulty, tags</td>
+      </tr>
+      <tr>
+        <td><code>user_flashcard_reviews</code></td>
+        <td>SRS tracking per user</td>
+        <td>user_id, flashcard_id, ease_factor, interval, next_review</td>
+      </tr>
+      <tr>
+        <td><code>practice_sessions</code></td>
+        <td>Roleplay/practice logs</td>
+        <td>user_id, program_slug, scenario, transcript, score, feedback</td>
+      </tr>
+      <tr>
+        <td><code>goal_program_mapping</code></td>
+        <td>Goal → content relationships</td>
+        <td>user_id, goal_type, goal_text, program_slug, relevance_score</td>
+      </tr>
+      <tr>
+        <td><code>engagement_events</code></td>
+        <td>User behavior tracking</td>
+        <td>user_id, event_type, program_slug, timestamp, metadata</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="title-bold-5" style="margin: 2rem 0 1rem 0;">6.3 AI Model Strategy</h3>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Use Case</th>
+        <th>Recommended Model</th>
+        <th>Rationale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Author AI Chat (high quality)</td>
+        <td>Claude Sonnet 4</td>
+        <td>Nuanced conversation, persona adherence</td>
+      </tr>
+      <tr>
+        <td>Summary Generation (batch)</td>
+        <td>Claude Haiku</td>
+        <td>Cost-effective for pre-generation</td>
+      </tr>
+      <tr>
+        <td>Flashcard Generation</td>
+        <td>Claude Haiku</td>
+        <td>Structured output, high volume</td>
+      </tr>
+      <tr>
+        <td>Practice Evaluation</td>
+        <td>Claude Sonnet 4</td>
+        <td>Nuanced feedback required</td>
+      </tr>
+      <tr>
+        <td>Audio Script Generation</td>
+        <td>Claude Sonnet 4</td>
+        <td>Conversational quality matters</td>
+      </tr>
+      <tr>
+        <td>Voice Synthesis</td>
+        <td>ElevenLabs / Play.ht</td>
+        <td>Natural voice quality</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Section 7: Success Metrics -->
+<section id="success-metrics" class="mv-container report-section">
+  <h2 class="title-bold-3" style="margin-bottom: 2rem;">7. Success Metrics & KPIs</h2>
+
+  <h3 class="title-bold-5" style="margin: 2rem 0 1rem 0;">7.1 Primary Success Metrics</h3>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Current Baseline</th>
+        <th>Target (12 months)</th>
+        <th>Measurement Method</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Quest Completion Rate</strong></td>
+        <td>~15-20% (industry standard)</td>
+        <td>35%+</td>
+        <td>Supabase: chapters completed / enrolled</td>
+      </tr>
+      <tr>
+        <td><strong>AI Feature Adoption</strong></td>
+        <td>Study Buddy: Unknown</td>
+        <td>60% of active users</td>
+        <td>Usage events per user per week</td>
+      </tr>
+      <tr>
+        <td><strong>External Tool Migration</strong></td>
+        <td>Unknown (threat)</td>
+        <td>Reduce by 50%</td>
+        <td>Survey + in-app summary/audio usage</td>
+      </tr>
+      <tr>
+        <td><strong>Content Retention (30-day)</strong></td>
+        <td>~20% (Ebbinghaus)</td>
+        <td>50%+</td>
+        <td>Spaced repetition quiz scores</td>
+      </tr>
+      <tr>
+        <td><strong>Daily Active Users</strong></td>
+        <td>Current baseline</td>
+        <td>+40%</td>
+        <td>Supabase engagement events</td>
+      </tr>
+      <tr>
+        <td><strong>Time on Platform</strong></td>
+        <td>Current baseline</td>
+        <td>+60%</td>
+        <td>Session duration tracking</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="title-bold-5" style="margin: 2rem 0 1rem 0;">7.2 Feature-Specific KPIs</h3>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Primary KPI</th>
+        <th>Secondary KPI</th>
+        <th>Target</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Smart Summaries</td>
+        <td>Summary views / program views</td>
+        <td>Time to first summary view</td>
+        <td>40% adoption, &lt;5 min after enrollment</td>
+      </tr>
+      <tr>
+        <td>Audio Overview</td>
+        <td>Audio plays / enrollments</td>
+        <td>Completion rate of audio</td>
+        <td>25% adoption, 70% listen completion</td>
+      </tr>
+      <tr>
+        <td>Author AI Persona</td>
+        <td>Chat sessions per user</td>
+        <td>Satisfaction rating</td>
+        <td>3+ sessions/week, 4.5+ stars</td>
+      </tr>
+      <tr>
+        <td>Practice Mode</td>
+        <td>Practice sessions completed</td>
+        <td>Score improvement over time</td>
+        <td>2+ sessions/program, 20% improvement</td>
+      </tr>
+      <tr>
+        <td>Spaced Repetition</td>
+        <td>Daily review completion</td>
+        <td>Streak length</td>
+        <td>50% daily completion, 7+ day streaks</td>
+      </tr>
+      <tr>
+        <td>Proactive AI</td>
+        <td>Nudge response rate</td>
+        <td>Re-engagement from dormant</td>
+        <td>30% response, 15% dormant reactivation</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="opportunity-box">
+    <p class="body-bold" style="margin: 0 0 0.5rem 0;">The 70% Opportunity</p>
+    <p class="body" style="margin: 0;">
+      Research shows AI tutors can improve completion rates by up to 70%. If Mindvalley's current completion is ~15%, achieving even half of this improvement (to ~25%) would dramatically increase lifetime value and reduce churn.
+    </p>
+  </div>
+</section>
+
+<!-- Section 8: Implementation Timeline -->
+<section id="implementation" class="mv-container report-section">
+  <h2 class="title-bold-3" style="margin-bottom: 2rem;">8. Implementation Timeline</h2>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Quarter</th>
+        <th>Phase</th>
+        <th>Key Deliverables</th>
+        <th>Team Focus</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Q1 2026</strong></td>
+        <td>Phase 1A</td>
+        <td>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li>Smart Summaries (chapter + program level)</li>
+            <li>Author AI Personas (top 10 authors)</li>
+          </ul>
+        </td>
+        <td>
+          Backend: Summary generation pipeline<br/>
+          Frontend: Summary tab UI<br/>
+          AI: Persona prompt engineering
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Q2 2026</strong></td>
+        <td>Phase 1B + 2A</td>
+        <td>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li>Audio Overview (pilot with 20 Quests)</li>
+            <li>Practice Mode MVP</li>
+            <li>Author AI extended to all authors</li>
+          </ul>
+        </td>
+        <td>
+          Backend: Voice synthesis integration<br/>
+          Frontend: Audio player, Practice UI<br/>
+          AI: Roleplay scenario generation
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Q3 2026</strong></td>
+        <td>Phase 2B</td>
+        <td>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li>Spaced Repetition Engine</li>
+            <li>Proactive AI (nudges + check-ins)</li>
+            <li>Audio Overview full rollout</li>
+          </ul>
+        </td>
+        <td>
+          Backend: SRS algorithm, engagement tracking<br/>
+          Frontend: Flashcard deck, notification UI<br/>
+          Ops: Background job infrastructure
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Q4 2026</strong></td>
+        <td>Phase 3</td>
+        <td>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li>Adaptive Learning Paths</li>
+            <li>Goal Progress Dashboard</li>
+            <li>Multi-modal content (infographics, guides)</li>
+          </ul>
+        </td>
+        <td>
+          Backend: Mastery tracking, path optimization<br/>
+          Frontend: Progress visualization<br/>
+          AI: Content format generation
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Q1-Q2 2027</strong></td>
+        <td>Phase 4</td>
+        <td>
+          <ul style="margin: 0; padding-left: 1.25rem;">
+            <li>AI Study Groups</li>
+            <li>Author Live AI Sessions</li>
+            <li>SIX integration for social learning</li>
+          </ul>
+        </td>
+        <td>
+          Backend: Group matching, session management<br/>
+          Frontend: Group UI, live session interface<br/>
+          Ops: Scaling for concurrent users
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="title-bold-5" style="margin: 2rem 0 1rem 0;">Resource Estimation</h3>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Phase</th>
+        <th>Engineering Effort</th>
+        <th>AI/ML Effort</th>
+        <th>Design Effort</th>
+        <th>AI Costs (Monthly)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Phase 1 (Summaries + Personas)</td>
+        <td>2-3 engineers, 3 months</td>
+        <td>1 prompt engineer</td>
+        <td>1 designer, 1 month</td>
+        <td>$2-5K (Claude API)</td>
+      </tr>
+      <tr>
+        <td>Phase 1 (Audio Overview)</td>
+        <td>1-2 engineers, 2 months</td>
+        <td>Voice config + testing</td>
+        <td>Audio player UI</td>
+        <td>$3-8K (Voice synthesis)</td>
+      </tr>
+      <tr>
+        <td>Phase 2 (Practice + SRS)</td>
+        <td>2-3 engineers, 4 months</td>
+        <td>Scenario + evaluation prompts</td>
+        <td>Practice + flashcard UI</td>
+        <td>$3-6K (Claude API)</td>
+      </tr>
+      <tr>
+        <td>Phase 3 (Adaptive + Goals)</td>
+        <td>2 engineers, 3 months</td>
+        <td>Path optimization</td>
+        <td>Dashboard design</td>
+        <td>$2-4K (Claude API)</td>
+      </tr>
+      <tr>
+        <td>Phase 4 (Social)</td>
+        <td>3-4 engineers, 4 months</td>
+        <td>Group facilitation</td>
+        <td>Social features UI</td>
+        <td>$4-8K (Claude + scaling)</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Conclusion -->
+<section class="mv-container" style="padding: 4rem 0;">
+  <div style="background: linear-gradient(135deg, #7a12d4 0%, #9333ea 100%); border-radius: 1.5rem; padding: 3rem; color: white;">
+    <h2 class="title-bold-3" style="margin-bottom: 1.5rem; color: white;">The Imperative</h2>
+    <p class="body-lg" style="margin-bottom: 1.5rem; opacity: 0.95;">
+      The AI disruption in learning is not a future threat — it is happening now. Every day that users process Mindvalley content through external AI tools is:
+    </p>
+    <ul class="body" style="margin-bottom: 2rem; opacity: 0.95;">
+      <li>A learning experience we don't influence</li>
+      <li>Engagement data we never capture</li>
+      <li>A habit formed outside our ecosystem</li>
+      <li>A competitive moat we fail to build</li>
+    </ul>
+    <p class="body-lg" style="margin-bottom: 0; opacity: 0.95;">
+      The Program Manager has strong AI foundations. With focused execution on the Phase 1 priorities — <strong>Smart Summaries, Audio Overview, and Author AI Personas</strong> — Mindvalley can transform from a content platform that users process elsewhere to an AI-native learning companion that users never want to leave.
+    </p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="mv-container" style="padding: 3rem 0; color: #6b7280; font-size: 0.875rem;">
+  <p style="margin: 0;">
+    Strategic Product Report — Program Manager Evolution<br/>
+    Prepared January 2026 | Based on AI Disruption Research + Platform Analysis<br/>
+    &copy; Mindvalley
+  </p>
+</footer>
+
+</body>
+</html>
