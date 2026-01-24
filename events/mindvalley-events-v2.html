@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mindvalley Events — Discover Your Path</title>
+  <meta name="description" content="Find the perfect transformational event based on your goals, budget, and community." />
+  <meta name="theme-color" content="#7a12d4" />
+  <link rel="stylesheet" href="../mindvalley-core.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Google Sans Flex', sans-serif; }
+
+    /* Navigation */
+    .nav { position: fixed; top: 0; left: 0; right: 0; background: white; border-bottom: 1px solid #e5e7eb; z-index: 1000; padding: 1rem 2rem; }
+    .nav-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-weight: 600; font-size: 1.25rem; color: #0f131a; text-decoration: none; }
+    .nav-logo span { color: #7a12d4; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { color: #4b5563; text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.2s; cursor: pointer; }
+    .nav-links a:hover, .nav-links a.active { color: #7a12d4; }
+    .nav-cta { background: #7a12d4 !important; color: white !important; padding: 0.6rem 1.25rem; border-radius: 999px; }
+
+    /* Page Views */
+    .page { display: none; padding-top: 80px; min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* Container */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Hero */
+    .hero { padding: 4rem 0; text-align: center; background: linear-gradient(180deg, #f9f7fc 0%, #fff 100%); position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('https://storyblok-cdn.mindvalley.com/f/60579/2000x900/c59dd59fec/events-hero-d.jpg') center/cover; opacity: 0.08; z-index: 0; }
+    .hero .container { position: relative; z-index: 1; }
+    .hero h1 { font-size: 3rem; font-weight: 600; margin: 0 0 1rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .hero p { font-size: 1.25rem; color: #4b5563; max-width: 600px; margin: 0 auto 2rem; }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 1rem 2rem; border-radius: 999px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s; border: none; font-size: 1rem; }
+    .btn-primary { background: #7a12d4; color: white; }
+    .btn-primary:hover { background: #6b0fb8; }
+    .btn-secondary { background: transparent; color: #7a12d4; border: 2px solid #7a12d4; }
+    .btn-secondary:hover { background: #f9f7fc; }
+    .btn-sm { padding: 0.5rem 1rem; font-size: 0.9rem; }
+
+    /* Event Cards */
+    .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+    .event-card { background: white; border-radius: 1rem; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.3s; cursor: pointer; }
+    .event-card:hover { box-shadow: 0 12px 40px rgba(122,18,212,0.15); transform: translateY(-4px); }
+    .event-card img { width: 100%; height: 200px; object-fit: cover; }
+    .event-card-body { padding: 1.25rem; }
+    .event-badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .badge-summit { background: #fef3c7; color: #92400e; }
+    .badge-mvu { background: #dbeafe; color: #1e40af; }
+    .badge-futurehuman { background: #ede9fe; color: #6b21a8; }
+    .badge-premium { background: #fce7f3; color: #9d174d; }
+    .event-card h3 { font-size: 1.15rem; font-weight: 600; margin: 0 0 0.5rem; }
+    .event-card p { font-size: 0.9rem; color: #6b7280; margin: 0 0 1rem; }
+    .event-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+    .event-meta .date { color: #6b7280; }
+    .event-meta .price { color: #7a12d4; font-weight: 600; }
+
+    /* Match Score */
+    .match-score { display: inline-flex; align-items: center; gap: 0.35rem; background: #d1fae5; color: #065f46; padding: 0.25rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem; }
+
+    /* Friends Attending */
+    .friends-attending { display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #f3f4f6; }
+    .avatar-stack { display: flex; }
+    .avatar-stack img { width: 28px; height: 28px; border-radius: 50%; border: 2px solid white; margin-left: -8px; object-fit: cover; }
+    .avatar-stack img:first-child { margin-left: 0; }
+    .friends-text { font-size: 0.8rem; color: #6b7280; }
+    .friends-text strong { color: #0f131a; }
+
+    /* Tabs */
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; justify-content: center; }
+    .tab { padding: 0.75rem 1.5rem; border: 2px solid #e5e7eb; background: white; border-radius: 999px; font-size: 0.9rem; font-weight: 500; color: #4b5563; cursor: pointer; transition: all 0.2s; }
+    .tab:hover { border-color: #7a12d4; color: #7a12d4; }
+    .tab.active { background: #7a12d4; border-color: #7a12d4; color: white; }
+
+    /* Quiz */
+    .quiz-container { max-width: 700px; margin: 0 auto; padding: 3rem 1.5rem; }
+    .quiz-progress { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+    .quiz-step { flex: 1; height: 4px; background: #e5e7eb; border-radius: 999px; }
+    .quiz-step.active { background: #7a12d4; }
+    .quiz-step.completed { background: #10b981; }
+    .quiz-question { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .quiz-subtitle { color: #6b7280; margin-bottom: 2rem; }
+    .quiz-options { display: flex; flex-direction: column; gap: 1rem; }
+    .quiz-option { padding: 1.25rem; border: 2px solid #e5e7eb; border-radius: 1rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 1rem; }
+    .quiz-option:hover { border-color: #7a12d4; background: #f9f7fc; }
+    .quiz-option.selected { border-color: #7a12d4; background: #f9f7fc; }
+    .quiz-option-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .quiz-option h4 { font-weight: 600; margin: 0 0 0.25rem; }
+    .quiz-option p { font-size: 0.9rem; color: #6b7280; margin: 0; }
+    .quiz-nav { display: flex; justify-content: space-between; margin-top: 2rem; }
+
+    /* Goals Panel */
+    .goals-panel { background: #f9f7fc; border-radius: 1rem; padding: 1.5rem; margin-bottom: 2rem; }
+    .goals-panel h3 { font-size: 1rem; font-weight: 600; margin: 0 0 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .goal-item { display: flex; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid #e8e0f0; }
+    .goal-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .goal-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .goal-icon.exp { background: #fef3c7; }
+    .goal-icon.grow { background: #dbeafe; }
+    .goal-icon.contrib { background: #d1fae5; }
+    .goal-content h4 { font-size: 0.85rem; font-weight: 600; margin: 0 0 0.25rem; color: #7a12d4; }
+    .goal-content p { font-size: 0.9rem; color: #4b5563; margin: 0; }
+
+    /* Meet Section */
+    .network-filter { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .network-chip { padding: 0.5rem 1rem; background: white; border: 1px solid #e5e7eb; border-radius: 999px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.5rem; }
+    .network-chip:hover { border-color: #7a12d4; }
+    .network-chip.active { background: #7a12d4; color: white; border-color: #7a12d4; }
+    .network-chip .count { background: rgba(0,0,0,0.1); padding: 0.15rem 0.5rem; border-radius: 999px; font-size: 0.75rem; }
+    .network-chip.active .count { background: rgba(255,255,255,0.2); }
+
+    .friend-event-card { background: white; border-radius: 1rem; padding: 1.25rem; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .friend-event-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+    .friend-event-info h4 { font-weight: 600; margin: 0 0 0.25rem; }
+    .friend-event-info p { font-size: 0.85rem; color: #6b7280; margin: 0; }
+    .friends-list { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .friend-item { display: flex; align-items: center; gap: 0.5rem; background: #f9f7fc; padding: 0.5rem 0.75rem; border-radius: 999px; }
+    .friend-item img { width: 24px; height: 24px; border-radius: 50%; }
+    .friend-item span { font-size: 0.85rem; font-weight: 500; }
+
+    /* Section */
+    .section { padding: 4rem 0; }
+    .section-alt { background: #f9f7fc; }
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-header h2 { font-size: 2rem; font-weight: 600; margin: 0 0 0.75rem; }
+    .section-header p { color: #6b7280; max-width: 600px; margin: 0 auto; }
+
+    /* Journey Ladder */
+    .journey-ladder { display: flex; justify-content: center; align-items: flex-end; gap: 1.5rem; padding: 2rem 0; }
+    .journey-step { text-align: center; cursor: pointer; transition: transform 0.2s; }
+    .journey-step:hover { transform: translateY(-5px); }
+    .journey-bar { width: 140px; border-radius: 12px 12px 0 0; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding: 1.25rem 0.75rem; color: white; font-weight: 600; font-size: 0.9rem; }
+    .journey-bar.gateway { height: 100px; background: linear-gradient(180deg, #a78bfa, #7c3aed); }
+    .journey-bar.activation { height: 150px; background: linear-gradient(180deg, #fbbf24, #d97706); }
+    .journey-bar.belonging { height: 200px; background: linear-gradient(180deg, #60a5fa, #2563eb); }
+    .journey-bar.peak { height: 250px; background: linear-gradient(180deg, #f472b6, #db2777); }
+    .journey-label { margin-top: 0.75rem; font-size: 0.8rem; color: #6b7280; }
+
+    /* Results Card */
+    .results-card { background: white; border-radius: 1.5rem; padding: 2.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; text-align: center; }
+    .results-icon { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 1.5rem; }
+    .results-card h2 { font-size: 1.75rem; font-weight: 600; margin: 0 0 0.5rem; }
+    .results-card .subtitle { color: #7a12d4; font-weight: 600; margin-bottom: 1rem; }
+    .results-card p { color: #4b5563; margin-bottom: 2rem; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .events-grid { grid-template-columns: 1fr; }
+      .journey-ladder { flex-wrap: wrap; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" onclick="showPage('home')">Mindvalley <span>Events</span></a>
+    <div class="nav-links">
+      <a onclick="showPage('home')" id="nav-home" class="active">Discover</a>
+      <a onclick="showPage('quiz')" id="nav-quiz">Find My Event</a>
+      <a onclick="showPage('meet')" id="nav-meet">Meet</a>
+      <a onclick="showPage('goals')" id="nav-goals">My Goals</a>
+      <a onclick="showPage('dashboard')" class="nav-cta">Sarah's Dashboard</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE: HOME / DISCOVER -->
+<div id="page-home" class="page active">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <p style="color: #7a12d4; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem;">Welcome back, Sarah</p>
+      <h1>From Inspiration to Deep Transformation</h1>
+      <p>Events matched to your goals, budget, and community. Find where you belong.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a onclick="showPage('quiz')" class="btn btn-primary">🎯 Find My Perfect Event</a>
+        <a onclick="showPage('meet')" class="btn btn-secondary">👥 See Who's Going</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sarah's Goals Panel -->
+  <section class="section" style="padding-top: 2rem;">
+    <div class="container">
+      <div class="goals-panel">
+        <h3>🎯 Your Goals (3MIQ)</h3>
+        <div class="goal-item">
+          <div class="goal-icon exp">✨</div>
+          <div class="goal-content">
+            <h4>Experiences</h4>
+            <p>Travel to transformational retreats worldwide and speak on stages that inspire thousands</p>
+          </div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-icon grow">📈</div>
+          <div class="goal-content">
+            <h4>Growth</h4>
+            <p>Master AI tools for business and develop world-class public speaking skills</p>
+          </div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-icon contrib">💜</div>
+          <div class="goal-content">
+            <h4>Contribution</h4>
+            <p>Build a platform that helps entrepreneurs scale their impact globally</p>
+          </div>
+        </div>
+        <div style="margin-top: 1rem; text-align: right;">
+          <a onclick="showPage('goals')" style="color: #7a12d4; font-size: 0.9rem; cursor: pointer;">Edit Goals →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journey Ladder -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="section-header">
+        <h2>Your Transformation Journey</h2>
+        <p>Four event types designed for every stage of growth</p>
+      </div>
+      <div class="journey-ladder">
+        <div class="journey-step" onclick="filterByType('futurehuman')">
+          <div class="journey-bar gateway">Future Human</div>
+          <div class="journey-label">Gateway<br><small>First Touch</small></div>
+        </div>
+        <div class="journey-step" onclick="filterByType('summit')">
+          <div class="journey-bar activation">Summits</div>
+          <div class="journey-label">Activation<br><small>Skill Building</small></div>
+        </div>
+        <div class="journey-step" onclick="filterByType('mvu')">
+          <div class="journey-bar belonging">Mindvalley U</div>
+          <div class="journey-label">Belonging<br><small>Community</small></div>
+        </div>
+        <div class="journey-step" onclick="filterByType('premium')">
+          <div class="journey-bar peak">Premium</div>
+          <div class="journey-label">Peak<br><small>Elite</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recommended Events -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>Recommended For You</h2>
+        <p>Events matched to your goals and friends' attendance</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" onclick="filterEvents('all', this)">All Events</button>
+        <button class="tab" onclick="filterEvents('for-you', this)">🎯 Best Match</button>
+        <button class="tab" onclick="filterEvents('friends', this)">👥 Friends Going</button>
+        <button class="tab" onclick="filterEvents('summit', this)">Summits</button>
+        <button class="tab" onclick="filterEvents('mvu', this)">Mindvalley U</button>
+      </div>
+
+      <div class="events-grid" id="events-grid">
+
+        <!-- Event 1: AI Summit - HIGH MATCH -->
+        <div class="event-card" data-type="summit for-you" onclick="showPage('event-detail')">
+          <img src="https://storyblok-cdn.mindvalley.com/f/60579/1920x1080/9ed074c113/mastersofmanifesting_keynotetemplate-001.jpeg" alt="AI Business Summit">
+          <div class="event-card-body">
+            <span class="event-badge badge-summit">Summit</span>
+            <span class="match-score">🎯 96% Match</span>
+            <h3>AI Business Mastery Summit</h3>
+            <p>Build AI-powered systems for your business in 3 days. <strong>Perfect for your AI growth goal.</strong></p>
+            <div class="event-meta">
+              <span class="date">📅 Apr 4-6, 2025 • Miami</span>
+              <span class="price">From $497</span>
+            </div>
+            <div class="friends-attending">
+              <div class="avatar-stack">
+                <img src="https://i.pravatar.cc/100?img=11" alt="Friend">
+                <img src="https://i.pravatar.cc/100?img=12" alt="Friend">
+                <img src="https://i.pravatar.cc/100?img=13" alt="Friend">
+              </div>
+              <span class="friends-text"><strong>8 friends</strong> from AI Mastery attending</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 2: MVU Tallinn -->
+        <div class="event-card" data-type="mvu friends for-you">
+          <img src="https://storyblok-cdn.mindvalley.com/f/60579/1920x1080/ce62dd2f4c/mvu_2026-announcement-slide.jpg" alt="MVU Tallinn">
+          <div class="event-card-body">
+            <span class="event-badge badge-mvu">Mindvalley U</span>
+            <span class="match-score">🎯 91% Match</span>
+            <h3>MVU Summer Campus — Tallinn</h3>
+            <p>2-week transformational campus experience. <strong>Aligns with your speaking goals.</strong></p>
+            <div class="event-meta">
+              <span class="date">📅 Jul 20 - Aug 2, 2026</span>
+              <span class="price">From $2,997</span>
+            </div>
+            <div class="friends-attending">
+              <div class="avatar-stack">
+                <img src="https://i.pravatar.cc/100?img=21" alt="Friend">
+                <img src="https://i.pravatar.cc/100?img=22" alt="Friend">
+                <img src="https://i.pravatar.cc/100?img=23" alt="Friend">
+                <img src="https://i.pravatar.cc/100?img=24" alt="Friend">
+                <img src="https://i.pravatar.cc/100?img=25" alt="Friend">
+              </div>
+              <span class="friends-text"><strong>23 friends</strong> attending</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 3: Creator Summit -->
+        <div class="event-card" data-type="summit for-you">
+          <img src="https://storyblok-cdn.mindvalley.com/f/60579/1604x748/b713ab42db/06-03-collage.webp" alt="Creator Summit">
+          <div class="event-card-body">
+            <span class="event-badge badge-summit">Summit</span>
+            <span class="match-score">🎯 89% Match</span>
+            <h3>Become a Creator Summit</h3>
+            <p>Launch your personal brand and speak on stages. <strong>Matches your speaking & platform goals.</strong></p>
+            <div class="event-meta">
+              <span class="date">📅 May 16-18, 2025 • Online</span>
+              <span class="price">From $297</span>
+            </div>
+            <div class="friends-attending">
+              <div class="avatar-stack">
+                <img src="https://i.pravatar.cc/100?img=31" alt="Friend">
+                <img src="https://i.pravatar.cc/100?img=32" alt="Friend">
+              </div>
+              <span class="friends-text"><strong>5 friends</strong> from your network</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 4: Future Human -->
+        <div class="event-card" data-type="futurehuman friends">
+          <img src="https://storyblok-cdn.mindvalley.com/f/60579/1920x1080/cfb4e7162f/1920_x_1080___generic.jpg" alt="Future Human">
+          <div class="event-card-body">
+            <span class="event-badge badge-futurehuman">Future Human</span>
+            <span class="match-score">🎯 82% Match</span>
+            <h3>Future Human Dubai 2025</h3>
+            <p>Meet the thinkers shaping human transformation. Great for expanding your network.</p>
+            <div class="event-meta">
+              <span class="date">📅 Mar 14-16, 2025 • Dubai</span>
+              <span class="price">From $1,497</span>
+            </div>
+            <div class="friends-attending">
+              <div class="avatar-stack">
+                <img src="https://i.pravatar.cc/100?img=41" alt="Friend">
+                <img src="https://i.pravatar.cc/100?img=42" alt="Friend">
+                <img src="https://i.pravatar.cc/100?img=43" alt="Friend">
+              </div>
+              <span class="friends-text"><strong>12 friends</strong> interested</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 5: Premium Retreat -->
+        <div class="event-card" data-type="premium">
+          <img src="https://storyblok-cdn.mindvalley.com/f/60579/1604x748/ee6fea0952/06-05-collage.webp" alt="Bali Retreat">
+          <div class="event-card-body">
+            <span class="event-badge badge-premium">Premium</span>
+            <span class="match-score">🎯 78% Match</span>
+            <h3>Bali Transformation Retreat</h3>
+            <p>Once-in-a-lifetime retreat with world's top teachers. Peak experience for top members.</p>
+            <div class="event-meta">
+              <span class="date">📅 Nov 8-15, 2025 • Bali</span>
+              <span class="price">From $7,997</span>
+            </div>
+            <div class="friends-attending">
+              <div class="avatar-stack">
+                <img src="https://i.pravatar.cc/100?img=51" alt="Friend">
+              </div>
+              <span class="friends-text"><strong>3 friends</strong> applied</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 6: Longevity Summit -->
+        <div class="event-card" data-type="summit">
+          <img src="https://storyblok-cdn.mindvalley.com/f/60579/768x748/33d2b6e4f4/06-06-collage.webp" alt="Longevity Summit">
+          <div class="event-card-body">
+            <span class="event-badge badge-summit">Summit</span>
+            <h3>Longevity & Biohacking Summit</h3>
+            <p>Extend your healthspan with cutting-edge science and practical protocols.</p>
+            <div class="event-meta">
+              <span class="date">📅 Jun 20-22, 2025 • LA</span>
+              <span class="price">From $597</span>
+            </div>
+            <div class="friends-attending">
+              <div class="avatar-stack">
+                <img src="https://i.pravatar.cc/100?img=61" alt="Friend">
+                <img src="https://i.pravatar.cc/100?img=62" alt="Friend">
+              </div>
+              <span class="friends-text"><strong>4 friends</strong> from Longevity network</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 7: Ziva Level 3 - Greece Pilgrimage (Author Event) -->
+        <div class="event-card" data-type="premium for-you" onclick="showPage('ziva-event')">
+          <img src="https://zivameditation.com/cdn/shop/files/2_ae63907b-2781-4c43-a391-724867ab2f73.svg" alt="Ziva Greece Pilgrimage">
+          <div class="event-card-body">
+            <span class="event-badge badge-premium">Premium • Author Event</span>
+            <span class="match-score">🎯 85% Match</span>
+            <h3>Ziva Level 3: Greece Mastermind & Pilgrimage</h3>
+            <p>with Emily Fletcher — Advanced meditation, Vedic wisdom & sacred pilgrimage through ancient Greece.</p>
+            <div class="event-meta">
+              <span class="date">📅 Apr 12-21, 2026 • Greece</span>
+              <span class="price">From $13,000</span>
+            </div>
+            <div class="friends-attending">
+              <div class="avatar-stack">
+                <img src="https://i.pravatar.cc/100?img=71" alt="Friend">
+                <img src="https://i.pravatar.cc/100?img=72" alt="Friend">
+              </div>
+              <span class="friends-text"><strong>2 friends</strong> applied</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- PAGE: QUIZ -->
+<div id="page-quiz" class="page">
+  <div class="quiz-container">
+
+    <!-- Quiz Step 1 -->
+    <div id="quiz-step-1" class="quiz-step-content">
+      <div class="quiz-progress">
+        <div class="quiz-step active"></div>
+        <div class="quiz-step"></div>
+        <div class="quiz-step"></div>
+        <div class="quiz-step"></div>
+      </div>
+
+      <h2 class="quiz-question">What's your primary goal right now?</h2>
+      <p class="quiz-subtitle">This helps us match you with the right event type</p>
+
+      <div class="quiz-options">
+        <div class="quiz-option" onclick="selectQuizOption(this, 1)">
+          <div class="quiz-option-icon" style="background: #fef3c7;">🚀</div>
+          <div>
+            <h4>Build a specific skill</h4>
+            <p>I want to master something concrete — AI, speaking, business growth</p>
+          </div>
+        </div>
+        <div class="quiz-option" onclick="selectQuizOption(this, 1)">
+          <div class="quiz-option-icon" style="background: #dbeafe;">👥</div>
+          <div>
+            <h4>Find my community</h4>
+            <p>I want to meet like-minded people and feel a sense of belonging</p>
+          </div>
+        </div>
+        <div class="quiz-option" onclick="selectQuizOption(this, 1)">
+          <div class="quiz-option-icon" style="background: #ede9fe;">💡</div>
+          <div>
+            <h4>Get inspired</h4>
+            <p>I want exposure to big ideas and thought leaders</p>
+          </div>
+        </div>
+        <div class="quiz-option" onclick="selectQuizOption(this, 1)">
+          <div class="quiz-option-icon" style="background: #fce7f3;">🦋</div>
+          <div>
+            <h4>Deep transformation</h4>
+            <p>I'm ready for a peak, life-changing experience</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-nav">
+        <button class="btn btn-secondary" onclick="showPage('home')">← Back</button>
+        <button class="btn btn-primary" onclick="nextQuizStep(2)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- Quiz Step 2 -->
+    <div id="quiz-step-2" class="quiz-step-content" style="display: none;">
+      <div class="quiz-progress">
+        <div class="quiz-step completed"></div>
+        <div class="quiz-step active"></div>
+        <div class="quiz-step"></div>
+        <div class="quiz-step"></div>
+      </div>
+
+      <h2 class="quiz-question">What's your budget range?</h2>
+      <p class="quiz-subtitle">Including travel and accommodation</p>
+
+      <div class="quiz-options">
+        <div class="quiz-option" onclick="selectQuizOption(this, 2)">
+          <div class="quiz-option-icon" style="background: #d1fae5;">💚</div>
+          <div>
+            <h4>Under $1,000</h4>
+            <p>Online events or local summits</p>
+          </div>
+        </div>
+        <div class="quiz-option" onclick="selectQuizOption(this, 2)">
+          <div class="quiz-option-icon" style="background: #dbeafe;">💙</div>
+          <div>
+            <h4>$1,000 - $3,000</h4>
+            <p>Most summits and entry-level MVU</p>
+          </div>
+        </div>
+        <div class="quiz-option" onclick="selectQuizOption(this, 2)">
+          <div class="quiz-option-icon" style="background: #ede9fe;">💜</div>
+          <div>
+            <h4>$3,000 - $7,000</h4>
+            <p>Full MVU experience or VIP summits</p>
+          </div>
+        </div>
+        <div class="quiz-option" onclick="selectQuizOption(this, 2)">
+          <div class="quiz-option-icon" style="background: #fce7f3;">💖</div>
+          <div>
+            <h4>$7,000+</h4>
+            <p>Premium retreats and elite experiences</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-nav">
+        <button class="btn btn-secondary" onclick="nextQuizStep(1)">← Back</button>
+        <button class="btn btn-primary" onclick="nextQuizStep(3)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- Quiz Step 3 -->
+    <div id="quiz-step-3" class="quiz-step-content" style="display: none;">
+      <div class="quiz-progress">
+        <div class="quiz-step completed"></div>
+        <div class="quiz-step completed"></div>
+        <div class="quiz-step active"></div>
+        <div class="quiz-step"></div>
+      </div>
+
+      <h2 class="quiz-question">When can you attend?</h2>
+      <p class="quiz-subtitle">Select your available timeframe</p>
+
+      <div class="quiz-options">
+        <div class="quiz-option" onclick="selectQuizOption(this, 3)">
+          <div class="quiz-option-icon" style="background: #fef3c7;">🌸</div>
+          <div>
+            <h4>Q1 2025 (Jan-Mar)</h4>
+            <p>Future Human Dubai, Online Summits</p>
+          </div>
+        </div>
+        <div class="quiz-option" onclick="selectQuizOption(this, 3)">
+          <div class="quiz-option-icon" style="background: #d1fae5;">☀️</div>
+          <div>
+            <h4>Q2 2025 (Apr-Jun)</h4>
+            <p>AI Summit, Creator Summit, Longevity Summit</p>
+          </div>
+        </div>
+        <div class="quiz-option" onclick="selectQuizOption(this, 3)">
+          <div class="quiz-option-icon" style="background: #dbeafe;">🏖️</div>
+          <div>
+            <h4>Q3 2025 (Jul-Sep)</h4>
+            <p>MVU Summer Campus Tallinn</p>
+          </div>
+        </div>
+        <div class="quiz-option" onclick="selectQuizOption(this, 3)">
+          <div class="quiz-option-icon" style="background: #fce7f3;">🍂</div>
+          <div>
+            <h4>Q4 2025 (Oct-Dec)</h4>
+            <p>Premium Retreats, Year-end Summits</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-nav">
+        <button class="btn btn-secondary" onclick="nextQuizStep(2)">← Back</button>
+        <button class="btn btn-primary" onclick="nextQuizStep(4)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- Quiz Step 4 -->
+    <div id="quiz-step-4" class="quiz-step-content" style="display: none;">
+      <div class="quiz-progress">
+        <div class="quiz-step completed"></div>
+        <div class="quiz-step completed"></div>
+        <div class="quiz-step completed"></div>
+        <div class="quiz-step active"></div>
+      </div>
+
+      <h2 class="quiz-question">Who do you want to meet?</h2>
+      <p class="quiz-subtitle">We'll prioritize events where your network is attending</p>
+
+      <div class="quiz-options">
+        <div class="quiz-option" onclick="selectQuizOption(this, 4)">
+          <div class="quiz-option-icon" style="background: #fef3c7;">🤖</div>
+          <div>
+            <h4>AI & Tech Entrepreneurs</h4>
+            <p>8 friends in this network</p>
+          </div>
+        </div>
+        <div class="quiz-option" onclick="selectQuizOption(this, 4)">
+          <div class="quiz-option-icon" style="background: #d1fae5;">🎤</div>
+          <div>
+            <h4>Speakers & Creators</h4>
+            <p>12 friends in this network</p>
+          </div>
+        </div>
+        <div class="quiz-option" onclick="selectQuizOption(this, 4)">
+          <div class="quiz-option-icon" style="background: #dbeafe;">💪</div>
+          <div>
+            <h4>Longevity & Wellness</h4>
+            <p>6 friends in this network</p>
+          </div>
+        </div>
+        <div class="quiz-option" onclick="selectQuizOption(this, 4)">
+          <div class="quiz-option-icon" style="background: #ede9fe;">🌍</div>
+          <div>
+            <h4>Global Community (All)</h4>
+            <p>127 total connections</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-nav">
+        <button class="btn btn-secondary" onclick="nextQuizStep(3)">← Back</button>
+        <button class="btn btn-primary" onclick="showQuizResults()">See My Results →</button>
+      </div>
+    </div>
+
+    <!-- Quiz Results -->
+    <div id="quiz-results" class="quiz-step-content" style="display: none;">
+      <div class="results-card">
+        <div class="results-icon" style="background: linear-gradient(135deg, #fbbf24, #d97706);">🎯</div>
+        <h2>Your Perfect Event</h2>
+        <p class="subtitle">AI Business Mastery Summit</p>
+        <p>Based on your goals, budget, and timing, this summit is a <strong>96% match</strong>. Plus, <strong>8 of your friends</strong> from AI Mastery are already registered!</p>
+
+        <div style="background: #f9f7fc; border-radius: 1rem; padding: 1.25rem; margin: 1.5rem 0; text-align: left;">
+          <h4 style="margin: 0 0 0.75rem; font-size: 0.9rem;">Why this matches your goals:</h4>
+          <ul style="margin: 0; padding-left: 1.25rem; color: #4b5563; font-size: 0.9rem;">
+            <li><strong>Growth Goal:</strong> Master AI tools for business ✓</li>
+            <li><strong>Contribution Goal:</strong> Build platform for entrepreneurs ✓</li>
+            <li><strong>Budget:</strong> $497-$1,997 fits your range ✓</li>
+            <li><strong>Timing:</strong> April 2025 works ✓</li>
+          </ul>
+        </div>
+
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a class="btn btn-primary">Register Now →</a>
+          <a class="btn btn-secondary" onclick="showPage('home')">See All Matches</a>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <h3 style="text-align: center; margin-bottom: 1rem;">Other Great Matches</h3>
+        <div class="events-grid" style="grid-template-columns: repeat(2, 1fr);">
+          <div class="event-card">
+            <img src="https://storyblok-cdn.mindvalley.com/f/60579/1604x748/b713ab42db/06-03-collage.webp" alt="Creator Summit" style="height: 150px;">
+            <div class="event-card-body">
+              <span class="event-badge badge-summit">Summit</span>
+              <span class="match-score">89%</span>
+              <h3>Become a Creator Summit</h3>
+              <div class="event-meta">
+                <span class="date">May 2025</span>
+                <span class="price">$297</span>
+              </div>
+            </div>
+          </div>
+          <div class="event-card">
+            <img src="https://storyblok-cdn.mindvalley.com/f/60579/1920x1080/ce62dd2f4c/mvu_2026-announcement-slide.jpg" alt="MVU" style="height: 150px;">
+            <div class="event-card-body">
+              <span class="event-badge badge-mvu">MVU</span>
+              <span class="match-score">91%</span>
+              <h3>MVU Tallinn 2026</h3>
+              <div class="event-meta">
+                <span class="date">Jul 2026</span>
+                <span class="price">$2,997</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAGE: MEET (Social Graph) -->
+<div id="page-meet" class="page">
+  <section class="hero" style="padding-bottom: 2rem;">
+    <div class="container">
+      <h1>See Who's Going</h1>
+      <p>Find events where your friends and network are attending</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+
+      <!-- Network Filter -->
+      <h3 style="margin-bottom: 1rem;">Your Networks (from SIX)</h3>
+      <div class="network-filter">
+        <div class="network-chip active" onclick="filterNetwork(this, 'all')">
+          All Networks <span class="count">127</span>
+        </div>
+        <div class="network-chip" onclick="filterNetwork(this, 'ai')">
+          🤖 AI Mastery <span class="count">34</span>
+        </div>
+        <div class="network-chip" onclick="filterNetwork(this, 'creators')">
+          🎤 Speakers & Creators <span class="count">28</span>
+        </div>
+        <div class="network-chip" onclick="filterNetwork(this, 'longevity')">
+          💪 Longevity <span class="count">19</span>
+        </div>
+        <div class="network-chip" onclick="filterNetwork(this, 'entrepreneurs')">
+          🚀 Entrepreneurs <span class="count">46</span>
+        </div>
+      </div>
+
+      <!-- Events by Friends -->
+      <h3 style="margin: 2rem 0 1rem;">Events Your Friends Are Attending</h3>
+
+      <!-- Friend Event 1 -->
+      <div class="friend-event-card" data-network="ai entrepreneurs">
+        <div class="friend-event-header">
+          <div class="friend-event-info">
+            <h4>AI Business Mastery Summit</h4>
+            <p>📅 Apr 4-6, 2025 • Miami • From $497</p>
+          </div>
+          <span class="event-badge badge-summit">Summit</span>
+        </div>
+        <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;"><strong>8 friends</strong> from your AI Mastery network are going:</p>
+        <div class="friends-list">
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=11" alt="Michael">
+            <span>Michael K.</span>
+          </div>
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=12" alt="Jennifer">
+            <span>Jennifer L.</span>
+          </div>
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=13" alt="David">
+            <span>David C.</span>
+          </div>
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=14" alt="Emma">
+            <span>Emma W.</span>
+          </div>
+          <div class="friend-item" style="background: #e5e7eb;">
+            <span>+4 more</span>
+          </div>
+        </div>
+        <div style="margin-top: 1rem;">
+          <a class="btn btn-primary btn-sm">Join Them →</a>
+        </div>
+      </div>
+
+      <!-- Friend Event 2 -->
+      <div class="friend-event-card" data-network="all creators">
+        <div class="friend-event-header">
+          <div class="friend-event-info">
+            <h4>MVU Summer Campus — Tallinn</h4>
+            <p>📅 Jul 20 - Aug 2, 2026 • Estonia • From $2,997</p>
+          </div>
+          <span class="event-badge badge-mvu">MVU</span>
+        </div>
+        <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;"><strong>23 friends</strong> across your networks are going:</p>
+        <div class="friends-list">
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=21" alt="Sarah">
+            <span>Rachel P.</span>
+          </div>
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=22" alt="Tom">
+            <span>Tom H.</span>
+          </div>
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=23" alt="Lisa">
+            <span>Lisa M.</span>
+          </div>
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=24" alt="Ahmed">
+            <span>Ahmed K.</span>
+          </div>
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=25" alt="Nina">
+            <span>Nina S.</span>
+          </div>
+          <div class="friend-item" style="background: #e5e7eb;">
+            <span>+18 more</span>
+          </div>
+        </div>
+        <div style="margin-top: 1rem;">
+          <a class="btn btn-primary btn-sm">Join Them →</a>
+        </div>
+      </div>
+
+      <!-- Friend Event 3 -->
+      <div class="friend-event-card" data-network="creators">
+        <div class="friend-event-header">
+          <div class="friend-event-info">
+            <h4>Become a Creator Summit</h4>
+            <p>📅 May 16-18, 2025 • Online • From $297</p>
+          </div>
+          <span class="event-badge badge-summit">Summit</span>
+        </div>
+        <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;"><strong>5 friends</strong> from Speakers & Creators are going:</p>
+        <div class="friends-list">
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=31" alt="Alex">
+            <span>Alex R.</span>
+          </div>
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=32" alt="Maria">
+            <span>Maria G.</span>
+          </div>
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=33" alt="James">
+            <span>James T.</span>
+          </div>
+          <div class="friend-item" style="background: #e5e7eb;">
+            <span>+2 more</span>
+          </div>
+        </div>
+        <div style="margin-top: 1rem;">
+          <a class="btn btn-primary btn-sm">Join Them →</a>
+        </div>
+      </div>
+
+      <!-- Friend Event 4 -->
+      <div class="friend-event-card" data-network="longevity">
+        <div class="friend-event-header">
+          <div class="friend-event-info">
+            <h4>Longevity & Biohacking Summit</h4>
+            <p>📅 Jun 20-22, 2025 • Los Angeles • From $597</p>
+          </div>
+          <span class="event-badge badge-summit">Summit</span>
+        </div>
+        <p style="font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem;"><strong>4 friends</strong> from Longevity network are going:</p>
+        <div class="friends-list">
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=61" alt="Dr. Peter">
+            <span>Dr. Peter N.</span>
+          </div>
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=62" alt="Karen">
+            <span>Karen W.</span>
+          </div>
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=63" alt="Mark">
+            <span>Mark L.</span>
+          </div>
+          <div class="friend-item">
+            <img src="https://i.pravatar.cc/100?img=64" alt="Sophia">
+            <span>Sophia A.</span>
+          </div>
+        </div>
+        <div style="margin-top: 1rem;">
+          <a class="btn btn-primary btn-sm">Join Them →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- PAGE: MY GOALS (3MIQ Editor) -->
+<div id="page-goals" class="page">
+  <section class="hero" style="padding-bottom: 2rem;">
+    <div class="container">
+      <h1>Your Three Most Important Questions</h1>
+      <p>We use these to match you with the perfect events</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container" style="max-width: 700px;">
+
+      <div style="background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1.5rem;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+          <div style="width: 48px; height: 48px; background: #fef3c7; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">✨</div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.1rem;">Experiences</h3>
+            <p style="margin: 0; font-size: 0.85rem; color: #6b7280;">What do you want to experience in life?</p>
+          </div>
+        </div>
+        <textarea style="width: 100%; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 0.75rem; font-size: 1rem; min-height: 100px; resize: vertical; font-family: inherit;">Travel to transformational retreats worldwide and speak on stages that inspire thousands</textarea>
+      </div>
+
+      <div style="background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1.5rem;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+          <div style="width: 48px; height: 48px; background: #dbeafe; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📈</div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.1rem;">Growth</h3>
+            <p style="margin: 0; font-size: 0.85rem; color: #6b7280;">How do you want to grow as a person?</p>
+          </div>
+        </div>
+        <textarea style="width: 100%; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 0.75rem; font-size: 1rem; min-height: 100px; resize: vertical; font-family: inherit;">Master AI tools for business and develop world-class public speaking skills</textarea>
+      </div>
+
+      <div style="background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1.5rem;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+          <div style="width: 48px; height: 48px; background: #d1fae5; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">💜</div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.1rem;">Contribution</h3>
+            <p style="margin: 0; font-size: 0.85rem; color: #6b7280;">How do you want to contribute to the world?</p>
+          </div>
+        </div>
+        <textarea style="width: 100%; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 0.75rem; font-size: 1rem; min-height: 100px; resize: vertical; font-family: inherit;">Build a platform that helps entrepreneurs scale their impact globally</textarea>
+      </div>
+
+      <div style="display: flex; gap: 1rem; justify-content: center;">
+        <button class="btn btn-primary" onclick="showPage('home')">Save & Update Recommendations</button>
+      </div>
+
+      <div style="background: #f9f7fc; border-radius: 1rem; padding: 1.5rem; margin-top: 2rem; text-align: center;">
+        <p style="margin: 0; color: #4b5563; font-size: 0.95rem;">
+          💡 <strong>Tip:</strong> The more specific your goals, the better we can match you with events that will truly transform your life.
+        </p>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- PAGE: DASHBOARD -->
+<div id="page-dashboard" class="page">
+  <section class="section">
+    <div class="container">
+      <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Welcome back, Sarah</h1>
+      <p style="color: #6b7280; margin-bottom: 2rem;">Your transformation journey at a glance</p>
+
+      <!-- Stats -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 3rem;">
+        <div style="background: white; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          <p style="font-size: 0.85rem; color: #6b7280; margin: 0 0 0.5rem;">Events Attended</p>
+          <p style="font-size: 2rem; font-weight: 700; margin: 0;">4</p>
+          <p style="font-size: 0.8rem; color: #10b981; margin: 0.25rem 0 0;">+2 this year</p>
+        </div>
+        <div style="background: white; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          <p style="font-size: 0.85rem; color: #6b7280; margin: 0 0 0.5rem;">Connections (SIX)</p>
+          <p style="font-size: 2rem; font-weight: 700; margin: 0;">127</p>
+          <p style="font-size: 0.8rem; color: #10b981; margin: 0.25rem 0 0;">+34 from last event</p>
+        </div>
+        <div style="background: white; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          <p style="font-size: 0.85rem; color: #6b7280; margin: 0 0 0.5rem;">Goal Alignment</p>
+          <p style="font-size: 2rem; font-weight: 700; margin: 0;">78%</p>
+          <p style="font-size: 0.8rem; color: #10b981; margin: 0.25rem 0 0;">↑ 12 points</p>
+        </div>
+        <div style="background: white; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          <p style="font-size: 0.85rem; color: #6b7280; margin: 0 0 0.5rem;">Community Rank</p>
+          <p style="font-size: 2rem; font-weight: 700; margin: 0;">Top 5%</p>
+          <p style="font-size: 0.8rem; color: #7a12d4; margin: 0.25rem 0 0;">Trailblazer</p>
+        </div>
+      </div>
+
+      <!-- Upcoming Event -->
+      <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Your Upcoming Events</h2>
+      <div class="event-card" style="max-width: 500px;">
+        <img src="https://storyblok-cdn.mindvalley.com/f/60579/1920x1080/ce62dd2f4c/mvu_2026-announcement-slide.jpg" alt="MVU Tallinn" style="height: 180px;">
+        <div class="event-card-body">
+          <span class="event-badge badge-mvu">Mindvalley U</span>
+          <h3>MVU Summer Campus — Tallinn</h3>
+          <p>Your ticket: Family Pass + S Factor Workshop</p>
+          <div class="friends-attending">
+            <div class="avatar-stack">
+              <img src="https://i.pravatar.cc/100?img=21" alt="Friend">
+              <img src="https://i.pravatar.cc/100?img=22" alt="Friend">
+              <img src="https://i.pravatar.cc/100?img=23" alt="Friend">
+            </div>
+            <span class="friends-text"><strong>23 friends</strong> attending</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- PAGE: ZIVA EVENT DETAIL -->
+<div id="page-ziva-event" class="page">
+
+  <!-- Hero -->
+  <div style="position: relative; min-height: 500px; display: flex; align-items: flex-end; padding: 3rem 0; color: white; background: linear-gradient(180deg, #2d1b4e 0%, #4a1d6e 50%, #7c3aed 100%);">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('https://zivameditation.com/cdn/shop/files/3_452d063b-0b6c-4616-8244-99f78fd730d8.svg') center/cover; opacity: 0.3;"></div>
+    <div class="container" style="position: relative; z-index: 2;">
+      <a onclick="showPage('home')" style="color: rgba(255,255,255,0.8); cursor: pointer; margin-bottom: 1rem; display: inline-block;">← Back to Events</a>
+      <span class="event-badge badge-premium" style="margin-bottom: 1rem;">Premium • Author Event</span>
+      <h1 style="font-size: 2.75rem; font-weight: 600; margin: 0.5rem 0; max-width: 700px;">Ziva Level 3: Mastermind & Pilgrimage to Greece</h1>
+      <p style="font-size: 1.25rem; opacity: 0.9; max-width: 600px; margin: 1rem 0;">
+        with <strong>Emily Fletcher</strong> — Advanced meditation, manifesting & sacred pilgrimage through ancient Greek temples.
+      </p>
+      <div style="display: flex; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; font-size: 1rem;">
+        <span>📅 April 12-21, 2026</span>
+        <span>📍 Greece (Athens, Delphi, Euphoria)</span>
+        <span>👥 Intimate Group</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <section class="section">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 3rem;">
+
+        <!-- Left Column -->
+        <div>
+          <!-- Why This Matches -->
+          <div style="background: #d1fae5; border-radius: 1rem; padding: 1.5rem; margin-bottom: 2rem;">
+            <h3 style="margin: 0 0 0.75rem; font-size: 1rem; color: #065f46;">🎯 Why This Is 85% Match for You, Sarah</h3>
+            <ul style="margin: 0; padding-left: 1.25rem; color: #065f46; font-size: 0.95rem;">
+              <li><strong>Experience Goal:</strong> "Travel to transformational retreats worldwide" ✓</li>
+              <li><strong>Growth Goal:</strong> Public speaking skills — Emily teaches stage presence & embodiment ✓</li>
+              <li><strong>Network:</strong> 2 friends from your community have applied</li>
+            </ul>
+          </div>
+
+          <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Your Next Level of Leadership Begins Here</h2>
+          <p style="color: #4b5563; margin-bottom: 1rem;">
+            This is a high-touch, three-month mastermind paired with a once-in-a-lifetime pilgrimage through ancient temples and sacred sites across Greece.
+          </p>
+          <p style="color: #4b5563; margin-bottom: 1.5rem;">
+            Inside this advanced mastermind you will master Ziva's most advanced meditation and manifesting technologies, deeper Vedic teachings, breathwork, and advanced embodied manifesting & Pleasure Prayer practices.
+          </p>
+
+          <h3 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 1rem;">What You'll Experience in Greece</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem;">
+            <div style="background: #f9f7fc; padding: 1.25rem; border-radius: 1rem;">
+              <h4 style="margin: 0 0 0.5rem; font-size: 1rem;">🏛️ Euphoria Retreat</h4>
+              <p style="margin: 0; font-size: 0.9rem; color: #4b5563;">Stay at the #5 spa on the planet, resting on the Mother Mary and Artemis ley lines.</p>
+            </div>
+            <div style="background: #f9f7fc; padding: 1.25rem; border-radius: 1rem;">
+              <h4 style="margin: 0 0 0.5rem; font-size: 1rem;">🔮 Delphi</h4>
+              <p style="margin: 0; font-size: 0.9rem; color: #4b5563;">The energetic umbilical cord of the planet. For 3,000 years, the Oracle counseled leaders.</p>
+            </div>
+            <div style="background: #f9f7fc; padding: 1.25rem; border-radius: 1rem;">
+              <h4 style="margin: 0 0 0.5rem; font-size: 1rem;">⚗️ Eleusis</h4>
+              <p style="margin: 0; font-size: 0.9rem; color: #4b5563;">Home of the Eleusinian Mysteries — one of the most powerful initiation sites of the ancient world.</p>
+            </div>
+            <div style="background: #f9f7fc; padding: 1.25rem; border-radius: 1rem;">
+              <h4 style="margin: 0 0 0.5rem; font-size: 1rem;">🧘 Advanced Practices</h4>
+              <p style="margin: 0; font-size: 0.9rem; color: #4b5563;">Vedic teachings, Mastering the Siddhis, embodied manifesting & emotional mastery.</p>
+            </div>
+          </div>
+
+          <!-- Meet Emily -->
+          <div style="display: flex; gap: 1.5rem; background: white; border: 1px solid #e5e7eb; border-radius: 1rem; padding: 1.5rem; margin-bottom: 2rem;">
+            <img src="https://zivameditation.com/cdn/shop/files/Website_Block_Portrait_4_x_5_in_9c71f5ff-fea5-424a-95c0-cb1a9fc4912d.svg" alt="Emily Fletcher" style="width: 120px; height: 120px; border-radius: 1rem; object-fit: cover;">
+            <div>
+              <h3 style="margin: 0 0 0.25rem; font-size: 1.1rem;">Emily Fletcher</h3>
+              <p style="color: #7a12d4; margin: 0 0 0.75rem; font-size: 0.9rem;">Founder of Ziva Meditation • Mindvalley Author</p>
+              <p style="margin: 0; font-size: 0.9rem; color: #4b5563;">
+                Emily has taught meditation to over 50,000 people worldwide, including Oscar winners, NBA players, and Fortune 500 CEOs. Her Ziva Technique is taught on Mindvalley.
+              </p>
+            </div>
+          </div>
+
+          <!-- Who Is This For -->
+          <h3 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 1rem;">Who This Is For</h3>
+          <ul style="color: #4b5563; padding-left: 1.25rem; margin-bottom: 2rem;">
+            <li>Feel a deeper calling to lead from consciousness, not fear</li>
+            <li>Want advanced tools in meditation and manifesting</li>
+            <li>Can feel your intuition sharpening and want to apply it in real time</li>
+            <li>Crave high-level community and sacred accountability</li>
+            <li>Want to serve the planet in ways that are mystical and practical</li>
+          </ul>
+
+          <!-- Friends Going -->
+          <div style="background: #f9f7fc; border-radius: 1rem; padding: 1.5rem;">
+            <h3 style="margin: 0 0 1rem; font-size: 1rem;">👥 Friends Who Applied</h3>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; background: white; padding: 0.5rem 1rem; border-radius: 999px;">
+                <img src="https://i.pravatar.cc/100?img=71" alt="Friend" style="width: 32px; height: 32px; border-radius: 50%;">
+                <span style="font-weight: 500;">Maria G.</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; background: white; padding: 0.5rem 1rem; border-radius: 999px;">
+                <img src="https://i.pravatar.cc/100?img=72" alt="Friend" style="width: 32px; height: 32px; border-radius: 50%;">
+                <span style="font-weight: 500;">Jessica T.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Pricing -->
+        <div>
+          <div style="background: white; border: 2px solid #7a12d4; border-radius: 1.5rem; padding: 2rem; position: sticky; top: 100px;">
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+              <p style="font-size: 0.85rem; color: #6b7280; margin: 0;">The Full Experience</p>
+              <p style="font-size: 2.5rem; font-weight: 700; margin: 0.25rem 0;">$13,000</p>
+              <p style="font-size: 0.9rem; color: #6b7280; margin: 0;"><s>$30,000 value</s></p>
+            </div>
+
+            <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem;">What's Included:</h4>
+            <ul style="font-size: 0.9rem; color: #4b5563; padding-left: 1.25rem; margin-bottom: 1.5rem;">
+              <li>10-day Greece Pilgrimage (accommodations, meals, transport)</li>
+              <li>3-month Advanced Mastermind with Emily</li>
+              <li>Advanced Meditation Initiation ($1,300 value)</li>
+              <li>Ziva Magic 10-week training ($1,500 value)</li>
+              <li>Mastering the Siddhis initiation ($1,500 value)</li>
+              <li>1-day At-Home Retreat</li>
+              <li>High-level mentorship & community</li>
+            </ul>
+
+            <a href="https://zivamed.typeform.com/to/GMYQgizN" target="_blank" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">Apply Now →</a>
+            <p style="font-size: 0.8rem; color: #6b7280; text-align: center; margin: 0;">
+              Application required • Limited spaces
+            </p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb;">
+              <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem;">VIP Upgrade Available</h4>
+              <p style="font-size: 0.85rem; color: #6b7280; margin: 0;">
+                Suite accommodations, private 1:1 with Emily, priority spa access, and private Acropolis visit.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Itinerary Preview -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 2rem; text-align: center;">10-Day Pilgrimage Itinerary</h2>
+
+      <div style="max-width: 700px; margin: 0 auto;">
+        <div style="display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #e8e0f0;">
+          <div style="width: 80px; font-weight: 600; color: #7a12d4;">Day 1</div>
+          <div>
+            <h4 style="margin: 0 0 0.25rem; font-weight: 600;">Arrival in Athens</h4>
+            <p style="margin: 0; font-size: 0.9rem; color: #6b7280;">Check in at Electra Palace Athens. Opening Ceremony at 6:30pm.</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #e8e0f0;">
+          <div style="width: 80px; font-weight: 600; color: #7a12d4;">Day 2</div>
+          <div>
+            <h4 style="margin: 0 0 0.25rem; font-weight: 600;">Acropolis Sunset Activation</h4>
+            <p style="margin: 0; font-size: 0.9rem; color: #6b7280;">Private guided tour, sunset ceremony at Philopappos Hill.</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #e8e0f0;">
+          <div style="width: 80px; font-weight: 600; color: #7a12d4;">Day 3</div>
+          <div>
+            <h4 style="margin: 0 0 0.25rem; font-weight: 600;">Eleusis → Euphoria Retreat</h4>
+            <p style="margin: 0; font-size: 0.9rem; color: #6b7280;">Visit the Eleusinian Mysteries site, transfer to Euphoria Retreat.</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #e8e0f0;">
+          <div style="width: 80px; font-weight: 600; color: #7a12d4;">Days 4-7</div>
+          <div>
+            <h4 style="margin: 0 0 0.25rem; font-weight: 600;">Euphoria Immersion</h4>
+            <p style="margin: 0; font-size: 0.9rem; color: #6b7280;">Advanced teachings, spa therapies, Mystras excursion, gorge pilgrimage.</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #e8e0f0;">
+          <div style="width: 80px; font-weight: 600; color: #7a12d4;">Days 8-9</div>
+          <div>
+            <h4 style="margin: 0 0 0.25rem; font-weight: 600;">Delphi & the Oracle Field</h4>
+            <p style="margin: 0; font-size: 0.9rem; color: #6b7280;">Explore the energetic center of the planet, Corycian Cave visit.</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1rem; padding: 1rem 0;">
+          <div style="width: 80px; font-weight: 600; color: #7a12d4;">Day 10</div>
+          <div>
+            <h4 style="margin: 0 0 0.25rem; font-weight: 600;">Closing & Return</h4>
+            <p style="margin: 0; font-size: 0.9rem; color: #6b7280;">Closing ceremony, return to Athens. Optional VIP Acropolis night visit.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="https://zivamed.typeform.com/to/GMYQgizN" target="_blank" class="btn btn-primary">Apply Now →</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // Page Navigation
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + pageId).classList.add('active');
+
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    const navLink = document.getElementById('nav-' + pageId);
+    if (navLink) navLink.classList.add('active');
+
+    window.scrollTo(0, 0);
+  }
+
+  // Event Filtering
+  function filterEvents(type, btn) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    document.querySelectorAll('#events-grid .event-card').forEach(card => {
+      const types = card.dataset.type || '';
+      if (type === 'all' || types.includes(type)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  function filterByType(type) {
+    filterEvents(type, null);
+    document.querySelectorAll('.tab').forEach(t => {
+      t.classList.remove('active');
+      if (t.textContent.toLowerCase().includes(type)) t.classList.add('active');
+    });
+  }
+
+  // Quiz Navigation
+  function selectQuizOption(el, step) {
+    document.querySelectorAll('#quiz-step-' + step + ' .quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function nextQuizStep(step) {
+    document.querySelectorAll('.quiz-step-content').forEach(s => s.style.display = 'none');
+    document.getElementById('quiz-step-' + step).style.display = 'block';
+  }
+
+  function showQuizResults() {
+    document.querySelectorAll('.quiz-step-content').forEach(s => s.style.display = 'none');
+    document.getElementById('quiz-results').style.display = 'block';
+  }
+
+  // Network Filter
+  function filterNetwork(chip, network) {
+    document.querySelectorAll('.network-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+
+    document.querySelectorAll('.friend-event-card').forEach(card => {
+      const networks = card.dataset.network || '';
+      if (network === 'all' || networks.includes(network)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
