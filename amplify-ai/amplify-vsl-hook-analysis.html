@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amplify with AI — VSL Hook Performance Analysis</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Amplify with AI — VSL Hook Performance Analysis">
+    <meta property="og:description" content="Analysis of 17 VSL opening hooks for Amplify with AI. What's driving revenue and ROAS, and what to do next.">
+    <meta property="og:image" content="https://placehold.co/1200x630/7a12d4/ffffff?text=Amplify+VSL+Hook+Analysis">
+    <meta property="og:url" content="https://vishenl.github.io/workspace/amplify-ai/amplify-vsl-hook-analysis.html">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Amplify with AI — VSL Hook Performance Analysis">
+    <meta name="twitter:description" content="Analysis of 17 VSL opening hooks for Amplify with AI. What's driving revenue and ROAS, and what to do next.">
+    <meta name="twitter:image" content="https://placehold.co/1200x630/7a12d4/ffffff?text=Amplify+VSL+Hook+Analysis">
+
+    <link rel="stylesheet" href="../mindvalley-core.css">
+    <style>
+        :root {
+            --green: #16a34a;
+            --green-bg: #f0fdf4;
+            --red: #dc2626;
+            --red-bg: #fef2f2;
+            --yellow: #ca8a04;
+            --yellow-bg: #fefce8;
+            --blue: #2563eb;
+            --blue-bg: #eff6ff;
+            --border: #e5e7eb;
+        }
+
+        body {
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .analysis-container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 5rem;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-header .overline-text {
+            color: #7a12d4;
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header h1 {
+            margin-bottom: 1rem;
+        }
+
+        .page-header .subtitle {
+            color: #4b5563;
+            font-size: 1.125rem;
+            line-height: 1.6;
+            max-width: 640px;
+        }
+
+        .meta-bar {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .meta-bar span {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        /* Section styling */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #0f131a;
+        }
+
+        .section-subtitle {
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Summary cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .summary-card {
+            background: #f9fafb;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .summary-card .label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6b7280;
+            margin-bottom: 0.375rem;
+        }
+
+        .summary-card .value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #0f131a;
+        }
+
+        .summary-card .detail {
+            font-size: 0.8125rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        /* Performance table */
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+
+        thead {
+            background: #f9fafb;
+        }
+
+        th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #f3f4f6;
+            color: #374151;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .hook-name {
+            font-weight: 500;
+            color: #0f131a;
+            max-width: 280px;
+        }
+
+        .roas-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.8125rem;
+        }
+
+        .roas-high {
+            background: var(--green-bg);
+            color: var(--green);
+        }
+
+        .roas-mid {
+            background: var(--yellow-bg);
+            color: var(--yellow);
+        }
+
+        .roas-low {
+            background: var(--red-bg);
+            color: var(--red);
+        }
+
+        .type-tag {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: #f3f4f6;
+            color: #4b5563;
+            white-space: nowrap;
+        }
+
+        .rank-num {
+            font-weight: 700;
+            color: #9ca3af;
+            font-size: 0.8125rem;
+        }
+
+        .star-row td {
+            background: #fefce8;
+        }
+
+        /* Stars section */
+        .stars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .star-card {
+            border: 2px solid #7a12d4;
+            border-radius: 12px;
+            padding: 1.25rem;
+            position: relative;
+        }
+
+        .star-card .star-rank {
+            position: absolute;
+            top: -0.75rem;
+            left: 1rem;
+            background: #7a12d4;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.15rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        .star-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            padding-right: 1rem;
+            color: #0f131a;
+        }
+
+        .star-metrics {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .star-metrics span {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .star-card .star-note {
+            font-size: 0.8125rem;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+
+        /* Pattern cards */
+        .pattern-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .pattern-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .pattern-number {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .pattern-green .pattern-number {
+            background: var(--green-bg);
+            color: var(--green);
+        }
+
+        .pattern-red .pattern-number {
+            background: var(--red-bg);
+            color: var(--red);
+        }
+
+        .pattern-card h4 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: #0f131a;
+            margin-bottom: 0.375rem;
+        }
+
+        .pattern-card p {
+            font-size: 0.875rem;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .evidence {
+            font-size: 0.8125rem;
+            color: #6b7280;
+            margin-top: 0.375rem;
+            font-style: italic;
+        }
+
+        /* Recommendations */
+        .rec-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .rec-columns {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .rec-box {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .rec-box h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rec-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rec-box li {
+            padding: 0.625rem 0;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: #374151;
+        }
+
+        .rec-box li:last-child {
+            border-bottom: none;
+        }
+
+        .rec-box li strong {
+            color: #0f131a;
+        }
+
+        .do-more { border-top: 3px solid var(--green); }
+        .do-less { border-top: 3px solid var(--red); }
+        .test-next { border-top: 3px solid var(--blue); }
+        .scale-now { border-top: 3px solid #7a12d4; }
+
+        .do-more h3 { color: var(--green); }
+        .do-less h3 { color: var(--red); }
+        .test-next h3 { color: var(--blue); }
+        .scale-now h3 { color: #7a12d4; }
+
+        /* Variant analysis */
+        .variant-table {
+            margin-bottom: 1rem;
+        }
+
+        .variant-table th {
+            font-size: 0.8125rem;
+        }
+
+        .winner-badge {
+            display: inline-block;
+            background: var(--green-bg);
+            color: var(--green);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            margin-left: 0.375rem;
+            text-transform: uppercase;
+        }
+
+        .loser-badge {
+            display: inline-block;
+            background: var(--red-bg);
+            color: var(--red);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            margin-left: 0.375rem;
+            text-transform: uppercase;
+        }
+
+        /* Key insight callout */
+        .callout {
+            background: #f9f7fc;
+            border-left: 4px solid #7a12d4;
+            border-radius: 0 12px 12px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .callout p {
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            color: #374151;
+        }
+
+        .callout strong {
+            color: #0f131a;
+        }
+
+        /* Divider */
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 3rem 0;
+        }
+
+        /* Footer */
+        .page-footer {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8125rem;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+    <div class="analysis-container">
+
+        <!-- Header -->
+        <header class="page-header">
+            <p class="overline-text">PERFORMANCE ANALYSIS</p>
+            <h1 class="title-bold-2">Amplify with AI — VSL Hook Analysis</h1>
+            <p class="subtitle">Analysis of 17 opening hooks for the Amplify with AI VSL, identifying what's driving revenue and ROAS, and what to do next.</p>
+            <div class="meta-bar">
+                <span>17 hooks analyzed</span>
+                <span>&middot;</span>
+                <span>2025 data</span>
+                <span>&middot;</span>
+                <span>Program: Amplify with AI</span>
+            </div>
+        </header>
+
+        <!-- Summary Cards -->
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="label">Total Revenue</div>
+                <div class="value">$1.4M</div>
+                <div class="detail">Across all 17 hooks</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Top 4 Hooks Revenue</div>
+                <div class="value">$1.01M</div>
+                <div class="detail">72% of total from 4 hooks</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Best ROAS</div>
+                <div class="value">95%</div>
+                <div class="detail">20-Hour Workweek hook</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Worst ROAS</div>
+                <div class="value">36%</div>
+                <div class="detail">One-Two-Three Technique hook</div>
+            </div>
+        </div>
+
+        <!-- Full Rankings Table -->
+        <section class="section">
+            <h2 class="section-title">Full Hook Rankings</h2>
+            <p class="section-subtitle">Sorted by ROAS. Yellow rows = the 4 star performers (high ROAS + high revenue).</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ROAS</th>
+                            <th>Revenue</th>
+                            <th>Hook</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="rank-num">1</td>
+                            <td><span class="roas-badge roas-high">95%</span></td>
+                            <td>$52,762</td>
+                            <td class="hook-name">AI and the 20-Hour Workweek</td>
+                            <td><span class="type-tag">Vision</span></td>
+                        </tr>
+                        <tr class="star-row">
+                            <td class="rank-num">2</td>
+                            <td><span class="roas-badge roas-high">89%</span></td>
+                            <td>$201,865</td>
+                            <td class="hook-name">100,000-Year-Old AI Historian Guide</td>
+                            <td><span class="type-tag">Demo + Story</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">3</td>
+                            <td><span class="roas-badge roas-high">86%</span></td>
+                            <td>$42,607</td>
+                            <td class="hook-name">AI Omelette Customizer (v1)</td>
+                            <td><span class="type-tag">Demo + Family</span></td>
+                        </tr>
+                        <tr class="star-row">
+                            <td class="rank-num">4</td>
+                            <td><span class="roas-badge roas-high">85%</span></td>
+                            <td>$384,535</td>
+                            <td class="hook-name">AI Skills Now Outweigh College Degrees</td>
+                            <td><span class="type-tag">Fear / Urgency</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">5</td>
+                            <td><span class="roas-badge roas-high">83%</span></td>
+                            <td>$27,502</td>
+                            <td class="hook-name">Rethinking Your Relationship with AI</td>
+                            <td><span class="type-tag">Vision</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">6</td>
+                            <td><span class="roas-badge roas-high">82%</span></td>
+                            <td>$32,004</td>
+                            <td class="hook-name">AI Replaced My Doctor</td>
+                            <td><span class="type-tag">Personal Story</span></td>
+                        </tr>
+                        <tr class="star-row">
+                            <td class="rank-num">7</td>
+                            <td><span class="roas-badge roas-high">80%</span></td>
+                            <td>$160,862</td>
+                            <td class="hook-name">ChatGPT Dubai Shopping Experience</td>
+                            <td><span class="type-tag">Personal Story</span></td>
+                        </tr>
+                        <tr class="star-row">
+                            <td class="rank-num">8</td>
+                            <td><span class="roas-badge roas-high">80%</span></td>
+                            <td>$267,160</td>
+                            <td class="hook-name">ChatGPT Nutrition Coach (Food Photos)</td>
+                            <td><span class="type-tag">Demo</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">9</td>
+                            <td><span class="roas-badge roas-mid">77%</span></td>
+                            <td>$11,917</td>
+                            <td class="hook-name">Amplify: Hands-On AI Skills Training</td>
+                            <td><span class="type-tag">Product Pitch</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">10</td>
+                            <td><span class="roas-badge roas-mid">73%</span></td>
+                            <td>$14,983</td>
+                            <td class="hook-name">AI-Driven Personal Goal Improvement (v1)</td>
+                            <td><span class="type-tag">Demo</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">11</td>
+                            <td><span class="roas-badge roas-mid">70%</span></td>
+                            <td>$48,842</td>
+                            <td class="hook-name">ChatGPT Personal Goal Advisor (v2)</td>
+                            <td><span class="type-tag">Demo</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">12</td>
+                            <td><span class="roas-badge roas-mid">69%</span></td>
+                            <td>$27,232</td>
+                            <td class="hook-name">AI Tools for Entrepreneur Productivity</td>
+                            <td><span class="type-tag">Q&A / Educational</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">13</td>
+                            <td><span class="roas-badge roas-low">64%</span></td>
+                            <td>$22,571</td>
+                            <td class="hook-name">AI Omelette Recipe Personalizer (v2)</td>
+                            <td><span class="type-tag">Demo</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">14</td>
+                            <td><span class="roas-badge roas-low">64%</span></td>
+                            <td>$12,157</td>
+                            <td class="hook-name">ACE Framework for Better AI Prompts</td>
+                            <td><span class="type-tag">Framework</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">15</td>
+                            <td><span class="roas-badge roas-low">54%</span></td>
+                            <td>$8,726</td>
+                            <td class="hook-name">Personalized AI Songwriting with Suno</td>
+                            <td><span class="type-tag">Niche Creative</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">16</td>
+                            <td><span class="roas-badge roas-low">48%</span></td>
+                            <td>$6,182</td>
+                            <td class="hook-name">AI Blog Writing Collaboration (v2)</td>
+                            <td><span class="type-tag">Technique</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rank-num">17</td>
+                            <td><span class="roas-badge roas-low">36%</span></td>
+                            <td>$5,196</td>
+                            <td class="hook-name">AI Writing: One-Two-Three Technique (v1)</td>
+                            <td><span class="type-tag">Technique</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4 Stars -->
+        <section class="section">
+            <h2 class="section-title">The 4 Star Hooks</h2>
+            <p class="section-subtitle">High revenue AND high ROAS. These 4 hooks account for 72% of total revenue.</p>
+
+            <div class="stars-grid">
+                <div class="star-card">
+                    <span class="star-rank">#1 Revenue</span>
+                    <h4>AI Skills Now Outweigh College Degrees</h4>
+                    <div class="star-metrics">
+                        <span style="color: var(--green);">$384K rev</span>
+                        <span style="color: #7a12d4;">85% ROAS</span>
+                    </div>
+                    <p class="star-note">Fear of career obsolescence. "College degrees are officially useless." Runaway #1 by revenue — more than the bottom 10 hooks combined.</p>
+                </div>
+                <div class="star-card">
+                    <span class="star-rank">#2 Revenue</span>
+                    <h4>ChatGPT Nutrition Coach (Food Photos)</h4>
+                    <div class="star-metrics">
+                        <span style="color: var(--green);">$267K rev</span>
+                        <span style="color: #7a12d4;">80% ROAS</span>
+                    </div>
+                    <p class="star-note">Photograph food, get instant macro analysis. Tangible, daily-life demo that everyone can relate to.</p>
+                </div>
+                <div class="star-card">
+                    <span class="star-rank">Best ROAS:Rev Ratio</span>
+                    <h4>100,000-Year-Old AI Historian Guide</h4>
+                    <div class="star-metrics">
+                        <span style="color: var(--green);">$201K rev</span>
+                        <span style="color: #7a12d4;">89% ROAS</span>
+                    </div>
+                    <p class="star-note">Creative, entertaining, shows AI personality. The "Adam" character makes AI feel magical, not technical.</p>
+                </div>
+                <div class="star-card">
+                    <span class="star-rank">#4 Revenue</span>
+                    <h4>ChatGPT Dubai Shopping Experience</h4>
+                    <div class="star-metrics">
+                        <span style="color: var(--green);">$160K rev</span>
+                        <span style="color: #7a12d4;">80% ROAS</span>
+                    </div>
+                    <p class="star-note">Personal story with the punchline "I stopped all hiring." Specific, relatable, with a business-stakes payoff.</p>
+                </div>
+            </div>
+
+            <div class="callout">
+                <p><strong>Key insight:</strong> The top 4 hooks share a common structure — they open with a <strong>bold, specific claim or story</strong>, demonstrate AI doing something <strong>visually tangible</strong>, and end with an <strong>emotional punchline</strong> that connects to the viewer's life (career, health, daily tasks). None of them teach a framework or technique.</p>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- What's Working -->
+        <section class="section">
+            <h2 class="section-title">5 Patterns That Work</h2>
+            <div class="pattern-list">
+                <div class="pattern-card pattern-green">
+                    <div class="pattern-number">1</div>
+                    <div>
+                        <h4>Fear of being left behind beats everything</h4>
+                        <p>The "College degrees are useless" hook generated $384K — more than the bottom 10 hooks combined ($277K). The emotional trigger is existential: career survival. The audience buys to avoid falling behind, not just to learn a cool tool.</p>
+                        <p class="evidence">Evidence: #1 in revenue, #4 in ROAS (85%). Dubai hook also works on fear ("I stopped hiring").</p>
+                    </div>
+                </div>
+                <div class="pattern-card pattern-green">
+                    <div class="pattern-number">2</div>
+                    <div>
+                        <h4>Vishen-narrated personal stories outperform instruction</h4>
+                        <p>Every hook where Vishen tells a personal story (doctor, Dubai, family breakfast, Adam historian) is in the top half. Every hook featuring a third-party instructor or technique explanation is in the bottom half. Authority and personal connection matter enormously.</p>
+                        <p class="evidence">Evidence: Top 8 hooks are all Vishen-led stories/demos. Bottom 5 are technique-focused.</p>
+                    </div>
+                </div>
+                <div class="pattern-card pattern-green">
+                    <div class="pattern-number">3</div>
+                    <div>
+                        <h4>Specific, visual AI demos with real-time results convert</h4>
+                        <p>Top demos share a pattern: photograph something real (fridge, food, eye infection, shopping list) &rarr; show ChatGPT analyzing it &rarr; reveal a surprising/useful result. The audience sees the AI working on something tangible.</p>
+                        <p class="evidence">Evidence: Nutrition Coach ($267K), Omelette v1 (86% ROAS), Doctor (82% ROAS) all use this formula.</p>
+                    </div>
+                </div>
+                <div class="pattern-card pattern-green">
+                    <div class="pattern-number">4</div>
+                    <div>
+                        <h4>Universal daily-life use cases &gt; niche creative use cases</h4>
+                        <p>Health, food, shopping, career = universal. Songwriting (54%), blog writing (36-48%) = niche. The Amplify audience is everyday people who want AI to make life easier, not writers and musicians seeking creative tools.</p>
+                        <p class="evidence">Evidence: 59-point ROAS gap between best universal hook (95%) and worst niche hook (36%).</p>
+                    </div>
+                </div>
+                <div class="pattern-card pattern-green">
+                    <div class="pattern-number">5</div>
+                    <div>
+                        <h4>Entertainment value drives efficiency</h4>
+                        <p>The "Adam" historian hook has the 2nd-highest ROAS (89%) because it's genuinely fun — it reads like a story, not a tutorial. The ACE Framework (64%) and One-Two-Three Technique (36%) are pure education with zero entertainment, and they're near the bottom.</p>
+                        <p class="evidence">Evidence: Adam (89% ROAS) vs ACE Framework (64%) — same format (educational), wildly different engagement.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What's NOT Working -->
+        <section class="section">
+            <h2 class="section-title">4 Patterns That Don't Work</h2>
+            <div class="pattern-list">
+                <div class="pattern-card pattern-red">
+                    <div class="pattern-number">1</div>
+                    <div>
+                        <h4>Teaching frameworks and techniques</h4>
+                        <p>ACE Framework (64%), One-Two-Three Technique (36%), Blog Collaboration (48%) are the three worst ROAS performers. Audiences don't want to learn a methodology in a hook — they want to see a result. These feel like sitting in a classroom.</p>
+                    </div>
+                </div>
+                <div class="pattern-card pattern-red">
+                    <div class="pattern-number">2</div>
+                    <div>
+                        <h4>Duplicate variants of the same hook</h4>
+                        <p>Running two versions of three hooks is diluting spend. Omelette v1 (86%) vs v2 (64%) = 22-point gap. Blog Writing v1 (36%) vs v2 (48%) = both bad. Goal Advisor v1 (73%) vs v2 (70%) = both mediocre. The variants aren't finding new audiences.</p>
+                    </div>
+                </div>
+                <div class="pattern-card pattern-red">
+                    <div class="pattern-number">3</div>
+                    <div>
+                        <h4>Product-pitch style hooks</h4>
+                        <p>"Hands-On AI Skills Training" (77% ROAS, only $11K rev) is the most direct product pitch. Low revenue suggests the audience isn't ready to hear about the product before seeing value. The best hooks never mention Amplify until the very end.</p>
+                    </div>
+                </div>
+                <div class="pattern-card pattern-red">
+                    <div class="pattern-number">4</div>
+                    <div>
+                        <h4>Niche creative use cases</h4>
+                        <p>Songwriting with Suno (54% ROAS, $8K rev) appeals to a narrow slice of the audience. Blog writing hooks (36-48%) are similarly niche. The audience that converts is looking for life-applicable AI skills, not creative-tool tutorials.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Variant Analysis -->
+        <section class="section">
+            <h2 class="section-title">Variant Analysis</h2>
+            <p class="section-subtitle">Three hooks have duplicate versions running. In all cases, one version clearly wins.</p>
+
+            <div class="table-wrapper variant-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hook Concept</th>
+                            <th>Version 1</th>
+                            <th>Version 2</th>
+                            <th>Gap</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="hook-name">Omelette Customizer</td>
+                            <td>86% ROAS / $42K <span class="winner-badge">Winner</span></td>
+                            <td>64% ROAS / $22K <span class="loser-badge">Cut</span></td>
+                            <td><strong>-22 pts</strong></td>
+                            <td>Keep v1, cut v2, reallocate budget</td>
+                        </tr>
+                        <tr>
+                            <td class="hook-name">Goal Advisor</td>
+                            <td>73% ROAS / $14K</td>
+                            <td>70% ROAS / $48K</td>
+                            <td>-3 pts</td>
+                            <td>Consolidate into one; both are mediocre</td>
+                        </tr>
+                        <tr>
+                            <td class="hook-name">Blog Writing</td>
+                            <td>36% ROAS / $5K <span class="loser-badge">Cut</span></td>
+                            <td>48% ROAS / $6K <span class="loser-badge">Cut</span></td>
+                            <td>Both low</td>
+                            <td>Kill both — concept doesn't work</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Recommendations -->
+        <section class="section">
+            <h2 class="section-title">Recommendations</h2>
+
+            <div class="rec-columns" style="margin-bottom: 1.5rem;">
+                <div class="rec-box scale-now">
+                    <h3>Scale Now</h3>
+                    <ul>
+                        <li><strong>"20-Hour Workweek" (95% ROAS, $52K rev)</strong> — Highest ROAS in the dataset but under-spent. This is likely the biggest immediate opportunity. Increase budget significantly.</li>
+                        <li><strong>"AI Replaced My Doctor" (82% ROAS, $32K rev)</strong> — Health/empathy angle is compelling and under-exploited. The Nutrition Coach ($267K) proves the health vertical converts.</li>
+                        <li><strong>"Omelette Customizer v1" (86% ROAS, $42K rev)</strong> — Strong efficiency, family-friendly, relatable. Cut v2 and reallocate its budget here.</li>
+                    </ul>
+                </div>
+                <div class="rec-box do-more">
+                    <h3>Do More Of</h3>
+                    <ul>
+                        <li><strong>Fear/urgency hooks.</strong> Test: "AI is replacing [specific jobs]", "What your boss isn't telling you about AI", "The 3 industries AI will destroy first."</li>
+                        <li><strong>Vishen personal stories with AI.</strong> Mine real life: travel, parenting, business decisions, health — any situation where ChatGPT solved a real problem unexpectedly.</li>
+                        <li><strong>"Photograph something &rarr; AI analyzes it" formula.</strong> Test: bookshelf, closet, calendar, medicine cabinet, grocery receipt.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="rec-columns">
+                <div class="rec-box do-less">
+                    <h3>Do Less Of / Kill</h3>
+                    <ul>
+                        <li><strong>Kill both blog writing hooks.</strong> 36% and 48% ROAS. Worst performers. Reallocate immediately.</li>
+                        <li><strong>Kill the songwriting hook.</strong> 54% ROAS, $8K rev. Too niche.</li>
+                        <li><strong>Kill the ACE Framework hook.</strong> 64% ROAS, $12K rev. The framework-teaching approach doesn't convert.</li>
+                        <li><strong>Stop running duplicate variants</strong> of underperforming hooks. Pick winners, cut the rest.</li>
+                    </ul>
+                </div>
+                <div class="rec-box test-next">
+                    <h3>Test Next</h3>
+                    <ul>
+                        <li><strong>"I stopped doing X because of AI"</strong> — The Dubai "I stopped hiring" punchline drove massive revenue. Build more hooks around this frame.</li>
+                        <li><strong>"AI vs. my [professional]"</strong> — Doctor hook worked. Test: accountant, trainer, therapist, tutor, travel agent.</li>
+                        <li><strong>Stat-driven fear hooks</strong> — "256% improvement in 2 years" landed in the doctor hook. Lead with shocking AI growth stats.</li>
+                        <li><strong>Family/kids + AI</strong> — The omelette hook with Hayden and Eve scored 86% ROAS. The family angle adds warmth to the tech topic.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Hook Formula -->
+        <section class="section">
+            <h2 class="section-title">Winning Hook Formula</h2>
+            <p class="section-subtitle">Reverse-engineered from the top 6 performers.</p>
+
+            <div class="callout" style="margin-top: 0;">
+                <p><strong>Step 1: Bold opener.</strong> Start with a provocative claim or personal anecdote. "College degrees are officially useless." "I replaced my doctor with AI." "I stopped all hiring."</p>
+            </div>
+            <div class="callout" style="border-left-color: var(--green);">
+                <p><strong>Step 2: Visual, tangible demo.</strong> Show AI analyzing something real — a photo of your food, your fridge, your eye infection, your shopping list. The audience needs to SEE the AI working, not hear about it abstractly.</p>
+            </div>
+            <div class="callout" style="border-left-color: var(--blue);">
+                <p><strong>Step 3: Surprising result + emotional punchline.</strong> "It said buy the backpack first so you can carry everything else." "It had more empathy than my doctor." "It remembered Hayden likes thin omelettes." The punchline makes AI feel smart, personal, and indispensable.</p>
+            </div>
+            <div class="callout" style="border-left-color: var(--yellow);">
+                <p><strong>Step 4: Stakes escalation.</strong> Zoom out from the personal story to the macro: "This is how fast AI is changing." "Are you ready for this?" "Your life is going to be amazing — or disrupted." The hook ends with personal relevance to the viewer.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p>Amplify with AI &mdash; VSL Hook Performance Analysis &middot; January 2026</p>
+        </footer>
+
+    </div>
+</body>
+</html>
