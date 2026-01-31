@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSL Generator — Team Guide | Mindvalley</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="VSL Generator — Team Guide">
+    <meta property="og:description" content="A Claude-powered system for writing camera-ready Video Sales Letter scripts, short-form VSLs, and 60-second social leads for Mindvalley Quests.">
+    <meta property="og:image" content="https://placehold.co/1200x630/7a12d4/ffffff?text=VSL+Generator%0ATeam+Guide&font=raleway">
+    <meta property="og:url" content="https://vishenl.github.io/workspace/vsl-generator-guide.html">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VSL Generator — Team Guide">
+    <meta name="twitter:description" content="A Claude-powered system for writing camera-ready Video Sales Letter scripts, short-form VSLs, and 60-second social leads for Mindvalley Quests.">
+    <meta name="twitter:image" content="https://placehold.co/1200x630/7a12d4/ffffff?text=VSL+Generator%0ATeam+Guide&font=raleway">
+
+    <link rel="stylesheet" href="mindvalley-core.css">
+    <style>
+        :root {
+            --mv-purple: #7a12d4;
+            --mv-purple-light: #f9f7fc;
+            --mv-purple-mid: #e8e0f0;
+            --mv-dark: #0f131a;
+            --mv-muted: #4b5563;
+            --mv-green: #059669;
+            --mv-amber: #d97706;
+            --mv-red: #dc2626;
+            --mv-blue: #2563eb;
+        }
+
+        body {
+            background: #ffffff;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #0f131a 0%, #1e1145 50%, #3b1a7a 100%);
+            color: white;
+            padding: 5rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(122, 18, 212, 0.3), transparent 60%);
+        }
+        .hero .mv-container { position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(122, 18, 212, 0.4);
+            border: 1px solid rgba(122, 18, 212, 0.6);
+            color: #d4b0ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 48rem;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 36rem;
+            line-height: 1.6;
+        }
+
+        /* Section styling */
+        .section {
+            padding: 4rem 0;
+        }
+        .section--alt {
+            background: var(--mv-purple-light);
+        }
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--mv-purple);
+            margin-bottom: 0.75rem;
+        }
+        .section h2 {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 600;
+            color: var(--mv-dark);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--mv-dark);
+            margin-bottom: 0.5rem;
+        }
+        .section-intro {
+            font-size: 1.125rem;
+            color: var(--mv-muted);
+            max-width: 42rem;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            transition: box-shadow 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+        }
+        .section--alt .card {
+            border-color: var(--mv-purple-mid);
+        }
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .card-icon--purple { background: #f3e8ff; }
+        .card-icon--green { background: #ecfdf5; }
+        .card-icon--amber { background: #fffbeb; }
+        .card-icon--blue { background: #eff6ff; }
+        .card-icon--red { background: #fef2f2; }
+        .card h3 {
+            margin-bottom: 0.5rem;
+        }
+        .card p {
+            color: var(--mv-muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Tier badges */
+        .tier-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+        .tier-badge--1 { background: #dc2626; color: white; }
+        .tier-badge--2 { background: #d97706; color: white; }
+        .tier-badge--3 { background: #2563eb; color: white; }
+        .tier-badge--4 { background: #059669; color: white; }
+
+        /* Steps */
+        .step-list {
+            max-width: 48rem;
+        }
+        .step {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .step:last-child { border-bottom: none; }
+        .step-number {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--mv-purple);
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .step-content h3 {
+            margin-bottom: 0.25rem;
+        }
+        .step-content p {
+            color: var(--mv-muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Format comparison */
+        .format-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 2rem;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+        .format-table th {
+            background: var(--mv-dark);
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            padding: 1rem 1.25rem;
+            text-align: left;
+        }
+        .format-table td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.95rem;
+            color: var(--mv-dark);
+            vertical-align: top;
+        }
+        .format-table tr:last-child td {
+            border-bottom: none;
+        }
+        .format-table tr:nth-child(even) td {
+            background: #fafafa;
+        }
+        .format-table .mono {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--mv-purple);
+        }
+
+        /* Code block */
+        .code-block {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            border-radius: 10px;
+            padding: 1.5rem;
+            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            max-width: 48rem;
+        }
+        .code-block .stage { color: #89b4fa; }
+        .code-block .presenter { color: #f38ba8; font-weight: 600; }
+        .code-block .direction { color: #a6e3a1; }
+        .code-block .time { color: #fab387; }
+        .code-block .text { color: #cdd6f4; }
+
+        /* Tip boxes */
+        .tip-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--mv-blue);
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            max-width: 48rem;
+        }
+        .tip-box p {
+            color: var(--mv-dark);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .tip-box strong {
+            color: var(--mv-blue);
+        }
+
+        .warn-box {
+            background: #fffbeb;
+            border-left: 4px solid var(--mv-amber);
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            max-width: 48rem;
+        }
+        .warn-box p {
+            color: var(--mv-dark);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .warn-box strong {
+            color: var(--mv-amber);
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+            max-width: 42rem;
+        }
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.6rem 0;
+            font-size: 0.95rem;
+            color: var(--mv-dark);
+            line-height: 1.5;
+        }
+        .checklist li::before {
+            content: '';
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+        }
+
+        /* Lead types grid */
+        .lead-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .lead-chip {
+            background: white;
+            border: 1px solid var(--mv-purple-mid);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            text-align: center;
+        }
+        .lead-chip strong {
+            display: block;
+            color: var(--mv-dark);
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+        .lead-chip span {
+            font-size: 0.8rem;
+            color: var(--mv-muted);
+        }
+
+        /* Presenter comparison */
+        .presenter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            max-width: 48rem;
+        }
+        @media (max-width: 640px) {
+            .presenter-grid { grid-template-columns: 1fr; }
+        }
+        .presenter-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .presenter-card--active {
+            border-color: var(--mv-purple);
+        }
+        .presenter-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--mv-purple);
+            margin-bottom: 0.5rem;
+        }
+        .presenter-card h3 {
+            margin-bottom: 0.5rem;
+        }
+        .presenter-card p {
+            color: var(--mv-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Quest pills */
+        .quest-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        .quest-pill {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 100px;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--mv-dark);
+        }
+        .quest-pill span {
+            color: var(--mv-muted);
+            font-weight: 400;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--mv-dark);
+            color: rgba(255,255,255,0.5);
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        /* TOC */
+        .toc {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            max-width: 36rem;
+        }
+        .toc h3 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--mv-muted);
+            margin-bottom: 1rem;
+        }
+        .toc a {
+            display: block;
+            padding: 0.4rem 0;
+            color: var(--mv-dark);
+            text-decoration: none;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f3f4f6;
+            transition: color 0.15s;
+        }
+        .toc a:hover {
+            color: var(--mv-purple);
+        }
+        .toc a:last-child {
+            border-bottom: none;
+        }
+        .toc .toc-num {
+            color: var(--mv-purple);
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="mv-container">
+            <div class="hero-badge">Internal Team Guide</div>
+            <h1>VSL Generator</h1>
+            <p>A Claude-powered system for writing camera-ready Video Sales Letter scripts, short-form VSLs, and 60-second social leads for Mindvalley Quests.</p>
+        </div>
+    </section>
+
+    <!-- TOC -->
+    <section class="section">
+        <div class="mv-container">
+            <div class="toc">
+                <h3>In This Guide</h3>
+                <a href="#what"><span class="toc-num">01</span> What It Does</a>
+                <a href="#setup"><span class="toc-num">02</span> Setup (One-Time)</a>
+                <a href="#knowledge"><span class="toc-num">03</span> Knowledge Base</a>
+                <a href="#formats"><span class="toc-num">04</span> VSL Formats</a>
+                <a href="#leads"><span class="toc-num">05</span> Lead Types</a>
+                <a href="#presenters"><span class="toc-num">06</span> On-Camera Talent</a>
+                <a href="#workflow"><span class="toc-num">07</span> Workflow: How to Use It</a>
+                <a href="#prepare"><span class="toc-num">08</span> What to Prepare</a>
+                <a href="#output"><span class="toc-num">09</span> Reading the Output</a>
+                <a href="#prompts"><span class="toc-num">10</span> Example Prompts</a>
+                <a href="#taxonomy"><span class="toc-num">11</span> Lead Taxonomy Builder</a>
+                <a href="#tips"><span class="toc-num">12</span> Tips & Best Practices</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- What It Does -->
+    <section class="section section--alt" id="what">
+        <div class="mv-container">
+            <div class="section-label">01</div>
+            <h2>What It Does</h2>
+            <p class="section-intro">The VSL Generator is a Claude Project pre-loaded with Mindvalley's entire direct-response playbook. It operates three roles simultaneously.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon card-icon--purple">S</div>
+                    <h3>VSL Strategist</h3>
+                    <p>Selects the right format, structures the argument arc, sequences conversion triggers across the script, and runs quality checks against 25 master conversion principles.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon card-icon--green">W</div>
+                    <h3>Scriptwriter</h3>
+                    <p>Writes camera-ready scripts with stage directions, B-roll cues, text overlay markers, music notes, and timing markers. Ready for production.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon card-icon--amber">L</div>
+                    <h3>Lead Creator</h3>
+                    <p>Crafts 60-second attention hooks designed as standalone social media videos that also work as VSL openers. Based on Peter Kell's proven lead framework.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Setup -->
+    <section class="section" id="setup">
+        <div class="mv-container">
+            <div class="section-label">02</div>
+            <h2>Setup (One-Time)</h2>
+            <p class="section-intro">Setting up the project in Claude takes about 5 minutes. You only need to do this once.</p>
+
+            <div class="step-list">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Create a new Claude Project</h3>
+                        <p>Go to <strong>claude.ai</strong> and create a new Project. Name it something like "VSL Generator" or "Mindvalley VSL Architect."</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Paste the System Prompt</h3>
+                        <p>Open <strong>00-SYSTEM-PROMPT.txt</strong> and paste its entire contents into the project's <strong>Custom Instructions</strong> field. This tells Claude how to behave, what workflow to follow, and when to reference each document.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Upload the 5 Knowledge Documents</h3>
+                        <p>Upload these files as <strong>Project Knowledge</strong> (in this order):</p>
+                        <ol style="margin-top: 0.75rem; color: var(--mv-muted); font-size: 0.95rem; line-height: 2;">
+                            <li><code>01-MASTER-CONVERSION-PRINCIPLES.txt</code></li>
+                            <li><code>02-VSL-DNA-LONGFORM.txt</code></li>
+                            <li><code>03-SHORT-FORM-VSL-DNAs.txt</code></li>
+                            <li><code>04-LEAD-BIBLE.txt</code></li>
+                            <li><code>05-VISHEN-VOICE-GUIDE.txt</code></li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Start a conversation</h3>
+                        <p>Open a new chat within the project. Claude is now ready to write VSLs. Each new conversation in this project will have full access to all the knowledge docs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Knowledge Base -->
+    <section class="section section--alt" id="knowledge">
+        <div class="mv-container">
+            <div class="section-label">03</div>
+            <h2>Knowledge Base</h2>
+            <p class="section-intro">The system uses a 4-tier document hierarchy. Claude knows which documents to invoke at each stage of the writing process.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <span class="tier-badge tier-badge--1">Tier 1 &mdash; Always Active</span>
+                    <h3>Master Conversion Principles</h3>
+                    <p>25 universal conversion laws that govern ALL output. Includes the Application Checklist used as the final quality gate before delivery. Think of this as the constitution.</p>
+                </div>
+                <div class="card">
+                    <span class="tier-badge tier-badge--2">Tier 2 &mdash; Format-Specific</span>
+                    <h3>VSL DNA (Long-Form + Short-Form)</h3>
+                    <p>Two documents with exact structural templates. Long-form has a 9-part DNA structure for 35-minute VSLs. Short-form has timing breakdowns for 3, 5, 10, and 20-minute formats.</p>
+                </div>
+                <div class="card">
+                    <span class="tier-badge tier-badge--3">Tier 3 &mdash; Creative</span>
+                    <h3>Lead Bible</h3>
+                    <p>Peter Kell's lead framework with 6 core lead types and 25+ real Mindvalley lead scripts. Includes the Robin Sharma lead (highest-performing lead in MV history).</p>
+                </div>
+                <div class="card">
+                    <span class="tier-badge tier-badge--4">Tier 4 &mdash; Voice</span>
+                    <h3>Vishen Voice Guide</h3>
+                    <p>Vishen's speaking style DNA: sentence structure, tone modes, humor patterns, storytelling techniques, the anti-salesy approach. Applied to ALL output as a style layer.</p>
+                </div>
+            </div>
+
+            <div class="tip-box" style="margin-top: 2rem;">
+                <p><strong>How the tiers layer:</strong> Tier 1 principles govern strategy. Tier 2 provides structure. Tier 3 shapes the opening. Tier 4 polishes the voice. Every script gets all four layers.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formats -->
+    <section class="section" id="formats">
+        <div class="mv-container">
+            <div class="section-label">04</div>
+            <h2>VSL Formats</h2>
+            <p class="section-intro">The system can write scripts in three categories. Claude will ask which format you want before writing.</p>
+
+            <table class="format-table">
+                <thead>
+                    <tr>
+                        <th>Format</th>
+                        <th>Length</th>
+                        <th>Structure</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Long-Form</strong></td>
+                        <td class="mono">~35 min</td>
+                        <td>9-part DNA: Hooks, Lead, Expert Story, Root Problem, Root Solution, Vishen Story, Program Intro, Membership Intro, Close</td>
+                        <td>Primary Quest sales pages, dedicated landing pages</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Short-Form</strong></td>
+                        <td class="mono">20 min</td>
+                        <td>Compressed DNA with specific timing per section</td>
+                        <td>Retargeting, email traffic, warm audiences</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Short-Form</strong></td>
+                        <td class="mono">10 min</td>
+                        <td>Condensed structure, faster transitions</td>
+                        <td>Social traffic, quick conversion funnels</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Short-Form</strong></td>
+                        <td class="mono">5 min</td>
+                        <td>Hook + story + unique mechanism + CTA</td>
+                        <td>Paid ads, retargeting sequences</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Short-Form</strong></td>
+                        <td class="mono">3 min</td>
+                        <td>Most compressed; every second counts</td>
+                        <td>Social ads, story-format placements</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lead</strong></td>
+                        <td class="mono">60 sec</td>
+                        <td>Standalone hook from Peter Kell's 6 types</td>
+                        <td>Social media videos, VSL openers, ad creative</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Lead Types -->
+    <section class="section section--alt" id="leads">
+        <div class="mv-container">
+            <div class="section-label">05</div>
+            <h2>Lead Types</h2>
+            <p class="section-intro">Leads are 60-second video intros that serve double duty: they work as standalone social media content AND as VSL openers. Based on Peter Kell's framework.</p>
+
+            <div class="lead-grid">
+                <div class="lead-chip">
+                    <strong>Value</strong>
+                    <span>Lead with useful information</span>
+                </div>
+                <div class="lead-chip">
+                    <strong>Fear</strong>
+                    <span>Highlight a hidden danger</span>
+                </div>
+                <div class="lead-chip">
+                    <strong>Story</strong>
+                    <span>Open with a narrative hook</span>
+                </div>
+                <div class="lead-chip">
+                    <strong>Nightmare Comparison</strong>
+                    <span>Show the painful alternative</span>
+                </div>
+                <div class="lead-chip">
+                    <strong>Dream Comparison</strong>
+                    <span>Paint the ideal outcome</span>
+                </div>
+                <div class="lead-chip">
+                    <strong>Important Question</strong>
+                    <span>Ask something they can't ignore</span>
+                </div>
+                <div class="lead-chip">
+                    <strong>Big Promise</strong>
+                    <span>Bold claim with proof</span>
+                </div>
+                <div class="lead-chip">
+                    <strong>Topical Emotion</strong>
+                    <span>Ride a current trend/event</span>
+                </div>
+                <div class="lead-chip">
+                    <strong>New Science</strong>
+                    <span>Lead with a discovery</span>
+                </div>
+            </div>
+
+            <div class="tip-box" style="margin-top: 2rem;">
+                <p><strong>Gold standard:</strong> The Robin Sharma lead is the highest-performing lead in Mindvalley history. Claude uses it as the benchmark when evaluating lead quality.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Presenters -->
+    <section class="section" id="presenters">
+        <div class="mv-container">
+            <div class="section-label">06</div>
+            <h2>On-Camera Talent</h2>
+            <p class="section-intro">Two presenter formats. Tell Claude which one you need when starting a VSL.</p>
+
+            <div class="presenter-grid">
+                <div class="presenter-card presenter-card--active">
+                    <div class="presenter-label">Format A &mdash; Most Common</div>
+                    <h3>Vishen Solo</h3>
+                    <p>Vishen presents everything. Tells the expert/author's story in third person.</p>
+                    <p style="margin-top: 0.75rem; font-style: italic; font-size: 0.85rem;">"When Christie Marie Sheldon was 16, she discovered she could see energy blocks..."</p>
+                </div>
+                <div class="presenter-card">
+                    <div class="presenter-label">Format B</div>
+                    <h3>Vishen + Author</h3>
+                    <p>Vishen opens (90&ndash;120 sec), introduces the author, then author presents. Vishen returns for the close and CTA. Claude writes separate stage directions for each.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow -->
+    <section class="section section--alt" id="workflow">
+        <div class="mv-container">
+            <div class="section-label">07</div>
+            <h2>Workflow: How Claude Builds a VSL</h2>
+            <p class="section-intro">When you ask Claude to write a VSL, it follows a 9-step process automatically. You'll see it work through each step.</p>
+
+            <div class="step-list">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Clarify Format</h3>
+                        <p>Claude asks: Long-form or short-form? What length? Vishen solo or Vishen + Author?</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Gather Quest Intelligence</h3>
+                        <p>Claude requests the Quest transcript and Quest sales page. Extracts key stories, transformation mechanisms, testimonials, unique methodology, pricing, and bonuses.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Identify "The One"</h3>
+                        <p>Defines ONE primary narrative, ONE core promise, ONE main emotion, ONE buyer belief. States these explicitly before writing. This is Conversion Principle #1.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Select Lead Type</h3>
+                        <p>Chooses from Kell's lead types based on Quest content and audience awareness level. Justifies the choice.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Map the Structure</h3>
+                        <p>Outlines the full script using the appropriate DNA template with time allocations for each section.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3>Write the Script</h3>
+                        <p>Applies Vishen's voice. Includes stage directions, B-roll cues, text overlays, music notes, and timing markers. Written in spoken language, not essay language.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <h3>Embed Conversion Triggers</h3>
+                        <p>Verifies against all 25 Master Conversion Principles. Ensures trial closes, open/close loops, and all 4 belief breaks are present.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">8</div>
+                    <div class="step-content">
+                        <h3>Quality Gate</h3>
+                        <p>Runs the Application Checklist from the Master Principles document. Flags any gaps.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">9</div>
+                    <div class="step-content">
+                        <h3>Deliver</h3>
+                        <p>Presents the complete script with: header info, Rule of One statement, full script, conversion trigger map, and suggested A/B test variations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What to Prepare -->
+    <section class="section" id="prepare">
+        <div class="mv-container">
+            <div class="section-label">08</div>
+            <h2>What to Prepare Before Starting</h2>
+            <p class="section-intro">Have these ready before opening a conversation in the VSL Generator project.</p>
+
+            <div class="card-grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="card">
+                    <h3>Required</h3>
+                    <ul class="checklist">
+                        <li>Quest transcript (lessons, stories, key content)</li>
+                        <li>Quest sales page (positioning, testimonials, pricing, bonuses)</li>
+                        <li>Which format: long-form, short-form (specify length), or lead</li>
+                        <li>Which presenter format: Vishen solo or Vishen + Author</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Helpful (Not Required)</h3>
+                    <ul class="checklist">
+                        <li>Specific testimonials or case studies to feature</li>
+                        <li>Any existing leads or hooks that performed well</li>
+                        <li>Target audience segment (cold, warm, retargeting)</li>
+                        <li>Specific objections this audience has</li>
+                        <li>Deadline or scarcity elements to include</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warn-box" style="margin-top: 2rem;">
+                <p><strong>Important:</strong> If you don't provide the Quest transcript and sales page, Claude will ask for them before writing. It won't guess or fabricate Quest-specific content.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reading the Output -->
+    <section class="section section--alt" id="output">
+        <div class="mv-container">
+            <div class="section-label">09</div>
+            <h2>Reading the Output</h2>
+            <p class="section-intro">Scripts use a consistent markup format designed for production teams.</p>
+
+            <div class="code-block">
+<span class="time">[00:00]</span> <span class="stage">[VISHEN TO CAMERA &mdash; close-up, direct eye contact]</span>
+<span class="presenter">VISHEN:</span> <span class="text">You've been lied to about meditation.</span>
+<span class="stage">[Beat]</span>
+<span class="text">Not by gurus. Not by apps.</span>
+<span class="text">By your own brain.</span>
+
+<span class="stage">[B-ROLL: montage of meditation apps, busy minds]</span>
+
+<span class="presenter">VISHEN:</span> <span class="text">What if I told you there's a method &mdash; developed</span>
+<span class="text">60 years ago &mdash; that can get you into deep</span>
+<span class="text">meditation in under 10 minutes?</span>
+
+<span class="direction">[TEXT OVERLAY: "The Silva Method"]</span>
+<span class="direction">[MUSIC: subtle tension build]</span>
+<span class="direction">[TRANSITION: cut to wide shot]</span>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Markup Key</h3>
+            <table class="format-table" style="max-width: 42rem;">
+                <tbody>
+                    <tr>
+                        <td><code>[00:00]</code></td>
+                        <td>Timing marker</td>
+                    </tr>
+                    <tr>
+                        <td><code>[VISHEN TO CAMERA]</code></td>
+                        <td>Stage direction for talent</td>
+                    </tr>
+                    <tr>
+                        <td><code>VISHEN:</code></td>
+                        <td>Presenter name before spoken lines</td>
+                    </tr>
+                    <tr>
+                        <td><code>[Beat]</code></td>
+                        <td>Dramatic pause</td>
+                    </tr>
+                    <tr>
+                        <td><code>[B-ROLL: ...]</code></td>
+                        <td>Visual footage cue</td>
+                    </tr>
+                    <tr>
+                        <td><code>[TEXT OVERLAY: "..."]</code></td>
+                        <td>On-screen text</td>
+                    </tr>
+                    <tr>
+                        <td><code>[MUSIC: ...]</code></td>
+                        <td>Audio/music cue</td>
+                    </tr>
+                    <tr>
+                        <td><code>[TRANSITION: ...]</code></td>
+                        <td>Cut/transition type</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Example Prompts -->
+    <section class="section" id="prompts">
+        <div class="mv-container">
+            <div class="section-label">10</div>
+            <h2>Example Prompts</h2>
+            <p class="section-intro">Copy-paste these to get started. Replace the bracketed items with your specifics.</p>
+
+            <div class="card-grid" style="grid-template-columns: 1fr;">
+                <div class="card">
+                    <h3>Long-Form VSL</h3>
+                    <p style="font-family: 'SF Mono', monospace; font-size: 0.85rem; line-height: 1.8; background: #f9fafb; padding: 1rem; border-radius: 6px; margin-top: 0.75rem;">Write a 35-minute long-form VSL for the Silva Method Quest. Vishen solo format. Here's the Quest transcript: [paste or attach]. Here's the sales page: [paste or attach].</p>
+                </div>
+                <div class="card">
+                    <h3>Short-Form VSL</h3>
+                    <p style="font-family: 'SF Mono', monospace; font-size: 0.85rem; line-height: 1.8; background: #f9fafb; padding: 1rem; border-radius: 6px; margin-top: 0.75rem;">Write a 10-minute short-form VSL for Wildfit. Vishen + Eric Edmeades dual presenter format. Here's the Quest transcript and sales page: [attach files].</p>
+                </div>
+                <div class="card">
+                    <h3>60-Second Lead</h3>
+                    <p style="font-family: 'SF Mono', monospace; font-size: 0.85rem; line-height: 1.8; background: #f9fafb; padding: 1rem; border-radius: 6px; margin-top: 0.75rem;">Write 3 different 60-second leads for the Superbrain Quest &mdash; one Value lead, one Fear lead, and one Important Question lead. These need to work as Instagram Reels AND as VSL openers.</p>
+                </div>
+                <div class="card">
+                    <h3>Multiple Variations</h3>
+                    <p style="font-family: 'SF Mono', monospace; font-size: 0.85rem; line-height: 1.8; background: #f9fafb; padding: 1rem; border-radius: 6px; margin-top: 0.75rem;">Give me 5 different hook variations for the Duality VSL. Try different lead types for each. I want to A/B test the openings.</p>
+                </div>
+                <div class="card">
+                    <h3>Lead Taxonomy</h3>
+                    <p style="font-family: 'SF Mono', monospace; font-size: 0.85rem; line-height: 1.8; background: #f9fafb; padding: 1rem; border-radius: 6px; margin-top: 0.75rem;">Here are 20 lead scripts we've used over the past year: [attach files]. Build a Lead Taxonomy &mdash; classify each by type, score them, and identify patterns in our highest performers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Taxonomy -->
+    <section class="section section--alt" id="taxonomy">
+        <div class="mv-container">
+            <div class="section-label">11</div>
+            <h2>Lead Taxonomy Builder</h2>
+            <p class="section-intro">A bonus capability: give Claude a batch of existing lead scripts and it will build a structured taxonomy for your team.</p>
+
+            <div class="step-list">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Analyze</h3>
+                        <p>Reads all provided lead scripts and identifies patterns, structures, and techniques used.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Classify</h3>
+                        <p>Tags each lead by Peter Kell's types. Discovers any new types not in the framework.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Score</h3>
+                        <p>Rates each lead on: hook strength, emotional trigger, transition quality, and social-media standalone value.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Pattern Identification</h3>
+                        <p>Identifies what your highest-performing leads have in common so you can replicate the patterns.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Deliver Taxonomy</h3>
+                        <p>Outputs a structured taxonomy with examples for each type, ready for team reference.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips -->
+    <section class="section" id="tips">
+        <div class="mv-container">
+            <div class="section-label">12</div>
+            <h2>Tips & Best Practices</h2>
+            <p class="section-intro">Get the most out of the VSL Generator.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Provide Real Content</h3>
+                    <p>The more Quest-specific material you give (transcripts, testimonials, sales pages), the better the output. Claude will use placeholders like [INSERT REAL TESTIMONIAL] when it lacks specifics.</p>
+                </div>
+                <div class="card">
+                    <h3>Iterate, Don't Start Over</h3>
+                    <p>If the first draft isn't right, tell Claude what to change in the same conversation. It retains context and can refine specific sections without rewriting everything.</p>
+                </div>
+                <div class="card">
+                    <h3>Ask for Variations</h3>
+                    <p>Request multiple hook or lead variations for A/B testing. Claude can write 3&ndash;5 different openings using different lead types for the same Quest.</p>
+                </div>
+                <div class="card">
+                    <h3>Review the Conversion Map</h3>
+                    <p>Every delivered script includes a conversion trigger map showing where each of the 25 principles appears. Use this to spot gaps before production.</p>
+                </div>
+                <div class="card">
+                    <h3>Use for Leads First</h3>
+                    <p>If you're new to the tool, start by requesting leads (60-second scripts). They're fast to review and will show you the output quality before committing to a full VSL.</p>
+                </div>
+                <div class="card">
+                    <h3>Attach Files, Don't Paste Huge Text</h3>
+                    <p>Claude Projects support file attachments in conversations. Attach Quest transcripts as files rather than pasting thousands of words into the chat.</p>
+                </div>
+            </div>
+
+            <div class="warn-box" style="margin-top: 2rem;">
+                <p><strong>Remember:</strong> Claude will never fabricate testimonials, statistics, or Quest-specific claims. If it doesn't have real data, it flags the gap. Always review placeholders before production.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supported Quests -->
+    <section class="section section--alt">
+        <div class="mv-container">
+            <div class="section-label">Reference</div>
+            <h2>Supported Quests</h2>
+            <p class="section-intro">The system is pre-configured with knowledge of these Quests. It can write VSLs for any of them when provided with transcripts and sales pages.</p>
+
+            <div class="quest-grid">
+                <div class="quest-pill">Silva Method <span>/ meditation, intuition</span></div>
+                <div class="quest-pill">Ultramind <span>/ advanced Silva, ESP</span></div>
+                <div class="quest-pill">Duality <span>/ energy healing, Christie Marie Sheldon</span></div>
+                <div class="quest-pill">Wildfit <span>/ nutrition, Eric Edmeades</span></div>
+                <div class="quest-pill">The Art of Manifesting <span>/ Jeffrey Allen, energy work</span></div>
+                <div class="quest-pill">Be Extraordinary <span>/ Vishen's personal growth</span></div>
+                <div class="quest-pill">Superbrain <span>/ Jim Kwik, memory & learning</span></div>
+                <div class="quest-pill">Everyday Bliss <span>/ Paul McKenna, happiness</span></div>
+            </div>
+
+            <div class="tip-box" style="margin-top: 2rem;">
+                <p><strong>New Quests:</strong> The system can write VSLs for Quests not on this list. Just provide the transcript and sales page, and specify the Quest name and author.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="mv-container">
+            <p>VSL Generator Team Guide &mdash; Mindvalley &mdash; Internal Use Only</p>
+        </div>
+    </footer>
+
+</body>
+</html>
