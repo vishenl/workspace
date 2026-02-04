@@ -66,7 +66,7 @@ if [ $? -eq 0 ]; then
       "command": "npx",
       "args": ["@rashidazarang/airtable-mcp"],
       "env": {
-        "AIRTABLE_TOKEN": "patCH6J42EFYDP5lo.d78f2da717586f98aa2ebb50749ff82c149866dcd1acb06dc76f58b3fd48466c"
+        "AIRTABLE_TOKEN": "patCH6J42EFYDP5lo.xxxxxxx"
       }
     },
     "google-drive": {
