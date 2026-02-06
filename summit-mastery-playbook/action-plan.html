@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Implementation Roadmap | Summit Mastery Playbook</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0b0d14" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127956;</text></svg>">
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Implementation Roadmap | Summit Mastery Playbook">
+  <meta property="og:description" content="6-phase implementation plan with visual timeline, success metrics, team assignments, and next steps with Bari.">
+  <meta property="og:image" content="https://placehold.co/1200x630/0b0d14/7a12d4?text=Action+Plan">
+  <meta property="og:url" content="https://vishenl.github.io/workspace/summit-mastery-playbook/action-plan.html">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Implementation Roadmap | Summit Mastery Playbook">
+  <meta name="twitter:description" content="6-phase implementation plan with visual timeline, success metrics, team assignments, and next steps with Bari.">
+  <meta name="twitter:image" content="https://placehold.co/1200x630/0b0d14/7a12d4?text=Action+Plan">
+  <link rel="stylesheet" href="../mindvalley-core.css" />
+  <style>
+    :root {
+      --wr-bg-primary: #0b0d14;
+      --wr-bg-secondary: #111320;
+      --wr-bg-elevated: #181b2e;
+      --wr-bg-surface: rgba(255,255,255,0.03);
+      --wr-purple: #7a12d4;
+      --wr-purple-glow: rgba(122, 18, 212, 0.15);
+      --wr-gold: #e8c547;
+      --wr-green: #34d399;
+      --wr-red: #ef4444;
+      --wr-blue: #60a5fa;
+      --wr-text-primary: #f1f1f4;
+      --wr-text-secondary: rgba(255,255,255,0.75);
+      --wr-text-muted: #9ca3af;
+      --wr-border: rgba(255,255,255,0.08);
+      --wr-border-hover: rgba(122, 18, 212, 0.5);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--wr-bg-primary);
+      color: var(--wr-text-primary);
+      padding-top: 3.5rem;
+      margin: 0;
+    }
+
+    /* -- Nav -- */
+    .wr-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(11,13,20,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--wr-border);
+    }
+    .wr-nav-inner {
+      display: flex; align-items: center; gap: 0.25rem;
+      padding: 0.65rem 1rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .wr-nav-brand {
+      color: var(--wr-purple); font-weight: 700; text-decoration: none;
+      white-space: nowrap; margin-right: 1.5rem; font-size: 0.95rem;
+      letter-spacing: -0.01em;
+    }
+    .wr-nav-links {
+      display: flex; gap: 0; overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .wr-nav-links::-webkit-scrollbar { display: none; }
+    .wr-nav-link {
+      padding: 0.4rem 0.85rem; color: var(--wr-text-muted); text-decoration: none;
+      white-space: nowrap; font-size: 0.8rem; font-weight: 500;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .wr-nav-link:hover { color: var(--wr-text-primary); }
+    .wr-nav-link.active { color: var(--wr-text-primary); border-bottom-color: var(--wr-purple); }
+
+    /* -- Section -- */
+    .wr-section { padding: 4.5rem 0; border-bottom: 1px solid var(--wr-border); }
+    .wr-section--alt { background: var(--wr-bg-secondary); }
+
+    /* -- Cards -- */
+    .wr-card {
+      background: var(--wr-bg-surface); border: 1px solid var(--wr-border);
+      border-radius: 1rem; padding: 2rem;
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
+    }
+    .wr-card:hover { border-color: var(--wr-border-hover); background: rgba(122,18,212,0.04); transform: translateY(-2px); }
+    .wr-card--accent { border-color: var(--wr-purple); background: rgba(122,18,212,0.06); }
+    .wr-card a { color: var(--wr-purple); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+    .wr-card a:hover { text-decoration: underline; }
+
+    /* -- Stats -- */
+    .wr-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px,1fr)); gap: 1.25rem; }
+    .wr-stat {
+      text-align: center; padding: 1.5rem 1rem;
+      background: var(--wr-bg-surface); border: 1px solid var(--wr-border); border-radius: 1rem;
+    }
+    .wr-stat-value {
+      font-size: 2.25rem; font-weight: 700; line-height: 1;
+      background: linear-gradient(135deg, var(--wr-purple), var(--wr-gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .wr-stat-label { font-size: 0.82rem; color: var(--wr-text-muted); margin-top: 0.5rem; }
+
+    /* -- Grids -- */
+    .wr-grid { display: grid; gap: 1.5rem; }
+    .wr-grid--2 { grid-template-columns: repeat(2,1fr); }
+    .wr-grid--3 { grid-template-columns: repeat(3,1fr); }
+    @media (max-width: 768px) {
+      .wr-grid--2, .wr-grid--3 { grid-template-columns: 1fr; }
+    }
+
+    /* -- Comparison -- */
+    .wr-before {
+      background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 1rem; padding: 2rem;
+    }
+    .wr-after {
+      background: rgba(52,211,153,0.05); border: 1px solid rgba(52,211,153,0.2);
+      border-radius: 1rem; padding: 2rem;
+    }
+    .wr-before h3, .wr-after h3 { margin-top: 0; font-size: 1.1rem; }
+    .wr-before h3 { color: var(--wr-red); }
+    .wr-after h3 { color: var(--wr-green); }
+    .wr-before ul, .wr-after ul { padding-left: 1.25rem; line-height: 1.8; color: var(--wr-text-secondary); font-size: 0.95rem; }
+
+    /* -- Flow -- */
+    .wr-flow {
+      display: flex; align-items: center; gap: 0.6rem;
+      flex-wrap: wrap; justify-content: center; margin: 1.5rem 0;
+    }
+    .wr-flow-node {
+      background: rgba(122,18,212,0.1); border: 1px solid rgba(122,18,212,0.35);
+      border-radius: 10px; padding: 0.7rem 1.2rem; text-align: center;
+      font-weight: 600; font-size: 0.88rem; color: var(--wr-text-primary);
+    }
+    .wr-flow-arrow { color: var(--wr-purple); font-size: 1.25rem; }
+
+    /* -- Bari Says -- */
+    .bari-says {
+      border-left: 4px solid var(--wr-gold); padding: 1.25rem 1.75rem;
+      margin: 2rem 0; background: rgba(232,197,71,0.05); border-radius: 0 12px 12px 0;
+    }
+    .bari-says::before {
+      content: 'BARI SAYS'; display: block; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.15em; color: var(--wr-gold); margin-bottom: 0.6rem;
+    }
+    .bari-says p { font-size: 1.05rem; font-style: italic; color: var(--wr-text-secondary); line-height: 1.65; margin: 0; }
+
+    /* -- Highlight -- */
+    .wr-highlight {
+      background: rgba(232,197,71,0.06); border: 1px solid rgba(232,197,71,0.2);
+      border-radius: 12px; padding: 1.25rem 1.75rem; margin: 1.5rem 0;
+    }
+
+    /* -- Quick Win Card -- */
+    .qw-card {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.25rem 1.5rem; background: var(--wr-bg-surface);
+      border: 1px solid var(--wr-border); border-radius: 0.75rem;
+      transition: border-color 0.2s;
+    }
+    .qw-card:hover { border-color: var(--wr-green); }
+    .qw-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .qw-title { font-weight: 600; font-size: 0.95rem; color: var(--wr-text-primary); margin-bottom: 0.25rem; }
+    .qw-desc { font-size: 0.85rem; color: var(--wr-text-muted); line-height: 1.5; }
+
+    /* -- Hero -- */
+    .hero-glow {
+      position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 400px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(122,18,212,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* -- Nav card -- */
+    .nav-card-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .nav-card-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.35rem; }
+    .nav-card-desc { font-size: 0.85rem; color: var(--wr-text-muted); line-height: 1.5; margin-bottom: 1rem; }
+
+    /* -- Phase Card -- */
+    .phase-card {
+      background: var(--wr-bg-surface); border: 1px solid var(--wr-border);
+      border-radius: 1rem; padding: 2rem; border-left: 4px solid var(--wr-purple);
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
+    }
+    .phase-card:hover { background: rgba(122,18,212,0.04); transform: translateY(-2px); }
+    .phase-card--blue { border-left-color: var(--wr-blue); }
+    .phase-card--green { border-left-color: var(--wr-green); }
+    .phase-card--gold { border-left-color: var(--wr-gold); }
+    .phase-card--purple { border-left-color: var(--wr-purple); }
+
+    .phase-meta {
+      display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;
+    }
+    .phase-meta-item {
+      font-size: 0.82rem; color: var(--wr-text-muted);
+      background: rgba(255,255,255,0.04); border: 1px solid var(--wr-border);
+      border-radius: 0.5rem; padding: 0.35rem 0.75rem;
+    }
+    .phase-meta-item strong { color: var(--wr-text-primary); }
+
+    .phase-badge {
+      display: inline-block; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.25rem 0.75rem; border-radius: 2rem; margin-bottom: 0.75rem;
+    }
+    .phase-badge--prerequisite { background: rgba(239,68,68,0.15); color: var(--wr-red); border: 1px solid rgba(239,68,68,0.3); }
+    .phase-badge--phase { background: rgba(122,18,212,0.1); color: var(--wr-purple); border: 1px solid rgba(122,18,212,0.3); }
+
+    .phase-card h3 { margin-top: 0; font-size: 1.2rem; color: var(--wr-text-primary); margin-bottom: 0.5rem; }
+    .phase-card h4 { font-size: 0.95rem; color: var(--wr-text-primary); margin: 1.5rem 0 0.75rem; }
+    .phase-card ul { padding-left: 1.25rem; line-height: 1.8; color: var(--wr-text-secondary); font-size: 0.92rem; }
+    .phase-card p { color: var(--wr-text-secondary); font-size: 0.95rem; line-height: 1.7; }
+
+    /* -- Timeline Gantt -- */
+    .gantt-container {
+      overflow-x: auto; padding: 1rem 0;
+      -webkit-overflow-scrolling: touch;
+    }
+    .gantt-grid {
+      display: grid;
+      grid-template-columns: 160px repeat(10, 1fr);
+      gap: 0.75rem 0;
+      min-width: 700px;
+    }
+    .gantt-header {
+      font-size: 0.72rem; font-weight: 600; color: var(--wr-text-muted);
+      text-align: center; padding: 0.5rem 0;
+      border-bottom: 1px solid var(--wr-border);
+    }
+    .gantt-header:first-child { text-align: left; }
+    .gantt-label {
+      font-size: 0.82rem; font-weight: 600; color: var(--wr-text-primary);
+      display: flex; align-items: center; padding-right: 1rem;
+    }
+    .gantt-row-cell {
+      position: relative; min-height: 2.25rem;
+    }
+    .gantt-bar {
+      position: absolute; top: 0.35rem; bottom: 0.35rem;
+      border-radius: 6px; display: flex; align-items: center;
+      justify-content: center; font-size: 0.7rem; font-weight: 600;
+      color: rgba(255,255,255,0.9); min-height: 1.5rem;
+    }
+    .gantt-bar--purple { background: rgba(122,18,212,0.35); border: 1px solid rgba(122,18,212,0.6); }
+    .gantt-bar--blue { background: rgba(96,165,250,0.25); border: 1px solid rgba(96,165,250,0.5); }
+    .gantt-bar--green { background: rgba(52,211,153,0.25); border: 1px solid rgba(52,211,153,0.5); }
+    .gantt-bar--gold { background: rgba(232,197,71,0.25); border: 1px solid rgba(232,197,71,0.5); }
+    .gantt-bar--ongoing {
+      border-right: none; border-radius: 6px 0 0 6px;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(122,18,212,0.2),
+        rgba(122,18,212,0.2) 5px,
+        rgba(122,18,212,0.35) 5px,
+        rgba(122,18,212,0.35) 10px
+      );
+      border: 1px solid rgba(122,18,212,0.5);
+    }
+
+    .gantt-dep-note {
+      font-size: 0.78rem; color: var(--wr-text-muted); text-align: center;
+      margin-top: 1.25rem; font-style: italic;
+    }
+
+    /* -- Checklist Card -- */
+    .checklist-card {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.25rem 1.5rem; background: var(--wr-bg-surface);
+      border: 1px solid var(--wr-border); border-radius: 0.75rem;
+      transition: border-color 0.2s;
+    }
+    .checklist-card:hover { border-color: var(--wr-purple); }
+    .checklist-num {
+      font-size: 1.1rem; font-weight: 700; color: var(--wr-purple);
+      background: rgba(122,18,212,0.1); border: 1px solid rgba(122,18,212,0.3);
+      border-radius: 50%; width: 2rem; height: 2rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+    }
+    .checklist-title { font-weight: 600; font-size: 0.95rem; color: var(--wr-text-primary); }
+
+    /* -- Data works/fails -- */
+    .data-col {
+      border-radius: 1rem; padding: 1.5rem;
+    }
+    .data-col--works { background: rgba(52,211,153,0.05); border: 1px solid rgba(52,211,153,0.2); }
+    .data-col--fails { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2); }
+    .data-col h4 { margin-top: 0; font-size: 1rem; }
+    .data-col--works h4 { color: var(--wr-green); }
+    .data-col--fails h4 { color: var(--wr-red); }
+    .data-col ul { padding-left: 1.25rem; line-height: 1.8; color: var(--wr-text-secondary); font-size: 0.92rem; }
+
+    /* -- Metric card -- */
+    .metric-card {
+      text-align: center; padding: 1.75rem 1.25rem;
+      background: var(--wr-bg-surface); border: 1px solid var(--wr-border); border-radius: 1rem;
+      transition: border-color 0.3s;
+    }
+    .metric-card:hover { border-color: var(--wr-border-hover); }
+    .metric-label { font-size: 0.82rem; color: var(--wr-text-muted); margin-bottom: 0.75rem; }
+    .metric-current {
+      font-size: 1.1rem; font-weight: 600; color: var(--wr-text-muted);
+      text-decoration: line-through; margin-bottom: 0.25rem;
+    }
+    .metric-target {
+      font-size: 2rem; font-weight: 700; line-height: 1.1;
+      background: linear-gradient(135deg, var(--wr-purple), var(--wr-gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .metric-sublabel { font-size: 0.75rem; color: var(--wr-text-muted); margin-top: 0.35rem; }
+  </style>
+</head>
+<body>
+
+<!-- -- Nav -- -->
+<nav class="wr-nav">
+  <div class="wr-nav-inner">
+    <a href="index.html" class="wr-nav-brand">Summit Playbook</a>
+    <div class="wr-nav-links">
+      <a href="index.html" class="wr-nav-link">Dashboard</a>
+      <a href="through-line.html" class="wr-nav-link">Through-Line</a>
+      <a href="right-fit-client.html" class="wr-nav-link">Right-Fit Client</a>
+      <a href="event-formula.html" class="wr-nav-link">Event Formula</a>
+      <a href="speaker-playbook.html" class="wr-nav-link">Speakers</a>
+      <a href="sales-engine.html" class="wr-nav-link">Sales Engine</a>
+      <a href="action-plan.html" class="wr-nav-link active">Action Plan</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ====================================== -->
+<!-- HERO -->
+<!-- ====================================== -->
+<section class="wr-section" style="position: relative; overflow: hidden; padding-top: 5.5rem;">
+  <div class="hero-glow"></div>
+  <div class="mv-container" style="position: relative; z-index: 1; text-align: center;">
+    <span class="overline-text" style="color: var(--wr-purple);">EXECUTION ROADMAP</span>
+    <h1 class="title-bold-2" style="color: var(--wr-text-primary); margin: 1rem auto 0; max-width: 48rem;">
+      Implementation Roadmap
+    </h1>
+    <p class="body-lg" style="color: var(--wr-text-muted); max-width: 40rem; margin: 1.25rem auto 0;">
+      6-phase deployment plan. Phase 1 (method/framework) is the prerequisite that unlocks everything else. Without it, no other change will stick.
+    </p>
+  </div>
+</section>
+
+<!-- ====================================== -->
+<!-- CRITICAL PREREQUISITE -->
+<!-- ====================================== -->
+<section class="wr-section wr-section--alt">
+  <div class="mv-container">
+    <div class="wr-card wr-card--accent" style="max-width: 52rem; margin: 0 auto;">
+      <span class="phase-badge phase-badge--prerequisite">Critical Prerequisite</span>
+      <h2 class="title-bold-4" style="color: var(--wr-text-primary); margin: 0.5rem 0 1rem;">Nothing Works Without the Method</h2>
+      <p class="body" style="color: var(--wr-text-secondary); line-height: 1.75; margin-bottom: 1.25rem;">
+        The #1 insight from the entire session is that Mindvalley does <strong style="color: var(--wr-text-primary);">NOT</strong> currently have a unified method for most of its mastery programs. Without a method:
+      </p>
+      <ul style="padding-left: 1.25rem; line-height: 2; color: var(--wr-text-secondary); font-size: 0.95rem;">
+        <li>You can't select the right speakers (what are you selecting them <em>FOR</em>?)</li>
+        <li>You can't create session continuity (no FOMO if you miss a session)</li>
+        <li>You can't have a compelling through-line (messaging &rarr; content &rarr; offer)</li>
+        <li>You can't stop the buffet problem</li>
+        <li>The 3-day cadence can't work (there's no "step 3" to miss)</li>
+      </ul>
+      <div class="wr-highlight" style="margin-top: 1.5rem;">
+        <p style="color: var(--wr-text-secondary); font-size: 0.92rem; margin: 0; line-height: 1.7;">
+          <strong style="color: var(--wr-gold);">Two programs that DO have methods:</strong> Manifesting (Vishen + Reagan) and Speaking (Eric Edmeades). These can serve as templates for every other mastery category.
+        </p>
+      </div>
+      <div class="bari-says">
+        <p>"Without the method, we cannot have an accurate speaker selection, because what are we selecting them for?"</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================== -->
+<!-- PHASE 1 -->
+<!-- ====================================== -->
+<section class="wr-section">
+  <div class="mv-container">
+    <div class="phase-card phase-card--purple" style="max-width: 52rem; margin: 0 auto;">
+      <span class="phase-badge phase-badge--prerequisite">Prerequisite &mdash; Blocks All Other Phases</span>
+      <h3>Phase 1 &mdash; Define the Method/Framework</h3>
+      <div class="phase-meta">
+        <span class="phase-meta-item"><strong>Timeline:</strong> 2-3 weeks</span>
+        <span class="phase-meta-item"><strong>Owner:</strong> Vishen + Bari (collaborative workshop)</span>
+      </div>
+
+      <h4>Deliverables</h4>
+      <ul>
+        <li>One core method per mastery category (AI, Manifesting, Speaking, etc.)</li>
+        <li>The "one belief" for each &mdash; what is the single transformation promise?</li>
+        <li>5-7 steps that make up the method (these become summit sessions)</li>
+        <li>The "enhanced opportunity" &mdash; what does the mastery program deliver that the summit can't?</li>
+      </ul>
+
+      <h4>Actions</h4>
+      <ul>
+        <li>Workshop with Bari to define the method for AI Mastery first (highest revenue potential)</li>
+        <li>Audit Manifesting and Speaking programs &mdash; they already have methods. Document and replicate the pattern.</li>
+        <li>Test: Can you explain the method in one sentence? If not, it's not simple enough.</li>
+      </ul>
+
+      <div class="bari-says">
+        <p>"People buy frameworks, they buy methods. 'There's a formula and a framework I could follow? Well, maybe I could do that.'"</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================== -->
+<!-- PHASE 2 -->
+<!-- ====================================== -->
+<section class="wr-section wr-section--alt">
+  <div class="mv-container">
+    <div class="phase-card phase-card--blue" style="max-width: 52rem; margin: 0 auto;">
+      <span class="phase-badge phase-badge--phase" style="background: rgba(96,165,250,0.1); color: var(--wr-blue); border-color: rgba(96,165,250,0.3);">Phase 2</span>
+      <h3>Right-Fit Client Persona</h3>
+      <div class="phase-meta">
+        <span class="phase-meta-item"><strong>Timeline:</strong> 2-4 weeks (can partially overlap with Phase 1)</span>
+        <span class="phase-meta-item"><strong>Owner:</strong> JD/Jadeep + Marisha</span>
+        <span class="phase-meta-item"><strong>Depends on:</strong> Phase 1 (method informs who benefits most)</span>
+      </div>
+
+      <h4>Deliverables</h4>
+      <ul>
+        <li>Refined survey with separated categories (CEO vs solopreneur vs founder)</li>
+        <li>Full-list survey deployed to 2.5M email list (not just buyers)</li>
+        <li>Chat/transcript analysis from previous summits (AI-aggregated + human-reviewed)</li>
+        <li>Named persona with psychographics and valuegraphics (like "Julie")</li>
+        <li>One-page persona brief for speaker distribution</li>
+      </ul>
+
+      <h4>Actions</h4>
+      <ul>
+        <li>Get Bari's classification system from Justine (deployed on her platform "Six")</li>
+        <li>Deploy across all summits and masteries</li>
+        <li>Mine existing data: event chats, fulfillment calls, customer care questions</li>
+        <li>Ask the WHY: "Why are you curious about AI?" &mdash; being curious is not a reason to buy</li>
+        <li>Separate survey for ALL categories (not just AI)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================== -->
+<!-- PHASE 3 -->
+<!-- ====================================== -->
+<section class="wr-section">
+  <div class="mv-container">
+    <div class="phase-card phase-card--green" style="max-width: 52rem; margin: 0 auto;">
+      <span class="phase-badge phase-badge--phase" style="background: rgba(52,211,153,0.1); color: var(--wr-green); border-color: rgba(52,211,153,0.3);">Phase 3</span>
+      <h3>Curriculum Restructure</h3>
+      <div class="phase-meta">
+        <span class="phase-meta-item"><strong>Timeline:</strong> 3-4 weeks</span>
+        <span class="phase-meta-item"><strong>Owner:</strong> Vishen + Inny + curriculum team</span>
+        <span class="phase-meta-item"><strong>Depends on:</strong> Phases 1 + 2</span>
+      </div>
+
+      <h4>Deliverables</h4>
+      <ul>
+        <li>Restructured AI Mastery curriculum &mdash; 3 months instead of 5, outcome-focused</li>
+        <li>Potential 3-tier structure: Beginner (clone basics) &rarr; Intermediate (workflow automation) &rarr; Advanced (vibe coding, app building)</li>
+        <li>Each tier has clear, measurable outcomes &mdash; not tool mastery</li>
+        <li>Bring in Eric Edmeades for stickiness methodology (his programs = 80% completion)</li>
+      </ul>
+
+      <h4>Key Problems to Solve</h4>
+      <ul>
+        <li>Attendance drops to 15-20% in final month when content gets too technical</li>
+        <li>Teaching Airtable because Vishen loves it (computer science brain) vs. what Julie needs</li>
+        <li>Miss one class = feel lost, can't catch up (no progressive scaffolding)</li>
+        <li>Current curriculum designed like a university program &mdash; needs to be designed like a transformation journey</li>
+      </ul>
+
+      <div class="wr-grid wr-grid--2" style="margin-top: 1.5rem;">
+        <div class="data-col data-col--works">
+          <h4>What the DATA Says Works (High Engagement)</h4>
+          <ul>
+            <li>Image generation</li>
+            <li>Video</li>
+            <li>Custom GPTs</li>
+            <li>Vibe coding (simple version)</li>
+            <li>"Trying everything together"</li>
+          </ul>
+        </div>
+        <div class="data-col data-col--fails">
+          <h4>What the DATA Says Fails (Low Engagement)</h4>
+          <ul>
+            <li>AI agents</li>
+            <li>Airtable automations</li>
+            <li>Custom AI applications</li>
+            <li>"Building brains"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="wr-highlight" style="margin-top: 1.5rem;">
+        <p style="color: var(--wr-text-secondary); font-size: 0.92rem; margin: 0; line-height: 1.7;">
+          <strong style="color: var(--wr-gold);">Principle:</strong> Sell the outcome, teach the minimum mechanism needed to achieve it.
+        </p>
+      </div>
+
+      <div class="bari-says">
+        <p>"What normally would take 6 months in 30 days. Shorter horizon, faster decision."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================== -->
+<!-- PHASE 4 -->
+<!-- ====================================== -->
+<section class="wr-section wr-section--alt">
+  <div class="mv-container">
+    <div class="phase-card phase-card--gold" style="max-width: 52rem; margin: 0 auto;">
+      <span class="phase-badge phase-badge--phase" style="background: rgba(232,197,71,0.1); color: var(--wr-gold); border-color: rgba(232,197,71,0.3);">Phase 4</span>
+      <h3>Event Redesign</h3>
+      <div class="phase-meta">
+        <span class="phase-meta-item"><strong>Timeline:</strong> 2-3 weeks</span>
+        <span class="phase-meta-item"><strong>Owner:</strong> Inny + events team + Bari</span>
+        <span class="phase-meta-item"><strong>Depends on:</strong> Phases 1, 2, 3</span>
+      </div>
+
+      <h4>Deliverables</h4>
+      <ul>
+        <li>New 3-day event template following Bari's cadence (Day 1: value / Day 2: pitch / Day 3: Q&amp;A close)</li>
+        <li>60-minute webinar template (compressed 3-day formula)</li>
+        <li>Scripted Q&amp;A framework for Day 3</li>
+        <li>Revised landing page template (no detailed agenda, outcome-focused hooks)</li>
+        <li>Live sales lobby setup (Zoom room infrastructure + team training)</li>
+      </ul>
+
+      <h4>Actions</h4>
+      <ul>
+        <li>Remove published agendas from ALL summit landing pages</li>
+        <li>Compress next webinar to 60 minutes as a test</li>
+        <li>Consider Thu-Sat scheduling instead of Fri-Sun (audience = parents, weekends = family)</li>
+        <li>Pilot: Use the next AI-related webinar as the test case for the new format</li>
+        <li>Bari to walk through the "PHD model" &mdash; Pain, Hope, Decision flow for each day</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================== -->
+<!-- PHASE 5 -->
+<!-- ====================================== -->
+<section class="wr-section">
+  <div class="mv-container">
+    <div class="phase-card phase-card--purple" style="max-width: 52rem; margin: 0 auto;">
+      <span class="phase-badge phase-badge--phase">Phase 5</span>
+      <h3>Speaker Overhaul</h3>
+      <div class="phase-meta">
+        <span class="phase-meta-item"><strong>Timeline:</strong> Ongoing (start immediately, refine continuously)</span>
+        <span class="phase-meta-item"><strong>Owner:</strong> Inny + Vishen + Bari</span>
+        <span class="phase-meta-item"><strong>Depends on:</strong> Phase 1 (need the method to know what to align speakers to)</span>
+      </div>
+
+      <h4>Deliverables</h4>
+      <ul>
+        <li>Speaker briefing template (one-page document for every speaker)</li>
+        <li>Speaker selection criteria checklist</li>
+        <li>Slide review process and timeline</li>
+        <li>"No self-promotion" contract addendum</li>
+        <li>Pre-event rehearsal/alignment call schedule</li>
+      </ul>
+
+      <h4>Actions</h4>
+      <ul>
+        <li>Bari to participate in speaker prep for the next summit</li>
+        <li>Create the briefing template based on the method</li>
+        <li>Audit current speaker roster: who is naturally aligned? who needs coaching? who should be replaced?</li>
+        <li>Stop paying speakers when possible &mdash; relationship-based > transactional</li>
+        <li>Ensure every speaker knows what comes before and after their session</li>
+      </ul>
+
+      <div class="bari-says">
+        <p>"I'd love to be involved in prepping speakers, because it's through-line."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================== -->
+<!-- PHASE 6 -->
+<!-- ====================================== -->
+<section class="wr-section wr-section--alt">
+  <div class="mv-container">
+    <div class="phase-card phase-card--green" style="max-width: 52rem; margin: 0 auto;">
+      <span class="phase-badge phase-badge--phase" style="background: rgba(52,211,153,0.1); color: var(--wr-green); border-color: rgba(52,211,153,0.3);">Phase 6</span>
+      <h3>Sales Infrastructure</h3>
+      <div class="phase-meta">
+        <span class="phase-meta-item"><strong>Timeline:</strong> 2-3 weeks</span>
+        <span class="phase-meta-item"><strong>Owner:</strong> Marisha + sales team lead</span>
+        <span class="phase-meta-item"><strong>Depends on:</strong> Phase 4</span>
+      </div>
+
+      <h4>Deliverables</h4>
+      <ul>
+        <li>Live Zoom lobby infrastructure (room setup, capacity planning)</li>
+        <li>Sales team training on compressed close (30-45 min &rarr; 5-10 min lobby conversations)</li>
+        <li>"Talk to a Program Expert" button placement (prominent, not buried)</li>
+        <li>Post-event close-down sequence for buyers who didn't convert during the event</li>
+        <li>Real-time dashboard showing who saw the offer, who didn't, who visited sales page</li>
+      </ul>
+
+      <h4>Actions</h4>
+      <ul>
+        <li>Train existing London sales team on lobby model</li>
+        <li>Test: If they close 50% of calls already, they should do even better in a warm lobby</li>
+        <li>Consider Bari's event platform for real-time analytics (minute-by-minute attendance, drop-off points, who saw the offer)</li>
+        <li>Create layered follow-up:
+          <ol style="margin-top: 0.5rem; padding-left: 1.25rem; color: var(--wr-text-muted); font-size: 0.88rem; line-height: 1.8;">
+            <li>People who visited sales page but didn't buy</li>
+            <li>People who attended pitch but didn't visit page</li>
+            <li>People who attended summit but missed the pitch</li>
+          </ol>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================== -->
+<!-- VISUAL TIMELINE -->
+<!-- ====================================== -->
+<section class="wr-section">
+  <div class="mv-container">
+    <span class="overline-text" style="color: var(--wr-purple);">DEPLOYMENT TIMELINE</span>
+    <h2 class="title-bold-4" style="color: var(--wr-text-primary); margin: 0.75rem 0 2rem;">Visual Timeline</h2>
+
+    <div class="gantt-container">
+      <div class="gantt-grid">
+        <!-- Header row -->
+        <div class="gantt-header"></div>
+        <div class="gantt-header">Wk 1</div>
+        <div class="gantt-header">Wk 2</div>
+        <div class="gantt-header">Wk 3</div>
+        <div class="gantt-header">Wk 4</div>
+        <div class="gantt-header">Wk 5</div>
+        <div class="gantt-header">Wk 6</div>
+        <div class="gantt-header">Wk 7</div>
+        <div class="gantt-header">Wk 8</div>
+        <div class="gantt-header">Wk 9</div>
+        <div class="gantt-header">Wk 10</div>
+
+        <!-- Phase 1: Weeks 1-3 (purple) -->
+        <div class="gantt-label" style="color: var(--wr-purple);">Phase 1: Method</div>
+        <div class="gantt-row-cell" style="grid-column: 2 / 5;">
+          <div class="gantt-bar gantt-bar--purple" style="left: 0; right: 0;">Define Method</div>
+        </div>
+        <div class="gantt-row-cell" style="grid-column: 5 / 12;"></div>
+
+        <!-- Phase 2: Weeks 2-5 (blue) -->
+        <div class="gantt-label" style="color: var(--wr-blue);">Phase 2: Persona</div>
+        <div class="gantt-row-cell" style="grid-column: 2 / 3;"></div>
+        <div class="gantt-row-cell" style="grid-column: 3 / 7;">
+          <div class="gantt-bar gantt-bar--blue" style="left: 0; right: 0;">Client Persona</div>
+        </div>
+        <div class="gantt-row-cell" style="grid-column: 7 / 12;"></div>
+
+        <!-- Phase 3: Weeks 4-7 (green) -->
+        <div class="gantt-label" style="color: var(--wr-green);">Phase 3: Curriculum</div>
+        <div class="gantt-row-cell" style="grid-column: 2 / 5;"></div>
+        <div class="gantt-row-cell" style="grid-column: 5 / 9;">
+          <div class="gantt-bar gantt-bar--green" style="left: 0; right: 0;">Curriculum Restructure</div>
+        </div>
+        <div class="gantt-row-cell" style="grid-column: 9 / 12;"></div>
+
+        <!-- Phase 4: Weeks 6-9 (gold) -->
+        <div class="gantt-label" style="color: var(--wr-gold);">Phase 4: Events</div>
+        <div class="gantt-row-cell" style="grid-column: 2 / 7;"></div>
+        <div class="gantt-row-cell" style="grid-column: 7 / 11;">
+          <div class="gantt-bar gantt-bar--gold" style="left: 0; right: 0;">Event Redesign</div>
+        </div>
+        <div class="gantt-row-cell" style="grid-column: 11 / 12;"></div>
+
+        <!-- Phase 5: Weeks 3+ (ongoing purple) -->
+        <div class="gantt-label" style="color: var(--wr-purple);">Phase 5: Speakers</div>
+        <div class="gantt-row-cell" style="grid-column: 2 / 4;"></div>
+        <div class="gantt-row-cell" style="grid-column: 4 / 12;">
+          <div class="gantt-bar gantt-bar--ongoing" style="left: 0; right: 0;">Speaker Overhaul (Ongoing)</div>
+        </div>
+
+        <!-- Phase 6: Weeks 7-10 (green) -->
+        <div class="gantt-label" style="color: var(--wr-green);">Phase 6: Sales</div>
+        <div class="gantt-row-cell" style="grid-column: 2 / 8;"></div>
+        <div class="gantt-row-cell" style="grid-column: 8 / 12;">
+          <div class="gantt-bar gantt-bar--green" style="left: 0; right: 0;">Sales Infrastructure</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gantt-dep-note">
+      Phase 1 (Define Method) is the prerequisite &mdash; all other phases depend on it directly or indirectly.
+    </div>
+
+    <!-- Dependency flow visual -->
+    <div class="wr-flow" style="margin-top: 2.5rem;">
+      <div class="wr-flow-node" style="background: rgba(122,18,212,0.2); border-color: var(--wr-purple);">Phase 1: Method</div>
+      <span class="wr-flow-arrow">&rarr;</span>
+      <div class="wr-flow-node" style="background: rgba(96,165,250,0.15); border-color: var(--wr-blue);">Phase 2: Persona</div>
+      <span class="wr-flow-arrow">&rarr;</span>
+      <div class="wr-flow-node" style="background: rgba(52,211,153,0.15); border-color: var(--wr-green);">Phase 3: Curriculum</div>
+      <span class="wr-flow-arrow">&rarr;</span>
+      <div class="wr-flow-node" style="background: rgba(232,197,71,0.15); border-color: var(--wr-gold);">Phase 4: Events</div>
+      <span class="wr-flow-arrow">&rarr;</span>
+      <div class="wr-flow-node" style="background: rgba(52,211,153,0.15); border-color: var(--wr-green);">Phase 6: Sales</div>
+    </div>
+    <div style="text-align: center; margin-top: 0.75rem;">
+      <span style="font-size: 0.8rem; color: var(--wr-text-muted);">Phase 5 (Speakers) runs in parallel from Week 3 onward, dependent on Phase 1</span>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================== -->
+<!-- SUCCESS METRICS -->
+<!-- ====================================== -->
+<section class="wr-section wr-section--alt">
+  <div class="mv-container">
+    <span class="overline-text" style="color: var(--wr-gold);">MEASURING SUCCESS</span>
+    <h2 class="title-bold-4" style="color: var(--wr-text-primary); margin: 0.75rem 0 2rem;">Success Metrics</h2>
+
+    <div class="wr-grid wr-grid--3">
+      <div class="metric-card">
+        <div class="metric-label">Summit Conversion Rate</div>
+        <div class="metric-current">Current: ~3-5%</div>
+        <div class="metric-target">8-12%</div>
+        <div class="metric-sublabel">Target</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Webinar Conversion Rate</div>
+        <div class="metric-current">Current: 6%</div>
+        <div class="metric-target">10-15%</div>
+        <div class="metric-sublabel">Target</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Refund Rate</div>
+        <div class="metric-current">Current: ~13%</div>
+        <div class="metric-target">&lt;8%</div>
+        <div class="metric-sublabel">Target</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Day 3 Attendance</div>
+        <div class="metric-current">Current: Declining</div>
+        <div class="metric-target">80%+</div>
+        <div class="metric-sublabel">of Day 1 Attendance</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Mastery Completion Rate</div>
+        <div class="metric-current">Current: 15-20% final month</div>
+        <div class="metric-target">60%+</div>
+        <div class="metric-sublabel">with Eric's methodology</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Revenue Per Summit</div>
+        <div class="metric-current">Benchmark: $7M AI launch</div>
+        <div class="metric-target">Grow</div>
+        <div class="metric-sublabel">then scale from there</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================== -->
+<!-- NEXT STEPS WITH BARI -->
+<!-- ====================================== -->
+<section class="wr-section">
+  <div class="mv-container">
+    <span class="overline-text" style="color: var(--wr-green);">NEXT STEPS</span>
+    <h2 class="title-bold-4" style="color: var(--wr-text-primary); margin: 0.75rem 0 0.75rem;">Next Steps with Bari</h2>
+    <p class="body" style="color: var(--wr-text-muted); margin-bottom: 2rem;">Action items to keep momentum from the strategy session.</p>
+
+    <div style="display: grid; gap: 1rem; max-width: 52rem;">
+      <div class="checklist-card">
+        <div class="checklist-num">1</div>
+        <div>
+          <div class="checklist-title">Schedule deep-dive session on the PHD (Pain/Hope/Decision) 3-day flow model</div>
+        </div>
+      </div>
+      <div class="checklist-card">
+        <div class="checklist-num">2</div>
+        <div>
+          <div class="checklist-title">Get Bari's audience classification system from Justine</div>
+        </div>
+      </div>
+      <div class="checklist-card">
+        <div class="checklist-num">3</div>
+        <div>
+          <div class="checklist-title">Bari to participate in speaker prep for next summit</div>
+        </div>
+      </div>
+      <div class="checklist-card">
+        <div class="checklist-num">4</div>
+        <div>
+          <div class="checklist-title">Collaborative workshop to define the AI Mastery method (the first test case)</div>
+        </div>
+      </div>
+      <div class="checklist-card">
+        <div class="checklist-num">5</div>
+        <div>
+          <div class="checklist-title">Review the refined survey questions together</div>
+        </div>
+      </div>
+      <div class="checklist-card">
+        <div class="checklist-num">6</div>
+        <div>
+          <div class="checklist-title">Share Bari's event platform for analytics capabilities</div>
+        </div>
+      </div>
+      <div class="checklist-card">
+        <div class="checklist-num">7</div>
+        <div>
+          <div class="checklist-title">Discuss challenges with speaker relationships (Vishen mentioned wanting a separate deep-dive on this)</div>
+        </div>
+      </div>
+      <div class="checklist-card">
+        <div class="checklist-num">8</div>
+        <div>
+          <div class="checklist-title">Ongoing advisory calls as phases progress</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================== -->
+<!-- FOOTER -->
+<!-- ====================================== -->
+<footer style="padding: 3rem 0; text-align: center; border-top: 1px solid var(--wr-border);">
+  <div class="mv-container">
+    <p class="body-sm" style="color: var(--wr-text-muted); margin-bottom: 1rem;">
+      Based on strategy session with <strong style="color: var(--wr-text-primary);">Bari</strong> (Dean Graziosi / Tony Robbins team) &bull; Internal Use Only
+    </p>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: center;">
+      <a href="through-line.html" style="color: var(--wr-purple); text-decoration: none; font-size: 0.85rem;">Through-Line</a>
+      <a href="right-fit-client.html" style="color: var(--wr-purple); text-decoration: none; font-size: 0.85rem;">Right-Fit Client</a>
+      <a href="event-formula.html" style="color: var(--wr-purple); text-decoration: none; font-size: 0.85rem;">Event Formula</a>
+      <a href="speaker-playbook.html" style="color: var(--wr-purple); text-decoration: none; font-size: 0.85rem;">Speakers</a>
+      <a href="sales-engine.html" style="color: var(--wr-purple); text-decoration: none; font-size: 0.85rem;">Sales Engine</a>
+      <a href="action-plan.html" style="color: var(--wr-purple); text-decoration: none; font-size: 0.85rem;">Action Plan</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

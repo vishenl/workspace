@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Right-Fit Client Deep Dive | Summit Mastery Playbook</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0b0d14" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127956;</text></svg>">
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Right-Fit Client Deep Dive | Summit Mastery Playbook">
+  <meta property="og:description" content="Meet 'Julie' — the ideal Mindvalley mastery buyer. Demographics, psychographics, valuegraphics, and what blew up at the AI Summit.">
+  <meta property="og:image" content="https://placehold.co/1200x630/0b0d14/7a12d4?text=Right-Fit+Client">
+  <meta property="og:url" content="https://vishenl.github.io/workspace/summit-mastery-playbook/right-fit-client.html">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Right-Fit Client Deep Dive | Summit Mastery Playbook">
+  <meta name="twitter:description" content="Meet 'Julie' — the ideal Mindvalley mastery buyer. Demographics, psychographics, valuegraphics, and what blew up at the AI Summit.">
+  <meta name="twitter:image" content="https://placehold.co/1200x630/0b0d14/7a12d4?text=Right-Fit+Client">
+  <link rel="stylesheet" href="../mindvalley-core.css" />
+  <style>
+    :root {
+      --wr-bg-primary: #0b0d14;
+      --wr-bg-secondary: #111320;
+      --wr-bg-elevated: #181b2e;
+      --wr-bg-surface: rgba(255,255,255,0.03);
+      --wr-purple: #7a12d4;
+      --wr-purple-glow: rgba(122, 18, 212, 0.15);
+      --wr-gold: #e8c547;
+      --wr-green: #34d399;
+      --wr-red: #ef4444;
+      --wr-blue: #60a5fa;
+      --wr-text-primary: #f1f1f4;
+      --wr-text-secondary: rgba(255,255,255,0.75);
+      --wr-text-muted: #9ca3af;
+      --wr-border: rgba(255,255,255,0.08);
+      --wr-border-hover: rgba(122, 18, 212, 0.5);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--wr-bg-primary);
+      color: var(--wr-text-primary);
+      padding-top: 3.5rem;
+      margin: 0;
+    }
+
+    /* ── Nav ── */
+    .wr-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(11,13,20,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--wr-border);
+    }
+    .wr-nav-inner {
+      display: flex; align-items: center; gap: 0.25rem;
+      padding: 0.65rem 1rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .wr-nav-brand {
+      color: var(--wr-purple); font-weight: 700; text-decoration: none;
+      white-space: nowrap; margin-right: 1.5rem; font-size: 0.95rem;
+      letter-spacing: -0.01em;
+    }
+    .wr-nav-links {
+      display: flex; gap: 0; overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .wr-nav-links::-webkit-scrollbar { display: none; }
+    .wr-nav-link {
+      padding: 0.4rem 0.85rem; color: var(--wr-text-muted); text-decoration: none;
+      white-space: nowrap; font-size: 0.8rem; font-weight: 500;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .wr-nav-link:hover { color: var(--wr-text-primary); }
+    .wr-nav-link.active { color: var(--wr-text-primary); border-bottom-color: var(--wr-purple); }
+
+    /* ── Section ── */
+    .wr-section { padding: 4.5rem 0; border-bottom: 1px solid var(--wr-border); }
+    .wr-section--alt { background: var(--wr-bg-secondary); }
+
+    /* ── Cards ── */
+    .wr-card {
+      background: var(--wr-bg-surface); border: 1px solid var(--wr-border);
+      border-radius: 1rem; padding: 2rem;
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
+    }
+    .wr-card:hover { border-color: var(--wr-border-hover); background: rgba(122,18,212,0.04); transform: translateY(-2px); }
+    .wr-card--accent { border-color: var(--wr-purple); background: rgba(122,18,212,0.06); }
+    .wr-card a { color: var(--wr-purple); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+    .wr-card a:hover { text-decoration: underline; }
+
+    /* ── Stats ── */
+    .wr-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px,1fr)); gap: 1.25rem; }
+    .wr-stat {
+      text-align: center; padding: 1.5rem 1rem;
+      background: var(--wr-bg-surface); border: 1px solid var(--wr-border); border-radius: 1rem;
+    }
+    .wr-stat-value {
+      font-size: 2.25rem; font-weight: 700; line-height: 1;
+      background: linear-gradient(135deg, var(--wr-purple), var(--wr-gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .wr-stat-label { font-size: 0.82rem; color: var(--wr-text-muted); margin-top: 0.5rem; }
+
+    /* ── Grids ── */
+    .wr-grid { display: grid; gap: 1.5rem; }
+    .wr-grid--2 { grid-template-columns: repeat(2,1fr); }
+    .wr-grid--3 { grid-template-columns: repeat(3,1fr); }
+    @media (max-width: 768px) {
+      .wr-grid--2, .wr-grid--3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── Comparison ── */
+    .wr-before {
+      background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 1rem; padding: 2rem;
+    }
+    .wr-after {
+      background: rgba(52,211,153,0.05); border: 1px solid rgba(52,211,153,0.2);
+      border-radius: 1rem; padding: 2rem;
+    }
+    .wr-before h3, .wr-after h3 { margin-top: 0; font-size: 1.1rem; }
+    .wr-before h3 { color: var(--wr-red); }
+    .wr-after h3 { color: var(--wr-green); }
+    .wr-before ul, .wr-after ul { padding-left: 1.25rem; line-height: 1.8; color: var(--wr-text-secondary); font-size: 0.95rem; }
+
+    /* ── Flow ── */
+    .wr-flow {
+      display: flex; align-items: center; gap: 0.6rem;
+      flex-wrap: wrap; justify-content: center; margin: 1.5rem 0;
+    }
+    .wr-flow-node {
+      background: rgba(122,18,212,0.1); border: 1px solid rgba(122,18,212,0.35);
+      border-radius: 10px; padding: 0.7rem 1.2rem; text-align: center;
+      font-weight: 600; font-size: 0.88rem; color: var(--wr-text-primary);
+    }
+    .wr-flow-arrow { color: var(--wr-purple); font-size: 1.25rem; }
+
+    /* ── Bari Says ── */
+    .bari-says {
+      border-left: 4px solid var(--wr-gold); padding: 1.25rem 1.75rem;
+      margin: 2rem 0; background: rgba(232,197,71,0.05); border-radius: 0 12px 12px 0;
+    }
+    .bari-says::before {
+      content: 'BARI SAYS'; display: block; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.15em; color: var(--wr-gold); margin-bottom: 0.6rem;
+    }
+    .bari-says p { font-size: 1.05rem; font-style: italic; color: var(--wr-text-secondary); line-height: 1.65; margin: 0; }
+
+    /* ── Highlight ── */
+    .wr-highlight {
+      background: rgba(232,197,71,0.06); border: 1px solid rgba(232,197,71,0.2);
+      border-radius: 12px; padding: 1.25rem 1.75rem; margin: 1.5rem 0;
+    }
+
+    /* ── Quick Win Card ── */
+    .qw-card {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.25rem 1.5rem; background: var(--wr-bg-surface);
+      border: 1px solid var(--wr-border); border-radius: 0.75rem;
+      transition: border-color 0.2s;
+    }
+    .qw-card:hover { border-color: var(--wr-green); }
+    .qw-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .qw-title { font-weight: 600; font-size: 0.95rem; color: var(--wr-text-primary); margin-bottom: 0.25rem; }
+    .qw-desc { font-size: 0.85rem; color: var(--wr-text-muted); line-height: 1.5; }
+
+    /* ── Hero ── */
+    .hero-glow {
+      position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 400px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(122,18,212,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── Persona Card ── */
+    .persona-card {
+      background: var(--wr-bg-elevated); border: 1px solid var(--wr-purple);
+      border-radius: 1rem; padding: 2.5rem; position: relative; overflow: hidden;
+    }
+    .persona-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--wr-purple), var(--wr-gold));
+    }
+    .persona-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+      color: var(--wr-purple); text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+    .persona-name {
+      font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--wr-purple), var(--wr-gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .persona-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+    }
+    @media (max-width: 768px) {
+      .persona-grid { grid-template-columns: 1fr; }
+    }
+    .persona-field-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      color: var(--wr-gold); text-transform: uppercase; margin-bottom: 0.3rem;
+    }
+    .persona-field-value {
+      font-size: 0.95rem; color: var(--wr-text-secondary); line-height: 1.6;
+    }
+
+    /* ── Demo Card ── */
+    .demo-card {
+      background: var(--wr-bg-surface); border: 1px solid var(--wr-border);
+      border-radius: 1rem; padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .demo-card:hover { border-color: var(--wr-border-hover); transform: translateY(-2px); }
+    .demo-card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .demo-card-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--wr-text-primary); }
+    .demo-card-scenario { font-size: 0.9rem; color: var(--wr-text-secondary); line-height: 1.6; margin-bottom: 1rem; }
+    .demo-card-reaction {
+      font-size: 0.88rem; font-style: italic; color: var(--wr-gold);
+      padding-top: 0.75rem; border-top: 1px solid var(--wr-border);
+    }
+
+    /* ── Nav card ── */
+    .nav-card-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .nav-card-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.35rem; }
+    .nav-card-desc { font-size: 0.85rem; color: var(--wr-text-muted); line-height: 1.5; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="wr-nav">
+  <div class="wr-nav-inner">
+    <a href="index.html" class="wr-nav-brand">Summit Playbook</a>
+    <div class="wr-nav-links">
+      <a href="index.html" class="wr-nav-link">Dashboard</a>
+      <a href="through-line.html" class="wr-nav-link">Through-Line</a>
+      <a href="right-fit-client.html" class="wr-nav-link active">Right-Fit Client</a>
+      <a href="event-formula.html" class="wr-nav-link">Event Formula</a>
+      <a href="speaker-playbook.html" class="wr-nav-link">Speakers</a>
+      <a href="sales-engine.html" class="wr-nav-link">Sales Engine</a>
+      <a href="action-plan.html" class="wr-nav-link">Action Plan</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ══════════════════════════════════════════════ -->
+<section class="wr-section" style="position: relative; overflow: hidden; padding-top: 5.5rem;">
+  <div class="hero-glow"></div>
+  <div class="mv-container" style="position: relative; z-index: 1; text-align: center;">
+    <span class="overline-text" style="color: var(--wr-purple);">KNOW YOUR BUYER</span>
+    <h1 class="title-bold-2" style="color: var(--wr-text-primary); margin: 1rem auto 0; max-width: 48rem;">
+      Right-Fit Client Deep Dive
+    </h1>
+    <p class="body-lg" style="color: var(--wr-text-muted); max-width: 40rem; margin: 1.25rem auto 0;">
+      The more you know the person, the more you can structure the marketing, content, and offer specifically for them. Shoot at everything, hit nothing.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- CURRENT AUDIENCE DEMOGRAPHICS -->
+<!-- ══════════════════════════════════════════════ -->
+<section class="wr-section wr-section--alt">
+  <div class="mv-container">
+    <span class="overline-text" style="color: var(--wr-purple);">WHO WE HAVE TODAY</span>
+    <h2 class="title-bold-4" style="color: var(--wr-text-primary); margin: 0.75rem 0 2rem;">Current Audience Demographics</h2>
+
+    <div class="wr-stats" style="max-width: 52rem; margin: 0 auto 2.5rem;">
+      <div class="wr-stat">
+        <div class="wr-stat-value">65-70%</div>
+        <div class="wr-stat-label">Women</div>
+      </div>
+      <div class="wr-stat">
+        <div class="wr-stat-value">40+</div>
+        <div class="wr-stat-label">Age median</div>
+      </div>
+      <div class="wr-stat">
+        <div class="wr-stat-value">55%</div>
+        <div class="wr-stat-label">American (significant UK presence &mdash; English-speaking)</div>
+      </div>
+      <div class="wr-stat">
+        <div class="wr-stat-value">Top Titles</div>
+        <div class="wr-stat-label">Entrepreneur, CEO, Startup Founder, Coach</div>
+      </div>
+    </div>
+
+    <div class="wr-grid wr-grid--2" style="max-width: 52rem; margin: 0 auto;">
+      <div class="wr-card">
+        <div style="font-size: 1.75rem; font-weight: 700; color: var(--wr-blue); margin-bottom: 0.5rem;">3x</div>
+        <p class="body" style="color: var(--wr-text-secondary); margin: 0;">More likely to have a graduate degree</p>
+      </div>
+      <div class="wr-card">
+        <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--wr-gold); text-transform: uppercase; margin-bottom: 0.5rem;">Facebook Demographic</div>
+        <p class="body" style="color: var(--wr-text-secondary); margin: 0;">In Facebook's highest-educated AND wealthiest demographic group</p>
+      </div>
+      <div class="wr-card">
+        <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--wr-red); text-transform: uppercase; margin-bottom: 0.5rem;">Reality Check</div>
+        <p class="body" style="color: var(--wr-text-secondary); margin: 0;">Majority are solopreneurs earning less than $100K/year &mdash; the "CEO" title is misleading. They call themselves CEO but are actually solopreneurs.</p>
+      </div>
+      <div class="wr-card">
+        <div style="font-size: 1.75rem; font-weight: 700; color: var(--wr-green); margin-bottom: 0.5rem;">37%</div>
+        <p class="body" style="color: var(--wr-text-secondary); margin: 0;">Annual renewal rate on membership (industry standard for ed-tech)</p>
+      </div>
+    </div>
+
+    <div class="bari-says" style="max-width: 52rem; margin: 2.5rem auto 0;">
+      <p>"I don't want you to focus on who you HAVE. I want you to focus on who you WANT."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- THREE LENSES -->
+<!-- ══════════════════════════════════════════════ -->
+<section class="wr-section">
+  <div class="mv-container">
+    <span class="overline-text" style="color: var(--wr-gold);">THREE LENSES</span>
+    <h2 class="title-bold-4" style="color: var(--wr-text-primary); margin: 0.75rem 0 2rem;">Demographics vs Psychographics vs Valuegraphics</h2>
+
+    <div class="wr-grid wr-grid--3">
+      <div class="wr-card">
+        <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--wr-blue); text-transform: uppercase; margin-bottom: 0.75rem;">Demographics (what we have)</div>
+        <p class="body" style="color: var(--wr-text-secondary); line-height: 1.7; margin: 0 0 1rem;">
+          Age, gender, income, location, job title.
+        </p>
+        <p class="body-sm" style="color: var(--wr-text-muted); font-style: italic; margin: 0;">
+          "This is the starting point, not the answer."
+        </p>
+      </div>
+      <div class="wr-card" style="border-color: var(--wr-purple); background: rgba(122,18,212,0.06);">
+        <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--wr-purple); text-transform: uppercase; margin-bottom: 0.75rem;">Psychographics (what we need)</div>
+        <p class="body" style="color: var(--wr-text-secondary); line-height: 1.7; margin: 0 0 1rem;">
+          What they believe, fear, and desire. Their self-image. How they see the world.
+        </p>
+        <p class="body-sm" style="color: var(--wr-text-muted); font-style: italic; margin: 0;">
+          "Being AI-curious is not a reason to buy."
+        </p>
+      </div>
+      <div class="wr-card" style="border-color: var(--wr-gold); background: rgba(232,197,71,0.06);">
+        <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--wr-gold); text-transform: uppercase; margin-bottom: 0.75rem;">Valuegraphics (the secret weapon)</div>
+        <p class="body" style="color: var(--wr-text-secondary); line-height: 1.7; margin: 0 0 1rem;">
+          What do they VALUE most? Time with family. Personal growth. Financial freedom. Simplicity.
+        </p>
+        <p class="body-sm" style="color: var(--wr-text-muted); font-style: italic; margin: 0;">
+          "Your audience has teenage kids. Weekends are family time. They won't come Saturday. A religious demographic won't come Sunday morning."
+        </p>
+      </div>
+    </div>
+
+    <div class="bari-says">
+      <p>"When I think of right-fit clients, a lot of people tell me demographics. What I also want to know are the psychographics and the valuegraphics."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- GARRETT WHITE EXAMPLE -->
+<!-- ══════════════════════════════════════════════ -->
+<section class="wr-section wr-section--alt">
+  <div class="mv-container">
+    <span class="overline-text" style="color: var(--wr-purple);">CASE STUDY</span>
+    <h2 class="title-bold-4" style="color: var(--wr-text-primary); margin: 0.75rem 0 2rem;">The Garrett White Example &mdash; Extreme Right-Fit Client</h2>
+
+    <div class="wr-card wr-card--accent" style="max-width: 52rem;">
+      <h3 style="color: var(--wr-text-primary); font-size: 1.15rem; margin-top: 0; margin-bottom: 1.25rem;">Garrett's Right-Fit Client Profile</h3>
+      <ul style="padding-left: 1.25rem; line-height: 2; color: var(--wr-text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        <li>A man in his 40s-50s who met his wife in high school</li>
+        <li>He's been going to church since he was a kid, coaches little league, attends daughter's recitals</li>
+        <li>He's a "rule follower" &mdash; loves following rules</li>
+        <li>Small business owner or upper management</li>
+        <li>He noticed his wife is more interested in Pinterest than him at dinner</li>
+        <li>His kids are glued to TikTok</li>
+        <li>His pastor doesn't have answers for the "new rules"</li>
+        <li>Bedroom has gone cold &mdash; hasn't been intimate in over a year</li>
+        <li>Started eating more, drinking more, gained weight</li>
+        <li>His deepest, darkest secret: he turned to porn and felt awful about it</li>
+        <li>All he wants is: <strong style="color: var(--wr-gold);">"Where are the rules? There's a new rule book and I don't know who has it."</strong></li>
+      </ul>
+
+      <div class="wr-highlight">
+        <h4 style="color: var(--wr-text-primary); font-size: 1rem; margin-top: 0; margin-bottom: 0.75rem;">How Garrett Used This</h4>
+        <p class="body" style="color: var(--wr-text-secondary); line-height: 1.7; margin: 0 0 0.75rem;">
+          Made men buy specific shirts. Enforced rules at the event &mdash; "Wrong shirt, go change or you're kicked out." His RIGHT-fit clients LOVED it: <strong style="color: var(--wr-green);">"Rules! Thank God!"</strong> His WRONG-fit clients thought he was insane.
+        </p>
+        <p class="body" style="color: var(--wr-text-secondary); line-height: 1.7; margin: 0;">
+          The celebrities at Garrett's event weren't famous people &mdash; they were regular guys who looked like the audience but had transformed.
+        </p>
+      </div>
+
+      <div style="margin-top: 1.5rem; padding: 1.25rem; background: rgba(122,18,212,0.08); border-radius: 10px;">
+        <p class="body" style="color: var(--wr-text-primary); font-weight: 600; margin: 0;">
+          The lesson: When you know your person THAT well, you can design every touchpoint to serve them.
+        </p>
+      </div>
+    </div>
+
+    <div class="bari-says" style="max-width: 52rem;">
+      <p>"The more you know the person, the more you can structure the marketing at every stage. Shoot at everything, hit nothing."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- JULIE PERSONA -->
+<!-- ══════════════════════════════════════════════ -->
+<section class="wr-section">
+  <div class="mv-container">
+    <span class="overline-text" style="color: var(--wr-gold);">OUR PERSONA</span>
+    <h2 class="title-bold-4" style="color: var(--wr-text-primary); margin: 0.75rem 0 2rem;">"Julie" &mdash; Bari's AI Summit Persona</h2>
+
+    <div class="persona-card" style="max-width: 56rem;">
+      <div class="persona-label">Right-Fit Client Persona</div>
+      <div class="persona-name">Julie</div>
+
+      <div class="persona-grid">
+        <div>
+          <div class="persona-field-label">Age</div>
+          <div class="persona-field-value">40&ndash;60</div>
+        </div>
+        <div>
+          <div class="persona-field-label">Role</div>
+          <div class="persona-field-value">Solopreneur / early-stage entrepreneur</div>
+        </div>
+        <div>
+          <div class="persona-field-label">Income</div>
+          <div class="persona-field-value">Under $100K</div>
+        </div>
+        <div>
+          <div class="persona-field-label">Family</div>
+          <div class="persona-field-value">Married, teenage kids</div>
+        </div>
+        <div>
+          <div class="persona-field-label">AI Level</div>
+          <div class="persona-field-value">Uses ChatGPT daily for basic tasks (write emails, review contracts, research) but nothing advanced</div>
+        </div>
+        <div>
+          <div class="persona-field-label">Biggest Problem</div>
+          <div class="persona-field-value" style="color: var(--wr-red);">"I don't have enough time in my life, so nothing else is working"</div>
+        </div>
+        <div>
+          <div class="persona-field-label">What She Wants</div>
+          <div class="persona-field-value">More time for family, kids, health, wellness &mdash; to just be human</div>
+        </div>
+        <div>
+          <div class="persona-field-label">What She Fears</div>
+          <div class="persona-field-value">AI will replace her / it's too complicated / she'll fall behind</div>
+        </div>
+        <div>
+          <div class="persona-field-label">What She Needs to Hear</div>
+          <div class="persona-field-value" style="color: var(--wr-green);">AI is a human approach to being more human. It's not replacing you, it's amplifying you.</div>
+        </div>
+        <div>
+          <div class="persona-field-label">What She Does NOT Care About</div>
+          <div class="persona-field-value" style="color: var(--wr-text-muted);">Custom GPTs, agentic design, Airtable automations, vibe coding</div>
+        </div>
+        <div style="grid-column: 1 / -1;">
+          <div class="persona-field-label">What Makes Her Buy</div>
+          <div class="persona-field-value" style="color: var(--wr-gold); font-weight: 600;">Simple, tangible, life-improvement demonstrations</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bari-says" style="max-width: 56rem;">
+      <p>"We've named her, we have a visual for her. We've known Julie for 5 years. We know EVERYTHING about her."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- WHAT BLEW UP AT THE AI SUMMIT -->
+<!-- ══════════════════════════════════════════════ -->
+<section class="wr-section wr-section--alt">
+  <div class="mv-container">
+    <span class="overline-text" style="color: var(--wr-green);">PROOF POINTS</span>
+    <h2 class="title-bold-4" style="color: var(--wr-text-primary); margin: 0.75rem 0 2rem;">What Blew Up at the AI Summit</h2>
+    <p class="body" style="color: var(--wr-text-muted); max-width: 42rem; margin-bottom: 2.5rem;">
+      The demonstrations that made Julie lose her mind &mdash; none of them were business tools.
+    </p>
+
+    <div class="wr-grid wr-grid--3">
+      <div class="demo-card">
+        <div class="demo-card-icon">&#129379;</div>
+        <div class="demo-card-title">"The Fridge"</div>
+        <div class="demo-card-scenario">
+          Dean photographed fridge contents &rarr; "Make dinner for the kids in 15 min, gluten-free, with these ingredients" &rarr; AI gave a recipe.
+        </div>
+        <div class="demo-card-reaction">
+          Julie's reaction: "Are you kidding me? Where do I get that?"
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="demo-card-icon">&#128218;</div>
+        <div class="demo-card-title">"Bedtime Stories"</div>
+        <div class="demo-card-scenario">
+          "I'm putting the kids to bed, they're sick of Goodnight Moon. Their 3 favorite books are X. Recommend a story."
+        </div>
+        <div class="demo-card-reaction">
+          Julie's reaction: "Oh my GOD."
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="demo-card-icon">&#127947;</div>
+        <div class="demo-card-title">"The Workout"</div>
+        <div class="demo-card-scenario">
+          "15-min workout, this equipment, focus on abs, I have a lower back injury." AI clone: "I remember you mentioned that injury. Here's a modification."
+        </div>
+        <div class="demo-card-reaction">
+          Julie's reaction: "That's SO basic &mdash; and that's exactly what I need."
+        </div>
+      </div>
+    </div>
+
+    <div class="wr-highlight" style="max-width: 52rem; margin: 2.5rem auto;">
+      <p class="body" style="color: var(--wr-text-secondary); line-height: 1.7; margin: 0;">
+        <strong style="color: var(--wr-gold);">None of these were business tools.</strong> None of them were "build a rocket ship." They were simple, practical, family-oriented uses that show AI gives you <strong style="color: var(--wr-text-primary);">TIME BACK</strong> for the things that matter.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- AUDIENCE POLARIZATION PROBLEM -->
+<!-- ══════════════════════════════════════════════ -->
+<section class="wr-section">
+  <div class="mv-container">
+    <span class="overline-text" style="color: var(--wr-red);">THE POLARIZATION PROBLEM</span>
+    <h2 class="title-bold-4" style="color: var(--wr-text-primary); margin: 0.75rem 0 2rem;">The Audience Polarization Problem</h2>
+
+    <p class="body-lg" style="color: var(--wr-text-secondary); max-width: 42rem; margin-bottom: 2.5rem;">
+      At the AI summit, in the SAME MINUTE, they got three types of comments:
+    </p>
+
+    <div class="wr-grid wr-grid--3" style="max-width: 52rem; margin-bottom: 2.5rem;">
+      <div class="wr-card" style="text-align: center; border-color: rgba(239,68,68,0.3);">
+        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">&#128544;</div>
+        <p class="body" style="color: var(--wr-red); font-weight: 600; margin: 0;">"This is too basic!"</p>
+      </div>
+      <div class="wr-card" style="text-align: center; border-color: rgba(96,165,250,0.3);">
+        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">&#128565;</div>
+        <p class="body" style="color: var(--wr-blue); font-weight: 600; margin: 0;">"I'm completely lost!"</p>
+      </div>
+      <div class="wr-card" style="text-align: center; border-color: rgba(52,211,153,0.3);">
+        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">&#129321;</div>
+        <p class="body" style="color: var(--wr-green); font-weight: 600; margin: 0;">"This is AMAZING!"</p>
+      </div>
+    </div>
+
+    <div class="wr-grid wr-grid--2" style="max-width: 52rem;">
+      <div class="wr-before">
+        <h3>Wrong-Fit Clients</h3>
+        <ul>
+          <li>Were posting complaints like crazy</li>
+          <li>"This is too basic" or "I'm completely lost"</li>
+          <li>Loud, visible, but NOT the buyer</li>
+        </ul>
+      </div>
+      <div class="wr-after">
+        <h3>Right-Fit Clients (Julie)</h3>
+        <ul>
+          <li>Glued to their screens, not even posting</li>
+          <li>So focused on the content they didn't comment</li>
+          <li>In the Facebook group that night: "This was amazing. I loved how you started with mindset so I could embrace that I was capable of this."</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="wr-highlight" style="max-width: 52rem; margin: 2rem auto;">
+      <p class="body" style="color: var(--wr-text-secondary); margin: 0;">
+        <strong style="color: var(--wr-gold);">57% of buyers were beginners.</strong> There are WAY more beginners than advanced users. The vocal minority is not the buying majority.
+      </p>
+    </div>
+
+    <div class="bari-says" style="max-width: 52rem;">
+      <p>"What was happening is our wrong-fit clients were posting like crazy, and our right-fit client was glued to her screen. She wasn't even posting because she was so focused on the content."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- SURVEY REFINEMENT RECOMMENDATIONS -->
+<!-- ══════════════════════════════════════════════ -->
+<section class="wr-section wr-section--alt">
+  <div class="mv-container">
+    <span class="overline-text" style="color: var(--wr-green);">NEXT STEPS</span>
+    <h2 class="title-bold-4" style="color: var(--wr-text-primary); margin: 0.75rem 0 0.75rem;">Survey Refinement Recommendations</h2>
+    <p class="body" style="color: var(--wr-text-muted); margin-bottom: 2rem;">Actionable improvements to sharpen our understanding of the right-fit client.</p>
+
+    <div style="display: grid; gap: 1rem; max-width: 52rem;">
+
+      <div class="qw-card">
+        <div class="qw-icon">&#9989;</div>
+        <div>
+          <div class="qw-title">Separate "CEO" from "Solopreneur" from "Founder"</div>
+          <div class="qw-desc">They're completely different buyer profiles. Bari has a classification system to share that distinguishes these segments properly.</div>
+        </div>
+      </div>
+
+      <div class="qw-card">
+        <div class="qw-icon">&#9989;</div>
+        <div>
+          <div class="qw-title">Add "WHY" Questions</div>
+          <div class="qw-desc">"Why are you curious about AI?" Not just "Are you curious?" Being curious is not a reason to buy.</div>
+        </div>
+      </div>
+
+      <div class="qw-card">
+        <div class="qw-icon">&#9989;</div>
+        <div>
+          <div class="qw-title">Ask About Team Size</div>
+          <div class="qw-desc">Solo is vastly different from 2 people, 5 people, 10 people. This changes the product fit and messaging entirely.</div>
+        </div>
+      </div>
+
+      <div class="qw-card">
+        <div class="qw-icon">&#9989;</div>
+        <div>
+          <div class="qw-title">Survey the Full 2.5M Email List</div>
+          <div class="qw-desc">Don't just survey existing buyers &mdash; survey the full list. Who do you WANT to attract, not just who already bought?</div>
+        </div>
+      </div>
+
+      <div class="qw-card">
+        <div class="qw-icon">&#9989;</div>
+        <div>
+          <div class="qw-title">Mine Existing Data</div>
+          <div class="qw-desc">Export event chat, run through AI for sentiment + trending topics, but ALSO read it manually yourself. Both perspectives matter.</div>
+        </div>
+      </div>
+
+      <div class="qw-card">
+        <div class="qw-icon">&#9989;</div>
+        <div>
+          <div class="qw-title">Analyze by Speaker</div>
+          <div class="qw-desc">What were comments on each specific speaker? Which speakers drove engagement with the right-fit client vs. the wrong-fit client?</div>
+        </div>
+      </div>
+
+      <div class="qw-card">
+        <div class="qw-icon">&#9989;</div>
+        <div>
+          <div class="qw-title">Look at Fulfillment Calls and Customer Care</div>
+          <div class="qw-desc">What questions do they ask? Where do they get stuck? What excites them? This is a goldmine of psychographic data.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="bari-says" style="max-width: 52rem;">
+      <p>"AI can aggregate it for you and give you fast information, and then there's the human component of reading the tea leaves. I want you to do both."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ══════════════════════════════════════════════ -->
+<footer style="padding: 3rem 0; text-align: center; border-top: 1px solid var(--wr-border);">
+  <div class="mv-container">
+    <p class="body-sm" style="color: var(--wr-text-muted); margin-bottom: 1rem;">
+      Based on strategy session with <strong style="color: var(--wr-text-primary);">Bari</strong> (Dean Graziosi / Tony Robbins team) &bull; Internal Use Only
+    </p>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: center;">
+      <a href="through-line.html" style="color: var(--wr-purple); text-decoration: none; font-size: 0.85rem;">Through-Line</a>
+      <a href="right-fit-client.html" style="color: var(--wr-purple); text-decoration: none; font-size: 0.85rem;">Right-Fit Client</a>
+      <a href="event-formula.html" style="color: var(--wr-purple); text-decoration: none; font-size: 0.85rem;">Event Formula</a>
+      <a href="speaker-playbook.html" style="color: var(--wr-purple); text-decoration: none; font-size: 0.85rem;">Speakers</a>
+      <a href="sales-engine.html" style="color: var(--wr-purple); text-decoration: none; font-size: 0.85rem;">Sales Engine</a>
+      <a href="action-plan.html" style="color: var(--wr-purple); text-decoration: none; font-size: 0.85rem;">Action Plan</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
