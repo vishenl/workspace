@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>How to Build a Great Claude Project</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="How to Build a Great Claude Project">
+    <meta property="og:description" content="A step-by-step guide for turning any body of knowledge into an AI-powered strategic advisor using Claude Projects.">
+    <meta property="og:image" content="https://placehold.co/1200x630/7a12d4/ffffff?text=How+to+Build+a+Great+Claude+Project">
+    <meta property="og:url" content="https://vishenl.github.io/workspace/claude-projects-guide.html">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Build a Great Claude Project">
+    <meta name="twitter:description" content="A step-by-step guide for turning any body of knowledge into an AI-powered strategic advisor using Claude Projects.">
+    <meta name="twitter:image" content="https://placehold.co/1200x630/7a12d4/ffffff?text=How+to+Build+a+Great+Claude+Project">
+
+    <link rel="stylesheet" href="mindvalley-core.css">
+    <style>
+        body {
+            background: #ffffff;
+        }
+
+        /* ---- Header ---- */
+        .guide-header {
+            padding: 4rem 0 3rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .guide-header p {
+            color: #4b5563;
+            max-width: 36rem;
+        }
+
+        /* ---- Sections ---- */
+        .guide-section {
+            padding: 3rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .guide-section:last-of-type {
+            border-bottom: none;
+        }
+        .guide-section p,
+        .guide-section li {
+            color: #374151;
+            line-height: 1.7;
+        }
+        .guide-section ul,
+        .guide-section ol {
+            padding-left: 1.25rem;
+            margin: 0 0 1.5rem;
+        }
+        .guide-section li {
+            margin-bottom: 0.5rem;
+        }
+        .guide-section li::marker {
+            color: #7a12d4;
+        }
+        .section-intro {
+            max-width: 42rem;
+            margin-bottom: 2rem;
+        }
+
+        /* ---- Step blocks ---- */
+        .step-block {
+            background: #f9fafb;
+            border-left: 3px solid #7a12d4;
+            border-radius: 0 8px 8px 0;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 2rem;
+        }
+        .step-block p:last-child,
+        .step-block ul:last-child,
+        .step-block ol:last-child {
+            margin-bottom: 0;
+        }
+        .step-number {
+            color: #7a12d4;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        /* ---- Code blocks ---- */
+        .code-block {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            overflow-x: auto;
+            margin: 1rem 0 1.5rem;
+            font-family: "SF Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
+            font-size: 0.8125rem;
+            line-height: 1.7;
+        }
+        .code-block .comment {
+            color: #6c7086;
+        }
+        .code-block .highlight {
+            color: #cba6f7;
+        }
+        .code-block .string {
+            color: #a6e3a1;
+        }
+
+        /* ---- Inline code ---- */
+        code {
+            background: #f3f0f8;
+            color: #7a12d4;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-family: "SF Mono", "Fira Code", Consolas, monospace;
+            font-size: 0.875em;
+        }
+
+        /* ---- Callout box ---- */
+        .callout {
+            background: #f9f7fc;
+            border: 1px solid #e8e0f0;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .callout-label {
+            color: #7a12d4;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        /* ---- Do / Don't columns ---- */
+        .dos-donts {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .dos-donts {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .do-col,
+        .dont-col {
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        .do-col {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+        .dont-col {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+        .do-col h4 {
+            color: #16a34a;
+        }
+        .dont-col h4 {
+            color: #dc2626;
+        }
+        .do-col li::marker {
+            color: #16a34a;
+        }
+        .dont-col li::marker {
+            color: #dc2626;
+        }
+
+        /* ---- Examples grid ---- */
+        .examples-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .examples-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .example-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+        }
+        .example-card p {
+            color: #4b5563;
+            margin: 0;
+        }
+
+        /* ---- Template section ---- */
+        .template-section {
+            background: #f9f7fc;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        /* ---- Footer ---- */
+        .guide-footer {
+            padding: 2.5rem 0;
+            text-align: center;
+            color: #9ca3af;
+            border-top: 1px solid #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="guide-header">
+        <div class="mv-container">
+            <p class="overline-text" style="color: #7a12d4; margin-bottom: 0.75rem;">Internal Guide</p>
+            <h1 class="title-bold-2">How to Build a Great Claude Project</h1>
+            <p class="body-lg" style="margin-top: 1rem;">A step-by-step guide for turning any body of knowledge into an AI-powered strategic advisor.</p>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Section 1: What Is a Claude Project? -->
+        <section class="guide-section">
+            <div class="mv-container">
+                <h2 class="title-bold-4">What Is a Claude Project?</h2>
+                <div class="section-intro" style="margin-top: 1rem;">
+                    <p class="body-lg">A Claude Project lets you upload knowledge files and set custom instructions so Claude becomes a persistent expert on your topic. It remembers everything across conversations.</p>
+                    <p class="body">Think of it as giving Claude a "brain" on a specific subject. Instead of re-explaining your business, your frameworks, or your strategy every time you start a new conversation, a Project carries all that context forward. You talk to it like a team member who has read every document and remembers every decision.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: The 5-Step Process -->
+        <section class="guide-section">
+            <div class="mv-container">
+                <h2 class="title-bold-4">The 5-Step Process</h2>
+                <p class="body" style="color: #4b5563; margin-top: 0.5rem; margin-bottom: 2rem;">Follow these steps in order. Each one builds on the last.</p>
+
+                <!-- Step 1 -->
+                <div class="step-block">
+                    <p class="step-number title-bold-7">Step 1: Start With Raw Material</p>
+                    <p class="body">Your raw material could be anything:</p>
+                    <ul>
+                        <li>Meeting transcripts and strategy session recordings</li>
+                        <li>Strategy documents, playbooks, and SOPs</li>
+                        <li>Research papers, reports, or course content</li>
+                        <li>Email threads, Slack exports, or interview notes</li>
+                    </ul>
+                    <p class="body">The messier the better -- Claude excels at extracting structure from chaos. You do not need to clean things up before feeding them in.</p>
+                    <div class="callout">
+                        <p class="callout-label body-sm">Example</p>
+                        <p class="body-sm" style="color: #4b5563;">"We started with 5 hours of raw strategy session transcripts. No formatting, no structure -- just a wall of text from a Zoom recording. Claude turned it into 14 structured knowledge files in under an hour."</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-block">
+                    <p class="step-number title-bold-7">Step 2: Extract and Structure the Knowledge</p>
+                    <p class="body">Use Claude Code or Claude.ai to process your raw material into structured markdown.</p>
+                    <ul>
+                        <li>Have Claude identify the key topics, frameworks, direct quotes, and action items</li>
+                        <li>Ask it to organize by theme, not by chronology</li>
+                        <li>Do not try to fit everything into one file -- that is the most common mistake people make</li>
+                    </ul>
+                    <div class="callout">
+                        <p class="callout-label body-sm">Tip</p>
+                        <p class="body-sm" style="color: #4b5563;">Ask Claude: "Identify the 10-15 distinct topics in this material and suggest a file structure." It will give you a clean breakdown you can use as your starting point.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-block">
+                    <p class="step-number title-bold-7">Step 3: Break Into Granular Files</p>
+                    <p class="body">Structure matters. One topic per file, not one giant document.</p>
+                    <ul>
+                        <li>Use numbered naming: <code>01-topic-name.md</code>, <code>02-topic-name.md</code></li>
+                        <li>Each file should be self-contained and useful on its own</li>
+                        <li>Create an <code>00-INDEX.md</code> that maps all files and their contents</li>
+                    </ul>
+                    <div class="callout">
+                        <p class="callout-label body-sm">Why granular?</p>
+                        <p class="body-sm" style="color: #4b5563;">Claude retrieves better from focused files. A 50-page document dilutes retrieval -- Claude has to search through everything to find what matters. 15 focused files means precision answers every time.</p>
+                    </div>
+                    <p class="body" style="margin-top: 1rem; margin-bottom: 0.5rem;">Here is a real example file structure:</p>
+                    <div class="code-block">
+<span class="highlight">knowledge-base/</span>
+  <span class="string">00-INDEX.md</span>              <span class="comment">-- Master index</span>
+  <span class="string">01-through-line-model.md</span> <span class="comment">-- Core concept</span>
+  <span class="string">02-right-fit-client.md</span>   <span class="comment">-- Target persona</span>
+  <span class="string">03-event-formula.md</span>      <span class="comment">-- Event structure</span>
+  <span class="string">04-speaker-playbook.md</span>   <span class="comment">-- Speaker management</span>
+  <span class="string">05-sales-engine.md</span>       <span class="comment">-- Sales & pricing</span>
+  <span class="string">06-content-strategy.md</span>   <span class="comment">-- Content approach</span>
+  <span class="string">07-team-structure.md</span>     <span class="comment">-- Roles & responsibilities</span>
+  <span class="string">08-brand-voice.md</span>        <span class="comment">-- Tone & messaging</span>
+  <span class="string">09-copy-frameworks.md</span>    <span class="comment">-- Writing formulas</span>
+  <span class="string">10-metrics-kpis.md</span>       <span class="comment">-- What to measure</span>
+  <span class="string">11-case-studies.md</span>       <span class="comment">-- Past successes</span>
+  <span class="string">12-objection-handling.md</span> <span class="comment">-- Common pushbacks</span>
+  <span class="string">13-partnerships.md</span>       <span class="comment">-- Partner strategy</span>
+  <span class="string">14-non-negotiables.md</span>    <span class="comment">-- Protected elements</span>
+  <span class="highlight">CLAUDE-PROJECT-INSTRUCTIONS.md</span> <span class="comment">-- System prompt</span>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-block">
+                    <p class="step-number title-bold-7">Step 4: Write the Custom Instructions</p>
+                    <p class="body">This is the system prompt that tells Claude WHO it is and HOW to behave. It is the single most important piece. Include these six elements:</p>
+                    <ol>
+                        <li><strong>Identity</strong> -- "You are a [role] with deep knowledge of [domain]"</li>
+                        <li><strong>Core Principles</strong> -- 5-8 rules Claude should always follow (e.g., "Always bring recommendations back to the right-fit client persona")</li>
+                        <li><strong>File Map</strong> -- Quick reference of what is in each knowledge file</li>
+                        <li><strong>Usage Guide</strong> -- "Planning a summit? Start with files 03, 04, 01" / "Writing copy? Start with 09, 02, 12"</li>
+                        <li><strong>Voice and Tone</strong> -- How Claude should communicate (direct, tactical, reference quotes, etc.)</li>
+                        <li><strong>Key People</strong> -- Names and roles so Claude can reference them naturally</li>
+                    </ol>
+                    <p class="body" style="margin-top: 1rem; margin-bottom: 0.5rem;">Here is a simplified example:</p>
+                    <div class="code-block">
+<span class="highlight"># Events Strategy Advisor -- Claude Project Instructions</span>
+
+<span class="highlight">## Who You Are</span>
+You are a senior events strategist with deep expertise in
+designing transformational live experiences. You have studied
+every strategy session, playbook, and case study in the
+knowledge base.
+
+<span class="highlight">## Core Principles</span>
+1. Every recommendation must connect to the Right-Fit Client
+   persona (see file 02)
+2. Always reference the Through-Line Model when discussing
+   event flow (see file 01)
+3. Use direct quotes from strategy sessions when they exist
+4. Be specific and tactical -- no generic advice
+5. If you are unsure, say so -- never fabricate frameworks
+
+<span class="highlight">## Knowledge Files</span>
+| #  | File                    | Contains                    |
+|----|-------------------------|-----------------------------|
+| 01 | through-line-model.md   | Core event philosophy       |
+| 02 | right-fit-client.md     | Target audience persona     |
+| 03 | event-formula.md        | Event design framework      |
+| 04 | speaker-playbook.md     | How to select & brief speakers |
+| 05 | sales-engine.md         | Pricing & sales strategy    |
+
+<span class="highlight">## How to Use</span>
+- Planning an event? Start with files 03, 04, 01
+- Writing sales copy? Start with 05, 02, 09
+- Briefing a speaker? Start with 04, 01, 08
+
+<span class="highlight">## Voice & Tone</span>
+Direct, confident, tactical. Reference real quotes and data.
+Avoid generic business speak. Talk like a senior advisor in
+a strategy meeting.
+
+<span class="highlight">## Key People</span>
+- Sarah (Head of Events) -- primary decision maker
+- James (Sales Lead) -- owns revenue targets
+- Priya (Content Director) -- owns messaging
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step-block">
+                    <p class="step-number title-bold-7">Step 5: Upload and Test</p>
+                    <p class="body">Now bring it all together:</p>
+                    <ol>
+                        <li>Go to <strong>claude.ai</strong> and navigate to <strong>Projects</strong></li>
+                        <li>Create a <strong>New Project</strong></li>
+                        <li>Paste your custom instructions into the <strong>Custom Instructions</strong> field</li>
+                        <li>Upload all your <code>.md</code> files as <strong>Project Knowledge</strong></li>
+                        <li>Test with real questions your team would actually ask</li>
+                        <li>Iterate: if Claude gives weak answers on a topic, that knowledge file needs more detail</li>
+                    </ol>
+                    <div class="callout">
+                        <p class="callout-label body-sm">Testing tip</p>
+                        <p class="body-sm" style="color: #4b5563;">Start with the hardest questions first. If Claude can handle "Design a 3-day summit agenda for enterprise clients using our event formula," the easy questions will take care of themselves.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Best Practices -->
+        <section class="guide-section">
+            <div class="mv-container">
+                <h2 class="title-bold-4">Best Practices</h2>
+                <div class="dos-donts">
+                    <div class="do-col">
+                        <h4 class="title-bold-6" style="margin-bottom: 1rem;">Do</h4>
+                        <ul>
+                            <li>Keep files under 200 lines each for best retrieval</li>
+                            <li>Use headers, bullet points, and tables -- Claude parses structured text better</li>
+                            <li>Include direct quotes from experts and sources -- it adds authenticity to Claude's answers</li>
+                            <li>Add a "How to Use" section in your instructions pointing to specific files by use case</li>
+                            <li>Version your knowledge base -- add new files as you learn more (15, 16, 17...)</li>
+                            <li>Test with the hardest questions first</li>
+                        </ul>
+                    </div>
+                    <div class="dont-col">
+                        <h4 class="title-bold-6" style="margin-bottom: 1rem;">Don't</h4>
+                        <ul>
+                            <li>Put everything in one massive file</li>
+                            <li>Write vague instructions ("be helpful") -- be specific about the domain and rules</li>
+                            <li>Upload raw, unstructured transcripts as knowledge files -- process them first</li>
+                            <li>Forget the index file -- it helps Claude navigate your knowledge base</li>
+                            <li>Skip the "Core Principles" -- they are the guardrails that keep Claude on-message</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: What You Can Build -->
+        <section class="guide-section">
+            <div class="mv-container">
+                <h2 class="title-bold-4">What You Can Build With This</h2>
+                <p class="body" style="color: #4b5563; margin-top: 0.5rem; margin-bottom: 0.5rem;">The pattern works for any domain. Here are six examples to get you thinking.</p>
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <h4 class="title-bold-7" style="margin-bottom: 0.5rem;">Strategy Advisor</h4>
+                        <p class="body-sm">Upload session notes and strategy docs. Get a consultant that remembers every decision, framework, and context from your sessions.</p>
+                    </div>
+                    <div class="example-card">
+                        <h4 class="title-bold-7" style="margin-bottom: 0.5rem;">Brand Voice Guide</h4>
+                        <p class="body-sm">Upload style guides and writing examples. Get consistent copy across your entire team without endless review cycles.</p>
+                    </div>
+                    <div class="example-card">
+                        <h4 class="title-bold-7" style="margin-bottom: 0.5rem;">Product Expert</h4>
+                        <p class="body-sm">Upload PRDs, documentation, and user research. Get instant product knowledge for anyone on the team.</p>
+                    </div>
+                    <div class="example-card">
+                        <h4 class="title-bold-7" style="margin-bottom: 0.5rem;">Onboarding Buddy</h4>
+                        <p class="body-sm">Upload SOPs, processes, and org charts. Give new hires an assistant that can answer questions about how things work.</p>
+                    </div>
+                    <div class="example-card">
+                        <h4 class="title-bold-7" style="margin-bottom: 0.5rem;">Course Designer</h4>
+                        <p class="body-sm">Upload curriculum frameworks and learning design principles. Get an AI teaching assistant that designs to your standards.</p>
+                    </div>
+                    <div class="example-card">
+                        <h4 class="title-bold-7" style="margin-bottom: 0.5rem;">Sales Playbook</h4>
+                        <p class="body-sm">Upload objection handling scripts and sales frameworks. Get real-time support for reps during calls and follow-ups.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Quick Start Template -->
+        <section class="guide-section">
+            <div class="mv-container">
+                <h2 class="title-bold-4">Quick Start Template</h2>
+                <p class="body" style="color: #4b5563; margin-top: 0.5rem;">Copy this template and fill in the brackets. It covers all six elements of great custom instructions.</p>
+                <div class="template-section">
+                    <div class="code-block" style="margin-top: 0;">
+<span class="highlight"># [Project Name] -- Claude Project Instructions</span>
+
+<span class="highlight">## Who You Are</span>
+You are a [role] with deep expertise in [domain].
+You have comprehensive knowledge from [source/context].
+Your job is to [primary purpose].
+
+<span class="highlight">## Core Principles</span>
+1. [Most important rule -- e.g., "Always reference the target
+   persona when making recommendations"]
+2. [Second rule -- e.g., "Be specific and tactical, never generic"]
+3. [Third rule -- e.g., "Use direct quotes from source material
+   when they exist"]
+4. [Fourth rule -- e.g., "If unsure, say so -- never fabricate"]
+5. [Fifth rule -- e.g., "Prioritize [X] over [Y] in all advice"]
+
+<span class="highlight">## Knowledge Files</span>
+| #  | File         | Contains                          |
+|----|--------------|-----------------------------------|
+| 00 | INDEX.md     | Master index of all files         |
+| 01 | [name].md    | [What this file covers]           |
+| 02 | [name].md    | [What this file covers]           |
+| 03 | [name].md    | [What this file covers]           |
+| 04 | [name].md    | [What this file covers]           |
+| 05 | [name].md    | [What this file covers]           |
+
+<span class="highlight">## How to Use</span>
+- For [task A]: Start with files [X, Y, Z]
+- For [task B]: Start with files [A, B, C]
+- For [task C]: Start with files [D, E, F]
+
+<span class="highlight">## Voice & Tone</span>
+[How Claude should communicate. Examples:]
+- Direct and confident, like a senior advisor
+- Reference real data and quotes, not theory
+- Avoid jargon unless the user uses it first
+- [Add any domain-specific communication norms]
+
+<span class="highlight">## Key People</span>
+- [Name] ([Role]) -- [relevant context]
+- [Name] ([Role]) -- [relevant context]
+- [Name] ([Role]) -- [relevant context]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="guide-footer">
+        <div class="mv-container">
+            <p class="body-sm" style="color: #9ca3af;">Internal guide. Not for external distribution.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
